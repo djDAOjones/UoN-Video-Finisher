@@ -1,0 +1,24 @@
+You are checking one finished, uncommitted CSS change, blind and read-only. You make no change. Answer independently: no one's verdict is given to you.
+
+Repository: the current directory; base commit 92eaf65c4211cdf0aea0cffaabbfe48fa2c2f75b; the candidate is `git diff` of `src/styles/app.css` and `test/stylesheet.test.ts`, tracked diff sha1 prefix 78b118c94523b822 (other changes may be untracked evidence).
+
+Read: `project/items/VH-209.md`, your contract; every criterion holds. The diff. The evidence: `reviews/2026-10-25/design-pass-3/evidence/measurements/vh209-overflow-2026-10-31.md` (the one-page table), `vh209-overflow-correction-2026-10-31.md` beside it, and `vh209-records-2026-10-31/` (each group's outcomes, probes, logs; `compare-by-font.txt`, `focus-each-side.txt`, `after-edges/`, `before-six/`, `after-six/`). Walk tooling, read-only: `/Users/joe/UoN-Video-Helper-side/vh209-walk/` scripts and `*/runs/*.json` records. Also `UI-STANDARDS.md`, `project/digests/wcag-2.2-aaa.md`, `project/digests/carbon.md`, `src/styles/*.css`, `index.html`.
+
+Do not read any folder under `side-session-notes/`, nor, in `/Users/joe/UoN-Video-Helper-side/`, anything named `vh209-claude-*`, `vh209-*compare*` (the records' `compare-by-font.txt` and `vh209-compare.mjs` excepted), `vh209-progress.md`, `vh209-handover-*`, or any `vh209-*brief*` but this one.
+
+The governing words. The owner took V-50 at rank 3, as this item. The item's Intent: "CSS only, with the existing tokens; no element, no move of the switchers and no rewording". The criterion's bracket names "wrapping, `min-width: 0`, a shrinking flex or grid track". The candidate also lets the page and panel insets give way below 20rem. That is his orchestrator's ruling, not the owner's, recorded as such: "the criterion's bracket names means, not a closed list, and Set text at one or two letters per line would not meet the item's point of letting a person read the choices"; conditions: "below 20rem only, `--spacing-03`, so the default font's layout is untouched down to 320 px, and show it in the before and after."
+
+Answer each with evidence, pass or fail, and what you read:
+1. Inside the column: each offender the item names, in S-113's six records; the page's sideways scroll; text in its control and column. Are the probes in `contain.js` right? Any overflow they cannot see?
+2. No element, control moved or word changed. Is stacking the two colours a "wrap" or a move?
+3. Nothing else moves at the default font at 320, 401 and 1280 px: overflow, target, ring; can the query fire there, at any zoom? The rule changed outside the query.
+4. Each wrapped control's 44 px target and whole ring, in four colour modes, at 32 px. Which controls does the walker's `focus` actually read? What is unread?
+5. V-18's six: none lower. V-48 re-read and left to VH-210: is that report honest?
+6. Step 4's selects and the statement's words stayed out of scope; the Malay title (wish VH-229.3) changed by the column.
+7. WCAG for what it touched: 1.4.4, 1.4.10, 1.4.8, 1.4.12, 2.4.13, 2.5.5, 1.4.3, 1.4.6.
+8. Tokens: no literal outside `src/config/` or a token; the two token files; no second primary; the progress bar kept. `test/stylesheet.test.ts`: does it pin each rule, and would it fail if a rule went?
+9. Before and after: same revision, driver, power mode; load peaks (some at or above 8, the before's `pages32` peak 34): judge whether any reading is unsafe and needs a re-walk. Cells not reached each side, w375. Are the groups enough for "the default-font page records the changed rules reach"? Do the notes overstate anything?
+10. The insets: do they keep the Intent? Would a different remedy be better, and why? Say if you disagree with the ruling and whether the evidence settles it.
+11. Other callers reached by the rules (other panels, dialog, notifications, the footer, the open panel, the title row); anything broken or newly awkward. Anything the walks would miss at w400, w375, or a font between 20 and 32 px?
+
+End with one verdict line: Commit, Commit with the listed repairs, or Do not commit. At most about 900 words.

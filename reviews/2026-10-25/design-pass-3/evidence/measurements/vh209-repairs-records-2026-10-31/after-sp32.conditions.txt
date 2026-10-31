@@ -1,0 +1,16 @@
+start 2026-10-31T21:15:08Z
+Now drawing from 'AC Power'
+ -InternalBattery-0 (id=23199843)	100%; charged; 0:00 remaining present: true
+ powermode            2
+21:15  up 1 day,  5:43, 1 user, load averages: 5.71 5.89 5.78
+ports: 0 Claude CLOSED entries ignored (ruling 2)
+commit 92eaf65c4211cdf0aea0cffaabbfe48fa2c2f75b
+porcelain lines 5
+diff hash 78b118c94523b822
+instrument revision e0a55331a7155cd3
+job1 exit 0 2026-10-31T21:16:55Z
+end 2026-10-31T21:16:55Z
+Now drawing from 'AC Power'
+ -InternalBattery-0 (id=23199843)	100%; charged; 0:00 remaining present: true
+ powermode            2
+21:16  up 1 day,  5:45, 1 user, load averages: 4.88 5.58 5.67

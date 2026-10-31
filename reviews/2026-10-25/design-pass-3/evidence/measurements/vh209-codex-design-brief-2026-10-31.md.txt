@@ -1,0 +1,21 @@
+You are checking the design of one small CSS item in a browser-only app, blind and read-only. You make no change. Your answer is the design you would build and your judgement of each point below; it is the comparison for another reader's separate design, which you do not see.
+
+Repository: the current directory, at commit 92eaf65c4211cdf0aea0cffaabbfe48fa2c2f75b.
+
+Read: `project/items/VH-209.md` (the contract; every criterion holds), `src/styles/app.css`, `src/styles/tokens.carbon.css`, `src/styles/tokens.brand.css`, `index.html`, `test/stylesheet.test.ts`, `UI-STANDARDS.md`, `project/digests/wcag-2.2-aaa.md`, `project/digests/carbon.md`, `reviews/2026-10-25/design-pass-3/scenarios-2026-10-25.md` (S-113), `reviews/2026-10-25/design-pass-3/design-pass-3-2026-10-27.md` (V-48, V-50), and these two evidence files outside the repository: `/Users/joe/UoN-Video-Helper-side/vh209-probe-design-summary.txt` (a read-only probe of S-113's six records on this commit, 32 px default font: `scroll` is scrollWidth,clientWidth; `column` is the first panel's content box; O lines are elements past the window; T lines are text fragments past the window, the panel's or band's content box, or their control), `/Users/joe/UoN-Video-Helper-side/vh209-walk/contain.js` (the probe).
+
+Do not read any folder under `side-session-notes/`, nor, in `/Users/joe/UoN-Video-Helper-side/`, anything named `vh209-claude-*`, `vh209-*compare*`, `vh209-progress.md`, `vh209-handover-*`, or any `vh209-*brief*` but this one.
+
+The owner's words that govern: he took V-50 at rank 3, as this item. "CSS only, with the existing tokens; no element, no move of the switchers and no rewording" is the item's Intent. Step 4's selects at 401 px and below are a later item's; V-48 is a later item's; the statement's words are a later item's. Malay's title breaking within a word at 320 px and 32 px is on the wish list and not this item's by its criteria, though if the title row itself scrolls the page sideways at 32 px, that is within "the page does not scroll sideways".
+
+Answer each, with the numbers you rely on:
+1. What makes each offender leave the column at 32 px, at 320 and at 401 px, in the three languages? Are the offenders in the item the whole list, by the probe?
+2. The rules you would write, exact selectors, properties and tokens, and where in the sheet. For each offender, the arithmetic that shows its text fits inside the column at 320 and at 401 px in the three languages.
+3. Can it be done by the means the criterion names (wrapping, `min-width: 0`, a shrinking flex or grid track) alone? If you use any other means, say so, say why, and say whether it is within the item's Intent. What is the cost of the alternative, in words broken inside a control?
+4. How does your design guarantee "Nothing else moves" at the default font at 320, 401 and 1280 px, and V-18's six cases (the painted Choose file button's bounds at 1280 × 900 and 320 × 568) none lower?
+5. Each wrapped control's 44 px target (2.5.5) and whole ring (2.4.13), a seam or left edge a wrapped or stacked segment could lose, in light, dark, forced light and forced dark; 1.4.3 and 1.4.6 for wrapped words; 1.4.4, 1.4.8, 1.4.10, 1.4.12.
+6. What should `test/stylesheet.test.ts` pin, and does anything it pins now, or the literal check, stand in the way?
+7. Which other callers do your rules reach, and what might they break? Anything to watch in the title row and the "?" panel open at 32 px at 320 and 401 px, which can be what scrolls sideways?
+8. Which page records would you walk before and after to prove it, within: S-113 ×6 at the 32 px font, S-113's other widths and the default-font page records the changed rules reach, three languages, four colour modes.
+
+Be concise: at most about 800 words. State plainly where you are unsure.

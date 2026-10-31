@@ -1,0 +1,20 @@
+// VH-209 #1: after only, a read-only probe: S-113's state at fonts between the default and past 32 px, and at windows either side of 20rem; containment only. matrix.mjs unchanged, on a plan in memory. Writes $OUTD/fonts.jsonl.
+import { pathToFileURL, fileURLToPath } from 'node:url'; import { join } from 'node:path'; import { appendFileSync, readFileSync } from 'node:fs'
+const walker = process.env.WALKER, matrixUrl = pathToFileURL(join(walker, 'matrix.mjs')).href
+const { PLANS, SCENARIOS } = await import(new URL('./scenarios.mjs', matrixUrl).href)
+const CONTAIN = readFileSync(new URL('./contain.js', import.meta.url), 'utf8')
+const sc = SCENARIOS['S-113']
+sc.afterMode = async (w) => {
+  const cell = w.name.split('/').pop(), read = async (font, width) => {
+    await w.page.send('Page.setFontSizes', { fontSizes: { standard: font, fixed: Math.round(font * 13 / 16) } })
+    await w.page.send('Emulation.setDeviceMetricsOverride', { width, height: 800, deviceScaleFactor: 1, mobile: false })
+    await new Promise((r) => setTimeout(r, 250)); await w.evaluate('scrollTo(0, 0)')
+    const c = await w.evaluate(CONTAIN), q = await w.evaluate(`matchMedia('(max-width: 19.99rem)').matches`)
+    appendFileSync(join(process.env.OUTD, 'fonts.jsonl'), JSON.stringify({ cell, font, width, fires: q, scroll: c.scroll, column: c.column, offenders: c.offenderCount, textOut: c.textOutCount, sample: [...c.offenders.slice(0, 3), ...c.textOut.slice(0, 3)] }) + '\n')
+  }
+  for (const [font, width] of [[17, 320], [18, 320], [20, 320], [24, 320], [28, 320], [36, 320], [40, 320], [48, 320], [20, 401], [24, 401], [28, 401], [40, 401], [32, 639], [32, 640], [32, 500], [16, 320], [16, 319]]) await read(font, width)
+}
+const cells = ['en-GB', 'zh-Hans', 'ms-MY'].map((lang) => ({ id: 'S-113', lang, view: 'w1280', mode: 'light' }))
+PLANS['vh209-fonts'] = () => cells
+process.argv = [process.argv[0], fileURLToPath(matrixUrl), 'vh209-fonts']
+await import(matrixUrl)

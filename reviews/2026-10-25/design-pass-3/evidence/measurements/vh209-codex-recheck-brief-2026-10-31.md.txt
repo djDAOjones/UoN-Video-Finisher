@@ -1,0 +1,9 @@
+You are re-checking one close before commit, read-only, a separate run. You make no change. At most about 300 words.
+
+Repository: the current directory, base 92eaf65c4211cdf0aea0cffaabbfe48fa2c2f75b, the candidate uncommitted. Frozen: `/Users/joe/UoN-Video-Helper-side/vh209-frozen-r1/`; confirm the tree matches. Gate log: `/Users/joe/UoN-Video-Helper-side/vh209-gate-4.log`.
+
+Your close check said "Do not commit": `reviews/2026-10-25/design-pass-3/evidence/measurements/vh209-codex-close-2026-10-31.md.txt`. Do not read, in `/Users/joe/UoN-Video-Helper-side/`, `vh209-claude-*`, `vh209-*compare*`, `vh209-progress.md`, or any brief but this one; nor any folder under `side-session-notes/`; the measurements folder's copies you may read.
+
+Cover the repaired points and anything added since, in `vh209-overflow-correction-2026-10-31.md`, the decision, `project/trajectory.md`, `project/wish-list.md`: (1) each of your points corrected, true to the records, and nothing left stale; (2) the spacing residues: three long words past the column at 320 px at 32 px with text spacing, none past the window, page scroll 0, no rule clipping them: is "1.4.12 met, no loss of content or functionality, stated, wish VH-209.2" right, and if not, can the evidence show otherwise? (3) the source code unchanged since your check: confirm from the frozen diffs `vh209-frozen/tracked.diff` and `-r1`.
+
+End with one line: Commit, or Do not commit, with the reason.

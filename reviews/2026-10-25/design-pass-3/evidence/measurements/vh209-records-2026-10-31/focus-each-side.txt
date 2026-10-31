@@ -1,0 +1,25 @@
+FOCUS FAILS before 65
+   2 ('#contact-creators', 'default', False, 'w1280') ('S-83__ms-MY__w1280__forced-dark', 1595, 1968, [448, 48])
+   6 ('#contact-creators', 'default', False, 'w320') ('S-83__ms-MY__w320__forced-dark', 1182, 1360, [272, 72])
+   4 ('#contact-creators', 'default', False, 'w401') ('S-83__zh-Hans__w401__forced-dark', 1302, 1588, [353, 48])
+   12 ('#file-input', 'f32', False, 'w320') ('S-03__zh-Hans__w320__forced-dark-font32', 432, 544, [68, 84])
+   12 ('#file-input', 'f32', False, 'w401') ('S-03__en-GB__w401__forced-dark-font32', 756, 868, [149, 84])
+   3 ('#file-input', 'f32', True, 'w320') ('S-03__en-GB__w320__font32', 432, 544, [68, 84])
+   3 ('#file-input', 'f32', True, 'w401') ('S-03__zh-Hans__w401__font32', 756, 868, [149, 84])
+   4 ('#onset-help-button', 'f32', False, 'w320') ('S-113__ms-MY__w320__forced-dark-font32', 444, 464, [44, 76])
+   1 ('#onset-help-button', 'f32', True, 'w320') ('S-113__ms-MY__w320__font32', 460, 464, [44, 76])
+   9 ('#preset-choice input:checked', 'f32', False, 'w320') ('S-15__ms-MY__w320__forced-dark-font32', 276, 304, [40, 40])
+   9 ('#preset-choice input:checked', 'f32', False, 'w401') ('S-15__ms-MY__w401__forced-dark-font32', 276, 304, [40, 40])
+FOCUS FAILS after 45
+   2 ('#contact-creators', 'default', False, 'w1280') ('S-83__ms-MY__w1280__forced-light', 1595, 1968, [448, 48])
+   6 ('#contact-creators', 'default', False, 'w320') ('S-83__zh-Hans__w320__forced-light', 1058, 1264, [272, 48])
+   4 ('#contact-creators', 'default', False, 'w401') ('S-83__zh-Hans__w401__forced-light', 1302, 1588, [353, 48])
+   12 ('#file-input', 'f32', False, 'w320') ('S-03__zh-Hans__w320__forced-dark-font32', 944, 1056, [196, 84])
+   3 ('#file-input', 'f32', True, 'w320') ('S-03__en-GB__w320__font32', 944, 1056, [196, 84])
+   9 ('#preset-choice input:checked', 'f32', False, 'w320') ('S-15__ms-MY__w320__forced-dark-font32', 276, 304, [40, 40])
+   9 ('#preset-choice input:checked', 'f32', False, 'w401') ('S-15__ms-MY__w401__forced-dark-font32', 276, 304, [40, 40])
+V-48 before [('#closing-onset', 'pass', 856, 792, [126, 76]), ('#onset-help-button', 'fail', 460, 464, [44, 76])]
+V-48 after [('#closing-onset', 'pass', 1368, 1304, [254, 76]), ('#onset-help-button', 'pass', 528, 464, [44, 76])]
+OTHER FAILS before {('targets', 'open', 'S-113'): 6, ('type', 'open', 'S-113'): 6, ('targets', 'open', 'S-03'): 6, ('type', 'open', 'S-03'): 6, ('formatTip', 'open', 'S-03'): 6}
+OTHER FAILS after {('targets', 'open', 'S-113'): 6, ('type', 'open', 'S-113'): 6, ('targets', 'open', 'S-03'): 6, ('type', 'open', 'S-03'): 6, ('formatTip', 'open', 'S-03'): 6}
+{"targets": {"outcome": "fail", "rows": 15, "counted": 14, "exempt": 1, "items": [{"el": "a.skip-link \"Skip to main content\"", "outcome": "off-page", "why": "positioned off the page until focused: read when shown (person check)", "exempt": "positioned off the page until focused: read when shown (person check)"}, {"el": "input[radio language=en-GB] \"English\"", "outcome": "pass", "hitW": 168, "hitH": 76, "hitArea": 12768, "disabled": false}, {"el": "input[radio language=zh-Hans] \"\u4e2d\u6587\"", "outcome": "pass", "hitW": 122, "hitH": 76, "hitArea": 9272, "disabled": false}, {"el": "input[radio language=ms-MY] \"Bahasa Malaysia\"", "outcome": "pass", "hitW": 288, "hitH": 76, "hitArea": 21888, "disabled": false}, {"el": "button#about-help-button.button.button--secondary.help-button[butt

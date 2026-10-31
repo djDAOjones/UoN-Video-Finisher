@@ -1,0 +1,51 @@
+{"cell":"S-113-en-GB-w1280","font":17,"width":320,"fires":true,"scroll":[320,320],"column":[18,302],"offenders":0,"textOut":0,"sample":[]}
+{"cell":"S-113-en-GB-w1280","font":18,"width":320,"fires":true,"scroll":[320,320],"column":[19,301],"offenders":0,"textOut":0,"sample":[]}
+{"cell":"S-113-en-GB-w1280","font":20,"width":320,"fires":true,"scroll":[320,320],"column":[21,299],"offenders":0,"textOut":0,"sample":[]}
+{"cell":"S-113-en-GB-w1280","font":24,"width":320,"fires":true,"scroll":[320,320],"column":[25,295],"offenders":0,"textOut":0,"sample":[]}
+{"cell":"S-113-en-GB-w1280","font":28,"width":320,"fires":true,"scroll":[320,320],"column":[29,291],"offenders":0,"textOut":0,"sample":[]}
+{"cell":"S-113-en-GB-w1280","font":36,"width":320,"fires":true,"scroll":[320,320],"column":[37,283],"offenders":0,"textOut":1,"sample":["box+control span \"Smaller file, for assign\" [109,286]"]}
+{"cell":"S-113-en-GB-w1280","font":40,"width":320,"fires":true,"scroll":[320,320],"column":[41,279],"offenders":0,"textOut":4,"sample":["box+control span \"High quality, for publis\" [121,280]","box+control span.radio-detail \"For EchoVideo, YouTube, \" [121,299]","box+control span \"Smaller file, for assign\" [121,317]"]}
+{"cell":"S-113-en-GB-w1280","font":48,"width":320,"fires":true,"scroll":[381,320],"column":[49,271],"offenders":6,"textOut":7,"sample":["span.radio-label \"High quality, for \" [145,359.1]","span \"High quality, for \" [145,359.1]","span.radio-detail \"For EchoVideo, You\" [145,359.1]","box+control summary.disclosure-summary \"Video properties\" [133,320]","box span \"Closing graphics\" [49,295]","box+control span \"White\" [166,274]"]}
+{"cell":"S-113-en-GB-w1280","font":20,"width":401,"fires":false,"scroll":[401,401],"column":[61,340],"offenders":0,"textOut":0,"sample":[]}
+{"cell":"S-113-en-GB-w1280","font":24,"width":401,"fires":true,"scroll":[401,401],"column":[25,376],"offenders":0,"textOut":0,"sample":[]}
+{"cell":"S-113-en-GB-w1280","font":28,"width":401,"fires":true,"scroll":[401,401],"column":[29,372],"offenders":0,"textOut":0,"sample":[]}
+{"cell":"S-113-en-GB-w1280","font":40,"width":401,"fires":true,"scroll":[401,401],"column":[41,360],"offenders":0,"textOut":0,"sample":[]}
+{"cell":"S-113-en-GB-w1280","font":32,"width":639,"fires":true,"scroll":[639,639],"column":[33,606],"offenders":0,"textOut":0,"sample":[]}
+{"cell":"S-113-en-GB-w1280","font":32,"width":640,"fires":false,"scroll":[640,640],"column":[97,543],"offenders":0,"textOut":0,"sample":[]}
+{"cell":"S-113-en-GB-w1280","font":32,"width":500,"fires":true,"scroll":[500,500],"column":[33,467],"offenders":0,"textOut":0,"sample":[]}
+{"cell":"S-113-en-GB-w1280","font":16,"width":320,"fires":false,"scroll":[320,320],"column":[49,271],"offenders":0,"textOut":0,"sample":[]}
+{"cell":"S-113-en-GB-w1280","font":16,"width":319,"fires":true,"scroll":[319,319],"column":[17,302],"offenders":0,"textOut":0,"sample":[]}
+{"cell":"S-113-zh-Hans-w1280","font":17,"width":320,"fires":true,"scroll":[320,320],"column":[18,302],"offenders":0,"textOut":0,"sample":[]}
+{"cell":"S-113-zh-Hans-w1280","font":18,"width":320,"fires":true,"scroll":[320,320],"column":[19,301],"offenders":0,"textOut":0,"sample":[]}
+{"cell":"S-113-zh-Hans-w1280","font":20,"width":320,"fires":true,"scroll":[320,320],"column":[21,299],"offenders":0,"textOut":0,"sample":[]}
+{"cell":"S-113-zh-Hans-w1280","font":24,"width":320,"fires":true,"scroll":[320,320],"column":[25,295],"offenders":0,"textOut":0,"sample":[]}
+{"cell":"S-113-zh-Hans-w1280","font":28,"width":320,"fires":true,"scroll":[320,320],"column":[29,291],"offenders":0,"textOut":0,"sample":[]}
+{"cell":"S-113-zh-Hans-w1280","font":36,"width":320,"fires":true,"scroll":[320,320],"column":[37,283],"offenders":0,"textOut":1,"sample":["box+control span.radio-detail \"适用于 EchoVideo、YouTube 及类\" [109,292]"]}
+{"cell":"S-113-zh-Hans-w1280","font":40,"width":320,"fires":true,"scroll":[325,320],"column":[41,279],"offenders":3,"textOut":2,"sample":["span.radio-label \"高质量，用于发布\n         \" [121,324.7]","span \"高质量，用于发布\" [121,324.7]","span.radio-detail \"适用于 EchoVideo、YouT\" [121,324.7]","box+control span \"高质量，用于发布\" [121,296]","window+box+control span.radio-detail \"适用于 EchoVideo、YouTube 及类\" [121,325]"]}
+{"cell":"S-113-zh-Hans-w1280","font":48,"width":320,"fires":true,"scroll":[389,320],"column":[49,271],"offenders":3,"textOut":9,"sample":["span.radio-label \"高质量，用于发布\n         \" [145,389.4]","span \"高质量，用于发布\" [145,389.4]","span.radio-detail \"适用于 EchoVideo、YouT\" [145,389.4]","window+box+control span \"高质量，用于发布\" [145,355]","window+box+control span.radio-detail \"适用于 EchoVideo、YouTube 及类\" [145,389]","box+control span.radio-detail \"适用于 Moodle 作业上传、电子邮件和消息。\" [145,283]"]}
+{"cell":"S-113-zh-Hans-w1280","font":20,"width":401,"fires":false,"scroll":[401,401],"column":[61,340],"offenders":0,"textOut":0,"sample":[]}
+{"cell":"S-113-zh-Hans-w1280","font":24,"width":401,"fires":true,"scroll":[401,401],"column":[25,376],"offenders":0,"textOut":0,"sample":[]}
+{"cell":"S-113-zh-Hans-w1280","font":28,"width":401,"fires":true,"scroll":[401,401],"column":[29,372],"offenders":0,"textOut":0,"sample":[]}
+{"cell":"S-113-zh-Hans-w1280","font":40,"width":401,"fires":true,"scroll":[401,401],"column":[41,360],"offenders":0,"textOut":0,"sample":[]}
+{"cell":"S-113-zh-Hans-w1280","font":32,"width":639,"fires":true,"scroll":[639,639],"column":[33,606],"offenders":0,"textOut":0,"sample":[]}
+{"cell":"S-113-zh-Hans-w1280","font":32,"width":640,"fires":false,"scroll":[640,640],"column":[97,543],"offenders":0,"textOut":0,"sample":[]}
+{"cell":"S-113-zh-Hans-w1280","font":32,"width":500,"fires":true,"scroll":[500,500],"column":[33,467],"offenders":0,"textOut":0,"sample":[]}
+{"cell":"S-113-zh-Hans-w1280","font":16,"width":320,"fires":false,"scroll":[320,320],"column":[49,271],"offenders":0,"textOut":0,"sample":[]}
+{"cell":"S-113-zh-Hans-w1280","font":16,"width":319,"fires":true,"scroll":[319,319],"column":[17,302],"offenders":0,"textOut":0,"sample":[]}
+{"cell":"S-113-ms-MY-w1280","font":17,"width":320,"fires":true,"scroll":[320,320],"column":[18,302],"offenders":0,"textOut":0,"sample":[]}
+{"cell":"S-113-ms-MY-w1280","font":18,"width":320,"fires":true,"scroll":[320,320],"column":[19,301],"offenders":0,"textOut":0,"sample":[]}
+{"cell":"S-113-ms-MY-w1280","font":20,"width":320,"fires":true,"scroll":[320,320],"column":[21,299],"offenders":0,"textOut":0,"sample":[]}
+{"cell":"S-113-ms-MY-w1280","font":24,"width":320,"fires":true,"scroll":[320,320],"column":[25,295],"offenders":0,"textOut":0,"sample":[]}
+{"cell":"S-113-ms-MY-w1280","font":28,"width":320,"fires":true,"scroll":[320,320],"column":[29,291],"offenders":0,"textOut":0,"sample":[]}
+{"cell":"S-113-ms-MY-w1280","font":36,"width":320,"fires":true,"scroll":[320,320],"column":[37,283],"offenders":0,"textOut":1,"sample":["box span \"Saiz/kualiti fail\" [37,295]"]}
+{"cell":"S-113-ms-MY-w1280","font":40,"width":320,"fires":true,"scroll":[328,320],"column":[41,279],"offenders":1,"textOut":7,"sample":["span \"Saiz/kualiti fail\" [41,328.1]","box+control button#trim-clear.button.button--secondary \"Gunakan keseluruhan vide\" [102,293]","control label.label \"Dimainkan di atas\" [41,206]","window+box span \"Saiz/kualiti fail\" [41,328]"]}
+{"cell":"S-113-ms-MY-w1280","font":48,"width":320,"fires":true,"scroll":[393,320],"column":[49,271],"offenders":8,"textOut":11,"sample":["a.skip-link \"Langkau ke kandung\" [48,381.6]","span \"Saiz/kualiti fail\" [49,393.5]","span.radio-label \"Kualiti tinggi, un\" [145,359.1]","window a.skip-link \"Langkau ke kandungan uta\" [96,334]","window+box+control button#trim-clear.button.button--secondary \"Gunakan keseluruhan vide\" [122,351]","box span \"Grafik penutup\" [49,290]"]}
+{"cell":"S-113-ms-MY-w1280","font":20,"width":401,"fires":false,"scroll":[401,401],"column":[61,340],"offenders":0,"textOut":0,"sample":[]}
+{"cell":"S-113-ms-MY-w1280","font":24,"width":401,"fires":true,"scroll":[401,401],"column":[25,376],"offenders":0,"textOut":0,"sample":[]}
+{"cell":"S-113-ms-MY-w1280","font":28,"width":401,"fires":true,"scroll":[401,401],"column":[29,372],"offenders":0,"textOut":0,"sample":[]}
+{"cell":"S-113-ms-MY-w1280","font":40,"width":401,"fires":true,"scroll":[401,401],"column":[41,360],"offenders":0,"textOut":0,"sample":[]}
+{"cell":"S-113-ms-MY-w1280","font":32,"width":639,"fires":true,"scroll":[639,639],"column":[33,606],"offenders":0,"textOut":0,"sample":[]}
+{"cell":"S-113-ms-MY-w1280","font":32,"width":640,"fires":false,"scroll":[640,640],"column":[97,543],"offenders":0,"textOut":0,"sample":[]}
+{"cell":"S-113-ms-MY-w1280","font":32,"width":500,"fires":true,"scroll":[500,500],"column":[33,467],"offenders":0,"textOut":0,"sample":[]}
+{"cell":"S-113-ms-MY-w1280","font":16,"width":320,"fires":false,"scroll":[320,320],"column":[49,271],"offenders":0,"textOut":0,"sample":[]}
+{"cell":"S-113-ms-MY-w1280","font":16,"width":319,"fires":true,"scroll":[319,319],"column":[17,302],"offenders":0,"textOut":0,"sample":[]}

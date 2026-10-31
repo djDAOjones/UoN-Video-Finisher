@@ -43,6 +43,7 @@
 - VH-216 — the first action raised: the five promises and the Staff/Student switch below step 1, the owner's remedy, one order at every width; no CSS order, script, word or element; four of V-18's six cases inside the first screen, zh-Hans 159 px and ms-MY 260 px short at 320 × 568, reported to him; 120 cells a side, the same 116 reached; two S-03 rows fail as he was told (2026-10-30) — see decisions
 - VH-217 — the format "?": 8.45 px from its words by the box, 9.85 px by the ink, 18.37 in Chinese; the target over 2.15 px of ink, reported; both "?"s filled while open, in every palette; 1,440 cells and 3,888 state readings a side; Codex astra's blind check corrected the 32 px readings (2026-10-31) — see decisions
 - VH-229 — the five promises and the privacy line behind a "?" beside the title, on his "Hide both": zh-Hans 88 px and ms-MY 156 px short at 320 × 568, from 159 and 260; 636 cells a side, 578 unmoved, none newly failing; spec §9.2's one line; Malay's title broken at 320 px and 32 px, reported (2026-10-31) — see decisions
+- VH-209 — at the 32 px font on a phone the page keeps to its column: sideways scroll 110 of 144 reached cells to 0 of 156, the column 126 to 254 px at 320 and 207 to 335 at 401; insets below 20rem on the orchestrator's ruling, listed for the owner; the default font and V-18's six unmoved; V-48's record 528 of 464, left to VH-210 (2026-10-31) — see decisions
 
 ## Phase 7 — a second design, UX and accessibility pass, with Codex astra as partner, before the cut
 

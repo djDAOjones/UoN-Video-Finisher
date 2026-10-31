@@ -1,0 +1,17 @@
+**Why these groups.** Codex's blind check (`vh209-codex-blind-2026-10-31.md.txt`) asked for rings the first table did not read, 1.4.12 with the changed rules active, and more callers. The first table stands as placed. The before ran on a detached worktree at the base commit, removed after. Driver `vh209-driver2.mjs`, a copy naming more of the walker's own focus targets in memory; the walker unchanged. A first attempt at `rings1` to `sp32` had a quoting defect of the worker's (no extra target or press taken); it read nothing asked and is set aside, kept in the walk folder.
+
+**Rings at 32 px, 320 and 401 px, three languages, four colour modes (`rings1`, `rings2`, `rings3`).** After: every reading passes. Set start and Set end, Page language, Video type's Staff video and, pressed, Student submission, Video language, the colour's Blue and, pressed, White, and the two disclosure summaries: 24 of 24 each. The before: 6 Page language, 12 Video type and 12 statement-summary fails, and others `cannot-determine`, where the page scrolled sideways.
+
+**1.4.12, the walker's own text spacing over the 32 px font (`sp32`, S-113 and S-03).** Overflow: 11 fails of 12 before, 12 passes after; no text past its column. `type`, 12 alike each side, the format "?"'s look, wish VH-217.2.
+
+**Other callers at 32 px (`states32`; the feedback dialog S-76, the finished result S-114, the footer S-83).** Overflow: 14 fails of 18 before, 18 passes after. `player` 6 and `targets` 3 fail before and pass after. Error, running and locked states at 32 px: not walked.
+
+**The default font with the panel open (`defopen`, S-03, 1280, 401, 320 px, light and forced dark).** Overflow 18 pass each side. `targets`, `type` and `formatTip`, 18 each alike: the format "?" reachable only with the panel open.
+
+**Between the fonts, by a read-only probe of S-113's state, after only (`after-fonts`, 51 readings).** The page and every text fragment stay in at 17, 18, 20, 24, 28 and 32 px at 320 px; at 20, 24, 28 and 40 px at 401 px; at 32 px at 500, 639 and 640 px. **Past 32 px at 320 px it does not all hold:** at 36 px a fragment leaves its column in each language, no page scroll; at 40 px the page scrolls to 325 to 328 in Chinese and Malay, and at 48 px to 381 to 393 in all three. That is beyond the item's 32 px: wish VH-209.2. The query fires only below 20rem: not at 16 px at 320 px; at 16 px at 319 px it fires, and the layout holds.
+
+**A note on the query and zoom.** It cannot fire at a 320 px or wider CSS viewport at the default font. Browser zoom shrinks the CSS viewport itself, so a small window zoomed under 320 CSS px does take it, as it should.
+
+**Disclosed.** Where the tables say "median" they give the upper middle sample. `formatTip` is read only where its "?" is reachable; the other cells are not-applicable.
+
+**Power and load.** AC, mode 2, every group each side.

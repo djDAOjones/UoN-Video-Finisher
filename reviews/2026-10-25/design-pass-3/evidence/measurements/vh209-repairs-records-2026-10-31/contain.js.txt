@@ -1,0 +1,54 @@
+// VH-209 #1: read-only. Where the page's text and controls sit against the window and the column. Moves no focus; adds nothing to the page.
+(() => {
+  const vw = document.documentElement.clientWidth;
+  const R = (b) => [Math.round(b.left * 10) / 10, Math.round(b.right * 10) / 10];
+  const shown = (e) => e.getClientRects().length > 0 && getComputedStyle(e).visibility !== 'hidden';
+  const name = (e) => e.tagName.toLowerCase() + (e.id ? '#' + e.id : '') + (typeof e.className === 'string' && e.className ? '.' + e.className.trim().split(/\s+/).join('.') : '') + (e.type === 'radio' ? `[${e.name}=${e.value}]` : '');
+  const clipped = (e) => { const r = e.getBoundingClientRect(); return r.width < 2 && r.height < 2; };
+  const offenders = [];
+  for (const e of document.querySelectorAll('body *')) {
+    if (!shown(e) || clipped(e)) continue;
+    const b = e.getBoundingClientRect();
+    if (b.right + scrollX > vw + 0.5 || b.left + scrollX < -0.5) offenders.push(name(e).slice(0, 70) + ' "' + (e.textContent || '').trim().slice(0, 18) + '" ' + JSON.stringify(R(b)));
+  }
+  // Every visible text fragment, by its own painted line boxes, against the window and the nearest panel's or band's content box and its control's box.
+  const textOut = [];
+  const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+  const range = document.createRange();
+  let n, texts = 0;
+  while ((n = walker.nextNode())) {
+    if (!n.nodeValue.trim()) continue;
+    const p = n.parentElement;
+    if (!p || !shown(p) || p.closest('script,style,option,[hidden]')) continue;
+    const pr = p.getBoundingClientRect();
+    if (pr.width < 2 && pr.height < 2) continue;
+    range.selectNodeContents(n);
+    const rects = [...range.getClientRects()].filter((r) => r.width > 0);
+    if (!rects.length) continue;
+    texts++;
+    const l = Math.min(...rects.map((r) => r.left)), r = Math.max(...rects.map((r) => r.right));
+    const box = p.closest('.panel,.band-inner,main');
+    const cs = box ? getComputedStyle(box) : null, bb = box ? box.getBoundingClientRect() : null;
+    const bar = !!p.closest('.panel > summary'); // a panel's summary bar is drawn edge to edge, over the padding.
+    const inL = bb ? bb.left + parseFloat(cs.borderLeftWidth) + (bar ? 0 : parseFloat(cs.paddingLeft)) : 0;
+    const inR = bb ? bb.right - parseFloat(cs.borderRightWidth) - (bar ? 0 : parseFloat(cs.paddingRight)) : vw;
+    const ctrl = p.closest('button,summary,.segment,label,a');
+    const cb = ctrl ? ctrl.getBoundingClientRect() : null;
+    const out = [];
+    if (r + scrollX > vw + 0.5 || l + scrollX < -0.5) out.push('window');
+    if (bb && (r > inR + 0.5 || l < inL - 0.5)) out.push('box');
+    if (cb && (r > cb.right + 0.5 || l < cb.left - 0.5)) out.push('control');
+    if (out.length) textOut.push(out.join('+') + ' ' + name(p).slice(0, 50) + ' "' + n.nodeValue.trim().slice(0, 24) + '" ' + JSON.stringify([Math.round(l), Math.round(r)]));
+  }
+  const panel = document.querySelector('main .panel');
+  const pcs = panel ? getComputedStyle(panel) : null, pb = panel ? panel.getBoundingClientRect() : null;
+  const size = (sel) => [...document.querySelectorAll(sel)].filter(shown).map((e) => { const b = e.getBoundingClientRect(); return (e.id || (e.textContent || '').trim().slice(0, 16)) + ' ' + Math.round(b.left) + '..' + Math.round(b.right) + ' h' + Math.round(b.height * 10) / 10; });
+  return {
+    scrollX, scroll: [document.documentElement.scrollWidth, vw],
+    column: panel ? [Math.round(pb.left + parseFloat(pcs.borderLeftWidth) + parseFloat(pcs.paddingLeft)), Math.round(pb.right - parseFloat(pcs.borderRightWidth) - parseFloat(pcs.paddingRight))] : null,
+    offenders: offenders.slice(0, 40), offenderCount: offenders.length, texts, textOut: textOut.slice(0, 40), textOutCount: textOut.length,
+    segments: size('.segment'), buttons: size('.button'),
+    title: size('.page-title,#about-help-button,#about-help'),
+    fonts: { h2: parseFloat(getComputedStyle(document.querySelector('.panel h2') || document.body).fontSize), button: parseFloat(getComputedStyle(document.querySelector('.button') || document.body).fontSize) },
+  };
+})()

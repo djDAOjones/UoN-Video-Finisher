@@ -1,0 +1,92 @@
+At `92eaf65`, I would build the following wrapping design. **This is a source-based candidate, not a measured pass.** No files changed.
+
+1. **Causes and completeness.** At 32 px, outer gutters consume 96 px; panel padding and borders consume another 98: columns are **126/207 px** at 320/401. Header and Video type have **224/305 px**. Content-sized segments use `flex: none`; trim buttons likewise cannot shrink. Closing segments retain automatic minimum widths, non-wrapping faces and 64 px swatches. Disclosure headings retain their longest-word minimum.
+
+   The probe reports page widths **520, 444, 528 px** for English, Chinese and Malay, respectively, at both widths. The named offenders are **not exhaustive**: output radios, Video properties, System check, other buttons, checkbox text and the Malay step-5 heading also escape boxes. Crucially, `contain.js`’s T “box” calculation **omits panel padding**; its explicit `column` is stricter. Malay’s −17 px coordinates also require checking horizontal scroll position.
+
+2. **Exact rules.** Replace the existing `.segment + .segment .segment-face` declaration `border-left: 0` with `border-left-width: 0`, preserving its colour/style for restoration.
+
+   Immediately before the forced-colours block, add:
+
+```css
+@media (max-width: 16rem) {
+  .language-switcher { max-width: 100%; }
+
+  :is(.language-switcher, .video-kind, .video-language) .segment {
+    flex: 0 1 auto;
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  :is(.language-switcher, .video-kind, .video-language) .segment-face {
+    overflow-wrap: anywhere;
+  }
+
+  :is(.language-switcher, .video-kind, .video-language) .segment-face::after {
+    max-width: 100%;
+  }
+
+  .panel .button:not(.help-button) {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+  }
+
+  .trim-time-row .button { flex: 0 1 auto; }
+
+  #closing-colour .segments {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  #closing-colour .segment { min-width: 0; }
+  #closing-colour .segment-face { flex-wrap: wrap; }
+
+  #closing-colour .segment-face > span {
+    min-width: 0;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+  }
+
+  #closing-colour .swatch { flex-shrink: 1; }
+
+  #closing-colour .segment + .segment {
+    margin-top: calc(-1 * var(--border-width));
+  }
+
+  #closing-colour .segment + .segment .segment-face {
+    border-left-width: var(--border-width);
+  }
+
+  .panel h2,
+  .disclosure-summary { overflow-wrap: anywhere; }
+
+  .disclosure-summary h2,
+  .radio-label { min-width: 0; }
+
+  .radio-label { overflow-wrap: anywhere; }
+}
+```
+
+   Maximum text budgets, 320/401 respectively:
+
+| Offender | Available width |
+|---|---:|
+| Header language / Video type | 224/305 − 66 = **158/239** |
+| Video language | 126/207 − 66 = **60/141** |
+| Set buttons | 126/207 − 98 = **28/109** |
+| Stacked closing faces | 126/207 − 66 = **60/141** |
+| Footer summary headings | 126/207 − 56 = **70/151** |
+
+   Arial advance estimates: bold **Malaysia 116.7**, **submission 155.6**; regular **Tetapkan 116.7**, **permulaan 132.3**, **White 71.6**, **Putih 63.8**. Chinese control glyphs are 28 px. Emergency wrapping therefore accommodates all three languages; the swatch shrinks **64→60** at 320. Malay’s approximately **295 px** statement word must break. Exact fragments require Chrome verification.
+
+3. **Means and cost.** Yes, using emergency wrapping and shrinking tracks; caps supply their bounds. No padding or typography reduction is required. The cost is severe: English/Bahasa/Malaysia split in Video language; trim text at 320 becomes one or two Latin letters per line, or one Chinese character. Malay Set words also split at 401; closing words split at 320. Reduced padding would improve this, and fits the broad Intent, but exceeds the explicitly named methods.
+
+4. **Default-font preservation.** The query ends at **256 px with 16 px defaults**, versus **512 px with 32 px defaults**: it cannot activate at default-font 320, 401 or 1280. The border-width substitution preserves painted geometry. Still compare actual bounds. Latest recorded V-18 bottoms are **309/480/501** at 1280 and **471/656/724** at 320, English/Chinese/Malay; re-read this base’s painted top and bottom, then require neither lower.
+
+5. **Accessibility.** Retain `--target-min` **44×44**, automatic height and full-face radio hit areas. Restored left edges and overlapping seams retain existing selected, disabled and forced-system colours. Preserve raised focused faces, unclipped **2 px** rings and the header’s forced **3 px inset** ring; measure ≥3:1 changed pixels in all four modes. Recheck wrapped text against 1.4.3/1.4.6, including selected/disabled states. Verify 1.4.4 enlargement, 1.4.8 presentation, default-font 320 reflow under 1.4.10, and 1.4.12 spacing overrides—not merely `scrollWidth`.
+
+6. **Tests.** Pin every declaration, query boundary, cascade order, restored seam, target floor and bold reserve. Existing reserve/type-role/trim tests remain valid. “Nowhere else” in the long-word test’s title is misleading, not enforced. The literal check permits media breakpoints, zero, percentages and token arithmetic.
+
+7. **Reach and uncertainty.** Shared rules reach job/result/error buttons, all panel headings, source/technical/feedback disclosures and output radios. Watch taller controls and reserve sizing. Title bounds and an open About panel presently look contained; that does not exclude intrinsic flex overflow. Read their scroll widths and scroll position. Leave Malay title word-breaking alone; diagnose any remaining page overflow.
+
+8. **Walk.** Before/after: S-113 at **320/401/640/1280 × three languages × four modes = 48 cells**, using qualified combined-font modes. Walk all reached default-font records matching these shared selectors at 320/401/1280, including locked, result, error, dialog and footer states. Include S-119–123, S-141–145, About/format panels open and closed, V-18’s six bounds, and V-48’s Malay 320 ring (**460/464 px² previously**). No acceptance claim until those readings hold.

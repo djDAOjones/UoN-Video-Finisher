@@ -501,3 +501,63 @@ describe('three rings drawn whole, and a forced-colour hover (VH-179)', () => {
     expect(forced.indexOf(hover)).toBeLessThan(forced.indexOf(press))
   })
 })
+
+describe('a window below the layout\u2019s minimum (VH-209, V-50)', () => {
+  const opening = '@media (max-width: 19.99rem)'
+  const inside = new RegExp(`${opening.replace(/[()]/g, '\\$&').replace('.', '\\.')}\\s*\\{([\\s\\S]*?)\\n\\}`).exec(rules)?.[1] ?? ''
+  const rule = (selectors: string): string => {
+    const name = selectors.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/, /g, ',\\s*')
+    return new RegExp(`(?:^|\\})\\s*${name}\\s*\\{([^}]*)\\}`).exec(inside)?.[1] ?? ''
+  }
+
+  it('applies below 20rem alone, so the default font never reaches it at 320 px or wider', () => {
+    expect(rules.split(opening)).toHaveLength(2)
+    expect(inside).not.toBe('')
+  })
+
+  it('gives way the insets on one token, the logo and the title keeping one edge (V-36)', () => {
+    expect(rule('.band-inner, .band--header .band-inner, .main, .panel')).toMatch(/padding-inline:\s*var\(--spacing-03\);/)
+    const bar = rule('.system-check > .disclosure-summary, .statement > .disclosure-summary')
+    expect(bar).toMatch(/margin-inline:\s*calc\(-1 \* var\(--spacing-03\)\);/)
+    expect(bar).toMatch(/padding-inline:\s*var\(--spacing-03\);/)
+  })
+
+  it('lets a switcher\u2019s segment wrap its words, with no switcher moved', () => {
+    const switchers = ['.language-switcher', '.video-kind', '.video-language']
+    const segment = rule(switchers.map((name) => `${name} .segment`).join(', '))
+    expect(segment).toMatch(/flex:\s*0 1 auto;/)
+    expect(segment).toMatch(/min-width:\s*0;/)
+    const face = rule(switchers.map((name) => `${name} .segment-face`).join(', '))
+    expect(face).toMatch(/overflow-wrap:\s*break-word;/)
+    expect(face).toMatch(/text-align:\s*center;/)
+    expect(inside).not.toMatch(/\border:/)
+  })
+
+  it('lets the two Set buttons wrap, the "?" beside a select keeping its width', () => {
+    const set = rule('.trim-time-row .button')
+    expect(set).toMatch(/flex:\s*0 1 auto;/)
+    expect(set).toMatch(/overflow-wrap:\s*break-word;/)
+    expect(inside).not.toMatch(/\.control-with-help/)
+    expect(rules.indexOf(opening)).toBeGreaterThan(rules.indexOf('.control-with-help .button'))
+  })
+
+  it('stacks the colours, each face keeping four edges in every palette', () => {
+    expect(rule('#closing-colour .segments')).toMatch(/flex-direction:\s*column;/)
+    expect(rule('#closing-colour .segment + .segment')).toMatch(/margin-top:\s*calc\(-1 \* var\(--border-width\)\);/)
+    expect(rule('#closing-colour .segment + .segment .segment-face')).toMatch(/^\s*border-left-width:\s*var\(--border-width\);\s*$/)
+    // The width alone goes, at every window: the colour stays each state's own, forced colours too.
+    expect(rules).toMatch(/(?:^|\})\s*\.segment \+ \.segment \.segment-face\s*\{\s*border-left-width:\s*0;\s*\}/)
+  })
+
+  it('breaks a disclosure heading\u2019s long word where it must', () => {
+    const heading = rule('.system-check > .disclosure-summary h2, .statement > .disclosure-summary h2')
+    expect(heading).toMatch(/min-width:\s*0;/)
+    expect(heading).toMatch(/overflow-wrap:\s*break-word;/)
+  })
+
+  it('keeps each control\u2019s 44 px target: nothing in the block sets a height or a smaller floor', () => {
+    expect(inside).not.toMatch(/(?:min-)?height:/)
+    expect(rules).toMatch(/\.button\s*\{[^}]*min-height:\s*var\(--target-min\);[^}]*min-width:\s*var\(--target-min\);/)
+    expect(rules).toMatch(/\.segment-face\s*\{[^}]*min-height:\s*var\(--target-min\);/)
+  })
+})

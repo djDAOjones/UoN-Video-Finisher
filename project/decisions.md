@@ -18,6 +18,16 @@
      moves the oldest entries verbatim to project/decisions-YYYY-MM.md,
      beside this file, listed in project/archive-index.md. -->
 
+## 2026-10-31 — VH-209 — Closes: at a 32 px default font on a phone width the page keeps to its column, the insets on the orchestrator's ruling
+
+**Decision:** VH-209 closes V-50, CSS only. One query below 20rem, unreached by the default font at 320 CSS px or wider, gives the page's and panels' insets `--spacing-03`, wraps the switchers and Set buttons, stacks the colours and breaks a long heading word. No element, control moved, word or token value. The insets are the orchestrator's ruling, not the owner's, listed for him. Sideways scroll 110 of 144 reached cells to 0 of 156. V-18's six and 180 default-font cells unmoved. Wish VH-229.3 retired: Malay's title no longer breaks mid-word.
+
+**Rationale:** The owner took V-50 at rank 3 (VH-202's close, point 4); "CSS only, with the existing tokens; no element, no move of the switchers and no rewording" is the item's Intent. At 32 px the insets double and the window does not: the panel's column was 126 px at 320 and 207 at 401, under a control's padding and longest word together. Means, the criterion's bracket naming "wrapping, `min-width: 0`, a shrinking flex or grid track": Claude asked by rule 2, and Codex's design used the named means alone, by its count "one or two Latin letters per line" at 320 px. **The orchestrator's ruling, in its words:** "The criterion's bracket names means, not a closed list, and Set text at one or two letters per line would not meet the item's point of letting a person read the choices", on "below 20rem only, `--spacing-03`". It is a refined criterion in the item; Codex's blind check agreed "as an implementation choice", "not an assertion of owner endorsement". Column now 254 and 335 px. **Measured, on 92eaf65, revision e0a55331a7155cd3, AC, mode 2:** 336 cells each side, plus 120 in the repairs Codex asked for. At 32 px, in four colour modes, 156 cells: elements past the window and text past its column or control both 0 after. Rings: Set start and end, the page and video language, Staff video, Student submission, Blue, White and both summaries, 24 of 24 each. 1.4.12 with the rules active: overflow 12 of 12, with three long words past their column at 320 px, by 4, 7 and 33 px, none past the window, nothing lost. Targets: Set 254 x 118 or 160, segments 76 or 118 high. **Not moved:** V-18's six, 309, 480, 501, 471, 656, 724; 180 default-font cells, no instrument or row. One base rule's text, `border-left: 0` to `border-left-width: 0`, with no painted change. **Reported:** V-48's record 460 to 528 of 464, VH-210's (wish VH-209.3). The chooser's ring at 320 px and 32 px, 112 px² short on both sides (wish VH-209.1). Past 32 px at 320 px it does not all hold (wish VH-209.2). Wish VH-229.3 retired: Malay's title at 320 px and 32 px now reads two lines with "Pembantu" whole, from four, since its column grew, not worked on; the "?" keeps its own line there. Step 4's selects gained room, 20 to 148 and 101 to 229, still VH-219's. Wish VH-216.1's rows fail on both sides, his "Yes, leave them". Not walked: error, running and locked states at 32 px; S-03 and others at w375. Rule 8: wcag-2.2-aaa, "every exception recorded"; carbon, "our own code, never the packages". Evidence: `vh209-overflow-2026-10-31.md`, `vh209-repairs-2026-10-31.md`, the correction beside them.
+
+**Supersedes:** none
+
+**Deferred:** VH-203, VH-210, VH-219
+
 ## 2026-10-31 — VH-229 — Closes: the promises and the privacy line behind a "?" beside the title, on the owner's word
 
 **Decision:** VH-229 closes the owner's change. One "?" follows the page title, outside the heading, named "About this tool", closed at every load. It opens the existing `.lede`, the five promises then the privacy line; the panel stays open until pressed again. `#browser-note` stays in view. Spec §9.2 takes wish VH-229.1's one line, which retires it. One string, one wrapper, no walker change. At 320 × 568, closed, zh-Hans is 88 px short and ms-MY 156 px short, reported, wish VH-175.4 kept. At 320 px and 32 px Malay's title breaks within a word: contained, not comfortable, reported.
@@ -603,13 +613,3 @@
 **Supersedes:** none
 
 **Deferred:** VH-185
-
-## 2026-10-24 — VH-183 — The keyboard trim's Page step: max(10 s, 1% of the video)
-
-**Decision:** Page Up and Page Down move a trim handle by the larger of 10 s and 1% of the video, from `TRIM_PAGE_STEP_SECONDS` and a new `TRIM_PAGE_STEP_FRACTION` in `src/config/trim.ts`, so an hour is crossed in a hundred presses. The arrows, Home, End and what a handle says are unchanged.
-
-**Rationale:** `trimKeyTarget` takes the duration from its one caller. Three new cases cover an hour (36 s), the 1,000 s crossover and the clamp at both ends of a long video. In Chrome, 72 cases (130 s and 3,600 s, three languages, 1280, 375 and 320 px, four colour modes) matched exactly, with focus held and `aria-valuetext` unchanged (`reviews/2026-10-24/vh183-page-step-2026-10-24.md`). Codex astra: "Commit after the musts below"; its one must was this close-out, and its may, the run's readings kept, applied. Digest rules: WCAG 2.1.3 Keyboard (No Exception); Nielsen 7.
-
-**Supersedes:** none
-
-**Deferred:** none

@@ -1228,7 +1228,7 @@ details[open] > .disclosure-summary::before {
 }
 
 .segment + .segment .segment-face {
-  border-left: 0;
+  border-left-width: 0;
 }
 
 /* Selected is the filled one AND the heavier one: fill alone is a difference
@@ -1663,6 +1663,71 @@ details[open] > .disclosure-summary::before {
   overflow: auto;
 }
 
+
+/*
+ * A window narrower than the layout's own minimum (VH-209, V-50). 20rem is
+ * 320 px at the default font, where nothing here applies, and 640 px at a
+ * 32 px default font, where the insets have doubled and the window has not:
+ * at 320 px they left a column of 126 px, narrower than a control's padding
+ * and its longest word together. So the insets give way, the logo and the page
+ * title keeping one edge (V-36), and the controls wrap their words inside the
+ * column: the switchers (no switcher moves), the two Set buttons and a
+ * disclosure's heading. The colours stack, each face keeping its own four
+ * edges and overlapping its neighbour by one hairline, as the switchers do;
+ * in Chinese a colour's shortest width is one glyph, so a wrap would not fire.
+ * The media query follows the text size, as `25rem` does (S-113).
+ */
+@media (max-width: 19.99rem) {
+  .band-inner,
+  .band--header .band-inner,
+  .main,
+  .panel {
+    padding-inline: var(--spacing-03);
+  }
+
+  .system-check > .disclosure-summary,
+  .statement > .disclosure-summary {
+    margin-inline: calc(-1 * var(--spacing-03));
+    padding-inline: var(--spacing-03);
+  }
+
+  .language-switcher .segment,
+  .video-kind .segment,
+  .video-language .segment {
+    flex: 0 1 auto;
+    min-width: 0;
+  }
+
+  .language-switcher .segment-face,
+  .video-kind .segment-face,
+  .video-language .segment-face {
+    overflow-wrap: break-word;
+    text-align: center;
+  }
+
+  .trim-time-row .button {
+    flex: 0 1 auto;
+    overflow-wrap: break-word;
+  }
+
+  #closing-colour .segments {
+    flex-direction: column;
+  }
+
+  #closing-colour .segment + .segment {
+    margin-top: calc(-1 * var(--border-width));
+  }
+
+  #closing-colour .segment + .segment .segment-face {
+    border-left-width: var(--border-width);
+  }
+
+  .system-check > .disclosure-summary h2,
+  .statement > .disclosure-summary h2 {
+    min-width: 0;
+    overflow-wrap: break-word;
+  }
+}
 
 /*
  * Type roles (VH-166). Eight jobs, eight looks: each role is one rule naming

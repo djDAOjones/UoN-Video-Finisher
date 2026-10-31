@@ -1,0 +1,27 @@
+// VH-209 #1: each cell's instruments and rows before against after, split at the default font and the 32 px font; and the containment reading each side. node vh209-compare.mjs <records dir>
+import { readdirSync, readFileSync, existsSync } from 'node:fs'
+import { join } from 'node:path'
+const dir = process.argv[2]
+const load = (side) => { const m = {}; for (const g of ['open', 'f32', 'pages32', 'defa', 'defb', 'defc']) { const f = join(dir, `${side}-${g}.outcomes.jsonl`); if (!existsSync(f)) continue; for (const l of readFileSync(f, 'utf8').trim().split('\n')) { const r = JSON.parse(l); m[`${g}/${r.id}__${r.lang}__${r.view}__${r.mode}`] = r } } return m }
+const b = load('before'), a = load('after')
+const rowsOf = (r) => { const o = {}; for (const x of r.rows ?? []) o[x.what ?? x.name ?? x.row ?? JSON.stringify(x).slice(0, 40)] = x.outcome ?? x.status ?? x.result; return o }
+const tally = {}, moved = []
+for (const k of Object.keys(b)) {
+  const x = b[k], y = a[k], font = k.includes('font32') ? '32' : 'default'
+  if (!y) { moved.push('missing ' + k); continue }
+  const ch = []
+  const inst = new Set([...Object.keys(x.outcomes ?? {}), ...Object.keys(y.outcomes ?? {})])
+  for (const i of inst) if ((x.outcomes ?? {})[i] !== (y.outcomes ?? {})[i]) ch.push(`${i}: ${(x.outcomes ?? {})[i]} > ${(y.outcomes ?? {})[i]}`)
+  const rx = rowsOf(x), ry = rowsOf(y)
+  for (const i of new Set([...Object.keys(rx), ...Object.keys(ry)])) if (rx[i] !== ry[i]) ch.push(`row ${i.slice(0, 50)}: ${rx[i]} > ${ry[i]}`)
+  if (x.reached !== y.reached) ch.push(`reached ${x.reached} > ${y.reached}`)
+  for (const c of ch) { const t = (tally[font] ??= {}); t[c] = (t[c] ?? 0) + 1 }
+  if (font === 'default' && ch.length) moved.push(k + ': ' + ch.join('; '))
+  if (font === '32') for (const c of ch) if (/> (fail|failed)/.test(c)) moved.push('NEW FAIL ' + k + ': ' + c)
+}
+console.log('cells', Object.keys(b).length, Object.keys(a).length)
+for (const [f, t] of Object.entries(tally)) { console.log('--', f); for (const [c, n] of Object.entries(t).sort((p, q) => q[1] - p[1])) console.log(' ', n, c) }
+console.log('-- default-font moved cells or new fails:', moved.length); for (const m of moved.slice(0, 40)) console.log(' ', m.slice(0, 300))
+const fails = (m) => { const o = {}; for (const [k, r] of Object.entries(m)) for (const [i, v] of Object.entries(r.outcomes ?? {})) if (v === 'fail') (o[i] ??= []).push(k); return o }
+const fa = fails(a), fb = fails(b)
+for (const i of new Set([...Object.keys(fa), ...Object.keys(fb)])) console.log('fail', i, 'before', fb[i]?.length ?? 0, 'after', fa[i]?.length ?? 0, (fa[i] ?? []).slice(0, 4).join(' ').slice(0, 220))

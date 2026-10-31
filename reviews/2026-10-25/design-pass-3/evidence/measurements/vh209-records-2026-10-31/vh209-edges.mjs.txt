@@ -1,0 +1,16 @@
+// VH-209 #1: after the build, read-only but for pressing the page's own colour radios: the stacked colours' four edges in each mode, chosen each way, the wrapped controls' boxes, and three pictures. matrix.mjs unchanged, on a plan in memory. Writes under $OUTD.
+import { pathToFileURL, fileURLToPath } from 'node:url'; import { join } from 'node:path'; import { appendFileSync, writeFileSync } from 'node:fs'
+const walker = process.env.WALKER, matrixUrl = pathToFileURL(join(walker, 'matrix.mjs')).href
+const { PLANS, SCENARIOS } = await import(new URL('./scenarios.mjs', matrixUrl).href); const { setMode } = await import(new URL('./qualify.mjs', matrixUrl).href)
+const READ = `(() => { const out = {}; const faces = [...document.querySelectorAll('#closing-colour .segment-face')]; const one = (f) => { const c = getComputedStyle(f), b = f.getBoundingClientRect(); return { l: [c.borderLeftWidth, c.borderLeftStyle, c.borderLeftColor], t: [c.borderTopWidth, c.borderTopColor], r: [c.borderRightWidth, c.borderRightColor], box: [Math.round(b.left), Math.round(b.right), Math.round(b.top + scrollY), Math.round(b.bottom + scrollY)] } }; for (const v of ['blue', 'white']) { document.querySelector('#closing-colour input[value="' + v + '"]').click(); out[v] = faces.map(one) } document.querySelector('#closing-colour input[value="blue"]').click();
+ out.wrapped = ['#trim-set-start', '#trim-set-end'].map((s) => { const b = document.querySelector(s).getBoundingClientRect(); return [s, Math.round(b.width), Math.round(b.height)] }).concat([...document.querySelectorAll('.segment')].map((s) => { const b = s.getBoundingClientRect(); return [s.textContent.trim().slice(0, 14), Math.round(b.width), Math.round(b.height)] })); return out })()`
+const sc = SCENARIOS['S-113'], orig = sc.setup
+const modes = process.argv[2].split(','), cells = []
+for (const lang of ['en-GB', 'zh-Hans', 'ms-MY']) for (const mode of modes) cells.push({ id: 'S-113', lang, view: 'w320', mode })
+const mode = modes[0]
+sc.setup = async (w, lang) => { await setMode(w, mode); await orig(w, lang) }
+const shot = async (w, name, sel) => { await w.evaluate(`document.querySelector(${JSON.stringify(sel)}).scrollIntoView({ block: 'start' })`); await new Promise((r) => setTimeout(r, 200)); const p = await w.page.send('Page.captureScreenshot', { format: 'png', captureBeyondViewport: false }); writeFileSync(join(process.env.OUTD, name + '.png'), Buffer.from(p.data, 'base64')) }
+sc.afterMode = async (w) => { const cell = w.name.split('/').pop(); const g = await w.evaluate(READ); appendFileSync(join(process.env.OUTD, 'edges.jsonl'), JSON.stringify({ cell, mode: w.qualMode, ...g }) + '\n'); if (['en-GB', 'ms-MY'].some((l) => cell.includes(l)) && (mode === 'font32' || mode === 'forced-dark-font32')) { for (const [n, s] of [['top', 'body'], ['trim', '#trim-set-start'], ['colour', '#closing-colour']]) await shot(w, `${cell}-${mode}-${n}`, s) } await w.evaluate(`scrollTo(0, 0)`) }
+PLANS['vh209-edges-' + mode] = () => cells
+process.argv = [process.argv[0], fileURLToPath(matrixUrl), 'vh209-edges-' + mode]
+await import(matrixUrl)

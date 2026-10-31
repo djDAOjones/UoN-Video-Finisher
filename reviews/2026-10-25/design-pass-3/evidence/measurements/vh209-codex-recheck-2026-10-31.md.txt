@@ -1,0 +1,11 @@
+VH-209 matches base `92eaf65` plus `vh209-frozen-r1`: tracked diff, status and all **901 untracked SHA-1 entries** agree. No changes made.
+
+- **Earlier findings reconciled.** The correction accurately records the three spacing residues, attributes the twelve `type` failures to Lora headings at line-height 1.5, and identifies S-114’s three target results as **fail → cannot-determine**. The decision and VH-209.2 agree. VH-209 follows VH-229 in the trajectory; VH-209.3 now acknowledges VH-210’s existing conditional. The preserved tables and manifests are reconciled through explicit errata, including both renamed Markdown notes. All ten renamed copies exist with matching hashes. I found no remaining blocker in the added material.
+
+- **Spacing judgement supported for the measured cases.** The three fragments end at approximately **291, 294 and 320 px**, beyond the column’s 287 px edge. All twelve spacing records pass overflow; horizontal scroll is zero, and the relevant CSS introduces no clipping or overlapping neighbour. Crossing a column boundary alone does not establish failure: [SC 1.4.12 requires preservation of content and functionality](https://www.w3.org/WAI/WCAG22/Understanding/text-spacing.html). The evidence supports the stated judgement and VH-209.2 disposition; it does not demonstrate loss. The existing line-box-versus-ink measurement limitation remains.
+
+- **Source unchanged.** The `src/styles/app.css` and `test/stylesheet.test.ts` sections are byte-identical between the original and revised frozen diffs.
+
+- **Gate supported.** The supplied log completes with 1,655 passing tests and the unchanged existing skip. Fresh `node tools/check.mjs`: zero failures or warnings. The close names the required WCAG “every exception recorded” and Carbon “our own code” digest rules.
+
+Commit — the previous blockers are reconciled, the spacing judgement is supported, and the verified source is unchanged.

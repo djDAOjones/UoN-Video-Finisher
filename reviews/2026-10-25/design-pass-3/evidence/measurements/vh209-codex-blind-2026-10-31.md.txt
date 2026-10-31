@@ -1,0 +1,29 @@
+The CSS remedy looks sound, but the evidence does not yet satisfy every criterion. I made no changes.
+
+I read the contract and required ledger, VH-209, the matching `78b118c94523b822` diff, UI-STANDARDS and digests, all three stylesheets, `index.html`, both measurement notes, group outcomes/probes/logs, run records and manifests, comparison/focus reports, edges/screenshots, both six-case readings, and relevant walker scripts.
+
+1. **Pass — named overflow.** S-113’s six cases, across four palettes, contain the language choices, submission choice, both Set buttons, White and Malay statement heading. Afterward, all 156 containment probes report zero sideways overflow. `contain.js` correctly accounts for horizontal scrolling and compares text with columns and controls. Its limits matter: line boxes are not glyph ink; it misses native-control text, pseudo-elements, outlines, vertical clipping and some nested clipping. Select options are explicitly excluded. Thus zero does not establish universal absence of clipping.
+
+2. **Pass — structure and words.** Only CSS and its tests changed. No element, wording, DOM order or switcher location changed. `flex-direction: column` is technically stacking rather than flex wrapping, but constitutes responsive reflow within the existing colour group, not relocation of a control.
+
+3. **Pass at the stated CSS widths.** The 180 default-font records retain their overflow outcomes and numeric target/ring readings. Outside the query, replacing `border-left: 0` with `border-left-width: 0` preserves a zero-width edge; switchers separately restore theirs. At a 16 px browser default, the query ends at 319.84 CSS px. It cannot fire at a **CSS viewport** of 320, 401 or 1280 px, but page zoom can reduce a physical window below that threshold. “At any zoom” needs that distinction.
+
+4. **Targets pass; ring evidence fails completeness.** `after-edges` measures Set at 254 × 118/160 and segments comfortably above 44 × 44. S-113 focuses only `#closing-onset` and `#onset-help-button`. Among changed controls, S-03 additionally reads checked Page language and Staff video; S-119 reads checked Video language. Neither Set button, Student submission, either colour segment nor either disclosure summary receives the required ring reading. Add those measurements at both widths, all languages and four palettes. Border screenshots do not establish focus appearance.
+
+5. **Pass — V-18 and V-48 reporting.** Painted file-button bottoms remain 309/480/501 and 471/656/724 px: none lower; the two phone cases remain below the first screen. V-48’s onset ring changes from 460/464 to 528/464 px². Reporting that improvement while leaving disposition to VH-210 is honest.
+
+6. **Pass — scope.** Select rules and statement wording are unchanged. Select room increases incidentally with the column. Malay’s title improves from four lines to two, 280 → 140 px, without changing its text or type scale. That affects VH-229.3’s observation and should be reconciled at close.
+
+7. **Fail — complete WCAG verification.** The measured content supports 1.4.4, 1.4.10 and 1.4.8; contrast readings and unchanged colour roles support 1.4.3/1.4.6. Target evidence supports 2.5.5 for these wrapped controls. However, 2.4.13 remains incomplete as above, and no spacing-mode cells establish the requested 1.4.12 re-check. Add it with the changed rules active. Existing chooser-ring failures prevent an unrestricted whole-page AAA claim.
+
+8. **Pass — tokens and source pins.** Existing tokens remain separated; the breakpoint and structural numbers use established exemptions. No second primary or progress-bar change appears. All seven new source tests pass in my in-memory check; deleting any of the nine added blocks, removing the query, or restoring the old shorthand triggers failure. These pin source presence, not computed layout or later overrides.
+
+9. **Provenance passes; coverage/reporting needs repair.** Base, driver hashes, instrument revision and Chrome match; every group records AC/mode 2. Peaks—including 33.98—do not alone invalidate settled geometry with loaded fonts and successful state checks; I found no load-induced failure requiring a repeat. Before w375 has twelve viewport refusals; after has none. Those are not valid paired before geometry at 375. The correction accurately distinguishes 110 reached overflow failures from 122 probe readings. The default groups are representative, not every affected state: alternate/disabled segments and default-font open About are absent. Also disclose the 60 missing `formatTip` evidence subjects per side. Correct “median” where it means upper middle sample: before-open’s conventional median is 8.41, not 10.22.
+
+10. **Pass — Intent, with documentation due.** I agree with the inset ruling as an implementation choice. Keeping doubled gutters leaves too little reading room; breaking words more aggressively would be worse. Existing-token insets preserve alignment and make choices readable. Evidence supports that judgement, not an assertion of owner endorsement. Record the ruling and reconcile UI-STANDARDS’ inset description.
+
+11. **Incomplete — other callers.** Sampled panels, notifications, footer, open About and title row improve without a demonstrated regression. The dialog has separate padding and is not directly changed. Error/result/running states, other w375/w400 routes and intermediate 20–32 px wrapping transitions remain unproved. Add targeted coverage rather than claiming universal protection.
+
+At close, add the currently absent VH-209.1 follow-up, link V-50’s evidence and supply the settled-machine full gate. My `node tools/check.mjs` run passed with zero warnings.
+
+Commit with the listed repairs.

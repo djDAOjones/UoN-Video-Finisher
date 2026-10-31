@@ -1,0 +1,13 @@
+You are checking one complete close before commit, read-only, as a separate run. You make no change. Be concise, at most about 500 words.
+
+Repository: the current directory, base 92eaf65c4211cdf0aea0cffaabbfe48fa2c2f75b, the candidate uncommitted. Frozen: `/Users/joe/UoN-Video-Helper-side/vh209-frozen/` (`tracked.diff`, `status.txt`, `untracked.sha1`); confirm the tree matches. Contract: `AGENTS.md`; item: `project/items/VH-209.md`.
+
+Read: the tracked diff (app.css, its test, the ledger files: backlog, trajectory, decisions, the archive move, wish list, item, the report's Disposition row); the untracked evidence in `reviews/2026-10-25/design-pass-3/evidence/measurements/`, `vh209-*`, as the sha1 list names it: the two tables, the correction, the compares, Claude's design and verdict, the Codex answers and briefs. Gate log: `/Users/joe/UoN-Video-Helper-side/vh209-gate-3.log`.
+
+Do not read any folder under `side-session-notes/`, nor, in `/Users/joe/UoN-Video-Helper-side/`, `vh209-claude-*`, `vh209-*compare*`, `vh209-progress.md`, `vh209-handover-*`, or any `vh209-*brief*` but this one; the copies in the measurements folder you may read.
+
+What every earlier check said: your blind check said "Commit with the listed repairs": rings for wrapped controls, 1.4.12 with the rules active, more callers, disclosures, reconcile VH-229.3, add VH-209.1, link V-50's evidence, the settled gate. The repairs table and the compare answer them; "reconcile UI-STANDARDS' inset description" was not taken, it having no such line.
+
+The words that govern: the owner took V-50 at rank 3, "CSS only, with the existing tokens; no element, no move of the switchers and no rewording". The insets are his orchestrator's ruling, not his, and must be recorded so and listed for him: "The criterion's bracket names means, not a closed list…"; "below 20rem only, `--spacing-03`".
+
+Answer: (1) each repair present and true to the records? (2) each acceptance criterion and stage-rule line met, or a stated shortfall? (3) the ledger: rules 4, 5, 6, 8; the decision's numbers against the tables; the ruling named as the orchestrator's; the wish retirement traced; a later-item claim unchecked? (4) the correction and the renamed record copies: does anything now point at a missing file? (5) anything that should stop the commit. End with one line: Commit, or Do not commit, with the reason.

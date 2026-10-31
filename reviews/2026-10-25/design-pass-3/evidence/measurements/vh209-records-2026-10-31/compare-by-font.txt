@@ -1,0 +1,29 @@
+cells 336 336
+-- 32
+  110 overflow: fail > pass
+  20 focus: fail > pass
+  15 contrastExtra: cannot-determine > pass
+  12 overflow: undefined > pass
+  12 ax: undefined > pass
+  12 targets: undefined > cannot-determine
+  12 contrastText: undefined > pass
+  12 contrastExtra: undefined > cannot-determine
+  12 measure: undefined > pass
+  12 type: undefined > pass
+  12 focus: undefined > pass
+  12 player: undefined > not-applicable
+  12 formatTip: undefined > not-applicable
+  12 footer: undefined > pass
+  12 limiting: undefined > not-applicable
+  12 videoLanguage: undefined > pass
+  12 row the 25rem query follows the text size: the "?" bes: undefined > pass
+  12 row the room in each select, and options clipped (wish: undefined > not-counted
+  12 reached fail > pass
+  12 targets: cannot-determine > pass
+  4 focus: cannot-determine > pass
+-- default-font moved cells or new fails: 0
+fail targets before 12 after 12 open/S-03__en-GB__w320__font32 open/S-03__en-GB__w401__font32 open/S-03__ms-MY__w320__font32 open/S-03__ms-MY__w401__font32
+fail type before 12 after 12 open/S-03__en-GB__w320__font32 open/S-03__en-GB__w401__font32 open/S-03__ms-MY__w320__font32 open/S-03__ms-MY__w401__font32
+fail focus before 65 after 45 open/S-03__en-GB__w320__font32 open/S-03__ms-MY__w320__font32 open/S-03__zh-Hans__w320__font32 pages32/S-03__en-GB__w320__dark-font32
+fail formatTip before 6 after 6 open/S-03__en-GB__w320__font32 open/S-03__en-GB__w401__font32 open/S-03__ms-MY__w320__font32 open/S-03__ms-MY__w401__font32
+fail overflow before 110 after 0 

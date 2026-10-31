@@ -1,0 +1,36 @@
+**The six cases, the Choose file button's painted bottom (px; `rings-179.mjs v18`, the walker's own, closed):**
+
+| Case | Before | After | First screen |
+| --- | --- | --- | --- |
+| en-GB 1280 x 900 | 309 | 309 | inside |
+| zh-Hans 1280 x 900 | 480 | 480 | inside |
+| ms-MY 1280 x 900 | 501 | 501 | inside |
+| en-GB 320 x 568 | 471 | 471 | inside |
+| zh-Hans 320 x 568 | 656 | 656 | 88 px short, as VH-229 reported |
+| ms-MY 320 x 568 | 724 | 724 | 156 px short, as VH-229 reported |
+
+None lower.
+
+**The page, by the driver's read-only containment reading (`contain.js`, the same each side), every walked 32 px cell:** 156 cells. The page scrolls sideways in 122 of the 144 reached before, 0 of the 156 after. Elements past the window, 1,162 → 0; text fragments past the window, their column or their control, 1,628 → 0. The panel's column: 126 → 254 px at 320, 207 → 335 at 401, 181 → 309 at 375, 206 → 334 at 400; 446 at 640 and 1,086 at 1280, unmoved, the query not reaching them.
+
+**The default font, 180 cells (1280, 401 and 320 px, three languages, four colour modes):** no instrument and no row moved; overflow, column, boxes of every segment and button, and the title row are the same numbers each side. One rule outside the query changed, `border-left: 0` to `border-left-width: 0`, with no painted change.
+
+**The title row and the panel open (`open`, the title's "?" pressed; 320 and 401 px, 32 px).** The open panel makes nothing scroll, on either side: its box is inside the page in all six records before (48..272, 48..353; Malay's 31..255 is the scroll position), and the sideways scroll before came from the controls. After: page 320 and 401; panel 16..304 and 16..385; shorter (en-GB 320 px, 1,568 → 1,136 px).
+
+**Wish VH-229.3 moved; it was not worked on.** Malay's title at 320 px and 32 px reads two lines, 280 → 140 px, with "Pembantu" whole, since its column grew from 224 to 288 px. The "?" still takes a line of its own in Malay at 320 px; in English it now sits beside the title.
+
+**V-48, re-read, left for VH-210.** `S-113__ms-MY__w320__font32`, the onset "?": 460 of 464 px² before, 528 of 464 after, pass, and in the three other 32 px colour modes (444 to 460 before; pass after). VH-210 owns the verdict.
+
+**Still failing alike, not this item's.** `#contact-creators` in forced palettes at the default font, 12 cells, V-49, VH-210's. `#preset-choice input:checked`, 276 of 304 px², forced palettes at 32 px, 18 cells: the box-for-a-disc reference pass 3 set aside. **The chooser's ring at 320 px and 32 px, 15 cells each side: 432 of 544 px² → 944 of 1,056**, always 112 short; at 401 px it failed 15 (756 of 868) and passes after. Not caused here, not located; wish line VH-209.1. The rows pinning the old order, 66 + 66 cells, each side: wish VH-216.1, his "Yes, leave them". `open`'s `targets`, `type` and `formatTip`: the format "?" inside the open panel at 32 px, 40 x 40, 12 + 12 + 6 cells alike each side (the walker's route only reaches it in `open`), read as wish VH-217.2's and the known hit-box note; no change here.
+
+**Wrapped controls (`after-edges`, S-113, 320 px, three languages, four modes).** Set buttons 254 wide, 118 or 160 high; segments 76 or 118 high; each above 44 x 44. The stacked colours each keep four 1 px edges, the seam overlapping by one hairline, the second face's left edge in that state's own colour in every palette (forced light black, then Highlight when chosen; forced dark white, then Highlight). The walker's `targets` at 32 px: pass where it passed, and the 12 S-03 w320 cells `cannot-determine` → pass. Rings: every wrapped control the walker reads at 32 px passes; no focus cell newly fails. Pictures of top, trim and colour: `after-edges`.
+
+**Step 4's selects, VH-219's, moved and not claimed:** room grew by the column's 128 px (en-GB 401 px, 101 → 229), and they are still recorded as found. The item's rule stands.
+
+**Not reached.** Before: S-113's 12 cells at w375 and the 32 px font, refused by the phone emulation (wish VH-217.4). **After: all 12 reached**, since the page no longer overflows, the emulation has nothing to widen to. That is the cause named by VH-217.4 and VH-216.2, read at S-113; S-03, S-17, S-95 to S-98 and S-141 to S-144 at w375 were not walked here.
+
+**Power and load.** AC, mode 2, every group each side. Peaks at or above 8 on the before's `open` (2 of 4 samples), `f32` (6), `pages32` (17 of 21, peak 34), `defa` (9), `defb` (5), and the after's `open` (1), `pages32` (3), `defa` (4), `defb` (1): the owner's work, walked through as the wait allows. A point for the blind check to judge. The before's `pages32` is the worst, and its readings are geometry.
+
+**Ruling.** The insets giving way below 20rem are the orchestrator's ruling on the means, not the owner's: the criterion's bracket does not name insets. For the owner to see.
+
+**What a person must check:** a phone with a large font in real use; the wrapped words by a native Chinese and a native Malay reader; a screen reader's reading is unchanged, as no element or name changed.

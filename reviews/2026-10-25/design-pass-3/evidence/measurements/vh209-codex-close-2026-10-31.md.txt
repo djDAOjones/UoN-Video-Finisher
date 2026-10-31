@@ -1,0 +1,18 @@
+The tree matches base `92eaf65` plus the frozen candidate: tracked diff, status and all **899 untracked SHA-1 entries** match. No changes made.
+
+1. **Repairs are present, but three claims are inaccurate.** The added ring readings pass: ten named controls/states, 24 readings each. Spacing, additional callers, disclosures, VH-209.1 and V-50’s evidence links are present. However, [the repairs table](</Users/joe/Library/CloudStorage/OneDrive-TheUniversityofNottingham/_Joe Bell UoN Files/2_Projects/2026-08-24 UoN Video Helper/reviews/2026-10-25/design-pass-3/evidence/measurements/vh209-repairs-2026-10-31.md:73>) overstates:
+   - “No text past its column”: three `after-sp32` S-113/w320 probes report text ending at **291, 294 and 320 px**, against the column’s **287 px** edge, respectively English, Chinese and Malay.
+   - Those spacing-mode `type` failures concern **Lora headings with line-height 1.5**, not the format “?”; attributing them to VH-217.2 is incorrect.
+   - Three S-114 target results improve from **fail to cannot-determine**, not pass.
+
+   The twelve walker overflow passes are real. Reconcile the text residues and establish whether they lose content or functionality before asserting the 1.4.12 criterion is satisfied.
+
+2. **Acceptance and stage rules:** named offenders, ordinary 32 px containment, wrapped targets/rings, the 180 default-font cells, V-18’s six unchanged bounds and V-48’s rereading are supported. CSS scope, existing tokens, source pins, unchanged wording/elements and protected documents hold. Error/running/locked states at 32 px and other w375 routes are explicitly unwalked; larger-font failures and existing chooser-ring failures are recorded. The unresolved spacing interpretation prevents an unqualified verification pass.
+
+3. **Ledger:** rules 4, 5, 6 and 8 are substantially fulfilled: decision/rationale, follow-up lines, backlog removal, trajectory entry, traced VH-229.3 retirement and named digest rules. The principal numbers agree, including corrected **110/144 → 0/156**, columns and ring counts. Insets are explicitly the **orchestrator’s ruling**, listed for the owner. The archive move is verbatim. VH-210 already explicitly anticipates V-48 disappearing after VH-209; VH-209.3 should acknowledge that conditional. Place VH-209 after its prerequisite VH-229 in the trajectory’s oldest-first sequence.
+
+4. **Correction and references:** the overflow correction is accurate; checked Markdown links resolve. Both `sources.txt` manifests still name **ten nonexistent pre-rename filenames**. Matching `.txt` copies exist and hashes agree, so evidence is preserved, but the manifest names need reconciliation—including the two renamed `.md` notes omitted from the correction’s explanation.
+
+5. **Gate:** the supplied full gate completes successfully: 1,655 tests pass; its single EBU skip is unchanged from base. Legacy warnings have INTAKE.8. My fresh `node tools/check.mjs` reports zero failures and warnings.
+
+**Do not commit — reconcile the inaccurate repair claims, resolve the spacing evidence, and correct the stale evidence references.**
