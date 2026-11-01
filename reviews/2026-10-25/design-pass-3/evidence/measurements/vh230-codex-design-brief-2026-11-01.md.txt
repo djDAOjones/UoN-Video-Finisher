@@ -1,0 +1,29 @@
+<!-- markdownlint-disable -->
+
+# VH-230 — Codex astra's blind design check
+
+You are a read-only design partner on the UoN Video Helper repository (your working directory). Nothing is built yet. Give your own design for this item, independently. Don't edit anything.
+
+**May read:** this repository at HEAD, especially `project/items/VH-230.md`, `project/items/VH-218.md`, `src/styles/app.css` (`.check`, `.system-check .check`, the `@media (max-width: 19.99rem)` block, `.check .mark`), `src/styles/tokens.carbon.css`, `src/styles/tokens.brand.css`, `src/main.ts` near line 810, `src/acceptance/main.ts`, `acceptance.html`, `src/i18n/{en-GB,zh-Hans,ms-MY}.ts` (`systemCheck.marks`, `rows`, `values`), `UI-STANDARDS.md`, `project/digests/carbon.md`, `project/digests/wcag-2.2-aaa.md`, `project/digests/house-conventions.md`, `test/stylesheet.test.ts`, and `reviews/2026-10-25/design-pass-3/evidence/measurements/vh218-check-rows-r3-2026-10-31.md`.
+
+**May not read:** any folder under `side-session-notes/`; in `/Users/joe/UoN-Video-Helper-side`, anything at all except `/Users/joe/UoN-Video-Helper-side/plan8-owner-words.md` lines 271 and 275.
+
+**The owner's words:** "even old issues should be solved for" and "ensure everything passes UX / design / Accessibility". The item itself is an orchestrator's ruling, listed for him.
+
+**The defect:** the System check's mark column is `--mark-width`, 1.5 rem, too narrow for some state words, so each breaks over two lines. Readings: Malay `Tidak` 36.33 px at the default font, 44.73 under the spacing sheet (WCAG 1.4.12 values), 72.64 at a 32 px default font in a 48 px column; Chinese `好的` 28, 31.38, 56; `OK` 24.38 under spacing; Chinese's pending `……` also two lines, width unmeasured. At 32 px on a phone the mark already has its own line.
+
+**The item's criteria, each to answer:**
+1. Each mark whole on one line in every state and condition: pending, passed, warned, failed; 1280, 375, 320 px; default font, 32 px font, spacing mode; en-GB, zh-Hans, ms-MY; light, dark, forced light, forced dark. DOM order and words unchanged.
+2. A remedy chosen, from the two the item names and leaves unchosen: widen the gutter for every row (the `--mark-width` value), or add a token. A third is allowed only if it keeps every criterion and adds no element, literal outside a token, or string. The row's label keeps VH-218's result: no word broken.
+3. Tokens on the two token files, never collapsed; no literal outside `src/config/` or a token; no control or element added.
+
+**Points to judge, in your own reasoning:**
+- Which remedy, and exactly which value and declarations change. Give the diff you'd write.
+- Which callers of `.check` and `--mark-width` exist, by your own search, and what your remedy does to each. Anything another page's layout does, moved or unmoved, say how to prove it.
+- What the wider column costs each row's label and value at 320 and 375 px, default font and spacing mode, and at 1280 px at 32 px: any word that could break, any value that would move beneath its label, and whether that's acceptable. Use the VH-218 table's numbers.
+- Whether the width alone suffices or the mark also needs a declaration such as `white-space: nowrap`, and why.
+- WCAG 1.4.10 and 1.4.12, and the Carbon rule "two token systems, never collapsed": what applies, what to measure.
+- Whether one column for all three languages is right, against one per language, for the look of en-GB's "OK", "No", "!", "…" in it.
+- What a before-and-after walk must read to prove it, the ellipsis included, and anything else you'd watch for that this brief doesn't name.
+
+Answer in under 700 words: your design, then each criterion and point in turn, then any risk.

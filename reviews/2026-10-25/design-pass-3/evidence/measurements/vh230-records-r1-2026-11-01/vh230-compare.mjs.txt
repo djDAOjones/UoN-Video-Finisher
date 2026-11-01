@@ -1,0 +1,41 @@
+// VH-230 #1: the reading the one-page table's notes carry, from the probes. node vh230-compare.mjs <walk dir> [beforePrefix] [afterPrefix]
+import { readdirSync, readFileSync, existsSync } from 'node:fs'
+import { join } from 'node:path'
+const D = process.argv[2], PA = process.argv[3] ?? 'before', PB = process.argv[4] ?? 'after', G = ['passed', 'pending', 'warned', 'failed']
+const load = (p, g) => { const r = join(D, `${p}-${g}`, 'runs'); return readFileSync(join(r, readdirSync(r).find((x) => /probe/.test(x))), 'utf8').trim().split('\n').map((l) => JSON.parse(l)) }
+const cond = (m) => (m.endsWith('font32') ? 'font32' : m.endsWith('spacing') ? 'spacing' : 'default')
+const colour = (m) => m.replace(/-?(font32|spacing)$/, '') || 'light'
+const parse = (j) => ({ lang: ['en-GB', 'zh-Hans', 'ms-MY'].find((l) => j.cell.includes(l)), view: 'w' + j.cell.split('-w').at(-1), cond: cond(j.mode), colour: colour(j.mode) })
+const P = (...s) => console.log(...s)
+const reads = (r) => [['', r], ['failedToStart', r.failedToStart], ['stagedPending', r.stagedPending]].filter(([, x]) => x)
+const side = (p) => { const s = { cells: 0, bad: 0, errors: 0, over: 0, reads: new Map(), marks: new Map() }
+  for (const g of G) for (const j of load(p, g)) { s.cells++; if (j.error) { s.errors++; continue } const c = parse(j), m = j.modeRead
+    if (m.fontPx !== (c.cond === 'font32' ? 32 : 16) || m.spacing !== (c.cond === 'spacing') || m.forced !== c.colour.startsWith('forced') || m.dark !== /dark/.test(c.colour) || m.vw !== Number(c.view.slice(1)) || !j.open) s.bad++
+    if (j.overflow.scrollWidth > j.overflow.clientWidth) s.over++
+    for (const r of j.rows) for (const [kind, x] of reads(r)) { s.reads.set([g, j.cell, j.mode, r.id, kind].join('|'), { ...x, c, g, id: r.id, kind })
+      const W = x.markWhole, K = `${c.lang} ${W.text} ${c.cond}`, e = s.marks.get(K) ?? { w: 0, lines: 0, minRoom: Infinity, minGap: Infinity, col: 0, views: new Set(), broke: new Set(), n: 0 }
+      e.n++; e.w = Math.max(e.w, W.w); e.lines = Math.max(e.lines, W.lines); e.minRoom = Math.min(e.minRoom, W.room); if (x.markTopToLabel > -3) e.minGap = Math.min(e.minGap, W.gapToLabel); e.col = Math.max(e.col, W.column); e.views.add(c.view); if (W.lines > 1) e.broke.add(c.view); s.marks.set(K, e) } }
+  return s }
+const A = side(PA), B = side(PB)
+P(`Cells: before ${A.cells}, after ${B.cells}; probe errors ${A.errors}, ${B.errors}; modes not as declared ${A.bad}, ${B.bad}; sideways overflow ${A.over}, ${B.over}. Readings ${A.reads.size}, ${B.reads.size}.`)
+const count = (s, f) => [...s.reads.values()].filter(f).length
+P(`Mark readings on more than one line: ${count(A, (x) => x.markWhole.lines > 1)} → ${count(B, (x) => x.markWhole.lines > 1)}. Past its column (room below 0): ${count(A, (x) => x.markWhole.room < 0)} → ${count(B, (x) => x.markWhole.room < 0)}.`)
+P(`Label words broken: ${count(A, (x) => x.label.broken.length)} → ${count(B, (x) => x.label.broken.length)}. Value words broken: ${count(A, (x) => x.value.broken.length)} → ${count(B, (x) => x.value.broken.length)}. Label or value past the row: ${count(A, (x) => x.past)} → ${count(B, (x) => x.past)}.`)
+P(`Value beneath its label: ${count(A, (x) => x.beneath)} → ${count(B, (x) => x.beneath)}, of ${B.reads.size}.`, '')
+P('Each mark, widest whole width in px, lines at most, least room in its column, each side (language, mark, text condition):', '', '| Language, mark, text | Width before | Lines before | Column before | Least room before | Width after | Lines after | Column after | Least room after | Least gap to label after |', '| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |')
+for (const k of [...A.marks.keys()].sort()) { const a = A.marks.get(k), b = B.marks.get(k); P(`| ${k} | ${a.w} | ${a.lines} | ${a.col} | ${a.minRoom} | ${b?.w} | ${b?.lines} | ${b?.col} | ${b?.minRoom} | ${b?.minGap === Infinity ? 'own line' : b?.minGap} |`) }
+const flips = new Map(), back = new Map(), lab = new Map(), moved = { same: 0, rowH: 0 }; let missing = 0
+for (const [k, a] of A.reads) { const b = B.reads.get(k); if (!b) { missing++; continue }
+  const K = `${a.c.lang} ${a.c.view} ${a.c.cond}`, RK = `${a.id}${a.kind ? ' ' + a.kind : ''} ${a.g}`
+  if (!a.beneath && b.beneath) { const q = flips.get(K) ?? new Map(); q.set(RK, (q.get(RK) ?? 0) + 1); flips.set(K, q) }
+  if (a.beneath && !b.beneath) { const q = back.get(K) ?? new Map(); q.set(RK, (q.get(RK) ?? 0) + 1); back.set(K, q) }
+  if (a.label.lines !== b.label.lines) { const q = `${K} ${a.label.lines}→${b.label.lines}`; lab.set(q, (lab.get(q) ?? 0) + 1) }
+  if (a.rowH !== b.rowH) moved.rowH++ }
+P('', `Readings unpaired: ${missing}. Row height changed in ${moved.rowH} readings.`)
+const sumF = (m) => [...m.values()].reduce((t, q) => t + [...q.values()].reduce((a, b) => a + b, 0), 0)
+P(`Value moved beneath its label, beside before: ${sumF(flips)} readings; the other way: ${sumF(back)}.`)
+for (const [k, q] of [...flips].sort()) P(`- ${k}: ${[...q].map(([r, n]) => `${r} ×${n}`).join('; ')}`)
+if (back.size) { P('The other way:'); for (const [k, q] of [...back].sort()) P(`- ${k}: ${[...q].map(([r, n]) => `${r} ×${n}`).join('; ')}`) }
+P('', 'Label lines moved (language, width, text, lines): ' + ([...lab].sort().map(([k, n]) => `${k} ×${n}`).join('; ') || 'none'))
+const acc = (p) => { const f = join(D, `${p}-acceptance`, 'acceptance.jsonl'); return existsSync(f) ? readFileSync(f, 'utf8').trim() : null }
+P('', 'The acceptance page, live, a row in its own shape, each side: ' + (acc(PA) && acc(PA) === acc(PB) ? 'byte-identical' : 'DIFFERS or absent'), '', '`' + (acc(PA) ?? 'absent') + '`')

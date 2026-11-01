@@ -1,0 +1,75 @@
+206fe72774742b5b6c1bbc1b9736bfcb3b2df356  before-passed.conditions.txt  ./before-passed/conditions.txt
+da72b43c785e9296929e9e5d3115a3d6cb9358b2  before-passed.load.log.txt  ./before-passed.load.log
+df9f13bb8b26f24c1a788aed58655f44bac7ff46  before-passed.launcher.log.txt  ./before-passed.launcher.log
+1fa07a1f45dee65d318889a23bdcd5342ab1a29d  before-passed.vh230-before-passed.manifest.json  ./before-passed/runs/vh230-before-passed-2026-11-01T02-54-43-290Z-b14994/manifest.json
+e842fa997552fa8bbe3283995d01d407453ac886  before-passed.vh230-before-passed.run.json  ./before-passed/runs/vh230-before-passed-2026-11-01T02-54-43-290Z-b14994/run.json
+fc150ef635fbb46ee787e9d5f92665612ec4b7ee  before-passed.vh230-ledger.jsonl  ./before-passed/runs/vh230-ledger.jsonl
+fd274790bfc441729c38d624e3bd3e014fa075c3  before-passed.vh230-probe-vh230-before-passed.jsonl  ./before-passed/runs/vh230-probe-vh230-before-passed.jsonl
+ceed6d696f8298d4d389f13b5d8ab15b5c54d023  before-passed.outcomes.jsonl  written from before-passed/runs
+bfd842043ca9ab182d347314a42b7689bbeefb5f  after-passed.conditions.txt  ./after-passed/conditions.txt
+8f38cc62e0b067ee732c2ada50df5fb37e6d9cf5  after-passed.load.log.txt  ./after-passed.load.log
+f807e934234a193a85a86f96c5c70939734a857e  after-passed.launcher.log.txt  ./after-passed.launcher.log
+e23983daab38f2075df473d4352039186eb99440  after-passed.vh230-after-passed.manifest.json  ./after-passed/runs/vh230-after-passed-2026-11-01T03-15-22-761Z-c8c5dc/manifest.json
+f6b77c9e7044a7f5302c78741b2a51e922134112  after-passed.vh230-after-passed.run.json  ./after-passed/runs/vh230-after-passed-2026-11-01T03-15-22-761Z-c8c5dc/run.json
+1ea20aae6fca70ed80ad0ad107da2e30061e2e5e  after-passed.vh230-ledger.jsonl  ./after-passed/runs/vh230-ledger.jsonl
+b30b8bc30289447b4f26ef4b2d38cbaffe994281  after-passed.vh230-probe-vh230-after-passed.jsonl  ./after-passed/runs/vh230-probe-vh230-after-passed.jsonl
+34201716ea9a3172aac9145f0f02fe4feaaa4935  after-passed.outcomes.jsonl  written from after-passed/runs
+7f0e5390163b563b940cb5104f42d2c11b11b6ed  before-pending.conditions.txt  ./before-pending/conditions.txt
+cf5bbde2f0f2786e2e7f852e43969d69109f0922  before-pending.load.log.txt  ./before-pending.load.log
+f50701c8bd7782a910849bb9fc1e8ce5c774113c  before-pending.launcher.log.txt  ./before-pending.launcher.log
+01dff5bc5e19dc2da98b18ee8fa61ca9b8dd3145  before-pending.vh230-before-pending.manifest.json  ./before-pending/runs/vh230-before-pending-2026-11-01T02-59-18-749Z-15965a/manifest.json
+aef727ca56cdc6f8993cab7cd37eaec0ad24ffac  before-pending.vh230-before-pending.run.json  ./before-pending/runs/vh230-before-pending-2026-11-01T02-59-18-749Z-15965a/run.json
+0764d86e75b68e439c57dedfa321da3e6c82ae7e  before-pending.vh230-ledger.jsonl  ./before-pending/runs/vh230-ledger.jsonl
+500eecce49797ec0c241b7fd6b4ce33ae586a228  before-pending.vh230-probe-vh230-before-pending.jsonl  ./before-pending/runs/vh230-probe-vh230-before-pending.jsonl
+db666a66e406d11e380d09ada4874a683cc5271b  before-pending.outcomes.jsonl  written from before-pending/runs
+08b0691237c763e1cd2e0bd3947fe398309acb8c  after-pending.conditions.txt  ./after-pending/conditions.txt
+c95227c46a3bc1013a999e738f551c33ef027a66  after-pending.load.log.txt  ./after-pending.load.log
+3edcdda4f3819c64b194bd916fae59ff464b09f6  after-pending.launcher.log.txt  ./after-pending.launcher.log
+3f990783b27f20a8bf63e575c252ce52ae5a1ca2  after-pending.vh230-after-pending.manifest.json  ./after-pending/runs/vh230-after-pending-2026-11-01T03-20-57-567Z-5d83e6/manifest.json
+9c774b64fd4e27547cee5fcdb599f26d3457ecdb  after-pending.vh230-after-pending.run.json  ./after-pending/runs/vh230-after-pending-2026-11-01T03-20-57-567Z-5d83e6/run.json
+9aa395cea2997a599ea8dc1a24797122bff7d409  after-pending.vh230-ledger.jsonl  ./after-pending/runs/vh230-ledger.jsonl
+529e772a5400e6c49e52cedcc41e807ea2b60345  after-pending.vh230-probe-vh230-after-pending.jsonl  ./after-pending/runs/vh230-probe-vh230-after-pending.jsonl
+1510211637c3ce1116b88aa15a545898168c43a2  after-pending.outcomes.jsonl  written from after-pending/runs
+9ee1d8d73f7e5e35c253daf009dcc0ac1721e68d  before-warned.conditions.txt  ./before-warned/conditions.txt
+e8858b39ecfe64c10bf8ed97cd2185300e6e9b3d  before-warned.load.log.txt  ./before-warned.load.log
+574cb21b056587542a324a49a0ce329e3a6f67e7  before-warned.launcher.log.txt  ./before-warned.launcher.log
+bccb02e2ee4291ae57578453f1080b8b43f3ad23  before-warned.vh230-before-warned.manifest.json  ./before-warned/runs/vh230-before-warned-2026-11-01T03-03-56-651Z-d9194b/manifest.json
+c790fe8dbc9ac2878d1c6788762a43a11a48ad57  before-warned.vh230-before-warned.run.json  ./before-warned/runs/vh230-before-warned-2026-11-01T03-03-56-651Z-d9194b/run.json
+3c438c5b95fd842a8d9648288ab95a62942e9551  before-warned.vh230-ledger.jsonl  ./before-warned/runs/vh230-ledger.jsonl
+e6ca844de773ada92d7679b351060a7a955e5f1a  before-warned.vh230-probe-vh230-before-warned.jsonl  ./before-warned/runs/vh230-probe-vh230-before-warned.jsonl
+0a85fcc4c7adcbb4f9300c15a274c032daa6537b  before-warned.outcomes.jsonl  written from before-warned/runs
+f5bdfaa781f34de45f5cfc20b7713fb717f414d4  after-warned.conditions.txt  ./after-warned/conditions.txt
+8058e31e1f08e7ef58d012fd1b69c58073b9bee7  after-warned.load.log.txt  ./after-warned.load.log
+12af4d75b2e7f5f853de934395b3237496ed905e  after-warned.launcher.log.txt  ./after-warned.launcher.log
+72fbe91ba48a31bd766a75b499c1131af50ffe26  after-warned.vh230-after-warned.manifest.json  ./after-warned/runs/vh230-after-warned-2026-11-01T03-25-35-363Z-3c6732/manifest.json
+f894807f3f5dfee0c79aa7675b396f65ab01b014  after-warned.vh230-after-warned.run.json  ./after-warned/runs/vh230-after-warned-2026-11-01T03-25-35-363Z-3c6732/run.json
+4fa8dd587569d2e7f9d26569fb9a0338d32019bc  after-warned.vh230-ledger.jsonl  ./after-warned/runs/vh230-ledger.jsonl
+dfc6df61115625c02b1052e4ee76f72a77cdd6ba  after-warned.vh230-probe-vh230-after-warned.jsonl  ./after-warned/runs/vh230-probe-vh230-after-warned.jsonl
+7aac873ef322525f5e5a0797f5bb5f081abf32f8  after-warned.outcomes.jsonl  written from after-warned/runs
+ff2d734bf334fa1e043c06129bbee8edef8a704a  before-failed.conditions.txt  ./before-failed/conditions.txt
+cac7055de753a8afda3e3dfa6e17ba659d218a06  before-failed.load.log.txt  ./before-failed.load.log
+c134a03a7102cde38a12c2815b858039996ebfce  before-failed.launcher.log.txt  ./before-failed.launcher.log
+0dd654031c33dd250cec089c307b9c8e97adf961  before-failed.vh230-before-failed.manifest.json  ./before-failed/runs/vh230-before-failed-2026-11-01T03-08-31-471Z-694cfd/manifest.json
+442f53c1131933ce3165f5678844cd3d1e5eec18  before-failed.vh230-before-failed.run.json  ./before-failed/runs/vh230-before-failed-2026-11-01T03-08-31-471Z-694cfd/run.json
+e50262b4730905a2a1cf4dce8e348bdf23049847  before-failed.vh230-ledger.jsonl  ./before-failed/runs/vh230-ledger.jsonl
+120bc30bafa0effacc408fd7e6ec6be7ece1eaf5  before-failed.vh230-probe-vh230-before-failed.jsonl  ./before-failed/runs/vh230-probe-vh230-before-failed.jsonl
+41e54b5b74c9e4875abbe2f11b4c17d172aa89d2  before-failed.outcomes.jsonl  written from before-failed/runs
+d81a137b84d00c3c0fca6bfd04456f98b1b91f4b  after-failed.conditions.txt  ./after-failed/conditions.txt
+7ae15f69e5f78c32a502f8599e9af4990f957bcd  after-failed.load.log.txt  ./after-failed.load.log
+b00abce42ce0eb5b45ab43db07e6df90aa9487b3  after-failed.launcher.log.txt  ./after-failed.launcher.log
+1d08bc128d42725832e1da6392ca2534c3416f67  after-failed.vh230-after-failed.manifest.json  ./after-failed/runs/vh230-after-failed-2026-11-01T03-30-10-928Z-59c8e3/manifest.json
+7d32878d3e596fb233a05063a054495525801816  after-failed.vh230-after-failed.run.json  ./after-failed/runs/vh230-after-failed-2026-11-01T03-30-10-928Z-59c8e3/run.json
+07fe124a980d25f3cb661389b978c4ecf3d3a4a0  after-failed.vh230-ledger.jsonl  ./after-failed/runs/vh230-ledger.jsonl
+9575a5f5bd0699d1b067df8a50fbf5da517d6712  after-failed.vh230-probe-vh230-after-failed.jsonl  ./after-failed/runs/vh230-probe-vh230-after-failed.jsonl
+75edf7c6b9e39e45497c15ef9e302f641e3f20a7  after-failed.outcomes.jsonl  written from after-failed/runs
+c8c50039cebee9554ab41a92204deab44a5d1615  vh230-driver.mjs.txt  ./txt/vh230-driver.mjs.txt
+e34b08a5525f9d5cb5a676bfd48d4f3ca6bb50d0  vh230-compare.mjs.txt  ./txt/vh230-compare.mjs.txt
+ec5abbf94e851621c1d7bea63d5172a8fddf4de7  vh230-compare-2.mjs.txt  ./txt/vh230-compare-2.mjs.txt
+0f5c4fd849c16d1486eda7c18c1131849ed2ad73  vh230-acceptance.mjs.txt  ./txt/vh230-acceptance.mjs.txt
+99852d717202692ecf5f7a5cd1db5d17af132072  vh230-shots.mjs.txt  ./txt/vh230-shots.mjs.txt
+6af63aff147eea457589b0c933e83ac49513c0d1  go.sh.txt  ./txt/go.sh.txt
+189bf66c0783ef536b5a2de40f774f66ed2268d9  walk.sh.txt  ./txt/walk.sh.txt
+661b28b4ff85f1a979b2bcfbf459fac87b59927e  seq.zsh.txt  ./txt/seq.zsh.txt
+a8e36ca18095a777bd256cec68ec62682af44ed4  side.zsh.txt  ./txt/side.zsh.txt
+fe9203451770e75559ee150bfb7ee9d6a2cba498  table-1page.mjs.txt  ./txt/table-1page.mjs.txt
+78ae14275a9d69c7d19ffed51de42184510cd35c  vh230-table-notes-r2.md.txt  ./txt/vh230-table-notes-r2.md.txt

@@ -1,0 +1,21 @@
+<!-- markdownlint-disable -->
+
+# VH-230 — Codex astra's close check
+
+You are a read-only reviewer of the UoN Video Helper repository (your working directory), checking one item's complete close before its commit. Nothing is committed: read `git diff` and the untracked files. Don't edit anything.
+
+**May read:** this repository's working tree: `AGENTS.md`, `project/profile.md`, `project/items/VH-230.md`, `project/decisions.md` and `project/decisions-2026-10.md`, `project/backlog.md`, `project/trajectory.md`, `project/wish-list.md`, `project/archive-index.md`, `reviews/2026-10-25/design-pass-3/design-pass-3-2026-10-27.md`'s Disposition row, and every `vh230-*` under `reviews/2026-10-25/design-pass-3/evidence/measurements/`. In `/Users/joe/UoN-Video-Helper-side`: `vh230-frozen/`, `vh230-gate-1.log`, `vh230-gate-2.log`, `vh230-gate-*.cond.txt`, `vh230-gate-*.load.log`, `vh230-tests.log`, `plan8-owner-words.md` lines 271 and 275. **May not read:** any folder under `side-session-notes/`; anything else in that side folder.
+
+**His words:** "even old issues should be solved for"; "ensure everything passes UX / design / Accessibility". The item is Orchestrator #33's ruling, listed for him.
+
+**What earlier checks said.** Your blind check on the code and table: PASS on the four criteria, FAIL on the report's readiness: the notes' marks table malformed, "Nothing moved" unqualified, `detail/` absent, load medians, `type` unexplained, acceptance defects to record. No production repair established. So a second table, `vh230-check-marks-r1-2026-11-01.md`, and records were placed; the first stays on file. Gate 1 red on `docs:lint` alone, a heading's blank line in the new decision; gate 2 green. Checker 0 failures, 0 warnings.
+
+**Answer each, PASS or FAIL, in under 500 words:**
+1. **The repaired points.** Is each of your report repairs made in the second table's notes: the marks table on lines of its own; the walker's verdicts qualified; `detail/`; the middle sample; `type`; the acceptance marks in a wish line? Recount at least one figure from the records: label lines gained, value lines, heights.
+2. **The tracked diff against the freeze:** `git diff --binary` matches `vh230-frozen/tracked.diff`; the three source files match the diff walked, `git diff -- src test | shasum -a 1` being another reading of the walked hash `fca65efa03373697` only if no other tracked file differed then; say what you can verify from the after groups' `conditions.txt`, whose status shows 3 lines. Each untracked file matches `vh230-frozen/untracked.sha1`.
+3. **The contract's close** (AGENTS.md rules 3–10): the backlog line struck; one trajectory line in its grammar; a decision newest first with Decision, Rationale, Supersedes, Deferred, his words quoted; the wish line in grammar with an unused number and every deferral named; the item's Now and Open question true, its Notes; the archived entry moved verbatim; the Disposition row linked in the row for VH-218, there being no row of VH-230's own.
+4. **Truth of each claim** in the decision, trajectory line, wish line and second table's notes, against the records. Anything overstated, unstated or wrong? Any literal outside a token, any comment that's false now (the `--mark-width` comment above the new token included)?
+5. **Evidence provenance:** each verbatim Codex answer is `.md.txt`; the briefs too; Claude's design and verdict and the compares carry `<!-- markdownlint-disable -->` and no absolute link; `renamed.txt` true; no script left `.mjs` in the records.
+6. **Anything that should stop this commit.**
+
+End with one verdict line beginning `Verdict:`, PASS or FAIL.

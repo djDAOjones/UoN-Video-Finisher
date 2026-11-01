@@ -1,0 +1,18 @@
+<!-- markdownlint-disable -->
+
+# VH-230 — Codex astra's re-check of the close
+
+Read-only; your working directory is the repository, uncommitted. Don't edit anything. Your close check, `reviews/2026-10-25/design-pass-3/evidence/measurements/vh230-codex-close-2026-11-01.md.txt`, said FAIL on the record's points; none on production code. The close compare beside it, `vh230-close-compare-2026-11-01.md`, says what was done, and leaves one thing as it was: `Deferred: none`, since `tools/ledger.mjs` fails a Deferred target that is neither open nor shipped.
+
+**May read:** the working tree, `git diff`, every `vh230-*` under that measurements folder, `tools/ledger.mjs`; in `/Users/joe/UoN-Video-Helper-side`: `vh230-frozen-r1/`, `vh230-gate-3.log`, `vh230-gate-3.cond.txt`, `vh230-gate-3.load.log`. Nothing else there; no folder under `side-session-notes/`.
+
+**Answer each, PASS or FAIL, under 300 words:**
+1. The trajectory line at the end of Phase 8's lines.
+2. The decision: the 12 px gap and 15.28 px, the digest rules, the link to the third table; the wish named in its Decision line, and is `Deferred: none` right, by the checker?
+3. The third table `vh230-check-marks-r2-2026-11-01.md` and its records `vh230-records-r2-2026-11-01/`: the old-order line, `renamed.txt`, one `## Notes`, `after.srcdiff`'s sha1 against the after groups' diff hash. The two earlier tables left as placed.
+4. The close compare's claims of arithmetic against `--spacing-04`.
+5. The item's and the Disposition row's link to the third table, resolving.
+6. `git diff --binary` equal to `vh230-frozen-r1/tracked.diff`, and untracked files to `vh230-frozen-r1/untracked.sha1`. The source and test diff unchanged from the walked hash.
+7. Anything added since your close check that's wrong; anything that should stop this commit.
+
+End with one verdict line beginning `Verdict:`, PASS or FAIL.

@@ -1,0 +1,148 @@
+<!-- markdownlint-disable -->
+# VH-230 — The System check's marks, whole in their column (second table)
+
+VH-230's stage-rule measure, one page by `table-1page.mjs`. The records are in [`vh230-records-r1-2026-11-01/`](vh230-records-r1-2026-11-01/): each cell's outcomes and rows, the probes, states and logs whole, and in `detail/` the whole record of each moved or named failing cell.
+
+## Provenance
+
+| | Before | After |
+| --- | --- | --- |
+| Commit | `a7c55e870765` | `a7c55e870765` |
+| Diff hash | `da39a3ee5e6b4b0d` (0 lines of status) | `fca65efa03373697` (3 lines of status) |
+| Instrument revision | `fe44891d3c53f716` | `fe44891d3c53f716` |
+
+- `vh230-driver.mjs.txt` sha1 `c8c50039cebee9554ab41a92204deab44a5d1615`
+- `vh230-compare.mjs.txt` sha1 `e34b08a5525f9d5cb5a676bfd48d4f3ca6bb50d0`
+- `vh230-compare-2.mjs.txt` sha1 `ec5abbf94e851621c1d7bea63d5172a8fddf4de7`
+- `vh230-acceptance.mjs.txt` sha1 `0f5c4fd849c16d1486eda7c18c1131849ed2ad73`
+- `vh230-shots.mjs.txt` sha1 `99852d717202692ecf5f7a5cd1db5d17af132072`
+- `go.sh.txt` sha1 `6af63aff147eea457589b0c933e83ac49513c0d1`
+- `walk.sh.txt` sha1 `189bf66c0783ef536b5a2de40f774f66ed2268d9`
+- `seq.zsh.txt` sha1 `661b28b4ff85f1a979b2bcfbf459fac87b59927e`
+- `side.zsh.txt` sha1 `a8e36ca18095a777bd256cec68ec62682af44ed4`
+
+## Runs, power and load
+
+| Group | UTC | Cells, reached | Power | Load median, peak | Samples at 8 or above |
+| --- | --- | --- | --- | --- | --- |
+| before-passed | 02:54:41–02:59:16 | 108, 108 | AC Power, mode 2 | 9.19, 17.47 | 7 of 10 |
+| after-passed | 03:15:21–03:19:54 | 108, 108 | AC Power, mode 2 | 6.35, 8.45 | 1 of 10 |
+| before-pending | 02:59:17–03:03:54 | 108, 108 | AC Power, mode 2 | 7.31, 12.09 | 3 of 10 |
+| after-pending | 03:20:56–03:25:32 | 108, 108 | AC Power, mode 2 | 5.77, 6.56 | 0 of 10 |
+| before-warned | 03:03:55–03:08:28 | 108, 108 | AC Power, mode 2 | 13.48, 30.57 | 8 of 10 |
+| after-warned | 03:25:34–03:30:08 | 108, 108 | AC Power, mode 2 | 6.51, 7.21 | 0 of 10 |
+| before-failed | 03:08:30–03:13:59 | 108, 108 | AC Power, mode 2 | 5.42, 7.64 | 0 of 11 |
+| after-failed | 03:30:09–03:35:38 | 108, 108 | AC Power, mode 2 | 5.16, 6.39 | 0 of 11 |
+
+## Before → after
+
+Scenario cells: 432 before (432 reached), 432 after (432 reached); **432 unmoved**. Not on the other side: 0 after-only, 0 before-only.
+
+Nothing moved, row by row.
+
+Failing alike on both sides, so not moved by this change:
+
+| Instrument or row | Cells |
+| --- | --- |
+| type | 108 |
+
+Page probe, 432 readings a side: `rows` moved in 336.
+
+## Notes
+
+## Notes
+
+**This page replaces nothing.** The first table, `vh230-check-marks-2026-11-01.md`, and its records stay on file. Same groups and walk, no re-walk, no code change: Codex astra's blind check found the notes' marks table malformed and these wordings wanting, so the reader and notes are repaired.
+
+**The script's words.** "Nothing moved, row by row" and "432 unmoved" count the walker's verdicts on each cell, not its geometry: the page probe's `rows` field moved in 336 of 432 cells, read below. The opening line names `detail/`, the script's fixed phrase: no cell moved, so no such folder was written. "Load median" is the script's middle sample, the upper of the two where the count is even: `before-passed` 9.19 of 4.47 to 17.47. The script is shared and unchanged.
+
+**`type`, failing alike in 108 cells.** Only in the driver's three combined modes, `dark-spacing`, `forced-light-spacing`, `forced-dark-spacing`: 9 cells a mode, four states, each side. The sheet's line height there is not the type role's (heading 1.5, by Codex's reading of the cell records); the walker's own `spacing` mode passes. Not page order, not this change.
+
+**Read every reading as a measurement, not a verdict.** VH-230's walk: S-82 only, by the item's matrix, 432 cells a side, each cell one of four states, three widths, three text conditions, three languages, four colour modes. Same driver and revision each side, power AC at powermode 2 each side.
+
+**The change walked.** A token on `src/styles/tokens.carbon.css`, `--system-check-mark-width: var(--spacing-09)`, 3 rem, read by the three `.system-check .check` declarations that read `--mark-width`, and `white-space: nowrap` on `.system-check .check .mark`. `--mark-width` keeps 1.5 rem for the base `.check` grid. Two regression tests in `test/stylesheet.test.ts`. No element, string, DOM order or colour; the strings proof reads the three tables, `data-i18n` keys and elements the same.
+
+**The driver.** `vh230-driver.mjs.txt`, a copy of VH-218's `vh218-driver.mjs` (original unchanged), its stagings as they were, one reading added in the same `read()`: `markWhole`, the whole mark's text by a Range: lines, summed width, its column, the room left in it and the gap to the label. So Chinese's "……" is measured, which VH-218's probe skipped as punctuation. Staged readings as VH-218 labelled them: the three rows that can't be seen pending, and the worker's "Failed to start" wording, each set and restored within one evaluate. 3,024 readings a side.
+
+**S-103 is not walked.** `.facts` holds no mark and reads no `--mark-width`: `grep -n 'mark-width' src/styles/*.css` gives only the two tokens, `app.css:320` (the base grid) and `app.css:362`, `:367`, `:368` (the System check). Recorded in `mark-width-grep.txt`.
+
+**The other caller, `src/acceptance/main.ts`.** Read live each side by `vh230-acceptance.mjs.txt` (groups `before-acceptance`, `after-acceptance`): a row in the page's own shape, added in memory, read and removed, the page never run. Its marks already break in its column, PASS over 2 lines, NEEDS A PERSON over 6, the same each side; recorded, not this item's.
+
+**Load.** The load is the owner's. The before's peaks reached 30.57 in `before-warned`; the runs-and-load table gives each group's samples at 8 or above. No re-run has been asked for; the probe's readings are layout, not timing.
+
+**32 px.** Page shots at 32 px show the default size (VH-217.5, the walker's capture effect), so no reading here rests on a shot: the probe reads before capture and qualifies 32 px in each cell by `modeRead`. `after-shots` is a small group for the eye at the default font, en-GB at 1280 and 320 px, ms-MY at 320 px with one row staged failed in memory, zh-Hans at 375 px; not in the table's pairs, its PNGs not committed.
+
+**Rows pinning the old order** fail on the base and stay failing, by the owner's "Yes, leave them": expected on both sides.
+
+**Not walked.** Spacing and 32 px together; widths between those named, 641 to 1279 px at 32 px among them; browsers but Chrome; real assistive technology. Heading and Tab order: no element or DOM order changed, so nothing re-read beyond the strings proof.
+
+## The marks, the labels and the values, from the probes
+
+Generated by `vh230-compare-2.mjs.txt`, unedited below; a fix of `vh230-compare.mjs.txt`, which stays on file: a table on lines of its own, value lines and the height's direction added.
+
+Cells: before 432, after 432; probe errors 0, 0; modes not as declared 0, 0; sideways overflow 0, 0. Readings 3024, 3024.
+Mark readings on more than one line: 1092 → 0. Past its column (room below 0): 0 → 0.
+Label words broken: 0 → 0. Value words broken: 0 → 4. Label or value past the row: 0 → 0.
+Value beneath its label: 1648 → 1772, of 3024.
+
+Each mark, widest whole width in px, lines at most, least room in its column, each side (language, mark, text condition):
+
+| Language, mark, text | Width before | Lines before | Column before | Least room before | Width after | Lines after | Column after | Least room after | Least gap to label after |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| en-GB ! default | 4.67 | 1 | 24 | 19.33 | 4.67 | 1 | 48 | 43.33 | 55.33 |
+| en-GB ! font32 | 9.33 | 1 | 309 | 38.67 | 9.33 | 1 | 309 | 86.67 | 110.67 |
+| en-GB ! spacing | 6.34 | 1 | 24 | 17.66 | 6.34 | 1 | 48 | 41.66 | 53.66 |
+| en-GB No default | 18.67 | 1 | 24 | 5.33 | 18.67 | 1 | 48 | 29.33 | 41.33 |
+| en-GB No font32 | 37.33 | 1 | 309 | 10.67 | 37.33 | 1 | 309 | 58.67 | 82.67 |
+| en-GB No spacing | 22.03 | 1 | 24 | 1.97 | 22.03 | 1 | 48 | 25.97 | 37.97 |
+| en-GB OK default | 21 | 1 | 24 | 3 | 21 | 1 | 48 | 27 | 39 |
+| en-GB OK font32 | 42 | 1 | 309 | 6 | 42 | 1 | 309 | 54 | 78 |
+| en-GB OK spacing | 24.38 | 2 | 24 | 11.42 | 24.38 | 1 | 48 | 23.63 | 35.63 |
+| en-GB … default | 14 | 1 | 24 | 10 | 14 | 1 | 48 | 34 | 46 |
+| en-GB … font32 | 28 | 1 | 309 | 20 | 28 | 1 | 309 | 68 | 92 |
+| en-GB … spacing | 15.69 | 1 | 24 | 8.31 | 15.69 | 1 | 48 | 32.31 | 44.31 |
+| ms-MY ! default | 4.67 | 1 | 24 | 19.33 | 4.67 | 1 | 48 | 43.33 | 55.33 |
+| ms-MY ! font32 | 9.33 | 1 | 309 | 38.67 | 9.33 | 1 | 309 | 86.67 | 110.67 |
+| ms-MY ! spacing | 6.34 | 1 | 24 | 17.66 | 6.34 | 1 | 48 | 41.66 | 53.66 |
+| ms-MY OK default | 21 | 1 | 24 | 3 | 21 | 1 | 48 | 27 | 39 |
+| ms-MY OK font32 | 42 | 1 | 309 | 6 | 42 | 1 | 309 | 54 | 78 |
+| ms-MY OK spacing | 24.38 | 2 | 24 | 11.42 | 24.38 | 1 | 48 | 23.63 | 35.63 |
+| ms-MY Tidak default | 36.33 | 2 | 24 | 3.25 | 36.31 | 1 | 48 | 11.69 | 23.69 |
+| ms-MY Tidak font32 | 72.64 | 2 | 309 | 6.52 | 72.63 | 1 | 309 | 23.38 | 47.38 |
+| ms-MY Tidak spacing | 44.73 | 3 | 24 | 4.3 | 44.72 | 1 | 48 | 3.28 | 15.28 |
+| ms-MY … default | 14 | 1 | 24 | 10 | 14 | 1 | 48 | 34 | 46 |
+| ms-MY … font32 | 28 | 1 | 309 | 20 | 28 | 1 | 309 | 68 | 92 |
+| ms-MY … spacing | 15.69 | 1 | 24 | 8.31 | 15.69 | 1 | 48 | 32.31 | 44.31 |
+| zh-Hans ! default | 4.67 | 1 | 24 | 19.33 | 4.67 | 1 | 48 | 43.33 | 55.33 |
+| zh-Hans ! font32 | 9.33 | 1 | 309 | 38.67 | 9.33 | 1 | 309 | 86.67 | 110.67 |
+| zh-Hans ! spacing | 6.34 | 1 | 24 | 17.66 | 6.34 | 1 | 48 | 41.66 | 53.66 |
+| zh-Hans …… default | 28 | 2 | 24 | 10 | 28 | 1 | 48 | 20 | 32 |
+| zh-Hans …… font32 | 56 | 2 | 309 | 20 | 56 | 1 | 309 | 40 | 64 |
+| zh-Hans …… spacing | 31.38 | 2 | 24 | 8.31 | 31.38 | 1 | 48 | 16.63 | 28.63 |
+| zh-Hans 不 default | 14 | 1 | 24 | 10 | 14 | 1 | 48 | 34 | 46 |
+| zh-Hans 不 font32 | 28 | 1 | 309 | 20 | 28 | 1 | 309 | 68 | 92 |
+| zh-Hans 不 spacing | 15.69 | 1 | 24 | 8.31 | 15.69 | 1 | 48 | 32.31 | 44.31 |
+| zh-Hans 好的 default | 28 | 2 | 24 | 10 | 28 | 1 | 48 | 20 | 32 |
+| zh-Hans 好的 font32 | 56 | 2 | 309 | 20 | 56 | 1 | 309 | 40 | 64 |
+| zh-Hans 好的 spacing | 31.38 | 2 | 24 | 8.31 | 31.38 | 1 | 48 | 16.63 | 28.63 |
+
+Readings unpaired: 0. Row height: 340 readings grew, 760 shrank.
+Value moved beneath its label, beside before: 124 readings; the other way: 0.
+- en-GB w1280 spacing: webcodecs failed ×4
+- en-GB w375 default: opfs passed ×4; opfs pending ×4; opfs stagedPending pending ×4; worker pending ×4; opfs warned ×4; secure failed ×4
+- ms-MY w1280 spacing: webcodecs stagedPending pending ×4; h264 failed ×4; aac failed ×4
+- ms-MY w375 default: secure stagedPending pending ×4
+- zh-Hans w1280 default: aac warned ×4
+- zh-Hans w1280 font32: aac warned ×4
+- zh-Hans w320 default: opfs failed ×4
+- zh-Hans w320 spacing: opfs passed ×4; opfs pending ×4; opfs stagedPending pending ×4; opfs warned ×4; opfs failed ×4
+- zh-Hans w375 default: webcodecs passed ×4; webcodecs pending ×4; webcodecs stagedPending pending ×4; h264 pending ×4; webcodecs warned ×4; webcodecs failed ×4; h264 failed ×4
+- zh-Hans w375 spacing: h264 passed ×4; aac passed ×4; worker passed ×4; h264 warned ×4; worker warned ×4
+
+Label lines moved (language, width, text, lines): en-GB w320 default 1→2 ×40; en-GB w320 spacing 1→2 ×20; en-GB w375 default 1→2 ×20; ms-MY w320 default 1→2 ×20; ms-MY w320 spacing 1→2 ×20; ms-MY w320 spacing 2→3 ×20; ms-MY w375 spacing 1→2 ×20; zh-Hans w320 default 1→2 ×36; zh-Hans w320 spacing 1→2 ×16
+
+Value lines moved: en-GB w320 default 2→3 ×4; en-GB w320 spacing 3→4 ×4; ms-MY w1280 default 1→2 ×4; ms-MY w1280 font32 1→2 ×4; zh-Hans w375 default 1→2 ×4
+
+The acceptance page, live, a row in its own shape, each side: byte-identical
+
+`{"href":"/acceptance.html","vw":756,"token":"1.5rem","inSystemCheck":false,"rows":[{"word":"PASS","display":"grid","columns":"24px 400px 0px","paddingStart":"0px","markBox":24,"markMarginStart":"0px","lines":2,"labelLeft":60,"rowH":57},{"word":"FAIL","display":"grid","columns":"24px 400px 0px","paddingStart":"0px","markBox":24,"markMarginStart":"0px","lines":2,"labelLeft":60,"rowH":57},{"word":"NEEDS A PERSON","display":"grid","columns":"24px 400px 0px","paddingStart":"0px","markBox":24,"markMarginStart":"0px","lines":6,"labelLeft":60,"rowH":141},{"word":"CHECKED ELSEWHERE","display":"grid","columns":"24px 400px 0px","paddingStart":"0px","markBox":24,"markMarginStart":"0px","lines":9,"labelLeft":60,"rowH":191}]}`

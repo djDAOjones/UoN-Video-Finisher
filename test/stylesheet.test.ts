@@ -561,3 +561,23 @@ describe('a window below the layout\u2019s minimum (VH-209, V-50)', () => {
     expect(rules).toMatch(/\.segment-face\s*\{[^}]*min-height:\s*var\(--target-min\);/)
   })
 })
+
+describe('the System check’s mark column (VH-230)', () => {
+  const tokenFile = readFileSync(new URL('../src/styles/tokens.carbon.css', import.meta.url), 'utf8')
+  const rowRule = /(?:^|\})\s*\.system-check \.check\s*\{([^}]*)\}/m.exec(rules)?.[1] ?? ''
+  const markRule = /(?:^|\})\s*\.system-check \.check \.mark\s*\{([^}]*)\}/m.exec(rules)?.[1] ?? ''
+
+  it('holds its words whole, on its own token, in every row', () => {
+    expect(tokenFile).toMatch(/--system-check-mark-width:\s*var\(--spacing-09\);/)
+    expect(rowRule).toMatch(/padding-inline-start:\s*calc\(var\(--system-check-mark-width\) \+ var\(--spacing-04\)\);/)
+    expect(markRule).toMatch(/width:\s*var\(--system-check-mark-width\);/)
+    expect(markRule).toMatch(/margin-inline-start:\s*calc\(-1 \* \(var\(--system-check-mark-width\) \+ var\(--spacing-04\)\)\);/)
+    expect(markRule).toMatch(/white-space:\s*nowrap;/)
+  })
+
+  it('leaves the acceptance page its own column', () => {
+    expect(tokenFile).toMatch(/--mark-width:\s*1\.5rem;/)
+    expect(rules).toMatch(/(?:^|\})\s*\.check\s*\{[^}]*grid-template-columns:\s*var\(--mark-width\) 1fr auto;/m)
+    expect(rowRule + markRule).not.toMatch(/--mark-width/)
+  })
+})

@@ -1,0 +1,20 @@
+// VH-230 #1: the other caller of `.check`, read live and read-only: acceptance.html, a row in the shape src/acceptance/main.ts builds, added to the page in memory, read and removed; never run. Writes one JSON line. Needs CDP_PORT, APP_URL, OUTD.
+import { appendFileSync } from 'node:fs'
+import { join } from 'node:path'
+const base = `http://127.0.0.1:${process.env.CDP_PORT}`
+const t = await (await fetch(`${base}/json/new?${process.env.APP_URL}acceptance.html`, { method: 'PUT' })).json()
+const ws = new WebSocket(t.webSocketDebuggerUrl); await new Promise((r) => (ws.onopen = r))
+let id = 0; const wait = new Map(); ws.onmessage = (e) => { const m = JSON.parse(e.data); if (wait.has(m.id)) { wait.get(m.id)(m); wait.delete(m.id) } }
+const send = (method, params) => new Promise((r) => { const i = ++id; wait.set(i, r); ws.send(JSON.stringify({ id: i, method, params })) })
+await new Promise((r) => setTimeout(r, 4000))
+const EXPR = String.raw`(() => { const results = document.querySelector('#results'), list = document.createElement('ul'); list.className = 'checks';
+  const round = (n) => Math.round(n * 100) / 100, out = [];
+  for (const [state, word] of [['pass','PASS'],['fail','FAIL'],['warn','NEEDS A PERSON'],['warn','CHECKED ELSEWHERE']]) { const row = document.createElement('li'); row.className = 'check'; row.dataset.state = state; row.innerHTML = '<span class="mark"></span><span>A check</span><span class="value"></span>'; row.children[0].textContent = word; list.append(row) }
+  results.append(list);
+  for (const row of list.children) { const m = row.children[0], cs = getComputedStyle(row), g = document.createRange(); g.selectNodeContents(m); const rs = [...g.getClientRects()].filter((r) => r.width > 0), tops = []; for (const r of rs) if (!tops.some((x) => Math.abs(x - r.top) < 3)) tops.push(r.top);
+    out.push({ word: m.textContent, display: cs.display, columns: cs.gridTemplateColumns, paddingStart: cs.paddingInlineStart, markBox: round(m.getBoundingClientRect().width), markMarginStart: getComputedStyle(m).marginInlineStart, lines: tops.length, labelLeft: round(row.children[1].getBoundingClientRect().left), rowH: round(row.getBoundingClientRect().height) }) }
+  const token = getComputedStyle(document.documentElement).getPropertyValue('--mark-width').trim(), inSystemCheck = !!document.querySelector('.system-check'), vw = innerWidth; list.remove();
+  return { href: location.pathname, vw, token, inSystemCheck, rows: out } })()`
+const r = await send('Runtime.evaluate', { expression: EXPR, returnByValue: true, awaitPromise: true })
+appendFileSync(join(process.env.OUTD, 'acceptance.jsonl'), JSON.stringify(r.result?.result?.value ?? r) + '\n')
+await fetch(`${base}/json/close/${t.id}`); ws.close()

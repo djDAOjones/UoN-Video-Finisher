@@ -1,0 +1,6 @@
+#!/bin/zsh
+# VH-230 #1: a side's S-82 groups by seq.zsh, then the acceptance page's reading, in sequence. Usage: zsh side.zsh before|after <walker> <app>
+side=$1; W=$2; A=$3; D=/Users/joe/UoN-Video-Helper-side/vh230-walk; cd "$D"
+zsh seq.zsh "$side" "$W" "$A" passed pending warned failed || exit $?
+zsh go.sh "$side-acceptance" "$side acceptance" "$W" "$A" 'node vh230-acceptance.mjs' > "$side-acceptance.go.out" 2>&1; rc=$?
+echo "$side-acceptance exit $rc $(date -u +%T)" >> "$side.seq.log"; echo "SIDE DONE $side rc $rc" >> "$side.seq.log"; exit $rc

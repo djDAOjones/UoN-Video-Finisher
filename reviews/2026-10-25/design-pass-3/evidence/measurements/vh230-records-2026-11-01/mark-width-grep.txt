@@ -1,0 +1,6 @@
+/Users/joe/Library/CloudStorage/OneDrive-TheUniversityofNottingham/_Joe Bell UoN Files/2_Projects/2026-08-24 UoN Video Helper/src/styles/tokens.carbon.css:106:  --mark-width: 1.5rem;
+/Users/joe/Library/CloudStorage/OneDrive-TheUniversityofNottingham/_Joe Bell UoN Files/2_Projects/2026-08-24 UoN Video Helper/src/styles/tokens.carbon.css:109:  --system-check-mark-width: var(--spacing-09);
+/Users/joe/Library/CloudStorage/OneDrive-TheUniversityofNottingham/_Joe Bell UoN Files/2_Projects/2026-08-24 UoN Video Helper/src/styles/app.css:320:  grid-template-columns: var(--mark-width) 1fr auto;
+/Users/joe/Library/CloudStorage/OneDrive-TheUniversityofNottingham/_Joe Bell UoN Files/2_Projects/2026-08-24 UoN Video Helper/src/styles/app.css:362:  padding-inline-start: calc(var(--system-check-mark-width) + var(--spacing-04));
+/Users/joe/Library/CloudStorage/OneDrive-TheUniversityofNottingham/_Joe Bell UoN Files/2_Projects/2026-08-24 UoN Video Helper/src/styles/app.css:367:  width: var(--system-check-mark-width);
+/Users/joe/Library/CloudStorage/OneDrive-TheUniversityofNottingham/_Joe Bell UoN Files/2_Projects/2026-08-24 UoN Video Helper/src/styles/app.css:368:  margin-inline-start: calc(-1 * (var(--system-check-mark-width) + var(--spacing-04)));

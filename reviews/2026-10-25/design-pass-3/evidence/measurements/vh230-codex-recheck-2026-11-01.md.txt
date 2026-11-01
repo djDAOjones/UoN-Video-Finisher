@@ -1,0 +1,15 @@
+1. **PASS — trajectory.** VH-230 is now the final Phase 8 item, immediately after VH-218, in the required grammar.
+
+2. **PASS — decision.** The gap is 12 px normally, 24 px at a 32 px root; measured minimum same-line clearance is 15.28 px. Carbon token separation and WCAG 1.4.10/1.4.12 are named. The third-table link resolves. VH-230.1 appears in the Decision and wish list. **`Deferred: none` is correct by the checker:** wish-only IDs cannot be Deferred targets. My earlier objection was wrong.
+
+3. **PASS — third table and records.** All 864 scenario-assertion rows read `not-applicable`. `renamed.txt` names the existing r2 notes and both comparison scripts; every named script exists. Exactly one `## Notes`. All 75 source-manifest entries match. `after.srcdiff` matches every after-group hash prefix. The earlier tables and records remain separately preserved.
+
+4. **PASS — arithmetic.** `--spacing-04 = 0.75rem = 12px`: old-column overlap is `44.73−24−12 = 8.73px`; label budgets are `222−24−12 = 186px` and `222−48−12 = 162px`; walked clearance is `48+12−44.72 = 15.28px`.
+
+5. **PASS — links.** Both the item’s closing note and the Disposition row resolve to the third table.
+
+6. **PASS — freeze.** `git diff --binary` is byte-identical to `tracked.diff`. All **257 untracked files** match, with no extras or omissions. Source/test diff equals `after.srcdiff`, SHA-1 `fca65efa0337369713c54b335566fd0b0d9e42ca`, matching the previous close and walked prefix.
+
+7. **PASS — commit readiness.** No newly introduced defect or remaining commit blocker found. Saved gate 3 exited zero; the live ledger check reports zero failures/warnings. Commit wording, `Verify:` and push remain prospective. Nothing edited.
+
+Verdict: PASS

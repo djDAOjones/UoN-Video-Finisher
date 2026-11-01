@@ -18,6 +18,16 @@
      moves the oldest entries verbatim to project/decisions-YYYY-MM.md,
      beside this file, listed in project/archive-index.md. -->
 
+## 2026-11-01 — VH-230 — Closes: each state word whole in the System check's mark column, on its own 3 rem token
+
+**Decision:** VH-230 closes the item by the second remedy it names: `--system-check-mark-width`, `var(--spacing-09)`, 3 rem, on `tokens.carbon.css`, read by the three `.system-check .check` declarations, with `white-space: nowrap` on the mark. `--mark-width` keeps 1.5 rem for the base grid, so the acceptance page is unmoved. Broken mark readings 1,092 to 0 of 3,024 a side; label words broken 0 to 0. No element, string, DOM order or colour. Wish VH-230.1 holds the acceptance page's own marks. Orchestrator #33's ruling, listed for the owner.
+
+**Rationale:** His words: "even old issues should be solved for"; "ensure everything passes UX / design / Accessibility" (`plan8-owner-words.md`). The widest mark is Malay's "Tidak", 44.72 px under the spacing sheet, 2.8 rem; 3 rem leaves 3.28 px and is the scale's own step. Both designs chose the token, as a rise in `--mark-width` reaches the acceptance page without curing its longer words. `nowrap` is Codex's, adopted on the arithmetic: a mark wider than its column stays whole, using the 12 px gap first, and reaches the label only 15.28 px beyond the walked widest; the walk reads containment apart from lines, and `nowrap` holds nothing in the matrix. Reported: 124 values newly beneath their labels, none back; labels gain a line in 212 readings, between words; Chinese's 制作 wraps across two lines in the warned AAC value at 320 px under spacing, 4 readings, ordinary Chinese line-breaking; en-GB's gutter wider than its words. Evidence: [the table](../reviews/2026-10-25/design-pass-3/evidence/measurements/vh230-check-marks-r2-2026-11-01.md), 432 cells a side, all reached, no verdict moved, overflow 0 to 0, the ellipsis 28, 56, 31.38 px. Shortfall: no true 32 px shot, the walker's capture effect; spacing with 32 px and widths between those named not walked; `type` fails alike in 108, the driver's combined spacing modes. The first two tables stay on file: Codex found the notes wanting, twice, repaired in the third, no re-walk. Digest rules: carbon, "two token systems, never collapsed"; wcag-2.2-aaa, 1.4.10 and 1.4.12.
+
+**Supersedes:** none
+
+**Deferred:** none
+
 ## 2026-11-01 — VH-230 — Raised: the state words broken in the mark's column, its own fix item before VH-220
 
 **Decision:** VH-230 takes the state words too wide for the System check's 1.5 rem mark column, each broken over two lines, the same before and after VH-218: its own fix item, directly after VH-218 and before VH-219, landing before VH-220. Both remedies stay unchosen: widen the gutter for every row, or add a token. The orchestrator's ruling, not the owner's, listed for him.
@@ -603,13 +613,3 @@
 **Supersedes:** none
 
 **Deferred:** VH-188
-
-## 2026-10-24 — VH-186 — The System check's labels shortened, a fact not read said with a capital alone, the unchecked caption warning completed
-
-**Decision:** The four System check labels take the sheet's B1 words; Video properties says a fact it could not read as "Unknown" or "Less than a second", from new keys `format.alone.*`, and every sentence keeps the lower-case form; the unchecked caption warning goes on with the scanned one's caption passage. A trim handle's spoken place stays lower-case beside "the beginning" and "the end".
-
-**Rationale:** The sheet's B1 to B3, approved by the owner. The four format helpers take an optional `Placement` (default in a sentence), and only `buildRows` passes `'alone'`; every call site is listed in `reviews/2026-10-24/vh186-words-2026-10-24.md`. The build's check of `estimateWords` found a non-finite estimate would say "about unknown", so it now says the existing sentence without a time. The Chinese and Malay are the agent's drafts, marked in the filled sheet. At 320 px the English labels take 2, 3, 2 and 2 lines, from 4, 4, 3 and 3. 72 Chrome cases pass. Codex astra: "Commit after the musts below"; its musts, `formatApproximateDuration` in the call-site list and this close, are done, and two comments that named the handles were corrected. The worker row's break inside its words at 320 px is a layout defect, left as VH-186.1.
-
-**Supersedes:** none
-
-**Deferred:** VH-187

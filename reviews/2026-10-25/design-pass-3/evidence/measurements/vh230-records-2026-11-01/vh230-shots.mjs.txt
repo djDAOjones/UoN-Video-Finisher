@@ -1,0 +1,22 @@
+// VH-230 #1: the System check at the default font, for the eye only; read-only, the after's page. A staged row is staged in memory for the shot, as the walk's failed and pending states are measured. Needs CDP_PORT, APP_URL, OUTD.
+import { writeFileSync } from 'node:fs'
+import { join } from 'node:path'
+const base = `http://127.0.0.1:${process.env.CDP_PORT}`
+const t = await (await fetch(`${base}/json/new?about:blank`, { method: 'PUT' })).json()
+const ws = new WebSocket(t.webSocketDebuggerUrl); await new Promise((r) => (ws.onopen = r))
+let id = 0; const wait = new Map(); ws.onmessage = (e) => { const m = JSON.parse(e.data); if (wait.has(m.id)) { wait.get(m.id)(m); wait.delete(m.id) } }
+const send = (method, params) => new Promise((r) => { const i = ++id; wait.set(i, r); ws.send(JSON.stringify({ id: i, method, params })) })
+const pause = (ms) => new Promise((r) => setTimeout(r, ms))
+const ev = async (expression) => (await send('Runtime.evaluate', { expression, returnByValue: true, awaitPromise: true })).result?.result?.value
+await send('Page.enable'); await send('Runtime.enable')
+for (const [lang, value, w, stage] of [['en-GB', null, 1280, ''], ['en-GB', null, 320, ''], ['ms-MY', 'ms-MY', 320, 'Tidak'], ['zh-Hans', 'zh-Hans', 375, '好的']]) {
+  await send('Emulation.setDeviceMetricsOverride', { width: w, height: 900, deviceScaleFactor: 1, mobile: false })
+  await send('Page.navigate', { url: process.env.APP_URL }); await pause(3500)
+  if (value) { await ev(`(() => { for (const s of document.querySelectorAll('select')) if ([...s.options].some((o) => o.value === '${value}')) { s.value = '${value}'; s.dispatchEvent(new Event('change', { bubbles: true })) } const r = document.querySelector('input[value="${value}"]'); if (r) r.click() })()`); await pause(1500) }
+  await ev(`(() => { const d = document.getElementById('system-check'); if (!d.open) d.querySelector('summary').click() })()`); await pause(800)
+  if (stage === 'Tidak') await ev(`(() => { const r = document.getElementById('check-aac'); r.dataset.state = 'fail'; r.querySelector('.mark').textContent = 'Tidak' })()`)
+  const box = await ev(`(() => { const d = document.getElementById('system-check'); d.scrollIntoView(); const b = d.getBoundingClientRect(); return { x: b.left + scrollX, y: b.top + scrollY, width: b.width, height: b.height, lang: document.documentElement.lang } })()`)
+  const shot = await send('Page.captureScreenshot', { format: 'png', captureBeyondViewport: true, clip: { x: box.x, y: box.y, width: box.width, height: box.height, scale: 1 } })
+  writeFileSync(join(process.env.OUTD, `${lang}-w${w}.png`), Buffer.from(shot.result.data, 'base64')); console.log(lang, w, box.lang, box.width, box.height)
+}
+await fetch(`${base}/json/close/${t.id}`); ws.close()

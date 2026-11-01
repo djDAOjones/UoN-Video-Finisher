@@ -1,0 +1,1 @@
+VH-230: record scripts and notes placed as .txt from the start, contents and sha1 as run, so eslint and markdownlint read no record (as vh206-records-2026-10-27). Run as: vh230-driver.mjs, vh230-compare.mjs, vh230-compare-2.mjs, vh230-acceptance.mjs, vh230-shots.mjs, go.sh, walk.sh, seq.zsh, side.zsh, table-1page.mjs. vh230-table-notes-r2.md.txt is the notes the page carries.

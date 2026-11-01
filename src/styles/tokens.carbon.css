@@ -104,6 +104,9 @@
      drawn inline in the fourth promise's text (VH-205). */
   --control-size: 1.25rem;
   --mark-width: 1.5rem;
+  /* The System check's mark column (VH-230): its state words, whole in each
+     language: Malay's "Tidak", 2.8rem under the text-spacing sheet. */
+  --system-check-mark-width: var(--spacing-09);
 
   /* The AAA pointer-target floor. Never shrink a control below this. */
   --target-min: 44px;

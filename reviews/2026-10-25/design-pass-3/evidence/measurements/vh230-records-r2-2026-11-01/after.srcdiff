@@ -1,0 +1,64 @@
+diff --git a/src/styles/app.css b/src/styles/app.css
+index 13e4651..7560660 100644
+--- a/src/styles/app.css
++++ b/src/styles/app.css
+@@ -359,13 +359,14 @@ a {
+   flex-wrap: wrap;
+   column-gap: var(--spacing-04);
+   row-gap: 0;
+-  padding-inline-start: calc(var(--mark-width) + var(--spacing-04));
++  padding-inline-start: calc(var(--system-check-mark-width) + var(--spacing-04));
+ }
+ 
+ .system-check .check .mark {
+   flex: none;
+-  width: var(--mark-width);
+-  margin-inline-start: calc(-1 * (var(--mark-width) + var(--spacing-04)));
++  width: var(--system-check-mark-width);
++  margin-inline-start: calc(-1 * (var(--system-check-mark-width) + var(--spacing-04)));
++  white-space: nowrap;
+ }
+ 
+ .system-check .check .mark + span {
+diff --git a/src/styles/tokens.carbon.css b/src/styles/tokens.carbon.css
+index cd8557d..334cf43 100644
+--- a/src/styles/tokens.carbon.css
++++ b/src/styles/tokens.carbon.css
+@@ -104,6 +104,9 @@
+      drawn inline in the fourth promise's text (VH-205). */
+   --control-size: 1.25rem;
+   --mark-width: 1.5rem;
++  /* The System check's mark column (VH-230): its state words, whole in each
++     language: Malay's "Tidak", 2.8rem under the text-spacing sheet. */
++  --system-check-mark-width: var(--spacing-09);
+ 
+   /* The AAA pointer-target floor. Never shrink a control below this. */
+   --target-min: 44px;
+diff --git a/test/stylesheet.test.ts b/test/stylesheet.test.ts
+index c3d0b98..efbdf31 100644
+--- a/test/stylesheet.test.ts
++++ b/test/stylesheet.test.ts
+@@ -561,3 +561,23 @@ describe('a window below the layout\u2019s minimum (VH-209, V-50)', () => {
+     expect(rules).toMatch(/\.segment-face\s*\{[^}]*min-height:\s*var\(--target-min\);/)
+   })
+ })
++
++describe('the System check’s mark column (VH-230)', () => {
++  const tokenFile = readFileSync(new URL('../src/styles/tokens.carbon.css', import.meta.url), 'utf8')
++  const rowRule = /(?:^|\})\s*\.system-check \.check\s*\{([^}]*)\}/m.exec(rules)?.[1] ?? ''
++  const markRule = /(?:^|\})\s*\.system-check \.check \.mark\s*\{([^}]*)\}/m.exec(rules)?.[1] ?? ''
++
++  it('holds its words whole, on its own token, in every row', () => {
++    expect(tokenFile).toMatch(/--system-check-mark-width:\s*var\(--spacing-09\);/)
++    expect(rowRule).toMatch(/padding-inline-start:\s*calc\(var\(--system-check-mark-width\) \+ var\(--spacing-04\)\);/)
++    expect(markRule).toMatch(/width:\s*var\(--system-check-mark-width\);/)
++    expect(markRule).toMatch(/margin-inline-start:\s*calc\(-1 \* \(var\(--system-check-mark-width\) \+ var\(--spacing-04\)\)\);/)
++    expect(markRule).toMatch(/white-space:\s*nowrap;/)
++  })
++
++  it('leaves the acceptance page its own column', () => {
++    expect(tokenFile).toMatch(/--mark-width:\s*1\.5rem;/)
++    expect(rules).toMatch(/(?:^|\})\s*\.check\s*\{[^}]*grid-template-columns:\s*var\(--mark-width\) 1fr auto;/m)
++    expect(rowRule + markRule).not.toMatch(/--mark-width/)
++  })
++})

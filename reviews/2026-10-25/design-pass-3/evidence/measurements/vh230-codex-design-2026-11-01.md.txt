@@ -1,0 +1,57 @@
+I recommend **a System-check-only 3rem token, with scoped `white-space: nowrap`**. Read-only review of HEAD `a7c55e8`; no files changed.
+
+```diff
+--- src/styles/tokens.carbon.css
++++ src/styles/tokens.carbon.css
+@@
+   --mark-width: 1.5rem;
++  /* VH-230: room for translated marks with text spacing. */
++  --system-check-mark-width: var(--spacing-09);
+
+--- src/styles/app.css
++++ src/styles/app.css
+@@ .system-check .check {
+-  padding-inline-start: calc(var(--mark-width) + var(--spacing-04));
++  padding-inline-start: calc(var(--system-check-mark-width) + var(--spacing-04));
+@@ .system-check .check .mark {
+-  width: var(--mark-width);
+-  margin-inline-start: calc(-1 * (var(--mark-width) + var(--spacing-04)));
++  width: var(--system-check-mark-width);
++  margin-inline-start: calc(-1 * (var(--system-check-mark-width) + var(--spacing-04)));
++  white-space: nowrap;
+```
+
+1. **Whole marks:** 3rem gives 48px normally and 96px at 32px: enough for measured `Tidak` at 44.73px under spacing and 72.64px enlarged. Chinese `……` still requires measurement. Keep the existing phone rule giving marks their own line.
+2. **Remedy:** choose the new token; preserve VH-218’s flex wrapping, label fallback and DOM order.
+3. **Token boundary:** sizing belongs to Carbon. `tokens.brand.css` retains typefaces and colour roles unchanged. Both systems remain separate; no new literal, element, control or string enters application code.
+
+**Callers.** My source search found two `.check` producers: `paintCheck()` in `src/main.ts`, and `render()` in `src/acceptance/main.ts`. `--mark-width` has four consumers: the generic grid and System check’s padding, width and negative margin. The latter three change. Acceptance keeps its grid, 1.5rem column and existing wrapping of `PASS`, `FAIL`, `NEEDS A PERSON`, `CHECKED ELSEWHERE`. Prove that with identical populated rows before/after: computed tracks, text rectangles, line counts and page overflow.
+
+**Cost to every row.** These are calculated budgets, not after-measurements:
+
+| Condition | Label/value space before → proposed |
+|---|---:|
+| 320px, default or spacing | 186 → 162px |
+| 375px, default or spacing | 241 → 217px |
+| 1280px, 32px font | 824 → 776px |
+
+VH-218’s largest label words across all six rows are 98.72px normally, 119.84px spaced and 197.44px enlarged. None exceeds its proposed space. Labels can gain lines between words; measure Chinese word segments too.
+
+Predicted new value drops include:
+
+- **320px:** Chinese storage’s failed value; under spacing, its passed/pending values too.
+- **375px default:** English storage’s passed value, worker’s pending value and secure connection’s failed value; Chinese WebCodecs values and H.264 pending/failed values. Staged Malay secure-pending also needs checking.
+- **375px spacing:** Chinese H.264/AAC passed values and worker’s ready-time value.
+- **1280px/32px:** Chinese AAC warning moves below its label; Malay’s already-below warning gains wrapping.
+
+Other already-below values remain below. This is acceptable VH-218 behaviour if words remain whole and associations clear. The enlarged phone layouts retain their full 254/309px text widths.
+
+**Width versus nowrap.** Width alone suffices for strings that fit. Scoped nowrap explicitly preserves each mark, including Chinese punctuation. It cannot prove containment: reject overflow or overlap rather than accepting a one-line mark spilling outside its column.
+
+**Standards.** Apply Carbon’s “two token systems, never collapsed”; house token-only sizing; WCAG 1.4.10’s reflow without content loss or horizontal reading scroll at 320 CSS px; and 1.4.12 with line-height 1.5, paragraph spacing 2em, letter-spacing .12em and word-spacing .16em together. Recheck 1.3.1, 1.4.4 and 1.4.8.
+
+**Languages.** Use one column across languages and states. Start-aligned English `OK`, `No`, `!`, `…` leaves whitespace, but maintains consistent label alignment and avoids state-dependent movement. Judge that whitespace visually.
+
+**Walk.** Run all 432 cells before and after. Read complete mark text, including punctuation, glyph rectangles, line count, width and containment; every label/value’s lines, broken words and placement; row heights, baselines and page overflow. Hold worker timing fixed; identify staged pending rows and alternate failure wording. Verify computed modes before screenshots, avoiding the known font32 capture problem. Include keyboard/screen-reader order, browser zoom and acceptance regression readings.
+
+**Risk:** unmeasured ellipsis, platform font fallback and near-boundary wrapping require browser proof. This design is not a gate pass; implementation still needs both prescribed checks and the linked disposition evidence.

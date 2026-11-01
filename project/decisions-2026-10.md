@@ -1314,3 +1314,13 @@ INTAKE.2 stays a wish line: only a person listening can judge the Teams output. 
 **Supersedes:** none
 
 **Deferred:** VH-185
+
+## 2026-10-24 — VH-186 — The System check's labels shortened, a fact not read said with a capital alone, the unchecked caption warning completed
+
+**Decision:** The four System check labels take the sheet's B1 words; Video properties says a fact it could not read as "Unknown" or "Less than a second", from new keys `format.alone.*`, and every sentence keeps the lower-case form; the unchecked caption warning goes on with the scanned one's caption passage. A trim handle's spoken place stays lower-case beside "the beginning" and "the end".
+
+**Rationale:** The sheet's B1 to B3, approved by the owner. The four format helpers take an optional `Placement` (default in a sentence), and only `buildRows` passes `'alone'`; every call site is listed in `reviews/2026-10-24/vh186-words-2026-10-24.md`. The build's check of `estimateWords` found a non-finite estimate would say "about unknown", so it now says the existing sentence without a time. The Chinese and Malay are the agent's drafts, marked in the filled sheet. At 320 px the English labels take 2, 3, 2 and 2 lines, from 4, 4, 3 and 3. 72 Chrome cases pass. Codex astra: "Commit after the musts below"; its musts, `formatApproximateDuration` in the call-site list and this close, are done, and two comments that named the handles were corrected. The worker row's break inside its words at 320 px is a layout defect, left as VH-186.1.
+
+**Supersedes:** none
+
+**Deferred:** VH-187

@@ -359,13 +359,14 @@ a {
   flex-wrap: wrap;
   column-gap: var(--spacing-04);
   row-gap: 0;
-  padding-inline-start: calc(var(--mark-width) + var(--spacing-04));
+  padding-inline-start: calc(var(--system-check-mark-width) + var(--spacing-04));
 }
 
 .system-check .check .mark {
   flex: none;
-  width: var(--mark-width);
-  margin-inline-start: calc(-1 * (var(--mark-width) + var(--spacing-04)));
+  width: var(--system-check-mark-width);
+  margin-inline-start: calc(-1 * (var(--system-check-mark-width) + var(--spacing-04)));
+  white-space: nowrap;
 }
 
 .system-check .check .mark + span {

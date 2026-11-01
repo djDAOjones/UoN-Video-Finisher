@@ -1,0 +1,27 @@
+**PASS — the tracked VH-230 candidate meets the reviewed criteria. The evidence report needs corrections before close.**
+
+1. **Criterion 1 — PASS.** Independently recounted 432 cells and 3,024 mark readings per side, including staged variants. Multiline marks: **1,092 → 0**. Every declared width, font condition, language and colour mode matches `modeRead`; all states reached. No mark exceeds its column. Text and DOM order remain unchanged.
+
+2. **Criterion 2 — PASS.** The dedicated token is an explicitly permitted remedy. VH-218’s wrapping behaviour survives: **zero broken label words before or after**.
+
+3. **Criterion 3 — PASS.** Complete, paired measurements exist for 432 cells per side, without probe errors. Chinese `……` measures **28 / 56 / 31.38 px** at default / 32 px / spacing respectively; all after-readings occupy one line. The report’s presentation needs repair below.
+
+4. **Criterion 4 — PASS for this stage.** The evidence supports touched reflow/text-spacing checks, 1.4.10 and 1.4.12: no horizontal overflow or lost row content. Carbon and brand tokens remain separate; no new production literal, control or element. Gate, close check and Disposition linkage are not certified here.
+
+- **Acceptance caller — PASS for non-regression.** Both groups’ measurements are byte-identical, supported by selector isolation. These are injected representative rows, not a complete acceptance run. Existing PASS/FAIL wrapping and six-/nine-line status phrases remain defects to report under the owner’s instruction. Source search finds no additional consumer affected; `.facts` is unaffected.
+
+- **`nowrap` concealment — PASS.** Minimum remaining mark room is **3.28 px**; minimum same-line label clearance is **15.28 px**. The 672 negative `gapToLabel` readings occur at narrow 32 px layouts where marks sit **42 px above** labels, identically before and after—not overlapping them.
+
+- **Moved readings — PASS as acceptable reflow.** Geometry changes in 2,352 readings across 336 cells. Values below labels: **1,648 → 1,772**, all 124 transitions downward. **212 labels gain one line; 20 values gain one line.** Heights change in **1,100 readings: 340 grow, 760 shrink**. No label/value extends past its row. The added wrapping and height are reasonable costs of readable marks, not hidden regressions.
+
+- **Chinese value — PASS; report the finding.** Four warned-AAC readings at 320 px with spacing split `制作`, newly, across lines. Chinese permits ordinary wrapping between those characters; `Intl.Segmenter` identifying a lexical word does not prohibit that break. The value remains two lines, complete and readable. This is not equivalent to English/Malay emergency word fragmentation.
+
+- **Load — PASS for layout evidence.** Confirmed warned-before peak **30.57**, with **8/10** samples ≥8. Higher load does not itself invalidate synchronous layout measurements with verified states and fixed wording. These runs establish no timing claim.
+
+- **Staging/provenance — PASS, qualified.** Base, candidate hash, instrument revision, AC/mode 2 and cell sets match. Archived driver SHA-1 is `c8c50039cebee9554ab41a92204deab44a5d1615`; launch records use that driver path throughout, though they do not independently hash it per run. Against VH-218, functional changes are solely `markWhole`; remaining changes rename identifiers/comments.
+
+- **Token/tests — PASS.** Name, structural-token placement and comment are appropriate. Three rem is the first Carbon step accommodating measured 44.72 px “Tidak”. Two modest structural regression tests are sufficient alongside browser evidence; their regexes alone cannot prove layout.
+
+- **UX/design — PASS within supplied evidence.** Default-font shots show coherent alignment across languages. The Malay failed mark is staged and its unchanged success value is inconsistent; I used it only for spacing. A reviewer could reasonably question the generous English gutter and extra phone wrapping, but neither makes this remedy defective.
+
+**Repair — FAIL for report readiness:** qualify “Nothing moved” as instrument outcomes; repair the malformed table and missing promised `detail/`; correct load medians. Explain the 108 unchanged `type` failures: spacing overrides produce heading line-height 1.5, not page-order failures. Record the acceptance-page defects for the owner. No production-code repair is established by this review.
