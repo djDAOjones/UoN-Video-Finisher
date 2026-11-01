@@ -1,0 +1,9 @@
+# VH-218 — Codex's third re-check (read-only)
+
+Your second re-check, `/Users/joe/UoN-Video-Helper-side/vh218-codex-recheck2.md`, gave "FAIL". No source or walker has changed. New: `reviews/2026-10-25/design-pass-3/evidence/measurements/vh218-check-rows-r3-2026-10-31.md`, `vh218-records-r3-2026-10-31/`; in `/Users/joe/UoN-Video-Helper-side/vh218-walk/`: `longest-unbroken-2.mjs`, `.txt`, `.jsonl`.
+
+**Don't read** any folder under `side-session-notes/`, or in `/Users/joe/UoN-Video-Helper-side/`: `vh218-claude-*`, `vh218-*compare*`, `vh218-progress.md`, `vh218-handover-*`, `vh218-2-start.md`, any `vh218-*brief*` but this one.
+
+**Answer:** each of your three must-fixes in turn, fixed or not, and anything on the r3 page its records don't bear out. A word whose width is measured only by summing fragments is reported as such and marked: is that sound, as the page says it? Don't ask for more precision than the criterion needs: it asks for a row's longest unbroken word.
+
+**End with one verdict word on its own line: "PASS", or "FAIL" with each must-fix numbered.** The commit quotes it as given. Under 200 words.

@@ -349,6 +349,34 @@ a {
   text-align: right;
 }
 
+/* The System check's rows (VH-218): the value beneath its label when the row
+   cannot hold both on one line, so the label keeps the row's width and breaks
+   between words. A wrapping line, not a query: the words, the font and the
+   spacing decide. The mark hangs in the padding, in flow for its baseline, and
+   its margin and the gap cancel, so the label at its full width stays beside it. */
+.system-check .check {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: var(--spacing-04);
+  row-gap: 0;
+  padding-inline-start: calc(var(--mark-width) + var(--spacing-04));
+}
+
+.system-check .check .mark {
+  flex: none;
+  width: var(--mark-width);
+  margin-inline-start: calc(-1 * (var(--mark-width) + var(--spacing-04)));
+}
+
+.system-check .check .mark + span {
+  flex: 1 1 auto;
+  max-width: 100%;
+}
+
+.system-check .check .value {
+  text-align: start;
+}
+
 .actions {
   display: flex;
   flex-wrap: wrap;
@@ -1675,6 +1703,8 @@ details[open] > .disclosure-summary::before {
  * disclosure's heading. The colours stack, each face keeping its own four
  * edges and overlapping its neighbour by one hairline, as the switchers do;
  * in Chinese a colour's shortest width is one glyph, so a wrap would not fire.
+ * A System check row's mark takes a line of its own, so its label has the whole
+ * column and its longest word stays whole (VH-218).
  * The media query follows the text size, as `25rem` does (S-113).
  */
 @media (max-width: 19.99rem) {
@@ -1726,6 +1756,16 @@ details[open] > .disclosure-summary::before {
   .statement > .disclosure-summary h2 {
     min-width: 0;
     overflow-wrap: break-word;
+  }
+
+  .system-check .check {
+    padding-inline-start: 0;
+  }
+
+  .system-check .check .mark {
+    flex: 0 0 100%;
+    width: auto;
+    margin-inline-start: 0;
   }
 }
 

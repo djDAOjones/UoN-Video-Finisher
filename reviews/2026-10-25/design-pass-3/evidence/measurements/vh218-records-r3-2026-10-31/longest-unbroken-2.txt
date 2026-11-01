@@ -1,0 +1,31 @@
+Each row's longest unbroken word (px), before → after, passed, light. Every state and colour mode, the staged and swapped readings with them, 6048 readings, 3,024 a side, in `longest-unbroken-2.jsonl`. A plain width is the reading's own. **A width marked \* is from `before-words`,** used where the reading's own widest word broke: 308 readings before and 0 after (5244 own). Those widths sum rendered fragments, so they vary with layout, by up to 0.58 px against a reading's own ((WebCodecs) en-GB,w320,font32,webcodecs), and near-equal words may rank either way. "None" means every word in the label broke: 496 readings before, 0 after. `before-words`'s rows, without the added field, are 27 of 27 identical to `before-passed`.
+
+| Language, width, text | secure | webcodecs | h264 | aac | opfs | worker |
+| --- | --- | --- | --- | --- | --- | --- |
+| en-GB w1280 default | connection 77.39 | (WebCodecs) 97.53 | (H.264) 53.36 | Output 48.03 | working 55.14 | Background 85.39 |
+| en-GB w1280 font32 | connection 154.78 | (WebCodecs) 195.03 | (H.264) 106.7 | Output 96.06 | working 110.27 | Background 170.78 |
+| en-GB w1280 spacing | connection 96.61 | (WebCodecs) 118.64 | (H.264) 66.81 | Output 59.56 | working 68.59 | Background 104.59 |
+| en-GB w375 default | connection 77.39 | (WebCodecs) 97.52 → (WebCodecs) 97.53 | (H.264) 53.36 | Output 48.03 | working 55.14 | Background 85.39 |
+| en-GB w375 font32 | none → connection 154.78 | Video 81.27* → (WebCodecs) 195.03 | video 76.5* → (H.264) 106.7 | audio 78.3* → Output 96.06 | Private 99.59* → working 110.27 | none → Background 170.78 |
+| en-GB w375 spacing | connection 96.59 → connection 96.61 | (WebCodecs) 118.64 | (H.264) 66.81 → (H.264) 66.8 | Output 59.56 | working 68.59 | none → Background 104.59 |
+| en-GB w320 default | connection 77.39 | (WebCodecs) 97.52 | (H.264) 53.36 | Output 48.03 | working 55.14 | none → Background 85.39 |
+| en-GB w320 font32 | none → connection 154.78 | none → (WebCodecs) 195.03 | none → (H.264) 106.7 | none → Output 96.06 | none → working 110.27 | none → Background 170.78 |
+| en-GB w320 spacing | connection 96.59 → connection 96.61 | Video 50.23* → (WebCodecs) 118.64 | (H.264) 66.8 | Output 59.56 | working 68.58 → working 68.59 | none → Background 104.59 |
+| zh-Hans w1280 default | 安全 32 | WebCodecs 86.86 | 输出 32 | AAC 32.91 | 私人 32 | 后台 32 |
+| zh-Hans w1280 font32 | 安全 64 | WebCodecs 173.72 | 输出 64 | AAC 65.8 | 私人 64 | 后台 64 |
+| zh-Hans w1280 spacing | 连接 35.86 | WebCodecs 104.16 | 视频 35.86 | AAC 38.67 | 工作 35.86 | 处理 35.86 |
+| zh-Hans w375 default | 安全 32 | WebCodecs 86.86 | 输出 32 | AAC 32.91 | 私人 32 | 后台 32 |
+| zh-Hans w375 font32 | 安全 64 | 视频 64* → WebCodecs 173.72 | 输出 64 | AAC 65.8 | 私人 64 | none → 后台 64 |
+| zh-Hans w375 spacing | 连接 35.86 | WebCodecs 104.16 | 视频 35.86 | AAC 38.67 | 工作 35.86 | 处理 35.86 |
+| zh-Hans w320 default | 安全 32 | WebCodecs 86.86 | 输出 32 | AAC 32.91 | 私人 32 | 后台 32 |
+| zh-Hans w320 font32 | 安全 64 | 视频 64* → WebCodecs 173.72 | 输出 64 | AAC 65.8 | 私人 64 | none → 后台 64 |
+| zh-Hans w320 spacing | 连接 35.86 | WebCodecs 104.16 | 视频 35.86 | AAC 38.69 → AAC 38.67 | 工作 35.86 | 后台 35.84 → 处理 35.86 |
+| ms-MY w1280 default | Sambungan 86.3 | Pemprosesan 98.72 | keluaran 61.38 | keluaran 61.39 | persendirian 88.06 | Pemprosesan 98.72 |
+| ms-MY w1280 font32 | Sambungan 172.58 | Pemprosesan 197.44 | keluaran 122.75 | keluaran 122.75 | persendirian 176.11 | Pemprosesan 197.44 |
+| ms-MY w1280 spacing | Sambungan 103.58 | Pemprosesan 119.84 | keluaran 76.75 | keluaran 76.75 | persendirian 111.11 | Pemprosesan 119.84 |
+| ms-MY w375 default | Sambungan 86.3 | Pemprosesan 98.72 | keluaran 61.38 | keluaran 61.39 | persendirian 88.06 | belakang 64.95* → Pemprosesan 98.72 |
+| ms-MY w375 font32 | none → Sambungan 172.58 | video 76.5* → Pemprosesan 197.44 | video 76.5* → keluaran 122.75 | (AAC) 87.11* → keluaran 122.75 | Storan 94.28* → persendirian 176.11 | none → Pemprosesan 197.44 |
+| ms-MY w375 spacing | Sambungan 103.58 | Pemprosesan 119.84 | keluaran 76.75 | keluaran 76.75 | persendirian 111.11 | none → Pemprosesan 119.84 |
+| ms-MY w320 default | Sambungan 86.3 | Pemprosesan 98.72 | keluaran 61.38 | keluaran 61.38 → keluaran 61.39 | persendirian 88.06 | none → Pemprosesan 98.72 |
+| ms-MY w320 font32 | none → Sambungan 172.58 | none → Pemprosesan 197.44 | none → keluaran 122.75 | none → keluaran 122.75 | none → persendirian 176.11 | none → Pemprosesan 197.44 |
+| ms-MY w320 spacing | Sambungan 103.58 | video 47.88* → Pemprosesan 119.84 | keluaran 76.75 | keluaran 76.75 | Storan 58.67* → persendirian 111.11 | none → Pemprosesan 119.84 |

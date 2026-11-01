@@ -1,0 +1,8 @@
+src/i18n/en-GB.ts same without comments ; whole file identical
+src/i18n/zh-Hans.ts same without comments ; whole file identical
+src/i18n/ms-MY.ts same without comments ; whole file identical
+data-i18n same keys and counts 124
+data-i18n-attr same
+elements same tags and counts 339 339
+markup words, sorted same
+filled sheet lines 523 523 changed 0 

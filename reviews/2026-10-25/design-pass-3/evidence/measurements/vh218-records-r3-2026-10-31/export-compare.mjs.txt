@@ -1,0 +1,9 @@
+// VH-218 #2: the export serves the base faithfully? Each S-103 cell in export-proof against the same cell in before-s103 (on $R at the base), whole probe minus time, plan and walk. And each S-103-warned cell: aac warn, the other five pass, the row present.
+import { readFileSync, readdirSync } from 'node:fs'; import { join } from 'node:path'
+const D = process.argv[2]; const rd = (g) => { const r = join(D, g, 'runs'); return readFileSync(join(r, readdirSync(r).find((x) => /probe/.test(x))), 'utf8').trim().split('\n').map(JSON.parse) }
+const strip = (j) => { const { at, plan, walk, ...o } = j; return JSON.stringify(o) }
+const base = Object.fromEntries(rd('before-s103').map((j) => [j.cell + '/' + j.mode, j])); const P = rd('export-proof')
+let same = 0, diff = 0, warned = 0, wok = 0; const notes = []
+for (const j of P) { const k = j.cell + '/' + j.mode; if (j.id === 'S-103') { const b = base[k]; if (!b) { notes.push('no base ' + k); continue } if (strip(b) === strip(j)) same++; else { diff++; const x = strip(b), y = strip(j); let i = 0; while (x[i] === y[i]) i++; notes.push(k + ' at ' + i + ': ' + x.slice(i - 40, i + 40) + ' | ' + y.slice(i - 40, i + 40)) } }
+  else { warned++; const s = Object.fromEntries(j.rows.map((r) => [r.id, r.state])); if (s.aac === 'warn' && ['secure', 'webcodecs', 'h264', 'opfs', 'worker'].every((i) => s[i] === 'pass') && j.fact) wok++; else notes.push('warned? ' + k + JSON.stringify(s) + !!j.fact) } }
+console.log(`S-103 on the export against before-s103: ${same} identical, ${diff} differ; S-103-warned: ${wok} of ${warned} warned with the row present`); for (const n of notes) console.log(n)

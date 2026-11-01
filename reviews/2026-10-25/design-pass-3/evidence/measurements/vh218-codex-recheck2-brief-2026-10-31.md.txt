@@ -1,0 +1,12 @@
+# VH-218 — Codex's second re-check (read-only)
+
+Your re-check, `/Users/joe/UoN-Video-Helper-side/vh218-codex-recheck.md`, gave "FAIL" with two evidence must-fixes. No source or walker has changed since (`git diff ca2f5ed69631d17ba1df621eaee066950d117c9d` as you saw it; the ledger isn't edited yet). A new page and records were added beside the old: `reviews/2026-10-25/design-pass-3/evidence/measurements/vh218-check-rows-r2-2026-10-31.md` and `vh218-records-r2-2026-10-31/`. New in `/Users/joe/UoN-Video-Helper-side/vh218-walk/`: `vh218-driver-3.mjs`, `before-words/`, `longest-unbroken.mjs`, `.txt`, `.jsonl`, `rows-compare-3.mjs`, `.txt`.
+
+**Don't read** any folder under `side-session-notes/`, or in `/Users/joe/UoN-Video-Helper-side/`: `vh218-claude-*`, `vh218-*compare*`, `vh218-progress.md`, `vh218-handover-*`, `vh218-2-start.md`, any `vh218-*brief*` but this one.
+
+**Answer each, with evidence you read yourself:**
+1. Must-fix 1: is each row's longest unbroken word now given for the before and the after, soundly? Does driver 3 differ from driver 2 by the one field only? Does `before-words` leave the before's cells untouched and agree with them? Is a word's width from one state's cell fair for another's, at the same language, width and text condition?
+2. Must-fix 2: each correction you named in turn (the export's manifests, `detail/`, 195.03, worker lines, battery ends, the ellipsis). Is each now true on the page?
+3. Anything on the r2 page, new or old, its records don't bear out.
+
+**End with one verdict word on its own line: "PASS", or "FAIL" with each must-fix numbered.** The commit quotes it as given. Under 300 words.

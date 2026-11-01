@@ -1,0 +1,144 @@
+**I recommend a content-driven wrap scoped to the System check.** This is a read-only design check of HEAD `ca2f5ed`; I made no edits and ran no walks.
+
+Below, `walker/` means `reviews/2026-10-25/design-pass-3/evidence/measurements/walker/`.
+
+1. **CSS proposal**
+
+   The present `--mark-width 1fr auto` grid lets the value squeeze the label; inherited `overflow-wrap: anywhere` then fragments it. See [app.css:318](/Users/joe/Library/CloudStorage/OneDrive-TheUniversityofNottingham/_Joe%20Bell%20UoN%20Files/2_Projects/2026-08-24%20UoN%20Video%20Helper/src/styles/app.css:318) and `app.css:40`.
+
+   I would retain the existing gutter and use wrapping flex layout, with the mark hanging into that gutter **while remaining in the baseline calculation**:
+
+   ```css
+   .system-check .check {
+     display: flex;
+     flex-wrap: wrap;
+     align-items: first baseline;
+     min-inline-size: 0;
+     padding-inline-start: calc(var(--mark-width) + var(--spacing-04));
+   }
+
+   .system-check .check > .mark {
+     flex: none;
+     inline-size: var(--mark-width);
+     margin-inline-start:
+       calc(-1 * (var(--mark-width) + var(--spacing-04)));
+   }
+
+   .system-check .check > :not(.mark) {
+     min-inline-size: 0;
+     max-inline-size: 100%;
+   }
+
+   .system-check .check > :nth-child(2) {
+     flex: 1 1 max-content;
+   }
+
+   .system-check .check > .value {
+     flex: 0 1 max-content;
+     text-align: start;
+   }
+   ```
+
+   Existing gap, borders, typography, colours and `overflow-wrap` remain. The label grows into spare space; the value wraps when their natural one-line widths plus the gap exceed the text area. The `100%` cap lets an oversized label occupy that area without leaving the mark alone on a previous flex line.
+
+   **Content-driven, not a viewport or container breakpoint:** available space, translation, actual font and spacing determine the transition. A width query cannot detect those content differences.
+
+   Failure modes to test explicitly:
+
+   - At 320 px and a 32 px font, a Malay word such as **Pemprosesan** may exceed even the freed text column. Emergency wrapping must still work; “every word always whole” is incompatible with that constraint.
+   - Spacing increases intrinsic widths and produces earlier stacking and taller rows.
+   - The existing narrow mark gutter can wrap Malay **Tidak** or Chinese marks. Count and inspect that too; first-baseline alignment does not guarantee a one-line mark.
+   - Removing the size cap risks an orphaned mark; using an absolute-positioned mark risks incorrect baseline placement. This proposal avoids both.
+
+2. **Value placement and alignment**
+
+   Beneath: start at the **label’s inline-start edge**, below its last line—not beneath the mark or against the row’s far edge. Beside: occupy the row’s inline end, sharing the label’s first baseline. Use `text-align: start` throughout; do not add an auto start margin that would also right-align a stacked value.
+
+   WCAG 1.4.8 forbids full justification; it does **not** itself forbid right alignment. Start alignment is my readability choice for these verbal outcomes, especially the long AAC warning. Preserve the measure, line spacing, user colours and enlargement behaviour too. Sources: `app.css:347`, [UI-STANDARDS.md:208](/Users/joe/Library/CloudStorage/OneDrive-TheUniversityofNottingham/_Joe%20Bell%20UoN%20Files/2_Projects/2026-08-24%20UoN%20Video%20Helper/UI-STANDARDS.md:208), `project/digests/wcag-2.2-aaa.md:38`.
+
+3. **Every `.check` caller**
+
+   | Caller | Effect of this proposal |
+   |---|---|
+   | System check: `src/main.ts:803–819`, inside `index.html:710–714` | All six rows receive the wrap, in every reachable state. |
+   | Development acceptance results: `src/acceptance/main.ts:31–49` | Unchanged because the selector requires `.system-check`. |
+
+   The acceptance caller has marks including **NEEDS A PERSON** and **CHECKED ELSEWHERE**, a title plus detail, and an empty value. A global `.check` rewrite would change an unnamed caller and is therefore out of scope. S-103 uses Video properties’ `dd` content, not these check rows (`walker/scenarios.mjs:2129–2135`).
+
+4. **Smallest walker change**
+
+   Add one **S-82 `afterMode` hook** in `scenarios.mjs`: when `#check-worker` is `pass`, replace only its value text with a declared fixture, for example **101 milliseconds**, formatted through the existing `unitFormatter` and current-language `readyIn` template. Use `window.__mx`’s `msg`/`compose`; fail explicitly if the required table is unavailable. No observer or clock override is needed.
+
+   This targets the displayed value. Changing `workerBootMs` would not: the app displays its own `performance.now()` round trip. Sources: [main.ts:1309](/Users/joe/Library/CloudStorage/OneDrive-TheUniversityofNottingham/_Joe%20Bell%20UoN%20Files/2_Projects/2026-08-24%20UoN%20Video%20Helper/src/main.ts:1309), `src/i18n/intl.ts:107`, `walker/scenarios.mjs:31–50`, `walker/matrix.mjs:227–240`.
+
+   Prove the hook on the unchanged app before measuring the fix:
+
+   - Different real round trips yield exactly the same localized fixture.
+   - Pending and failure values remain untouched.
+   - Row states, marks, labels, summary, startup behaviour and other scenarios remain unchanged.
+   - Only the worker value and its consequent layout differ.
+   - Both before and after use the same qualified walker revision; keep the raw timing separately.
+
+5. **State coverage and driver**
+
+   “Warned” describes a panel containing a warning; it does not mean six warning rows.
+
+   | Row | Pending | Passed | Warned | Failed |
+   |---|---|---|---|---|
+   | Secure | Written then replaced synchronously; stage for layout | Secure context | Impossible | Pre-load capability override, declared |
+   | WebCodecs | Same synchronous limitation | Encoder and decoder present | Impossible | F2 removes `VideoEncoder` |
+   | H.264 | Hold a boot support promise | Supported configuration | Impossible | Refuse video support, or F2 |
+   | AAC | Hold a boot support promise | Stereo **and** mono supported | F17 refuses AAC | F2 takes the missing-WebCodecs branch |
+   | OPFS | Written then replaced synchronously; stage for layout | `getDirectory` available | Impossible | Pre-load removal of that capability |
+   | Worker | F1, before its deadline | Successful ping | Impossible | Startup error, or F1 held through timeout |
+
+   H.264 and AAC await the **same `Promise.all`**; holding either support inquiry holds both pending. AAC refusal normally warns, rather than fails. Worker failures have two values—“Failed to start” and “No response”—and both deserve coverage. Sources: `src/main.ts:1107–1171,1292–1317,1371–1376`; `walker/faults.mjs:73–88,255–259`.
+
+   The external driver should preload an in-memory plan and S-82 variants, then invoke the existing matrix runner. Preserve all instruments and focus checks. Override **both `state` and `hold`** for each variant; imported scenarios already have wrapped predicates (`scenarios.mjs:3175–3177`).
+
+   Three obstructions matter:
+
+   - `walk.mjs:297–302` waits for checking to finish; use `gotoNoWait` for genuine pending capture.
+   - F1 expires after the app’s five-second watchdog (`main.ts:1200–1240`). A full measurement cannot assume pending survives. Capture a genuine transient proof, then use explicitly labelled, settled-page layout staging for sustained readings, including synchronous pending rows. Assert the staged contents before and after; do not call that behavioural reachability.
+   - S-82 rejects pending rows and blindly clicks the summary (`scenarios.mjs:998–1003`). Failures auto-open it (`main.ts:847`), so that click can close it. Driver setups must open it **only if closed**.
+
+   For spacing with each colour, keep record mode **`spacing`**, then apply only the colour media features in the driver’s composed `afterMode`. Record colour in the variant and assert both media flags and computed spacing. Calling `setMode(colour)` afterwards removes spacing; calling `setMode('spacing')` afterwards restores light. Sources: `qualify.mjs:999–1015`; `matrix.mjs:109`. Use the existing combined colour/font32 modes for enlargement.
+
+   S-103 retains its one genuine state and fixture.
+
+6. **Honest line and word measurements**
+
+   Measure **mark, label and value separately**, plus the row’s occupied visual lines. Retain each line’s text and geometry. Do not divide row height by line height: padding, gaps and different type sizes make that wrong.
+
+   The walker’s `renderedLines` is useful, but its whole-`li` reading joins adjacent children geometrically. That can concatenate mark, label and value into a fictitious “word” (`qualify.mjs:246–284,311–314`). Add the component-level reader in the external driver.
+
+   Record:
+
+   - Longest source word/token: text, grapheme count and unwrapped rendered width.
+   - Its actual line fragments, and **every word split**, not merely the longest surviving fragment.
+   - The available text-column width, so necessary emergency breaks are distinguishable from avoidable squeezing.
+
+   Chinese is not one enormous word because it lacks spaces. Count graphemes and retain normal Chinese line-break opportunities; linguistic word segmentation is descriptive, not a prohibition on ordinary CJK wrapping. Inspect embedded Latin tokens such as **WebCodecs** separately. For 1.4.8, retain the walker’s CJK/mixed-script readings and its uncertainties; the house measure counts CJK glyphs as two (`UI-STANDARDS.md:209–211`).
+
+7. **Expected movement, risks and omissions**
+
+   Values, row heights, dividers and following footer content may move. Labels should gain usable width. DOM order, wording, states, typography, colours, focus behaviour, progress bar, acceptance results and S-103’s facts must remain unchanged.
+
+   Re-check:
+
+   - **1.3.1:** each label/value remains associated within its list item; marks remain supplementary.
+   - **1.4.4 / 1.4.10:** enlarged text remains readable and contained, including emergency wrapping.
+   - **1.4.8:** measure, unjustified text, spacing and user colours remain available.
+   - **1.4.12:** spacing actually takes effect without clipping, overlap or lost content.
+
+   The stated matrix contains **540 nominal cells per side**: 108 combinations × four S-82 states plus one S-103 state. Additional failure variants increase that count. Impossible row/state combinations need reasons, not fabricated passes.
+
+   Also test just across observed wrap thresholds, longer legitimate worker timings, long AAC warnings, mark wrapping and label/mark baselines. Historical before records qualify only when content, fixed value, font, spacing, viewport and relevant source conditions match. Font32 is not evidence of actual browser zoom; an AX tree is not evidence of spoken output.
+
+**What must hold**
+
+- System-check-only CSS; existing tokens, words and DOM retained.
+- Value stacks at the label’s start; mark keeps its first baseline.
+- Emergency wrapping remains; no clipping or sideways escape.
+- One qualified worker-value hook; identical instruments on both sides.
+- Real, staged and impossible states distinguished; complete row-level evidence and the required gates green before close.

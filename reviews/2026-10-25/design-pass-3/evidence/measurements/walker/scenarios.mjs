@@ -31,6 +31,8 @@ const SAMPLE_QTRLE = join(APP_ROOT, 'samples', 'UoN Closing Logo Fade Blue 2025.
 export const MX_INIT = String.raw`
 (() => {
   const M = (window.__mx = { tables: {} });
+  // VH-218: the System check's "Ready in … ms" at one fixed value, so the worker row's width is deterministic: the app's own formatter, locale and row, given 101, the value the defect was read at. Only src/main.ts's worker check formats milliseconds.
+  { const real = Object.getOwnPropertyDescriptor(Intl.NumberFormat.prototype, 'format').get; Object.defineProperty(Intl.NumberFormat.prototype, 'format', { configurable: true, get() { const f = real.call(this); return this.resolvedOptions().unit === 'millisecond' ? () => f(101) : f; } }); }
   if (/^https?:/.test(location.protocol)) for (const tag of ['en-GB', 'zh-Hans', 'ms-MY'])
     import('/src/i18n/' + tag + '.ts').then((m) => { const t = Object.values(m).find((v) => v && v.meta && v.meta.locale === tag); if (t) M.tables[tag] = t; }).catch(() => {});
   M.msg = (path, lang) => { let v = M.tables[lang || document.documentElement.lang]; for (const k of path.split('.')) v = v == null ? v : v[k]; return v; };

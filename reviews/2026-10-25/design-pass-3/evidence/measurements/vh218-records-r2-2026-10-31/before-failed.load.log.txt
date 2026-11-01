@@ -1,0 +1,12 @@
+22:42:32 load 4.19 AC Power 100% pm2
+22:43:02 load 3.95 AC Power 100% pm2
+22:43:32 load 3.85 AC Power 100% pm2
+22:44:02 load 3.76 AC Power 100% pm2
+22:44:32 load 4.17 AC Power 100% pm2
+22:45:02 load 4.58 AC Power 100% pm2
+22:45:32 load 4.64 AC Power 100% pm2
+22:46:02 load 4.12 AC Power 100% pm2
+22:46:32 load 4.41 AC Power 100% pm2
+22:47:02 load 5.98 AC Power 100% pm2
+22:47:32 load 5.32 AC Power 100% pm2
+22:48:02 load 5.55 AC Power 100% pm2

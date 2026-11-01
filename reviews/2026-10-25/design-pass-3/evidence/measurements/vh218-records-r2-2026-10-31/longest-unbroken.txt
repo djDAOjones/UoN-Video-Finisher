@@ -1,0 +1,31 @@
+Each row's longest unbroken word (px), before → after, passed, light; every state and colour mode, 5184 readings, in `longest-unbroken.jsonl`. "None" means every word in the label broke: 432 readings before, 0 after. The before's word widths are from `before-words`, 27 cells on the base by the export, its rows 27 of 27 identical to `before-passed`.
+
+| Language, width, text | secure | webcodecs | h264 | aac | opfs | worker |
+| --- | --- | --- | --- | --- | --- | --- |
+| en-GB w1280 default | connection 77 | (WebCodecs) 98 | (H.264) 53 | Output 48 | working 55 | Background 85 |
+| en-GB w1280 font32 | connection 155 | (WebCodecs) 195 | (H.264) 107 | Output 96 | working 110 | Background 171 |
+| en-GB w1280 spacing | connection 97 | (WebCodecs) 119 | (H.264) 67 | Output 60 | working 69 | Background 105 |
+| en-GB w375 default | connection 77 | (WebCodecs) 98 | (H.264) 53 | Output 48 | working 55 | Background 85 |
+| en-GB w375 font32 | none → connection 155 | Video 81 → (WebCodecs) 195 | video 77 → (H.264) 107 | audio 78 → Output 96 | Private 100 → working 110 | none → Background 171 |
+| en-GB w375 spacing | connection 97 | (WebCodecs) 119 | (H.264) 67 | Output 60 | working 69 | none → Background 105 |
+| en-GB w320 default | connection 77 | (WebCodecs) 98 | (H.264) 53 | Output 48 | working 55 | none → Background 85 |
+| en-GB w320 font32 | none → connection 155 | none → (WebCodecs) 196 | none → (H.264) 107 | none → Output 96 | none → working 110 | none → Background 171 |
+| en-GB w320 spacing | connection 97 | Video 50 → (WebCodecs) 119 | (H.264) 67 | Output 60 | working 69 | none → Background 105 |
+| zh-Hans w1280 default | 安全 32 | WebCodecs 87 | 输出 32 | AAC 33 | 私人 32 | 后台 32 |
+| zh-Hans w1280 font32 | 安全 64 | WebCodecs 174 | 输出 64 | AAC 66 | 私人 64 | 后台 64 |
+| zh-Hans w1280 spacing | 连接 36 | WebCodecs 104 | 视频 36 | AAC 39 | 工作 36 | 处理 36 |
+| zh-Hans w375 default | 安全 32 | WebCodecs 87 | 输出 32 | AAC 33 | 私人 32 | 后台 32 |
+| zh-Hans w375 font32 | 安全 64 | 视频 64 → WebCodecs 174 | 输出 64 | AAC 66 | 私人 64 | none → 后台 64 |
+| zh-Hans w375 spacing | 连接 36 | WebCodecs 104 | 视频 36 | AAC 39 | 工作 36 | 处理 36 |
+| zh-Hans w320 default | 安全 32 | WebCodecs 87 | 输出 32 | AAC 33 | 私人 32 | 后台 32 |
+| zh-Hans w320 font32 | 安全 64 | 视频 64 → WebCodecs 174 | 输出 64 | AAC 66 | 私人 64 | none → 后台 64 |
+| zh-Hans w320 spacing | 连接 36 | WebCodecs 104 | 视频 36 | AAC 39 | 工作 36 | 后台 36 |
+| ms-MY w1280 default | Sambungan 86 | Pemprosesan 99 | keluaran 61 | keluaran 61 | persendirian 88 | Pemprosesan 99 |
+| ms-MY w1280 font32 | Sambungan 173 | Pemprosesan 197 | keluaran 123 | keluaran 123 | persendirian 176 | Pemprosesan 197 |
+| ms-MY w1280 spacing | Sambungan 104 | Pemprosesan 120 | keluaran 77 | keluaran 77 | persendirian 111 | Pemprosesan 120 |
+| ms-MY w375 default | Sambungan 86 | Pemprosesan 99 | keluaran 61 | keluaran 61 | persendirian 88 | belakang 65 → Pemprosesan 99 |
+| ms-MY w375 font32 | none → Sambungan 173 | video 77 → Pemprosesan 197 | video 77 → keluaran 123 | (AAC) 87 → keluaran 123 | Storan 94 → persendirian 176 | none → Pemprosesan 197 |
+| ms-MY w375 spacing | Sambungan 104 | Pemprosesan 120 | keluaran 77 | keluaran 77 | persendirian 111 | none → Pemprosesan 120 |
+| ms-MY w320 default | Sambungan 86 | Pemprosesan 99 | keluaran 61 | keluaran 61 | persendirian 88 | none → Pemprosesan 99 |
+| ms-MY w320 font32 | none → Sambungan 173 | none → Pemprosesan 197 | none → keluaran 123 | none → keluaran 123 | none → persendirian 176 | none → Pemprosesan 197 |
+| ms-MY w320 spacing | Sambungan 104 | video 48 → Pemprosesan 120 | keluaran 77 | keluaran 77 | Storan 59 → persendirian 111 | none → Pemprosesan 120 |

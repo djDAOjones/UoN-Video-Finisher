@@ -1,0 +1,17 @@
+You are Codex astra, giving a blind verdict, read-only, on a candidate change for item VH-218 of the UoN Video Helper. Work from the repository at the current directory. The candidate is uncommitted in this tree, against base `ca2f5ed69631d17ba1df621eaee066950d117c9d`. Read `git diff` (two tracked files: `src/styles/app.css` and the walker's `scenarios.mjs`).
+
+The item: `project/items/VH-218.md`; every criterion is to be answered. The defect: `reviews/2026-10-24/vh186-words-2026-10-24.md`, "Found on the way". The owner's words: "yes to the question mark, and A and B. ensure everything passes UX / design / Accessibility" and "even old issues should be solved for".
+
+The evidence: `reviews/2026-10-25/design-pass-3/evidence/measurements/vh218-check-rows-2026-10-31.md` and the records beside it, `vh218-records-2026-10-31/` (probes per group, conditions, load logs, the driver `vh218-driver.mjs`, `proof-compare.txt`, `rows-compare.txt`, `strings-proof.txt`). Also readable: `/Users/joe/UoN-Video-Helper-side/vh218-walk/` (walk logs, page shots under the groups' `runs/*/captures/`), `UI-STANDARDS.md`, `project/digests/wcag-2.2-aaa.md`, `project/digests/carbon.md`, `src/main.ts`, `src/acceptance/main.ts`.
+
+You may not read anything under any folder named `side-session-notes`, nor, in `/Users/joe/UoN-Video-Helper-side/`, any file named `vh218-claude-*`, `vh218-*compare*` at that folder's top level, `vh218-progress.md`, `vh218-handover-*`, or any `vh218-*brief*` but this one. Read lean: use `grep`, `jq` and small scripts on the JSONL; no large file whole.
+
+Answer each, with evidence of your own from the records, not from the table's notes alone:
+1. Criterion 1: is the value beneath its label exactly when the row cannot hold both? Does the label wrap only between words, in every row? DOM order and words unchanged? Recount broken words from the probes.
+2. Criterion 2: is the walker change the smallest that fixes the value, named, declared and proved before the after-read? Does the proof really show that only the value differs? Were all cells read at one revision?
+3. The stage rule: the 540 cells a side, four S-82 states and S-103; are the states genuinely reached, and is any "cannot reach" claim false? Is any state stageable but unstaged? Is the spacing-with-colour handling sound, and does the `type` row's failing alike mislead? Do the probe's line counts and longest words measure what they say, including Chinese?
+4. WCAG 1.3.1, 1.4.4, 1.4.8, 1.4.10, 1.4.12, for what this touched. Tokens and literals. Any caller of `.check` changed? Is S-103 truly unmoved?
+5. Points to judge: `row-gap: 0`, and how a value reads beneath a label; the mark's column, where "Tidak", 好的 and "OK" under spacing break over two lines, the same before and after, against the owner's "even old issues should be solved for" and the item's scope; the load, by group: samples at 8 or above (before-passed 1 of 10, peak 9.19; before-warned 1 of 10, 8.16; after-pending 1 of 10, 9.03; after2-s103 2 of 18, 8.25), and whether any needs re-running; the power: S-103's before on AC and its after on battery, both power mode 2, after a group that crossed was voided.
+6. Anything else wrong or missing: a bug, an untested condition that matters, a claim in the table the records don't bear out.
+
+Say at the top "PASS", "PASS WITH POINTS" or "FAIL", then each answer, briefly, with file and line or record. Name each must-fix as a must-fix. End with the list of must-fixes, or "none".

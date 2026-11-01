@@ -1,0 +1,13 @@
+VH-218’s [r2 page](</Users/joe/Library/CloudStorage/OneDrive-TheUniversityofNottingham/_Joe Bell UoN Files/2_Projects/2026-08-24 UoN Video Helper/reviews/2026-10-25/design-pass-3/evidence/measurements/vh218-check-rows-r2-2026-10-31.md>) still has evidence must-fixes.
+
+1. **Must-fix 1 remains.** Driver 3 differs from driver 2 only by returning `words`. Removing that field, all 27 `before-words` measurements match `before-passed`; the original probes remain unchanged. But transferring widths is not exact: these widths sum rendered fragments, whose measurements vary with layout. Before-pending/Chinese/w320/spacing reports longest `后台` 35.84, while its raw probe gives `处理` 35.86. The new after table also imports broken-before `(WebCodecs)` 195.61, displaying **196**, although the after probe measures **195.03**. `longest-unbroken.mjs` additionally omits **432 staged/swapped row readings per side**, including staged pending labels whose longest unbroken word differs. Supply those readings and reconcile widths with each cell’s evidence.
+
+2. **Must-fix 2 is only partly resolved.** In the requested order: export-manifest misidentification is accurately disclosed; **`detail/` remains claimed but absent**; **195.03** is correct in prose but contradicted by the new table; worker labels’ **1–2 after-lines** is correct, although “against 4–22” needs qualification—the Chinese pending before has **2**; battery endpoints **62→56%** and **84→62%** match conditions; ellipsis **unmeasured** matches its null width and two-line readings.
+
+3. **Additional must-fix:** the page and `sources.txt` assign two hashes to `conditions.txt`. The bundled file contains export-proof’s conditions (`c1f2…`); before-words’ conditions (`9121…`) are missing from the bundle. Preserve both under distinct names.
+
+Independent recounts confirm **2,028→0** broken label words and both **108/108** S-103 comparisons.
+
+`node tools/check.mjs`: zero failures/warnings. Applied digest rules: Carbon token separation; WCAG reflow/text spacing.
+
+FAIL

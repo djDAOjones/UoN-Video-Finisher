@@ -1,0 +1,47 @@
+The repair and walks hold. Two evidence must-fixes remain.
+
+References below: **T** = the new `vh218-check-rows-r1-2026-10-31.md`; **R** = its records directory; **W** = `vh218-walk/`.
+
+**A — the six original points**
+
+1. **Whole words: fixed.** I recounted **2,028 → 0** broken label-word occurrences across **3,024 row readings**, including staged variants. No label word exceeds its column. At 320 px/font32, `Pemprosesan` is **197.44/254 px**; `(WebCodecs)` is **195.03/254 px**.
+2. **S-103: fixed.** Both ordinary and AAC-warning groups contain **108 reached cells per side**, with identical before/after `dt`/`dd` readings.
+3. **Longest unbroken word: partly fixed.** T now honestly describes `longest` as the widest token, including broken tokens. After-side values satisfy the criterion because none break. **Must-fix 1:** supply the before-side longest actually unbroken word for each row, or obtain an explicit criterion amendment. The existing probe retains the widest token and broken tokens, not every unbroken candidate.
+4. **Mark column: assignment to VH-230 is sound.** The three stipulated measurements are correct. At close, retain both unchosen remedies—widen every row’s gutter or add a token—and the before-VH-220 dependency. Include Chinese pending `……`, which also occupies two lines, plus the recorded larger-font and spacing variants. Its width is **unmeasured**, not zero.
+5. **Font32 shots: qualified, not repaired.** I inspected the after-passed Malay/w320/font32 page PNG: it still depicts the default-size layout. T correctly excludes these images from visual approval. The enlarged-font findings rest on qualified probes, not faithful page shots.
+6. **Evidence claims: partly corrected; Must-fix 2 below.** “Unmoved” now explicitly means verdicts; I reproduce **484 changed row-probe cells**. The upper-middle “median” convention is disclosed.
+
+**B — rulings and provenance**
+
+Rulings **1–3 were executed**. The repair stays inside the existing query, retaining `overflow-wrap`. Driver 2 differs only by adding `S-103-warned` and its hold assertion. All **1,296** raw cells have revision `fe44891d3c53f716` and passing before/after state assertions. Every accepted after manifest matches the current source diff; `setaside-after2-s103` exists and is named.
+
+The export is faithful: I compared **all 3,814 files** against base Git blobs, with zero differences, and independently reproduced the **12/12 identical export probes** and **12/12 warned cases**.
+
+I found no user-reachable pending/failed coexistence path: `main.ts:1334–1380,2558` gate selection; `drop-zone.ts:156–164` rejects drops; `failure-text.ts:117–122` blocks failures. Later worker errors cannot repaint the startup row after `workerReady` (`main.ts:1298`).
+
+**C — repair effects**
+
+No new failure demonstrated for **1.3.1, 1.4.4, 1.4.8, 1.4.10 or 1.4.12**. At 320/font32, mark, label and value start at **x=33**; the mark precedes the label by **42 px**. DOM order remains unchanged; the duplicate mark remains `aria-hidden`. No new dimension literal, token-system collapse, element, string or affected acceptance-page caller. Applied digest rules: Carbon’s two token systems; WCAG reflow and text spacing.
+
+**D — independently counted samples ≥8**
+
+All groups used power mode 2.
+
+| Group | Before: power, samples | After: power, samples |
+|---|---|---|
+| passed | AC, 1/10 | Battery, 4/10 |
+| pending | AC, 0/10 | Battery, 0/10 |
+| warned | AC, 1/10 | Battery, 0/10 |
+| failed | AC, 0/12 | Battery, 0/11 |
+| S-103 | AC, 0/18 | Battery, 8/18 |
+| S-103 warned | Battery, 1/18 | Battery, 5/18 |
+
+**No load-driven rerun needed**, including peak **40.41**: states held, property geometry matched exactly, and colour variants agreed.
+
+**E — Must-fix 2: reconcile T and its notes**
+
+Explicitly disclose that the export manifests incorrectly identify the patched owner checkout. Remove nonexistent `detail/` claims. Correct `(WebCodecs)` **195.61→195.03**, worker labels **2–3→1–2 lines**, battery endpoints **62→56%** and **84→62%**, and ellipsis width **0→unmeasured**.
+
+`node tools/check.mjs`: zero failures/warnings. Ledger and full-gate close remain outside this check.
+
+FAIL

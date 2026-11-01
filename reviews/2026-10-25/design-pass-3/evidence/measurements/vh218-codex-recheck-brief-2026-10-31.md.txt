@@ -1,0 +1,22 @@
+# VH-218 — Codex re-check after a FAIL (read-only)
+
+You gave VH-218 "FAIL" in `/Users/joe/UoN-Video-Helper-side/vh218-codex-blind.md`. A repair, new walks and a new table followed. Check them for yourself. You run in the owner's checkout; the candidate diff is `git diff ca2f5ed69631d17ba1df621eaee066950d117c9d` (the ledger isn't edited yet: that is the close, a later check).
+
+**Read:** that diff; `src/styles/app.css`; `src/main.ts`, `src/ui/failure-text.ts`; `project/items/VH-218.md`; the new table `reviews/2026-10-25/design-pass-3/evidence/measurements/vh218-check-rows-r1-2026-10-31.md` and its records `vh218-records-r1-2026-10-31/`, beside it; the walk folder `/Users/joe/UoN-Video-Helper-side/vh218-walk/` (`vh218-driver-2.mjs` against `vh218-driver.mjs`, `after2-*/`, `before-s103-warned/`, `export-proof/`, `export-compare.txt`, `base-export/`), read-only. **Don't read** any folder under `side-session-notes/`, or in `/Users/joe/UoN-Video-Helper-side/`: `vh218-claude-*`, `vh218-*compare*`, `vh218-progress.md`, `vh218-handover-*`, `vh218-2-start.md`, any `vh218-*brief*` but this one.
+
+**The owner's words:** "yes to the question mark, and A and B. ensure everything passes UX / design / Accessibility"; "even old issues should be solved for". The item's criteria stand.
+
+**The orchestrator's rulings, each to check as done, not to re-argue:**
+1. The repair is allowed: in the existing `@media (max-width: 19.99rem)`, keeping `overflow-wrap`'s fallback, no new query, element or string. Any word still broken is reported by name and width.
+2. S-103 under the AAC warning is walked both sides, 108 cells a side, `before-s103-warned` and `after2-s103-warned`, by a second driver with one scenario added and nothing else, walker unchanged at `fe44891d3c53f716`; the before from a read-only `git archive` of the base with linked dependencies and its own server. For pending and failed: staged and walked if S-103's row can coexist; if not, named with how it's known, by file and line.
+3. One source diff across the whole after: every `after2-*` group at one diff, S-103 re-walked, the earlier `after2-s103` set aside and named.
+4. The mark's column is its own fix item, VH-230, raised at the close, carrying default font "Tidak" 36.33 of 24 px, 好的 28 of 24 px, "OK" under spacing 24.38 of 24 px, both remedies unchosen (widening the gutter for every row, or adding a token), to land before VH-220.
+
+**Answer each, with evidence you read yourself:**
+- A. Your six must-fixes in turn: fixed, or not, or moved to a named place. (1) whole words at 32 px on 320 px; (2) the S-103 claim; (3) "longest unbroken word"; (4) the mark's column, on ruling 4: is its assignment to VH-230 sound, and is anything in it wrong or missing? (5) the font32 page shots; (6) the evidence claims.
+- B. Rulings 1, 2 and 3: done as ruled? Does the second driver differ by the one scenario only? Is the export's before faithful, on `export-compare.txt` and the records? Do pending and failed truly not coexist with S-103's row: try to find a path the notes miss.
+- C. The repair's own effect: any new failure for 1.3.1, 1.4.4, 1.4.8, 1.4.10 or 1.4.12; tokens; a literal; another caller; a state, width or language the rule breaks; the mark's reading order and alignment at 32 px on a phone.
+- D. Load and power: each group's power and its samples at 8 or above, `after2-s103`'s above all (peak 40.41). Does any of them call for a re-run of this layout measure?
+- E. Any statement on the new table's page or notes that its records don't bear out.
+
+**End with one verdict word on its own line: "PASS", or "FAIL" with each must-fix numbered.** The commit quotes it as given. Be brief: under 700 words.

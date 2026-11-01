@@ -1,0 +1,16 @@
+# VH-218 — Codex's close check (read-only)
+
+The complete close of VH-218, uncommitted in the owner's checkout. Base `ca2f5ed69631d17ba1df621eaee066950d117c9d`. Frozen at `/Users/joe/UoN-Video-Helper-side/vh218-frozen/`: `tracked.diff`, `status.txt`, `untracked.sha1`. Your last answer, on the evidence alone: `/Users/joe/UoN-Video-Helper-side/vh218-codex-recheck3.md`, "PASS"; earlier ones are beside it.
+
+**Read:** the frozen files; the tree; `project/items/VH-218.md`, `project/items/VH-230.md`; `project/backlog.md`, `project/trajectory.md`, `project/decisions.md`'s newest two entries, `project/archive-index.md`, the Disposition row in `reviews/2026-10-25/design-pass-3/design-pass-3-2026-10-27.md`; `AGENTS.md`; the page `reviews/2026-10-25/design-pass-3/evidence/measurements/vh218-check-rows-r3-2026-10-31.md`, its records and each `renamed.txt`; the Codex and Claude copies `vh218-codex-*-2026-10-31.md.txt` and `vh218-*-2026-10-31.md` in that folder against their originals in `/Users/joe/UoN-Video-Helper-side/`; `/Users/joe/UoN-Video-Helper-side/vh218-gate-3.log`, `.power.txt`, `.load.log`. **Don't read** any folder under `side-session-notes/`, `vh218-progress.md`, `vh218-handover-*`, `vh218-2-start.md`.
+
+**The owner's words:** "yes to the question mark, and A and B. ensure everything passes UX / design / Accessibility"; "even old issues should be solved for". **The orchestrator's rulings:** the repair; S-103 under the AAC warning walked; one source diff; the mark's column its own fix item, VH-230, next free ID, in the backlog directly after VH-218's place and before VH-219, with an item file and a decision entry, carrying default font "Tidak" 36.33 of 24 px and 好的 28 of 24 px, "OK" under spacing 24.38 of 24 px, both remedies unchosen, the same matrix and states as S-82, and landing before VH-220.
+
+**Answer:**
+1. Does the ledger meet AGENTS.md's rules 4, 5, 6, 8 and 10: the decision, each deferral a line, backlog struck, trajectory, digest rules named? Is every claim about a later item true (grep)?
+2. VH-218's criteria, each: met, with the table's evidence?
+3. VH-230: the ID truly free; carries what the ruling lists; nothing wrong.
+4. Between recheck3 and now: eight scripts and four notes files in the records renamed `.txt` so eslint and markdownlint pass (the gate read them; `renamed.txt` in each folder says so; contents unchanged; each `sources.txt` keeps the placed name). Sound, and precedent true (`vh206-records-2026-10-27`)? Gates 1 and 2 were red on those alone; is gate 3's green true, no test deleted or skipped but the one existing EBU skip?
+5. The diff has no `docs/`, protected path, dependency, element or string change.
+
+**End with one verdict word on its own line: "PASS", or "FAIL" with each must-fix numbered.** The commit quotes it as given. Under 350 words.

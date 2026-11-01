@@ -18,6 +18,26 @@
      moves the oldest entries verbatim to project/decisions-YYYY-MM.md,
      beside this file, listed in project/archive-index.md. -->
 
+## 2026-11-01 — VH-230 — Raised: the state words broken in the mark's column, its own fix item before VH-220
+
+**Decision:** VH-230 takes the state words too wide for the System check's 1.5 rem mark column, each broken over two lines, the same before and after VH-218: its own fix item, directly after VH-218 and before VH-219, landing before VH-220. Both remedies stay unchosen: widen the gutter for every row, or add a token. The orchestrator's ruling, not the owner's, listed for him.
+
+**Rationale:** Orchestrator #33's ruling, 2026-10-31, by section 3 of the brief, a remedy that outgrows the item, with his "even old issues should be solved for" (`plan8-owner-words.md`, read by `sed`): "The mark's column is its own fix item, not a wish." Measured by VH-218: default font "Tidak" 36.33 of 24 px and 好的 28 of 24 px; under spacing "OK" 24.38 of 24 px. Codex astra's re-check confirmed the assignment and added Chinese's pending "……", two lines, width unmeasured. VH-220's checks read the final page, as the PLAN-8 entry on VH-225 says. The first table's "wish VH-218.1" was never issued.
+
+**Supersedes:** none
+
+**Deferred:** VH-230
+
+## 2026-11-01 — VH-218 — Closes: the System check's labels break only between words, CSS only
+
+**Decision:** VH-218 closes wish VH-186.1: each System check row wraps its value beneath its label when both won't fit, by a scoped flex rule, and at 32 px on a phone the mark takes its own line, in the existing 19.99rem query, so the label has the whole column. Label words broken 2,028 to 0 of 3,024 readings a side, no element, string or token value; the fallback stays, breaking no word now. One walker change, a fixed worker value, revision `fe44891d3c53f716`, proved. Four rulings the orchestrator's, listed for the owner.
+
+**Rationale:** His words: "yes to the question mark, and A and B. ensure everything passes UX / design / Accessibility"; "even old issues should be solved for" (`plan8-owner-words.md`). Orchestrator #33's rulings, 2026-10-31, his to see: (1) the repair past the brief's "report the word"; (2) S-103 walked under the AAC warning on both sides, 108 cells each, the before from a read-only `git archive` of the base, as the earlier "those cells can't exist" was false: Codex showed one can; pending and failed can't stand with S-103's row (`src/main.ts:1335`, `:1349`, `:1372`, `:2558`; `src/ui/failure-text.ts`); (3) one source diff across the after; (4) VH-230. Evidence: [the table](../reviews/2026-10-25/design-pass-3/evidence/measurements/vh218-check-rows-r3-2026-10-31.md), 648 cells a side, 648 reached, no verdict moved; S-103's row identical 108 of 108 each way; `type` fails alike in 162, the walker's reading of the combined spacing modes. Shortfalls: no true 32 px page shot, the walker's known capture effect, so the stacked mark rests on the probes' boxes; the first five befores on AC and the after on battery, all mode 2; `after2-s103` 8 of 18 load samples at 8 or above, peak 40.41, the owner's, on which Codex asked no re-run. Codex astra: FAIL, FAIL, FAIL, then PASS, each repaired. Digest: carbon, "two token systems, never collapsed"; wcag-2.2-aaa, 1.4.10 and 1.4.12.
+
+**Supersedes:** none
+
+**Deferred:** VH-230
+
 ## 2026-10-31 — VH-209 — Closes: at a 32 px default font on a phone width the page keeps to its column, the insets on the orchestrator's ruling
 
 **Decision:** VH-209 closes V-50, CSS only. One query below 20rem, unreached by the default font at 320 CSS px or wider, gives the page's and panels' insets `--spacing-03`, wraps the switchers and Set buttons, stacks the colours and breaks a long heading word. No element, control moved, word or token value. The insets are the orchestrator's ruling, not the owner's, listed for him. Sideways scroll 110 of 144 reached cells to 0 of 156. V-18's six and 180 default-font cells unmoved. Wish VH-229.3 retired: Malay's title no longer breaks mid-word.
@@ -593,23 +613,3 @@
 **Supersedes:** none
 
 **Deferred:** VH-187
-
-## 2026-10-24 — VH-185 — A kept sound shorter than the meter's 400 ms block is no sound: a silent job, said before Create
-
-**Decision:** A trimmed part whose decoded sound is shorter than `BLOCK_SECONDS` (now exported from `src/audio/loudness.ts`) is a silent keep: pre-flight shows the existing "This video has no audio" and the job runs with no audio track, so the output check no longer refuses it after the encode. Untrimmed files are out of scope, unchanged, as wish line VH-185.1.
-
-**Rationale:** VH-139's case (sound from 4 s, kept 0:00–0:04, 21 ms of AAC priming) failed "invalid-measurement" after the whole encode. `traverse` now counts decoded, kept frames apart from gap-fill; `analyseSourceAudio` and `planAudio` return a `KeptSilence` carrying the decode's end, because returning `null` made pre-flight say "The file ends early … at 0:00" in place of no-audio, and the result would have said the same. The untrimmed guard stays as an earlier Codex review set it, since the item and its case are a trim's and the no-audio words are unproven for a whole short track. The output carries no audio for the sliver. Tests reproduce the case and failed before the fix; 400 ms and more still levels; the EBU harness passes unchanged. 42 Chrome cases pass (`reviews/2026-10-24/vh185-sliver-2026-10-24.md`). Codex astra: "Commit after the musts below"; its must, that pre-flight and the job judge different ranges (the job's cuts sit on frame edges), is fixed by one `keptRangeOnFrames` for both, with a regression test and 9 Chrome cases re-run.
-
-**Supersedes:** none
-
-**Deferred:** VH-186
-
-## 2026-10-24 — VH-184 — The onset toggletip closes when focus moves on, and is edged as help, not a notification
-
-**Decision:** Focus arriving anywhere outside the "?" and its text closes the toggletip, so Tab and Shift+Tab never leave it open; Escape closes it and returns focus to the "?" unless focus is on a control elsewhere. Its edge becomes 1 px all round in the existing `--border-subtle`, not the notification's 4 px rail.
-
-**Rationale:** The rules live in `src/ui/toggletip.ts`, tested with stand-ins. On the base, Tab and Shift+Tab left it open. After, 36 Chrome cases (three languages, 1280, 375 and 320 px, four colour modes) pass: Tab and Shift+Tab reach the same control as with it closed, a click on its text keeps it open, a click elsewhere closes it; the edge is 4.08 and 3.91:1 in light, 4.71 and 5.53:1 in dark, 21:1 forced (`reviews/2026-10-24/vh184-toggletip-2026-10-24.md`). Nothing a screen reader hears changed. Codex astra: "Commit after the musts below"; its must was this close, its may on the runner applied.
-
-**Supersedes:** none
-
-**Deferred:** VH-185

@@ -1,0 +1,5 @@
+export-compare.mjs -> export-compare.mjs.txt
+longest-unbroken.mjs -> longest-unbroken.mjs.txt
+rows-compare-3.mjs -> rows-compare-3.mjs.txt
+Renamed at the gate, contents and sha1 unchanged, so eslint does not lint a record (as vh206-records-2026-10-27); sources.txt keeps the name each was placed under.
+vh218-table-notes-r2.md -> vh218-table-notes-r2.md.txt, as the page carries it; markdownlint does not read a record's notes

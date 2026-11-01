@@ -1294,3 +1294,23 @@ INTAKE.2 stays a wish line: only a person listening can judge the Teams output. 
 **Supersedes:** none
 
 **Deferred:** none
+
+## 2026-10-24 — VH-185 — A kept sound shorter than the meter's 400 ms block is no sound: a silent job, said before Create
+
+**Decision:** A trimmed part whose decoded sound is shorter than `BLOCK_SECONDS` (now exported from `src/audio/loudness.ts`) is a silent keep: pre-flight shows the existing "This video has no audio" and the job runs with no audio track, so the output check no longer refuses it after the encode. Untrimmed files are out of scope, unchanged, as wish line VH-185.1.
+
+**Rationale:** VH-139's case (sound from 4 s, kept 0:00–0:04, 21 ms of AAC priming) failed "invalid-measurement" after the whole encode. `traverse` now counts decoded, kept frames apart from gap-fill; `analyseSourceAudio` and `planAudio` return a `KeptSilence` carrying the decode's end, because returning `null` made pre-flight say "The file ends early … at 0:00" in place of no-audio, and the result would have said the same. The untrimmed guard stays as an earlier Codex review set it, since the item and its case are a trim's and the no-audio words are unproven for a whole short track. The output carries no audio for the sliver. Tests reproduce the case and failed before the fix; 400 ms and more still levels; the EBU harness passes unchanged. 42 Chrome cases pass (`reviews/2026-10-24/vh185-sliver-2026-10-24.md`). Codex astra: "Commit after the musts below"; its must, that pre-flight and the job judge different ranges (the job's cuts sit on frame edges), is fixed by one `keptRangeOnFrames` for both, with a regression test and 9 Chrome cases re-run.
+
+**Supersedes:** none
+
+**Deferred:** VH-186
+
+## 2026-10-24 — VH-184 — The onset toggletip closes when focus moves on, and is edged as help, not a notification
+
+**Decision:** Focus arriving anywhere outside the "?" and its text closes the toggletip, so Tab and Shift+Tab never leave it open; Escape closes it and returns focus to the "?" unless focus is on a control elsewhere. Its edge becomes 1 px all round in the existing `--border-subtle`, not the notification's 4 px rail.
+
+**Rationale:** The rules live in `src/ui/toggletip.ts`, tested with stand-ins. On the base, Tab and Shift+Tab left it open. After, 36 Chrome cases (three languages, 1280, 375 and 320 px, four colour modes) pass: Tab and Shift+Tab reach the same control as with it closed, a click on its text keeps it open, a click elsewhere closes it; the edge is 4.08 and 3.91:1 in light, 4.71 and 5.53:1 in dark, 21:1 forced (`reviews/2026-10-24/vh184-toggletip-2026-10-24.md`). Nothing a screen reader hears changed. Codex astra: "Commit after the musts below"; its must was this close, its may on the runner applied.
+
+**Supersedes:** none
+
+**Deferred:** VH-185

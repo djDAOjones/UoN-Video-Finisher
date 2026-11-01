@@ -1,0 +1,15 @@
+S-82-en-GB-w320/light 
+  .rows.5.value.text: "Ready in 186 ms" -> "Ready in 101 ms"
+S-82-en-GB-w1280/light 
+  .rows.5.value.text: "Ready in 104 ms" -> "Ready in 101 ms"
+S-82-zh-Hans-w320/light identical
+S-82-zh-Hans-w1280/light 
+  .rows.5.value.text: "准备时间：103毫秒" -> "准备时间：101毫秒"
+S-82-ms-MY-w320/light 
+  .rows.5.value.text: "Bersedia dalam 104 ms" -> "Bersedia dalam 101 ms"
+S-82-ms-MY-w1280/light 
+  .rows.5.label.box.right: 505.7 -> 497.92
+  .rows.5.label.box.w: 260.7 -> 252.92
+  .rows.5.value.text: "Bersedia dalam 99 ms" -> "Bersedia dalam 101 ms"
+  .rows.5.value.box.left: 517.7 -> 509.92
+  .rows.5.value.box.w: 139.3 -> 147.08

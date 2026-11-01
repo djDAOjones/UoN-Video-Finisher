@@ -1,0 +1,11 @@
+1. **Fixed.** All 6,048 longest-unbroken-word readings reconcile, including the previously omitted 432 staged/swapped readings per side. The Chinese pending example now uses `处理` 35.86; after `(WebCodecs)` is 195.03. The 308 marked fragment-summed widths are sound **as qualified on this page**: each reading’s broken words are excluded, available own widths take precedence, and layout variation and near-ties are disclosed. The criterion does not require greater precision.
+
+2. **Fixed.** Export-manifest misidentification is disclosed; worker label ranges now correctly read **2–22 before, 1–2 after**; battery endpoints and the unmeasured ellipsis match. The opening `detail/` claim and “Nothing moved” remain misleading in isolation: no such folder exists, and 484 probes’ rows changed. The notes explicitly explain both, so neither remains an evidence must-fix.
+
+3. **Fixed.** `before-words.conditions.txt` and `export-proof.conditions.txt` are separately preserved with the correct `9121…` and `c1f2…` hashes. All 123 `sources.txt` hashes match.
+
+No additional substantive discrepancy found. Independent recounts confirm **2,028→0** broken label words and both **108/108** S-103 comparisons.
+
+`node tools/check.mjs`: zero failures/warnings. Digest rules applied: Carbon token separation; WCAG reflow/text spacing.
+
+PASS

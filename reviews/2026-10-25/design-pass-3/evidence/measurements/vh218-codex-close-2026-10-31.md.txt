@@ -1,0 +1,13 @@
+The frozen diff/status and all **489 untracked-file hashes** match the tree.
+
+1. **Ledger: meets rules 4, 5, 6, 8 and 10.** Dated decisions include rationale and the orchestrator’s rulings; VH-218 is removed from the backlog, recorded in trajectory, and linked from Disposition. VH-230 has its backlog line. Grep confirms the later-item assignments and ordering; “VH-218.1” is explicitly identified as never issued. Two older decisions were archived verbatim; the index correctly says 114. Required digest rules are named. Fresh `node tools/check.mjs`: **zero failures/warnings**. The frozen-canon warnings have existing follow-up INTAKE.8.
+
+2. **VH-218 criteria: met on the qualified r3 evidence.** Value placement and whole labels: **2,028→0** broken words across 3,024 row readings per side; 1,648 values now beneath. Fixed worker value: 101, declared and proved before measurement. Matrix: **648 qualified cells per side**, including both **108/108** unchanged S-103 comparisons. All **6,048 longest-unbroken-word readings** reconcile. Touched WCAG criteria—1.3.1, 1.4.4, 1.4.8, 1.4.10, 1.4.12—show no new failure. Tokens, DOM order and progress bar remain intact; no standards-rule amendment requires documentation changes. Saved reviews, repairs and rechecks are retained; Disposition is linked. Same-ID continuation and the remainder’s split are recorded. Font32 conclusions appropriately rest on probes, with faulty screenshots excluded.
+
+3. **VH-230: sound.** Base grep finds no prior use; 229 was highest. It carries all three stipulated measurements, both unchosen remedies, the full S-82 matrix/states, ellipsis and larger-font cases, correct backlog position, and landing before VH-220.
+
+4. **Renames and gates: sound.** Eight scripts and four notes retain their recorded contents; mappings preserve original placed names. VH-206 establishes the precedent. Codex copies are byte-identical; Claude/comparison copies add only the lint directive. Gates 1/2 failed solely on those lint issues. Gate 3 completed green: **83 files, 1,655 tests passed**, only the unchanged EBU skip. No tests deleted or newly skipped.
+
+5. **Scope: clean.** Product changes are CSS only; no `docs/`, protected-path, dependency, element or application-string changes.
+
+PASS

@@ -1,0 +1,123 @@
+f37f2264d299c2d2e2667aea7c1e362fe5d34d7d  before-passed.conditions.txt  vh218-walk/before-passed/conditions.txt
+355fb168a4f142bee309da93d5bb69f62f0a3beb  before-passed.load.log.txt  vh218-walk/before-passed.load.log
+bfb4d616f2f2f4eee90471d14c325cb21c846bcd  before-passed.launcher.log.txt  vh218-walk/before-passed.launcher.log
+4c1f90b448a75b4354b08c862b898a52b08e7692  before-passed.vh218-before-passed.manifest.json  vh218-walk/before-passed/runs/vh218-before-passed-2026-10-31T22-28-26-627Z-555fc9/manifest.json
+8f16b1f9eb226295f55e5062b468c6c57fc040ea  before-passed.vh218-before-passed.run.json  vh218-walk/before-passed/runs/vh218-before-passed-2026-10-31T22-28-26-627Z-555fc9/run.json
+0654dfe67effcc5f402eb37b0fc216c4d3c004bb  before-passed.vh218-ledger.jsonl  vh218-walk/before-passed/runs/vh218-ledger.jsonl
+1b14f0f89f11ec6246246bd2c9c25fa3caff4dda  before-passed.vh218-probe-vh218-before-passed.jsonl  vh218-walk/before-passed/runs/vh218-probe-vh218-before-passed.jsonl
+d9304f007e76abfea6165e7aa6fd900b0c1f9236  before-passed.outcomes.jsonl  written from before-passed/runs
+6a07f5c9c5c4f2f95e9ff280118879d3ca60a945  after2-passed.conditions.txt  vh218-walk/after2-passed/conditions.txt
+7ac18104a75ac7b32d3d200eece39ee4cbab5d97  after2-passed.load.log.txt  vh218-walk/after2-passed.load.log
+e4a40fdb0ca4f30de3f8827fb1af2fe9040c81e5  after2-passed.launcher.log.txt  vh218-walk/after2-passed.launcher.log
+854cebf097f63ac5cd38a306ed396f18e8f65fa4  after2-passed.vh218-after2-passed.manifest.json  vh218-walk/after2-passed/runs/vh218-after2-passed-2026-11-01T00-07-52-344Z-c835a1/manifest.json
+e9c922cbe77773580a962f649722d61d1c9b1fb6  after2-passed.vh218-after2-passed.run.json  vh218-walk/after2-passed/runs/vh218-after2-passed-2026-11-01T00-07-52-344Z-c835a1/run.json
+531f5c4c0988dfa5249ed9fa769de6f57e72a7f7  after2-passed.vh218-ledger.jsonl  vh218-walk/after2-passed/runs/vh218-ledger.jsonl
+0dc4f29ecefb08169a396a27badc5a0de9035e59  after2-passed.vh218-probe-vh218-after2-passed.jsonl  vh218-walk/after2-passed/runs/vh218-probe-vh218-after2-passed.jsonl
+cc9d57675bd595122426470010d7a02fdb92ad34  after2-passed.outcomes.jsonl  written from after2-passed/runs
+231247a046786acd13e33a527c1f63842f6b7441  before-pending.conditions.txt  vh218-walk/before-pending/conditions.txt
+2d78111da3480725376b695596c23f8b128d713e  before-pending.load.log.txt  vh218-walk/before-pending.load.log
+574f20f66dbdcbdff97a00905b087c15a60437d7  before-pending.launcher.log.txt  vh218-walk/before-pending.launcher.log
+049500ec22036ff57a79c7c68e015b925417e9c9  before-pending.vh218-before-pending.manifest.json  vh218-walk/before-pending/runs/vh218-before-pending-2026-10-31T22-33-08-322Z-5adf73/manifest.json
+ed3bd4df61359a342cd8c5811963a81b820f6cb6  before-pending.vh218-before-pending.run.json  vh218-walk/before-pending/runs/vh218-before-pending-2026-10-31T22-33-08-322Z-5adf73/run.json
+d7108d10c5953a7b94646d80f7580e59170fec05  before-pending.vh218-ledger.jsonl  vh218-walk/before-pending/runs/vh218-ledger.jsonl
+4c48914030580feba3dafd76a6c7fbdd9f92de2f  before-pending.vh218-probe-vh218-before-pending.jsonl  vh218-walk/before-pending/runs/vh218-probe-vh218-before-pending.jsonl
+acd22b4f9255b3c26bcdfc49bd74c49e5bd79cc9  before-pending.outcomes.jsonl  written from before-pending/runs
+7cc6630db61ee74fb978aea0e6ac8d6f23f9ba8f  after2-pending.conditions.txt  vh218-walk/after2-pending/conditions.txt
+b7e292bc87f73e3d0bcc33de1a3a217bd07a31ff  after2-pending.load.log.txt  vh218-walk/after2-pending.load.log
+97be74baab7d9e97b4eadf420b76795922c7315a  after2-pending.launcher.log.txt  vh218-walk/after2-pending.launcher.log
+6cecf3aaa0b76f656654196ee3ee7e557879f690  after2-pending.vh218-after2-pending.manifest.json  vh218-walk/after2-pending/runs/vh218-after2-pending-2026-11-01T00-12-29-320Z-782b24/manifest.json
+32dd3a3eec6e4728888ffea1378b722f47e19bff  after2-pending.vh218-after2-pending.run.json  vh218-walk/after2-pending/runs/vh218-after2-pending-2026-11-01T00-12-29-320Z-782b24/run.json
+5d1b865f40473443bf90aa4e666cceda7a3bffce  after2-pending.vh218-ledger.jsonl  vh218-walk/after2-pending/runs/vh218-ledger.jsonl
+2d99611fdb0b36ea1950bfd69dfc3526aa0c2929  after2-pending.vh218-probe-vh218-after2-pending.jsonl  vh218-walk/after2-pending/runs/vh218-probe-vh218-after2-pending.jsonl
+9f643f7825d17d711822f23ff94c97586cda8d28  after2-pending.outcomes.jsonl  written from after2-pending/runs
+aa1475a9e96252ba14dc7126861934d00584206b  before-warned.conditions.txt  vh218-walk/before-warned/conditions.txt
+db174e63ac8cd4c31a98cfe2d3123d891009115c  before-warned.load.log.txt  vh218-walk/before-warned.load.log
+a2f23a8f61407617c5e36272447538afda4756c3  before-warned.launcher.log.txt  vh218-walk/before-warned.launcher.log
+c2dcdecead4f29095d2d6d1534672b9a5cba6b4c  before-warned.vh218-before-warned.manifest.json  vh218-walk/before-warned/runs/vh218-before-warned-2026-10-31T22-37-52-254Z-82ccfa/manifest.json
+b885081c0b7afb04ddfd0df2091625512d2aeb37  before-warned.vh218-before-warned.run.json  vh218-walk/before-warned/runs/vh218-before-warned-2026-10-31T22-37-52-254Z-82ccfa/run.json
+c26a06dd32f1fcb076a7b95b16c0b3750adf5dec  before-warned.vh218-ledger.jsonl  vh218-walk/before-warned/runs/vh218-ledger.jsonl
+b5c8a0fe95db428c5083be337b30709a831d8ae0  before-warned.vh218-probe-vh218-before-warned.jsonl  vh218-walk/before-warned/runs/vh218-probe-vh218-before-warned.jsonl
+f61bbc85a27ebda96cf5a69de285b359c4427dcf  before-warned.outcomes.jsonl  written from before-warned/runs
+edd5e13eb7cfc80d0b79db1ee9f882e8e94a1228  after2-warned.conditions.txt  vh218-walk/after2-warned/conditions.txt
+f25f640625d017b36fdb3f27d57d1398566e1950  after2-warned.load.log.txt  vh218-walk/after2-warned.load.log
+badd44300da0b3a31750bdee39a544f315d8020f  after2-warned.launcher.log.txt  vh218-walk/after2-warned.launcher.log
+1d2b340745fac4f8fa6067f191890ffbd9a20de6  after2-warned.vh218-after2-warned.manifest.json  vh218-walk/after2-warned/runs/vh218-after2-warned-2026-11-01T00-17-04-613Z-bb9c91/manifest.json
+67a35823dfe0e9caf7a43a87a655ea02e066d54c  after2-warned.vh218-after2-warned.run.json  vh218-walk/after2-warned/runs/vh218-after2-warned-2026-11-01T00-17-04-613Z-bb9c91/run.json
+f4fba416d69fe90d90c42f18f611793ca16e5039  after2-warned.vh218-ledger.jsonl  vh218-walk/after2-warned/runs/vh218-ledger.jsonl
+637b7c13450b5781f473eb9da9d64c63a8f5e8ea  after2-warned.vh218-probe-vh218-after2-warned.jsonl  vh218-walk/after2-warned/runs/vh218-probe-vh218-after2-warned.jsonl
+9dc5c3d02e9f575c4853e6734e3543b1a0a74995  after2-warned.outcomes.jsonl  written from after2-warned/runs
+7fad5c099f8f89c402adf7563ea8261b96a8539b  before-failed.conditions.txt  vh218-walk/before-failed/conditions.txt
+990dc20b487a61271ec5dfc1dac9cbd403515f2d  before-failed.load.log.txt  vh218-walk/before-failed.load.log
+e81d2db5ccaa5ea85b432e4776275d47231b9c40  before-failed.launcher.log.txt  vh218-walk/before-failed.launcher.log
+d589eea74f87b595dac760745d05e4b328e1b506  before-failed.vh218-before-failed.manifest.json  vh218-walk/before-failed/runs/vh218-before-failed-2026-10-31T22-42-33-756Z-67cee8/manifest.json
+63302ad0187f9e4dcdff0b44307fd185a7f060b4  before-failed.vh218-before-failed.run.json  vh218-walk/before-failed/runs/vh218-before-failed-2026-10-31T22-42-33-756Z-67cee8/run.json
+dcb11f3363fae5495baeffc1847c67551d8ac32e  before-failed.vh218-ledger.jsonl  vh218-walk/before-failed/runs/vh218-ledger.jsonl
+2d784401893ac537d83690b1b565d72af00cb54c  before-failed.vh218-probe-vh218-before-failed.jsonl  vh218-walk/before-failed/runs/vh218-probe-vh218-before-failed.jsonl
+d4fe31b035e357c3d8caea774fb82c49ae380b7d  before-failed.outcomes.jsonl  written from before-failed/runs
+8f0cfccf38fa2ee5351fc50291241b985a83679c  after2-failed.conditions.txt  vh218-walk/after2-failed/conditions.txt
+faef68544620f4732faf6b93f00b68f33920594b  after2-failed.load.log.txt  vh218-walk/after2-failed.load.log
+b9c83a420a44a9a5d2ad891615d9eaf062944a30  after2-failed.launcher.log.txt  vh218-walk/after2-failed.launcher.log
+447a93d2b5f7ab6ac2d2762e6118b3524fa78e9f  after2-failed.vh218-after2-failed.manifest.json  vh218-walk/after2-failed/runs/vh218-after2-failed-2026-11-01T00-21-36-811Z-871398/manifest.json
+8a9462e83ccff1aeb7f413c8c22c363222a081ab  after2-failed.vh218-after2-failed.run.json  vh218-walk/after2-failed/runs/vh218-after2-failed-2026-11-01T00-21-36-811Z-871398/run.json
+21013c386fc85ca1df854b18280ae99369322d9f  after2-failed.vh218-ledger.jsonl  vh218-walk/after2-failed/runs/vh218-ledger.jsonl
+8fd86129cfc78bb3bcd2b418c46e81a84bc93d4f  after2-failed.vh218-probe-vh218-after2-failed.jsonl  vh218-walk/after2-failed/runs/vh218-probe-vh218-after2-failed.jsonl
+7621b1bc85a06746845baafa28adbb57a3a6f20c  after2-failed.outcomes.jsonl  written from after2-failed/runs
+4b1a658b142e74d46603ca18e3cb24125375428a  before-s103.conditions.txt  vh218-walk/before-s103/conditions.txt
+d376113bac300901af4befb0075c84fe9d000f52  before-s103.load.log.txt  vh218-walk/before-s103.load.log
+9a7f7315e847f367079a397dc00ddbfb8b947b94  before-s103.launcher.log.txt  vh218-walk/before-s103.launcher.log
+d35e0b00d684f11fa2ffc7c88493032e415fff99  before-s103.vh218-before-s103.manifest.json  vh218-walk/before-s103/runs/vh218-before-s103-2026-10-31T22-48-06-403Z-4cfac3/manifest.json
+24b2bcc744582deca5cbacf767268c334f870324  before-s103.vh218-before-s103.run.json  vh218-walk/before-s103/runs/vh218-before-s103-2026-10-31T22-48-06-403Z-4cfac3/run.json
+a34709a08f82918b140d2268e452dd54556cae9f  before-s103.vh218-ledger.jsonl  vh218-walk/before-s103/runs/vh218-ledger.jsonl
+ad86f736fbcc1eece4b253631b71fdbd4102986f  before-s103.vh218-probe-vh218-before-s103.jsonl  vh218-walk/before-s103/runs/vh218-probe-vh218-before-s103.jsonl
+2c182b65bb5d26b77e6be6f7dd69c0dedd662af8  before-s103.outcomes.jsonl  written from before-s103/runs
+fde0417aa4f17e5ec8da5a1823091558d7ed3cf4  after2-s103.conditions.txt  vh218-walk/after2-s103/conditions.txt
+39c9f9e40e9054dda256fc75f5d61a35b241b8f3  after2-s103.load.log.txt  vh218-walk/after2-s103.load.log
+fbfb0918ea87db98e912e811c77dcf02ed242c0e  after2-s103.launcher.log.txt  vh218-walk/after2-s103.launcher.log
+e97b1a611d9c853955f4d444992210a97bd2d3ec  after2-s103.vh218-after2-s103.manifest.json  vh218-walk/after2-s103/runs/vh218-after2-s103-2026-11-01T00-27-03-244Z-82c3be/manifest.json
+d72aeb8bb27edb80db879d9259b75439b5806eee  after2-s103.vh218-after2-s103.run.json  vh218-walk/after2-s103/runs/vh218-after2-s103-2026-11-01T00-27-03-244Z-82c3be/run.json
+f41a8f652f12f87ccce764093f3e392c380382c2  after2-s103.vh218-ledger.jsonl  vh218-walk/after2-s103/runs/vh218-ledger.jsonl
+4bbfa5119bddc2cbad6fbb05db8cf5e446555e9d  after2-s103.vh218-probe-vh218-after2-s103.jsonl  vh218-walk/after2-s103/runs/vh218-probe-vh218-after2-s103.jsonl
+0f68e2add1d02a962fc4b59b68613594d5e89701  after2-s103.outcomes.jsonl  written from after2-s103/runs
+f7938211fc2f8faf676be6d28ae695a312067735  before-s103-warned.conditions.txt  vh218-walk/before-s103-warned/conditions.txt
+185b79c0ce0edc21ba51d377a3f2a565c8f45726  before-s103-warned.load.log.txt  vh218-walk/before-s103-warned.load.log
+c4b26db1f493b66f376a02315f51944bed3a38f0  before-s103-warned.launcher.log.txt  vh218-walk/before-s103-warned.launcher.log
+f5eb6711340eddf32e108ab92db952efbbfef158  before-s103-warned.vh218-before-s103-warned.manifest.json  vh218-walk/before-s103-warned/runs/vh218-before-s103-warned-2026-11-01T00-45-56-156Z-555d76/manifest.json
+4ece0011fdb709f4d5d20dd37b8ef98f52260629  before-s103-warned.vh218-before-s103-warned.run.json  vh218-walk/before-s103-warned/runs/vh218-before-s103-warned-2026-11-01T00-45-56-156Z-555d76/run.json
+d5b7aeb72507f4be50bfcaac1cada4b9703ef01c  before-s103-warned.vh218-ledger.jsonl  vh218-walk/before-s103-warned/runs/vh218-ledger.jsonl
+a7f8fae0fbb829553beeaf6167141340fee5fae4  before-s103-warned.vh218-probe-vh218-before-s103-warned.jsonl  vh218-walk/before-s103-warned/runs/vh218-probe-vh218-before-s103-warned.jsonl
+2e133a6a28157075270b217a390046115e8f41e7  before-s103-warned.outcomes.jsonl  written from before-s103-warned/runs
+247c8b7c68bf47f5ef6dc88ed6806ed4a47a9a7b  after2-s103-warned.conditions.txt  vh218-walk/after2-s103-warned/conditions.txt
+b678ed8b35149f85f2ffd575fba440d75f345a5f  after2-s103-warned.load.log.txt  vh218-walk/after2-s103-warned.load.log
+6d59766cf2eb2adfdbdbf656fe037c5c1eca0389  after2-s103-warned.launcher.log.txt  vh218-walk/after2-s103-warned.launcher.log
+b86c58b7c3a397345f497c019e242b497176f8ce  after2-s103-warned.vh218-after2-s103-warned.manifest.json  vh218-walk/after2-s103-warned/runs/vh218-after2-s103-warned-2026-11-01T00-37-00-399Z-044eb5/manifest.json
+eca770c59229eab0ce24377233e36f7ccf92487a  after2-s103-warned.vh218-after2-s103-warned.run.json  vh218-walk/after2-s103-warned/runs/vh218-after2-s103-warned-2026-11-01T00-37-00-399Z-044eb5/run.json
+9f93167037ca83420abcad796f05dbccae599411  after2-s103-warned.vh218-ledger.jsonl  vh218-walk/after2-s103-warned/runs/vh218-ledger.jsonl
+775d686744c0d2cb9d51393abf1be8a0c30f5a4d  after2-s103-warned.vh218-probe-vh218-after2-s103-warned.jsonl  vh218-walk/after2-s103-warned/runs/vh218-probe-vh218-after2-s103-warned.jsonl
+fefb47ff86d30c5a610010fa71140570cb6f1ebc  after2-s103-warned.outcomes.jsonl  written from after2-s103-warned/runs
+fdd02f4f6328430615c66b86832db3c79e2b0def  vh218-driver.mjs  vh218-walk/vh218-driver.mjs
+7bb9dd8a3d92018502913f035677e550387f135e  vh218-driver-2.mjs  vh218-walk/vh218-driver-2.mjs
+ca6ad0273d31e80cfd57b7a2a05ef47cf02a43c0  vh218-driver-3.mjs  vh218-walk/vh218-driver-3.mjs
+307a217c4bb45c1b4ffda7aad08ef7d36f943cbd  go.sh  vh218-walk/go.sh
+82b57933f0eba7b566f9b51d48275b5ed8d3a719  walk.sh  vh218-walk/walk.sh
+b95803051814f8363429565406c4ddf0ab58e58c  seq.zsh  vh218-walk/seq.zsh
+93cc94a1daf704cfa4e5f195bffdaeb6e30687c8  seq2.zsh  vh218-walk/seq2.zsh
+d30989089ad9db8f1f62daf0abe94c268f22ffd1  summ.mjs  vh218-walk/summ.mjs
+3aab3747d3e63fac13296d1b945a2e0ae1f26175  rows-compare-3.mjs  vh218-walk/rows-compare-3.mjs
+f43c73f9b5f3e84395ca469880afa179f02008ca  rows-compare-3.txt  vh218-walk/rows-compare-3.txt
+651ace116da87ea35a9ce1e32f25bc87700eb8b0  longest-unbroken-2.mjs  vh218-walk/longest-unbroken-2.mjs
+c72ffe920146113653a65a0c9796c25fd2e2a9bc  longest-unbroken-2.txt  vh218-walk/longest-unbroken-2.txt
+ee8bf08b6350df5e5a98446d6c6566687444ab59  longest-unbroken-2.jsonl  vh218-walk/longest-unbroken-2.jsonl
+8ad10523fc3fb7e214605632516e1ca8b0139eb6  vh218-probe-vh218-before-words.jsonl  vh218-walk/before-words/runs/vh218-probe-vh218-before-words.jsonl
+9121bee4da75a767025debc325d280e84f8627d7  before-words.conditions.txt  vh218-walk/before-words.conditions.txt
+0a99437a2987f35c0f6c7890d5481aca78caf1a1  before-words.load.log  vh218-walk/before-words.load.log
+07602b4ed291bab23d04631efa0388e2ea0bfbf0  vh218-probe-vh218-proof-export.jsonl  vh218-walk/export-proof/runs/vh218-probe-vh218-proof-export.jsonl
+c1f2f19ce2e3d705602336a329cbcbb699ae80ff  export-proof.conditions.txt  vh218-walk/export-proof.conditions.txt
+24035eda8074af6e6786bd957f51da955b1edd77  proof-compare.mjs  vh218-walk/proof-compare.mjs
+eb2dcfc26abb756bed42bdfc69384091d9f3991c  proof-compare.txt  vh218-walk/proof-compare.txt
+31d7991fc8952007822340e684af1b48ae5bf50c  export-compare.mjs  vh218-walk/export-compare.mjs
+d7e3a98f4b03c4c0311cc7731d43e16e16030225  export-compare.txt  vh218-walk/export-compare.txt
+8b357f7deb872caafafb994da1567c5327d7e175  strings-proof-2.txt  vh218-walk/strings-proof-2.txt
+4a68860cb324834bde799d9ab5f213bc0c8e8979  base-export.tar.sha1  vh218-walk/base-export.tar.sha1
+b7e285a17a96b018a935069a766cd030a04f23af  after.srcdiff  vh218-walk/after.srcdiff
+fe9203451770e75559ee150bfb7ee9d6a2cba498  table-1page.mjs  vh218-walk//Users/joe/UoN-Video-Helper-side/table-1page.mjs
+20797eb35c804210b7ec91cf5ac82911784989e7  vh218-table-notes-r3.md  vh218-walk/vh218-table-notes-r3.md

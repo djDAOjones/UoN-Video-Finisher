@@ -1,0 +1,47 @@
+// VH-218: the row-by-row reading the one-page table's notes carry, from the probes. node rows-compare.mjs <walk dir>
+import { readdirSync, readFileSync } from 'node:fs'
+import { join } from 'node:path'
+const D = process.argv[2], G = ['passed', 'pending', 'warned', 'failed', 's103', 's103-warned']
+const load = (side, g) => { const r = join(D, side === 'after' ? `after2-${g}` : `${side}-${g}`, 'runs'); return readFileSync(join(r, readdirSync(r).find((x) => /probe/.test(x))), 'utf8').trim().split('\n').map(JSON.parse) }
+const cond = (m) => (m.endsWith('font32') ? 'font32' : m.endsWith('spacing') ? 'spacing' : 'default')
+const colour = (m) => m.replace(/-?(font32|spacing)$/, '') || 'light'
+const parse = (j) => { const c = j.cell.split('-w'); const view = 'w' + c.at(-1); const lang = ['en-GB', 'zh-Hans', 'ms-MY'].find((l) => j.cell.includes(l)); return { lang, view, cond: cond(j.mode), colour: colour(j.mode) } }
+const out = []; const P = (...s) => out.push(...s)
+// Qualification of every mode by the probe.
+let bad = 0, n = 0
+for (const side of ['before', 'after']) for (const g of G) for (const j of load(side, g)) { n++; const c = parse(j), m = j.modeRead; const ok = m && m.fontPx === (c.cond === 'font32' ? 32 : 16) && m.spacing === (c.cond === 'spacing') && m.dark === /dark/.test(c.colour) && m.forced === /forced/.test(c.colour) && m.vw === Number(c.view.slice(1)) && !j.error; if (!ok) { bad++; P(`NOT QUALIFIED ${side} ${g} ${j.cell}/${j.mode}`) } }
+P(`Modes read by the probe: ${n} readings, ${bad} not as declared (font, spacing sheet, dark, forced, width).`)
+// Labels' lines, by row, in the passed state, light.
+const key = (j, c) => [c.lang, c.view, c.cond].join(' ')
+const A = load('before', 'passed'), B = load('after', 'passed')
+const tab = (L) => { const t = {}; for (const j of L) { const c = parse(j); if (c.colour !== 'light') continue; t[key(j, c)] = Object.fromEntries(j.rows.map((r) => [r.id, r])) } return t }
+const ta = tab(A), tb = tab(B), ids = ['secure', 'webcodecs', 'h264', 'aac', 'opfs', 'worker']
+P('', 'Label lines, before → after, passed, light (the other colour modes are counted below):', '', `| Language, width, text | ${ids.join(' | ')} | worker's value |`, `| --- | ${ids.map(() => '---').join(' | ')} | --- |`)
+for (const k of Object.keys(ta)) P(`| ${k} | ${ids.map((i) => (ta[k][i].label.lines === tb[k][i].label.lines ? ta[k][i].label.lines : `${ta[k][i].label.lines} → ${tb[k][i].label.lines}`)).join(' | ')} | ${tb[k].worker.beneath ? 'beneath' : 'beside'}, from ${ta[k].worker.beneath ? 'beneath' : 'beside'} |`)
+// Broken words, all states, all colours.
+const sum = (side) => { const s = { broken: {}, cells: 0, rows: 0, over: 0, past: 0, beneath: 0, beside: 0, markBroken: {}, markViews: {}, valueBroken: {} }
+  for (const g of G.slice(0, 4)) for (const j of load(side, g)) { const c = parse(j); s.cells++; if (j.overflow.scrollWidth > j.overflow.clientWidth) s.over++
+    const reads = j.rows.flatMap((r) => [r, r.failedToStart, r.stagedPending].filter(Boolean).map((x) => ({ ...x, id: r.id })))
+    for (const r of reads) { s.rows++; r.beneath ? s.beneath++ : s.beside++; if (r.past) s.past++
+      const K = `${c.lang} ${c.view} ${c.cond}`
+      for (const b of r.label.broken) { const q = (s.broken[K] ??= {}); const w = (q[b.t] ??= { w: 0, col: r.label.box.w, n: 0, wider: r.label.wider?.includes(b.t) }); w.w = Math.max(w.w, b.w); w.col = Math.min(w.col, r.label.box.w); w.n++ }
+      if (r.markRead.lines > 1) { const q = `${c.lang} ${r.mark} ${c.cond}`; s.markBroken[q] = Math.max(s.markBroken[q] ?? 0, r.markRead.w ?? 0); (s.markViews[q] ??= new Set()).add(c.view) }
+      for (const b of r.value.broken) { const q = `${c.lang} ${c.view} ${c.cond}`; (s.valueBroken[q] ??= new Set()).add(b.t) } } }
+  return s }
+const sa = sum('before'), sb = sum('after')
+const count = (s) => Object.values(s.broken).reduce((a, q) => a + Object.values(q).reduce((x, w) => x + w.n, 0), 0)
+P('', `The four states, every colour, 432 cells a side; ${sb.rows} row readings after, with the staged and swapped ones. Label words broken, readings: ${count(sa)} → ${count(sb)}. Page overflow, cells: ${sa.over} → ${sb.over}. A row's text past the row: ${sa.past} → ${sb.past}. Value beneath: ${sa.beneath} → ${sb.beneath}, beside: ${sa.beside} → ${sb.beside}.`)
+for (const [nm, s] of [['before', sa], ['after', sb]]) { P('', `Words broken in a label, ${nm}, by condition (word, its width in px, the narrowest column, wider than the column or not):`); for (const [k, q] of Object.entries(s.broken).sort()) P(`- ${k}: ${Object.entries(q).map(([t, w]) => `${t} ${w.w}/${w.col}${w.wider ? '' : ' NOT WIDER'}`).join(', ')}`) }
+P('', `Marks broken in their column, after (language, mark, text condition, widest px, of 1.5 rem, at which widths): ${Object.entries(sb.markBroken).map(([k, v]) => `${k} ${v || 'unmeasured'} (${[...sb.markViews[k]].sort().join(', ')})`).join('; ') || 'none'}; before: ${JSON.stringify(sa.markBroken) === JSON.stringify(sb.markBroken) ? 'the same' : Object.keys(sa.markBroken).join('; ')}.`)
+P(`Value words broken, after: ${Object.entries(sb.valueBroken).map(([k, v]) => `${k}: ${[...v].join(', ')}`).join('; ') || 'none'}.`)
+// S-103.
+const fa = load('before', 's103'), fb = load('after', 's103'); let same = 0, diff = []; for (const a of fa) { const b = fb.find((x) => x.cell === a.cell && x.mode === a.mode); if (b && JSON.stringify(a.fact) === JSON.stringify(b.fact)) same++; else diff.push(a.cell + '/' + a.mode) }
+P('', `S-103's row: ${same} of ${fa.length} cells identical in its \`dt\` and \`dd\` readings${diff.length ? '; differ: ' + diff.join(', ') : ''}. Its row's lines, after: ${[...new Set(fb.map((j) => `${parse(j).lang} ${parse(j).view} ${parse(j).cond} ${j.fact?.dd.lines}`))].filter((x) => x.includes('w320')).join('; ')}.`)
+// S-103 under the AAC warning (VH-218 #2).
+{ const wa = load('before', 's103-warned'), wb = load('after', 's103-warned'); let same = 0, warn = 0, diff = [], plain = 0; const pa = load('before', 's103'); const nm = (j) => j.cell.replace('-warned', '') + '/' + j.mode
+  for (const a of wa) { const b = wb.find((x) => x.cell === a.cell && x.mode === a.mode); if (b && JSON.stringify(a.fact) === JSON.stringify(b.fact)) same++; else diff.push(a.cell + '/' + a.mode); for (const j of [a, b]) if (j.rows.find((r) => r.id === 'aac').state === 'warn' && j.rows.filter((r) => r.state === 'pass').length === 5 && j.fact) warn++; const p = pa.find((x) => nm(x) === nm(a)); if (p && JSON.stringify(p.fact) === JSON.stringify(a.fact)) plain++ }
+  P('', `S-103's row under the AAC warning: ${same} of ${wa.length} cells identical before → after in its \`dt\` and \`dd\` readings${diff.length ? '; differ: ' + diff.join(', ') : ''}; ${warn} of ${wa.length * 2} readings with the \`aac\` row warned, the other five passed and the row present; Words broken in the row, after: ${[...new Set(wb.flatMap((j) => [...(j.fact?.dd.broken ?? []), ...(j.fact?.dt.broken ?? [])].map((b) => b.t)))].join(', ') || 'none'}.`) }
+// Colour agreement.
+let dis = 0; for (const side of ['after']) for (const g of G.slice(0, 4)) { const L = load(side, g), by = {}; for (const j of L) { const c = parse(j); const sig = j.rows.map((r) => `${r.id}${r.label.lines}${r.value.lines}${r.beneath}`).join(); ((by[c.lang + c.view + c.cond] ??= {})[sig] ??= []).push(c.colour) } for (const v of Object.values(by)) if (Object.keys(v).length > 1) dis++ }
+P(`Lines and placement across the four colour modes: ${dis} condition(s) differ, after.`)
+console.log(out.join('\n'))

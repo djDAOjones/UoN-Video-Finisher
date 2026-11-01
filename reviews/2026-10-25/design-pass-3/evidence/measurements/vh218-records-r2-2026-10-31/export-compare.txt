@@ -1,0 +1,1 @@
+S-103 on the export against before-s103: 12 identical, 0 differ; S-103-warned: 12 of 12 warned with the row present

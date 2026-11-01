@@ -1,0 +1,72 @@
+## Notes
+
+**Revision and the one walker change.** Every before and after cell is read at instrument revision `fe44891d3c53f716`, not `e0a55331a7155cd3`. The change is one statement in `MX_INIT` (`walker/scenarios.mjs`), named on the item's second criterion: an init script wraps the `Intl.NumberFormat.prototype.format` getter, so for `unit === 'millisecond'` the app's own formatter is given 101, the value the defect was read at. Only `src/main.ts:1316` formats milliseconds. The app's code is not touched. **Proved on the clean base before any cell was read,** S-82 at w320 and w1280 in light in three languages, six cells at each revision: `rows.5.value.text` changes in five ("Ready in 186 ms" → "Ready in 101 ms"), the sixth having read 101 by chance, and only Malay at 1280 moves that row's two boxes (99 → 101 ms is one digit wider). Nothing else differs (`proof-compare.txt` in the records).
+
+**Why 540 cells a side, the ruling on the matrix (the orchestrator's, listed for the owner).** S-82 is the check itself: four states × 108 conditions, 432 cells. S-103 is the properties row "Less than a second", which has none of the check's four states: 108 cells in its one state. This is not a coverage reduction: those other cells can't exist.
+
+**How each state is held, by the driver, in memory.** Passed: S-82. Warned: fault F17. Failed: an init script (`isSecureContext` false, `VideoEncoder` and `VideoDecoder` and `getDirectory` deleted) and F1 holding the worker past its 5 s deadline. Pending: `isConfigSupported` never answers, F1 holds the worker, and only the 5,000 ms `setTimeout` is dropped, so the state is held for the instruments and asserted before and after.
+
+**What a row truly cannot reach, each by `grep -n renderCheck src/main.ts`.** Warned: only `aac` (`:1167` is the only `'warn'`); `secure`, `webcodecs`, `h264`, `opfs` and `worker` have no warn path. Pending: `secure`, `webcodecs` and `opfs` are written pending at `:1108` and overwritten in the same tick at `:1111–1126`, so they can't be painted pending; **staged for layout** in the pending cells, labelled `stagedPending` in the probe, set and restored inside one evaluate. Failed: all six reached. The worker row's other failed wording, "Failed to start", lasts until the 5 s deadline, and is read as `failedToStart` by the same swap.
+
+**Spacing with a colour.** The walker has `spacing` alone. `dark-spacing`, `forced-light-spacing` and `forced-dark-spacing` run its `setMode`, which reads the prefix; the driver's `afterMode` adds the walker's own sheet. `assertReached` does not qualify those names, so the probe reads them: 1,080 readings, 0 not as declared. `typeRoles` reads them as not spacing, so its `type` row reads the sheet's line height as off-role, alike on each side.
+
+**VH-199's records** read no fixed value and VH-216, VH-229 and VH-209 moved the page: none matched, none used; every before cell was measured on the base.
+
+**Power.** Before: AC, 100%, power mode 2 throughout. After, the four S-82 groups: the same. `after-s103` crossed from AC to battery at about 23:25:30Z, is **void and set aside** on Orchestrator #33's ruling, and was re-run whole as `after2-s103`: battery, 100 → 96%, power mode 2 throughout (its launcher's "AC" is the launcher's fixed word; `conditions.txt` and the load log are the record). So S-103's before is AC and its after battery, both power mode 2.
+
+**Load.** Above 8 by the 30 s samples: before-passed 1 of 10 (9.19, its first sample), before-warned 1 of 10 (8.16), after-pending 1 of 10 (9.03), after2-s103 2 of 18 (8.25); the owner's load. The void `after-s103`: 5 of 18, peak 18.53. The readings here are layout, not timing, and the probes agree across colour modes in every condition.
+
+**Not walked:** a four-digit worker value; the wrap is content-driven, so it only wraps earlier. What a screen reader says. Chrome's own page zoom.
+
+**WCAG, for what it touched.** 1.3.1: spans in the same order in the same `li`, no element or role changed. 1.4.4: at 32 px the worker row is 2–3 label lines against 20–22, and no text clipped. 1.4.8: the value is `text-align: start`, none justified, the same line height. 1.4.10: 0 cells of page overflow on either side, and no row's text past the row, at 320 px. 1.4.12: the row has no fixed height; under the spacing sheet at 320 px no English or Malay word breaks.
+
+**The label "wraps only between words".** At the default font and in the spacing mode, in English and Malay, at every width and in every state: no word broken. At 32 px on 320 px the column is 182 px and VH-165's fallback breaks what can't fit: `(WebCodecs)` 195.03 px in English and Malay, `Pemprosesan` 197.44 px in Malay. In Chinese at 32 px on 320 px, ordinary Chinese line breaking falls inside the segmenter's 格式 and 存储, and `WebCodecs` 173.72 px is broken with its closing bracket attached, which is wider than 182 px. Every other reading is whole.
+
+**Found, not this item's: a mark broken in its column.** The mark's 1.5 rem column (24 px at the default font) is too narrow for Malay's "Tidak" (36.33 px) and Chinese's 好的 (28 px) at the default font, and for "OK" under the spacing sheet (24.38 px), so each breaks over two lines, identically before and after. See wish VH-218.1.
+
+Modes read by the probe: 1080 readings, 0 not as declared (font, spacing sheet, dark, forced, width).
+
+Label lines, before → after, passed, light (the other colour modes are counted below):
+
+| Language, width, text | secure | webcodecs | h264 | aac | opfs | worker | worker's value |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| en-GB w1280 default | 1 | 1 | 1 | 1 | 1 | 1 | beside, from beside |
+| en-GB w1280 font32 | 1 | 1 | 1 | 1 | 1 | 1 | beside, from beside |
+| en-GB w1280 spacing | 1 | 1 | 1 | 1 | 1 | 1 | beside, from beside |
+| en-GB w375 default | 1 | 2 → 1 | 2 → 1 | 2 → 1 | 1 | 2 → 1 | beneath, from beside |
+| en-GB w375 font32 | 4 → 2 | 6 → 3 | 7 → 2 | 7 → 2 | 5 → 2 | 20 → 2 | beneath, from beside |
+| en-GB w375 spacing | 2 → 1 | 3 → 2 | 2 | 2 | 2 → 1 | 4 → 1 | beneath, from beside |
+| en-GB w320 default | 2 → 1 | 3 → 2 | 2 | 2 | 2 → 1 | 4 → 1 | beneath, from beside |
+| en-GB w320 font32 | 7 → 2 | 22 → 4 | 17 → 3 | 17 → 3 | 9 → 3 | 20 → 2 | beneath, from beside |
+| en-GB w320 spacing | 2 → 1 | 5 → 2 | 4 → 2 | 4 → 2 | 3 → 2 | 8 → 2 | beneath, from beside |
+| zh-Hans w1280 default | 1 | 1 | 1 | 1 | 1 | 1 | beside, from beside |
+| zh-Hans w1280 font32 | 1 | 1 | 1 | 1 | 1 | 1 | beside, from beside |
+| zh-Hans w1280 spacing | 1 | 1 | 1 | 1 | 1 | 1 | beside, from beside |
+| zh-Hans w375 default | 1 | 1 | 1 | 1 | 1 | 1 | beside, from beside |
+| zh-Hans w375 font32 | 1 | 3 → 2 | 3 → 2 | 3 → 2 | 2 → 1 | 4 → 1 | beneath, from beside |
+| zh-Hans w375 spacing | 1 | 2 → 1 | 1 | 1 | 1 | 1 | beside, from beside |
+| zh-Hans w320 default | 1 | 2 → 1 | 2 → 1 | 2 → 1 | 1 | 2 → 1 | beneath, from beside |
+| zh-Hans w320 font32 | 2 → 1 | 5 → 3 | 4 → 2 | 4 → 2 | 3 → 2 | 4 → 1 | beneath, from beside |
+| zh-Hans w320 spacing | 1 | 2 | 2 | 2 → 1 | 1 | 2 → 1 | beneath, from beside |
+| ms-MY w1280 default | 1 | 1 | 1 | 1 | 1 | 1 | beside, from beside |
+| ms-MY w1280 font32 | 1 | 1 | 1 | 1 | 1 | 1 | beside, from beside |
+| ms-MY w1280 spacing | 1 | 1 | 1 | 1 | 1 | 2 → 1 | beneath, from beside |
+| ms-MY w375 default | 1 | 2 | 2 → 1 | 2 → 1 | 2 → 1 | 3 → 1 | beneath, from beside |
+| ms-MY w375 font32 | 4 → 2 | 7 → 3 | 6 → 3 | 5 → 2 | 4 → 2 | 22 → 2 | beneath, from beside |
+| ms-MY w375 spacing | 2 → 1 | 3 → 2 | 2 | 2 | 2 → 1 | 9 → 2 | beneath, from beside |
+| ms-MY w320 default | 2 → 1 | 3 → 2 | 3 → 2 | 2 | 2 → 1 | 10 → 2 | beneath, from beside |
+| ms-MY w320 font32 | 8 → 2 | 14 → 4 | 13 → 4 | 13 → 4 | 8 → 2 | 22 → 3 | beneath, from beside |
+| ms-MY w320 spacing | 2 → 1 | 4 → 2 | 4 → 2 | 4 → 2 | 4 → 2 | 24 → 2 | beneath, from beside |
+
+The four states, every colour, 432 cells a side; 3024 row readings after, with the staged and swapped ones. Label words broken, readings: 2028 → 152. Page overflow, cells: 0 → 0. A row's text past the row: 0 → 0. Value beneath: 0 → 1696, beside: 3024 → 1328.
+
+Words broken in a label, after, by condition (word, its width in px, the narrowest column, wider than the column or not):
+- en-GB w320 font32: (WebCodecs) 195.03/182
+- ms-MY w320 font32: Pemprosesan 197.44/182, (WebCodecs) 195.03/182
+- zh-Hans w320 font32: WebCodecs 173.72/182 NOT WIDER, 格式 64/182 NOT WIDER, 存储 64/182 NOT WIDER
+
+Marks broken in their column, after (language, mark, text condition, widest px, of 1.5 rem): en-GB OK spacing 24.38; zh-Hans 好的 default 28; zh-Hans 好的 font32 56; zh-Hans 好的 spacing 31.38; ms-MY OK spacing 24.38; zh-Hans …… default 0; zh-Hans …… font32 0; zh-Hans …… spacing 0; ms-MY Tidak default 36.33; ms-MY Tidak font32 72.64; ms-MY Tidak spacing 44.73; before: the same.
+Value words broken, after: zh-Hans w375 font32: 毫秒, 无法, 视频.
+
+S-103's row: 108 of 108 cells identical in its `dt` and `dd` readings. Its row's lines, after: en-GB w320 default 1; en-GB w320 font32 2; en-GB w320 spacing 1; zh-Hans w320 default 1; zh-Hans w320 font32 1; zh-Hans w320 spacing 1; ms-MY w320 default 1; ms-MY w320 font32 2; ms-MY w320 spacing 2.
+Lines and placement across the four colour modes: 0 condition(s) differ, after.

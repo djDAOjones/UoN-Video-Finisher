@@ -1,0 +1,10 @@
+00:12:27 load 6.55 Battery Power 82% pm2
+00:12:57 load 6.05 Battery Power 81% pm2
+00:13:27 load 5.67 Battery Power 81% pm2
+00:13:58 load 6.02 Battery Power 81% pm2
+00:14:28 load 5.99 Battery Power 81% pm2
+00:14:58 load 7.57 Battery Power 80% pm2
+00:15:28 load 7.58 Battery Power 80% pm2
+00:15:58 load 7.61 Battery Power 80% pm2
+00:16:28 load 7.08 Battery Power 80% pm2
+00:16:58 load 5.84 Battery Power 80% pm2

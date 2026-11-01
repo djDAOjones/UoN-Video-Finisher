@@ -1,0 +1,139 @@
+## Notes
+
+**This page replaces nothing.** The first table, `vh218-check-rows-2026-10-31.md`, the second, `vh218-check-rows-r1-2026-10-31.md`, and their records stay on file. The second followed Codex's FAIL on the first and the repair below; this one follows its re-check's FAIL on the second's evidence, adding one small read of the base and correcting these notes, with no walk repeated. Its after is a single source diff, `after.srcdiff` `aafc920774356ab5` (`git diff -- src`), across every `after2-*` group. Set aside and named, in the walk folder: `after-s103`, void, which crossed AC to battery; and the earlier `after2-s103`, now `setaside-after2-s103`, walked before the repair. Neither is read here.
+
+**The repair.** Inside the existing `@media (max-width: 19.99rem)`, no new query, element or string: a check row's mark takes a line of its own and the hanging padding goes, so at 32 px on a phone the label has the whole column (254 px at 320, not 182). The query does not reach the default font at 320 px. `overflow-wrap`'s fallback stays. On Orchestrator #33's ruling, listed for the owner; it supersedes the brief's "report the word" for the words it makes fit. Result: **no word in a label is broken in any state, width, text condition or language**, and no word is wider than its column. Widest at 32 px on 320 px: `Pemprosesan` 197.44 of 254 px, `(WebCodecs)` 195.03 of 254 px, Chinese `WebCodecs）` whole.
+
+**Revision and the one walker change.** Every before and after cell is read at instrument revision `fe44891d3c53f716`, not `e0a55331a7155cd3`. The change is one statement in `MX_INIT` (`walker/scenarios.mjs`), named on the item's second criterion: an init script wraps the `Intl.NumberFormat.prototype.format` getter, so for `unit === 'millisecond'` the app's own formatter is given 101, the value the defect was read at. Only `src/main.ts:1316` formats milliseconds. The app's code is not touched. **Proved on the clean base before any cell was read,** S-82 at w320 and w1280 in light in three languages, six cells at each revision: `rows.5.value.text` changes in five ("Ready in 186 ms" → "Ready in 101 ms"), the sixth having read 101 by chance, and only Malay at 1280 moves that row's two boxes (99 → 101 ms is one digit wider). Nothing else differs (`proof-compare.txt` in the records).
+
+**The cells, 648 a side.** S-82 is the check itself: four states × 108 conditions, 432 cells. S-103 is the properties row "Less than a second": 108 cells with all six rows passed, and 108 under the AAC warning. **What was walked and what was found:** the earlier ruling said S-103's other cells can't exist. Codex showed one can, the AAC warning beside S-103's row, so it was walked, both sides (`before-s103-warned`, `after2-s103-warned`, by `vh218-driver-2.mjs`: the first driver with one scenario added, fault F17 before S-103's own setup, its state requiring `aac` warned and five rows passed). The row read the same, 108 of 108 each way. Against the unwarned before, its top sits lower in 100 of 108 cells and is unmoved in 8. The panel stays as the app leaves it, closed, so these cells read the row and not the check's labels.
+
+**The other two states of S-103, read from the code.** Pending cannot coexist with the row: `src/main.ts:1335` and `:2558` keep the file input shut until start-up settles, `:1372` settles only when the worker and the encode checks have both answered, and `:1424` answers a drop "starting". Failed cannot coexist with it: any of `secure`, `webcodecs`, `h264`, `opfs` or `worker` failing makes `startupFailureText` non-null (`src/ui/failure-text.ts`), so `startup` is `blocked` (`main.ts:1349`), shut for good (`:2558`), and `aac` fails only with no WebCodecs (`:1140–1142`), itself a block; `worker` cannot fail after it has answered (`:1298`, `workerReady`). A file's row needs a file; none can be chosen.
+
+**The before of S-103 under the warning.** On a read-only `git archive` of base `ca2f5ed` under the walk folder, tar sha1 `54b32686625e86af`, 3,814 files, every one in the base; a real `node_modules` of links to the checkout's entries, so Vite's cache is its own; its own Vite. No stash, reset, restore or checkout in the owner's tree, and no worktree. Its `commit` line is blank, as it isn't a repository, and its build id reads `nogit`. **Faithful by proof:** plain S-103 on the export against `before-s103` on the checkout, 12 of 12 cells identical in the whole probe (`export-compare.txt`). The same run reached S-103-warned in 12 of 12. **One thing the raw records state wrongly:** in `before-s103-warned`, `export-proof` and `before-words`, the walker's `manifest.json` and `run.json` name the walker's own checkout as the source, the owner's patched tree, as the walker reads that from its own folder. Those three groups were served from the export: their `conditions.txt` (diff hash of an empty diff, no commit), their launcher lines and this paragraph are the record.
+
+**How each state is held, by the driver, in memory.** Passed: S-82. Warned: fault F17. Failed: an init script (`isSecureContext` false, `VideoEncoder` and `VideoDecoder` and `getDirectory` deleted) and F1 holding the worker past its 5 s deadline. Pending: `isConfigSupported` never answers, F1 holds the worker, and only the 5,000 ms `setTimeout` is dropped, so the state is held for the instruments and asserted before and after.
+
+**What a row truly cannot reach, each by `grep -n renderCheck src/main.ts`.** Warned: only `aac` (`:1167` is the only `'warn'`); `secure`, `webcodecs`, `h264`, `opfs` and `worker` have no warn path. Pending: `secure`, `webcodecs` and `opfs` are written pending at `:1108` and overwritten in the same tick at `:1111–1126`, so they can't be painted pending; **staged for layout** in the pending cells, labelled `stagedPending` in the probe, set and restored inside one evaluate. Failed: all six reached. The worker row's other failed wording, "Failed to start", lasts until the 5 s deadline, and is read as `failedToStart` by the same swap.
+
+**"Each row's line count and its longest unbroken word."** The driver's `longest` is the widest word, whole or broken, with `broken` beside it, so the first two tables named it so. This page gives the criterion's own reading, in the table at the end: for the before, one small group on the base by the export (`before-words`, `vh218-driver-3.mjs`: the second driver with one field added, every word's width; 27 cells of S-82, light, 32 px and spacing, at the three widths and languages) gives each word's width, and each cell's `broken` list removes the broken. `vh218-driver.mjs` is untouched, and no cell of the before is read again.
+
+**Spacing with a colour.** The walker has `spacing` alone. `dark-spacing`, `forced-light-spacing` and `forced-dark-spacing` run its `setMode`, which reads the prefix; the driver's `afterMode` adds the walker's own sheet. `assertReached` does not qualify those names, so the probe reads them, 0 not as declared below. `typeRoles` reads them as not spacing, so its `type` row reads the sheet's line height as off-role, alike on each side.
+
+**The script's words.** "Unmoved" counts cells whose verdicts did not move, beside the `rows` readings that did. Its "median" is the upper-middle sample. **The font32 page shots show the default size:** the walker's known `captureBeyondViewport` effect (VH-217 #2). The probes read before any capture and qualify 32 px; no reading or visual approval here rests on one.
+
+**VH-199's records** read no fixed value and VH-216, VH-229 and VH-209 moved the page: none matched, none used; every before cell was measured on the base.
+
+**Power.** Before, the five first groups: AC, 100%, power mode 2 throughout. `before-s103-warned`: battery, 62 → 56%, mode 2. `before-words`: AC, mode 2. After, every `after2-*` group: battery, 84 → 62%, mode 2 throughout; none crossed a source or a sleep. Launcher "AC" is the launcher's fixed word; `conditions.txt` and the load log are the record. So every side ran in mode 2; the first five befores and `before-words` on AC.
+
+**Load, the owner's, by the 30 s samples at 8 or above.** before-passed 1 of 10 (9.19, its fourth sample), before-warned 1 of 10 (8.16), after2-passed 4 of 10 (peak 9.88), after2-s103 8 of 18 (peak 40.41), after2-s103-warned 5 of 18 (8.81), before-s103-warned 1 of 18 (12.91), before-words 1 of 3 (11.81). The readings here are layout, not timing; S-103's row read identical on each side and the probes agree across colour modes in every condition.
+
+**Not walked:** a four-digit worker value; the wrap is content-driven, so it only wraps earlier. What a screen reader says. Chrome's own page zoom.
+
+**WCAG, for what it touched.** 1.3.1: spans in the same order in the same `li`, no element or role changed. 1.4.4: at 32 px on 320 px the worker row is 1–2 lines of label against 4–22, and no text clipped. 1.4.8: the value is `text-align: start`, none justified, the same line height. 1.4.10: 0 cells of page overflow on either side, and no row's text past the row, at 320 px. 1.4.12: the row has no fixed height; under the spacing sheet at 320 px no word in a label breaks.
+
+**Found, its own fix item: VH-230, a mark broken in its column.** On Orchestrator #33's ruling, with his "even old issues should be solved for". The mark's 1.5 rem column is too narrow at the default font for Malay's "Tidak" (36.33 of 24 px) and Chinese's 好的 (28 of 24 px), and under the spacing sheet for "OK" (24.38 of 24 px), each broken over two lines, the same before and after. Chinese's pending "……" also takes two lines; its width is unmeasured, as the probe's words skip punctuation. The repair ends it at 32 px on a phone only, where the mark has the column's width; at 32 px on 1280 px each still breaks in a 48 px column (`Tidak` 72.64, 好的 56). It lands before VH-220.
+
+Modes read by the probe: 1296 readings, 0 not as declared (font, spacing sheet, dark, forced, width).
+
+Label lines, before → after, passed, light (the other colour modes are counted below):
+
+| Language, width, text | secure | webcodecs | h264 | aac | opfs | worker | worker's value |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| en-GB w1280 default | 1 | 1 | 1 | 1 | 1 | 1 | beside, from beside |
+| en-GB w1280 font32 | 1 | 1 | 1 | 1 | 1 | 1 | beside, from beside |
+| en-GB w1280 spacing | 1 | 1 | 1 | 1 | 1 | 1 | beside, from beside |
+| en-GB w375 default | 1 | 2 → 1 | 2 → 1 | 2 → 1 | 1 | 2 → 1 | beneath, from beside |
+| en-GB w375 font32 | 4 → 1 | 6 → 2 | 7 → 2 | 7 → 2 | 5 → 2 | 20 → 2 | beneath, from beside |
+| en-GB w375 spacing | 2 → 1 | 3 → 2 | 2 | 2 | 2 → 1 | 4 → 1 | beneath, from beside |
+| en-GB w320 default | 2 → 1 | 3 → 2 | 2 | 2 | 2 → 1 | 4 → 1 | beneath, from beside |
+| en-GB w320 font32 | 7 → 2 | 22 → 2 | 17 → 2 | 17 → 2 | 9 → 2 | 20 → 2 | beneath, from beside |
+| en-GB w320 spacing | 2 → 1 | 5 → 2 | 4 → 2 | 4 → 2 | 3 → 2 | 8 → 2 | beneath, from beside |
+| zh-Hans w1280 default | 1 | 1 | 1 | 1 | 1 | 1 | beside, from beside |
+| zh-Hans w1280 font32 | 1 | 1 | 1 | 1 | 1 | 1 | beside, from beside |
+| zh-Hans w1280 spacing | 1 | 1 | 1 | 1 | 1 | 1 | beside, from beside |
+| zh-Hans w375 default | 1 | 1 | 1 | 1 | 1 | 1 | beside, from beside |
+| zh-Hans w375 font32 | 1 | 3 → 2 | 3 → 2 | 3 → 1 | 2 → 1 | 4 → 1 | beneath, from beside |
+| zh-Hans w375 spacing | 1 | 2 → 1 | 1 | 1 | 1 | 1 | beside, from beside |
+| zh-Hans w320 default | 1 | 2 → 1 | 2 → 1 | 2 → 1 | 1 | 2 → 1 | beneath, from beside |
+| zh-Hans w320 font32 | 2 → 1 | 5 → 2 | 4 → 2 | 4 → 2 | 3 → 1 | 4 → 1 | beneath, from beside |
+| zh-Hans w320 spacing | 1 | 2 | 2 | 2 → 1 | 1 | 2 → 1 | beneath, from beside |
+| ms-MY w1280 default | 1 | 1 | 1 | 1 | 1 | 1 | beside, from beside |
+| ms-MY w1280 font32 | 1 | 1 | 1 | 1 | 1 | 1 | beside, from beside |
+| ms-MY w1280 spacing | 1 | 1 | 1 | 1 | 1 | 2 → 1 | beneath, from beside |
+| ms-MY w375 default | 1 | 2 | 2 → 1 | 2 → 1 | 2 → 1 | 3 → 1 | beneath, from beside |
+| ms-MY w375 font32 | 4 → 1 | 7 → 2 | 6 → 2 | 5 → 2 | 4 → 2 | 22 → 2 | beneath, from beside |
+| ms-MY w375 spacing | 2 → 1 | 3 → 2 | 2 | 2 | 2 → 1 | 9 → 2 | beneath, from beside |
+| ms-MY w320 default | 2 → 1 | 3 → 2 | 3 → 2 | 2 | 2 → 1 | 10 → 2 | beneath, from beside |
+| ms-MY w320 font32 | 8 → 2 | 14 → 3 | 13 → 2 | 13 → 2 | 8 → 2 | 22 → 2 | beneath, from beside |
+| ms-MY w320 spacing | 2 → 1 | 4 → 2 | 4 → 2 | 4 → 2 | 4 → 2 | 24 → 2 | beneath, from beside |
+
+The four states, every colour, 432 cells a side; 3024 row readings after, with the staged and swapped ones. Label words broken, readings: 2028 → 0. Page overflow, cells: 0 → 0. A row's text past the row: 0 → 0. Value beneath: 0 → 1648, beside: 3024 → 1376.
+
+Words broken in a label, before, by condition (word, its width in px, the narrowest column, wider than the column or not):
+- en-GB w1280 default: Output 48.03/41.98, format 45.36/41.98, (AAC) 43.56/41.98
+- en-GB w1280 font32: Output 96.06/83.98, format 90.69/83.98, (AAC) 87.11/83.98
+- en-GB w1280 spacing: Output 59.61/15.25, audio 48.8/15.25, format 56.91/15.25, (AAC) 53.17/15.25
+- en-GB w320 default: Background 85.39/68.94, processing 77.39/68.94, Output 48.05/13.33, audio 39.17/13.33, format 45.34/13.33, (AAC) 43.56/13.33, (WebCodecs) 97.52/86.05
+- en-GB w320 font32: Secure 101.39/21.34, connection 154.78/21.34, Video 81.27/29.63, processing 154.75/21.34, (WebCodecs) 195.61/29.63, Output 96.06/26.66, video 76.5/26.66, format 90.69/26.66, (H.264) 106.7/26.66, audio 78.3/26.66, (AAC) 87.11/26.66, Private 99.59/23.11, working 110.27/23.11, storage 106.73/23.11, Background 170.78/21.34
+- en-GB w320 spacing: processing 96.61/37.02, (WebCodecs) 118.66/61.97, Background 104.64/37.02, Output 59.61/15.25, audio 48.8/15.25, format 56.91/15.25, (AAC) 53.17/15.25, connection 96.61/68.97, (H.264) 66.8/61.97
+- en-GB w375 default: Output 48.05/13.33, audio 39.17/13.33, format 45.34/13.33, (AAC) 43.56/13.33
+- en-GB w375 font32: Secure 101.39/51.13, connection 154.78/51.13, processing 154.75/21.34, (WebCodecs) 195.61/37.11, Output 96.06/26.66, format 90.69/26.66, (H.264) 106.7/37.11, (AAC) 87.11/26.66, working 110.27/51.13, storage 106.73/51.13, Background 170.78/21.34, Private 99.59/51.13, audio 78.3/26.66, Video 81.27/37.11, video 76.5/37.11
+- en-GB w375 spacing: Background 104.61/92.02, processing 96.59/92.02, Output 59.61/15.25, audio 48.8/15.25, format 56.91/15.25, (AAC) 53.17/15.25, (WebCodecs) 118.64/116.97
+- ms-MY w1280 default: Format 50.69/13.33, audio 39.17/13.33, keluaran 61.41/13.33, (AAC) 43.56/13.33
+- ms-MY w1280 font32: Format 101.34/26.66, audio 78.3/26.66, keluaran 122.75/26.66, (AAC) 87.11/26.66
+- ms-MY w1280 spacing: Format 62.23/15.25, audio 48.8/15.25, keluaran 76.8/15.25, (AAC) 53.17/15.25
+- ms-MY w320 default: Pemprosesan 98.75/26.92, latar 31.13/26.92, belakang 64.95/26.92, Format 50.69/13.33, audio 39.17/13.33, keluaran 61.41/13.33, (AAC) 43.56/13.33, (WebCodecs) 97.52/80.34, persendirian 88.06/86.58
+- ms-MY w320 font32: Sambungan 172.58/26.66, selamat 112.05/26.66, Pemprosesan 197.44/26.66, video 76.5/26.66, (WebCodecs) 195.61/29.63, Format 101.34/26.66, keluaran 122.75/26.66, (H.264) 106.7/26.66, audio 78.3/26.66, (AAC) 87.11/26.66, Storan 94.28/21.34, kerja 69.36/21.34, persendirian 176.11/21.34, latar 62.25/26.66, belakang 129.89/26.66
+- ms-MY w320 spacing: Pemprosesan 119.91/15.25, (WebCodecs) 118.66/54.59, persendirian 111.11/60.83, latar 40.77/15.25, belakang 80.38/15.25, Sambungan 103.58/60.83, Format 62.23/15.25, audio 48.8/15.25, keluaran 76.8/15.25, (AAC) 53.17/15.25, selamat 69.47/60.83, (H.264) 66.81/54.59
+- ms-MY w375 default: Pemprosesan 98.72/81.92, Format 50.69/13.33, audio 39.17/13.33, keluaran 61.41/13.33, (AAC) 43.56/13.33
+- ms-MY w375 font32: Sambungan 172.58/38.17, selamat 112.05/38.17, Pemprosesan 197.44/26.66, (WebCodecs) 195.61/29.63, Format 101.34/26.66, keluaran 122.75/26.66, (H.264) 106.7/26.66, persendirian 176.11/38.17, latar 62.25/26.66, belakang 129.89/26.66, video 76.5/26.66 NOT WIDER, audio 78.3/26.66, (AAC) 87.11/26.66, Storan 94.28/38.17, kerja 69.36/38.17
+- ms-MY w375 spacing: Pemprosesan 119.88/39.92, latar 40.73/39.92, belakang 80.33/39.92, Format 62.23/15.25, audio 48.8/15.25, keluaran 76.8/15.25, (AAC) 53.17/15.25, (WebCodecs) 118.64/109.59
+- zh-Hans w320 default: 处理 32/52.64 NOT WIDER, 输出 32/16, 格式 32/16, AAC 32.91/16
+- zh-Hans w320 font32: 264 53.39/102 NOT WIDER, 处理 64/32 NOT WIDER, WebCodecs 174.3/74, 视频 64/102 NOT WIDER, 后台 64/32, AAC 65.8/32 NOT WIDER, 输出 64/32, 格式 64/32, 安全 64/46, 连接 64/46, 私人 64/46, 工作 64/46, 存储 64/46
+- zh-Hans w320 spacing: 输出 35.84/17.92, 格式 35.84/17.92, AAC 38.67/17.92
+- zh-Hans w375 default: 输出 32/16, 格式 32/16, AAC 32.91/16
+- zh-Hans w375 font32: WebCodecs 173.72/129, 后台 64/32, 处理 64/32, 输出 64/32, 格式 64/32, AAC 65.8/32, 连接 64/101 NOT WIDER, 工作 64/101 NOT WIDER
+- zh-Hans w375 spacing: 输出 35.84/17.92, 格式 35.84/17.92, AAC 38.67/17.92
+
+Words broken in a label, after, by condition (word, its width in px, the narrowest column, wider than the column or not):
+
+Marks broken in their column, after (language, mark, text condition, widest px, of 1.5 rem, at which widths): en-GB OK spacing 24.38 (w1280, w320, w375); zh-Hans 好的 default 28 (w1280, w320, w375); zh-Hans 好的 font32 56 (w1280); zh-Hans 好的 spacing 31.38 (w1280, w320, w375); ms-MY OK spacing 24.38 (w1280, w320, w375); zh-Hans …… default unmeasured (w1280, w320, w375); zh-Hans …… font32 unmeasured (w1280); zh-Hans …… spacing unmeasured (w1280, w320, w375); ms-MY Tidak default 36.33 (w1280, w320, w375); ms-MY Tidak font32 72.64 (w1280); ms-MY Tidak spacing 44.73 (w1280, w320, w375); before: the same.
+Value words broken, after: none.
+
+S-103's row: 108 of 108 cells identical in its `dt` and `dd` readings. Its row's lines, after: en-GB w320 default 1; en-GB w320 font32 2; en-GB w320 spacing 1; zh-Hans w320 default 1; zh-Hans w320 font32 1; zh-Hans w320 spacing 1; ms-MY w320 default 1; ms-MY w320 font32 2; ms-MY w320 spacing 2.
+
+S-103's row under the AAC warning: 108 of 108 cells identical before → after in its `dt` and `dd` readings; 216 of 216 readings with the `aac` row warned, the other five passed and the row present; Words broken in the row, after: none.
+Lines and placement across the four colour modes: 0 condition(s) differ, after.
+
+Each row's longest unbroken word (px), before → after, passed, light; every state and colour mode, 5184 readings, in `longest-unbroken.jsonl`. "None" means every word in the label broke: 432 readings before, 0 after. The before's word widths are from `before-words`, 27 cells on the base by the export, its rows 27 of 27 identical to `before-passed`.
+
+| Language, width, text | secure | webcodecs | h264 | aac | opfs | worker |
+| --- | --- | --- | --- | --- | --- | --- |
+| en-GB w1280 default | connection 77 | (WebCodecs) 98 | (H.264) 53 | Output 48 | working 55 | Background 85 |
+| en-GB w1280 font32 | connection 155 | (WebCodecs) 195 | (H.264) 107 | Output 96 | working 110 | Background 171 |
+| en-GB w1280 spacing | connection 97 | (WebCodecs) 119 | (H.264) 67 | Output 60 | working 69 | Background 105 |
+| en-GB w375 default | connection 77 | (WebCodecs) 98 | (H.264) 53 | Output 48 | working 55 | Background 85 |
+| en-GB w375 font32 | none → connection 155 | Video 81 → (WebCodecs) 195 | video 77 → (H.264) 107 | audio 78 → Output 96 | Private 100 → working 110 | none → Background 171 |
+| en-GB w375 spacing | connection 97 | (WebCodecs) 119 | (H.264) 67 | Output 60 | working 69 | none → Background 105 |
+| en-GB w320 default | connection 77 | (WebCodecs) 98 | (H.264) 53 | Output 48 | working 55 | none → Background 85 |
+| en-GB w320 font32 | none → connection 155 | none → (WebCodecs) 196 | none → (H.264) 107 | none → Output 96 | none → working 110 | none → Background 171 |
+| en-GB w320 spacing | connection 97 | Video 50 → (WebCodecs) 119 | (H.264) 67 | Output 60 | working 69 | none → Background 105 |
+| zh-Hans w1280 default | 安全 32 | WebCodecs 87 | 输出 32 | AAC 33 | 私人 32 | 后台 32 |
+| zh-Hans w1280 font32 | 安全 64 | WebCodecs 174 | 输出 64 | AAC 66 | 私人 64 | 后台 64 |
+| zh-Hans w1280 spacing | 连接 36 | WebCodecs 104 | 视频 36 | AAC 39 | 工作 36 | 处理 36 |
+| zh-Hans w375 default | 安全 32 | WebCodecs 87 | 输出 32 | AAC 33 | 私人 32 | 后台 32 |
+| zh-Hans w375 font32 | 安全 64 | 视频 64 → WebCodecs 174 | 输出 64 | AAC 66 | 私人 64 | none → 后台 64 |
+| zh-Hans w375 spacing | 连接 36 | WebCodecs 104 | 视频 36 | AAC 39 | 工作 36 | 处理 36 |
+| zh-Hans w320 default | 安全 32 | WebCodecs 87 | 输出 32 | AAC 33 | 私人 32 | 后台 32 |
+| zh-Hans w320 font32 | 安全 64 | 视频 64 → WebCodecs 174 | 输出 64 | AAC 66 | 私人 64 | none → 后台 64 |
+| zh-Hans w320 spacing | 连接 36 | WebCodecs 104 | 视频 36 | AAC 39 | 工作 36 | 后台 36 |
+| ms-MY w1280 default | Sambungan 86 | Pemprosesan 99 | keluaran 61 | keluaran 61 | persendirian 88 | Pemprosesan 99 |
+| ms-MY w1280 font32 | Sambungan 173 | Pemprosesan 197 | keluaran 123 | keluaran 123 | persendirian 176 | Pemprosesan 197 |
+| ms-MY w1280 spacing | Sambungan 104 | Pemprosesan 120 | keluaran 77 | keluaran 77 | persendirian 111 | Pemprosesan 120 |
+| ms-MY w375 default | Sambungan 86 | Pemprosesan 99 | keluaran 61 | keluaran 61 | persendirian 88 | belakang 65 → Pemprosesan 99 |
+| ms-MY w375 font32 | none → Sambungan 173 | video 77 → Pemprosesan 197 | video 77 → keluaran 123 | (AAC) 87 → keluaran 123 | Storan 94 → persendirian 176 | none → Pemprosesan 197 |
+| ms-MY w375 spacing | Sambungan 104 | Pemprosesan 120 | keluaran 77 | keluaran 77 | persendirian 111 | none → Pemprosesan 120 |
+| ms-MY w320 default | Sambungan 86 | Pemprosesan 99 | keluaran 61 | keluaran 61 | persendirian 88 | none → Pemprosesan 99 |
+| ms-MY w320 font32 | none → Sambungan 173 | none → Pemprosesan 197 | none → keluaran 123 | none → keluaran 123 | none → persendirian 176 | none → Pemprosesan 197 |
+| ms-MY w320 spacing | Sambungan 104 | video 48 → Pemprosesan 120 | keluaran 77 | keluaran 77 | Storan 59 → persendirian 111 | none → Pemprosesan 120 |
