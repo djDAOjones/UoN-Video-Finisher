@@ -1061,6 +1061,9 @@ details[open] > .disclosure-summary::before {
   color: var(--text-primary);
   font: inherit;
   padding-right: var(--spacing-08);
+  /* A long option wraps and the box grows, rather than clipping its end: at a
+     large font or under text spacing no lane holds it on one line (VH-219). */
+  white-space: normal;
 }
 
 /* Disabled by losing the field's fill and its edge, not by fading the text
@@ -1705,7 +1708,8 @@ details[open] > .disclosure-summary::before {
  * edges and overlapping its neighbour by one hairline, as the switchers do;
  * in Chinese a colour's shortest width is one glyph, so a wrap would not fire.
  * A System check row's mark takes a line of its own, so its label has the whole
- * column and its longest word stays whole (VH-218).
+ * column and its longest word stays whole (VH-218). A select's text lane takes
+ * back what its arrow's inset doesn't need, so fewer options wrap (VH-219).
  * The media query follows the text size, as `25rem` does (S-113).
  */
 @media (max-width: 19.99rem) {
@@ -1767,6 +1771,15 @@ details[open] > .disclosure-summary::before {
     flex: 0 0 100%;
     width: auto;
     margin-inline-start: 0;
+  }
+
+  .select {
+    padding-left: var(--spacing-03);
+    padding-right: var(--spacing-05);
+  }
+
+  .select-wrap::after {
+    right: var(--spacing-02);
   }
 }
 

@@ -1324,3 +1324,13 @@ INTAKE.2 stays a wish line: only a person listening can judge the Teams output. 
 **Supersedes:** none
 
 **Deferred:** VH-187
+
+## 2026-10-24 — VH-187 — The top of the page: plain promises, the owner's promise 2, the browser note only when a check has not passed
+
+**Decision:** The lede loses its lead-in, and its promises and `app.description` take the sheet's B4 words, but promise 2 is the owner's own, "Levels audio for consistent listening experience." The browser note shows `browserNote.notPassed` only when a check fails or warns, which outranks a check still pending; otherwise it is hidden, and `pending` and `passed` are gone. Spec §10 takes S17 and S18.
+
+**Rationale:** The sheet's promise 2, "Levels the audio for a consistent listening experience.", scored grade 11.1 against `test/readability.test.ts`'s limit of 10. Asked through the orchestrator to choose between an exception (A), his original words (B) and "a steady listening experience" (C), the owner chose B, verbatim: "Levels audio for consistent listening experience." At six words it is under the test's prose threshold, so no exception was added. `browserNote` returns null when nothing is to be said, and `#browser-note` starts hidden and empty. A page without scripts now says nothing about Chrome above step 1; the statement still says the tool is built for Chrome, and nothing runs without scripts anyway. On a passing load the file button rises 80 to 128 px in three languages at four sizes, never lower, and 99 Chrome cases pass (`reviews/2026-10-24/vh187-top-2026-10-24.md`). The VH-153 test that compared the three sentences now checks the one left. Codex astra: "Commit after the musts below"; its must, this close, is done, and its may on a comment's timing is applied. Digest rules applied: Nielsen 1 (status said where it is true, not twice) and 8 (nothing above step 1 that is not needed); WCAG 3.1.5 by the readability gate, and 1.4.10 re-checked at 320 px.
+
+**Supersedes:** none
+
+**Deferred:** VH-188

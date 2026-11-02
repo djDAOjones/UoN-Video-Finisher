@@ -1,0 +1,7 @@
+// VH-219 #1: does the export serve the base faithfully? Each cell of exportproof-target (the base by git archive) against the same cell of before-target (on $R at the base): the whole probe but its time, plan and walk. Exit 1 if any differs.
+import { readFileSync, readdirSync } from 'node:fs'; import { join } from 'node:path'
+const rd = (g) => { const r = join(g, 'runs'); return readFileSync(join(r, readdirSync(r).find((x) => /probe/.test(x))), 'utf8').trim().split('\n').map(JSON.parse) }
+const strip = (j) => { const { at, plan, walk, ...o } = j; return JSON.stringify(o) }
+const base = Object.fromEntries(rd('before-target').map((j) => [j.cell + '/' + j.mode, j])); let same = 0, diff = 0, missing = 0
+for (const j of rd('exportproof-target')) { const b = base[j.cell + '/' + j.mode]; if (!b) { missing++; continue } if (strip(b) === strip(j)) same++; else { diff++; if (diff < 4) console.log('differs', j.cell, j.mode) } }
+console.log(`exportproof-target against before-target: ${same} identical, ${diff} differ, ${missing} without a base cell`); process.exit(diff || missing || same !== 84 ? 1 : 0)

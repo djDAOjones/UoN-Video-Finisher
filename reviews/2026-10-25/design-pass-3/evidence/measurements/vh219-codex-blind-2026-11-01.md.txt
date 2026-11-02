@@ -1,0 +1,46 @@
+**The CSS remedy passes; the evidence needs corrections before closure.** I found no remaining closed-text clipping in the measured cells.
+
+References below: **T** = [measurement table](</Users/joe/Library/CloudStorage/OneDrive-TheUniversityofNottingham/_Joe Bell UoN Files/2_Projects/2026-08-24 UoN Video Helper/reviews/2026-10-25/design-pass-3/evidence/measurements/vh219-selects-2026-11-01.md>); **R** = [records folder](</Users/joe/Library/CloudStorage/OneDrive-TheUniversityofNottingham/_Joe Bell UoN Files/2_Projects/2026-08-24 UoN Video Helper/reviews/2026-10-25/design-pass-3/evidence/measurements/vh219-records-2026-11-01/>); **W** = its sibling `walker/`.
+
+1. **CSS and scope — sound.** The changed `.select` and `.select-wrap::after` selectors serve only `#closing-type` and `#closing-onset` (`index.html:461,471`). Wrapping applies globally; reduced padding and arrow inset apply below `19.99rem` (`app.css:1066,1776`). This also fixes default-font **spacing** cases at 320, 401 and 640 px. Default-font, unspaced geometry remains unchanged, including wide layouts. Other controls’ styles do not change; taller selects move subsequent content. Existing flex rules provide stacking and `min-width:0`. No smaller font, markup, string, control, token-file or walker change.
+
+2. **Acceptance criteria:**
+
+   | Criterion | Assessment |
+   |---|---|
+   | Full-column fields, labels above, gutters and usable text lane | **Met.** All 1,200 after-probe narrow/32 px records show both selects and colour field at equal widths: 254/309/334/335 px. |
+   | Every option; names, targets and rings preserved | **Met for closed controls**, with popup qualification below. |
+   | VH-209’s routing line | **Met already:** `project/items/VH-209.md:11`. |
+   | Before/after matrix | **Measurements complete; evidence qualification not yet complete**—see 4–6. |
+   | WCAG recheck | **Met for the touched presentation**, within the limits in 7. |
+   | CSS/token/control constraints | **Met.** |
+   | Documents | **Met:** no UI-STANDARDS rule changes, so no amendment required. |
+   | Gate, checker, saved verdict and commit trace | **Not yet—close tasks.** Gates were not run in this read-only review. |
+   | Disposition evidence link | **Not yet—close task.** |
+   | Sizing/hand-back | Small product change; worker-budget compliance is **not verifiable from this bundle**. |
+
+3. **Reader and residue — convincing layout evidence.** It reads the actual selected shadow text, verifies its identity, checks Range/scroll geometry and restores the value (`R/vh219-driver.mjs.txt:39–71`). Independently reproduced: **2,784/31,104 → 0** clipped main readings; **101/504 → 0** targeted readings; arrow overlap **1,920 → 0**. Every option matches, every restoration succeeds, and no reader errors occur. No recorded language or mode loses an option. Minimum after arrow clearance is 10.43 px main, 7.65 px targeted. **No demonstrated residue requiring the owner’s decision.** This does not prove native popup readability; those option rectangles are zero (T:72).
+
+4. **Matrix — complete cells, incompletely reported statuses.** The declared **5,184 + 84 per side** is present, with correct measured conditions, both kinds and every closing. Both onset values are read, rather than crossed through application events, consistently with ruling #33 (T:68–70).
+
+   However, **2,592 records per side have `status:"failed"` / `stateExpired:true`**, omitted from the summary. The driver replaces `state` but inherits a Fade-only `hold` (`R/vh219-driver.mjs.txt:121–124`; `W/scenarios.mjs:3179`). Thus Cut/Slide/None fail that stale predicate in S-111/S-113. Example: `R/detail/after-staff-cut.S-111-staff-cut__zh-Hans__w320__font32.json`. Intended probe states and restorations pass: this is an instrumentation defect, not demonstrated application-state loss. **I accept the qualified measurements, not a claim of clean walker coverage.** Record that distinction explicitly.
+
+5. **Conditions — corroborated, with two outstanding rulings.** Every retained group’s load statistics match T:24–47. All use power mode 2; only before-submission-slide/none use battery, staying at least 79%/53%. The four re-walk probe/outcome comparisons reproduce identically; that also preserves the stale-hold defect.
+
+   Ruling #34’s four unrepeated before groups remain expressly qualified. **After-staff-fade and after-staff-none still need confirmation or re-walking**: their two/three high-load samples fall outside its stated ruling (T:82). Voided runs are described but absent from this copied bundle, so their reasons cannot be independently checked. Also disclose that the two base-export re-walk manifests incorrectly identify the dirty checkout: their conditions and matching readings support the base export, but their manifest source fields do not.
+
+6. **Walker rows — mostly interpreted correctly.** The 128 improvements and 160 remaining fit-row failures reflect one-line canvas measurements, not wrapped clipping. S-113’s clipped list has the same limitation; canvas also omits spacing and can mismeasure forced-colour fonts (`W/scenarios.mjs:2231,2253,2266`). The 1,317 unchanged `type` failures are combined-spacing recognition failures (`W/matrix.mjs:109`).
+
+   Correct T:84 too: `grid` is the **trim grid**, because the driver selects the first `.control-grid` (`driver:28`; `index.html:207`). Its 48 changes are viewport-y movements, not closing-grid reflow. All 5,268 `selects` records change because `white-space` changes; padding/lane changes occur in only 1,212.
+
+7. **WCAG and appearance — satisfactory for this change.** Native labels/order preserve **1.3.1**; retained text size, wrapping and containment support **1.4.4, 1.4.10 and 1.4.12**. The mechanisms for **1.4.8** remain unchanged. Targets retain **44 px**; enabled controls retain their **2.4.13** rings. Disabled-onset “cannot determine” results are not ring passes, nor defects.
+
+   I inspected all 12 after viewport captures in `R/shots/`: complete words, clear arrows, readable labels and visible type-select rings; the extra height is reasonable. These genuinely show enlarged text. The defective full-page captures cannot support visual approval (T:78). This is not a blanket whole-page AAA verdict.
+
+8. **Close must carry the qualifications.** Add the evidence link to the report’s Disposition row (`design-pass-3-2026-10-27.md:759`). VH-189.1 was already promoted; do not claim retiring a currently open wish line. Preserve VH-138.4, VH-148.2, VH-217.5 and the separate VH-209 follow-ups; explicitly attach popup readability to the person-check work. Record the required Carbon token-separation rule, WCAG “44 px targets” and 1.4.10, then complete the ledger and green gates.
+
+**Verdict: pass with conditions.** Before closing:
+
+- Correct and explicitly qualify the stale-hold statuses, grid attribution and export provenance.
+- Resolve the two outstanding after-run load rulings.
+- Carry the manual-check limitations, link the evidence, save this verdict and complete both required checks.

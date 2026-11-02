@@ -1,0 +1,146 @@
+// VH-219 #1's driver, from VH-218's: the item's matrix by the pass's own runner (matrix.mjs), unchanged, on a plan in memory, with a read-only probe in each scenario's `afterMode`.
+// In memory only: each of S-111, S-112, S-113 is declared per type (Staff video, Student submission) and closing (cut, fade, slide, none), its `views` limit dropped, its setup wrapped so the scenario's `fade` becomes this type and closing, its state tightened to them. The modes `dark-spacing`, `forced-light-spacing`, `forced-dark-spacing` run setMode (which reads the prefix) and add the walker's own spacing sheet.
+// The probe: in each cell, for both selects, each option in turn: `selectedIndex` set and restored with no event fired, the select's UA text block read over CDP (`DOM.describeNode` with pierce, `Runtime.callFunctionOn`), so clipping is measured, not computed from a canvas.
+//   APP_URL=… CDP_PORT=… FIX=… OUT_ROOT=… RUN_ROOT=… node vh219-driver.mjs walk --walker <dir> --label before --name staff-fade --kind staff --closing fade [--scenarios --langs --views --modes]
+import { pathToFileURL, fileURLToPath } from 'node:url'
+import { join, resolve } from 'node:path'
+import { appendFileSync, mkdirSync, writeFileSync } from 'node:fs'
+import { execFileSync } from 'node:child_process'
+
+const list = (s) => String(s ?? '').split(',').map((x) => x.trim()).filter(Boolean)
+const args = (() => { const a = process.argv.slice(2), o = { _: [] }; for (let i = 0; i < a.length; i++) { if (a[i].startsWith('--')) o[a[i].slice(2)] = a[++i]; else o._.push(a[i]) } return o })()
+
+// The page's part: everything outside the select's shadow.
+const PAGE = String.raw`(() => {
+  const round = (n) => Math.round(n * 100) / 100, doc = document.documentElement;
+  const rect = (el) => { if (!el) return null; const r = el.getBoundingClientRect(); return { l: round(r.left), t: round(r.top), r: round(r.right), b: round(r.bottom), w: round(r.width), h: round(r.height) } };
+  const canvas = document.createElement('canvas').getContext('2d');
+  const selects = {};
+  for (const id of ['closing-type', 'closing-onset']) {
+    const s = document.getElementById(id), cs = getComputedStyle(s), wrap = s.closest('.select-wrap'), a = getComputedStyle(wrap, '::after'), wr = wrap.getBoundingClientRect();
+    canvas.font = cs.font;
+    const lane = s.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight), aw = parseFloat(a.width);
+    selects[id] = { rect: rect(s), client: s.clientWidth, lane: round(lane), pl: cs.paddingLeft, pr: cs.paddingRight, ws: cs.whiteSpace, fontPx: parseFloat(cs.fontSize), disabled: s.disabled, value: s.value, index: s.selectedIndex,
+      name: s.labels.length === 1 ? s.labels[0].textContent.trim() : null, labelAbove: s.labels.length === 1 ? s.labels[0].getBoundingClientRect().bottom <= s.getBoundingClientRect().top + 0.5 : null, labelRect: rect(s.labels[0]),
+      arrow: { right: a.right, w: aw, left: round(wr.right - parseFloat(a.right) - aw - aw * 0.2072) },
+      options: [...s.options].map((o) => ({ value: o.value, text: o.textContent.trim(), canvas: round(canvas.measureText(o.textContent.trim()).width), listRect: rect(o).w })) };
+  }
+  const grid = document.querySelector('.control-grid'), help = document.getElementById('onset-help-button'), g = rect(grid);
+  const fields = [...grid.children].map((f) => { const r = rect(f); return { cls: f.className, id: f.id || null, w: r.w, full: r.w >= g.w - 1 } });
+  const colour = rect(document.getElementById('closing-colour'));
+  const hb = rect(help), on = selects['closing-onset'].rect, lb = selects['closing-onset'].labelRect;
+  const M = window.__mx, terms = { proceed: M.proceed(), tipVisible: M.vis('#onset-help'), type: M.el('#closing-type').value, onset: M.el('#closing-onset').value, checked: M.checked('video-kind') };
+  return { terms, lang: document.documentElement.lang, kind: document.querySelector('input[name="video-kind"]:checked')?.value ?? null, focus: document.activeElement?.id || document.activeElement?.tagName, selects, grid: g, fields, colourW: colour?.w ?? null,
+    help: { ...hb, name: help.getAttribute('aria-label'), besideSelect: hb.t < on.b && hb.b > on.t, besideLabel: hb.t < lb.b && hb.b > lb.t },
+    overflow: { scrollWidth: doc.scrollWidth, clientWidth: doc.clientWidth },
+    modeRead: { fontPx: parseFloat(getComputedStyle(doc).fontSize), forced: matchMedia('(forced-colors: active)').matches, dark: matchMedia('(prefers-color-scheme: dark)').matches, spacing: !!document.getElementById('__audit-spacing'), vw: innerWidth } };
+})()`
+
+// The closed text's own block, inside the select's user-agent shadow.
+const BLOCK = `function () {
+  const b = this.getBoundingClientRect(), g = document.createRange(); g.selectNodeContents(this);
+  const rs = [...g.getClientRects()].filter((r) => r.width > 0), tops = []; for (const r of rs) if (!tops.some((t) => Math.abs(t - r.top) < 3)) tops.push(r.top);
+  const round = (n) => Math.round(n * 100) / 100;
+  return JSON.stringify({ t: this.textContent, sw: this.scrollWidth, cw: this.clientWidth, sh: this.scrollHeight, ch: this.clientHeight, lines: tops.length, l: round(b.left), r: round(b.right), tl: round(Math.min(...rs.map((r) => r.left))), tr: round(Math.max(...rs.map((r) => r.right))), ov: getComputedStyle(this).overflowX });
+}`
+
+const findBlock = (node) => { // the shadow's first element holding a text node
+  for (const c of [...(node.shadowRoots ?? []), ...(node.children ?? [])]) {
+    if (c.nodeType === 1 && c.nodeName !== 'OPTION' && (c.children ?? []).some((x) => x.nodeType === 3)) return c
+    const d = c.nodeName === 'OPTION' ? null : findBlock(c); if (d) return d
+  }
+  return null
+}
+
+async function probe(w) {
+  const send = (m, p) => w.page.send(m, p)
+  const page = await w.evaluate(PAGE)
+  const { root } = await send('DOM.getDocument', { depth: 0 })
+  for (const [id, sel] of Object.entries(page.selects)) {
+    const { nodeId } = await send('DOM.querySelector', { nodeId: root.nodeId, selector: '#' + id })
+    const { node } = await send('DOM.describeNode', { nodeId, depth: -1, pierce: true })
+    const block = findBlock(node)
+    if (!block) { sel.blockError = 'no text block: ' + JSON.stringify(node.shadowRoots?.map((r) => (r.children ?? []).map((c) => c.nodeName))); continue }
+    const { object } = await send('DOM.resolveNode', { backendNodeId: block.backendNodeId })
+    for (let i = 0; i < sel.options.length; i++) {
+      const h = await w.evaluate(`(() => { const s = document.getElementById('${id}'); s.selectedIndex = ${i}; return s.getBoundingClientRect().height })()`)
+      const { result } = await send('Runtime.callFunctionOn', { objectId: object.objectId, functionDeclaration: BLOCK, returnByValue: true })
+      const r = JSON.parse(result.value), o = sel.options[i]
+      Object.assign(o, { h, lines: r.lines, sw: r.sw, cw: r.cw, sh: r.sh, ch: r.ch, tw: Math.round((r.tr - r.tl) * 100) / 100, gapToArrow: Math.round((sel.arrow.left - r.tr) * 100) / 100, shown: r.t.trim() === o.text, clipped: r.tr > r.r + 0.5 || r.sw > r.cw + 1 || r.sh > r.ch + 1, overArrow: r.tr > sel.arrow.left, overflowX: r.ov })
+    }
+    sel.restored = await w.evaluate(`(() => { const s = document.getElementById('${id}'); s.selectedIndex = ${sel.index}; return s.value === ${JSON.stringify(sel.value)} })()`)
+    await send('Runtime.releaseObject', { objectId: object.objectId })
+  }
+  return page
+}
+
+// A real viewport capture at 32 px (VH-217.5: a full-page capture shows the default size): each select scrolled in, its longest option shown with no event, the root font read either side, the value restored.
+async function shots(w, g, vid, sleep) {
+  const dir = join(process.env.OUTD, 'shots'); mkdirSync(dir, { recursive: true }); const out = []
+  for (const id of ['closing-type', 'closing-onset']) {
+    const sel = g.selects[id], i = sel.options.reduce((b, o, k, a) => (o.canvas > a[b].canvas ? k : b), 0)
+    const before = await w.evaluate(`(() => { const s = document.getElementById('${id}'); s.selectedIndex = ${i}; s.labels[0].scrollIntoView({ block: 'start' }); return parseFloat(getComputedStyle(document.documentElement).fontSize) })()`)
+    await sleep(100)
+    const { data } = await w.page.send('Page.captureScreenshot', { format: 'png', captureBeyondViewport: false })
+    const after = await w.evaluate(`(() => { const s = document.getElementById('${id}'); const f = parseFloat(getComputedStyle(document.documentElement).fontSize); s.selectedIndex = ${sel.index}; return f })()`)
+    const file = `${w.name.split('/').pop()}__${w.qualMode}__${id}.png`
+    writeFileSync(join(dir, file), Buffer.from(data, 'base64')); out.push({ file, id, option: sel.options[i].text, fontBefore: before, fontAfter: after })
+  }
+  return out
+}
+
+function power() {
+  const sh = (cmd, a) => execFileSync(cmd, a, { encoding: 'utf8' })
+  const batt = sh('pmset', ['-g', 'batt']), pm = sh('pmset', ['-g']), up = sh('uptime', []).trim()
+  const ac = /AC Power/.test(batt), level = Number((batt.match(/(\d+)%/) ?? [])[1]), mode = Number((pm.match(/^\s*powermode\s+(\d+)/m) ?? [])[1])
+  return { at: new Date().toISOString(), source: ac ? 'AC' : 'battery', level, powermode: mode, load: Number((up.match(/load averages?: ([\d.]+)/) ?? [])[1]), ok: ac || (level > 50 && !(/lowpowermode\s+1/.test(pm) || mode === 1)) }
+}
+
+async function walk() {
+  for (const k of ['APP_URL', 'CDP_PORT', 'FIX', 'OUT_ROOT', 'RUN_ROOT']) if (!process.env[k]) throw new Error('set ' + k)
+  const walker = resolve(args.walker), label = args.label ?? 'before', kind = args.kind, closing = args.closing
+  if (!['staff', 'submission'].includes(kind) || !['cut', 'fade', 'slide', 'none'].includes(closing)) throw new Error('--kind and --closing')
+  const base = list(args.scenarios ?? 'S-111,S-112,S-113'), scenarios = base.map((id) => `${id}-${kind}-${closing}`)
+  const langs = list(args.langs ?? 'en-GB,zh-Hans,ms-MY'), views = list(args.views ?? 'w1280,w640,w401,w400,w375,w320')
+  const modes = list(args.modes ?? 'light,dark,forced-light,forced-dark,font32,dark-font32,forced-light-font32,forced-dark-font32,spacing,dark-spacing,forced-light-spacing,forced-dark-spacing')
+  const records = scenarios.flatMap((id) => langs.flatMap((lang) => views.flatMap((view) => modes.map((mode) => ({ id, lang, view, mode })))))
+  const plan = `vh219-${label}-${args.name ?? 'run'}`, p = power()
+  mkdirSync(process.env.RUN_ROOT, { recursive: true })
+  appendFileSync(join(process.env.RUN_ROOT, 'vh219-ledger.jsonl'), JSON.stringify({ plan, label, power: p, walker, records: records.length, kind, closing, langs, views, modes }) + '\n')
+  if (!p.ok) { console.log('POWER-STOP'); process.exit(3) }
+  const matrixUrl = pathToFileURL(join(walker, 'matrix.mjs')).href
+  const at = (f) => import(new URL('./' + f, matrixUrl).href)
+  const { PLANS, SCENARIOS } = await at('scenarios.mjs')
+  const { sleep } = await at('walk.mjs')
+  const { VIEWS } = await at('qualify.mjs')
+  // Either side of the enlarged queries at 32 px: 19.99rem is 639.68 px and 25rem is 800 px. In memory.
+  VIEWS.w639 ??= { ...VIEWS.w640, width: 639 }; VIEWS.w801 ??= { ...VIEWS.w640, width: 801 }; VIEWS.w800 ??= { ...VIEWS.w640, width: 800 }
+  const OUT = join(process.env.RUN_ROOT, `vh219-probe-${plan}.jsonl`)
+  base.forEach((id) => {
+    const orig = SCENARIOS[id], vid = `${id}-${kind}-${closing}`
+    const tight = `M.checked('video-kind') === '${kind}' && M.el('#closing-type').value === '${closing}'`
+    const state = orig.state.replace(`M.el('#closing-type').value === 'fade'`, tight)
+    const { views: _drop, viewsWhy: _why, ...rest } = orig
+    SCENARIOS[vid] = { ...rest, name: `${orig.name} (${kind}, ${closing})`, state: state.includes(tight) ? state : `${state} && (() => { const M = window.__mx; return ${tight}; })()`,
+      setup: async (w, lang) => {
+        const sel = w.select.bind(w)
+        w.select = async (s, v) => { if (s === '#closing-type' && v === 'fade') { await w.chooseKind(kind); return sel(s, closing) } return sel(s, v) }
+        try { await orig.setup(w, lang) } finally { delete w.select }
+      },
+      afterMode: async (w) => {
+        if (orig.afterMode) await orig.afterMode(w)
+        if (/.-spacing$|^spacing-font32$/.test(w.qualMode)) { await w.spacing(true); await sleep(100) }
+        // S-112's state holds the "?" focused; the walker's instruments blur it (BODY by the second record), so it is restaged here in each mode, by .focus(), its tip closed.
+        if (id === 'S-112') { await w.evaluate(`document.getElementById('onset-help-button').focus()`); await sleep(50) }
+        let g
+        try { g = await probe(w) } catch (e) { g = { error: String(e.message ?? e).slice(0, 200) } }
+        if (args.shots && !g.error) g.shots = await shots(w, g, vid, sleep)
+        appendFileSync(OUT, JSON.stringify({ plan, cell: w.name.split('/').pop(), walk: w.name, id: vid, mode: w.qualMode, at: new Date().toISOString(), ...g }) + '\n')
+      } }
+  })
+  PLANS[plan] = () => records.map((r) => ({ ...r }))
+  process.argv = [process.argv[0], fileURLToPath(matrixUrl), plan]
+  await import(matrixUrl)
+}
+if (args._[0] === 'walk') await walk()
+else { console.log('usage: node vh219-driver.mjs walk --walker <dir> --label <l> --name <n> --kind <k> --closing <c>'); process.exit(2) }

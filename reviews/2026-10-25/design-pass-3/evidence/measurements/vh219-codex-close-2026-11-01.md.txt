@@ -1,0 +1,15 @@
+1. **FAIL — Conditions:** the void-location qualification is inaccurate; see 4. Everything else is carried. Recount confirms **2,592 `failed`/`stateExpired` cells per side**, with readings retained. An affected S-111 Cut cell has the same complete six assertion rows as its Fade twin. Trim-grid attribution, export manifests, `selects` movement, #34’s confirmation, manual-check limits and Disposition link are recorded. VH-189.1 is not claimed as a retired open wish; the specified existing follow-ups remain unchanged. First/r1 differences are exactly those permitted; copied shots are byte-identical.
+
+2. **PASS — Freeze:** the complete binary diff matches `unstaged.patch`; the source diff matches `vh219-remedy-1.patch`, SHA-1 prefix **`2498bfa9afdb5243`**. All **944 untracked files** match the frozen manifest, with no omissions or extras. Nothing is staged.
+
+3. **PASS — Contract’s precommit close:** backlog entry removed; one correctly formed trajectory line; newest decision has the required fields and owner quotations. Four correctly formed, previously unused wish IDs capture the follow-ups. The item, VH-209 routing and Disposition are updated. VH-187 moved verbatim into the archive; existing entries remain unchanged. Required digest rules are named. Commit-message and push obligations remain for the actual commit.
+
+4. **FAIL — One inaccurate evidence claim:** [the second table’s voids note](</Users/joe/Library/CloudStorage/OneDrive-TheUniversityofNottingham/_Joe Bell UoN Files/2_Projects/2026-08-24 UoN Video Helper/reviews/2026-10-25/design-pass-3/evidence/measurements/vh219-selects-r1-2026-11-01.md:84>) says all voids were moved under `void/`. The third `before2-staff-slide` attempt remains at **`vh219-walk/before2-staff-slide/`**. [The sequence log](</Users/joe/UoN-Video-Helper-side/vh219-walk/before2.seq.log:9>) records its voiding at load 33.88, then termination before relocation. The copied notes repeat the error. Other reviewed claims reconcile with the records, including clipping **2,784→0**, targeted **101→0**, and arrow overlap **1,920→0**. No new numeric literal or now-false relevant `app.css` comment was found.
+
+5. **PASS — Provenance:** verbatim Codex answers are `.md.txt`; briefs, Claude documents and compares have the lint directive and no absolute links. Records’ scripts end `.txt`; hashes, copied shots and `renamed.txt` check out.
+
+6. **PASS — Gates:** gate 1 is set aside for its **8.85** load sample. Gate 2 qualifies at **3.65/6.59**, on AC; power mode 2 is supplied in your account. Both logs show **1,657 passed, 1 skipped**, matching the supplied base. The structural checker reports **0 failures, 0 warnings**.
+
+7. **FAIL — Stop this commit until the void location is corrected** in the second table and copied notes, with affected hashes and the freeze refreshed. No product re-walk is indicated. Nothing was edited.
+
+Verdict: FAIL

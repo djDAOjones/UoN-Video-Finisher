@@ -46,6 +46,7 @@
 - VH-209 — at the 32 px font on a phone the page keeps to its column: sideways scroll 110 of 144 reached cells to 0 of 156, the column 126 to 254 px at 320 and 207 to 335 at 401; insets below 20rem on the orchestrator's ruling, listed for the owner; the default font and V-18's six unmoved; V-48's record 528 of 464, left to VH-210 (2026-10-31) — see decisions
 - VH-218 — the System check's labels break only between words: 2,028 broken word readings to 0 in 432 cells a side, the value beneath its label when the row can't hold both, the mark on its own line at 32 px on a phone; a fixed worker value, one walker change, proved; S-103 walked under the AAC warning too, 648 cells a side, none moved; the mark's column raised as VH-230 (2026-11-01) — see decisions
 - VH-230 — each state word whole in the System check's mark column, on its own 3 rem token: broken mark readings 1,092 to 0 of 3,024 a side, the ellipsis measured, 28, 56, 31.38 px; label words broken 0 to 0, 124 values newly beneath their labels, reported; the acceptance page unmoved; one wish (2026-11-01) — see decisions
+- VH-219 — step 4's selects keep every option whole when closed at 32 px on a phone: the closed text wraps between words, the lane widened in VH-209's query by tokens; clipped readings 2,784 of 31,104 to 0, targeted 101 of 504 to 0, in 5,184 + 84 cells a side; the open native list a person's check; four wishes (2026-11-02) — see decisions
 
 ## Phase 7 — a second design, UX and accessibility pass, with Codex astra as partner, before the cut
 

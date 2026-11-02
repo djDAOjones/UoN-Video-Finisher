@@ -1,0 +1,25 @@
+// VH-219 #1: a side's reader summary. Usage: node sum-before.mjs <side> [groups…]
+import { readFileSync } from 'node:fs'
+const side = process.argv[2], groups = process.argv.length > 3 ? process.argv.slice(3) : ['staff-cut','staff-fade','staff-slide','staff-none','submission-cut','submission-fade','submission-slide','submission-none']
+const font = (m) => m.includes('font32') ? '32px' : m.includes('spacing') ? 'spacing' : 'default'
+const out = {}; let cells = 0, restored = 0, shown = 0, opts = 0, over = 0, overflow = 0, small = 0, labelBelow = 0, partial = 0, blockErr = 0, names = 0
+for (const g of groups) for (const l of readFileSync(`before-${g}/runs/vh219-probe-vh219-before-${g}.jsonl`.replace('before', side).replace('before', side), 'utf8').trim().split('\n')) {
+  const r = JSON.parse(l); cells++
+  const view = r.cell.match(/w\d+$/)[0], k = `${font(r.mode)} ${view}`, c = (out[k] ??= { cells: 0, clippedOpts: 0, opts: 0, cellsClipped: 0, overArrow: 0, maxLines: 0, h: new Set(), lane: new Set() })
+  c.cells++; let any = false
+  for (const s of Object.values(r.selects)) {
+    if (s.blockError) blockErr++
+    if (s.restored) restored++
+    if (s.rect.h < 44) small++
+    if (!s.labelAbove) labelBelow++
+    if (!s.name) names++
+    c.h.add(s.rect.h); c.lane.add(s.lane)
+    for (const o of s.options) { opts++; c.opts++; if (o.shown) shown++; if (o.clipped) { c.clippedOpts++; any = true } if (o.overArrow) c.overArrow++; c.maxLines = Math.max(c.maxLines, o.lines) }
+  }
+  if (any) c.cellsClipped++
+  if (r.overflow.scrollWidth > r.overflow.clientWidth) overflow++
+  if (r.help.w < 44 || r.help.h < 44) small++
+  if (!r.fields.every((f) => f.full) ) partial++
+}
+console.log({ cells, opts, shown, restored, blockErr, overflow, small, labelBelow, names, partialFields: partial })
+for (const k of Object.keys(out).sort()) { const c = out[k]; console.log(k.padEnd(14), 'cells', c.cells, 'cellsClipped', c.cellsClipped, 'optsClipped', c.clippedOpts + '/' + c.opts, 'overArrow', c.overArrow, 'maxLines', c.maxLines, 'lane', [...c.lane].join(','), 'h', [...c.h].slice(0, 6).join(',')) }

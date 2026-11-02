@@ -1,0 +1,9 @@
+// VH-219 #1: a re-walk against its first run, cell by cell: the whole probe but its time, plan and walk, and the walker's outcome per record. Usage: node rewalk-compare.mjs <first group> <re-walk group>
+import { readFileSync, readdirSync } from 'node:fs'; import { join } from 'node:path'
+const rd = (g) => { const r = join(g, 'runs'); return readFileSync(join(r, readdirSync(r).find((x) => /probe/.test(x))), 'utf8').trim().split('\n').map(JSON.parse) }
+const strip = (j) => { const { at, plan, walk, ...o } = j; return JSON.stringify(o) }
+const outcomes = (g) => { const r = join(g, 'runs'), d = readdirSync(r).find((x) => /^vh219-/.test(x) && !/\./.test(x)); const o = {}; for (const f of readdirSync(join(r, d)).filter((x) => /^S-/.test(x))) { const j = JSON.parse(readFileSync(join(r, d, f))); o[f] = JSON.stringify({ s: j.status, re: j.reached?.outcome, i: Object.fromEntries(Object.entries(j.instruments ?? {}).map(([k, v]) => [k, v?.outcome])) }) } return o }
+const [a, b] = process.argv.slice(2), A = Object.fromEntries(rd(a).map((j) => [j.cell + '/' + j.mode, strip(j)])); let same = 0, diff = 0; const ex = []
+for (const j of rd(b)) { if (A[j.cell + '/' + j.mode] === strip(j)) same++; else { diff++; if (ex.length < 3) ex.push(j.cell + '/' + j.mode) } }
+const oa = outcomes(a), ob = outcomes(b); let osame = 0, odiff = 0; const oex = []; for (const k of Object.keys(ob)) { if (oa[k] === ob[k]) osame++; else { odiff++; if (oex.length < 3) oex.push(k + ' ' + oa[k] + ' -> ' + ob[k]) } }
+console.log(`${b} against ${a}: probe ${same} identical, ${diff} differ${ex.length ? ' (' + ex.join(', ') + ')' : ''}; outcomes ${osame} identical, ${odiff} differ`); for (const x of oex) console.log('  ' + x.slice(0, 400))
