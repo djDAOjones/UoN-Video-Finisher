@@ -1,0 +1,97 @@
+The CSS is sound; the evidence needs several wording/count corrections before close. HEAD and diff hash match the brief. Nothing was edited.
+
+Below, **T** means the [current table][table]; **R** means its `vh210-records-r2-2026-11-02/` folder.
+
+1. **Scope and effect.** The [new rule][css] has one caller: the two-item footer list at `index.html:844–851`. It adds existing `--focus-room`—4 px—above Self Service. No other list or non-forced mode changes; HTML, strings, controls and token files are unchanged.
+
+   **One-line forced footers also change:** their height increases 4 px, as does everything from the second item downward. I accept this as the expressly allowed spacing remedy with its change explained; claiming identical one-line geometry would be false. Grouping and line wrapping remain intact. Recorded minimum targets remain 272 × 44 for each of the three links, and 106 × 44 for Report a problem. (`T:118`; `R/after-*.vh210-probe-*.jsonl`.)
+
+2. **Acceptance criteria.**
+
+   | Criterion | Status |
+   |---|---|
+   | V-48: repair, or record the already-whole base without adding CSS | **Met** |
+   | V-49: permitted remedy, explained, targets preserved | **Met**, including the explicit one-line qualification above |
+   | Other readings/layout unchanged or explained; source test | **Met**, within the measurement limits below |
+   | Required before/after matrix | **Met in raw records**; table corrections are **not yet** |
+   | Named WCAG checks | **Met for affected controls in recorded conditions**; person-only checks remain |
+   | CSS-only, existing tokens, separate token systems, progress retained | **Met** |
+   | UI-STANDARDS changed only if its rules change | **Met** without an edit |
+   | Full gate | **Not yet**: `npm run check` remains a close task. I ran `node tools/check.mjs`: zero failures, zero warnings |
+   | Blind verdict saved; commit’s Checked trailer | Review supplied here; saving/trailer **not yet** |
+   | V-48/V-49 Disposition links | **Not yet**: report lines 754–755 lack the evidence link |
+
+   These correspond to [the item’s criteria][item], lines 9–19.
+
+3. **V-48 and probe honesty.** The named `S-113__ms-MY__w320__font32` record reads **528/464 px² before and after**: root font 32 px, page width 320/320, whole 528-pixel outline band, no ancestor clipping, glyph overlap or viewport loss. All 72 S-113 enlarged-font cells read 528/464. The criterion’s no-new-rule branch applies; the historic missing four pixels have not been retrospectively located. (`R/before-s113.vh210-probe-vh210-before-s113.jsonl:141`, corresponding after record.)
+
+   [The walker][walker] counts all off/on pixels changing by at least 3:1 against `4(w+h)−16`. **Area alone does not prove a continuous ring:** surplus pixels or a repaint can conceal clipping or overlap. The additional [probe][probe] checks outline-band pixels, ancestors, text/glyphs and viewport geometry. Its clipping model is approximate, but the named V-48 record directly supports the conclusion.
+
+4. **V-49.** The CSS comment states both remedy and reason: spacing the items prevents the next line’s forced-colour text backplate covering the preceding ring. Every retained forced cell where Creators wraps passes afterward, across all three languages and both palettes. No after probe records clipped, own-text or other-text obstruction; residual edge classifications are pixel snapping. The inspected default-font forced captures show a continuous rectangle clearing the next link. (`T:118–120`; `R/after-*.vh210-probe-*.jsonl`.)
+
+5. **“Nothing else moves.”** The 939 `page` and 919 `rings` movers are not 939/919 regressions. They comprise the explained footer displacement and resulting scroll coordinates, Creators’ improvement, Self Service’s 1–2-pixel improvement, `changedAny` noise, and the identified void samples. Non-forced page geometry matches exactly; no unexplained material ring change remains. The first screen is unchanged from this base; intervening fixes explain why historic VH-199 geometry is no longer the baseline. (`T:108,118,136`.)
+
+   The export proof **really exits 1**: 11/84 differ solely in `f.changedAny`, by 1–2 pixels. Verdict-bearing area, geometry and outcomes match in all 84; the qualified equivalence ruling is supported, but this is not a green exact-equality test. (`T:126`; `R/vh210-export-proof.mjs.txt:1–7`.)
+
+   The initial S-113 Chinese w375 forced-light `contrastText` failure concerns selected Page language “中文”, **5.0842:1**, not the footer. Both rw4 records pass. Treat it as part of the void repaint/palette sample, not a contrast improvement caused by this CSS. (`R/detail/before-s113.S-113__zh-Hans__w375__forced-light.json`.)
+
+6. **Matrix.** The required 432 cells and all 638 declared forced keys are present. Restaging covers the initially unavailable states; accepted staged readings have `stateAt` true at both ends. S-107 forced-dark uses st2 in place of st’s unsuccessful staging. No required reachable cell remains unstaged.
+
+   **Correct the reporting:** f3 actually contains **166**, including `S-ID1__en-GB__w320__forced-{light,dark}`. The table’s `/^S-\d+/` extraction omits those two existing records, explaining 1165 scenario records versus 1167 probes. (`R/table-1page.mjs.txt:39,60`; f3 raw records.)
+
+   Also distinguish initial predicate failures from later expiry: f1’s 23/25 comprise **19/21 initially unreached plus four expired**; st’s eight comprise four initially unreached plus four expired; st2’s four initially reached and expired later. The earlier qualified probes remain usable. (`R/{before,after}-{f1,st,st2}.outcomes.jsonl`; `T:128`.)
+
+7. **Conditions and timing.** The load logs agree with T’s rows 35–61. All kept groups use mode 2; all use AC except after-f1, on battery from 100% to 80%.
+
+   Entries below are **peak; samples ≥8 / total**, before → after:
+
+   | Group | Before | After |
+   |---|---:|---:|
+   | s113 | 16.29; 6/47 | 10.55; 2/47 |
+   | s112 | 6.90; 0/49 | 21.83; 21/49 |
+   | footer | 10.45; 2/38 | 6.64; 0/39 |
+   | f1 | 7.41; 0/62 | 51.75; 61/98 |
+   | f2 | 4.89; 0/63 | 18.96; 7/63 |
+   | f3 | 9.45; 1/71 | 9.85; 1/71 |
+   | f4 | 6.02; 0/61 | 7.25; 0/61 |
+   | st | 4.46; 0/38 | 4.35; 0/38 |
+   | st2 | 4.96; 0/2 | 7.32; 0/2 |
+   | sp | 3.58; 0/5 | 6.89; 0/5 |
+   | rw4 | 1.84; 0/1 | 3.54; 0/1 |
+   | rw76 | 2.90; 0/1 | 3.99; 0/1 |
+   | rw109 | 2.67; 0/2 | 3.33; 0/2 |
+
+   Kept export proof: **3.87; 0/28**. Its first two attempts were void at peaks 10.72/29.05; the first after-f1 crossed power sources; stale plain-spacing cells are replaced by sp. rw4 replaces the repaint and rw76 the staging failure.
+
+   **Rings can depend on timing:** fixed waits between off/on screenshots allow repaint contamination; rw4 demonstrates it. Matching outcomes and low load alone do not establish safety. The retained geometry, pixel-band checks and replacements support these readings; I found no unexplained unsafe retained sample.
+
+8. **Walker failures.** S-76’s first after fails its state predicate, not a ring measurement. Its seven probe entries are unavailable—five behind the modal, two unrendered—so “matched” means matching availability. rw76 restores the state on both sides. (`R/*-f1.vh210-probe-*.jsonl:143–144`; rw76 records.)
+
+   S-109’s first before passes, first after fails, and both re-walks fail the same timed row. Later player/focus rows agree. This supports a timing-sensitive baseline result, not a demonstrated CSS regression. **Replace “not yet in the card”: the callback proves only that no player matched then**, not whether it had yet to appear or had already been replaced. The two colour modes share that sample. (`walker/phase8.mjs:79–82`; `scenarios.mjs:2188–2199`.)
+
+   Equal failures remain failures. Old-order rows stay untouched under the owner’s instruction; they establish “not introduced here”, not compliance.
+
+9. **Standards and appearance.** The affected controls support 2.4.7, 2.4.11–13 through visible focus and clearance; 1.4.4, 1.4.10 and 1.4.12 through enlarged-font, narrow-width and spacing measurements; 1.4.11 through the retained contrast evidence; and 2.5.5/2.5.8 through preserved targets. This is a scoped judgement, not whole-page AAA certification. Carbon and brand token systems remain separate.
+
+   Default-font forced captures look legible and coherently grouped, with clear rings. No visual approval rests on the misleading 32 px page shots. Real Windows themes remain person checklist task D. (`T:136`; `UI-STANDARDS.md:28–44,241–255`.)
+
+10. **Test.** [The test][test] pins the source rule’s presence and confinement to the forced block. **It can pass a wrong stylesheet:** prefixing the selector with `.does-not-exist`, or adding a later matching rule with margin zero, still satisfies its assertions. It is a source-presence test, as the suite explicitly declares; browser records establish this candidate’s effect.
+
+11. **Close record.** Retire **VH-209.3**. Retain/link **VH-199.1** for timed-player/disabled-focus instrumentation, **VH-200.1** for S-81’s inline-link measurement, **VH-216.1** for old-order rows, and **VH-217.5** for enlarged-font captures. S-48’s onset button is disabled during Running, so its absent focus is not an omitted reachable interaction.
+
+   Link both Disposition rows to the current evidence. UI-STANDARDS needs no change. The decision must record the no-rule V-48 result, forced-footer +4 px including one-line cases, accepted evidence qualifications and the applied digest rules: **WCAG 2.4.13, focus appearance; Carbon, two token systems never collapsed**.
+
+**Verdict: pass with conditions.**
+
+Before close:
+
+- Correct/disclose the S-ID1 omission, reached-versus-expired counts, S-76 availability wording and S-109 causal wording; qualify blanket equality claims with the named replacements.
+- Preserve the reported failures, export exit 1 and measurement/person-check limitations.
+- Complete evidence links, wishes and ledger; save this verdict; run the full settled-machine gate and final structural check; carry the required `Checked:` trailer.
+
+[table]: </Users/joe/Library/CloudStorage/OneDrive-TheUniversityofNottingham/_Joe Bell UoN Files/2_Projects/2026-08-24 UoN Video Helper/reviews/2026-10-25/design-pass-3/evidence/measurements/vh210-rings-r2-2026-11-02.md:108>
+[css]: </Users/joe/Library/CloudStorage/OneDrive-TheUniversityofNottingham/_Joe Bell UoN Files/2_Projects/2026-08-24 UoN Video Helper/src/styles/app.css:2119>
+[item]: </Users/joe/Library/CloudStorage/OneDrive-TheUniversityofNottingham/_Joe Bell UoN Files/2_Projects/2026-08-24 UoN Video Helper/project/items/VH-210.md:9>
+[walker]: </Users/joe/Library/CloudStorage/OneDrive-TheUniversityofNottingham/_Joe Bell UoN Files/2_Projects/2026-08-24 UoN Video Helper/reviews/2026-10-25/design-pass-3/evidence/measurements/walker/qualify.mjs:735>
+[probe]: </Users/joe/Library/CloudStorage/OneDrive-TheUniversityofNottingham/_Joe Bell UoN Files/2_Projects/2026-08-24 UoN Video Helper/reviews/2026-10-25/design-pass-3/evidence/measurements/vh210-records-r2-2026-11-02/vh210-driver.mjs.txt:23>
+[test]: </Users/joe/Library/CloudStorage/OneDrive-TheUniversityofNottingham/_Joe Bell UoN Files/2_Projects/2026-08-24 UoN Video Helper/test/stylesheet.test.ts:585>

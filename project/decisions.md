@@ -18,6 +18,16 @@
      moves the oldest entries verbatim to project/decisions-YYYY-MM.md,
      beside this file, listed in project/archive-index.md. -->
 
+## 2026-11-03 — VH-210 — Closes: V-48 whole on the base, V-49's footer link spaced by the ring's room
+
+**Decision:** VH-210 closes V-48 with no rule, its ring whole on the base, and V-49 by `--focus-room` between the footer list's items under forced colours: `#contact-creators` failing 418 forced cells to 0. Wish VH-209.3 retired, its condition applied. The orchestrators' rulings listed for the owner.
+
+**Rationale:** The owner's words: the answer to VH-202's ask, "as reccomended, and convery me the 9 point ask here" (the "Backlog review" chat, 2026-10-27, point 1, the plan approved), and "Gateless covers the rest of Phase 8" (`plan8-owner-words.md`). V-48: VH-209 removed the sideways scroll, so the item's own condition applied: recorded, no rule; the finding's 4 px² went with the scroll and were not located. V-49: the theme paints a backplate behind each line of a wrapped link, and the ring of the link above, drawn past its box by its room, lay under the next link's first line; an inside ring would lie over the link's own glyphs, LinkText to Highlight not 3:1. `.footer-help-list > li + li { margin-block-start: var(--focus-room); }` in `app.css`'s forced-colours block, pinned by `test/stylesheet.test.ts` (a source-presence test). Each link keeps its 44 px box; the forced footer is 4 px taller, one-line cases included, explained, not unchanged. Walked before and after: 1,165 table cells a side, with S-ID1's two f3 records outside the script's count (VH-210.4), revision `fe44891d3c53f716`, mode 2, AC but after-f1 on battery 100% to 80%. [The table](../reviews/2026-10-25/design-pass-3/evidence/measurements/vh210-rings-r4-2026-11-02.md), the fourth by script from one walk, the first three on file: Codex's blind check found the notes' wording wanting, and the repaint check was added. Rulings, the orchestrators': #34, the forced records' groups, the staged records, the stale-palette spacing cells walked alone (sp), groups at load 8 or above standing on their first runs, `#accessibility-statement a` reported unmoved; #35, the export proof accepted with its exit 1 on `f.changedAny` alone (11 of 84, noise, VH-210.3), the re-walked pairs for ruling 4's repaint (rw4), S-76 (rw76) and S-109 (rw109; its timed `player` row flaky on the base, VH-199.1's), and the repaint check: in 418 fail-to-pass cells no ring reads 0 where the before read whole, and every other ring reads as before but `#contact-self-service`, which passes with equal or more area. Shortfalls: a real Windows theme stays the person checklist's task D; 32 px page shots show the default size (VH-217.5). Wish VH-209.3 retired: its condition is applied. UI-STANDARDS unchanged: its 2.4.13 rule already reads forced colours. Digest rules: wcag-2.2-aaa, 2.4.13 and "focus appearance"; carbon, "two token systems, never collapsed".
+
+**Supersedes:** none
+
+**Deferred:** none
+
 ## 2026-11-02 — VH-219 — Closes: step 4's selects whole when closed, at 32 px on a phone
 
 **Decision:** VH-219 closes wish VH-189.1, CSS only: the selects' closed text wraps between words, its lane widened by tokens below 19.99rem. Options clipped closed 2,784 to 0 of 31,104 readings a side. Two rulings the orchestrators', listed for the owner.
@@ -603,13 +613,3 @@
 **Supersedes:** none
 
 **Deferred:** VH-190
-
-## 2026-10-24 — VH-188 — The outputs named for what each is and is for; short forms for sentences and the record, which drops the purpose
-
-**Decision:** The two outputs take B6's names and details, "High quality, for publishing" and "Smaller file, for assignments and sharing", in `index.html`, the tables and `PRESETS[id].label`. Sentences that name one take new `preset.inSentence.*` ("high quality", "the smaller file"). The record's `{output}` takes new `preset.inRecord.*` ("high quality", "a smaller file"), without the purpose, as B6 allows. Spec §6, §9.1, §10 and §13 take S1 to S10.
-
-**Rationale:** With the purpose, the record read "…from 0:30.0 to 2:30.0, a smaller file, for assignments and sharing, the white closing graphics…": its comma list of part, output and closing gained what reads as a fourth item. Every new English string was graded by `readingGrade` before the build, and all pass (most are under the eight-word prose threshold). The four sentences that name an output are composed in three languages and checked in Chrome; the slides line needs a high-bitrate screen recording no fixture is, so its unit test draws it. Two Chinese sentences lost the quotation marks or spaces round `{smaller}`, now words in the sentence. 45 Chrome cases pass (`reviews/2026-10-24/vh188-preset-2026-10-24.md`); the longer English name takes two lines at 375 and 320 px. Codex astra: "Commit after the musts below"; its musts, a stale comment in `index.html` and this close, are done. Digest rules applied: Nielsen 2 (the user's words: what the file is and what it is for) and 4 (one name per output, one short form per use).
-
-**Supersedes:** none
-
-**Deferred:** VH-189

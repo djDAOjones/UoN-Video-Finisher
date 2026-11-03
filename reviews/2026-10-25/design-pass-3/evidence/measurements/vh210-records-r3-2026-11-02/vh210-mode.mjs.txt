@@ -1,0 +1,11 @@
+// VH-210 #2: runs vh210-driver-2.mjs (unchanged) with the walker's plans narrowed to one mode, so a mode can open its own group, its setup fresh:
+// S-107's pending check is transient, and in a group its second mode starts after the first mode's probe and instruments have outlasted it.
+//   … node vh210-mode.mjs --keep-mode forced-dark walk --walker <dir> --label <l> --name <n> --forced-ids S-107
+import { pathToFileURL } from 'node:url'
+import { join, resolve } from 'node:path'
+const a = process.argv, i = a.indexOf('--keep-mode'), keep = a[i + 1], w = a[a.indexOf('--walker') + 1]
+if (i < 0 || !keep) throw new Error('--keep-mode <mode>')
+const matrixUrl = pathToFileURL(join(resolve(w), 'matrix.mjs')).href, at = (f) => import(new URL('./' + f, matrixUrl).href)
+const { PLANS } = await at('scenarios.mjs'); await at('parts.mjs')
+for (const k of Object.keys(PLANS)) { const f = PLANS[k]; PLANS[k] = (...x) => { const r = f(...x); return Array.isArray(r) ? r.filter((q) => q.mode === keep) : r } }
+await import('./vh210-driver-2.mjs')

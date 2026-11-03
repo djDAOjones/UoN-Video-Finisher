@@ -1,0 +1,32 @@
+// VH-210 #4: read-only, on #35's ruling: in each after cell where #contact-creators goes fail -> pass, is the repaint signature absent?
+// Signature: any ring reading 0 at 3:1 where the other side reads it whole; or any other ring (not #contact-creators, not #contact-self-service, which the same margin reaches) reading differently from the before in outcome or area at 3:1.
+// #contact-self-service must pass after with area >= before. Undecidable: a row missing on either side. Usage: node repaint-check.mjs <records dir> <group>...
+import fs from 'node:fs'
+import { join } from 'node:path'
+const [dir, ...groups] = process.argv.slice(2)
+const load = (side, g) => { const f = fs.readdirSync(dir).find((n) => n.startsWith(`${side}-${g}.vh210-probe-`)); const m = new Map(); for (const l of fs.readFileSync(join(dir, f), 'utf8').trim().split('\n')) { const r = JSON.parse(l); m.set(`${r.cell}|${r.mode}`, r) } return m }
+const ring = (r, s) => (r.rings || []).find((x) => x.sel === s)
+let total = { cells: 0, sig: 0, undecided: 0 }
+for (const g of groups) {
+  const B = load('before', g), A = load('after', g); let n = 0; const sig = [], und = []
+  for (const [k, a] of A) {
+    const b = B.get(k); const ca = ring(a, '#contact-creators'); if (!ca || !ca.f) continue
+    if (!b) { und.push(k + ' no before'); continue }
+    const cb = ring(b, '#contact-creators'); if (!cb || !cb.f) { und.push(k + ' no before ring'); continue }
+    if (!(cb.f.outcome === 'fail' && ca.f.outcome === 'pass')) continue
+    n++; const why = []
+    for (const x of a.rings || []) {
+      const y = ring(b, x.sel); if (!x.f && !(y && y.f)) continue
+      if (!x.f || !y || !y.f) { why.push(`${x.sel} present ${!!(y && y.f)}->${!!x.f}`); continue }
+      if (x.f.areaAt3to1 === 0 && y.f.areaAt3to1 > 0) why.push(`${x.sel} 0 where before ${y.f.areaAt3to1}`)
+      if (x.sel === '#contact-creators') continue
+      if (x.sel === '#contact-self-service') { if (x.f.outcome !== 'pass' || x.f.areaAt3to1 < y.f.areaAt3to1) why.push(`${x.sel} ${y.f.outcome} ${y.f.areaAt3to1} -> ${x.f.outcome} ${x.f.areaAt3to1}`); continue }
+      if (x.f.outcome !== y.f.outcome || x.f.areaAt3to1 !== y.f.areaAt3to1) why.push(`${x.sel} ${y.f.outcome} ${y.f.areaAt3to1} -> ${x.f.outcome} ${x.f.areaAt3to1}`)
+    }
+    if (why.length) sig.push(`${k}: ${why.join('; ')}`)
+  }
+  console.log(`${g}: fail->pass cells ${n}; signature or difference ${sig.length}; undecidable ${und.length}`)
+  for (const s of [...sig, ...und]) console.log('  ' + s)
+  total.cells += n; total.sig += sig.length; total.undecided += und.length
+}
+console.log(`total: ${total.cells} cells, ${total.sig} with the signature or a difference, ${total.undecided} undecidable`)

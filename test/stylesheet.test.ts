@@ -581,3 +581,13 @@ describe('the System check’s mark column (VH-230)', () => {
     expect(rowRule + markRule).not.toMatch(/--mark-width/)
   })
 })
+
+describe('a wrapped footer link’s ring clear of the next under forced colours (VH-210, V-49)', () => {
+  const forced = /@media \(forced-colors: active\)\s*\{([\s\S]*?)\n\}/.exec(rules)?.[1] ?? ''
+  const outside = rules.replace(/@media \(forced-colors: active\)\s*\{[\s\S]*?\n\}/, '')
+
+  it('spaces the footer list’s items by the ring’s own room, under forced colours only', () => {
+    expect(forced).toMatch(/\.footer-help-list > li \+ li\s*\{\s*margin-block-start: var\(--focus-room\);\s*\}/)
+    expect(outside).not.toContain('.footer-help-list > li')
+  })
+})

@@ -1,0 +1,31 @@
+// VH-210 #1: a group's summary, read-only, from its folder: the walker's records (status, the focus instrument's rows) and the ring probe's rows.
+//   node sum.mjs <group dir> [--cells]   prints counts, then every ring short of its need, with what lies under its short pixels.
+import { readdirSync, readFileSync, existsSync } from 'node:fs'
+import { join } from 'node:path'
+const g = process.argv[2], cells = process.argv.includes('--cells')
+const runs = join(g, 'runs'), runDir = readdirSync(runs).filter((d) => /^vh210-/.test(d) && !d.endsWith('.jsonl')).map((d) => join(runs, d))
+const recs = runDir.flatMap((d) => readdirSync(d).filter((f) => /^S-.*\.json$/.test(f)).map((f) => JSON.parse(readFileSync(join(d, f), 'utf8'))))
+const st = {}; for (const r of recs) st[r.status] = (st[r.status] ?? 0) + 1
+console.log(`records ${recs.length}: ` + JSON.stringify(st))
+for (const r of recs.filter((r) => r.status !== 'ok')) console.log(`  not ok ${r.key}: ${(r.reached?.problems ?? [r.error ?? r.stateExpired]).join('; ').slice(0, 160)}`)
+const wf = {}
+for (const r of recs) for (const row of r.instruments?.focus?.items ?? []) { const k = row.sel; wf[k] ??= {}; wf[k][row.outcome] = (wf[k][row.outcome] ?? 0) + 1; if (row.outcome !== 'pass') console.log(`  walker focus ${row.outcome} ${r.key} ${k} ${row.areaAt3to1}/${row.perimeter2px} ${row.why ?? ''}`) }
+console.log('walker focus rows: ' + JSON.stringify(wf))
+const pf = readdirSync(runs).find((f) => /^vh210-probe-.*\.jsonl$/.test(f))
+if (!pf) process.exit(0)
+const rows = readFileSync(join(runs, pf), 'utf8').trim().split('\n').filter(Boolean).map((l) => JSON.parse(l))
+const by = {}; let restored = 0, errs = 0, font = {}
+for (const p of rows) {
+  if (p.error) { errs++; console.log(`  probe error ${p.cell} ${p.mode}: ${p.error}`); continue }
+  if (p.restored) restored++; font[p.page.fontPx] = (font[p.page.fontPx] ?? 0) + 1
+  for (const r of p.rings) {
+    const b = (by[r.sel] ??= { present: 0, absent: {}, pass: 0, fail: 0, cd: 0, minMargin: Infinity, short: 0 })
+    if (!r.present) { b.absent[r.why] = (b.absent[r.why] ?? 0) + 1; continue }
+    b.present++; const o = r.f.outcome; if (o === 'pass') b.pass++; else if (o === 'fail') b.fail++; else b.cd++
+    if (Number.isFinite(r.f.areaAt3to1)) b.minMargin = Math.min(b.minMargin, r.f.areaAt3to1 - r.f.perimeter2px)
+    const s = r.px ? Object.values(r.px.short).reduce((a, c) => a + c, 0) : 0; if (s) b.short++
+    if (o !== 'pass' || (cells && s)) console.log(`  ${o} ${p.cell} ${p.mode} ${r.sel} ${r.f.areaAt3to1}/${r.f.perimeter2px} box ${r.f.controlPx} ${r.f.why ?? ''} band ${r.px?.bandPx}/${r.geo?.bandArea} at3 ${r.px?.band3} short ${JSON.stringify(r.px?.short)} by ${JSON.stringify(r.px?.shortBy)} sbox ${JSON.stringify(r.px?.shortBox)} clips ${JSON.stringify(r.geo?.clips?.map((c) => c.who + ':' + c.lost))} outVP ${r.geo?.outsideViewport} pairs ${JSON.stringify(r.px?.pairs)}`)
+  }
+}
+console.log(`probe rows ${rows.length}, errors ${errs}, restored ${restored}, root font ${JSON.stringify(font)}`)
+for (const [k, b] of Object.entries(by)) console.log(`  ${k}: present ${b.present} pass ${b.pass} fail ${b.fail} cd ${b.cd} minMargin ${b.minMargin} withShortPx ${b.short} absent ${JSON.stringify(b.absent)}`)

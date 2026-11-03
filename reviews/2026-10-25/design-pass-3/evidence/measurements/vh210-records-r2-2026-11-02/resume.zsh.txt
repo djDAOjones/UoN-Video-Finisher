@@ -1,0 +1,16 @@
+#!/bin/zsh
+# VH-210 #3: one background job, nothing parallel. Waits with no time limit for AC (two reads 2 minutes apart, #34's ruling), then the rest of the after chain (seq.zsh, unchanged),
+# then ruling 4's and S-76's re-walks (rw.zsh, VH210_LOAD_VOID=1): the 84-cell export proof, the before on the export, the after on $R; then the proof. Usage: zsh resume.zsh <walker> <app root>
+D=/Users/joe/UoN-Video-Helper-side/vh210-walk; cd "$D"
+W=$1; R=$2; E="$D/base-export"; LOG=resume.log
+ac() { pmset -g batt | grep -q "AC Power"; }
+echo "wait for AC from $(date -u +%T), $(pmset -g batt | grep -oE '[0-9]+%' | head -1)" >> $LOG
+while :; do if ac; then sleep 120; ac && break; fi; sleep 60; done
+echo "AC twice, 2 minutes apart, $(date -u +%T)" >> $LOG
+zsh seq.zsh after "$W" "$R" f2 f3 f4 st st2 sp; rc=$?; echo "seq exit $rc $(date -u +%T)" >> $LOG; [ $rc = 0 ] || exit $rc
+export VH210_LOAD_VOID=1
+zsh rw.zsh exportproof "$W" "$E" s113; rc=$?; echo "rw exportproof exit $rc $(date -u +%T)" >> $LOG; [ $rc = 0 ] || exit $rc
+zsh rw.zsh before "$W" "$E" rw4 rw76; rc=$?; echo "rw before exit $rc $(date -u +%T)" >> $LOG; [ $rc = 0 ] || exit $rc
+zsh rw.zsh after "$W" "$R" rw4 rw76; rc=$?; echo "rw after exit $rc $(date -u +%T)" >> $LOG; [ $rc = 0 ] || exit $rc
+node vh210-export-proof.mjs >> $LOG 2>&1; echo "proof exit $? $(date -u +%T)" >> $LOG
+echo "RESUME DONE $(date -u +%T)" >> $LOG

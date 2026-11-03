@@ -1,0 +1,7 @@
+- **Repair: yes.** The [Rationale](</Users/joe/Library/CloudStorage/OneDrive-TheUniversityofNottingham/_Joe Bell UoN Files/2_Projects/2026-08-24 UoN Video Helper/project/decisions.md:25>) now states the Self Service exception correctly and meets the condition.
+- **Fresh freeze: exact match.** HEAD is the specified commit; tracked patch and status match byte-for-byte; all **1,303 untracked hashes match**, with no extras or omissions.
+- **Difference from first freeze: exactly as stated.** Only the wording repair and two added close-review files; all 1,301 previous untracked hashes remain unchanged.
+- **Gate 2: green.** [Results](</Users/joe/UoN-Video-Helper-side/vh210-gate-2.log:27>): **83 files passed, 1,658 tests passed, one existing EBU skip**. No test deleted or newly skipped. [Starting load](</Users/joe/UoN-Video-Helper-side/vh210-gate-2.load.log:1>) was **3.69**, below 8. I reran `node tools/check.mjs`: **0 failures, 0 warnings**.
+- **No further correction required.** Provenance retains the stated Claude `cmp` qualification. Save this re-check and carry `Checked: gpt-6-astra — pass — V-48, V-49`. Digest rules remain WCAG 2.4.13 “focus appearance” and Carbon “two token systems, never collapsed”.
+
+**Verdict: pass.**

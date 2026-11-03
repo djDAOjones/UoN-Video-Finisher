@@ -1,0 +1,83 @@
+// VH-210 #3: before → after, cell by cell, read-only, for one pair of group folders.
+//   node vh210-cmp.mjs <before dir> <after dir> [--list n]
+// The ring probe's rows by cell/mode and ring: outcome, area at 3:1 of the need, short pixels and what lies under them;
+// the walker's focus rows by record key and selector; the footer's geometry and the page's sideways scroll.
+import { readdirSync, readFileSync, existsSync } from 'node:fs'
+import { join } from 'node:path'
+const [A, B] = process.argv.slice(2, 4)
+const li = process.argv.indexOf('--list'), LIST = li > 0 ? Number(process.argv[li + 1]) : 12
+const probe = (g) => {
+  const runs = join(g, 'runs'), o = {}
+  for (const f of readdirSync(runs).filter((f) => /-probe-.*\.jsonl$/.test(f)))
+    for (const l of readFileSync(join(runs, f), 'utf8').trim().split('\n').filter(Boolean)) { const j = JSON.parse(l); o[`${j.cell}/${j.mode}`] = j }
+  return o
+}
+const walker = (g) => {
+  const runs = join(g, 'runs'), o = {}
+  for (const d of readdirSync(runs).filter((d) => /^vh210-/.test(d) && !d.endsWith('.jsonl'))) {
+    for (const f of readdirSync(join(runs, d)).filter((f) => /^S-.*\.json$/.test(f))) { const r = JSON.parse(readFileSync(join(runs, d, f), 'utf8')); o[r.key] = r }
+  }
+  return o
+}
+const shortOf = (x) => Object.values(x?.px?.short ?? {}).reduce((a, b) => a + b, 0)
+const read = (x) => (!x ? 'none' : !x.present ? 'absent' : `${x.f?.outcome ?? '?'} ${x.f?.areaAt3to1 ?? '?'}/${x.f?.perimeter2px ?? '?'} short ${shortOf(x)}${x.px?.shortBy && Object.keys(x.px.shortBy).length ? ' ' + JSON.stringify(x.px.shortBy) : ''}`)
+const pa = probe(A), pb = probe(B)
+const keys = [...new Set([...Object.keys(pa), ...Object.keys(pb)])].sort()
+const onlyA = keys.filter((k) => !pb[k]), onlyB = keys.filter((k) => !pa[k]), both = keys.filter((k) => pa[k] && pb[k])
+console.log(`probe rows: before ${Object.keys(pa).length}, after ${Object.keys(pb).length}, matched ${both.length}; before only ${onlyA.length}, after only ${onlyB.length}`)
+for (const k of [...onlyA.map((k) => 'before only ' + k), ...onlyB.map((k) => 'after only ' + k)].slice(0, LIST)) console.log('  ' + k)
+const errs = (o) => Object.values(o).filter((r) => r.error || r.rings?.some((x) => x.error)).length
+console.log(`probe errors: before ${errs(pa)}, after ${errs(pb)}; restored: before ${Object.values(pa).filter((r) => r.restored).length}, after ${Object.values(pb).filter((r) => r.restored).length}`)
+const bySel = {}
+for (const k of both) {
+  const ra = Object.fromEntries((pa[k].rings ?? []).map((x) => [x.sel, x])), rb = Object.fromEntries((pb[k].rings ?? []).map((x) => [x.sel, x]))
+  for (const sel of new Set([...Object.keys(ra), ...Object.keys(rb)])) {
+    const s = (bySel[sel] ??= { same: 0, moved: [], passA: 0, failA: 0, passB: 0, failB: 0, shortA: 0, shortB: 0, areaOnly: 0 })
+    const a = ra[sel], b = rb[sel]
+    if (a?.f?.outcome === 'pass') s.passA++; else if (a?.f?.outcome) s.failA++
+    if (b?.f?.outcome === 'pass') s.passB++; else if (b?.f?.outcome) s.failB++
+    if (shortOf(a)) s.shortA++; if (shortOf(b)) s.shortB++
+    const same = a?.present === b?.present && a?.f?.outcome === b?.f?.outcome && shortOf(a) === shortOf(b) && a?.f?.areaAt3to1 === b?.f?.areaAt3to1
+    if (same) s.same++
+    else if (a?.f?.outcome === b?.f?.outcome && shortOf(a) === shortOf(b)) { s.areaOnly++; s.moved.push(`${k} ${read(a)} → ${read(b)}`) }
+    else s.moved.push(`${k} ${read(a)} → ${read(b)}`)
+  }
+}
+for (const [sel, s] of Object.entries(bySel)) {
+  console.log(`${sel}: pass ${s.passA}→${s.passB}, fail ${s.failA}→${s.failB}, with short px ${s.shortA}→${s.shortB}; unmoved ${s.same}, moved ${s.moved.length} (area alone ${s.areaOnly})`)
+  for (const m of s.moved.slice(0, LIST)) console.log('    ' + m)
+  if (s.moved.length > LIST) console.log(`    … ${s.moved.length - LIST} more`)
+}
+// The page: sideways scroll, root font, the footer's height and items.
+let sw = 0, foot = { same: 0, moved: [] }
+for (const k of both) {
+  const a = pa[k].page ?? {}, b = pb[k].page ?? {}
+  if ((a.scrollWidth > a.clientWidth) !== (b.scrollWidth > b.clientWidth) || a.fontPx !== b.fontPx) { sw++; console.log(`  page ${k}: scroll ${a.scrollWidth}/${a.clientWidth} → ${b.scrollWidth}/${b.clientWidth}, font ${a.fontPx} → ${b.fontPx}`) }
+  const fa = a.footer, fb = b.footer
+  if (!fa && !fb) continue
+  if (JSON.stringify(fa) === JSON.stringify(fb)) foot.same++
+  else foot.moved.push(`${k} band h ${fa?.band?.h}→${fb?.band?.h}, help h ${fa?.help?.h}→${fb?.help?.h}, item tops ${(fa?.items ?? []).map((i) => i.t).join('/')}→${(fb?.items ?? []).map((i) => i.t).join('/')}, item h ${(fa?.items ?? []).map((i) => i.h).join('/')}→${(fb?.items ?? []).map((i) => i.h).join('/')}, mt ${(fb?.items ?? []).map((i) => i.mt).join('/')}`)
+}
+console.log(`page: sideways scroll or font changed in ${sw}; footer geometry unmoved ${foot.same}, moved ${foot.moved.length}`)
+const forcedMoved = foot.moved.filter((m) => /\/forced-/.test(m)).length
+console.log(`  footer moved in forced modes ${forcedMoved}, outside ${foot.moved.length - forcedMoved}`)
+for (const m of foot.moved.filter((m) => !/\/forced-/.test(m)).slice(0, LIST)) console.log('    outside forced: ' + m)
+for (const m of foot.moved.filter((m) => /\/forced-/.test(m)).slice(0, 4)) console.log('    forced: ' + m)
+// The walker's own records.
+const wa = walker(A), wb = walker(B)
+const st = (o) => { const s = {}; for (const r of Object.values(o)) s[r.status] = (s[r.status] ?? 0) + 1; return JSON.stringify(s) }
+console.log(`walker records: before ${Object.keys(wa).length} ${st(wa)}, after ${Object.keys(wb).length} ${st(wb)}`)
+let wsame = 0; const wmoved = []
+for (const key of new Set([...Object.keys(wa), ...Object.keys(wb)])) {
+  const ia = Object.fromEntries((wa[key]?.instruments?.focus?.items ?? []).map((r) => [r.sel, r])), ib = Object.fromEntries((wb[key]?.instruments?.focus?.items ?? []).map((r) => [r.sel, r]))
+  if (wa[key]?.status !== wb[key]?.status) wmoved.push(`${key} status ${wa[key]?.status} → ${wb[key]?.status}`)
+  for (const sel of new Set([...Object.keys(ia), ...Object.keys(ib)])) {
+    const a = ia[sel], b = ib[sel]
+    if (a?.outcome === b?.outcome && a?.areaAt3to1 === b?.areaAt3to1) wsame++
+    else wmoved.push(`${key} ${sel} ${a?.outcome} ${a?.areaAt3to1}/${a?.perimeter2px} → ${b?.outcome} ${b?.areaAt3to1}/${b?.perimeter2px}`)
+  }
+}
+console.log(`walker focus rows: unmoved ${wsame}, moved ${wmoved.length}`)
+for (const m of wmoved.slice(0, LIST)) console.log('    ' + m)
+if (wmoved.length > LIST) console.log(`    … ${wmoved.length - LIST} more`)
+if (!existsSync(A) || !existsSync(B)) process.exit(1)

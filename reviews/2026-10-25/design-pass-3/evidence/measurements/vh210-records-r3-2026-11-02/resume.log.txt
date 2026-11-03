@@ -1,0 +1,12 @@
+wait for AC from 00:07:57, 56%
+AC twice, 2 minutes apart, 00:29:58
+seq exit 0 02:42:20
+rw exportproof exit 0 03:23:37
+rw before exit 0 03:24:01
+rw after exit 0 03:24:27
+differs S-113-en-GB-w400 light
+differs S-113-ms-MY-w1280 light
+differs S-113-ms-MY-w1280 dark
+exportproof-s113 against before-s113: 73 identical, 11 differ, 0 without a base cell
+proof exit 1 03:24:27
+RESUME DONE 03:24:27

@@ -47,6 +47,7 @@
 - VH-218 — the System check's labels break only between words: 2,028 broken word readings to 0 in 432 cells a side, the value beneath its label when the row can't hold both, the mark on its own line at 32 px on a phone; a fixed worker value, one walker change, proved; S-103 walked under the AAC warning too, 648 cells a side, none moved; the mark's column raised as VH-230 (2026-11-01) — see decisions
 - VH-230 — each state word whole in the System check's mark column, on its own 3 rem token: broken mark readings 1,092 to 0 of 3,024 a side, the ellipsis measured, 28, 56, 31.38 px; label words broken 0 to 0, 124 values newly beneath their labels, reported; the acceptance page unmoved; one wish (2026-11-01) — see decisions
 - VH-219 — step 4's selects keep every option whole when closed at 32 px on a phone: the closed text wraps between words, the lane widened in VH-209's query by tokens; clipped readings 2,784 of 31,104 to 0, targeted 101 of 504 to 0, in 5,184 + 84 cells a side; the open native list a person's check; four wishes (2026-11-02) — see decisions
+- VH-210 — two focus rings: V-48 reads whole on the base after VH-209, 528 of 464 px² in all 72 of S-113's 32 px cells, so no rule; V-49's wrapped footer link whole in a forced palette by `--focus-room` between the footer list's items, failing 418 forced cells to 0, the forced footer 4 px taller, nothing outside forced colours moved; four wishes (2026-11-03) — see decisions
 
 ## Phase 7 — a second design, UX and accessibility pass, with Codex astra as partner, before the cut
 

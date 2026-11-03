@@ -1,0 +1,51 @@
+#!/bin/zsh
+# VH-210 #1: a side's groups, in sequence, one at a time, one chain. Usage: zsh seq.zsh before|after <walker> <app> [groups…]
+# VH210_LOAD_VOID=1 also voids a run with any load sample at 8 or above (Orchestrator #34's ruling); a void group runs at most three times.
+# Restarts cleanly: a group whose folder has its `end` line and passes the void check is kept and skipped; an unfinished one, or one crossing a sleep (a gap above 180 s in its 30 s load log) or a change of power source or mode, is void: moved under void/ whole and re-run alone, at most twice, the others kept.
+# VH-210 #2: footer adds the four spacing modes (144 cells); f1 to f4 are the forced records PLANS declares beyond the 432, in four parts by whole scenarios (the driver's `parts`), on Orchestrator #34's ruling.
+# VH-210 #2: st is the staged group (vh210-driver-2.mjs) for the forced records the walker no longer reaches by itself; sp is the footer's plain `spacing` mode alone, which after forced-dark-font32 in one group reads a stale forced palette (smoke-4a, 4b).
+# st2 is S-107's forced-dark records alone (vh210-mode.mjs), each its own setup, its pending check transient.
+# Stops at the first non-zero exit from go.sh (exit 9 is its 45-minute wait).
+side=$1; W=$2; A=$3; shift 3
+D=/Users/joe/UoN-Video-Helper-side/vh210-walk; cd "$D"
+LOG="$side.seq.log"
+groups=("$@"); [ ${#groups} = 0 ] && groups=(s113 s112 footer)
+voidreason() { node -e "
+const fs=require('fs');const n=process.argv[1];const c=fs.existsSync(n+'/conditions.txt')?fs.readFileSync(n+'/conditions.txt','utf8'):'';
+if(!/^end /m.test(c)){console.log('unfinished');process.exit(0)}
+const l=fs.existsSync(n+'.load.log')?fs.readFileSync(n+'.load.log','utf8').trim().split('\n').filter(Boolean):[];
+const sec=(t)=>{const[a,b,d]=t.split(':').map(Number);return a*3600+b*60+d};let prev=null,src=new Set();
+for(const x of l){const p=x.split(' ');const s=sec(p[0]);if(prev!==null){let g=s-prev;if(g<0)g+=86400;if(g>180){console.log('gap '+g+' s at '+p[0]);process.exit(0)}}prev=s;src.add(p.slice(3).filter(w=>!/%$/.test(w)).join(' '))}
+if(src.size>1){console.log('power changed: '+[...src].join(' | '));process.exit(0)}
+if(process.env.VH210_LOAD_VOID){const hi=l.filter(x=>Number(x.split(' ')[2])>=8);if(hi.length){console.log('load at 8 or above in '+hi.length+' samples, peak '+Math.max(...hi.map(x=>Number(x.split(' ')[2]))));process.exit(0)}}
+" "$1"; }
+moveaside() { local n=$1 i=1; mkdir -p void; while [ -e "void/$n.$i" ]; do i=$((i+1)); done; mkdir "void/$n.$i"; for f in "$n" "$n.launcher.log" "$n.load.log" "$n.go.out"; do [ -e "$f" ] && mv "$f" "void/$n.$i/"; done; echo "$n void: moved to void/$n.$i ($2) $(date -u +%T)" >> "$LOG"; }
+for g in $groups; do
+  n="$side-$g"
+  for try in 1 2 3 4; do
+    if [ -e "$n" ]; then
+      v=$(voidreason "$n")
+      if [ -z "$v" ]; then echo "$n kept $(date -u +%T)" >> "$LOG"; break; fi
+      if [ $try = 4 ]; then echo "SEQ STOP $n void three times: $v" >> "$LOG"; exit 10; fi
+      moveaside "$n" "$v"
+    fi
+    case $g in
+      v48) job="node vh210-driver.mjs walk --walker \"\$WALKER\" --label $side --name v48 --scenarios S-113 --modes font32,dark-font32,forced-light-font32,forced-dark-font32" ;;
+      v49) job="node vh210-driver.mjs walk --walker \"\$WALKER\" --label $side --name v49 --scenarios S-83 --views w1280,w320 --modes forced-light,forced-dark" ;;
+      s113) job="node vh210-driver.mjs walk --walker \"\$WALKER\" --label $side --name s113 --scenarios S-113" ;;
+      s112) job="node vh210-driver.mjs walk --walker \"\$WALKER\" --label $side --name s112 --scenarios S-112" ;;
+      footer) job="node vh210-driver.mjs walk --walker \"\$WALKER\" --label $side --name footer --scenarios S-83,S-145 --views w1280,w320 --modes light,dark,forced-light,forced-dark,font32,dark-font32,forced-light-font32,forced-dark-font32,spacing,dark-spacing,forced-light-spacing,forced-dark-spacing" ;;
+      st) job="node vh210-driver-2.mjs walk --walker \"\$WALKER\" --label $side --name st --forced-ids S-141,S-142,S-143,S-96,S-149,S-120,S-150,S-92,S-117,S-128,S-95,S-107" ;;
+      st2) job="node vh210-mode.mjs --keep-mode forced-dark walk --walker \"\$WALKER\" --label $side --name st2 --forced-ids S-107" ;;
+      sp) job="node vh210-driver.mjs walk --walker \"\$WALKER\" --label $side --name sp --scenarios S-83,S-145 --views w1280,w320 --modes spacing" ;;
+      f[1-4]) job="node vh210-driver.mjs walk --walker \"\$WALKER\" --label $side --name $g --forced-all ${g#f}/4" ;;
+      *) echo "SEQ STOP unknown group $g" >> "$LOG"; exit 11 ;;
+    esac
+    zsh go.sh "$n" "$side $g" "$W" "$A" "$job" > "$n.go.out" 2>&1; rc=$?
+    echo "$n exit $rc $(date -u +%T)" >> "$LOG"
+    [ $rc = 0 ] || { echo "SEQ STOP $n rc $rc" >> "$LOG"; exit $rc; }
+    v=$(voidreason "$n"); [ -z "$v" ] && break
+    echo "$n void after run $try: $v" >> "$LOG"
+  done
+done
+echo "SEQ DONE $side $(date -u +%T)" >> "$LOG"

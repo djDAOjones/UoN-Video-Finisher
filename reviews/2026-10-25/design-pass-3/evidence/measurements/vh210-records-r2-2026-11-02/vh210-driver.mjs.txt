@@ -1,0 +1,208 @@
+// VH-210 #1's driver, from VH-219's (copied, the original untouched): the item's matrix by the pass's own runner (matrix.mjs), unchanged, on a plan in memory, with a read-only ring probe in each scenario's `afterMode`.
+// In memory only: each named scenario keeps its id, setup, state and focus list; its `views` limit is dropped so the item's six widths run; its afterMode runs the original, then the probe, then puts focus and scroll back as they were (S-112's "?" refocused by keyboard, as its state needs; VH-219 restaged it the same way).
+// The probe, per cell, for each ring in RINGS that is rendered: the walker's own `focusArea` (qualify.mjs, imported read-only) gives the area at 3:1 against the 2 px perimeter's need, exactly as the focus instrument reads it; then, with the ring still drawn, the page's geometry (the outline's band from the computed outline, the viewport, any clipping ancestor, every other element's text and box the band crosses, the element's own glyphs) and the clip's off/on pixels are classified: each band pixel short of 3:1 is put to what lies under it.
+//   APP_URL=… CDP_PORT=… FIX=… OUT_ROOT=… RUN_ROOT=… OUTD=… node vh210-driver.mjs walk --walker <dir> --label before --name <group> --scenarios S-113,S-112 [--langs --views --modes]
+import { pathToFileURL, fileURLToPath } from 'node:url'
+import { join, resolve } from 'node:path'
+import { appendFileSync, mkdirSync, writeFileSync } from 'node:fs'
+import { execFileSync } from 'node:child_process'
+
+const list = (s) => String(s ?? '').split(',').map((x) => x.trim()).filter(Boolean)
+const args = (() => { const a = process.argv.slice(2), o = { _: [] }; for (let i = 0; i < a.length; i++) { if (a[i].startsWith('--')) o[a[i].slice(2)] = a[++i]; else o._.push(a[i]) } return o })()
+
+// The footer's rings and the toggletips' "?"s, the title's among them (VH-229).
+export const RINGS = ['#about-help-button', '#format-help-button', '#onset-help-button', '#contact-creators', '#contact-self-service', '#feedback-open', '#feedback-form-link']
+
+const PRESENT = (sel) => `(() => { const el = document.querySelector(${JSON.stringify(sel)}); if (!el) return { present: false, why: 'no element' };
+  const r = el.getBoundingClientRect(); if (!r.width || !r.height) return { present: false, why: 'not rendered' };
+  if (el.closest('[inert]') || el.disabled) return { present: false, why: el.disabled ? 'disabled' : 'inert' };
+  const d = [...document.querySelectorAll('dialog[open]')].find((x) => x.matches(':modal')); if (d && !d.contains(el)) return { present: false, why: 'behind a modal dialog' };
+  return { present: true } })()`
+
+// With the ring drawn: its band, what clips it and what it crosses, in viewport CSS px.
+const GEO = (sel) => `(() => {
+  const round = (n) => Math.round(n * 100) / 100, el = document.querySelector(${JSON.stringify(sel)}), cs = getComputedStyle(el), r = el.getBoundingClientRect();
+  const ow = cs.outlineStyle === 'none' ? 0 : parseFloat(cs.outlineWidth) || 0, oo = parseFloat(cs.outlineOffset) || 0;
+  const outer = { l: r.left - oo - ow, t: r.top - oo - ow, r: r.right + oo + ow, b: r.bottom + oo + ow }, inner = { l: r.left - oo, t: r.top - oo, r: r.right + oo, b: r.bottom + oo };
+  const Q = (x) => ('left' in x ? { l: x.left, t: x.top, r: x.right, b: x.bottom } : x);
+  const ia = (p, q) => { const a = Q(p), b = Q(q); return Math.max(0, Math.min(a.r, b.r) - Math.max(a.l, b.l)) * Math.max(0, Math.min(a.b, b.b) - Math.max(a.t, b.t)) };
+  const band = (x) => ia(x, outer) - ia(x, inner), bandArea = band(outer);
+  const desc = (e) => e.id ? '#' + e.id : e.tagName.toLowerCase() + (typeof e.className === 'string' && e.className ? '.' + e.className.trim().split(/\\s+/).join('.') : '');
+  const R = (x) => ({ l: round(x.left ?? x.l), t: round(x.top ?? x.t), r: round(x.right ?? x.r), b: round(x.bottom ?? x.b) });
+  const vp = { l: 0, t: 0, r: document.documentElement.clientWidth, b: document.documentElement.clientHeight };
+  const clips = [];
+  for (let a = el.parentElement; a && a !== document.documentElement; a = a.parentElement) {
+    const s = getComputedStyle(a); if (s.overflowX === 'visible' && s.overflowY === 'visible' && !/paint|strict|content/.test(s.contain) && s.clipPath === 'none') continue;
+    const ar = a.getBoundingClientRect(), pad = { l: ar.left + a.clientLeft, t: ar.top + a.clientTop, r: ar.left + a.clientLeft + a.clientWidth, b: ar.top + a.clientTop + a.clientHeight };
+    const lost = bandArea - band(pad); if (lost > 0.5) clips.push({ who: desc(a), overflow: s.overflowX + ' ' + s.overflowY, contain: s.contain, rect: R(pad), lost: round(lost) });
+  }
+  const texts = [], own = [], tw = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT), g = document.createRange();
+  for (let n = tw.nextNode(); n; n = tw.nextNode()) {
+    if (!n.data.trim()) continue; const p = n.parentElement; if (!p || !p.checkVisibility()) continue; const pr = p.getBoundingClientRect(); if (!ia(pr, outer)) continue;
+    g.selectNodeContents(n); const rs = [...g.getClientRects()].filter((x) => x.width > 0 && band(x) > 0);
+    for (const x of rs) (el.contains(n) ? own : texts).push({ who: desc(p), text: n.data.trim().slice(0, 40), rect: R(x), area: round(band(x)) });
+  }
+  const boxes = [];
+  for (const e of document.querySelectorAll('a, button, input, select, textarea, label, summary, .select-wrap, li, p, h1, h2, h3, legend')) {
+    if (e === el || e.contains(el) || el.contains(e) || !e.checkVisibility()) continue; const er = e.getBoundingClientRect(); if (!er.width || !er.height) continue; const a = band(er); if (a > 0) boxes.push({ who: desc(e), rect: R(er), area: round(a) });
+  }
+  return { box: R(r), outline: { style: cs.outlineStyle, width: ow, offset: oo, color: cs.outlineColor }, outer: R(outer), inner: R(inner), bandArea: round(bandArea), viewport: vp, outsideViewport: round(bandArea - band(vp)), clips, texts, own, boxes,
+    focusVisible: el.matches(':focus-visible'), active: document.activeElement === el, dpr: devicePixelRatio, sx: scrollX, sy: scrollY };
+})()`
+
+// The clip as focusArea takes it (qualify.mjs: margin 12, cut by the viewport), recomputed with nothing scrolled since.
+const CLIP = (sel) => `(() => { const b = document.querySelector(${JSON.stringify(sel)}).getBoundingClientRect(), m = 12, vx = Math.max(0, b.left - m), vy = Math.max(0, b.top - m);
+  return { vx, vy, width: Math.min(innerWidth - vx, b.width + 2 * m), height: Math.min(innerHeight - vy, b.height + 2 * m) } })()`
+
+// Each band pixel of the clip, off against on: drawn at 3:1, or short and put to what lies under it. A short pixel with nothing under it within half a CSS px of the band's
+// edges is counted apart as `snap`: Chrome snaps the ring to device pixels (a 1 device px shift at 3x moved a sixth of a whole ring out of the band as computed, in the first V-48 probe).
+const PIXELS = (off, on, clip, geo) => `(async () => {
+  const load = async (b64) => { const u = Uint8Array.from(atob(b64), (c) => c.charCodeAt(0)); const bm = await createImageBitmap(new Blob([u], { type: 'image/png' })); const c = new OffscreenCanvas(bm.width, bm.height); const x = c.getContext('2d'); x.drawImage(bm, 0, 0); return x.getImageData(0, 0, bm.width, bm.height) };
+  const L = (r, g, b) => { const f = (v) => { v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4) }; return 0.2126 * f(r) + 0.7152 * f(g) + 0.0722 * f(b) };
+  const K = (a, b) => (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05);
+  const [A, B] = [await load(${JSON.stringify(off)}), await load(${JSON.stringify(on)})], clip = ${JSON.stringify(clip)}, G = ${JSON.stringify(geo)}, d = G.dpr;
+  if (A.width !== B.width || A.height !== B.height) return { error: 'size differs' };
+  const inR = (x, y, q) => x >= q.l && x < q.r && y >= q.t && y < q.b, inBand = (x, y) => inR(x, y, G.outer) && !inR(x, y, G.inner);
+  const h = 0.5, CO = { l: G.outer.l + h, t: G.outer.t + h, r: G.outer.r - h, b: G.outer.b - h }, CI = { l: G.inner.l - h, t: G.inner.t - h, r: G.inner.r + h, b: G.inner.b + h }, inCore = (x, y) => inR(x, y, CO) && !inR(x, y, CI);
+  const out = { bandPx: 0, band3: 0, outside3: 0, short: { otherText: 0, ownText: 0, clipped: 0, unchanged: 0, low: 0, snap: 0 }, shortBy: {}, pairs: {}, shortBox: null };
+  let l = 1e9, t = 1e9, r = -1, b = -1;
+  for (let py = 0; py < A.height; py++) for (let px = 0; px < A.width; px++) {
+    const x = clip.vx + (px + 0.5) / d, y = clip.vy + (py + 0.5) / d, i = (py * A.width + px) * 4;
+    const k = K(L(A.data[i], A.data[i + 1], A.data[i + 2]), L(B.data[i], B.data[i + 1], B.data[i + 2]));
+    if (!inBand(x, y)) { if (k >= 3) out.outside3++; continue }
+    out.bandPx++; if (k >= 3) { out.band3++; continue }
+    l = Math.min(l, x); t = Math.min(t, y); r = Math.max(r, x); b = Math.max(b, y);
+    const ot = G.texts.find((q) => inR(x, y, q.rect)), wn = G.own.some((q) => inR(x, y, q.rect)), cl = G.clips.find((q) => !inR(x, y, q.rect));
+    const why = cl ? 'clipped' : ot ? 'otherText' : wn ? 'ownText' : !inCore(x, y) ? 'snap' : k <= 1.02 ? 'unchanged' : 'low'; out.short[why]++;
+    const who = cl ? cl.who : ot ? ot.who : why; out.shortBy[who] = (out.shortBy[who] || 0) + 1;
+    const pr = 'rgb(' + A.data[i] + ',' + A.data[i + 1] + ',' + A.data[i + 2] + ')>rgb(' + B.data[i] + ',' + B.data[i + 1] + ',' + B.data[i + 2] + ')'; out.pairs[pr] = (out.pairs[pr] || 0) + 1;
+  }
+  if (r >= 0) out.shortBox = { l: Math.round(l * 100) / 100, t: Math.round(t * 100) / 100, r: Math.round(r * 100) / 100, b: Math.round(b * 100) / 100 };
+  out.pairs = Object.fromEntries(Object.entries(out.pairs).sort((p, q) => q[1] - p[1]).slice(0, 4)); const px = d * d;
+  for (const k of ['bandPx', 'band3', 'outside3']) out[k] = Math.round(out[k] / px); for (const k of Object.keys(out.short)) out.short[k] = Math.round(out.short[k] / px); for (const k of Object.keys(out.shortBy)) out.shortBy[k] = Math.round(out.shortBy[k] / px);
+  return out;
+})()`
+
+async function probe(w, h) {
+  const { focusArea, sleep } = h
+  const before = await w.evaluate(`(() => { const a = document.activeElement && document.activeElement !== document.body ? document.activeElement : null; window.__vh210a = a; return { active: a ? (a.id ? '#' + a.id : a.tagName) : null, byId: !!(a && a.id), sx: scrollX, sy: scrollY, exp: Object.fromEntries([...document.querySelectorAll('[aria-expanded][id]')].map((e) => ['#' + e.id, e.getAttribute('aria-expanded')])) } })()`)
+  const page = await w.evaluate(`({ fontPx: parseFloat(getComputedStyle(document.documentElement).fontSize), forced: matchMedia('(forced-colors: active)').matches, dark: matchMedia('(prefers-color-scheme: dark)').matches, vw: innerWidth, vh: innerHeight, scrollWidth: document.documentElement.scrollWidth, clientWidth: document.documentElement.clientWidth, lang: document.documentElement.lang, spacing: !!document.getElementById('__audit-spacing'),
+    footer: (() => { const R = (e) => { if (!e) return null; const r = e.getBoundingClientRect(), s = getComputedStyle(e); return { l: Math.round(r.left * 100) / 100, t: Math.round((r.top + scrollY) * 100) / 100, w: Math.round(r.width * 100) / 100, h: Math.round(r.height * 100) / 100, mt: s.marginBlockStart } };
+      return { band: R(document.querySelector('.band--footer')), help: R(document.querySelector('.footer-help')), items: [...document.querySelectorAll('.footer-help-list > li')].map(R),
+        links: Object.fromEntries(['#contact-creators', '#contact-self-service', '#feedback-open', '#feedback-form-link'].map((s) => [s, R(document.querySelector(s))])) } })() })`)
+  const rings = []
+  for (const sel of RINGS) {
+    const p = await w.evaluate(PRESENT(sel))
+    if (!p.present) { rings.push({ sel, ...p }); continue }
+    const f = await focusArea(w, sel)
+    const on = f.on, off = f.off; delete f.on; delete f.off
+    const ring = { sel, present: true, f }
+    if (on && off) {
+      try {
+        ring.geo = await w.evaluate(GEO(sel))
+        const clip = await w.evaluate(CLIP(sel))
+        ring.clip = clip
+        ring.px = await w.evaluate(PIXELS(off.toString('base64'), on.toString('base64'), clip, ring.geo))
+        if (f.outcome !== 'pass' || (ring.px && ring.px.band3 < ring.px.bandPx)) {
+          const dir = join(process.env.OUTD, 'clips'); mkdirSync(dir, { recursive: true })
+          const base = `${w.name.split('/').pop()}__${w.qualMode}__${sel.replace(/[^a-z0-9-]/gi, '')}`
+          writeFileSync(join(dir, base + '-off.png'), off); writeFileSync(join(dir, base + '-on.png'), on); ring.clipFiles = [base + '-off.png', base + '-on.png']
+        }
+      } catch (e) { ring.probeError = String(e.message ?? e).slice(0, 200) }
+    }
+    rings.push(ring)
+  }
+  // Back as it was: focus (by keyboard, as the instrument focuses) or none, then the scroll.
+  // VH-210 #2: an element without an id is put back by the reference kept before, after a key event as focusByKeyboard gives one; a toggletip the probe's focus closed
+  // (focus arriving outside it closes it, src/ui/toggletip.ts) is opened again by its own button, so the record's state is the scenario's own.
+  if (before.active && before.byId && await w.evaluate(`!!document.querySelector(${JSON.stringify(before.active)})`)) await h.focusByKeyboard(w, before.active)
+  else if (before.active) { await w.page.send('Input.dispatchKeyEvent', { type: 'keyDown', key: 'Shift', code: 'ShiftLeft', windowsVirtualKeyCode: 16 }); await w.page.send('Input.dispatchKeyEvent', { type: 'keyUp', key: 'Shift', code: 'ShiftLeft', windowsVirtualKeyCode: 16 }); await w.evaluate(`window.__vh210a && window.__vh210a.isConnected && window.__vh210a.focus()`); await sleep(120) }
+  else await w.evaluate(`(() => { const a = document.activeElement; if (a && a !== document.body) a.blur(); })()`)
+  const reopened = []
+  for (const [sel, v] of Object.entries(before.exp ?? {})) { const now = await w.evaluate(`document.querySelector(${JSON.stringify(sel)})?.getAttribute('aria-expanded') ?? null`); if (now !== null && now !== v) { await w.evaluate(`document.querySelector(${JSON.stringify(sel)}).click()`); reopened.push(sel); await sleep(100) } }
+  await w.evaluate(`window.scrollTo(${before.sx}, ${before.sy})`); await sleep(150)
+  const after = await w.evaluate(`({ active: document.activeElement && document.activeElement !== document.body ? (document.activeElement.id ? '#' + document.activeElement.id : document.activeElement.tagName) : null, sx: scrollX, sy: scrollY, fontPx: parseFloat(getComputedStyle(document.documentElement).fontSize), exp: Object.fromEntries([...document.querySelectorAll('[aria-expanded][id]')].map((e) => ['#' + e.id, e.getAttribute('aria-expanded')])) })`)
+  return { page, rings, before, after, reopened, restored: after.active === before.active && after.sx === before.sx && after.sy === before.sy && JSON.stringify(after.exp) === JSON.stringify(before.exp) }
+}
+
+function power() {
+  const sh = (cmd, a) => execFileSync(cmd, a, { encoding: 'utf8' })
+  const batt = sh('pmset', ['-g', 'batt']), pm = sh('pmset', ['-g']), up = sh('uptime', []).trim()
+  const ac = /AC Power/.test(batt), level = Number((batt.match(/(\d+)%/) ?? [])[1]), mode = Number((pm.match(/^\s*powermode\s+(\d+)/m) ?? [])[1])
+  return { at: new Date().toISOString(), source: ac ? 'AC' : 'battery', level, powermode: mode, load: Number((up.match(/load averages?: ([\d.]+)/) ?? [])[1]), ok: ac || (level > 50 && !(/lowpowermode\s+1/.test(pm) || mode === 1)) }
+}
+
+// VH-210 #2, on Orchestrator #34's ruling on the 638 ("walk them, with the 432"): every forced record PLANS declares, parts.mjs registered,
+// deduplicated by id, variant, language, view and mode, minus the item's own 432 (S-112, S-113 at any view; S-83, S-145 at w1280 and w320),
+// each kept whole as its plan declares it (its own view, variant and fields). Split into parts by whole scenarios, near equal by the walker's own `estimate`.
+const MINE = (r) => !r.variant && (['S-112', 'S-113'].includes(r.id) || (['S-83', 'S-145'].includes(r.id) && ['w1280', 'w320'].includes(r.view)))
+function forcedAll(PLANS, estimate, part) {
+  const seen = new Map()
+  for (const fn of Object.values(PLANS)) { let recs; try { recs = fn() } catch { continue } for (const r of recs ?? []) { if (!/^forced/.test(r.mode) || MINE(r)) continue; const k = [r.id, r.variant ?? '', r.lang, r.view, r.mode].join('|'); if (!seen.has(k)) seen.set(k, { ...r }) } }
+  const all = [...seen.values()], ids = [...new Set(all.map((r) => r.id))]
+  const cost = Object.fromEntries(ids.map((id) => [id, estimate(all.filter((r) => r.id === id)) + 10 * all.filter((r) => r.id === id).length]))
+  const [k, n] = String(part ?? '1/1').split('/').map(Number), bins = Array.from({ length: n }, () => ({ ids: [], s: 0 }))
+  for (const id of [...ids].sort((a, b) => cost[b] - cost[a] || (a < b ? -1 : 1))) { const b = bins.reduce((m, x) => (x.s < m.s ? x : m)); b.ids.push(id); b.s += cost[id] }
+  return { all, bins: bins.map((b) => ({ ...b, records: all.filter((r) => b.ids.includes(r.id)).length })), records: all.filter((r) => bins[k - 1].ids.includes(r.id)) }
+}
+
+async function walk() {
+  for (const k of ['APP_URL', 'CDP_PORT', 'FIX', 'OUT_ROOT', 'RUN_ROOT', 'OUTD']) if (!process.env[k]) throw new Error('set ' + k)
+  const walker = resolve(args.walker), label = args.label ?? 'before'
+  const matrixUrl = pathToFileURL(join(walker, 'matrix.mjs')).href
+  const at = (f) => import(new URL('./' + f, matrixUrl).href)
+  const { PLANS, SCENARIOS, ROUTES, estimate } = await at('scenarios.mjs')
+  await at('parts.mjs')
+  const { sleep } = await at('walk.mjs')
+  const { focusArea, focusByKeyboard } = await at('qualify.mjs')
+  const fa = args['forced-all']
+  let records, scenarios, langs, views, modes
+  if (fa) {
+    records = forcedAll(PLANS, estimate, fa).records
+    scenarios = [...new Set(records.map((r) => r.id))]; langs = [...new Set(records.map((r) => r.lang))]; views = [...new Set(records.map((r) => r.view))]; modes = [...new Set(records.map((r) => r.mode))]
+    if (records.some((r) => ROUTES[r.id])) throw new Error('a route among the forced records: the probe has no hook there')
+  } else {
+    scenarios = list(args.scenarios ?? 'S-113,S-112')
+    langs = list(args.langs ?? 'en-GB,zh-Hans,ms-MY'); views = list(args.views ?? 'w1280,w640,w401,w400,w375,w320')
+    modes = list(args.modes ?? 'light,dark,forced-light,forced-dark,font32,dark-font32,forced-light-font32,forced-dark-font32')
+    records = scenarios.flatMap((id) => langs.flatMap((lang) => views.flatMap((view) => modes.map((mode) => ({ id, lang, view, mode })))))
+  }
+  const plan = `vh210-${label}-${args.name ?? 'run'}`, p = power()
+  mkdirSync(process.env.RUN_ROOT, { recursive: true })
+  appendFileSync(join(process.env.RUN_ROOT, 'vh210-ledger.jsonl'), JSON.stringify({ plan, label, power: p, walker, records: records.length, forcedAll: fa ?? null, scenarios, langs, views, modes }) + '\n')
+  if (!p.ok) { console.log('POWER-STOP'); process.exit(3) }
+  const OUT = join(process.env.RUN_ROOT, `vh210-probe-${plan}.jsonl`)
+  const wrap = (id, vid, orig) => async (w) => {
+    // VH-219's in-memory spacing modes: setMode reads the prefix (dark, forced) and this adds the walker's own 1.4.12 sheet, before the scenario's own afterMode,
+    // where setMode puts it for `spacing` (smoke-1: S-83's scroll to the end, taken before the sheet, left its state unreached).
+    if (/.-spacing$/.test(w.qualMode)) { await w.spacing(true); await sleep(100) }
+    if (orig) await orig(w)
+    let g
+    try { g = await probe(w, { focusArea, focusByKeyboard, sleep }) } catch (e) { g = { error: String(e.message ?? e).slice(0, 200) } }
+    // S-112's state holds the "?" focused; the instruments blur it by the second record, so it is restaged in each mode (as VH-219 did).
+    if (id === 'S-112') { await focusByKeyboard(w, '#onset-help-button'); await sleep(50) }
+    appendFileSync(OUT, JSON.stringify({ plan, cell: w.name.split('/').pop(), walk: w.name, id, ...(vid ? { variant: vid } : {}), mode: w.qualMode, at: new Date().toISOString(), ...g }) + '\n')
+  }
+  for (const id of scenarios) {
+    const orig = SCENARIOS[id]; if (!orig) throw new Error('no scenario ' + id)
+    const { views: _drop, viewsWhy: _why, ...rest } = orig
+    // The item's own scenarios drop their `views` limit so its six widths run; the forced records keep their scenario whole.
+    SCENARIOS[id] = { ...(fa ? orig : rest), afterMode: wrap(id, null, orig.afterMode) }
+    if (orig.variants) SCENARIOS[id].variants = Object.fromEntries(Object.entries(orig.variants).map(([v, x]) => [v, x.afterMode ? { ...x, afterMode: wrap(id, v, x.afterMode) } : x]))
+  }
+  PLANS[plan] = () => records.map((r) => ({ ...r }))
+  process.argv = [process.argv[0], fileURLToPath(matrixUrl), plan]
+  await import(matrixUrl)
+}
+
+// Read-only: the forced records' parts, by `node vh210-driver.mjs parts --walker <dir> --parts n`.
+async function parts() {
+  const at = (f) => import(pathToFileURL(join(resolve(args.walker), f)).href)
+  const { PLANS, estimate } = await at('scenarios.mjs'); await at('parts.mjs')
+  const n = Number(args.parts ?? 4), r = forcedAll(PLANS, estimate, `1/${n}`)
+  console.log('forced records minus the 432:', r.all.length)
+  r.bins.forEach((b, i) => console.log(`part ${i + 1}/${n}: ${b.records} records, estimate ${b.s} s: ${b.ids.join(',')}`))
+}
+if (args._[0] === 'walk') await walk()
+else if (args._[0] === 'parts') await parts()
+else if (args._[0] !== 'lib') { console.log('usage: node vh210-driver.mjs walk --walker <dir> --label <l> --name <n> [--scenarios S-113,S-112 | --forced-all k/n]; parts --walker <dir> --parts n'); process.exit(2) }

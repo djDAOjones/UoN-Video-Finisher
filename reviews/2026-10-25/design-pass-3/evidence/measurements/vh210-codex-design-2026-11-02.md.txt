@@ -1,0 +1,139 @@
+**Recommend forced-colour-only spacing between the two contact links, with no V-48 CSS change.** This is a design recommendation at `96f5647`; nothing was edited or built.
+
+**1. V-48 is clear on this base.** The onset “?” passes **72/72 cells**, including ms-MY, 320 px, `font32`: **528/464 px²**. The title “?” has the same result. Neither ring crosses the viewport, a clipping ancestor, another control’s text or its own glyph. [Probe:69][v48]
+
+At 375 px, twelve onset rows place some changed pixels outside the mathematically predicted band, but the total remains 528: a fractional-coordinate/DPR3 registration effect, not missing paint. The driver’s newer `snap` classification addresses this. [Driver:57][snap]
+
+Record V-48 as resolved on the current base and add no rule, as the criterion permits. These readings do **not** establish where the historical four pixels went; do not retrospectively call them viewport clipping. [VH-210:9][item]
+
+**2. V-49 remains, more broadly than its old record.** `#contact-creators` fails these default-font S-83 cells in **both** forced palettes:
+
+| Language / width | Area at 3:1 / required | Band pixels lost |
+|---|---:|---:|
+| en-GB / 320 | 1,108 / 1,264 | 220 |
+| zh-Hans / 320 | 1,058 / 1,264 | 270 |
+| ms-MY / 1280 | 1,595 / 1,968 | 437 |
+| ms-MY / 320 | 1,182 / 1,360 | 242 |
+
+Evidence: [probe lines 3–12][v49]. All other footer links pass those twelve cells; all footer controls pass the 72 large-font S-113 cells.
+
+The lost strip lies under **Self Service’s first text rectangle**, predominantly its forced-colour **Canvas backplate**, rather than glyph ink. Most affected pixels remain white→white or black→black. There is no viewport or ancestor clipping. The [focused clip][clip] makes the erased lower edge visible.
+
+Outside forced colours, transparent text paint does not introduce that Canvas rectangle across the ring; the footer retains its white ring on Nottingham Blue. Forced colours replace the ring with `Highlight`. [Brand tokens:191][brand]; [app.css:2120][highlight]
+
+**3. Use this exact addition inside the existing forced-colours block:**
+
+```css
+.footer-help-list > li + li {
+  margin-block-start: var(--focus-room);
+}
+```
+
+Put it within [app.css:1904][forced]. `--focus-room` is **4 CSS px at both font sizes**, exactly outline width plus offset; `--spacing-02` would become 8 px at 32 px. [Carbon tokens:97][tokens]
+
+This preserves link widths, wrapping and hit boxes, including their 44 px minimum height. It increases the footer’s height by **4 px under forced colours**, moving Self Service and subsequent footer content down. That includes one-line cases: the link itself remains unchanged, but its separation changes. Record this explicitly under “each change explained”; do not claim unchanged footer height. Outside forced colours everything stays as now. [app.css:224][links]; [VH-210:10–11][item]
+
+I would reject the simple inset alternative:
+
+```css
+.footer-help-list .footer-contact-link:focus-visible {
+  outline-offset: calc(-1 * var(--focus-width));
+}
+```
+
+Although it preserves footer height and targets, a 2 px inset ring has exactly the required area, with no spare pixels. These links have **no internal padding**. Its vertical edges would meet their own text/backplates, including these observed line starts:
+
+- English: `Staff…`, `Teams…`.
+- Chinese: `教职员工…`, `提问…`.
+- Malay, 320: `Kakitangan…`, `pencipta…`, `baharu)`; 1280: `Kakitangan…`, `dalam…`.
+
+Shrink-to-fit one-line links also put the right edge against the terminal `)`/`）`. Exact ink intersections depend on font bearings; this is a geometric prediction from the existing clips, **not a measured inset remedy**. [Probe:3–12][v49]; [perimeter calculation:763][perimeter]
+
+**4. The proposed selector has one current match:** the second list item containing `#contact-self-service`. Creators stays put; Self Service and subsequent footer content move down. The feedback-form link and Report a problem button retain their own geometry and styling. [index.html:844][footer]
+
+Leave the shared `.footer-contact-link, .notification-link` declaration untouched. Its other caller is the translation-feedback link. Leave global `:focus-visible`, all three help buttons and both token files untouched. Thus no notification or unrelated control acquires spacing or an inset ring. [language-switcher.ts:126][notification]
+
+**5. The matrix needs more than 384 cells.** Using all current exported `PLANS`, including registered part/run plans, deduplicated by `(id, variant, language, view, mode)`, my declared inventory for this scoped remedy is:
+
+| Coverage, each side | Cells |
+|---|---:|
+| S-112 and S-113 × six widths × three languages × eight colour/font modes | 288 |
+| S-83 and S-145 × two widths × three languages × eight modes | 96 |
+| Existing named-scenario records outside that grid | 28 |
+| Other existing forced-palette records reached by this rule | 622 |
+| **Total declared page cells per side** | **1,034** |
+
+The eight modes include all three qualified combined modes. The extra 28 retain spacing, fallback, reduced motion, 375 px and the existing short/landscape/zoom-proxy records. The 622 include other page states and current fix plans; do not silently restrict the inventory to four scenarios. Existing `ROUTES` contribute 24 light records, so none is directly changed by this forced-only rule. [Driver:130][dimensions]; [PLANS:1331][plans]; [parts recipes:55][parts]
+
+That is an **inventory**, not 1,034 claimed passes. Preserve applicability:
+
+- S-112’s extra wide cases and S-113’s 400/375 cases are reachable; their old `views` lists merely restrict declarations.
+- Format “?” is hidden behind the initially closed title disclosure. Open it through its control for separately identified disclosed-state readings; an absent ring is not a pass.
+- Onset is absent in the empty S-83/S-145 states. Disabled controls and controls behind a modal cannot supply keyboard-ring readings.
+- Existing format scenarios/routes that never open the new title disclosure cannot reach their intended state as written. Preserve that failure and label legitimately staged replacement evidence separately. [index.html:59][disclosure]; [scenarios:2237][scenarios]; [main.ts:744][about]
+
+Measure all reachable footer/help rings, including title and disclosed format/open-tip states. Add **text-spacing subchecks with the forced rule active**: the eight colour/font modes alone do not test 1.4.12.
+
+**Timing can affect readings.** `focusArea` compares whole clips separated by fixed waits; layout, font or state changes can contaminate their difference. State checks before/after help, but do not prove stable paint. The probe restores focus and scroll, not open-tip state; moving focus closes tips. Its extension to open states must therefore verify those states explicitly. [qualify.mjs:735][focus]; [main.ts:732][tip]; [driver:112][restore]
+
+**6. Keep misleading walker rows, with qualifications beside them.**
+
+- S-112’s option-fit assertion and S-113’s “clipped” list still measure single-line canvas widths, ignoring VH-219’s wrapping. Preserve raw results; use rendered-text evidence to interpret them. [scenarios:2253][selectrows]
+- `readings.footer.gap` measures **System check → Accessibility statement**, not contact-link separation or footer height. Add direct footer/list geometry readings. [scenarios:101][footergap]
+- Existing core focus lists omit the title and hidden format “?”; their aggregate pass cannot cover those controls.
+- Whole-page 32 px captures have the documented default-font rendering problem. Use verified viewport captures for large-font visual judgement. [VH-219 evidence:82][capture]
+
+The side probe also needs accurate wording: its “text” attribution uses **Range rectangles**, not glyph masks. Its `band3` alone is not a verdict, particularly at DPR3. The walker counts all changed pixels in the clip, so pair its area result with the band geometry and images. [Driver:39][method]
+
+**7. Expected outcome and standards judgement.** A keyboard user should see one complete ring enclosing the selected help route, clearly separated from the next route’s words. Four additional vertical pixels in a contrast theme are a reasonable, explicitly permitted cost.
+
+Expected movement is confined to the forced-colour footer’s second list item and following content. Link dimensions, wrapping, first-screen content above the footer, ordinary palettes, notification links and help-button styling stay unchanged. Compare against this base; VH-199 is reusable only where conditions actually match.
+
+Recheck each criterion separately:
+
+- **2.4.7:** visible keyboard focus.
+- **2.4.11 / 2.4.12:** focused component not entirely / partially obscured; ring-area success alone proves neither.
+- **2.4.13:** sufficient ≥3:1 same-pixel change, plus the item’s whole-ring requirement.
+- **1.4.11:** contrast against adjacent colours, independently of the same-pixel test.
+- **1.4.4 / 1.4.10:** enlargement and reflow without new loss or horizontal scrolling.
+- **1.4.12:** actual spacing overrides without lost content or function.
+- **2.5.5 / 2.5.8:** retain 44 × 44 targets, exceeding the 24 px floor. [WCAG digest:20][wcag]
+
+Chromium’s palettes remain emulation; **task D’s real Windows-theme check remains a person’s check**. No new UI-STANDARDS rule is needed. Pin the narrow CSS scope in the stylesheet test.
+
+What must hold:
+
+- V-48’s current resolution is recorded without an invented historical cause.
+- V-49’s eight failing cells clear, with no new ring loss.
+- The forced-only 4 px height change is measured and disclosed.
+- Every declared cell has an honest reached, failed or inapplicable result; supplemental states are identified.
+- CSS-only scope, existing tokens, unchanged walker and required close gates remain intact.
+- Close names **WCAG “focus appearance” / 2.4.13** and Carbon **“two token systems, never collapsed.”**
+
+[v48]: /Users/joe/UoN-Video-Helper-side/vh210-walk/probe-v48/runs/vh210-probe-vh210-probe-v48.jsonl:69
+[v49]: /Users/joe/UoN-Video-Helper-side/vh210-walk/probe-v49/runs/vh210-probe-vh210-probe-v49.jsonl:3
+[snap]: /Users/joe/UoN-Video-Helper-side/vh210-walk/vh210-driver.mjs:57
+[clip]: /Users/joe/UoN-Video-Helper-side/vh210-walk/probe-v49/clips/S-83-en-GB-w320__forced-dark__contact-creators-on.png
+[item]: </Users/joe/Library/CloudStorage/OneDrive-TheUniversityofNottingham/_Joe Bell UoN Files/2_Projects/2026-08-24 UoN Video Helper/project/items/VH-210.md:9>
+[brand]: </Users/joe/Library/CloudStorage/OneDrive-TheUniversityofNottingham/_Joe Bell UoN Files/2_Projects/2026-08-24 UoN Video Helper/src/styles/tokens.brand.css:191>
+[highlight]: </Users/joe/Library/CloudStorage/OneDrive-TheUniversityofNottingham/_Joe Bell UoN Files/2_Projects/2026-08-24 UoN Video Helper/src/styles/app.css:2120>
+[forced]: </Users/joe/Library/CloudStorage/OneDrive-TheUniversityofNottingham/_Joe Bell UoN Files/2_Projects/2026-08-24 UoN Video Helper/src/styles/app.css:1904>
+[tokens]: </Users/joe/Library/CloudStorage/OneDrive-TheUniversityofNottingham/_Joe Bell UoN Files/2_Projects/2026-08-24 UoN Video Helper/src/styles/tokens.carbon.css:97>
+[links]: </Users/joe/Library/CloudStorage/OneDrive-TheUniversityofNottingham/_Joe Bell UoN Files/2_Projects/2026-08-24 UoN Video Helper/src/styles/app.css:224>
+[perimeter]: </Users/joe/Library/CloudStorage/OneDrive-TheUniversityofNottingham/_Joe Bell UoN Files/2_Projects/2026-08-24 UoN Video Helper/reviews/2026-10-25/design-pass-3/evidence/measurements/walker/qualify.mjs:763>
+[footer]: </Users/joe/Library/CloudStorage/OneDrive-TheUniversityofNottingham/_Joe Bell UoN Files/2_Projects/2026-08-24 UoN Video Helper/index.html:844>
+[notification]: </Users/joe/Library/CloudStorage/OneDrive-TheUniversityofNottingham/_Joe Bell UoN Files/2_Projects/2026-08-24 UoN Video Helper/src/ui/language-switcher.ts:126>
+[dimensions]: /Users/joe/UoN-Video-Helper-side/vh210-walk/vh210-driver.mjs:130
+[plans]: </Users/joe/Library/CloudStorage/OneDrive-TheUniversityofNottingham/_Joe Bell UoN Files/2_Projects/2026-08-24 UoN Video Helper/reviews/2026-10-25/design-pass-3/evidence/measurements/walker/scenarios.mjs:1331>
+[parts]: </Users/joe/Library/CloudStorage/OneDrive-TheUniversityofNottingham/_Joe Bell UoN Files/2_Projects/2026-08-24 UoN Video Helper/reviews/2026-10-25/design-pass-3/evidence/measurements/walker/parts.mjs:55>
+[disclosure]: </Users/joe/Library/CloudStorage/OneDrive-TheUniversityofNottingham/_Joe Bell UoN Files/2_Projects/2026-08-24 UoN Video Helper/index.html:59>
+[scenarios]: </Users/joe/Library/CloudStorage/OneDrive-TheUniversityofNottingham/_Joe Bell UoN Files/2_Projects/2026-08-24 UoN Video Helper/reviews/2026-10-25/design-pass-3/evidence/measurements/walker/scenarios.mjs:2237>
+[about]: </Users/joe/Library/CloudStorage/OneDrive-TheUniversityofNottingham/_Joe Bell UoN Files/2_Projects/2026-08-24 UoN Video Helper/src/main.ts:744>
+[focus]: </Users/joe/Library/CloudStorage/OneDrive-TheUniversityofNottingham/_Joe Bell UoN Files/2_Projects/2026-08-24 UoN Video Helper/reviews/2026-10-25/design-pass-3/evidence/measurements/walker/qualify.mjs:735>
+[tip]: </Users/joe/Library/CloudStorage/OneDrive-TheUniversityofNottingham/_Joe Bell UoN Files/2_Projects/2026-08-24 UoN Video Helper/src/main.ts:732>
+[restore]: /Users/joe/UoN-Video-Helper-side/vh210-walk/vh210-driver.mjs:112
+[selectrows]: </Users/joe/Library/CloudStorage/OneDrive-TheUniversityofNottingham/_Joe Bell UoN Files/2_Projects/2026-08-24 UoN Video Helper/reviews/2026-10-25/design-pass-3/evidence/measurements/walker/scenarios.mjs:2253>
+[footergap]: </Users/joe/Library/CloudStorage/OneDrive-TheUniversityofNottingham/_Joe Bell UoN Files/2_Projects/2026-08-24 UoN Video Helper/reviews/2026-10-25/design-pass-3/evidence/measurements/walker/scenarios.mjs:101>
+[capture]: </Users/joe/Library/CloudStorage/OneDrive-TheUniversityofNottingham/_Joe Bell UoN Files/2_Projects/2026-08-24 UoN Video Helper/reviews/2026-10-25/design-pass-3/evidence/measurements/vh219-selects-r2-2026-11-01.md:82>
+[method]: /Users/joe/UoN-Video-Helper-side/vh210-walk/vh210-driver.mjs:39
+[wcag]: </Users/joe/Library/CloudStorage/OneDrive-TheUniversityofNottingham/_Joe Bell UoN Files/2_Projects/2026-08-24 UoN Video Helper/project/digests/wcag-2.2-aaa.md:20>

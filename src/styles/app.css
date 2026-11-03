@@ -2116,6 +2116,14 @@ body,
     outline-color: HighlightText;
   }
 
+  /* A footer link that wraps fills its 44 px box to the edge, and the theme
+     paints a backplate behind each line of text, so the ring of the link
+     above, drawn past its box by the ring's own room, lay under the next
+     link's first line (V-49). The items are spaced by that room. */
+  .footer-help-list > li + li {
+    margin-block-start: var(--focus-room);
+  }
+
   /* Every other ring takes the theme's own focus colour. */
   :focus-visible {
     outline-color: Highlight;
