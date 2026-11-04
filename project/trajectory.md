@@ -160,6 +160,7 @@
 - V3-CONFIRM — the owner confirmed every intake guess: the signatures, Network, Handoff and session hooks, gh outside the sandbox, the OneDrive checkout as the working copy with a sync guard after Codex's check, and en-GB prose (2026-10-05) — see decisions
 - V3-HARNESS — Codex runs outside the sandbox like gh, both session hooks confirmed running on this Mac, npm audit's dev-only findings captured (2026-10-05) — see decisions
 - V31-UPGRADE — the project runs pm-next v3.1: twelve tools, four verbs and the start-notice hook, the wish lines stamped, each phase oldest first, the AAA digest repaired, by pull request (2026-10-22) — see decisions
+- V31-REFRESH — the project runs pm-next v3.1 as the lab builds it at 4ab66b5: six tools and three verbs replaced and two tools and five add-on verbs added as a set, rule 9's Checked line by a model policy, Phase 1's and Phase 7's plans restated whole for the new phase-close rule, by pull request (2026-11-04) — see decisions
 
 ## Band 6 — review, then translate
 

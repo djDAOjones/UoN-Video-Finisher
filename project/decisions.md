@@ -14,9 +14,67 @@
      would need.
      **Supersedes:** YYYY-MM-DD — ID — title, or "none".
      Optional **Deferred:** comma-separated target IDs, or "none".
+     A PLAN-N entry also has **Items:** with its phase IDs. A later
+     PLAN-N Items list replaces the whole list and supersedes the
+     earlier; a closed phase is checked against the list no other
+     supersedes. Optional **Retired:** names items retired unshipped,
+     comma-separated, the reason in the entry: neither open nor
+     shipped, never reopened.
      Budget 45 live entries: when the validator warns, tools/archive.mjs
      moves the oldest entries verbatim to project/decisions-YYYY-MM.md,
      beside this file, listed in project/archive-index.md. -->
+
+## 2026-11-04 — V31-REFRESH — The project takes pm-next v3.1 as the lab now builds it: tools and verbs replaced as a set, the record kept
+
+**Decision:** the project runs pm-next v3.1 at PM-Skills lab 4ab66b5 from the commit carrying this entry: six tools and three verbs replaced, two tools and five add-on verbs added, as v3.1's set; rule 9 asks a Checked line only where a model policy requires it, and this project keeps none — because the owner asked on 2026-11-04 to upgrade the project after its first-month test.
+
+**Rationale:** The lab's V31-REFRESH-1. No route in v3.1's change notes covers a later v3.1 build over an installed v3.1 (the upgrade tool refuses a second snapshot), so this follows the "Existing installations" rules by hand: every installed file matched b5c6f4b's bytes, so no local edit is carried; tools and verbs are replaced as a set from lab/next-v31 at 4ab66b5; the contract merges rule 9's one change; no project template is copied over the record, and the decisions template's sentences on Items and Retired are merged into this file's comment. Replaced: check.mjs and ledger.mjs (a closed phase is checked against the PLAN Items list no other supersedes, a Retired field, traces read in a Rationale, the trajectory read by each line's own date with a phase-order warning), handover.mjs (the start notice's recovery sentences), harness.mjs (the post-commit hook rebuilds the status site), view.mjs (the status site beside view.html, both ignored here), migrate.mjs (the upgrade checks), and the intake, plan and close verbs. Added: brief.mjs and lanes.mjs, for orchestration and parallel writers, and the add-on verbs orchestrate, control, sweep, stocktake and design-review, which no rule reads. The session hooks are unchanged, so no setting is regenerated. The new checker failed Phase 1 and Phase 7, whose PLAN lists were additive; the four PLAN entries below restate them whole. Rollback: revert the pull request's merge commit; nothing outside the repository changes.
+
+- Migration edit: none — every replaced file was b5c6f4b's, byte for byte
+
+**Supersedes:** 2026-10-22 — V31-UPGRADE — The project runs pm-next v3.1: tools, verbs and the start-notice hook replaced as a set, the record kept
+
+**Deferred:** none
+
+## 2026-11-04 — PLAN-7 — Phase 7's twelve items restated whole, in place of the 22 October list
+
+**Decision:** Phase 7's items are VH-170 to VH-181, all shipped, the twelve its three PLAN-7 lists named between them; restated because v3.1's checker reads a later Items list as the whole list, and these lists were additive. No membership changes.
+
+**Rationale:** Record-only, by V31-REFRESH. The new phase-close rule takes the PLAN-7 list no other supersedes and fails three different lists left standing. An entry supersedes one entry, so this and the next two restate the same twelve items, each in place of one of the three lists; nothing is re-judged.
+
+**Supersedes:** 2026-10-22 — PLAN-7 — A second design, UX and accessibility pass, with Codex astra as partner at every stage, gates the cut
+
+**Items:** VH-170, VH-171, VH-172, VH-173, VH-174, VH-175, VH-176, VH-177, VH-178, VH-179, VH-180, VH-181
+
+## 2026-11-04 — PLAN-7 — Phase 7's twelve items restated whole, in place of the fix plan's list
+
+**Decision:** Phase 7's items are VH-170 to VH-181, as the entry above restates them, here in place of the fix plan's list. No membership changes.
+
+**Rationale:** Record-only, by V31-REFRESH; the reason is the entry above's.
+
+**Supersedes:** 2026-10-23 — PLAN-7 — The fix plan: VH-178 to VH-180 for seven findings; the owner's ask decided on the standing instruction
+
+**Items:** VH-170, VH-171, VH-172, VH-173, VH-174, VH-175, VH-176, VH-177, VH-178, VH-179, VH-180, VH-181
+
+## 2026-11-04 — PLAN-7 — Phase 7's twelve items restated whole, in place of the four wish lines' list
+
+**Decision:** Phase 7's items are VH-170 to VH-181, as the entries above restate them, here in place of the list of the owner's four wish lines. No membership changes.
+
+**Rationale:** Record-only, by V31-REFRESH; the reason is the entries' above.
+
+**Supersedes:** 2026-10-23 — PLAN-7 — The owner decides the four wish lines: one name for step 4, a forced-colour hover, V-18 accepted, the statement edited once
+
+**Items:** VH-170, VH-171, VH-172, VH-173, VH-174, VH-175, VH-176, VH-177, VH-178, VH-179, VH-180, VH-181
+
+## 2026-11-04 — PLAN-1 — Phase 1's five items restated whole, in place of the 18 October closing's list
+
+**Decision:** Phase 1's items are VH-126, VH-127, VH-128, VH-131 and VH-132, all shipped, as the 19 October list names them; restated in place of the 18 October list of three, which v3.1's checker would otherwise leave standing beside it. No membership changes.
+
+**Rationale:** Record-only, by V31-REFRESH, for the reason the PLAN-7 entries above give.
+
+**Supersedes:** 2026-10-18 — PLAN-1 — Internal use only is the official closing with words added; no card text under 28 pt
+
+**Items:** VH-126, VH-127, VH-128, VH-131, VH-132
 
 ## 2026-11-04 — VH-225 — Closes: the repository and the Pages address renamed, on the owner's word
 
