@@ -14,9 +14,67 @@
      would need.
      **Supersedes:** YYYY-MM-DD — ID — title, or "none".
      Optional **Deferred:** comma-separated target IDs, or "none".
+     A PLAN-N entry also has **Items:** with its phase IDs. A later
+     PLAN-N Items list replaces the whole list and supersedes the
+     earlier; a closed phase is checked against the list no other
+     supersedes. Optional **Retired:** names items retired unshipped,
+     comma-separated, the reason in the entry: neither open nor
+     shipped, never reopened.
      Budget 45 live entries: when the validator warns, tools/archive.mjs
      moves the oldest entries verbatim to project/decisions-YYYY-MM.md,
      beside this file, listed in project/archive-index.md. -->
+
+## 2026-11-04 — V31-REFRESH — The project takes pm-next v3.1 as the lab now builds it: tools and verbs replaced as a set, the record kept
+
+**Decision:** the project runs pm-next v3.1 at PM-Skills lab 4ab66b5 from the commit carrying this entry: six tools and three verbs replaced, two tools and five add-on verbs added, as v3.1's set; rule 9 asks a Checked line only where a model policy requires it, and this project keeps none — because the owner asked on 2026-11-04 to upgrade the project after its first-month test.
+
+**Rationale:** The lab's V31-REFRESH-1. No route in v3.1's change notes covers a later v3.1 build over an installed v3.1 (the upgrade tool refuses a second snapshot), so this follows the "Existing installations" rules by hand: every installed file matched b5c6f4b's bytes, so no local edit is carried; tools and verbs are replaced as a set from lab/next-v31 at 4ab66b5; the contract merges rule 9's one change; no project template is copied over the record, and the decisions template's sentences on Items and Retired are merged into this file's comment. Replaced: check.mjs and ledger.mjs (a closed phase is checked against the PLAN Items list no other supersedes, a Retired field, traces read in a Rationale, the trajectory read by each line's own date with a phase-order warning), handover.mjs (the start notice's recovery sentences), harness.mjs (the post-commit hook rebuilds the status site), view.mjs (the status site beside view.html, both ignored here), migrate.mjs (the upgrade checks), and the intake, plan and close verbs. Added: brief.mjs and lanes.mjs, for orchestration and parallel writers, and the add-on verbs orchestrate, control, sweep, stocktake and design-review, which no rule reads. The session hooks are unchanged, so no setting is regenerated. The new checker failed Phase 1 and Phase 7, whose PLAN lists were additive; the four PLAN entries below restate them whole. Rollback: revert the pull request's merge commit; nothing outside the repository changes.
+
+- Migration edit: none — every replaced file was b5c6f4b's, byte for byte
+
+**Supersedes:** 2026-10-22 — V31-UPGRADE — The project runs pm-next v3.1: tools, verbs and the start-notice hook replaced as a set, the record kept
+
+**Deferred:** none
+
+## 2026-11-04 — PLAN-7 — Phase 7's twelve items restated whole, in place of the 22 October list
+
+**Decision:** Phase 7's items are VH-170 to VH-181, all shipped, the twelve its three PLAN-7 lists named between them; restated because v3.1's checker reads a later Items list as the whole list, and these lists were additive. No membership changes.
+
+**Rationale:** Record-only, by V31-REFRESH. The new phase-close rule takes the PLAN-7 list no other supersedes and fails three different lists left standing. An entry supersedes one entry, so this and the next two restate the same twelve items, each in place of one of the three lists; nothing is re-judged.
+
+**Supersedes:** 2026-10-22 — PLAN-7 — A second design, UX and accessibility pass, with Codex astra as partner at every stage, gates the cut
+
+**Items:** VH-170, VH-171, VH-172, VH-173, VH-174, VH-175, VH-176, VH-177, VH-178, VH-179, VH-180, VH-181
+
+## 2026-11-04 — PLAN-7 — Phase 7's twelve items restated whole, in place of the fix plan's list
+
+**Decision:** Phase 7's items are VH-170 to VH-181, as the entry above restates them, here in place of the fix plan's list. No membership changes.
+
+**Rationale:** Record-only, by V31-REFRESH; the reason is the entry above's.
+
+**Supersedes:** 2026-10-23 — PLAN-7 — The fix plan: VH-178 to VH-180 for seven findings; the owner's ask decided on the standing instruction
+
+**Items:** VH-170, VH-171, VH-172, VH-173, VH-174, VH-175, VH-176, VH-177, VH-178, VH-179, VH-180, VH-181
+
+## 2026-11-04 — PLAN-7 — Phase 7's twelve items restated whole, in place of the four wish lines' list
+
+**Decision:** Phase 7's items are VH-170 to VH-181, as the entries above restate them, here in place of the list of the owner's four wish lines. No membership changes.
+
+**Rationale:** Record-only, by V31-REFRESH; the reason is the entries' above.
+
+**Supersedes:** 2026-10-23 — PLAN-7 — The owner decides the four wish lines: one name for step 4, a forced-colour hover, V-18 accepted, the statement edited once
+
+**Items:** VH-170, VH-171, VH-172, VH-173, VH-174, VH-175, VH-176, VH-177, VH-178, VH-179, VH-180, VH-181
+
+## 2026-11-04 — PLAN-1 — Phase 1's five items restated whole, in place of the 18 October closing's list
+
+**Decision:** Phase 1's items are VH-126, VH-127, VH-128, VH-131 and VH-132, all shipped, as the 19 October list names them; restated in place of the 18 October list of three, which v3.1's checker would otherwise leave standing beside it. No membership changes.
+
+**Rationale:** Record-only, by V31-REFRESH, for the reason the PLAN-7 entries above give.
+
+**Supersedes:** 2026-10-18 — PLAN-1 — Internal use only is the official closing with words added; no card text under 28 pt
+
+**Items:** VH-126, VH-127, VH-128, VH-131, VH-132
 
 ## 2026-11-04 — VH-225 — Closes: the repository and the Pages address renamed, on the owner's word
 
@@ -561,55 +619,3 @@
 **Supersedes:** none
 
 **Deferred:** VH-193
-
-## 2026-10-25 — VH-191 — Video language moves to the top of step 3, before the title card choice, and locks with step 3; the next-video line is Video type's alone
-
-**Decision:** The Video language choice moves from under Video type to the top of step 3, under its heading and the lock note and before the title card choice, outside that group. It stays in view with the card off or on and on a student submission. It locks with step 3 while a video is made or saved. `#video-next` moves into Video type with B9's words as `videoKind.nextVideo`, and `videoLanguage.nextVideo` is gone. Spec §9.1 takes S19.
-
-**Rationale:** Q4, the owner's answer: "proceed with your reccomendation", which was option 1, Video language into step 3. On the placement, his words, verbatim: "A: Video language at the top of step 3, under the heading, before the title card choice". The fieldset moved unchanged: the same native radios, label, accessible name and keyboard. It keeps its remembered pick and follows the page's language until someone picks one. `applyControlLock` disables it beside `titleCardChoice`, so a save, a cancel and a failure free it on the same path. The line that moved `#video-next` under Video type when the language choice was hidden is gone. A page-language change during a job still moves the shown choice when nobody has picked one, as the date field in the same locked step already does, while the job keeps the language it started with. Codex astra called that "required by the retained 'until picked' contract". Both English strings were graded first: 6.7 and 3.8. The Chinese and Malay rows are agent drafts, marked as such. Chrome: `lang-191.mjs`, 36 matrix cases and 6 flows (`reviews/2026-10-24/vh191-lang-2026-10-25.md`). Codex astra: "Commit after the musts below". Its two musts, a whole-sentence check of the result's language and this close, are done, and both shoulds were taken (`reviews/2026-10-24/codex-astra-vh191-check-2026-10-25.md`). This supersedes VH-132 in placement and locking only, as PLAN-8 records. Digest rules applied: Nielsen 2 (the choice sits where its words are used) and 5 (two look-alike switches told apart); WCAG 1.3.1 and 3.3.2 (legend and helper tie to the group), 2.1.1 (native radios), 2.5.5 (44 px); Carbon, the existing segmented control and type roles.
-
-**Supersedes:** none
-
-**Deferred:** VH-192
-
-## 2026-10-25 — VH-182 — The footer's routes grouped by need under "Help and feedback"; Send feedback renamed Report a problem, and problem reports go to the learning content team
-
-**Decision:** The footer's routes sit under one `h2`, "Help and feedback", in three groups, each an `h3` question: staff's Creators team and students' Self Service links; the Report a problem button; the feedback form. The group stays unboxed in the band, as the links were, following the owner's standing rule that the app adds no control. `FEEDBACK_ADDRESS` is the learning content team's, the email link to it leaves the footer, and the button, dialog, five errors and statement take the sheet's words.
-
-**Rationale:** The words are the sheet's VH-182 rows and Q7 option 1, with the owner's changes. Every new English string was graded first and all pass; `statement.contact.text` is the highest at 9.5. Hand-over 8 asked whether the group should be unboxed or a panel like the two disclosures. The orchestrator answered: unboxed, since a panel or disclosure would add a control. The group is a `div`, so the footer gains no landmark. Its `h2` takes the panel heading role and its `h3`s the section heading role, so no new token is needed. `SELF_SERVICE_URL` is new and `LEARNING_CONTENT_TEAM_ADDRESS` is gone. The statement's contact follows `FEEDBACK_ADDRESS`, and "About this statement" still names Joe Bell. The README gains a "Help and feedback" section listing the four routes. Spec §9.2 and §11 take S22 and S24, which carry VH-160.1; the spec stays within 8,100 words. The Chinese and Malay rows are drafted by the agent and marked so. Chrome: `footer-182.mjs` passes 36 matrix cases and 3 flows (`reviews/2026-10-24/vh182-footer-2026-10-25.md`). Codex astra: "Commit after the musts below". Its must was this close. All three shoulds were taken: exact URLs, accessible names, target widths and the container in the walker, and the dialog's no-script intro. Digest rules applied: WCAG 2.4.9 (each link says alone where it goes), 2.4.10 (section headings) and 2.5.5 (44 px targets); Nielsen 4 (one name per route) and 10 (help findable in one place); Carbon, the existing type roles.
-
-**Supersedes:** none
-
-**Deferred:** VH-191
-
-## 2026-10-25 — PLAN-8 — Phase 8 ends with a third full design, UX and accessibility pass, VH-197 to VH-203, in Phase 7's stages, before VH-195 closes it
-
-**Decision:** After VH-194, Phase 8 runs a third pass as thorough as Phase 7's: plan, re-proved instruments with Codex astra's blind review, the evidence run, judging, the merged report, the fix plan, and the fixes with an after-run and integrated check. VH-195 keeps only the close, as VH-177 did. The owner asked for an analysis "as thorough as before".
-
-**Rationale:** The owner asked: "does phase 8 include a concluding analysis of design, UX, and accessibility? It should include one equivalent to that which started that work, to ensure things are all good. add to the backlog if needed (it must be as thorough as before)". It did not: VH-195 held one walk of the four journeys and one Codex check, against Phase 7's eight stages (VH-170 to VH-177). The work that started Phase 8 is Phase 7's second pass, whose wish lines and held-back findings Phase 8 builds; so VH-197 to VH-203 repeat VH-170 to VH-176 one for one, item file to item file, on the Phase 8 build, as `design-pass-3`. Two things are new: a Phase 8 contract replaces the six-fix contract, one row per Phase 8 item plus Phase 7's fixes VH-178 to VH-181; and the walker gains the elements Phase 8 added (the native player, the second toggletip, the footer's headings, the limiting warning, Video language in step 3), with one more planted failure for the player. The matrix is no smaller than VH-172's run, the "before" the owner meant; any further reduction is the owner's call. VH-195's walk and integrated check move into VH-203's after-run and check, and it takes VH-177's close criteria. VH-172.1's 641 unrun cells stay a wish line, unchanged. The backlog stands at 996 of 1,000 words after these lines.
-
-**Supersedes:** 2026-10-24 — PLAN-8 — Phase 8, the owner's UX pass: thirteen pieces, VH-182 to VH-195, one wording sheet; Q5 to Q7 worked out in round 2
-
-**Items:** VH-182, VH-183, VH-184, VH-185, VH-186, VH-187, VH-188, VH-189, VH-190, VH-191, VH-192, VH-193, VH-194, VH-196, VH-197, VH-198, VH-199, VH-200, VH-201, VH-202, VH-203, VH-195
-
-**Deferred:** VH-197, VH-198, VH-199, VH-200, VH-201, VH-202, VH-203
-
-## 2026-10-25 — VH-190 — "Create the video again" beside the chosen file's finished video; beside a "Previous video" it reads "Create the video"
-
-**Decision:** Create reads B8's `create.again`, "Create the video again", while a finished video made from the file now chosen is on screen, saved or not; at every other time, a "Previous video" included, it reads "Create the video", the owner's choice A. One helper, `labelCreate()`, sets it at boot, on a language change and on every change of the result's state. The emphasis rule and the discard question are unchanged.
-
-**Rationale:** B8 says "used while a finished video is on screen", which read literally also covers an unsaved video left as "Previous video — {size}" after another file is chosen, where Create makes a different video. A and B went to the owner through the orchestrator. His words, verbatim: "A: "Create the video again" only while the video on screen was made from the file now chosen; beside a "Previous video" it reads "Create the video"". So the label reads `resultOfChosenFile()`, apart from the emphasis rule `resultOnScreen()`, which keeps Create secondary beside any unsaved video, as before. Codex astra: "Commit after the musts below". Its musts: a saved result made again and then failed or cancelled kept "again", so `beginJob` now relabels after clearing the result; a saved previous video read differently from an unsaved one, which A settles; and the walker's checks were strengthened. `savedResultFor` moved up beside `unsavedResult` so the boot call can read it. Spec §12's "Create the video" names the first press; the sheet lists no correction for B8. Chinese and Malay drafted by the agent, in `result.endedEarly.next`'s own words. Chrome: `again-190.mjs` (`reviews/2026-10-24/vh190-again-2026-10-25.md`). Digest rules applied: Nielsen 1 (the button says what it will do now) and 5 (the discard question kept); WCAG 2.5.3 and 4.1.2 (the accessible name is the label), 3.2.1 (a relabel moves no focus); Carbon, one primary per state, unchanged.
-
-**Supersedes:** none
-
-**Deferred:** VH-182
-
-## 2026-10-25 — VH-196 — The lede's five promises in the owner's words, and a "?" beside "Saves in a reliable format." that explains MP4
-
-**Decision:** The lede lists the owner's five promises. Beside the fourth, a "?" toggletip named "About the video format" holds his MP4 hint, wired with the onset "?"'s own code (`wireToggletip`). MP4's recorded meaning also accepts the hint's own "an MP4, the most interoperable video format", the owner's choice A. The spec needs no correction: it describes no lede.
-
-**Rationale:** The hint passed the reading grade (5.3) but failed the abbreviation check in `index.html`, whose text has no ".mp4". Options A, B and C went to the owner through the orchestrator. A was recognise the hint's apposition, B was no no-script English for the tip, and C was a reword. His words, verbatim: "A, and accept "About the video format" as the "?" name". So `MEANINGS.MP4` in `test/readability.test.ts` is `/\.mp4|an MP4, the most interoperable video format/`, tight to that phrasing, and nothing joins `EXCEPTED`. The name was the build's proposal, 4 words, ungraded. The orchestrator asked for a spec correction "in the S17 area", but `docs/01-specification.md` holds no lede or promise list, and S17 is the browser note. The orchestrator then said this was its mistake, so no promise list is added to the spec. The file button moves down 68 to 116 px, about where it was before VH-187 raised it. At 1280 by 900 in English it is still in the first screen (`reviews/2026-10-24/vh196-lede-2026-10-25.md`). Chrome: `tip-196.mjs` 36 of 36, `tip-184.mjs` 36 of 36 (the onset "?" unchanged), `top-187.mjs` 99 of 99. At 32 px text, 375 and 320 px overflow from the video type's segments and the statement's heading, not the lede (VH-189.1). Chinese and Malay drafted by the agent. Codex astra: "Commit after the musts below". Its must, the walker's whitespace pattern, was checked and the walker re-run, and its may to pin the whole hint was taken. Digest rules applied: WCAG 2.1.1 and 4.1.2 (a button that discloses by keyboard, with its state and name), 2.5.8 and 2.5.5 (44 px), 3.1.4 (the abbreviation's meaning beside it); Nielsen 10 (help in place, on demand); Carbon, the existing toggletip pattern and tokens.
-
-**Supersedes:** none
-
-**Deferred:** VH-190
