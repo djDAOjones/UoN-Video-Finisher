@@ -50,6 +50,13 @@
 - VH-210 — two focus rings: V-48 reads whole on the base after VH-209, 528 of 464 px² in all 72 of S-113's 32 px cells, so no rule; V-49's wrapped footer link whole in a forced palette by `--focus-room` between the footer list's items, failing 418 forced cells to 0, the forced footer 4 px taller, nothing outside forced colours moved; four wishes (2026-11-03) — see decisions
 - VH-225 — the rename to UoN Video Finisher, in two commits: the name on every surface in three languages, Penyiap Video UoN and UoN 视频成片工具 awaiting the native check, the hidden identifiers pinned, 1,690 of 1,695 cells reached a side; then, on the owner's "Renamed it", the repository, the Pages address djdaojones.github.io/UoN-Video-Finisher/ and every link to it, the old address 404; seven wishes (2026-11-04) — see decisions
 
+## V3 adoption
+
+- V3-CONFIRM — the owner confirmed every intake guess: the signatures, Network, Handoff and session hooks, gh outside the sandbox, the OneDrive checkout as the working copy with a sync guard after Codex's check, and en-GB prose (2026-10-05) — see decisions
+- V3-HARNESS — Codex runs outside the sandbox like gh, both session hooks confirmed running on this Mac, npm audit's dev-only findings captured (2026-10-05) — see decisions
+- V31-UPGRADE — the project runs pm-next v3.1: twelve tools, four verbs and the start-notice hook, the wish lines stamped, each phase oldest first, the AAA digest repaired, by pull request (2026-10-22) — see decisions
+- V31-REFRESH — the project runs pm-next v3.1 as the lab builds it at 4ab66b5: six tools and three verbs replaced and two tools and five add-on verbs added as a set, rule 9's Checked line by a model policy, Phase 1's and Phase 7's plans restated whole for the new phase-close rule, by pull request (2026-11-04) — see decisions
+
 ## Phase 7 — a second design, UX and accessibility pass, with Codex astra as partner, before the cut
 
 - VH-170 — the second pass planned and ticketed: four journeys, scenarios, qualified instruments, four lenses, seven Codex astra touchpoints, eight stages; Codex's twelve points applied (2026-10-22) — see decisions
@@ -125,6 +132,13 @@
 
 - VH-138 — the page audited again to the 1 October standard, live in headless Chrome in three languages, both switch positions, every closing and seven views, Codex astra blind and then adversarial: 17 findings, 2 at rank 1 (a cut-short file made and recorded as whole; a record blind to the new cards); 20 of 25 UX findings hold; all 86 WCAG criteria judged live; Phase 3 planned as PLAN-3, nothing built (2026-10-21) — see decisions
 
+## Owner requests
+
+- VH-125 — the trim preview follows the handle: a drag, a key or a typed time shows that point, paused, and a drag comes to rest on its last time (2026-10-18) — see decisions
+- VH-105 — the page in Simplified Chinese and Bahasa Malaysia, live as machine translation: a switcher at the top of the page repaints every string and `lang` in place, keeps the video, the trim, every choice, a running job, a result and a feedback draft, and is remembered in this browser; a note on each translated page invites better wording by email (2026-10-18) — see decisions
+- VH-130 — an accessibility statement on the page, in the GOV.UK model's shape and translated in full, partially compliant with WCAG 2.2 AA after the WAVE check; the footer emails the creators team and the learning content team, at the owner's address until theirs are given (2026-10-18) — see decisions
+- VH-147 — Claude Code sessions run without a project sandbox, as Vinyl Sorting's do: `.claude/settings.json` keeps only the session hooks and auto-memory off, so headless Chrome, Vite, the walker, Codex and gh are no longer sent to the Terminal panel or asked about for want of a sandbox rule (2026-10-21) — see decisions
+
 ## Phase 2 — the owner's corrections, the spec caught up, three page defects, a time left
 
 - VH-133 — the returned workbook's 21 changed cells are Google Translate's own re-run, every one still an unedited formula on unchanged English, not a person's wording; nothing merged, the reviewed tables stand (2026-10-20) — see decisions
@@ -147,20 +161,6 @@
 - VH-127 — the staff title card: an optional Step 3 box and four fields, drawn in the worker as white text on blue for 5 s before the video by a hard cut, wrapping large, refused at its field, never clipped; its words reach only the picture; checked in Chrome with real encodes; the spec says so (2026-10-19) — see decisions
 - VH-128 — the Student submission card: Step 3 locked on, four required fields — assignment, module, convenor or tutor, one to eight 8-digit student IDs — drawn labelled in the video's language with the running time as trimmed and the card's date, never the submission date; checked in Chrome in all three languages, trimmed and not, at 9:16 and 3:4; the spec says so (2026-10-19) — see decisions
 - RECALL — 8/8 (2026-10-19) — scores: 2,2,2,2 — local — see decisions
-
-## Owner requests
-
-- VH-125 — the trim preview follows the handle: a drag, a key or a typed time shows that point, paused, and a drag comes to rest on its last time (2026-10-18) — see decisions
-- VH-105 — the page in Simplified Chinese and Bahasa Malaysia, live as machine translation: a switcher at the top of the page repaints every string and `lang` in place, keeps the video, the trim, every choice, a running job, a result and a feedback draft, and is remembered in this browser; a note on each translated page invites better wording by email (2026-10-18) — see decisions
-- VH-130 — an accessibility statement on the page, in the GOV.UK model's shape and translated in full, partially compliant with WCAG 2.2 AA after the WAVE check; the footer emails the creators team and the learning content team, at the owner's address until theirs are given (2026-10-18) — see decisions
-- VH-147 — Claude Code sessions run without a project sandbox, as Vinyl Sorting's do: `.claude/settings.json` keeps only the session hooks and auto-memory off, so headless Chrome, Vite, the walker, Codex and gh are no longer sent to the Terminal panel or asked about for want of a sandbox rule (2026-10-21) — see decisions
-
-## V3 adoption
-
-- V3-CONFIRM — the owner confirmed every intake guess: the signatures, Network, Handoff and session hooks, gh outside the sandbox, the OneDrive checkout as the working copy with a sync guard after Codex's check, and en-GB prose (2026-10-05) — see decisions
-- V3-HARNESS — Codex runs outside the sandbox like gh, both session hooks confirmed running on this Mac, npm audit's dev-only findings captured (2026-10-05) — see decisions
-- V31-UPGRADE — the project runs pm-next v3.1: twelve tools, four verbs and the start-notice hook, the wish lines stamped, each phase oldest first, the AAA digest repaired, by pull request (2026-10-22) — see decisions
-- V31-REFRESH — the project runs pm-next v3.1 as the lab builds it at 4ab66b5: six tools and three verbs replaced and two tools and five add-on verbs added as a set, rule 9's Checked line by a model policy, Phase 1's and Phase 7's plans restated whole for the new phase-close rule, by pull request (2026-11-04) — see decisions
 
 ## Band 6 — review, then translate
 
