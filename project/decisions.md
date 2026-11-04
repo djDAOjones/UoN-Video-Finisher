@@ -24,6 +24,43 @@
      moves the oldest entries verbatim to project/decisions-YYYY-MM.md,
      beside this file, listed in project/archive-index.md. -->
 
+## 2026-11-04 — PLAN-8 — The walks and CPU- and GPU-heavy work move to the Mac Pro; main development stays on the MacBook Pro, on the owner's word
+
+**Decision:** From 2026-11-04 the owner's 2019 Mac Pro runs Phase 8's walks and CPU- and GPU-heavy work: VH-220 to VH-224, fix items' before and after walks, and VH-203's after-run. The gate (`npm run check`) runs there too. Main development stays on the MacBook Pro in the OneDrive checkout: code, the record, the release cut (VH-204) and deployment. A commit made on the MacBook Pro reaches main through a branch that the Mac Pro gates and lands. The reason is that the Mac Pro is otherwise idle and takes the load off the development machine. No table mixes readings from the two machines.
+
+**Rationale:** The owner's words, verbatim, in the chat "Backlog status" on 2026-11-04, in order:
+
+- "could I viably do this on another machine that is otherwise idle? it's half the speed but would be good to offload";
+- "no, I want all of the walks and checks on the other mac. just deploy here";
+- "please instruct the current orchestrator(s) to end processes at a suitable point, and get me over to the new mac. I will install claude app there, so provide a prompt or documentation to get things kicked off over there";
+- "we are moving to mac pro for the walks / and cpu/guy intensive stuff, but main development will be on the primary macbook pro computer. record what seems useful". This is read as "CPU/GPU"; it narrows "just deploy here" to the split this entry states.
+- "the game is on the macbook. work should be on the mac pro". This was said when this entry's own gate timed out 5 DSP tests in `src/audio/chain.test.ts` on the MacBook Pro, under a load average of 14.7 (1,658 tests passed). It is read as the gate running on the Mac Pro too, and this entry is the first commit to take the branch route.
+
+The machines:
+
+- MacBook Pro: Apple M1 Max, 10 cores, macOS 26.6.2, Chrome 157.0.8103.39, Node 24.21.0, Homebrew ffmpeg 9.0.2.
+- Mac Pro: Intel Xeon W-3223, 16 threads, x86_64, macOS 26.5.1, home `/Users/uazjob`, no battery. Homebrew refuses Intel Macs, so each tool comes from its maker's download, and its ffmpeg build is recorded.
+
+The stop and the hand-over:
+
+- Orchestrator #38 stopped VH-220 to VH-223 "interrupted" at about 14:35Z. Nothing was committed, pushed or landed; origin/main was `ca093da`. The worktrees and `side/vh22N` branches stay on the MacBook Pro until the owner confirms the Mac Pro has what it needs.
+- The bundle is the OneDrive folder "2026-08-24 UoN Video Helper - new Mac handover" (482 MB, checked by `MANIFEST.sha1`). It holds the side contract, every item's hand-over and wip save, #38's transfer hand-over and the start prompt for Orchestrator #39, the first on the Mac Pro.
+
+What changes on the Mac Pro:
+
+- The walk scripts hard-code `/Users/joe` and are adapted, each edit recorded by sha1.
+- The load threshold "below 8" was set for 10 cores; the Mac Pro's orchestrator rules its own before the first gate.
+- The battery limits of the owner's power rule cannot arise there.
+
+Each walk records its machine. Two questions remain for the owner:
+
+- whether VH-220 to VH-223's cells already walked on the MacBook Pro are re-walked on the Mac Pro, which #38 recommends and which holds until they answer;
+- how a fix item built on the MacBook Pro reaches its walks on the Mac Pro, beyond the branch route this entry takes.
+
+**Supersedes:** none
+
+**Deferred:** none
+
 ## 2026-11-04 — V31-REFRESH — The project takes pm-next v3.1 as the lab now builds it: tools and verbs replaced as a set, the record kept
 
 **Decision:** the project runs pm-next v3.1 at PM-Skills lab 4ab66b5 from the commit carrying this entry: six tools and three verbs replaced, two tools and five add-on verbs added, as v3.1's set; rule 9 asks a Checked line only where a model policy requires it, and this project keeps none — because the owner asked on 2026-11-04 to upgrade the project after its first-month test.
@@ -609,13 +646,3 @@
 **Supersedes:** none
 
 **Deferred:** VH-194
-
-## 2026-10-25 — VH-192 — The finished video plays in its card while it is unsaved, after the card's lines and before the lifetime line and Save
-
-**Decision:** The finished card holds the browser's own player over the job's working file, named by the card's title, loading metadata only and never autoplaying, with no new words (B10). It stays while the video is unsaved, a "Previous video" and a download included, and leaves the card once a save completes, before the clean-up removes its file. Spec §9.1 and §9.3 take S20 and S21.
-
-**Rationale:** Q3, the owner's answer: "proceed with your recommendation", option A, a plain player in the finished card. On the two open points, verbatim: "1A and 2A: the player shows only while the video is unsaved and leaves the card once a save completes; it sits after the card's lines, before the lifetime line and Save". One player and one object URL are made per job, over the OPFS `File` the save reads, so nothing is read whole. They are reused when the same job re-renders ("Keep it", another file chosen) and released (pause, `src` dropped, URL revoked) on Discard and before a completed save's `discard`. Focus on the player then goes to the card. A closed tab's URLs end with the document; a `pagehide` revoke would break a restore from the back-forward cache. The save's clean-up rule is unchanged. Focus at a job's end stays on the card (VH-178). Nothing reads the player: a failed playback leaves the result, Save and the record as they were. Media (1.2.x, 2.3.x): the added title or submission card is one still picture over silence, and the closing graphics are silent with their recorded cut, fade or slide. Neither adds a flashing mechanism, and their words are chosen on the page. They sit under S21's accepted limitation, which does not claim 1.2.x conformance. The statement's preview-only line is wish line VH-192.1. Chrome: `player-192.mjs`, 36 matrix cases and 9 flows (`reviews/2026-10-24/vh192-player-2026-10-25.md`). Codex astra: "Commit after the musts below". Its three musts are done (the close, this media assessment, and a check that the player plays the new video, not the original), and its shoulds are taken in part, the rest going to VH-198 as wish line VH-192.2 (`reviews/2026-10-24/codex-astra-vh192-check-2026-10-25.md`). Digest rules applied: WCAG 2.2 AAA's media line (1.2.x under S21's recorded exception) and 2.4.3 focus order; Carbon, no autoplay and the notification's existing spacing tokens; Nielsen 1 and 3 (see the result, and leave it before saving); house conventions, streaming everywhere.
-
-**Supersedes:** none
-
-**Deferred:** VH-193

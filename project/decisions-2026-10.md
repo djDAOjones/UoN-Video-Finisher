@@ -1416,3 +1416,13 @@ INTAKE.2 stays a wish line: only a person listening can judge the Teams output. 
 **Supersedes:** none
 
 **Deferred:** VH-190
+
+## 2026-10-25 — VH-192 — The finished video plays in its card while it is unsaved, after the card's lines and before the lifetime line and Save
+
+**Decision:** The finished card holds the browser's own player over the job's working file, named by the card's title, loading metadata only and never autoplaying, with no new words (B10). It stays while the video is unsaved, a "Previous video" and a download included, and leaves the card once a save completes, before the clean-up removes its file. Spec §9.1 and §9.3 take S20 and S21.
+
+**Rationale:** Q3, the owner's answer: "proceed with your recommendation", option A, a plain player in the finished card. On the two open points, verbatim: "1A and 2A: the player shows only while the video is unsaved and leaves the card once a save completes; it sits after the card's lines, before the lifetime line and Save". One player and one object URL are made per job, over the OPFS `File` the save reads, so nothing is read whole. They are reused when the same job re-renders ("Keep it", another file chosen) and released (pause, `src` dropped, URL revoked) on Discard and before a completed save's `discard`. Focus on the player then goes to the card. A closed tab's URLs end with the document; a `pagehide` revoke would break a restore from the back-forward cache. The save's clean-up rule is unchanged. Focus at a job's end stays on the card (VH-178). Nothing reads the player: a failed playback leaves the result, Save and the record as they were. Media (1.2.x, 2.3.x): the added title or submission card is one still picture over silence, and the closing graphics are silent with their recorded cut, fade or slide. Neither adds a flashing mechanism, and their words are chosen on the page. They sit under S21's accepted limitation, which does not claim 1.2.x conformance. The statement's preview-only line is wish line VH-192.1. Chrome: `player-192.mjs`, 36 matrix cases and 9 flows (`reviews/2026-10-24/vh192-player-2026-10-25.md`). Codex astra: "Commit after the musts below". Its three musts are done (the close, this media assessment, and a check that the player plays the new video, not the original), and its shoulds are taken in part, the rest going to VH-198 as wish line VH-192.2 (`reviews/2026-10-24/codex-astra-vh192-check-2026-10-25.md`). Digest rules applied: WCAG 2.2 AAA's media line (1.2.x under S21's recorded exception) and 2.4.3 focus order; Carbon, no autoplay and the notification's existing spacing tokens; Nielsen 1 and 3 (see the result, and leave it before saving); house conventions, streaming everywhere.
+
+**Supersedes:** none
+
+**Deferred:** VH-193
