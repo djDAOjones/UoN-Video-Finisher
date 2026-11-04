@@ -63,15 +63,15 @@ describe('progressView', () => {
     const view = progressView('encoding', 0.5, NO_PROGRESS, false, 0)
     expect(view.announce).toBeNull()
     expect(view.shown).toBe('Encoding video — 50%')
-    expect(view.title).toBe('Encoding video — UoN Video Helper')
+    expect(view.title).toBe('Encoding video — UoN Video Finisher')
   })
 
   it('carries the stage into the tab title (U-22)', () => {
     expect(progressView('finishing', 0.99, NO_PROGRESS, true, 0).title).toBe(
-      'Finishing the file — UoN Video Helper',
+      'Finishing the file — UoN Video Finisher',
     )
-    expect(outcomeTitle('ready')).toBe('Ready — UoN Video Helper')
-    expect(outcomeTitle('none')).toBe('UoN Video Helper')
+    expect(outcomeTitle('ready')).toBe('Ready — UoN Video Finisher')
+    expect(outcomeTitle('none')).toBe('UoN Video Finisher')
   })
 })
 
@@ -213,7 +213,7 @@ describe('the time left (VH-136)', () => {
     ])
     const view = progressView('encoding', 0.5, memo, false, 15_000)
     expect(view.shown).toBe('Encoding video — 50%')
-    expect(view.title).toBe('Encoding video — UoN Video Helper')
+    expect(view.title).toBe('Encoding video — UoN Video Finisher')
     const finishing = progressView('finishing', 0.99, memo, true, 40_000)
     expect(finishing.shown).toBe('Finishing the file')
     expect(finishing.timeLeft).toBeNull()

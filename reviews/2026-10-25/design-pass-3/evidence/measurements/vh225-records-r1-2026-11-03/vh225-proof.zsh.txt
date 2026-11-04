@@ -1,0 +1,29 @@
+#!/bin/zsh
+# VH-225 #3: the new revision's proof, one group at a time, in sequence, on AC only (#36/#37's ruling), each after two loads below 8.
+# Groups: after-proof (S-78, S-146 x w1280, w320 x three languages x seven modes = 84 cells, on $R), after-proof-flows (footer-182's flows, on $R),
+# exportproof-target (the same 84 cells on the git-archive export of the base), exportproof-flows (the flows on the export).
+# Usage: zsh vh225-proof.zsh <walker> <app root> <export root> [groups...]. Log: proof.seq.log. Stops on battery, on a non-zero go.sh exit, or on any non-AC sample.
+W=$1; A=$2; X=$3; shift 3
+D=/Users/joe/UoN-Video-Helper-side/vh225-walk; cd "$D"
+LOG=proof.seq.log
+CELLS='--plan cross --scenarios S-78,S-146 --views w1280,w320 --modes light,dark,forced-light,forced-dark,font32,dark-font32,forced-dark-font32 --rm'
+for g in "$@"; do
+  case $g in
+    after-proof) app=$A; job="node vh225-driver.mjs walk --walker \"\$WALKER\" --label after --name proof $CELLS" ;;
+    after-proof-flows) app=$A; job='node "$WALKER/footer-182.mjs" --only flows' ;;
+    exportproof-target) app=$X; job="node vh225-driver.mjs walk --walker \"\$WALKER\" --label exportproof --name target $CELLS" ;;
+    exportproof-flows) app=$X; job='node "$WALKER/footer-182.mjs" --only flows' ;;
+    *) echo "PROOF STOP unknown group $g" >> $LOG; exit 11 ;;
+  esac
+  while :; do
+    U=$(uptime); L=$(echo "$U" | sed -E 's/.*load averages?: ([0-9.]+).*/\1/'); L5=$(echo "$U" | sed -E 's/.*load averages?: [0-9.]+,? ([0-9.]+).*/\1/')
+    if pmset -g batt | grep -q 'AC Power' && [ "$(echo "$L < 8" | bc)" = 1 ] && [ "$(echo "$L5 < 8" | bc)" = 1 ]; then break; fi
+    sleep 60
+  done
+  echo "$g ready $(date -u +%T) AC load $L 5-min $L5" >> $LOG
+  zsh go.sh "$g" "proof $g" "$W" "$app" "$job" > "$g.go.out" 2>&1; rc=$?
+  echo "$g exit $rc $(date -u +%T)" >> $LOG
+  [ $rc = 0 ] || { echo "PROOF STOP $g rc $rc" >> $LOG; exit $rc; }
+  nb=$(grep -vc 'AC Power' "$g.load.log"); [ "$nb" = 0 ] || { echo "PROOF STOP $g: $nb non-AC samples (void)" >> $LOG; exit 12; }
+done
+echo "PROOF DONE $(date -u +%T)" >> $LOG

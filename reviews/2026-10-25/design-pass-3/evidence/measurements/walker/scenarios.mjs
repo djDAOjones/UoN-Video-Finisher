@@ -2796,7 +2796,7 @@ Object.assign(SCENARIOS, {
     asserts: [
       X('the dialog named "Report a problem"', `M.text('#feedback-dialog h2').trim() === M.msg('feedback.heading')`),
       X('the intro names the learning content team\'s address', `M.says('feedback.intro', { address: 'UI-Learning-Content@nottingham.ac.uk' }, '#feedback-dialog')`),
-      X('the email to that address, its subject "UoN Video Helper problem report…"', `M.mailto.length > 0 && M.mailto.at(-1).to === 'UI-Learning-Content@nottingham.ac.uk' && /^UoN Video Helper problem report/.test(M.mailto.at(-1).subjectText || '')`),
+      X('the email to that address, its subject "UoN Video Finisher problem report…"', `M.mailto.length > 0 && M.mailto.at(-1).to === 'UI-Learning-Content@nottingham.ac.uk' && /^UoN Video Finisher problem report/.test(M.mailto.at(-1).subjectText || '')`),
     ],
     focus: ['#feedback-message', SUBMIT],
     fixtures: [],
@@ -3002,7 +3002,7 @@ amend('S-72b', { asserts: [NO_PLAYER] })
 amend('S-75', { asserts: [X('the dialog named "Report a problem"', `M.text('#feedback-dialog h2').trim() === M.msg('feedback.heading')`), X('the intro names the team\'s address', `M.says('feedback.intro', { address: '${TEAM}' }, '#feedback-dialog')`)] })
 // M-04: at enlargement (320 px, both proxies, the 32 px font) the dialog is operated by keys too, as the record's subresults.
 amend('S-76', { subresults: DIALOG_ENLARGED_SUB, asserts: [X('the dialog named "Report a problem"', `M.text('#feedback-dialog h2').trim() === M.msg('feedback.heading')`)] })
-amend('S-78', { asserts: [X('the email to the team, subject "UoN Video Helper problem report…"', `M.mailto.length > 0 && M.mailto.at(-1).to === '${TEAM}' && /^UoN Video Helper problem report/.test(M.mailto.at(-1).subjectText || '')`), TEAM_IN_DIALOG] })
+amend('S-78', { asserts: [X('the email to the team, subject "UoN Video Finisher problem report…"', `M.mailto.length > 0 && M.mailto.at(-1).to === '${TEAM}' && /^UoN Video Finisher problem report/.test(M.mailto.at(-1).subjectText || '')`), TEAM_IN_DIALOG] })
 amend('S-78k', { asserts: [X('the email to the team', `M.mailto.length > 0 && M.mailto.at(-1).to === '${TEAM}'`)] })
 for (const id of ['S-79a', 'S-79b', 'S-80a', 'S-80b']) amend(id, { asserts: [TEAM_IN_DIALOG] })
 amend('S-81', { asserts: [X('the contact line names the learning content team, its link to the same address', `M.says('statement.contact.text', { address: '${TEAM}' }, '#accessibility-statement') && [...document.querySelectorAll('#accessibility-statement a[href^="mailto:"]')].some((a) => a.href.includes('${TEAM}'))`)] })

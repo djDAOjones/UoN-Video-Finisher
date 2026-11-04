@@ -1,4 +1,4 @@
-# UoN Video Helper
+# UoN Video Finisher
 
 A browser-based tool that helps University of Nottingham staff prepare
 educational video for publication: approved opening branding and closing

@@ -22,7 +22,7 @@ export const msMY: Messages = {
     },
   },
   app: {
-    title: 'Pembantu Video UoN',
+    title: 'Penyiap Video UoN',
     description:
       'Tambahkan penjenamaan Universiti Nottingham yang diluluskan pada video, seimbangkan audionya dan dapatkan fail video yang saiz dan formatnya sesuai untuk tujuan penggunaan anda, tanpa memuat naiknya ke mana-mana.',
     skipLink: 'Langkau ke kandungan utama',
@@ -817,7 +817,7 @@ export const msMY: Messages = {
   },
   statement: {
     heading: 'Kenyataan kebolehcapaian',
-    covers: 'Kenyataan ini meliputi Pembantu Video UoN, iaitu halaman yang sedang anda gunakan.',
+    covers: 'Kenyataan ini meliputi Penyiap Video UoN, iaitu halaman yang sedang anda gunakan.',
     aim: 'Kami mahu seramai mungkin orang dapat menggunakan alat ini. Anda sepatutnya dapat:',
     abilities: [
       'Menggunakannya dengan papan kekunci sahaja.',

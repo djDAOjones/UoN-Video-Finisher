@@ -1,0 +1,3 @@
+GO 23:38:00 load 7.21 5-min 7.75 AC powermode 2
+done; live port entries: 0; lock: released
+walk exit 0 23:39:07

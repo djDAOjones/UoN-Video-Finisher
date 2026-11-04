@@ -1,0 +1,31 @@
+#!/bin/zsh
+# VH-225 #4 (copied from #3's vh225-rw.zsh): the timed player re-walks on #37's ruling, both sides at one walker revision (9c52269607bccc4c), the before on the base export; one group at a time,
+# AC only, each starting at a 1- and 5-minute load below 8; a group that cannot start within 60 minutes stops the run (exit 13).
+# Groups: <side>-rwp (S-59 and S-109 en-GB w1280 light, PLANS.smoke with every other id skipped by the driver's --skip), the timed player row. Usage: zsh vh225-rw2.zsh <walker> <app root> <export root> after-rwp before-rwp. Log: rw2.seq.log.
+W=$1; A=$2; X=$3; shift 3
+D=/Users/joe/UoN-Video-Helper-side/vh225-walk; cd "$D"
+LOG=rw2.seq.log
+DRV='node vh225-driver.mjs walk --walker "$WALKER"'
+M81='forced-dark,dark-font32,font32,forced-light-font32,dark-spacing,forced-dark-font32,forced-light-spacing,forced-dark-spacing'
+SKIP=$(cat vh225-skip-but-59-109.txt)
+for g in "$@"; do
+  side=${g%%-*}; kind=${g#*-}
+  case $side in after) app=$A ;; before) app=$X ;; *) echo "RW STOP unknown side $g" >> $LOG; exit 11 ;; esac
+  case $kind in
+    rwp) job="$DRV --label $side --name rwp --plan smoke --skip $SKIP" ;;
+    *) echo "RW STOP unknown group $g" >> $LOG; exit 11 ;;
+  esac
+  s=$(date +%s)
+  while :; do
+    U=$(uptime); L=$(echo "$U" | sed -E 's/.*load averages?: ([0-9.]+).*/\1/'); L5=$(echo "$U" | sed -E 's/.*load averages?: [0-9.]+,? ([0-9.]+).*/\1/')
+    if pmset -g batt | grep -q 'AC Power' && [ "$(echo "$L < 8" | bc)" = 1 ] && [ "$(echo "$L5 < 8" | bc)" = 1 ]; then break; fi
+    [ $(( $(date +%s) - s )) -ge 3600 ] && { echo "RW STOP $g not started in 60 min $(date -u +%T): load $L 5-min $L5" >> $LOG; exit 13; }
+    sleep 60
+  done
+  echo "$g ready $(date -u +%T) AC load $L 5-min $L5" >> $LOG
+  zsh go.sh "$g" "re-walk $g" "$W" "$app" "$job" > "$g.go.out" 2>&1; rc=$?
+  echo "$g exit $rc $(date -u +%T)" >> $LOG
+  [ $rc = 0 ] || { echo "RW STOP $g rc $rc" >> $LOG; exit $rc; }
+  nb=$(grep -vc 'AC Power' "$g.load.log"); [ "$nb" = 0 ] || { echo "RW STOP $g: $nb non-AC samples (void)" >> $LOG; exit 12; }
+done
+echo "RW DONE $(date -u +%T)" >> $LOG

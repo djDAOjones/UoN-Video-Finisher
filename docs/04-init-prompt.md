@@ -18,7 +18,7 @@ scope-band sign-off. After the second, it builds to the band ceiling.
 Run pm_skills/integrations/init-mvp.md in agent mode.
 
 CONTEXT
-This is the UoN Video Helper: a static, browser-only web app that lets
+This is the UoN Video Finisher: a static, browser-only web app that lets
 University of Nottingham staff add approved branding to an educational
 video, normalise its audio loudness, and export a correctly encoded MP4 —
 with no upload, no server, and no media leaving their device.

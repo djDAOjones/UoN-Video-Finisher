@@ -504,8 +504,8 @@ npm run package:xerte
 It runs `build:xerte`, writes a `README-HOSTING.txt` — how to host it, what it
 needs, every file it travels with — and zips the *contents* of `dist/` with
 the README beside them as
-`release/uon-video-helper-<build id>-site.zip`, e.g.
-`uon-video-helper-v0.1.0+20261001.231c621-site.zip`. The build id is read
+`release/uon-video-finisher-<build id>-site.zip`, e.g.
+`uon-video-finisher-v0.1.0+20261001.231c621-site.zip`. The build id is read
 back out of the bundle, so the name cannot describe a different build. It
 refuses a dirty tree: the `buildId` inside names a commit, and a build of
 uncommitted code would name code it does not contain. It needs the system

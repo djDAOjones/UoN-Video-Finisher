@@ -1,0 +1,16 @@
+start 2026-11-03T05:53:29Z
+Now drawing from 'AC Power'
+ -InternalBattery-0 (id=23199843)	80%; AC attached; not charging present: true
+ powermode            2
+ 5:53  up 3 days, 14:21, 1 user, load averages: 2.15 2.64 3.17
+ports: 0 Claude CLOSED entries ignored (ruling 2)
+commit a5475cda0ca29a45f9f8b4f31c5e626b5b5547ff
+porcelain lines 0
+diff hash da39a3ee5e6b4b0d
+instrument revision fe44891d3c53f716
+job1 exit 0 2026-11-03T06:22:20Z
+end 2026-11-03T06:22:20Z
+Now drawing from 'AC Power'
+ -InternalBattery-0 (id=23199843)	80%; AC attached; not charging present: true
+ powermode            2
+ 6:22  up 3 days, 14:50, 1 user, load averages: 2.89 2.73 3.05

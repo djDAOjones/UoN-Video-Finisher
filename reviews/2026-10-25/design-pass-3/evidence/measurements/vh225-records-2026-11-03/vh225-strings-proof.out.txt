@@ -1,0 +1,28 @@
+src/i18n/en-GB.ts: 526 → 526 strings, changed 2
+  app.title: "UoN Video Helper" → "UoN Video Finisher"
+  statement.covers: "This statement covers UoN Video Helper, the page you are on." → "This statement covers UoN Video Finisher, the page you are on."
+src/i18n/zh-Hans.ts: 526 → 526 strings, changed 2
+  app.title: "UoN 视频助手" → "UoN 视频成片工具"
+  statement.covers: "本声明适用于 UoN 视频助手，即您当前所在的页面。" → "本声明适用于 UoN 视频成片工具，即您当前所在的页面。"
+src/i18n/ms-MY.ts: 526 → 526 strings, changed 2
+  app.title: "Pembantu Video UoN" → "Penyiap Video UoN"
+  statement.covers: "Kenyataan ini meliputi Pembantu Video UoN, iaitu halaman yang sedang anda gunakan." → "Kenyataan ini meliputi Penyiap Video UoN, iaitu halaman yang sedang anda gunakan."
+index.html data-i18n same keys and counts 124
+index.html data-i18n-attr same
+index.html elements same tags and counts 339 339
+index.html lines 914 914
+  :6 "<title>UoN Video Helper</title>" → "<title>UoN Video Finisher</title>"
+  :39 "<h1 class=\"page-title\" data-i18n=\"app.title\">UoN Video Helper</h1>" → "<h1 class=\"page-title\" data-i18n=\"app.title\">UoN Video Finisher</h1>"
+  :733 "This statement covers UoN Video Helper, the page you are on." → "This statement covers UoN Video Finisher, the page you are on."
+filled sheet rows 522 → 522
+  app.title
+    English: "UoN Video Helper" → "UoN Video Finisher"
+    Chinese (Simplified): "UoN 视频助手" → "UoN 视频成片工具"
+    Bahasa Malaysia: "Pembantu Video UoN" → "Penyiap Video UoN"
+    changed by the agent: "" → "VH-225: Chinese and Malay drafted by the agent"
+  statement.covers
+    English: "This statement covers UoN Video Helper, the page you are on." → "This statement covers UoN Video Finisher, the page you are on."
+    notes: "UoN Video Helper is the product name: use the same name as app.title. A formal statement: use a formal register throughout." → "UoN Video Finisher is the product name: use the same name as app.title. A formal statement: use a formal register throughout."
+    Chinese (Simplified): "本声明适用于 UoN 视频助手，即您当前所在的页面。" → "本声明适用于 UoN 视频成片工具，即您当前所在的页面。"
+    Bahasa Malaysia: "Kenyataan ini meliputi Pembantu Video UoN, iaitu halaman yang sedang anda gunakan." → "Kenyataan ini meliputi Penyiap Video UoN, iaitu halaman yang sedang anda gunakan."
+    changed by the agent: "drafted by the agent; VH-148: Chinese and Malay drafted by the agent; VH-149: the kept sentence restored as it was before VH-148" → "drafted by the agent; VH-148: Chinese and Malay drafted by the agent; VH-149: the kept sentence restored as it was before VH-148; VH-225: Chinese and Malay drafted by the agent"

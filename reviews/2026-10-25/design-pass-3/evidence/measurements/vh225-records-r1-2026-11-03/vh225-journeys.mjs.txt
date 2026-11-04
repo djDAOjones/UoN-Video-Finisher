@@ -1,0 +1,18 @@
+// VH-225 #4: a group's records the table script does not read, read-only, from its folder: footer-182's results (key, ok, why, the mailto's subject)
+// and the walker's J-, K- and S-ID records (status, reached, problems). Usage: node vh225-journeys.mjs <group dir>
+import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs'
+import { join } from 'node:path'
+const g = process.argv[2], runs = join(g, 'runs'), out = []
+for (const e of existsSync(runs) ? readdirSync(runs).sort() : []) {
+  const p = join(runs, e)
+  if (!statSync(p).isDirectory()) continue
+  if (existsSync(join(p, 'results.json'))) for (const r of JSON.parse(readFileSync(join(p, 'results.json'), 'utf8'))) {
+    const subject = (r.mailtos ?? []).map((m) => decodeURIComponent((/[?&]subject=([^&]*)/.exec(m) ?? [])[1] ?? ''))
+    out.push(JSON.stringify({ run: e, key: r.key, ok: r.ok, why: r.why, subject }))
+  }
+  for (const f of readdirSync(p).filter((x) => /^(J\d|K-|S-ID)[^/]*\.json$/.test(x)).sort()) {
+    const j = JSON.parse(readFileSync(join(p, f), 'utf8'))
+    out.push(JSON.stringify({ run: e, cell: f.replace('.json', ''), status: j.status, reached: j.reached?.outcome, problems: j.reached?.problems ?? null, visibility: j.reached?.seen?.visibility ?? null }))
+  }
+}
+console.log(out.length ? out.join('\n') : 'no footer-182 results and no J-, K- or S-ID records')

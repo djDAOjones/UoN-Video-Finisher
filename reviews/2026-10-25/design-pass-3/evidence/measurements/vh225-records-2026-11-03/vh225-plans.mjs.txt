@@ -1,0 +1,10 @@
+// VH-225 #1: read-only: the walker's declared records (PLANS, deduplicated by id, variant, language, view, mode) for the named scenarios, by view and mode.
+import { pathToFileURL } from 'node:url'; import { join } from 'node:path'
+const walker = process.argv[2], ids = process.argv[3].split(','), at = (f) => import(pathToFileURL(join(walker, f)).href)
+const { PLANS, ROUTES, SCENARIOS } = await at('scenarios.mjs'); await at('parts.mjs')
+const seen = new Map()
+for (const [name, fn] of Object.entries(PLANS)) { let recs; try { recs = fn() } catch (e) { continue } for (const r of recs ?? []) { if (!ids.includes(r.id)) continue; const k = [r.id, r.variant ?? '', r.lang, r.view, r.mode].join('|'); if (!seen.has(k)) seen.set(k, { ...r, plans: [name] }); else seen.get(k).plans.push(name) } }
+for (const id of ids) {
+  const rs = [...seen.values()].filter((r) => r.id === id)
+  console.log(id, SCENARIOS[id] ? 'scenario' : ROUTES[id] ? 'route' : 'none', 'records', rs.length, 'langs', [...new Set(rs.map((r) => r.lang))].join(','), 'views', [...new Set(rs.map((r) => r.view))].join(','), 'modes', [...new Set(rs.map((r) => r.mode))].join(','), 'scenario views limit', JSON.stringify(SCENARIOS[id]?.views ?? null), 'langs limit', JSON.stringify(SCENARIOS[id]?.langs ?? null))
+}

@@ -220,7 +220,7 @@ const isDev = import.meta.env.DEV
 if (!isDev) setMinimumLogLevel('info')
 installGlobalErrorCapture('main')
 
-log.info('boot', 'UoN Video Helper starting', { appVersion: APP_VERSION, buildId: BUILD_ID })
+log.info('boot', 'UoN Video Finisher starting', { appVersion: APP_VERSION, buildId: BUILD_ID })
 
 // --- DOM handles -----------------------------------------------------------
 

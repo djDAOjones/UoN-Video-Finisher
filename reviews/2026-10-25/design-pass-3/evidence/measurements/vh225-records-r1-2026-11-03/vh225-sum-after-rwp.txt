@@ -1,0 +1,13 @@
+walker records 2: {"ok":2}
+failing asserts by label: {"focus on the card":1}
+probe rows 2, errors 0; by scenario {"S-59":1,"S-109":1}
+titles now: {"Ready — UoN Video Finisher":1,"UoN Video Finisher":1}
+title histories: {"UoN Video Finisher":2,"Getting ready — UoN Video Finisher":2,"Analysing audio — UoN Video Finisher":2,"Encoding video — UoN Video Finisher":2,"Finishing the file — UoN Video Finisher":2,"Checking the file — UoN Video Finisher":2,"Ready — UoN Video Finisher":2}
+h1 texts: {"UoN Video Finisher":2}
+h1 lines by lang: {"en-GB":{"1":2},"zh-Hans":{},"ms-MY":{}}
+h1 non-CJK words broken: 0 ; CJK breaks 0; h1 overflow 0
+the "?" beside/below the h1: {"beside exp=false":2}
+covers shown 0: texts {}; lines by lang {"en-GB":{},"zh-Hans":{},"ms-MY":{}}; non-CJK broken 0
+mailto subjects (build id cut): {}
+mailto link subjects: {"language-notice: UoN Video Finisher translation: English":2}
+page sideways scroll: 0 of 2

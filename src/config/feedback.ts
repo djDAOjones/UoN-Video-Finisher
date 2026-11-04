@@ -32,7 +32,7 @@ export const SELF_SERVICE_URL = 'https://selfservice.nottingham.ac.uk'
 export const FEEDBACK_FORM_URL = 'https://forms.cloud.microsoft/e/Meg347QQvs'
 
 /** The email's subject. The build identity is appended, so a report names the code it is about. */
-export const FEEDBACK_SUBJECT = 'UoN Video Helper problem report'
+export const FEEDBACK_SUBJECT = 'UoN Video Finisher problem report'
 
 /**
  * Where better wording for a machine-translated page goes (VH-105): the
@@ -46,7 +46,7 @@ export const TRANSLATION_FEEDBACK_ADDRESS = 'joe.bell@nottingham.ac.uk'
  * language, and nothing about the video, the file or the device (the rules'
  * no-egress line). No body is prefilled.
  */
-export const TRANSLATION_FEEDBACK_SUBJECT = 'UoN Video Helper translation'
+export const TRANSLATION_FEEDBACK_SUBJECT = 'UoN Video Finisher translation'
 
 /**
  * The longest `mailto:` link built, in characters. Some mail clients cut a

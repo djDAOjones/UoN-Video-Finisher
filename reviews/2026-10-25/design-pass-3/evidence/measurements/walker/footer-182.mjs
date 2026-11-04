@@ -166,7 +166,7 @@ if (only.includes('flows')) for (const lang of langs) {
     if (!r.open || r.heading !== r.headingMsg) why.push(`heading ${r.heading}`)
     const m = r.mailtos[0] && new URL(r.mailtos[0])
     if (!m || m.pathname !== 'UI-Learning-Content@nottingham.ac.uk') why.push(`to ${m && m.pathname}`)
-    if (!m || !String(m.searchParams.get('subject')).startsWith('UoN Video Helper problem report')) why.push(`subject ${m && m.searchParams.get('subject')}`)
+    if (!m || !String(m.searchParams.get('subject')).startsWith('UoN Video Finisher problem report')) why.push(`subject ${m && m.searchParams.get('subject')}`)
     if (!r.intro.includes('UI-Learning-Content@nottingham.ac.uk')) why.push('intro address')
     const [before, after] = r.contactMsg.split('{address}')
     if (!r.contactText.startsWith(before.trim()) || !r.contactText.includes('UI-Learning-Content@nottingham.ac.uk') || !r.contactText.endsWith(after.trim())) why.push(`contact "${r.contactText}"`)

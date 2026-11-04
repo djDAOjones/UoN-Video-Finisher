@@ -22,7 +22,7 @@ export const zhHans: Messages = {
     },
   },
   app: {
-    title: 'UoN 视频助手',
+    title: 'UoN 视频成片工具',
     description:
       '为视频添加诺丁汉大学批准的品牌标识，调整其音频电平，并获得大小和格式适合您预期用途的视频文件，而无需将其上传到任何地方。',
     skipLink: '跳至内容',
@@ -766,7 +766,7 @@ export const zhHans: Messages = {
   },
   statement: {
     heading: '无障碍声明',
-    covers: '本声明适用于 UoN 视频助手，即您当前所在的页面。',
+    covers: '本声明适用于 UoN 视频成片工具，即您当前所在的页面。',
     aim: '我们希望尽可能多的人都能使用本工具。您应当能够：',
     abilities: [
       '仅使用键盘操作本工具。',

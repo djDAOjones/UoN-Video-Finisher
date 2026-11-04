@@ -1,0 +1,1 @@
+exportproof-target against before-a6: 87 rows, 87 identical, 0 differ, 0 without a base cell; ".nogit)" substituted 87 times

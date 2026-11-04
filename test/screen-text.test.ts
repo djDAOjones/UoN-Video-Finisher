@@ -59,7 +59,7 @@ describe('the promises and the privacy line behind a "?" beside the title (VH-22
 
   it('puts one named "?" beside the title and outside its heading', () => {
     expect(row).toMatch(/<\/h1>\s*<button/)
-    expect(/<h1[^>]*>([\s\S]*?)<\/h1>/.exec(row)?.[1]).toBe('UoN Video Helper')
+    expect(/<h1[^>]*>([\s\S]*?)<\/h1>/.exec(row)?.[1]).toBe('UoN Video Finisher')
     expect(button).toContain('type="button"')
     expect(button).toContain('aria-label="About this tool"')
     expect(button).toContain('aria-expanded="false"')
@@ -573,7 +573,7 @@ describe('the footer\'s routes, grouped by need (VH-130, VH-182)', () => {
     )
     expect(SELF_SERVICE_URL).toBe('https://selfservice.nottingham.ac.uk')
     expect(FEEDBACK_ADDRESS).toBe('UI-Learning-Content@nottingham.ac.uk')
-    expect(FEEDBACK_SUBJECT).toBe('UoN Video Helper problem report')
+    expect(FEEDBACK_SUBJECT).toBe('UoN Video Finisher problem report')
     for (const name of ['creatorsLink', 'selfServiceLink']) {
       expect(mainSource).toContain(`${name}.target = '_blank'`)
       expect(mainSource).toContain(`${name}.rel = 'noopener noreferrer'`)
@@ -970,7 +970,7 @@ describe('the page frame (VH-92)', () => {
     expect(markup.match(/<h1[\s>]/g)).toHaveLength(1)
     expect(header).not.toContain('<h1')
     expect(markup).toMatch(
-      /<main[^>]*>\s*<div class="page-title-row">\s*<h1 class="page-title">UoN Video Helper<\/h1>/,
+      /<main[^>]*>\s*<div class="page-title-row">\s*<h1 class="page-title">UoN Video Finisher<\/h1>/,
     )
   })
 

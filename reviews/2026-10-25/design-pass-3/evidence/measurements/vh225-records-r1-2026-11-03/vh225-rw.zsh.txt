@@ -1,0 +1,34 @@
+#!/bin/zsh
+# VH-225 #3: the timed re-walks on #37's ruling, both sides at one walker revision (9c52269607bccc4c), the before on the base export; one group at a time,
+# AC only, each starting at a 1- and 5-minute load below 8; a group that cannot start within 60 minutes stops the run (exit 13).
+# Groups: <side>-rw81 (S-81 ms-MY w375, the eight cells after-s81 failed), <side>-rw57 (S-57 en-GB w1280 light), <side>-rwj1 (J1 alone: PLANS.smoke with
+# every other id skipped by the driver's --skip). Usage: zsh vh225-rw.zsh <walker> <app root> <export root> [after-rw81 before-rw81 ...]. Log: rw.seq.log.
+W=$1; A=$2; X=$3; shift 3
+D=/Users/joe/UoN-Video-Helper-side/vh225-walk; cd "$D"
+LOG=rw.seq.log
+DRV='node vh225-driver.mjs walk --walker "$WALKER"'
+M81='forced-dark,dark-font32,font32,forced-light-font32,dark-spacing,forced-dark-font32,forced-light-spacing,forced-dark-spacing'
+SKIP=$(cat vh225-skip-but-j1.txt)
+for g in "$@"; do
+  side=${g%%-*}; kind=${g#*-}
+  case $side in after) app=$A ;; before) app=$X ;; *) echo "RW STOP unknown side $g" >> $LOG; exit 11 ;; esac
+  case $kind in
+    rw81) job="$DRV --label $side --name rw81 --plan cross --scenarios S-81 --langs ms-MY --views w375 --modes $M81" ;;
+    rw57) job="$DRV --label $side --name rw57 --plan cross --scenarios S-57 --langs en-GB --views w1280 --modes light" ;;
+    rwj1) job="$DRV --label $side --name rwj1 --plan smoke --skip $SKIP" ;;
+    *) echo "RW STOP unknown group $g" >> $LOG; exit 11 ;;
+  esac
+  s=$(date +%s)
+  while :; do
+    U=$(uptime); L=$(echo "$U" | sed -E 's/.*load averages?: ([0-9.]+).*/\1/'); L5=$(echo "$U" | sed -E 's/.*load averages?: [0-9.]+,? ([0-9.]+).*/\1/')
+    if pmset -g batt | grep -q 'AC Power' && [ "$(echo "$L < 8" | bc)" = 1 ] && [ "$(echo "$L5 < 8" | bc)" = 1 ]; then break; fi
+    [ $(( $(date +%s) - s )) -ge 3600 ] && { echo "RW STOP $g not started in 60 min $(date -u +%T): load $L 5-min $L5" >> $LOG; exit 13; }
+    sleep 60
+  done
+  echo "$g ready $(date -u +%T) AC load $L 5-min $L5" >> $LOG
+  zsh go.sh "$g" "re-walk $g" "$W" "$app" "$job" > "$g.go.out" 2>&1; rc=$?
+  echo "$g exit $rc $(date -u +%T)" >> $LOG
+  [ $rc = 0 ] || { echo "RW STOP $g rc $rc" >> $LOG; exit $rc; }
+  nb=$(grep -vc 'AC Power' "$g.load.log"); [ "$nb" = 0 ] || { echo "RW STOP $g: $nb non-AC samples (void)" >> $LOG; exit 12; }
+done
+echo "RW DONE $(date -u +%T)" >> $LOG

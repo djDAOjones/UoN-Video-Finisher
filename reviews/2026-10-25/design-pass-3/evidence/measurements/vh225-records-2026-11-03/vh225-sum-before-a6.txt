@@ -1,0 +1,15 @@
+walker records 567: {"ok":567}
+failing asserts by label: {}
+probe rows 567, errors 0; by scenario {"S-04":102,"S-146":102,"S-06a":99,"S-06b":99,"S-78":99,"S-05":66}
+titles now: {"UoN Video Helper":167,"UoN 视频助手":200,"Pembantu Video UoN":200}
+title histories: {"UoN 视频助手":168,"UoN Video Helper":102,"Pembantu Video UoN":134}
+h1 texts: {"UoN Video Helper":167,"UoN 视频助手":200,"Pembantu Video UoN":200}
+h1 lines by lang: {"en-GB":{"1":77,"2":70,"3":20},"zh-Hans":{"1":152,"2":48},"ms-MY":{"1":68,"2":132}}
+h1 non-CJK words broken: 0 ; CJK breaks 48; h1 overflow 0
+the "?" beside/below the h1: {"beside exp=false":543,"below exp=false":24}
+covers shown 99: texts {"This statement covers UoN Video Helper, the page you are on.":33,"本声明适用于 UoN 视频助手，即您当前所在的页面。":33,"Kenyataan ini meliputi Pembantu Video UoN, iaitu halaman yang sedang anda gunakan.":33}; lines by lang {"en-GB":{"1":8,"2":7,"3":10,"4":8},"zh-Hans":{"1":11,"2":14,"3":4,"4":4},"ms-MY":{"2":11,"3":4,"4":10,"6":4,"7":4}}; non-CJK broken 0
+mailto subjects (build id cut): {"UI-Learning-Content@nottingham.ac.uk | UoN Video Helper problem report (build)":201}
+mailto link subjects: {"language-notice: UoN Video Helper translation: English":167,"language-notice: UoN Video Helper translation: 中文":200,"language-notice: UoN Video Helper translation: Bahasa Malaysia":200}
+page sideways scroll: 0 of 567
+ms-MY words vs the title row (200 cells): Pembantu fits 200, max 271.05 px; Penyiap fits 200, max 211.97 px; Penyempurna fits 176, max 371.8 px; min row 272 px
+cells where Pembantu fits and Penyempurna would not: 24 S-04-ms-MY-w375/font32 S-04-ms-MY-w375/dark-font32 S-04-ms-MY-w320/font32 S-04-ms-MY-w320/dark-font32 S-146-ms-MY-w375/font32 S-146-ms-MY-w375/dark-font32 S-146-ms-MY-w320/font32 S-146-ms-MY-w320/dark-font32

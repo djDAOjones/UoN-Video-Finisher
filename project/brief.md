@@ -1,4 +1,4 @@
-# Brief — UoN Video Helper
+# Brief — UoN Video Finisher
 
 <!-- Owner-signed. Direction lives here and in the backlog; agents do
      not change it without a decision. Rule 1 reads Direction every

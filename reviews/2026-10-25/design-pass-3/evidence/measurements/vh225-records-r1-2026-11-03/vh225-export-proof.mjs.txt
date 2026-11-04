@@ -1,0 +1,18 @@
+// VH-225 #3, from export-proof.mjs (VH-219 #1; the original untouched): does the export serve the base faithfully? Each cell of <export group>
+// (the base by git archive) against the same cell of <base group> (walked on $R at the base): the whole probe row but its time, plan and walk.
+// One substitution, counted and reported: the export has no git, so vite.config.ts's buildId() reads "nogit" where the checkout reads the base's
+// short sha; ".nogit)" becomes ".<sha>)" in the export's rows before the compare. Nothing else is normalised. Exit 1 if any differs, any is missing,
+// or fewer than 84 rows are identical (the cross gives 87: S-146 adds reduced-motion at w1280, as PLANS declares).   node vh225-export-proof.mjs <base group> <export group> <short sha>
+import { readFileSync, readdirSync } from 'node:fs'; import { join } from 'node:path'
+const [bg, xg, sha] = process.argv.slice(2)
+const rd = (g) => { const r = join(g, 'runs'); return readFileSync(join(r, readdirSync(r).find((x) => /probe/.test(x))), 'utf8').trim().split('\n').map(JSON.parse) }
+const strip = (j) => { const { at, plan, walk, ...o } = j; return JSON.stringify(o) }
+const base = Object.fromEntries(rd(bg).map((j) => [j.cell + '/' + j.mode, j])); let same = 0, diff = 0, missing = 0, subs = 0, rows = 0
+for (const j of rd(xg)) {
+  rows++
+  const b = base[j.cell + '/' + j.mode]; if (!b) { missing++; console.log('missing', j.cell, j.mode); continue }
+  let x = strip(j); const n = x.split('.nogit)').length - 1; subs += n; x = x.split('.nogit)').join(`.${sha})`)
+  if (strip(b) === x) same++; else { diff++; if (diff < 4) console.log('differs', j.cell, j.mode) }
+}
+console.log(`${xg} against ${bg}: ${rows} rows, ${same} identical, ${diff} differ, ${missing} without a base cell; ".nogit)" substituted ${subs} times`)
+process.exit(diff || missing || same !== rows || same < 84 ? 1 : 0)

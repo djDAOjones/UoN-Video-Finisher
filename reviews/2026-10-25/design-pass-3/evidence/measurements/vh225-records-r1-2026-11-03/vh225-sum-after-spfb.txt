@@ -1,0 +1,15 @@
+walker records 228: {"ok":228}
+failing asserts by label: {"\"About the video format\" 44 x 44, collapsed, controlling #format-help":84,"Tab from the top: skip link, Page language, (the notice's link), About the video format, V":84,"the email to that address, its subject \"UoN Video Helper problem report…\"":18,"the email to the team, subject \"UoN Video Helper problem report…\"":18}
+probe rows 228, errors 0; by scenario {"S-03":42,"S-03:open":42,"S-81":42,"S-04":18,"S-146":18,"S-06a":18,"S-06b":18,"S-78":18,"S-05":12}
+titles now: {"UoN Video Finisher":72,"UoN 视频成片工具":78,"Penyiap Video UoN":78}
+title histories: {"UoN 视频成片工具":72,"Penyiap Video UoN":66,"UoN Video Finisher":18}
+h1 texts: {"UoN Video Finisher":72,"UoN 视频成片工具":78,"Penyiap Video UoN":78}
+h1 lines by lang: {"en-GB":{"1":34,"2":38},"zh-Hans":{"1":54,"2":24},"ms-MY":{"1":36,"2":42}}
+h1 non-CJK words broken: 0 ; CJK breaks 24; h1 overflow 0
+the "?" beside/below the h1: {"beside exp=false":186,"beside exp=true":42}
+covers shown 60: texts {"This statement covers UoN Video Finisher, the page you are on.":20,"本声明适用于 UoN 视频成片工具，即您当前所在的页面。":20,"Kenyataan ini meliputi Penyiap Video UoN, iaitu halaman yang sedang anda gunakan.":20}; lines by lang {"en-GB":{"2":12,"3":8},"zh-Hans":{"1":5,"2":12,"3":3},"ms-MY":{"2":10,"3":5,"4":5}}; non-CJK broken 0
+mailto subjects (build id cut): {"UI-Learning-Content@nottingham.ac.uk | UoN Video Finisher problem report (build)":36}
+mailto link subjects: {"language-notice: UoN Video Finisher translation: English":72,"language-notice: UoN Video Finisher translation: 中文":78,"language-notice: UoN Video Finisher translation: Bahasa Malaysia":78}
+page sideways scroll: 0 of 228
+ms-MY words vs the title row (78 cells): Pembantu fits 78, max 162.41 px; Penyiap fits 78, max 129.5 px; Penyempurna fits 78, max 222.86 px; min row 272 px
+cells where Pembantu fits and Penyempurna would not: 0 

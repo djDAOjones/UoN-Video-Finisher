@@ -1,0 +1,44 @@
+// VH-225 #2: commit 1's name swap, exact strings with exact counts; any count that differs stops before a byte is written. Run from $R.
+import { readFileSync, writeFileSync } from 'node:fs'
+const N = 'UoN Video Finisher', O = 'UoN Video Helper'
+const plan = [
+  ['index.html', [[O, N, 3]]],
+  ['src/i18n/en-GB.ts', [[O, N, 2]]],
+  ['src/config/feedback.ts', [[`'${O} problem report'`, `'${N} problem report'`, 1], [`'${O} translation'`, `'${N} translation'`, 1]]],
+  ['src/i18n/sheet.ts', [[`'${O} is the product name`, `'${N} is the product name`, 1]]],
+  ['src/main.ts', [[`'${O} starting'`, `'${N} starting'`, 1]]],
+  ['scripts/strings-sheet.mjs', [[`the ${O} page`, `the ${N} page`, 1]]],
+  ['scripts/package-xerte.mjs', [[`return \`${O} \${appVersion}`, `return \`${N} \${appVersion}`, 1], ['release/uon-video-helper-<build id>-site.zip', 'release/uon-video-finisher-<build id>-site.zip', 1], ["`uon-video-helper-${buildId}-site.zip`", "`uon-video-finisher-${buildId}-site.zip`", 1]]],
+  ['DEV-INFRASTRUCTURE.md', [['`release/uon-video-helper-<build id>-site.zip`', '`release/uon-video-finisher-<build id>-site.zip`', 1], ['`uon-video-helper-v0.1.0+20261001.231c621-site.zip`', '`uon-video-finisher-v0.1.0+20261001.231c621-site.zip`', 1]]],
+  ['README.md', [[`# ${O}\n`, `# ${N}\n`, 1]]],
+  ['project/profile.md', [[`# Profile — ${O}\n`, `# Profile — ${N}\n`, 1]]],
+  ['project/brief.md', [[`# Brief — ${O}\n`, `# Brief — ${N}\n`, 1]]],
+  ['project/architecture.md', [[`# Architecture — ${O}\n`, `# Architecture — ${N}\n`, 1]]],
+  ['project/structure.md', [[`# Structure — ${O}\n`, `# Structure — ${N}\n`, 1]]],
+  ['acceptance.html', [[`— ${O}</title>`, `— ${N}</title>`, 1]]],
+  ...['aac-cost', 'alpha', 'cards', 'codecs', 'content-class', 'estimate', 'framerate', 'modes', 'opfs', 'phone', 'preflight-audio', 'real', 'shapes'].map((s) => [`spike-${s}.html`, [[`— ${O}</title>`, `— ${N}</title>`, 1]]]),
+  ['docs/01-specification.md', [[`# ${O} — Specification v2\n`, `# ${N} — Specification v2\n`, 1]]],
+  ['docs/04-init-prompt.md', [[`This is the ${O}: a static`, `This is the ${N}: a static`, 1]]],
+  // Tests: the new strings, none deleted or skipped.
+  ['src/i18n/tables.test.ts', [[`['app.title', '${O}']`, `['app.title', '${N}']`, 1], ['本声明适用于 UoN 视频助手，即您当前所在的页面。', '本声明适用于 UoN 视频成片工具，即您当前所在的页面。', 1], ['Kenyataan ini meliputi Pembantu Video UoN, iaitu', 'Kenyataan ini meliputi Penyiap Video UoN, iaitu', 1]]],
+  ['src/ui/progress.test.ts', [[O, N, 5]]],
+  ['test/package-xerte.test.ts', [[`'${O} v0.1.0 — build`, `'${N} v0.1.0 — build`, 1]]],
+  ['test/screen-text.test.ts', [[`toBe('${O}')`, `toBe('${N}')`, 1], [`toBe('${O} problem report')`, `toBe('${N} problem report')`, 1], [`<h1 class="page-title">${O}<\\/h1>`, `<h1 class="page-title">${N}<\\/h1>`, 1]]],
+  // The filled sheet, the tables' source (regenerated after by scripts/strings-table.mjs).
+  ['reviews/2026-10-18/VH-105-strings-filled.csv', [[O, N, 3], ['UoN 视频助手', 'UoN 视频成片工具', 2], ['Pembantu Video UoN', 'Penyiap Video UoN', 2]]],
+]
+const out = []
+let bad = 0
+for (const [file, swaps] of plan) {
+  let text = readFileSync(file, 'utf8')
+  for (const [from, to, n] of swaps) {
+    const got = text.split(from).length - 1
+    if (got !== n) { console.log(`COUNT ${file}: ${JSON.stringify(from)} ${got}, expected ${n}`); bad++ }
+    text = text.split(from).join(to)
+  }
+  out.push([file, text])
+}
+if (bad) { console.log(`STOP: ${bad} counts differ; nothing written`); process.exit(1) }
+if (process.argv[2] !== '--write') { console.log(`dry run OK: ${out.length} files, every count as expected`); process.exit(0) }
+for (const [file, text] of out) writeFileSync(file, text)
+console.log(`written ${out.length} files`)

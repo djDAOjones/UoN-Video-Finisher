@@ -1,0 +1,1 @@
+{"run":"vh225-before-rwj1-2026-11-03T23-38-01-792Z-d5bb15","cell":"J1__en-GB__w1280__light","status":"failed","reached":"fail","problems":["page hidden: timers throttled and media deferred; launch Chrome with --disable-backgrounding-occluded-windows"],"visibility":"hidden"}

@@ -1,0 +1,15 @@
+walker records 234: {"ok":226,"failed":8}
+failing asserts by label: {}
+probe rows 234, errors 0; by scenario {"S-81":234}
+titles now: {"UoN Video Finisher":78,"UoN 视频成片工具":78,"Penyiap Video UoN":78}
+title histories: {"UoN 视频成片工具":78,"Penyiap Video UoN":71}
+h1 texts: {"UoN Video Finisher":78,"UoN 视频成片工具":78,"Penyiap Video UoN":78}
+h1 lines by lang: {"en-GB":{"1":45,"2":25,"3":8},"zh-Hans":{"1":52,"2":18,"3":8},"ms-MY":{"1":45,"2":25,"3":8}}
+h1 non-CJK words broken: 0 ; CJK breaks 26; h1 overflow 0
+the "?" beside/below the h1: {"beside exp=false":234}
+covers shown 227: texts {"This statement covers UoN Video Finisher, the page you are on.":78,"本声明适用于 UoN 视频成片工具，即您当前所在的页面。":78,"Kenyataan ini meliputi Penyiap Video UoN, iaitu halaman yang sedang anda gunakan.":71}; lines by lang {"en-GB":{"2":45,"3":21,"4":4,"5":8},"zh-Hans":{"1":25,"2":35,"3":10,"4":8},"ms-MY":{"2":41,"3":16,"4":6,"6":8}}; non-CJK broken 0
+mailto subjects (build id cut): {}
+mailto link subjects: {"language-notice: UoN Video Finisher translation: English":78,"language-notice: UoN Video Finisher translation: 中文":78,"language-notice: UoN Video Finisher translation: Bahasa Malaysia":78}
+page sideways scroll: 0 of 234
+ms-MY words vs the title row (78 cells): Pembantu fits 78, max 271.05 px; Penyiap fits 78, max 211.97 px; Penyempurna fits 72, max 371.8 px; min row 272 px
+cells where Pembantu fits and Penyempurna would not: 6 S-81-ms-MY-w375/font32 S-81-ms-MY-w375/dark-font32 S-81-ms-MY-w320/font32 S-81-ms-MY-w320/dark-font32 S-81-ms-MY-zoom400proxy/font32 S-81-ms-MY-zoom400proxy/dark-font32

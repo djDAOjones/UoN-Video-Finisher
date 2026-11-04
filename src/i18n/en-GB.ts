@@ -52,7 +52,7 @@ export const enGB = {
   },
 
   app: {
-    title: 'UoN Video Helper',
+    title: 'UoN Video Finisher',
     description:
       'Add the University of Nottingham’s approved branding to a video, level its audio, and get a video file sized and formatted for your intended use, without uploading it anywhere.',
     skipLink: 'Skip to main content',
@@ -898,7 +898,7 @@ export const enGB = {
    */
   statement: {
     heading: 'Accessibility statement',
-    covers: 'This statement covers UoN Video Helper, the page you are on.',
+    covers: 'This statement covers UoN Video Finisher, the page you are on.',
     aim: 'We want as many people as possible to be able to use this tool. You should be able to:',
     /** Each completes "You should be able to:". */
     abilities: [

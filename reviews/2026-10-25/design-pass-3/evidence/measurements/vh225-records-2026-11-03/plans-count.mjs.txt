@@ -1,0 +1,13 @@
+// VH-210 #1: read-only count of the walker's declared records from PLANS and ROUTES, deduplicated by id, variant, language, view and mode.
+import { pathToFileURL } from 'node:url'; import { join } from 'node:path'
+const walker = process.argv[2], at = (f) => import(pathToFileURL(join(walker, f)).href)
+const { PLANS, ROUTES, SCENARIOS } = await at('scenarios.mjs'); await at('parts.mjs')
+const seen = new Map()
+for (const [name, fn] of Object.entries(PLANS)) { let recs; try { recs = fn() } catch (e) { console.log('plan error', name, String(e.message).slice(0, 80)); continue } for (const r of recs ?? []) { const k = [r.id, r.variant ?? '', r.lang, r.view, r.mode].join('|'); if (!seen.has(k)) seen.set(k, { ...r, plans: [name] }); else seen.get(k).plans.push(name) } }
+const all = [...seen.values()], forced = all.filter((r) => /^forced/.test(r.mode))
+console.log('records', all.length, 'forced', forced.length, 'routes in plans', all.filter((r) => ROUTES[r.id]).length)
+const by = {}; for (const r of forced) { by[r.id] ??= { n: 0, fx: (SCENARIOS[r.id]?.fixtures ?? []).join('+'), focus: (SCENARIOS[r.id]?.focus ?? []).map((f) => (typeof f === 'string' ? f : f.sel)).filter((s) => /help-button|contact|feedback-open|feedback-form/.test(s)).join(' ') }; by[r.id].n++ }
+console.log(Object.entries(by).sort((a, b) => b[1].n - a[1].n).map(([k, v]) => `${k}:${v.n}${v.fx ? '[' + v.fx + ']' : ''}${v.focus ? '{' + v.focus + '}' : ''}`).join(' '))
+const ring = all.filter((r) => (SCENARIOS[r.id]?.focus ?? []).some((f) => /help-button|contact-|feedback-open|feedback-form/.test(typeof f === 'string' ? f : f.sel)))
+const rb = {}; for (const r of ring) { const k = r.id + ' ' + r.mode; rb[k] = (rb[k] ?? 0) + 1 }
+console.log('records focusing a footer or "?" ring', ring.length); console.log(Object.entries(rb).map(([k, v]) => k + ':' + v).join(' '))

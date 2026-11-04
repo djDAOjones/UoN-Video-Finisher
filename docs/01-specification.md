@@ -1,4 +1,4 @@
-# UoN Video Helper — Specification v2
+# UoN Video Finisher — Specification v2
 
 Status: **draft for review**. Supersedes [`00-original-brief.md`](00-original-brief.md),
 which is retained verbatim as the record of intent.

@@ -1,0 +1,24 @@
+#!/bin/zsh
+# VH-225 #2: the 11 fixtures PLANS.smoke and S-52 need that fix/ (copied from vh210-walk/fix) lacks, by the walker's own lines, read-only:
+# fixtures.sh :17 :27 :31 :84 :92 (with :6–:8), fixtures-8.sh :24–:27, :39–:42 (3.4, 9.7), :49, :65 (with :10–:12). Nothing from samples/. Each is checked absent first.
+set -e
+OUT="$1"
+V="-f lavfi -i testsrc2=size=1280x720:rate=25"
+A="-f lavfi -i sine=frequency=440:sample_rate=48000"
+ENC="-c:v libx264 -preset veryfast -pix_fmt yuv420p -c:a aac -b:a 128k -movflags +faststart"
+for f in caps.srt quiet-30s.mp4 fourbythree-20s.mp4 burst-float-30s.mov clipped-30s.mp4 still8-1080p.png still-1000s.mp4 still-1100s.mp4 late-sound-3.4s-10s.mp4 late-sound-9.7s-10s.mp4 late-sound-3.71s-25fps-10s.mp4 qtrle-5s.mov; do [ -e "$OUT/$f" ] && { echo "EXISTS $f"; exit 2; }; done
+printf '1\n00:00:01,000 --> 00:00:04,000\nFirst line\n\n2\n00:00:05,000 --> 00:00:08,000\nSecond line\n' > "$OUT/caps.srt"
+ffmpeg -v error -y ${=V} ${=A} -t 30 -af "volume=-45dB" ${=ENC} "$OUT/quiet-30s.mp4"
+ffmpeg -v error -y -f lavfi -i testsrc2=size=640x480:rate=25 ${=A} -t 20 -af "volume=-13dB" ${=ENC} "$OUT/fourbythree-20s.mp4"
+ffmpeg -v error -y ${=V} -f lavfi -i "aevalsrc=0.224*sin(2*PI*440*t)*(1+11*between(t\,12\,12.1)):s=48000:c=stereo" -t 30 -c:v libx264 -preset veryfast -pix_fmt yuv420p -c:a pcm_f32le "$OUT/burst-float-30s.mov"
+ffmpeg -v error -y ${=V} -f lavfi -i "aevalsrc=max(-1\,min(1\,1.6*sin(2*PI*440*t))):s=48000:c=stereo" -t 30 ${=ENC} "$OUT/clipped-30s.mp4"
+ffmpeg -v error -y -f lavfi -i testsrc2=size=1920x1080:rate=1 -frames:v 1 "$OUT/still8-1080p.png"
+for D in 1000 1100; do
+  ffmpeg -v error -y -loop 1 -framerate 25 -i "$OUT/still8-1080p.png" ${=A} -t $D -af "volume=-13dB,aformat=channel_layouts=stereo" -c:v libx264 -preset ultrafast -tune stillimage -crf 40 -pix_fmt yuv420p -c:a aac -b:a 64k -movflags +faststart "$OUT/still-${D}s.mp4"
+done
+for OFF in 3.4 9.7; do
+  ffmpeg -v error -y ${=V} -itsoffset $OFF ${=A} -t 10 -af "volume=-13dB,aformat=channel_layouts=stereo" ${=ENC} "$OUT/late-sound-${OFF}s-10s.mp4"
+done
+ffmpeg -v error -y ${=V} -itsoffset 3.71 ${=A} -t 10 -af "volume=-13dB,aformat=channel_layouts=stereo" ${=ENC} "$OUT/late-sound-3.71s-25fps-10s.mp4"
+ffmpeg -v error -y -f lavfi -i testsrc2=size=1920x1080:rate=25 -t 5 -an -c:v qtrle "$OUT/qtrle-5s.mov"
+echo made

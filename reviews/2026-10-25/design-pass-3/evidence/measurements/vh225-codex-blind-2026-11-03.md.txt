@@ -1,0 +1,57 @@
+**Pass with conditions for commit 1. VH-225 is not yet complete:** the repository rename, commit 2, deployment verification and final ledger close remain.
+
+Read-only review completed. The tracked hashes reproduce `9769f437a7fc1000` and, with the walker changes, `b026e012eb065a73`. `npm run typecheck` passes. `node tools/check.mjs` reports **0 failures, 4 warnings**. I did not run the full gate, which requires temporary writes unavailable in this sandbox.
+
+Below, **T** means the [measurement table](</Users/joe/Library/CloudStorage/OneDrive-TheUniversityofNottingham/_Joe Bell UoN Files/2_Projects/2026-08-24 UoN Video Helper/reviews/2026-10-25/design-pass-3/evidence/measurements/vh225-name-2026-11-03.md>); **R** means its `vh225-records-2026-11-03/` folder.
+
+1. **Scope: correct.** No live app surface retains any of the three old names. The requested `git grep` finds retained names in historical reviews, migration/canon records, decisions and item descriptions; the protected `project/rules.md:1`; the dated Carbon exception (`project/digests/carbon.md:53`); and the frozen house-standard name (`house-conventions.md:2`). These are appropriate, with the latter two outstanding naming questions recorded in VH-225.4 and .7.
+
+   Old address references correctly remain in `docs/04-init-prompt.md:27`, `project/profile.md:12`, `src/config/branding.ts:336`, `branding.test.ts:124`, and `vite.config.ts:131`. Historical checklist links are covered by VH-225.6. **No destination address, persistent identifier or dependency changes.** The explicitly authorised Xerte zip filename changes; ordinary video-download filenames do not. Protected files and samples are untouched.
+
+2. **Acceptance criteria:** visible-name changes **met**, including the ancillary titles, package text, translator instructions and updated assertions; restricted `docs/` changes **met**; retained identifiers **met**, subject to the test’s scope below; repository/Pages rename **not yet—close task**; three walker assertions and their proof **met**; stage rule **met with the recorded instrument gaps**, not universal successful reach. Native approval remains open under VH-105.2, with both machine-translation notices retained. See `project/items/VH-225.md:11–24`.
+
+3. **Translations: reasonable provisional choices.** “UoN 视频成片工具” conveys a tool producing finished video; “Penyiap Video UoN” conveys preparing/completing video without promising perfection. Both work as utility titles and in the formal “covers” sentences (`zh-Hans.ts:769`, `ms-MY.ts:820`). They are credible product names in subjects too, but **actual email subjects remain English**, so the walk provides no translated-subject evidence (`src/config/feedback.ts:35,49`).
+
+   The Malay fit argument holds: Penyempurna measures **371.80 px**, against rows of **343/288/272 px**, failing six ordinary light/dark 32 px cases; Penyiap measures **211.97 px** and fits. This is a computed-font measurement, not a rendered alternative-name trial or native-language approval. (`R/vh225-sum-before-s03.txt:14–15`; driver:42–44.)
+
+4. **Identifier protection: all named existing identifiers are pinned.** The test checks four localStorage keys, OPFS root, the worker name through its syntax tree, and all three package-name fields (`test/kept-identifiers.test.ts:52–84`). Directly renaming any one fails.
+
+   Its final assertion scans literal lowercase text in **TS/CSS only** (:87–90). A constructed/escaped name or a new imported JS/JSON file could evade it. That limits the future guarantee; no such omission exists in this candidate. No named CacheStorage, IndexedDB or BroadcastChannel store was found. OPFS’s unchanged `opfs-job:` lock namespace also remains intact (`src/media/opfs.ts:54–55`). Video filenames retain the source stem plus an operation mark (`src/media/save.ts:213–223`).
+
+5. **Sheet and tables: consistent with regeneration.** Exactly the two required rows changed, with agent-drafted annotations (`VH-105-strings-filled.csv:2,456`). Reproducing the generator in memory yielded both working-tree tables **byte for byte**. This establishes regeneration consistency, although artifacts cannot prove the historical editing method. The strings proof shows **526→526 strings, exactly two changed per language: `app.title` and `statement.covers`**; bindings and element counts are unchanged. (`R/vh225-strings-proof.out.txt:1–28`; `tables.test.ts:222–228`.)
+
+6. **Walker: correct.** Only `scenarios.mjs:2799,3005` and `footer-182.mjs:169` change. New assertions pass **87/87**, flows **3/3**; the export fails **87/87**, flows **0/3**. The extra three cells are S-146’s reduced-motion cases at w1280, one per language.
+
+   The export comparison independently reproduces **87 identical probe rows**, excluding run metadata `at/plan/walk`, after exactly 87 `.nogit)`→`.a5475cd)` substitutions. It is not a byte comparison of entire records. (`T:175,183`; `R/vh225-export-proof.mjs.txt:2–18`.)
+
+7. **Matrix: whole plan, incomplete reach.** The arithmetic is **1,497 + 12 + 3 + 183 = 1,695 per side**. There are **1,694 attempts** after skipping S-133, and **1,690 effectively reached per side** after the S-81/S-57 replacements. Five gaps remain: **S-133, S-141, S-143, S-144 and J1**. Their causes and dispositions are recorded; do not describe all 1,694 as successfully reached. (`T:177,185–192`; smoke outcomes and journey records.)
+
+   Acceptance/spike titles, boot logging, translator material and Xerte text/zip names receive source/test verification, not these browser cells. Native email-client presentation is also unwalked.
+
+8. **Conditions: usable with qualifications.** Every group’s power, peak and ≥8 sample count matches its raw logs: all **28 kept groups ran on AC, mode 2** (`T:85–112`). Most consequential are smoke before **38.79, 104/131 samples ≥8**, smoke after **99.53, 100/155**; after-proof **13.44, 21/22**; export-proof **61.41, 23/24**.
+
+   The seven voids are supported by their records. Timed re-walks began below 8, although some subsequently exceeded it. S-81’s eight modes and S-57 recover; J1 remains hidden; S-59/S-109 reproduce unstable player timing on both versions. (`T:185–196`.)
+
+   Name text is stable **once the intended state is observed**. Timing can still prevent that state or its title history being captured. Unreached/expired records cannot establish state coverage. Correct `T:196`’s “every other group” to **other primary groups**: the export proof peaked at 61.41. Also label the reported medians as **upper-middle samples** for even counts (`R/table-1page.mjs.txt:32`).
+
+9. **Failures and movers: substantially read correctly.** There are **239 numbered expected subject failures**: 121 S-146 + 118 S-78. The quoted 237 is the a6/spfb subtotal; two smoke failures and three flow failures are additional. The two old-order pins fail alike **553 times each**; the other alike failures match the records. (`T:120–167,181`.)
+
+   All six `contrastExtra` changes are pass↔cannot-determine, with no newly failing contrast result. Probe counts reproduce: `help` **1,318**, `row` **323**, `titles` **1,135**, `mailto` **328**. Geometry changes follow wrapping/scroll position; subjects change by name/build. Seven missing title histories belong to expired S-81 states recovered by rw81. (`T:169,198`; corresponding probe records.)
+
+10. **Accessibility/design: no rename-specific blocker found.** Title composition covers every stage/outcome and repaints on language change (`src/ui/progress.ts:160–177`; `src/main.ts:2167–2178`). The title records support 2.4.2.
+
+    At **320 px/32 px**, Chinese and Malay headings occupy three lines, remain contained, and keep the “?” beside them; Malay words remain whole. Spacing/fallback readings support the scoped 1.4.4/1.4.10/1.4.12 conclusion (`R/after-s03…jsonl:106,184`). Valid 16 px screenshots show clear hierarchy without clipping; **no visual approval rests on 32 px page shots**.
+
+    Page-language bindings remain correct. Product names also fall within 3.1.2’s proper-name exception. [W3C guidance](https://www.w3.org/WAI/WCAG22/Understanding/language-of-parts). No changed control label contains the app name, so no new 2.5.3 issue arises (`index.html:44–45`). This is not a general AAA-conformance claim.
+
+11. **Rename order: sound, with an open-tab qualification.** Require commit 1 gated/pushed/green; no queued or running deployment; locally prove commit 2 with the new `BASE_PATH`; obtain the specified rename confirmation; then push and verify commit 2’s exact SHA on the new Pages URL. The workflow derives the base from the repository name (`deploy-pages.yml:57–65`).
+
+    Same-origin storage access survives the path change: localStorage and OPFS are origin-scoped. [HTML storage standard](https://html.spec.whatwg.org/dev/webstorage.html), [OPFS documentation](https://developer.mozilla.org/en-US/docs/Web/API/File_System_API/Origin_private_file_system). **That does not promise job recovery after reload:** existing scratch becomes orphaned (`src/media/opfs.ts:32–36`; worker:150–158). An open old tab also retains the old branding base and may fetch it later (`src/media/pipeline.ts:401–425`). Finish/save before cutover and reopen at the new address; qualify the item’s “stored jobs carry over” wording accordingly.
+
+    The old Pages address stops working—normally a 404, with no automatic redirect. Repository/git redirects are separate. [GitHub’s rename documentation](https://docs.github.com/en/repositories/creating-and-managing-repositories/renaming-a-repository).
+
+12. **Close requirements.** VH-225.1–.7 and the VH-105.2 additions are present. **Correct VH-225.1:** S-143 requires a chosen file, both tips hidden and focus on the format button—not “nothing chosen…help shown” (`wish-list.md:92`; walker:2737).
+
+    VH-229.2 retirement is supported by translation switching, reload, title histories and all 234 open-panel readings; add its explicit retirement trace to the decision. Resolve the checker’s three item-path warnings. Record the owner’s mandate separately from the orchestrators’ translation/evidence rulings, preserve the gaps and native check, and name the house **“Fail loudly on data loss”/invariant-testing** and relevant WCAG rules. No VH-225 Disposition row exists; no UI-STANDARDS rule changes. Keep VH-225 open until commit 2 satisfies the remaining criterion.
+
+**Verdict: pass with conditions.** Correct the evidence/ledger wording above, document the open-tab cutover limitation, complete the full gate and close records, and verify both deployment steps. No product-code repair or blanket re-walk is indicated by this review.

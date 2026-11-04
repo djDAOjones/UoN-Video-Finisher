@@ -1,0 +1,11 @@
+1. **Tree: matches.** Tracked patch hash `51a73fdea15e0208`, all 58 status lines and all 1,923 untracked paths/hashes agree with r1. The only candidate changes between freezes are the repaired question and the close pair. [Patch:222](/Users/joe/UoN-Video-Helper-side/vh225-frozen-r1/tracked.patch:222), [status:48](/Users/joe/UoN-Video-Helper-side/vh225-frozen-r1/status.txt:48).
+
+2. **Schema and backlog: correct.** `Open question: Owner: …` meets the prefix rule. `[ ]` is appropriate: commit 1 remains actionable; the owner’s click follows its green deployment and the other prerequisites, and commit 2 carries the close. [Schema:53](<project/items/_schema.md:53>), [item:22](<project/items/VH-225.md:22>), [item:32](<project/items/VH-225.md:32>), [backlog:40](<project/backlog.md:40>).
+
+3. **Evidence and checks:** Both close files match their frozen hashes. Their verbatim identity with the originals rests on your statement: no independent originals or source hashes are available within the permitted reads. [Manifest:5](/Users/joe/UoN-Video-Helper-side/vh225-frozen-r1/untracked.sha1.txt:5).
+
+   Gate 2 exited **0**: **84 files, 1,663 passing tests**, with the one unchanged EBU skip; no test deleted or newly skipped. Its initial loads **4.56 / 3.91** qualify under the supplied ruling; the later **14.40** sample does not invalidate it. [Gate:27](/Users/joe/UoN-Video-Helper-side/vh225-gate-2.log:27), [power/exit:1](/Users/joe/UoN-Video-Helper-side/vh225-gate-2.power.txt:1).
+
+   I independently reran `node tools/check.mjs`: **exit 0, zero failures and zero warnings**, agreeing with [gate:141](/Users/joe/UoN-Video-Helper-side/vh225-gate-2.log:141).
+
+**Verdict: pass.** No further tree changes before commit 1. Its `Verify:` must include the start loads **4.56 / 3.91** and both samples **4.56, 14.40**.

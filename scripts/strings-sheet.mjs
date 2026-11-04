@@ -31,7 +31,7 @@ const [zh, ms] = sheet.SHEET_LANGUAGES
 const INSTRUCTIONS = [
   'How to fill this sheet',
   '',
-  'There is one row for every piece of text the UoN Video Helper page can show or read out.',
+  'There is one row for every piece of text the UoN Video Finisher page can show or read out.',
   `Translate only the English column (C), into the "${zh.heading}" column (E) and the "${ms.heading}" column (F).`,
   'Do not change the key (column A). It is how each translation finds its place on the page.',
   'Keep every {placeholder} exactly as written, braces and all, for example {count} or {size}. The page puts a number or a name there. You may move a placeholder within the sentence to suit your language.',

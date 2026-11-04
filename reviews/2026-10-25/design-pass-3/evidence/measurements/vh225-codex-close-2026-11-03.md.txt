@@ -1,0 +1,22 @@
+1. **Freeze and scope: yes.** HEAD and origin/main are `a5475cda…`. The tracked patch matches byte-for-byte, SHA-1 prefix `fac9d3128d313126`; all 56 status lines and all 1,921 untracked paths/hashes match. Nothing is staged. Changes belong to VH-225, including its evidence and required archive maintenance. [Status:1](/Users/joe/UoN-Video-Helper-side/vh225-frozen/status.txt:1), [manifest:1](/Users/joe/UoN-Video-Helper-side/vh225-frozen/untracked.sha1.txt:1).
+
+2. **Acceptance criteria:**
+
+| Criterion | Commit-1 assessment |
+|---|---|
+| Visible name | **Met with stated shortfall:** all named surfaces changed; native-language approval remains VH-105.2. [Item:11–19](<project/items/VH-225.md:11>), [wish:28](<project/wish-list.md:28>). |
+| Restricted `docs/` edits | **Met:** only the specification’s first-line name and init-prompt’s name changed. [Specification:1](<docs/01-specification.md:1>), [init-prompt:21](<docs/04-init-prompt.md:21>). |
+| Hidden identifiers | **Met:** required identifiers remain unchanged and pinned by five new tests. [Test:52](<test/kept-identifiers.test.ts:52>). |
+| Repository/Pages | **Rightly pending commit 2.** Commit-1 push/Pages verification also necessarily follows this precommit review. [Item:22](<project/items/VH-225.md:22>). |
+| Walker | **Met:** exactly three assertions changed; new revision passes 87/87 plus 3/3 flows, and fails those checks on the base export. [R1 table:185](<reviews/2026-10-25/design-pass-3/evidence/measurements/vh225-name-r1-2026-11-03.md:185>). |
+| Stage rule | **Met with stated shortfall:** 1,695 planned, 1,694 attempted, 1,690 reached per side; five gaps remain explicitly recorded. [R1 table:179](<reviews/2026-10-25/design-pass-3/evidence/measurements/vh225-name-r1-2026-11-03.md:179>). |
+
+3. **Blind-verdict repairs: met.** S-143’s predicate is corrected; r1’s reach, export comparison, load peaks and upper-middle median reproduce from records. The stored-jobs qualification explicitly requires finish/save before reopening. The checker’s warnings are resolved. Owner mandates, orchestrator rulings and house/WCAG digest rules are distinguished. [Wish:92](<project/wish-list.md:92>), [r1:185](<reviews/2026-10-25/design-pass-3/evidence/measurements/vh225-name-r1-2026-11-03.md:185>), [r1:198](<reviews/2026-10-25/design-pass-3/evidence/measurements/vh225-name-r1-2026-11-03.md:198>), [item:47](<project/items/VH-225.md:47>), [decision:25](<project/decisions.md:25>).
+
+4. **Ledger: correct apart from one schema detail.** The newest decision has all fields; wishes have valid permanent IDs and forms; deferrals have open lines; VH-229.2’s retirement and VH-105.2’s widening are traced. The archived entry is byte-identical. VH-225 correctly stays open, with no trajectory addition. However, the owner question at [item:32](<project/items/VH-225.md:32>) lacks the `Owner:` prefix required by [schema:53](<project/items/_schema.md:53>). [Decision:21](<project/decisions.md:21>), [backlog:40](<project/backlog.md:40>), [wishes:92](<project/wish-list.md:92>).
+
+5. **Evidence: measurements verify; review-copy authenticity is partly unverified.** All 954 r1 manifest digests verify; direct copies match permitted sources and generated records reproduce them. No material contradiction remains in the current r1 claims. Three review copies match independently recorded hashes. Other originals are prohibited, so their verbatim/header-only equivalence cannot be independently certified; the three stated added headers are lint directives. [Sources:1](<reviews/2026-10-25/design-pass-3/evidence/measurements/vh225-records-r1-2026-11-03/sources.txt:1>), [compare:5](<reviews/2026-10-25/design-pass-3/evidence/measurements/vh225-codex-compare-2026-11-03.md:5>).
+
+6. **Gate: green in the supplied log.** 84 files, 1,663 passing tests, the one unchanged EBU skip; no test deleted or newly skipped. Start loads **2.65 / 4.85**, both below 8. I independently reran `node tools/check.mjs`: zero failures/warnings. The gate’s eight frozen-canon warnings already have INTAKE.8. [Gate:27](/Users/joe/UoN-Video-Helper-side/vh225-gate-1.log:27), [power/exit:1](/Users/joe/UoN-Video-Helper-side/vh225-gate-1.power.txt:1), [wish:25](<project/wish-list.md:25>).
+
+**Verdict: pass with conditions.** Before commit 1, change the item to `Open question: Owner: …`, rerun the checker and refresh the freeze. No product-code repair or re-walk is required.

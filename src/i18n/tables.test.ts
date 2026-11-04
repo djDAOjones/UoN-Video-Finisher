@@ -212,7 +212,7 @@ describe('a filled sheet', () => {
       translationsFrom(
         [
           ['key', 'English'],
-          ['app.title', 'UoN Video Helper'],
+          ['app.title', 'UoN Video Finisher'],
         ],
         chinese.heading,
       ),
@@ -272,10 +272,10 @@ describe('the closing graphics, word for word (VH-149)', () => {
   })
 
   it("keeps the statement's first sentence as it was, less the one VH-148 dropped", () => {
-    expect(LANGUAGE_TABLES['zh-Hans']!.statement.covers).toBe('本声明适用于 UoN 视频助手，即您当前所在的页面。')
+    expect(LANGUAGE_TABLES['zh-Hans']!.statement.covers).toBe('本声明适用于 UoN 视频成片工具，即您当前所在的页面。')
     const ms = LANGUAGE_TABLES['ms-MY']!
     expect(ms.statement.covers).toBe(
-      'Kenyataan ini meliputi Pembantu Video UoN, iaitu halaman yang sedang anda gunakan.',
+      'Kenyataan ini meliputi Penyiap Video UoN, iaitu halaman yang sedang anda gunakan.',
     )
     // One word for the statement: its heading's.
     expect(ms.statement.covers.split(' ')[0]).toBe(ms.statement.heading.split(' ')[0])

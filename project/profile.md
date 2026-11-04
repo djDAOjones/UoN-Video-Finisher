@@ -1,4 +1,4 @@
-# Profile — UoN Video Helper
+# Profile — UoN Video Finisher
 
 <!-- What the owner brings. Hot: read before the first change. Under
      400 words (hard budget). Agents never change anything above the

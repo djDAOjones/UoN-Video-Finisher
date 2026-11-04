@@ -1,0 +1,15 @@
+walker records 8: {"ok":8}
+failing asserts by label: {}
+probe rows 8, errors 0; by scenario {"S-81":8}
+titles now: {"Pembantu Video UoN":8}
+title histories: {"Pembantu Video UoN":8}
+h1 texts: {"Pembantu Video UoN":8}
+h1 lines by lang: {"en-GB":{},"zh-Hans":{},"ms-MY":{"2":8}}
+h1 non-CJK words broken: 0 ; CJK breaks 0; h1 overflow 0
+the "?" beside/below the h1: {"beside exp=false":8}
+covers shown 8: texts {"Kenyataan ini meliputi Pembantu Video UoN, iaitu halaman yang sedang anda gunakan.":8}; lines by lang {"en-GB":{},"zh-Hans":{},"ms-MY":{"3":1,"4":3,"6":4}}; non-CJK broken 0
+mailto subjects (build id cut): {}
+mailto link subjects: {"language-notice: UoN Video Helper translation: Bahasa Malaysia":8}
+page sideways scroll: 0 of 8
+ms-MY words vs the title row (8 cells): Pembantu fits 8, max 271.05 px; Penyiap fits 8, max 211.97 px; Penyempurna fits 6, max 371.8 px; min row 327 px
+cells where Pembantu fits and Penyempurna would not: 2 S-81-ms-MY-w375/dark-font32 S-81-ms-MY-w375/font32

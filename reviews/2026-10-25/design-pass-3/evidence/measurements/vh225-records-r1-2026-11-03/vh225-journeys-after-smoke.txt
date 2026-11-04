@@ -1,0 +1,8 @@
+{"run":"vh225-after-smoke-2026-11-03T20-36-57-883Z-bcaa58","cell":"J1__en-GB__w1280__light","status":"failed","reached":"fail","problems":["page hidden: timers throttled and media deferred; launch Chrome with --disable-backgrounding-occluded-windows"],"visibility":"hidden"}
+{"run":"vh225-after-smoke-2026-11-03T20-36-57-883Z-bcaa58","cell":"J2__en-GB__w1280__light","status":"ok","reached":"pass","problems":[],"visibility":"visible"}
+{"run":"vh225-after-smoke-2026-11-03T20-36-57-883Z-bcaa58","cell":"J3__en-GB__w1280__light","status":"ok","reached":"pass","problems":[],"visibility":"visible"}
+{"run":"vh225-after-smoke-2026-11-03T20-36-57-883Z-bcaa58","cell":"J4__en-GB__w1280__light","status":"ok","reached":"pass","problems":[],"visibility":"visible"}
+{"run":"vh225-after-smoke-2026-11-03T20-36-57-883Z-bcaa58","cell":"K-dialog__en-GB__w1280__light","status":"ok","reached":"pass","problems":[],"visibility":"visible"}
+{"run":"vh225-after-smoke-2026-11-03T20-36-57-883Z-bcaa58","cell":"S-ID1__en-GB__w1280__light","status":"ok","reached":"pass","problems":[],"visibility":"visible"}
+{"run":"vh225-after-smoke-2026-11-03T20-36-57-883Z-bcaa58","cell":"S-ID2__en-GB__w1280__light","status":"ok","reached":"pass","problems":[],"visibility":"visible"}
+{"run":"vh225-after-smoke-2026-11-03T20-36-57-883Z-bcaa58","cell":"S-ID3__en-GB__w1280__light","status":"ok","reached":"pass","problems":[],"visibility":"visible"}

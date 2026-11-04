@@ -18,6 +18,16 @@
      moves the oldest entries verbatim to project/decisions-YYYY-MM.md,
      beside this file, listed in project/archive-index.md. -->
 
+## 2026-11-04 — VH-225 — Commit 1: the visible name UoN Video Finisher in three languages, no address changed, the item open
+
+**Decision:** VH-225's first commit gives the app the name "UoN Video Finisher" on every surface it shows, with "Penyiap Video UoN" in Malay and "UoN 视频成片工具" in Chinese, an orchestrator's acceptance listed for the owner. The hidden identifiers keep their names, pinned by a test; no address changes. Wish VH-229.2 retired, its readings done. The item stays open: the repository rename is the owner's click, and commit 2 carries the addresses and the close.
+
+**Rationale:** The owner's words (`plan8-owner-words.md`), apart from the orchestrators': "it is to be called UoN Video Finisher (rather than UoN Video Helper)" and "the next release must contain the rename" (2026-10-28, "Backlog review"); "Rename those too", the repository and the Pages address; "Yes, move it", the slot after VH-210; "Gateless covers the rest of Phase 8"; "Yes, leave them", the walker's old-order pins; and S-133's records "a named instrument gap", measured in VH-203's after-run (2026-10-27). The orchestrators' rulings, listed for the owner: #35, the two names, the 1,695 cells a side and S-133 skipped on both sides; #36, the build accepted and the subject fails at the old revision expected; #37, the proof's load recorded with no re-run, J1 the instrument, S-141, S-143 and S-144 not reached (wish VH-225.1), and S-59's and S-109's player row the instrument (VH-199.1). Measured: 1,695 cells planned a side, 1,694 attempted and 1,690 reached, every group on AC at power mode 2; every title, h1, "covers" line and email subject read the old name before and the new after. The walker's three subject assertions moved it from `fe44891d3c53f716` to `9c52269607bccc4c`: the after passes 87 of 87 and the flows 3 of 3, a read-only export of the base 0 of 87 and 0 of 3. At the old revision the subject rows fail as expected (S-146 121, S-78 118), and the old-order pins fail alike in 553 cells a side. [The table](../reviews/2026-10-25/design-pass-3/evidence/measurements/vh225-name-r1-2026-11-03.md) is the second by script from one walk; the first is on file and its notes were corrected on Codex's verdict check. A job in flight at the cutover is lost, since a reload orphans its scratch by design, so the rename ask says to finish and save first. Wishes VH-225.1 to VH-225.7 raised; VH-105.2 widened to take the two names, which the native check confirms; VH-229.2 retired, its four readings done in this walk: translation binding (S-04), reload (S-06a), the tab title (the titles group) and the open panel (S-03 with the "?" open). Codex's verdict: "Pass with conditions for commit 1". Shortfalls: the two names await the native check, the machine-translation notice kept; 32 px page shots show the default size (VH-217.5). Digest rules: house-conventions, "Fail loudly on data loss" (the kept identifiers' test); wcag-2.2-aaa, 2.4.2, 1.4.4, 1.4.10 and 1.4.12.
+
+**Supersedes:** none
+
+**Deferred:** VH-225
+
 ## 2026-11-03 — VH-210 — Closes: V-48 whole on the base, V-49's footer link spaced by the ring's room
 
 **Decision:** VH-210 closes V-48 with no rule, its ring whole on the base, and V-49 by `--focus-room` between the footer list's items under forced colours: `#contact-creators` failing 418 forced cells to 0. Wish VH-209.3 retired, its condition applied. The orchestrators' rulings listed for the owner.
@@ -603,13 +613,3 @@
 **Supersedes:** 2026-10-24 — VH-187 — The top of the page: plain promises, the owner's promise 2, the browser note only when a check has not passed
 
 **Deferred:** VH-196
-
-## 2026-10-25 — VH-189 — Step 4's labels in the result line's plain words; below about 400 px the "?" sits beside "Plays over"
-
-**Decision:** Step 4 takes B7's words: "No closing graphics", "Plays over", "The last second of video" and "A held last frame", the "?" named "About what the graphics play over", and "Not used without closing graphics."; spec §4.3 takes S11 to S16. Below about 400 px the "?" moves up beside the label, CSS only, as the owner chose: "Yes — option 2: below about 400 px, the "?" moves up beside the label ("Plays over [?]")".
-
-**Rationale:** On 7632411, with the "?" beside the onset select, the select left 116 px for text at 320 px. The old "Over generated freeze frame" was clipped at 375 and 320 px, and the new "The last second of video" (152 px) was still clipped at 320 px. Three options went to the owner through the orchestrator. Under `@media (max-width: 25rem)` the onset field is a grid and `.control-with-help` is `display: contents`, so the select gets the field's whole width: 168 px at 320 px. The markup is unchanged, so the focus order stays the select, then the "?", then its text. The Malay draft for A held last frame became "Bingkai akhir ditahan" so that it fits. Every new English string was graded before the build and all pass. 72 Chrome cases pass (`reviews/2026-10-24/vh189-labels-2026-10-25.md`): labels match their accessible names, every option fits, the "?" is in its place on each side of 400 px, Tab and Escape behave, and the tip opens under the select. Codex astra: "Commit after the musts below"; its musts are done: the walker asks the page's own query (25rem follows the text size), a 32 px text run is recorded, and this close. Its two mays, a sheet note and a test description, are taken. With 32 px text, every select clips at 401 px and below, the type select included: that is beyond 1.4.4 and 1.4.10, and it is wish line VH-189.1. Digest rules applied: WCAG 2.5.3 (label in name) and 1.4.10 (reflow, no clipped value at 320 px); Nielsen 2 (the user's words, as the result line already says them).
-
-**Supersedes:** none
-
-**Deferred:** VH-190

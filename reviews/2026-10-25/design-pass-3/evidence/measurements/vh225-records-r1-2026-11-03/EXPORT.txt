@@ -1,0 +1,2 @@
+commit a5475cda0ca29a45f9f8b4f31c5e626b5b5547ff
+export of the base by git archive, read-only; node_modules linked to the checkout's (VH-225 #3, 2026-11-03T22:16:33Z)

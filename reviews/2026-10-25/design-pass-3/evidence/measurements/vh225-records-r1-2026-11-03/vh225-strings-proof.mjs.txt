@@ -1,0 +1,31 @@
+// VH-225 #2 (modelled read-only on vh216-walk/strings-proof-2.mjs): exactly which strings changed. Run from $R: node <this> <base>.
+// Each table, base and tree, is transpiled by the project's TypeScript and imported, flattened to key → text, and compared; index.html's
+// data-i18n keys, attributes and tags are compared by count and its text lines listed where they differ; the filled sheet's changed rows by key and column.
+import { execFileSync } from 'node:child_process'
+import { readFileSync } from 'node:fs'
+import { createRequire } from 'node:module'
+const ts = createRequire(process.cwd() + '/package.json')('typescript')
+const base = process.argv[2]
+const show = (p) => execFileSync('git', ['show', `${base}:${p}`], { encoding: 'utf8', maxBuffer: 1 << 26 })
+const load = async (src) => { const js = ts.transpileModule(src, { compilerOptions: { module: ts.ModuleKind.ESNext, target: ts.ScriptTarget.ES2022 } }).outputText; const m = await import('data:text/javascript;base64,' + Buffer.from(js).toString('base64')); return Object.values(m)[0] }
+const flat = (o, p = '', out = {}) => { for (const [k, v] of Object.entries(o)) { const q = p ? `${p}.${k}` : k; if (v && typeof v === 'object') flat(v, q, out); else out[q] = String(v) } return out }
+for (const p of ['src/i18n/en-GB.ts', 'src/i18n/zh-Hans.ts', 'src/i18n/ms-MY.ts']) {
+  const a = flat(await load(show(p))), b = flat(await load(readFileSync(p, 'utf8')))
+  const keys = [...new Set([...Object.keys(a), ...Object.keys(b)])]
+  const ch = keys.filter((k) => a[k] !== b[k])
+  console.log(`${p}: ${Object.keys(a).length} → ${Object.keys(b).length} strings, changed ${ch.length}`)
+  for (const k of ch) console.log(`  ${k}: ${JSON.stringify(a[k])} → ${JSON.stringify(b[k])}`)
+}
+const noC = (s) => s.replace(/<!--[\s\S]*?-->/g, '')
+const count = (s, re) => { const c = {}; for (const m of s.matchAll(re)) c[m[1]] = (c[m[1]] ?? 0) + 1; return JSON.stringify(Object.entries(c).sort()) }
+const a = noC(show('index.html')), b = noC(readFileSync('index.html', 'utf8'))
+console.log('index.html data-i18n', count(a, /data-i18n="([^"]+)"/g) === count(b, /data-i18n="([^"]+)"/g) ? 'same keys and counts' : 'DIFFERS', a.match(/data-i18n="/g).length)
+console.log('index.html data-i18n-attr', count(a, /data-i18n-attr="([^"]+)"/g) === count(b, /data-i18n-attr="([^"]+)"/g) ? 'same' : 'DIFFERS')
+console.log('index.html elements', count(a, /<([a-zA-Z][\w-]*)[\s>\/]/g) === count(b, /<([a-zA-Z][\w-]*)[\s>\/]/g) ? 'same tags and counts' : 'DIFFERS', a.match(/<[a-zA-Z]/g).length, b.match(/<[a-zA-Z]/g).length)
+const la = show('index.html').split('\n'), lb = readFileSync('index.html', 'utf8').split('\n')
+console.log('index.html lines', la.length, lb.length); la.forEach((l, i) => { if (l !== lb[i]) console.log(`  :${i + 1} ${JSON.stringify(l.trim())} → ${JSON.stringify((lb[i] ?? '').trim())}`) })
+const F = 'reviews/2026-10-18/VH-105-strings-filled.csv'
+const { module: sheet } = await (await import(createRequire(process.cwd() + '/package.json').resolve('vite'))).runnerImport('/src/i18n/sheet.ts', { logLevel: 'error' })
+const ca = sheet.parseCsv(show(F)), cb = sheet.parseCsv(readFileSync(F, 'utf8'))
+console.log(`filled sheet rows ${ca.length} → ${cb.length}`)
+ca.forEach((r, i) => { const s = cb[i] ?? []; const cols = r.map((c, j) => (c === s[j] ? null : `${ca[0][j]}: ${JSON.stringify(c)} → ${JSON.stringify(s[j])}`)).filter(Boolean); if (cols.length) console.log(`  ${r[0]}\n    ${cols.join('\n    ')}`) })

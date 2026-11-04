@@ -2,7 +2,7 @@
 /**
  * Makes the Xerte upload in one command (VH-103): the flat build, a
  * `README-HOSTING.txt` beside it, zipped and named for the build identity the
- * build carries — `release/uon-video-helper-<build id>-site.zip`.
+ * build carries — `release/uon-video-finisher-<build id>-site.zip`.
  *
  * `npm run build:xerte` made the build, and the README and the zip were made
  * by hand from the recipe in DEV-INFRASTRUCTURE.md -> "Xerte package". By hand
@@ -78,7 +78,7 @@ export function hostingReadme({ appVersion, buildId, files }) {
   const listed = files
     .map((file, i) => `  ${file.name.padEnd(nameWidth)}  ${sizes[i].padStart(sizeWidth)} bytes`)
     .join('\n')
-  return `UoN Video Helper ${appVersion} — build ${buildId}
+  return `UoN Video Finisher ${appVersion} — build ${buildId}
 Static site bundle. No server-side code, no database, nothing to compile.
 Video is processed in the visitor's browser and never uploaded anywhere.
 
@@ -165,7 +165,7 @@ function main() {
       hostingReadme({ appVersion: `v${pkg.version}`, buildId, files }),
     )
     mkdirSync(join(root, 'release'), { recursive: true })
-    const zip = resolve(root, 'release', `uon-video-helper-${buildId}-site.zip`)
+    const zip = resolve(root, 'release', `uon-video-finisher-${buildId}-site.zip`)
     // `zip` adds to an archive that already exists, so a rebuild of the same
     // commit on the same day would carry the last one's files too.
     rmSync(zip, { force: true })

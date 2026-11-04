@@ -481,7 +481,7 @@ const NOTES: Readonly<Record<string, string>> = {
   'statement.heading':
     'The heading of the panel, so no full stop. A formal statement, as on any official website.',
   'statement.covers':
-    'UoN Video Helper is the product name: use the same name as app.title. A formal statement: use a formal register throughout.',
+    'UoN Video Finisher is the product name: use the same name as app.title. A formal statement: use a formal register throughout.',
   'statement.aim': 'Introduces the five lines that follow, which complete its last sentence.',
   ...listNotes('statement.abilities', enGB.statement.abilities, COMPLETES_ABLE_TO),
   'statement.limits.intro': 'Introduces the six lines that follow.',

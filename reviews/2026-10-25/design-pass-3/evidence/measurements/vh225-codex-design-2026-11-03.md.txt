@@ -1,0 +1,118 @@
+I recommend proceeding with the rename, with the expanded scope and evidence requirements below. This was a read-only review.
+
+`W/` below means `reviews/2026-10-25/design-pass-3/evidence/measurements/walker/`.
+
+**1. Name surfaces and scope**
+
+Rename these current surfaces:
+
+- Initial tab title, heading and statement: `index.html:6`, `:39`, `:733`; `app.title` and `statement.covers` in `src/i18n/en-GB.ts:55`, `:901`, `zh-Hans.ts:25`, `:769`, and `ms-MY.ts:25`, `:820`. Running and outcome tab titles inherit `app.title` (`src/ui/progress.ts:160`, `:166`).
+- Both email subjects, including translation feedback; boot log; translator guidance and sheet introduction (`src/config/feedback.ts:35`, `:49`; `src/main.ts:223`; `src/i18n/sheet.ts:484`; `scripts/strings-sheet.mjs:34`).
+- Hosting README, delivered zip prefix and instructions (`scripts/package-xerte.mjs:5`, `:81`, `:168`; `DEV-INFRASTRUCTURE.md:507`).
+- README/profile identity; acceptance title; all thirteen live spike titles: aac-cost, alpha, cards, codecs, content-class, estimate, framerate, modes, opfs, phone, preflight-audio, real, shapes—each `spike-*.html:6`. Maintainer pages still show a product name, although only the app ships (`vite.config.ts:137`).
+- Current repository/Pages references and branding examples (`project/profile.md:12`; `vite.config.ts:131`; `src/config/branding.ts:336`; `src/config/branding.test.ts:124`).
+- Existing name assertions in `test/screen-text.test.ts:62`, `:576`, `:973`; `test/package-xerte.test.ts:52`; `src/i18n/tables.test.ts:215`, `:275`; `src/ui/progress.test.ts:66`, `:216`.
+
+**The dated CSV is an exception to historical preservation:** update its `app.title` and `statement.covers` rows, then regenerate translations. It remains their canonical source (`reviews/2026-10-18/VH-105-strings-filled.csv:2`, `:456`; `src/i18n/sheet.ts:600`; `src/i18n/zh-Hans.ts:7`).
+
+Update current headings in `project/brief.md:1`, `architecture.md:1`, `structure.md:1`, without regenerating unrelated structure counts. Preserve `project/rules.md`, frozen digest provenance, quotations, historical reviews, filenames, links and their lint exclusions. These record history (`project/digests/house-conventions.md:2`; `carbon.md:53`; `.markdownlint-cli2.jsonc:8`).
+
+Keep temp prefixes and the launcher identifier: they are tooling identities, not product branding (`scripts/check-build.mjs:28`; `scripts/package-xerte.mjs:161`; `.claude/launch.json:5`). Limit `docs/` edits exactly to the specification title and init-prompt name/slug substitutions (`docs/01-specification.md:1`; `docs/04-init-prompt.md:21`, `:27`).
+
+**2. Repository and Pages order**
+
+No base-path logic change is needed. Vite reads `BASE_PATH`; both CI gate and build derive it from the repository name. Branding follows `BASE_URL`; Xerte keeps `./` (`vite.config.ts:103`; `.github/workflows/deploy-pages.yml:57`; `src/config/branding.ts:341`).
+
+Use three commits:
+
+1. Visible rename, translations, packaging, tests, permitted documentation and evidence. Push while the old repository exists; verify its deployment. Keep current address references until cutover.
+2. Prepare and gate address-reference changes, including a production build using `/UoN-Video-Finisher/`. Drain old workflow runs before the owner’s explicitly authorised settings rename: they retain the old event name, and deployment concurrency does not cancel them (`deploy-pages.yml:27`). After that rename, the implementing session updates local `origin` and pushes this commit.
+3. After verifying the new live build, commit the actual cutover evidence and close ledger; gate, push and verify its live identity (`DEV-INFRASTRUCTURE.md:451`).
+
+The old Pages address ultimately returns 404, not a redirect. The new address may be unavailable or serve an old-path artifact between rename and successful deployment/propagation. Measure that interval; no fixed duration or zero-downtime promise is justified. No push should publish a hardcoded new base under the old repository.
+
+**3. Proposed names**
+
+Keep these explicitly provisional for the existing native review, VH-105.2 (`project/wish-list.md:28`):
+
+- **zh-Hans: UoN 视频成片工具** — emphasises producing the finished video. Alternative: **UoN 视频定稿工具**, though 定稿 can suggest editorial approval.
+- **ms-MY: Penyempurna Video UoN** — conveys completing/refining a video. Alternative: **Alat Penyediaan Akhir Video UoN**, more explicit but substantially longer.
+
+New `statement.covers`:
+
+- en-GB: “This statement covers UoN Video Finisher, the page you are on.”
+- zh-Hans: “本声明适用于 UoN 视频成片工具，即您当前所在的页面。”
+- ms-MY: “Kenyataan ini meliputi Penyempurna Video UoN, iaitu halaman yang sedang anda gunakan.”
+
+Each must use exactly its `app.title` name (`src/i18n/sheet.ts:484`).
+
+**4. Identifier pinning**
+
+Add `test/persistent-identifiers.test.ts`, comparing against independent literal expectations:
+
+- `uon-video-helper:language`, `:video-language`, `:video-kind`, `:announce-progress`;
+- `uon-video-helper-jobs`;
+- worker name `uon-video-helper-job`;
+- `uon-video-helper` in package name and **both** lockfile name fields.
+
+Sources: `src/config/languages.ts:47`, `:53`; `video-kind.ts:24`; `src/ui/progress.ts:182`; `src/media/opfs.ts:27`; `src/main.ts:1183`; `package.json:2`; `package-lock.json:2`, `:8`.
+
+Import exported constants. Parse package JSON. For the worker, inspect the actual constructor’s options using the existing TypeScript parser; an unrestricted string search could pass on a comment. Do not import side-effectful `main.ts` or refactor merely for testing.
+
+**5. Walker edits and proof**
+
+Change only the literal subject prefix and associated assertion descriptions:
+
+`UoN Video Helper problem report` → `UoN Video Finisher problem report`
+
+at `W/scenarios.mjs:2799`, `:3005`, and `W/footer-182.mjs:169`.
+
+Freeze the resulting instrument revision and use it against both pinned app revisions. Record its expected old-name failures on the baseline; require the candidate to pass. Do not accept both names with a permissive regex.
+
+Prove the assertions with positive and negative controls on both app revisions, including wide and narrow layouts. The footer flow hardcodes `w1280`; its `--views` option cannot prove narrow flow coverage (`W/footer-182.mjs:155`). Use a separate, recorded invocation driver.
+
+**6. Cells and states**
+
+The heading and tab title persist across the scenario universe. A representative handful would reduce coverage.
+
+My manifest crosses each scenario’s **union of assigned views and font conditions across all loaded `PLANS`**, including declared views, with three languages and four colours. Load the parts as the runner does (`W/matrix.mjs:28`; `W/scenarios.mjs:1301`, `:1331`). Expand recipe-only language restrictions; S-05 genuinely exists only in Chinese/Malay.
+
+Define **A** as w1280/w375/w320; **B** adds landscape, short and both zoom proxies. Font conditions are default, 32 px, withheld-font fallback and spacing.
+
+| Name-bearing scenarios | Views | Fonts | Cells each |
+|---|---|---|---:|
+| S-03, S-48, S-53, S-56, S-81 | B | All four | 336 |
+| S-04, S-79b, S-146 | A | All four | 144 |
+| S-06a, S-52, S-86, S-78, S-78k | A | Default, spacing | 72 |
+| S-06b, S-49/50/57/60/85/90a/90b | A | Default | 36 |
+| S-05 | A | Default; two languages | 24 |
+| S-118, S-123; each keyboard route | w1280/w320 | Default | 24 |
+
+Retain scenario-specific w800, w640, w401 and w400 too; equal widths with different heights/DPR are distinct (`W/qualify.mjs:967`).
+
+**Total: 18,636 cells per build, 37,272 paired:** 18,420 planned scenario cells, 72 for S-149a–f and 144 keyboard-route cells.
+
+Statement: S-06b/S-81. Problem subjects: S-78/S-78k/S-79b/S-146. Translation subject: S-05 and exposed non-English notices. Read heading help closed/open, language switching and reload with real translations (`project/wish-list.md:80`).
+
+For tabs, cover initial/reset, ready, failed, cancelled and all five running stages (`src/media/pipeline.ts:75`). Record actual title mutations during completed S-53 jobs in every styling cell; its 336-cell cross covers the running-stage environments. These are additional observations within cells. A final encoding snapshot cannot prove all stages.
+
+Compose fallback/spacing through existing APIs: invented combined mode names do not enable them (`W/qualify.mjs:1013`; `W/matrix.mjs:217`).
+
+Static package/docs text needs artifact checks, not artificial language/layout cells. Reachable app states cannot be reduced merely because their names match.
+
+**7. Refined six criteria**
+
+1. Every current name surface listed above changes consistently; translation-source rows and tests agree; native review remains explicitly pending.
+2. Only the authorised `docs/` name substitutions occur.
+3. All preserved identifiers pass independent literal pins; no migration or storage clearing occurs.
+4. The authorised repository cutover, remote update, address changes and live deployment verification complete in the stated order.
+5. Only the three named walker assertions change; the new revision is proved and shared by baseline/candidate evidence.
+6. The declared full manifest and title/help-state observations complete; failures remain explicit; candidate gate and `node tools/check.mjs` pass without weakened tests.
+
+**8. Remaining risks**
+
+A path-only Pages move retains the storage origin, but existing tabs can still request old asset URLs; coordinate cutover around saved work (`src/media/opfs.ts:32`). Keep Xerte’s previous hashed scripts during upload (`scripts/package-xerte.mjs:101`). Version/tag/release packaging remains VH-204’s work (`project/items/VH-204.md:9`).
+
+Respect known measurement defects: 32 px full-page captures and stale forced palettes can misrepresent results (`project/wish-list.md:79`, `:89`). Any further walker repair hits the stop.
+
+Close against house conventions’ **“Fail loudly on data loss”** and minimal-change rules, plus WCAG reflow/text-spacing requirements (`house-conventions.md:57`, `:79`; `UI-STANDARDS.md:208`).

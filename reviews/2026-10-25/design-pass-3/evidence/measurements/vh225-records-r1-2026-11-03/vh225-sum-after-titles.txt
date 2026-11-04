@@ -1,0 +1,15 @@
+walker records 12: {"ok":12}
+failing asserts by label: {}
+probe rows 12, errors 0; by scenario {"S-48":3,"S-53":3,"S-56":3,"S-52":3}
+titles now: {"Encoding video — UoN Video Finisher":1,"视频编码 — UoN 视频成片工具":1,"Pengekodan video — Penyiap Video UoN":1,"Ready — UoN Video Finisher":1,"准备就绪 — UoN 视频成片工具":1,"Sedia — Penyiap Video UoN":1,"Not made — UoN Video Finisher":1,"未制作 — UoN 视频成片工具":1,"Tidak dibuat — Penyiap Video UoN":1,"Cancelled — UoN Video Finisher":1,"已取消 — UoN 视频成片工具":1,"Dibatalkan — Penyiap Video UoN":1}
+title histories: {"UoN Video Finisher":4,"Getting ready — UoN Video Finisher":4,"Analysing audio — UoN Video Finisher":4,"Encoding video — UoN Video Finisher":4,"UoN 视频成片工具":4,"准备中 — UoN 视频成片工具":4,"分析音频 — UoN 视频成片工具":4,"视频编码 — UoN 视频成片工具":4,"Penyiap Video UoN":4,"Bersedia — Penyiap Video UoN":4,"Menganalisis audio — Penyiap Video UoN":4,"Pengekodan video — Penyiap Video UoN":4,"Finishing the file — UoN Video Finisher":2,"Checking the file — UoN Video Finisher":1,"Ready — UoN Video Finisher":1,"完成文件 — UoN 视频成片工具":2,"检查文件 — UoN 视频成片工具":1,"准备就绪 — UoN 视频成片工具":1,"Menyelesaikan fail — Penyiap Video UoN":2,"Memeriksa fail — Penyiap Video UoN":1,"Sedia — Penyiap Video UoN":1,"Not made — UoN Video Finisher":1,"未制作 — UoN 视频成片工具":1,"Tidak dibuat — Penyiap Video UoN":1,"Cancelled — UoN Video Finisher":1,"已取消 — UoN 视频成片工具":1,"Dibatalkan — Penyiap Video UoN":1}
+h1 texts: {"UoN Video Finisher":4,"UoN 视频成片工具":4,"Penyiap Video UoN":4}
+h1 lines by lang: {"en-GB":{"1":4},"zh-Hans":{"1":4},"ms-MY":{"1":4}}
+h1 non-CJK words broken: 0 ; CJK breaks 0; h1 overflow 0
+the "?" beside/below the h1: {"beside exp=false":12}
+covers shown 0: texts {}; lines by lang {"en-GB":{},"zh-Hans":{},"ms-MY":{}}; non-CJK broken 0
+mailto subjects (build id cut): {}
+mailto link subjects: {"language-notice: UoN Video Finisher translation: English":4,"language-notice: UoN Video Finisher translation: 中文":4,"language-notice: UoN Video Finisher translation: Bahasa Malaysia":4}
+page sideways scroll: 0 of 12
+ms-MY words vs the title row (4 cells): Pembantu fits 4, max 135.53 px; Penyiap fits 4, max 105.98 px; Penyempurna fits 4, max 185.91 px; min row 912 px
+cells where Pembantu fits and Penyempurna would not: 0 

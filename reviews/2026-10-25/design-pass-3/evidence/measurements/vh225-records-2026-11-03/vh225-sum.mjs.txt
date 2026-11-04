@@ -1,0 +1,33 @@
+// VH-225 #1: a group's summary, read-only, from its folder: the walker's records (status, failing asserts by label) and the name probe's rows.
+//   node vh225-sum.mjs <group dir>
+import { readdirSync, readFileSync } from 'node:fs'
+import { join } from 'node:path'
+const g = process.argv[2], runs = join(g, 'runs')
+const runDirs = readdirSync(runs).filter((d) => /^vh225-/.test(d) && !d.endsWith('.jsonl')).map((d) => join(runs, d))
+const recs = runDirs.flatMap((d) => readdirSync(d).filter((f) => /^[SJK]-.*\.json$/.test(f)).map((f) => JSON.parse(readFileSync(join(d, f), 'utf8'))))
+const tally = (xs) => xs.reduce((m, x) => ((m[x] = (m[x] ?? 0) + 1), m), {})
+console.log(`walker records ${recs.length}: ${JSON.stringify(tally(recs.map((r) => r.status)))}`)
+const fa = []; for (const r of recs) for (const a of r.instruments?.asserts?.items ?? r.asserts ?? []) if (a && (a.ok === false || a.outcome === 'fail')) fa.push(String(a.what ?? a.label ?? a.name ?? '?').slice(0, 90))
+console.log('failing asserts by label: ' + JSON.stringify(tally(fa)))
+const P = readdirSync(runs).filter((f) => /^vh225-probe-.*\.jsonl$/.test(f)).flatMap((f) => readFileSync(join(runs, f), 'utf8').trim().split('\n').filter(Boolean).map((x) => JSON.parse(x)))
+const id = (r) => r.id + (r.variant ? ':' + r.variant : '')
+console.log(`probe rows ${P.length}, errors ${P.filter((r) => r.error).length}; by scenario ${JSON.stringify(tally(P.map(id)))}`)
+console.log('titles now: ' + JSON.stringify(tally(P.map((r) => r.title))))
+console.log('title histories: ' + JSON.stringify(tally(P.flatMap((r) => r.titles ?? []))))
+console.log('h1 texts: ' + JSON.stringify(tally(P.map((r) => r.h1?.text))))
+console.log('h1 lines by lang: ' + JSON.stringify(Object.fromEntries(['en-GB', 'zh-Hans', 'ms-MY'].map((l) => [l, tally(P.filter((r) => r.lang === l).map((r) => r.h1?.lines))]))))
+const bw = P.flatMap((r) => (r.h1?.broken ?? []).filter((b) => !b.cjk).map((b) => `${b.word}@${r.lang}/${r.cell}/${r.mode}`))
+console.log(`h1 non-CJK words broken: ${bw.length} ${bw.slice(0, 6).join(' ')}; CJK breaks ${P.filter((r) => (r.h1?.broken ?? []).some((b) => b.cjk)).length}; h1 overflow ${P.filter((r) => r.h1?.overflow).length}`)
+console.log('the "?" beside/below the h1: ' + JSON.stringify(tally(P.map((r) => (r.help ? (r.help.beside ? 'beside' : 'below') + (r.help.inside ? '' : ' OUTSIDE') + ' exp=' + r.help.expanded : 'none')))))
+const cs = P.filter((r) => r.covers?.shown)
+console.log(`covers shown ${cs.length}: texts ${JSON.stringify(tally(cs.map((r) => r.covers.text)))}; lines by lang ${JSON.stringify(Object.fromEntries(['en-GB', 'zh-Hans', 'ms-MY'].map((l) => [l, tally(cs.filter((r) => r.lang === l).map((r) => r.covers.lines))])))}; non-CJK broken ${cs.flatMap((r) => r.covers.broken.filter((b) => !b.cjk)).length}`)
+console.log('mailto subjects (build id cut): ' + JSON.stringify(tally(P.flatMap((r) => (r.mailto ?? []).map((m) => `${m.to} | ${String(m.subjectText).replace(/ \(v[^)]*\)$/, ' (build)')}`)))))
+console.log('mailto link subjects: ' + JSON.stringify(tally(P.flatMap((r) => (r.links ?? []).map((l) => `${l.sel}: ${l.subject}`)))))
+console.log(`page sideways scroll: ${P.filter((r) => r.page?.hscroll).length} of ${P.length}`)
+const ms = P.filter((r) => r.words && r.row)
+if (ms.length) {
+  const fit = (r, w) => r.words[w] <= r.row.contentW + 0.5
+  console.log(`ms-MY words vs the title row (${ms.length} cells): ` + ['Pembantu', 'Penyiap', 'Penyempurna'].map((w) => `${w} fits ${ms.filter((r) => fit(r, w)).length}, max ${Math.max(...ms.map((r) => r.words[w]))} px`).join('; ') + `; min row ${Math.min(...ms.map((r) => r.row.contentW))} px`)
+  const worse = ms.filter((r) => fit(r, 'Pembantu') && !fit(r, 'Penyempurna')).map((r) => `${r.cell}/${r.mode}`)
+  console.log(`cells where Pembantu fits and Penyempurna would not: ${worse.length} ${worse.slice(0, 8).join(' ')}`)
+}

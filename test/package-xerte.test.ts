@@ -49,7 +49,7 @@ describe('hostingReadme', () => {
   })
 
   it('names the build it describes', () => {
-    expect(readme.split('\n')[0]).toBe('UoN Video Helper v0.1.0 — build v0.1.0+20261001.231c621')
+    expect(readme.split('\n')[0]).toBe('UoN Video Finisher v0.1.0 — build v0.1.0+20261001.231c621')
   })
 
   it('says what the server must do: HTTPS, one flat folder, old scripts kept', () => {

@@ -1344,3 +1344,13 @@ INTAKE.2 stays a wish line: only a person listening can judge the Teams output. 
 **Supersedes:** none
 
 **Deferred:** VH-189
+
+## 2026-10-25 — VH-189 — Step 4's labels in the result line's plain words; below about 400 px the "?" sits beside "Plays over"
+
+**Decision:** Step 4 takes B7's words: "No closing graphics", "Plays over", "The last second of video" and "A held last frame", the "?" named "About what the graphics play over", and "Not used without closing graphics."; spec §4.3 takes S11 to S16. Below about 400 px the "?" moves up beside the label, CSS only, as the owner chose: "Yes — option 2: below about 400 px, the "?" moves up beside the label ("Plays over [?]")".
+
+**Rationale:** On 7632411, with the "?" beside the onset select, the select left 116 px for text at 320 px. The old "Over generated freeze frame" was clipped at 375 and 320 px, and the new "The last second of video" (152 px) was still clipped at 320 px. Three options went to the owner through the orchestrator. Under `@media (max-width: 25rem)` the onset field is a grid and `.control-with-help` is `display: contents`, so the select gets the field's whole width: 168 px at 320 px. The markup is unchanged, so the focus order stays the select, then the "?", then its text. The Malay draft for A held last frame became "Bingkai akhir ditahan" so that it fits. Every new English string was graded before the build and all pass. 72 Chrome cases pass (`reviews/2026-10-24/vh189-labels-2026-10-25.md`): labels match their accessible names, every option fits, the "?" is in its place on each side of 400 px, Tab and Escape behave, and the tip opens under the select. Codex astra: "Commit after the musts below"; its musts are done: the walker asks the page's own query (25rem follows the text size), a 32 px text run is recorded, and this close. Its two mays, a sheet note and a test description, are taken. With 32 px text, every select clips at 401 px and below, the type select included: that is beyond 1.4.4 and 1.4.10, and it is wish line VH-189.1. Digest rules applied: WCAG 2.5.3 (label in name) and 1.4.10 (reflow, no clipped value at 320 px); Nielsen 2 (the user's words, as the result line already says them).
+
+**Supersedes:** none
+
+**Deferred:** VH-190

@@ -1,0 +1,9 @@
+after-proof ready 22:18:15 AC load 6.79 5-min 7.50
+after-proof exit 0 22:34:27
+after-proof-flows ready 22:37:28 AC load 4.57 5-min 7.81
+after-proof-flows exit 0 22:38:01
+exportproof-target ready 22:39:02 AC load 5.31 5-min 7.45
+exportproof-target exit 0 22:51:38
+exportproof-flows ready 23:06:42 AC load 4.81 5-min 7.97
+exportproof-flows exit 0 23:07:36
+PROOF DONE 23:07:36
