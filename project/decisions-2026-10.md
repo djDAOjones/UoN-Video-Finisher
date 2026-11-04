@@ -1354,3 +1354,13 @@ INTAKE.2 stays a wish line: only a person listening can judge the Teams output. 
 **Supersedes:** none
 
 **Deferred:** VH-190
+
+## 2026-10-25 — VH-196 — raised: the lede's five promises in the owner's words, and an MP4 hint beside promise 4, his own exception to the no-new-control rule
+
+**Decision:** Phase 8 gains VH-196, built next, before VH-190. The lede's list becomes the owner's five promises, verbatim: "1. Lets you trim unwanted footage from the start and end. 2. Adds opening and closing graphics. 3. Evens out the audio level for better audience experience. 4. Saves in a reliable format. (?) 5. Makes the file the right size for your purpose." The "?" is a toggletip in the onset toggletip's pattern, holding the hint he accepted. It is a new control, his own request.
+
+**Rationale:** He raised the gap himself: "the intro text mentions all the features except for the trimming - users, especially novices, will be suprised by it". On the hint: "I want to keep mp4 and interoperable." Its text, proposed by the orchestrator and accepted by him: "Videos come in many formats. Some play on one device but not another, or do not work with some apps. This tool saves your video as an MP4, the most interoperable video format. That means it plays on almost any phone, computer or website." His revised set supersedes his earlier "final set". Promise 3 also replaces VH-187's "Levels audio for consistent listening experience." Every line passes the readability gate (2.5, under 8 words, 8.9, under 8 words, 2.3; the hint 5.3). His words and the full exchange are in orchestrator #3's notes, `plan8-owner-words.md`, "VH-196" and "VH-196 revised". Phase 8's rule is that the app stays simple, with no control beyond the approved sheet; the "?" is the owner's exception, asked for in his own words: "I also wouldn't mind a question mark with hover hint that explains the problem with variety of formats". It discloses on click, Enter or Space, never by hover alone, as VH-124 and VH-184 settled for the onset "?".
+
+**Supersedes:** 2026-10-24 — VH-187 — The top of the page: plain promises, the owner's promise 2, the browser note only when a check has not passed
+
+**Deferred:** VH-196

@@ -37,7 +37,6 @@ The public release on Xerte (PLAN-6) is VH-204's cut.
 
 ### Phase 8 — the owner's UX pass, then a third full design pass
 
-- [ ] VH-225 — The rename to UoN Video Finisher — since 2026-10-28
 - [ ] VH-220 — Check VH-150.3 — since 2026-10-27 — (from: VH-150, 2026-10-22)
 - [ ] VH-221 — Check VH-153.1 — since 2026-10-27 — (from: VH-153, 2026-10-22)
 - [ ] VH-222 — Check VH-155.2, VH-156.1, VH-158.1 — since 2026-10-27 — (from: VH-155, 2026-10-22)

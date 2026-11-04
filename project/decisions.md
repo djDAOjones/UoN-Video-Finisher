@@ -18,6 +18,16 @@
      moves the oldest entries verbatim to project/decisions-YYYY-MM.md,
      beside this file, listed in project/archive-index.md. -->
 
+## 2026-11-04 — VH-225 — Closes: the repository and the Pages address renamed, on the owner's word
+
+**Decision:** VH-225 closes with commit 2: on the owner's "Renamed it", the profile's repository URL, the init prompt's address, the branding path's comment and test, and `vite.config.ts`'s comment take UoN-Video-Finisher; vite's base follows the repository's name through the deploy workflow. Pages serves at the new address; the old returns 404 (VH-225.3).
+
+**Rationale:** The owner's word, 2026-11-04 at about 07:31Z, in Orchestrator #37's chat, their own turn, verbatim: "Renamed it" (`plan8-owner-words.md`), answering the rename ask made after commit 1, `72b103e8`, went green on Pages run 41749929086; and "Rename those too" (2026-10-28). Orchestrator #37 verified at 07:32Z that the renamed repository resolves with main at `72b103e8`, the new address returns 200 and the old 404. Commit 2's asset paths were proved before the ask by a local build with `BASE_PATH=/UoN-Video-Finisher/`: the page's script and stylesheet, the branding base and the job worker, all under `/UoN-Video-Finisher/`. No deploy was queued or running at the rename: commit 1's run completed at 00:53Z, and `gh run list` showed no later run at 00:54Z, 00:57Z and 07:32Z, with origin/main unmoved. Until commit 2's deploy the new address served commit 1's build, made for the old path, so its assets did not load: inferred from the workflow's `BASE_PATH`, not measured page by page; the ask said to finish and save any job first. Kept: the local `origin` URL, which GitHub redirects, with `.git/config` unchanged; the identifiers commit 1 pinned, so saved choices carry over on the same origin; the two scripts' temporary folder prefixes; the launch configuration's name; the records' file names. Shortfalls: the old address's 404, wish VH-225.3, for the owner; the names' native check, VH-105.2. Digest rules: house-conventions, "Fail loudly on data loss".
+
+**Supersedes:** none
+
+**Deferred:** none
+
 ## 2026-11-04 — VH-225 — Commit 1: the visible name UoN Video Finisher in three languages, no address changed, the item open
 
 **Decision:** VH-225's first commit gives the app the name "UoN Video Finisher" on every surface it shows, with "Penyiap Video UoN" in Malay and "UoN 视频成片工具" in Chinese, an orchestrator's acceptance listed for the owner. The hidden identifiers keep their names, pinned by a test; no address changes. Wish VH-229.2 retired, its readings done. The item stays open: the repository rename is the owner's click, and commit 2 carries the addresses and the close.
@@ -603,13 +613,3 @@
 **Supersedes:** none
 
 **Deferred:** VH-190
-
-## 2026-10-25 — VH-196 — raised: the lede's five promises in the owner's words, and an MP4 hint beside promise 4, his own exception to the no-new-control rule
-
-**Decision:** Phase 8 gains VH-196, built next, before VH-190. The lede's list becomes the owner's five promises, verbatim: "1. Lets you trim unwanted footage from the start and end. 2. Adds opening and closing graphics. 3. Evens out the audio level for better audience experience. 4. Saves in a reliable format. (?) 5. Makes the file the right size for your purpose." The "?" is a toggletip in the onset toggletip's pattern, holding the hint he accepted. It is a new control, his own request.
-
-**Rationale:** He raised the gap himself: "the intro text mentions all the features except for the trimming - users, especially novices, will be suprised by it". On the hint: "I want to keep mp4 and interoperable." Its text, proposed by the orchestrator and accepted by him: "Videos come in many formats. Some play on one device but not another, or do not work with some apps. This tool saves your video as an MP4, the most interoperable video format. That means it plays on almost any phone, computer or website." His revised set supersedes his earlier "final set". Promise 3 also replaces VH-187's "Levels audio for consistent listening experience." Every line passes the readability gate (2.5, under 8 words, 8.9, under 8 words, 2.3; the hint 5.3). His words and the full exchange are in orchestrator #3's notes, `plan8-owner-words.md`, "VH-196" and "VH-196 revised". Phase 8's rule is that the app stays simple, with no control beyond the approved sheet; the "?" is the owner's exception, asked for in his own words: "I also wouldn't mind a question mark with hover hint that explains the problem with variety of formats". It discloses on click, Enter or Space, never by hover alone, as VH-124 and VH-184 settled for the onset "?".
-
-**Supersedes:** 2026-10-24 — VH-187 — The top of the page: plain promises, the owner's promise 2, the browser note only when a check has not passed
-
-**Deferred:** VH-196

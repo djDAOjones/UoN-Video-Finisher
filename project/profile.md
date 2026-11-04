@@ -9,7 +9,7 @@
 ## Identity
 
 - Product: a browser-only app that brands, loudness-normalises and encodes one educational video for University of Nottingham staff
-- Owner: Joe · Repository: <https://github.com/djDAOjones/UoN-Video-Helper>
+- Owner: Joe · Repository: <https://github.com/djDAOjones/UoN-Video-Finisher>
 - Push: the harness pushes to the project's origin after every close,
   never to an upstream the project does not own; a push to `main`
   publishes the preview

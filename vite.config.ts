@@ -128,7 +128,7 @@ export default defineConfig(({ mode }) => {
       // Kept, deliberately, and re-decided on 2026-08-26 rather than assumed.
       // Shipping sourcemaps normally exposes source — but this repository is
       // PUBLIC, so every line they reveal is already at
-      // github.com/djDAOjones/UoN-Video-Helper, and they are what make a
+      // github.com/djDAOjones/UoN-Video-Finisher, and they are what make a
       // diagnostics bundle from a lecturer's machine name real functions instead
       // of minified identifiers. Revisit if the repository ever goes private:
       // that, not the deploy, is the condition this rests on (VH-40).

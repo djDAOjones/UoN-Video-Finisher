@@ -333,7 +333,7 @@ export function selectOpeningMaster(output: {
  * Derived from Vite's `BASE_URL` rather than hard-coded to `/branding/`,
  * because a GitHub Pages project site serves from `/<repo>/` and every
  * branding fetch would 404 against an absolute path. `BASE_URL` always ends
- * in a slash, so this is `/branding/` locally, `/UoN-Video-Helper/branding/`
+ * in a slash, so this is `/branding/` locally, `/UoN-Video-Finisher/branding/`
  * on Pages, and `./` in the flat Xerte package, where the masters sit beside
  * `index.html` (`__BRANDING_DIR__`, set in `vite.config.ts`). Page-relative,
  * so nothing fetches it directly: see {@link resolveBrandingBase}.

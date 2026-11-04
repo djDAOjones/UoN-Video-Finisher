@@ -24,7 +24,7 @@ video, normalise its audio loudness, and export a correctly encoded MP4 —
 with no upload, no server, and no media leaving their device.
 
 The PM Skills framework (v4.9.2) is already installed at pm_skills/.
-This IS a git repository with a remote (github.com/djDAOjones/UoN-Video-Helper,
+This IS a git repository with a remote (github.com/djDAOjones/UoN-Video-Finisher,
 branch main). Treat commits as the rollback checkpoints.
 
 SPECIFICATIONS — read these before anything else

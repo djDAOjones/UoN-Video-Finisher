@@ -121,10 +121,10 @@ describe('closing asset naming', () => {
     )
     expect(
       resolveBrandingBase(
-        'https://djdaojones.github.io/UoN-Video-Helper/',
-        '/UoN-Video-Helper/branding/',
+        'https://djdaojones.github.io/UoN-Video-Finisher/',
+        '/UoN-Video-Finisher/branding/',
       ),
-    ).toBe('https://djdaojones.github.io/UoN-Video-Helper/branding/')
+    ).toBe('https://djdaojones.github.io/UoN-Video-Finisher/branding/')
     expect(
       resolveBrandingBase(
         'https://host.example/USER-FILES/1-user-site/media/index.html',
