@@ -1,0 +1,11 @@
+// VH-224 #1 (copied from vh223-walk/plans-a.mjs, the original untouched), read-only: which of the walker's PLANS declare batch B's keys, by recordKey, and how often.
+// Usage: node plans-a.mjs <walker dir> <keys file>
+import { pathToFileURL } from 'node:url'; import { join } from 'node:path'; import { readFileSync } from 'node:fs'
+const [walker, kf] = process.argv.slice(2), at = (f) => import(pathToFileURL(join(walker, f)).href)
+const { PLANS } = await at('scenarios.mjs'); await at('parts.mjs'); const { recordKey } = await at('runner.mjs')
+const keys = readFileSync(kf, 'utf8').split('\n').filter(Boolean), want = new Set(keys)
+for (const [name, fn] of Object.entries(PLANS)) {
+  let recs; try { recs = fn() } catch (e) { console.log(name, 'throws', String(e.message).slice(0, 80)); continue }
+  const ks = (recs ?? []).map(recordKey), hit = ks.filter((k) => want.has(k)), dup = hit.length - new Set(hit).size
+  if (hit.length) console.log(name, 'records', ks.length, 'batchB', new Set(hit).size, 'dupes', dup)
+}

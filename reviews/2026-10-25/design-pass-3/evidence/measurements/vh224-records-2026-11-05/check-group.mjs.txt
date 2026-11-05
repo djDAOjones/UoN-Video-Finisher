@@ -1,0 +1,24 @@
+// VH-224 #1, read-only: a group's whole check (the design compare): each record's declared instruments all present, status and reached,
+// the mode or view each claims as seen (fonts withheld, reduced motion, spacing, the 32 px root font, the proxy viewport), S-76's subresults,
+// and the manifest's revision, commit and fixture hashes against VH-223's manifests on main (its after-pilot among them). Usage: node check-group.mjs <group> <keys file>
+import { readdirSync, readFileSync, existsSync } from 'node:fs'
+import { join } from 'node:path'
+const [g, kf] = process.argv.slice(2), keys = readFileSync(kf, 'utf8').split('\n').filter(Boolean)
+const runs = join(g, 'runs'), dirs = readdirSync(runs).filter((d) => existsSync(join(runs, d, 'manifest.json')))
+const recs = {}; for (const d of dirs) for (const f of readdirSync(join(runs, d)).filter((x) => /^S-.*\.json$/.test(x))) recs[f.slice(0, -5)] = JSON.parse(readFileSync(join(runs, d, f), 'utf8'))
+const A = '/Users/uazjob/UoN-Video-Helper-side/vh224/reviews/2026-10-25/design-pass-3/evidence/measurements/vh223-records-2026-11-05'
+const fixOk = new Map(readdirSync(A).filter((f) => /\.manifest\.json$/.test(f)).flatMap((f) => JSON.parse(readFileSync(join(A, f), 'utf8')).fixtures ?? []).map((x) => [x.file, x.sha256]))
+const t = { records: Object.keys(recs).length, missing: keys.filter((k) => !recs[k]).length, extra: Object.keys(recs).filter((k) => !keys.includes(k)).length, status: {}, reached: {}, problems: [] }
+for (const k of keys) { const j = recs[k]; if (!j) continue; t.status[j.status] = (t.status[j.status] ?? 0) + 1; t.reached[j.reached?.outcome] = (t.reached[j.reached?.outcome] ?? 0) + 1
+  const s = j.reached?.seen ?? {}, [, , view, mode] = k.split('__')
+  for (const r of j.requires ?? []) if (!j.instruments?.[r]) t.problems.push(`${k}: declared ${r} absent`)
+  if (j.reached?.outcome !== 'pass') continue
+  if (mode === 'fallback' && (s.fonts ?? []).some((f) => /:loaded$/.test(f))) t.problems.push(`${k}: fallback with a font loaded ${s.fonts}`)
+  if (mode === 'reduced-motion' && (!s.media?.reducedMotion || !j.instruments?.motion)) t.problems.push(`${k}: reduced motion not seen or no motion instrument`)
+  if (mode === 'spacing' && !s.spacing) t.problems.push(`${k}: spacing not seen`)
+  if (mode === 'font32' && s.rootFontPx !== 32) t.problems.push(`${k}: root font ${s.rootFontPx}`)
+  if (/zoom(\d+)proxy/.test(view)) { const z = Number(view.match(/zoom(\d+)/)[1]), w = Math.round(1280 * 100 / z); if (s.viewport?.w !== w) t.problems.push(`${k}: viewport ${s.viewport?.w} not ${w}`) }
+  if (/^S-76__/.test(k) && /zoom|font32/.test(k) && j.instruments?.subresults?.outcome !== 'pass') t.problems.push(`${k}: subresults ${j.instruments?.subresults?.outcome}`) }
+const man = dirs.map((d) => JSON.parse(readFileSync(join(runs, d, 'manifest.json'), 'utf8')))
+const fx = man.flatMap((m) => m.fixtures ?? []).map((x) => [x.file, x.sha256])
+console.log(JSON.stringify({ group: g, runs: dirs.length, revision: [...new Set(man.map((m) => m.instruments?.revision))], commit: [...new Set(man.map((m) => m.source?.commit?.slice(0, 12) + (m.source?.dirty ? ' dirty' : ' clean')))], ...t, fixtures: fx.map(([n, h]) => `${n} ${fixOk.get(n) === h ? 'same as VH-223' : 'DIFFERS ' + h}`) }))

@@ -1,0 +1,1 @@
+{"run":"matrix-keys-2026-11-05T19-45-14-162Z-70378a","id":"S-24","lang":"zh-Hans","view":"zoom400proxy","mode":"light","status":"failed","reached":"fail","why":["state predicate false: (() => { const M = window.__mx; return (M.verdict() === 'warning' && M.has('preflight.reasons.longJob', '#preflight-repo"],"outcomes":{},"rows":[]}

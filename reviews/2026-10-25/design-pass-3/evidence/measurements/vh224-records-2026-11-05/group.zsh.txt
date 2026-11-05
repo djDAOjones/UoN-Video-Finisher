@@ -1,0 +1,19 @@
+#!/bin/zsh
+# VH-224 #1: one walk group as its own chain, by Orchestrator #40's queue ruling (12:45Z): queue for the walk lock by $S/walk-queue-wait-seq.zsh
+# (its line's pid is this script's, so it lives as long as the chain), then VH-223's go.sh once (copied here), then the void check (void.zsh).
+# A void group is moved aside and re-run by a new chain, by hand. Usage: zsh group.zsh <b1|b2|b2t|b3|b3t|b4|b4t>. VH-224 #2: b2t added (S-41 zh-Hans reduced-motion, the re-walk ruled by #40, carried by #41), queue name #2; b3t (S-24 zh-Hans zoom400proxy, by the load rule); b4t (S-48 ms-MY ×4 under b4's samples, if ruled).
+S=/Users/uazjob/UoN-Video-Helper-side; D=$S/vh224-walk; W=$S/vh224; WK=$W/reviews/2026-10-25/design-pass-3/evidence/measurements/walker
+g=$1; n=after-$g; cd "$D" || exit 5
+case $g in b1|b2|b2t|b3|b3t|b4|b4t) ;; *) echo "unknown group $g"; exit 11 ;; esac
+[ -s "keys-b-$g.txt" ] || { echo "no key list $g"; exit 11; }
+for f in "$n" "$n.launcher.log" "$n.load.log" "$n.go.out"; do [ -e "$f" ] && { echo "EXISTS $f"; exit 2; }; done
+job='node vh224-driver.mjs walk --walker "$WALKER" --label after --name '$g' --keys '$D'/keys-b-'$g'.txt'
+echo "$n queued $(date -u +%T)" >> after.seq.log
+QPID=$$ zsh $S/walk-queue-wait-seq.zsh "VH-224 #2 after $g" || exit 12
+echo "$n turn $(date -u +%T)" >> after.seq.log
+{ [ -x "$W/node_modules/.bin/vite" ] && grep -q '^added ' $S/vh224-npm-ci.log; } || { echo "$n stopped: npm ci not done in $W $(date -u +%T)" >> after.seq.log; echo "no npm ci"; exit 13; }
+zsh go.sh "$n" "after $g" "$WK" "$W" "$job" > "$n.go.out" 2>&1; rc=$?
+v=$(zsh void.zsh "$n")
+echo "$n exit $rc $(date -u +%T) void-check: ${v:-stands}" >> after.seq.log
+echo "group $g rc $rc void ${v:-none} $(date -u +%T)"
+exit $rc

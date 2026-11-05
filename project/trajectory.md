@@ -52,6 +52,7 @@
 - VH-221 — VH-153's rows a job or a failing browser reaches, read in Chrome in three languages at 1280 and 375 px in four modes and at 320 px in light: 267 cells on the Mac Pro, failing 0, no product diff; two browser sentences retired; S-155 added for the out-of-date Chrome reason at 375 px; the native dialog left to wish VH-153.1 (2026-11-05) — see decisions
 - VH-223 — VH-172.1's batch A: 108 keys walked once each on the Mac Pro by the walker's new `--keys <file>`, which VH-224 reuses; 84 OK, 9 NOT-OK on known readings (S-03's old-order rows, S-81 ms-MY's wrapped link), 15 not reached because of this Mac's speed (S-24); no new defect; two wishes (2026-11-05) — see decisions
 - VH-220 — VH-150's six states read in Chrome at 1280 and 375 px in three languages and four modes: 144 conditions, 15 cited and 129 walked on the Mac Pro, all reached, no product diff; no new fault for the failing re-check; the reset at Create and the failure's change of language read and passing; one wish (2026-11-05) — see decisions
+- VH-224 — VH-172.1's batch B: 106 keys walked once each on the Mac Pro by VH-223's `--keys <file>`, the walker unchanged; 81 OK, 12 NOT-OK on known readings (S-03's old-order rows, S-81 ms-MY's wrapped link), 13 not reached because of this Mac's speed (S-24); no new defect; the 214 reconciled, batch A's 108 and B's 106 disjoint and whole; one wish (2026-11-05) — see decisions
 
 ## V3 adoption
 

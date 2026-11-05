@@ -1,0 +1,30 @@
+// VH-224 #1 (copied from vh223-walk/sum-a.mjs, VH-223 #1's, the original untouched), read-only: batch B's records by key, from a walk folder's groups. Prints the totals by instrument and outcome, every key's
+// status, reached and failing instruments and rows, and for each failing instrument its failing items (selector, why), compactly.
+// Usage: node sum-a.mjs <walk dir> <keys file> <group,group,…> [--accepted <out.txt>]
+import { existsSync, readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
+import { join } from 'node:path'
+const [walk, kf, gs, flag, outAcc] = process.argv.slice(2)
+const keys = readFileSync(kf, 'utf8').split('\n').filter(Boolean), groups = gs.split(',')
+const found = {}
+for (const g of groups) {
+  const runs = join(walk, g, 'runs'); if (!existsSync(runs)) continue
+  for (const e of readdirSync(runs).sort()) { const p = join(runs, e); if (!statSync(p).isDirectory()) continue
+    for (const f of readdirSync(p).filter((x) => /^S-\d+.*\.json$/.test(x))) (found[f.replace('.json', '')] ??= []).push({ g, run: e, file: f, j: JSON.parse(readFileSync(join(p, f), 'utf8')) }) }
+}
+const tot = {}, lines = [], acc = [], notok = []
+const failItems = (v) => { const out = []; const walkObj = (o, d) => { if (!o || typeof o !== 'object' || d > 4) return; if (Array.isArray(o)) { for (const x of o) { if (x && typeof x === 'object' && x.outcome === 'fail') out.push([x.sel ?? x.selector ?? x.el ?? x.what ?? x.id ?? '?', x.why ?? x.reason ?? x.ratio ?? x.area ?? ''].map((s) => String(typeof s === 'object' ? JSON.stringify(s) : s).slice(0, 90)).join(' — ')); else walkObj(x, d + 1) } } else for (const [k, x] of Object.entries(o)) if (k !== 'outcome') walkObj(x, d + 1) }; walkObj(v, 0); return out }
+for (const k of keys) {
+  const rs = found[k] ?? []; if (!rs.length) { lines.push(`${k}: NOT REACHED (no record)`); acc.push(`${k}\tnone\t-\t-\tno record`); continue }
+  const r = rs.at(-1), j = r.j, ins = Object.entries(j.instruments ?? {}).filter(([n]) => n !== 'asserts')
+  for (const [n, v] of ins) { const o = v?.outcome ?? 'none'; (tot[n] ??= {})[o] = (tot[n][o] ?? 0) + 1 }
+  const rows = j.instruments?.asserts?.items ?? []; for (const i of rows) (tot['asserts rows'] ??= {})[i.outcome] = (tot['asserts rows'][i.outcome] ?? 0) + 1
+  const fi = ins.filter(([, v]) => v?.outcome === 'fail').map(([n]) => n), fr = rows.filter((i) => i.outcome === 'fail').map((i) => i.what)
+  const cd = ins.filter(([, v]) => v?.outcome === 'cannot-determine').map(([n]) => n)
+  const ok = j.status === 'ok' && j.reached?.outcome === 'pass' && !fi.length && !fr.length
+  lines.push(`${k} [${r.g}${rs.length > 1 ? `, ${rs.length} records` : ''}]: ${j.status}/${j.reached?.outcome}${ok ? ' OK' : ' NOT-OK'}${fi.length ? ' fail ' + fi.join(',') : ''}${fr.length ? ' rows ' + fr.map((w) => JSON.stringify(w.slice(0, 60))).join('; ') : ''}${cd.length ? ' c-d ' + cd.join(',') : ''}`)
+  acc.push(`${k}\t${r.g}\t${r.run}\t${r.file}\t${ok ? 'OK' : 'NOT-OK'}`)
+  if (!ok) notok.push({ k, why: j.reached?.why ?? j.error ?? null, items: Object.fromEntries(fi.map((n) => [n, failItems(j.instruments[n]).slice(0, 4)])) })
+}
+console.log('totals', JSON.stringify(tot)); console.log(lines.join('\n'))
+for (const n of notok) console.log('NOT-OK', n.k, n.why ? 'why ' + JSON.stringify(n.why).slice(0, 200) : '', JSON.stringify(n.items))
+if (flag === '--accepted') writeFileSync(outAcc, '# key\tgroup\trun\trecord\tjudgement (sum-a.mjs; the attribution of each NOT-OK is in the table notes)\n' + acc.join('\n') + '\n')

@@ -1508,3 +1508,13 @@ INTAKE.2 stays a wish line: only a person listening can judge the Teams output. 
 **Supersedes:** none
 
 **Deferred:** VH-199, VH-200, VH-202
+
+## 2026-10-27 — VH-205 — The lede's "?" drawn at the text's own size with its 44 px target round it, built before Pass 3's fix stage and deployed to the preview
+
+**Decision:** The format "?" beside the fourth promise is a checkbox glyph's square, `--control-size` (20 px at the default font), so every promise keeps the 24 px line; a centred `::after` draws its 44 × 44 px target, so 2.5.5 needs no exception, and the gap beside it and the tip's step down, `--spacing-04`, clear that target. Built now on the owner's word, not in VH-203.
+
+**Rationale:** The owner, in chat on 2026-10-27, first "Keep the "?" fix where it is: judged in VH-200, planned in VH-202, fixed in VH-203.", then, the same morning, "do the fix turbo please and deploy". The remedy is the one VH-200's note of 2026-10-26 proposed, adding no control. Checked in Chrome at 1024 px, light: the five promises 24, 24, 24, 24 and 24 px high (the fourth was 44), the "?" 20 × 20 px, a point 21 px from its centre hits it and 23 px does not, the tip's top 0.65 px below the target, opened and closed by click and by Enter with the ring visible, no console error; at 320 px in English, Chinese and Malay every promise a whole number of lines and no sideways scroll; dark the same; at a 32 px default font the "?" 40 px in a 48 px line. Forced colours were not emulated; the button keeps `.button--secondary`'s forced-colour rules. Turbo, on the owner's word: not walked with the pass's walker and not checked by Codex astra. VH-200 judges VH-199's 44 px row as fixed here, and VH-203's after-run and integrated check measure it once the walker's 2.5.5 reading counts a target drawn round the control (VH-205.1). Digest rule applied: wcag-2.2-aaa, 2.5.5 Target Size (Enhanced). Built in a worktree apart from VH-199's close in the main checkout (rule 3).
+
+**Supersedes:** none
+
+**Deferred:** VH-200, VH-203

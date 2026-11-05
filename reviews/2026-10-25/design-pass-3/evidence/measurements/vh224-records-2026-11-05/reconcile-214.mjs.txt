@@ -1,0 +1,31 @@
+// VH-224 #1, read-only: the 214 reconciled (VH-224's criterion). Batch A's accepted records (VH-223's vh223-accepted-a.jsonl, on main) and
+// batch B's (vh224-accepted-b.jsonl) are pairwise disjoint, their union equals stillUnrun, with none extra or missing and one accepted record per
+// key; each accepted record's run has its outcome line in that group's <group>.outcomes.jsonl in the records folder (the record's sha1 is in its accepted line). Retries stay traceable: every superseded or void run
+// is listed by the groups each batch names (a re-walk replaces a key's record by its group's order, as judge-a.mjs's index rules).
+// Usage: node reconcile-214.mjs <unrun json> <A accepted jsonl> <A records dir> <B accepted jsonl> <B records dir>. Exits 1 on any failure.
+import { readFileSync, existsSync } from 'node:fs'
+import { join } from 'node:path'
+const [src, aF, aDir, bF, bDir] = process.argv.slice(2)
+const { stillUnrun } = JSON.parse(readFileSync(src, 'utf8'))
+const lines = (f) => readFileSync(f, 'utf8').split('\n').filter(Boolean).map((l) => JSON.parse(l))
+const A = lines(aF), B = lines(bF), errors = []
+if (new Set(stillUnrun).size !== stillUnrun.length) errors.push(`stillUnrun repeats a key: ${stillUnrun.length} entries, ${new Set(stillUnrun).size} distinct`)
+const outcomes = {} // group -> Set of "run|key" from <dir>/<group>.outcomes.jsonl, the per-run outcome lines the records folder keeps on main
+const ran = (dir, g) => { const k = dir + '|' + g; if (outcomes[k]) return outcomes[k]; const f = join(dir, g + '.outcomes.jsonl'), s = new Set()
+  if (existsSync(f)) for (const o of lines(f)) s.add(o.run + '|' + o.id + (o.variant ? '~' + o.variant : '') + '__' + o.lang + '__' + o.view + '__' + o.mode)
+  return (outcomes[k] = s) }
+const check = (name, L, dir) => { const seen = new Map(), groups = {}
+  for (const l of L) { if (seen.has(l.key)) errors.push(`${name}: ${l.key} accepted twice`); seen.set(l.key, l)
+    if (!l.record) { errors.push(`${name}: ${l.key} has no record`); continue }
+    groups[l.group] = (groups[l.group] ?? 0) + 1
+    if (!ran(dir, l.group).has(l.run + '|' + l.key)) errors.push(`${name}: ${l.key} has no outcome line for ${l.group} ${l.run}`) }
+  return { keys: seen, groups } }
+const a = check('A', A, aDir), b = check('B', B, bDir)
+const both = [...a.keys.keys()].filter((k) => b.keys.has(k))
+for (const k of both) errors.push(`in both: ${k}`)
+const U = new Set(stillUnrun), union = new Set([...a.keys.keys(), ...b.keys.keys()])
+for (const k of union) if (!U.has(k)) errors.push(`extra: ${k}`)
+for (const k of U) if (!union.has(k)) errors.push(`missing: ${k}`)
+const tally = (L) => L.reduce((t, l) => ((t[l.judgement] = (t[l.judgement] ?? 0) + 1), t), {})
+console.log(JSON.stringify({ stillUnrun: U.size, A: a.keys.size, B: b.keys.size, inBoth: both.length, union: union.size, aGroups: a.groups, bGroups: b.groups, aJudged: tally(A), bJudged: tally(B), errors, ok: errors.length === 0 && union.size === U.size && U.size === 214 }))
+if (errors.length || union.size !== 214) process.exit(1)

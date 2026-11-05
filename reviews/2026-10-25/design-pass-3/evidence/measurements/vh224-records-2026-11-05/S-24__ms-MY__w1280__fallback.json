@@ -1,0 +1,86 @@
+{
+ "runId": "2026-11-05T17-06-04-828Z-f08da8",
+ "key": "S-24__ms-MY__w1280__fallback",
+ "revision": "e377132ba6f70227",
+ "attempt": 1,
+ "id": "S-24",
+ "lang": "ms-MY",
+ "view": "w1280",
+ "mode": "fallback",
+ "requires": [
+  "overflow",
+  "ax",
+  "targets",
+  "contrastText",
+  "contrastExtra",
+  "measure",
+  "type",
+  "focus",
+  "player",
+  "formatTip",
+  "footer",
+  "limiting",
+  "videoLanguage",
+  "asserts"
+ ],
+ "viewport": {
+  "w": 1280,
+  "h": 900,
+  "dpr": 1
+ },
+ "expects": {
+  "focus": {
+   "subjects": [
+    "#process-actions > button:nth-child(2)",
+    "#preset-choice input:checked"
+   ]
+  },
+  "asserts": {
+   "subjects": [
+    "Create reads \"Create the video\""
+   ]
+  }
+ },
+ "timing": {
+  "setupMs": 115901,
+  "recordMs": 361,
+  "firstOfGroup": true
+ },
+ "status": "failed",
+ "reached": {
+  "outcome": "fail",
+  "problems": [
+   "state predicate false: (() => { const M = window.__mx; return (M.verdict() === 'warning' && M.has('preflight.reasons.longJob', '#preflight-repo"
+  ],
+  "seen": {
+   "visibility": "visible",
+   "lang": "ms-MY",
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "rootFontPx": 16,
+   "media": {
+    "dark": false,
+    "forced": false,
+    "reducedMotion": false,
+    "coarse": false
+   },
+   "spacing": false,
+   "fonts": [
+    "Lora:error"
+   ],
+   "bodyFont": "Arial, system-ui, -apple-system, \"Segoe UI\", Roboto, sans-serif",
+   "dialog": null,
+   "running": false,
+   "result": false,
+   "statementOpen": false,
+   "fileChosen": true,
+   "kind": "staff",
+   "status": "Pemeriksaan peranti selesai. Ini akan berkesan, tetapi ia akan menjadi perlahan. Ini akan mengambil masa kira-kira 1 jam",
+   "sourceStatus": "Video dibaca.",
+   "active": "input[radio language=ms-MY] \"Bahasa Malaysia\""
+  }
+ }
+}

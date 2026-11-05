@@ -1,0 +1,1 @@
+compare after-b4 → after-b4t: 4 keys, 4 identical, 0 differ

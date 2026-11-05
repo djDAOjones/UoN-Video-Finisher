@@ -1,0 +1,169 @@
+**The walk supports 81 OK, 12 NOT-OK and 13 not reached, with no new product defect identified. The candidate cannot close yet: the reconciliation does not establish the required records of record.**
+
+References below use **W** = [walk folder](/Users/uazjob/UoN-Video-Helper-side/vh224-walk) and **M** = [measurements folder](/Users/uazjob/UoN-Video-Helper-side/vh224/reviews/2026-10-25/design-pass-3/evidence/measurements). A key names its `.json` record under the stated group’s `runs/` directory. Nothing was changed.
+
+1. **Keys and walker**
+
+   Met: 106 distinct keys, exactly **22 + 20 + 22 + 22 + 10 + 10**, disjoint from A’s 108, union exactly `stillUnrun`. The four counted groups contain 106 records without duplicates or extras. Their declarations match `PLANS.matrix()` for required instruments, expected subjects and viewport. Reached records show the requested language and mode. Evidence: `W/keys-b.mjs`, `keys-b.txt`, group manifests and records; independently rerun key and declaration checks.
+
+   HEAD and empty diff match the brief. Recomputed walker revision is **`e377132ba6f70227`**.
+
+   **Qualification:** “every declared instrument measured” is not literally met. S-24’s 13 keys never reach their state; S-03’s eight reached keys lack the ten expected `formatTip` subjects. The latter is the documented closed-panel/old-order limitation, not a new omission. `W/after-b1/logs/job1.log` explicitly reports those missing subjects.
+
+2. **Fixtures**
+
+   Every *reached* fixture-reading ID has the required proof:
+
+   | IDs | Fixtures |
+   |---|---|
+   | S-16 | `captioned-12s.mp4` |
+   | S-41 | `lecture-60s.mp4` |
+   | S-53, S-56, S-58 | `lecture-30s.mp4` |
+   | S-63 | `lecture-30s.mp4`, `lecture-60s.mp4` |
+   | S-48 | `still-3600s.mp4` |
+
+   B’s manifest hashes match VH-223’s; `W/fix-compare.txt` reports all 36 fixtures unchanged. VH-223’s `after-pilot.outcomes.jsonl` proves those IDs reached with their applicable assertions passing.
+
+   **S-24 is the explicit exception:** `still-10800s.mp4` is unchanged, but neither pilot nor B proves the intended long-job state. Its speed-dependent refusal remains not reached. S-03, S-76 and S-81 use no fixture.
+
+3. **Acceptance criteria**
+
+   Against [VH-224.md](/Users/uazjob/UoN-Video-Helper-side/vh224/project/items/VH-224.md:7):
+
+   | Criterion | Verdict |
+   |---|---|
+   | Exact keys | **Met** |
+   | Each walked with its declarations | **Met as attempts; measurement exceptions** are the 13 S-24 and eight S-03 keys above |
+   | Every key judged | **Met by this review**; independent-verdict comparison **not yet** |
+   | 214 reconciled, retries traceable | **Not met in full**, point 9 |
+   | Measurement table and before provenance | **Not yet**: correct the presentation described in point 10 |
+   | WCAG rechecked | **Met within the measured scope**, point 8; no blanket conformance claim |
+   | Tokens, controls, progress bar | **Met**: no product diff |
+   | Documents | **Met**: no rule or protected-document change needed |
+   | Gate and digest rules at close | **Not yet**: no VH-224 `npm run check` result established here |
+   | Blind check, comparison, commit metadata | This verdict supplied; comparison and final-candidate recheck **not yet** |
+   | Disposition link | **Not yet** |
+   | Sized; larger remedies split | **Met**: no product remedy identified |
+
+   I ran `node tools/check.mjs`: **zero structural/budget failures**, one warning for missing `samples/CULT2011.mp4`, already connected to VH-122.1.
+
+4. **Every key’s judgement**
+
+   **NOT-OK — these 12 records, all in `after-b1`:**
+
+   ```text
+   S-03__ms-MY__w1280__reduced-motion
+   S-03__ms-MY__w1280__spacing
+   S-03__ms-MY__zoom200proxy__light
+   S-03__ms-MY__zoom400proxy__light
+   S-03__zh-Hans__w1280__reduced-motion
+   S-03__zh-Hans__w1280__spacing
+   S-03__zh-Hans__zoom200proxy__light
+   S-03__zh-Hans__zoom400proxy__light
+   S-81__ms-MY__w1280__fallback
+   S-81__ms-MY__w1280__font32
+   S-81__ms-MY__w1280__reduced-motion
+   S-81__ms-MY__zoom200proxy__light
+   ```
+
+   **Not reached — these 13 records in `after-b3`, except the last, whose record of record is `after-b3t`:**
+
+   ```text
+   S-24__en-GB__zoom200proxy__light
+   S-24__ms-MY__w1280__fallback
+   S-24__ms-MY__w1280__font32
+   S-24__ms-MY__w1280__reduced-motion
+   S-24__ms-MY__w1280__spacing
+   S-24__ms-MY__zoom200proxy__light
+   S-24__ms-MY__zoom400proxy__light
+   S-24__zh-Hans__w1280__fallback
+   S-24__zh-Hans__w1280__font32
+   S-24__zh-Hans__w1280__reduced-motion
+   S-24__zh-Hans__w1280__spacing
+   S-24__zh-Hans__zoom200proxy__light
+   S-24__zh-Hans__zoom400proxy__light
+   ```
+
+   **Every other key in `keys-b.txt` is OK: 81.** This includes S-41’s `after-b2t` replacement and the four S-48 `after-b4t` replacements. No additional key receives an unresolved verdict; the unresolved measurement limits below remain attached to the OK judgements.
+
+5. **Attribution by row**
+
+   | Records | Row/evidence | Cause |
+   |---|---|---|
+   | All eight S-03 above | `asserts`: `"About the video format" 44 x 44, collapsed, controlling #format-help` fails | **Old-order rows**, VH-216.1: the format control is now inside the closed title panel |
+   | Same eight | `asserts`: `Tab from the top…About the video format, Video type, Choose file` fails | **Old-order rows**, VH-216.1: the expected sequence predates the changed page order |
+   | Same eight | `formatTip`: not-applicable, ten expected subjects absent | **Known scenario reading**, same closed-panel cause; retain the structural shortfall |
+   | Four S-81 above | `focus`, `#accessibility-statement a`: 1,361/1,571 px²; font32 2,644/3,166 px²; focus visible, best ratio 13.34 | **Known instrument reading**, VH-200.1: enclosing-box perimeter instead of wrapped-link fragments |
+   | All 13 S-24 above | `reached.problems`: longJob state predicate false; visible status reports the slower, very-long-job outcome | **Environment/speed**, existing VH-223.1 class and ruling #40; no instrument assertions were reached |
+
+   Links: [VH-216.1](/Users/uazjob/UoN-Video-Helper-side/vh224/project/wish-list.md:73), [VH-200.1](/Users/uazjob/UoN-Video-Helper-side/vh224/project/wish-list.md:59). The four S-81 readings are not the forced-colour cases in VH-210.2.
+
+6. **Cannot-determine classes**
+
+   | Class | B evidence | Interpretation |
+   |---|---|---|
+   | Thumb/track non-text contrast | `contrastExtra`: 130 rows across 65 keys | **Unresolved measurement**, explicitly a person check; already VH-223.2 |
+   | Disc targets | `targets`: 104 thumb rows across 52 keys | **Documented VH-173 reading**, 44 px bounding box versus no inscribed 44 px square; not a measured pass |
+   | Mixed-script lines | `measure`: 37 rows across 28 Chinese keys—27 notice, five record, five enforcement rows | House weighted-count reading settled; strict mixed-script WCAG interpretation remains qualified. See `UI-STANDARDS.md:208` and the earlier reading at `judged-2026-10-27.md:807–838` |
+   | Enlarged feedback textarea | Both S-76 `zoom400proxy` records: target 222 × 199, “larger than the viewport or clipped” | Known clipping limitation, also in `digest-targets-2026-10-27.md:42`. All six keyboard subresults pass in each record. Function is demonstrated; the target instrument’s c-d remains c-d |
+
+7. **Conditions and re-walks**
+
+   All seven groups ran on **AC Power with no powermode line**. No void: completed conditions, stable power, no load-log gap exceeding 180 seconds.
+
+   | Group | Start load, 1 / 5 minute | Samples ≥8 |
+   |---|---:|---|
+   | b1 | 3.87 / 4.35 | None |
+   | b2 | 3.89 / 4.09 | 15:03:48 8.95; 15:04:18 9.37 |
+   | b2t | 4.15 / 4.50 | None |
+   | b3 | 5.70 / 6.03 | 17:14:34 8.51 |
+   | b3t | 3.93 / 3.39 | None |
+   | b4 | 5.34 / 4.73 | 18:40:12 8.85; 18:40:42 9.67 |
+   | b4t | 2.96 / 3.48 | None |
+
+   Evidence: each group’s `conditions.txt`, launcher and load logs. b4t’s launcher reads 3.49 for five minutes immediately before conditions reads 3.48.
+
+   **The selected re-walks are appropriate.** b2’s affected static S-16 and S-41 spacing readings carry no timing claim; S-41’s motion observation was replaced. b3’s sample falls within the Chinese 400% S-24 setup. b4’s affected running-state group and following fallback setup are covered by its four replacements. Independently comparing raw records found identical row outcomes and reached/not-reached outcomes for all six replacements. No accepted B timing claim still depends on a high-load sample.
+
+8. **WCAG scope**
+
+   These totals use the latest **93 reached keys**, not 112 attempts:
+
+   | Criterion | Exercise and result |
+   |---|---|
+   | 1.4.3, 1.4.6 | `contrastText` passes 93/93; applicable file-button glyph readings in `contrastExtra` pass |
+   | 1.4.4 | 19 reached 200% proxy keys and eight font32 keys; overflow passes; applicable S-76 dialog subresults pass |
+   | 1.4.10 | 18 reached 400% proxy keys; overflow passes |
+   | 1.4.11 | `contrastExtra`: 28 pass, 65 c-d solely for thumb/track readings; retain that gap |
+   | 1.4.12 | 20 reached spacing keys; overflow and type pass |
+   | 2.3.3 | 20 reached reduced-motion keys; `motion` passes, including b2t |
+   | 2.4.7 | Measured focus remains visible, including the four S-81 records whose area check fails |
+   | 2.4.13 | `focus`: 89 pass, four wrapped-link reference failures; VH-200.1 remains |
+   | 2.5.5 | `targets`: 39 pass, 54 c-d—52 disc cases and two textarea cases; S-03’s obsolete assertion separately fails |
+
+   B does **not** reach S-24’s 13 states, S-03’s hidden format-tip subjects, real browser zoom, dark/forced modes, native screen-reader experience, or the four device-scale-3 landscape uncertainties. Apply the digest’s text-contrast, focus, target and reduced-motion rules without claiming those gaps passed.
+
+9. **The 214 reconciliation**
+
+   **Set arithmetic passes; the full criterion does not.**
+
+   `reconcile-214.out.txt` establishes A=108, B=106, intersection=0, union=214, no extras/missing, one accepted entry per key, and matching outcome-line identities.
+
+   But [the script](/Users/uazjob/UoN-Video-Helper-side/vh224-walk/reconcile-214.mjs:17) only checks that `record` is nonempty and that an outcome line exists. It does not validate record hashes or enumerate and resolve retries.
+
+   There is a concrete selection discrepancy:
+
+   - A’s 15 a5 accepted entries name run **04:28:59**, while `rewalk-a5.outcomes.jsonl` contains their **07:16:26** replacements.
+   - A’s 12 re-walked a6 entries still name **05:29:08**, while `rewalk-a6t.outcomes.jsonl` contains **09:31:29** replacements.
+
+   Thus the output’s `ok:true` does not establish the record-of-record rule. B’s six replacements are selected correctly; I independently verified all 106 B accepted raw-record hashes. Repair A’s effective selection/provenance and make the reconciliation explicitly check supersession and retained retries.
+
+10. **What close must carry**
+
+   - **S-24 debt:** the wish-list currently covers only A’s 15 keys. Extend that existing line or add one B-specific line for these 13; do not imply all 214 states were reached.
+   - **Existing follow-ups:** reuse VH-216.1, VH-200.1 and VH-223.2. No duplicate wish is needed for them. No new product fix item is justified by B.
+   - **Table:** replace `?` before provenance with “no previous after-reading”, link VH-176 where available, and distinguish **106 keys / 93 reached** from **112 attempts / 98 reached attempts**. “Nothing moved, row by row” is not an established before/after comparison. State the 81/12/13 verdict, missing subjects, c-d qualifications and six supersessions.
+   - **Ledger:** narrow VH-172.1 to the four scale-3 landscape uncertainties after separately preserving S-24 debt; link VH-224 and its table in the report’s Disposition row.
+   - **Decision and verification:** record the load/S-24 rulings, independent-verdict comparison, reconciliation repair and digest rules. Run the settled-machine gate, rerun the structural check, and obtain a follow-up verdict on the repaired candidate before committing.
+
+**Verdict: fail, pending evidence repair.** The batch-B measurements stand. Before close, fix the reconciliation’s retry selection/proof, correct the table’s scope and provenance, preserve the outstanding readings, and complete the gate and final comparison.

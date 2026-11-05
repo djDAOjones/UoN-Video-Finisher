@@ -1,0 +1,54 @@
+// VH-224 #2, read-only: the 214 reconciled, r1 (the verdict compare's repair; reconcile-214.mjs, VH-224 #1's, kept as run). Everything the
+// original checks (A and B pairwise disjoint, union = stillUnrun, none extra or missing, one accepted line per key, each accepted run's outcome
+// line in its group's <group>.outcomes.jsonl in the records folder), and in addition:
+//  - proof of record: each accepted record's sha1 (and its manifest's) against the file, for every B line (in B's walk folder) and for every A line
+//    whose record is in A's records folder whole (VH-223 copied its NOT-OK and not-reached records there);
+//  - retries traceable: for each batch, every key with more than one run in its records folder's outcomes files, the accepted run and each other,
+//    and whether their outcome lines are identical (status, reached, every instrument's outcome, the why list);
+//  - each batch's own rule for a retried key: A, "a re-walk identical to its first walk is cited, and the first walk stands" (VH-223's table
+//    notes, a re-walk group named rewalk-*), so A's accepted run is the first walk's when they are identical; B, the re-walk's record is of record
+//    (Orchestrators #40 and #41; a re-walk group is the counted group's name plus "t"), so B's accepted run is the re-walk's.
+// Usage: node reconcile-214-r1.mjs <unrun json> <A accepted jsonl> <A records dir> <B accepted jsonl> <B records dir> <B walk dir>. Exits 1 on any failure.
+import { readFileSync, readdirSync, existsSync } from 'node:fs'
+import { createHash } from 'node:crypto'
+import { join, basename } from 'node:path'
+const [src, aF, aDir, bF, bDir, bWalk] = process.argv.slice(2)
+const { stillUnrun } = JSON.parse(readFileSync(src, 'utf8'))
+const lines = (f) => readFileSync(f, 'utf8').split('\n').filter(Boolean).map((l) => JSON.parse(l))
+const sha = (p) => createHash('sha1').update(readFileSync(p)).digest('hex')
+const A = lines(aF), B = lines(bF), errors = []
+if (new Set(stillUnrun).size !== stillUnrun.length) errors.push(`stillUnrun repeats a key: ${stillUnrun.length} entries, ${new Set(stillUnrun).size} distinct`)
+const keyOf = (o) => o.id + (o.variant ? '~' + o.variant : '') + '__' + o.lang + '__' + o.view + '__' + o.mode
+const runsIn = (dir) => { const m = {} // key -> [{ group, run, sig }]
+  for (const f of readdirSync(dir).filter((x) => x.endsWith('.outcomes.jsonl'))) { const group = f.slice(0, -'.outcomes.jsonl'.length)
+    for (const o of lines(join(dir, f))) (m[keyOf(o)] ??= []).push({ group, run: o.run, sig: JSON.stringify([o.status, o.reached, o.outcomes, o.why]) }) }
+  return m }
+const check = (name, L, dir, walk) => { const seen = new Map(), groups = {}, runs = runsIn(dir), retries = [], hash = { checked: 0, notHere: 0 }
+  for (const l of L) { if (seen.has(l.key)) errors.push(`${name}: ${l.key} accepted twice`); seen.set(l.key, l)
+    if (!l.record) { errors.push(`${name}: ${l.key} has no record`); continue }
+    groups[l.group] = (groups[l.group] ?? 0) + 1
+    const mine = runs[l.key] ?? [], acc = mine.find((r) => r.group === l.group && r.run === l.run)
+    if (!acc) errors.push(`${name}: ${l.key} has no outcome line for ${l.group} ${l.run}`)
+    const p = walk ? join(walk, l.record) : join(dir, basename(l.record))
+    if (existsSync(p)) { hash.checked++; if (sha(p) !== l.sha1) errors.push(`${name}: ${l.key} record sha1 differs (${p})`)
+      if (walk && l.manifest && sha(join(walk, l.manifest)) !== l.manifestSha1) errors.push(`${name}: ${l.key} manifest sha1 differs`) }
+    else if (walk) errors.push(`${name}: ${l.key} record absent (${p})`); else hash.notHere++
+    if (mine.length > 1 && acc) { const others = mine.filter((r) => r !== acc), same = others.every((r) => r.sig === acc.sig)
+      const rewalk = (g) => (name === 'A' ? /^rewalk-/.test(g) : mine.some((r) => r.group + 't' === g))
+      const ruleOk = name === 'A' ? !rewalk(acc.group) && same : rewalk(acc.group)
+      if (!ruleOk) errors.push(`${name}: ${l.key} accepted ${acc.group} breaks ${name}'s rule`)
+      retries.push({ key: l.key, accepted: `${acc.group} ${acc.run}`, others: others.map((r) => `${r.group} ${r.run}`), identical: same, rule: ruleOk ? 'kept' : 'broken' }) } }
+  for (const k of Object.keys(runs)) if (!seen.has(k) && stillUnrun.includes(k)) errors.push(`${name}: ${k} has outcome lines but no accepted line`)
+  return { keys: seen, groups, retries, hash } }
+const a = check('A', A, aDir, null), b = check('B', B, bDir, bWalk)
+const both = [...a.keys.keys()].filter((k) => b.keys.has(k))
+for (const k of both) if (!errors.includes(`in both: ${k}`)) errors.push(`in both: ${k}`)
+const U = new Set(stillUnrun), union = new Set([...a.keys.keys(), ...b.keys.keys()])
+for (const k of union) if (!U.has(k)) errors.push(`extra: ${k}`)
+for (const k of U) if (!union.has(k)) errors.push(`missing: ${k}`)
+const byGroups = (r) => r.reduce((t, x) => { const g = x.accepted.split(' ')[0] + ' over ' + x.others.map((o) => o.split(' ')[0]).join('+'); t[g] = (t[g] ?? 0) + 1; return t }, {})
+console.log(JSON.stringify({ stillUnrun: U.size, A: a.keys.size, B: b.keys.size, inBoth: both.length, union: union.size, aGroups: a.groups, bGroups: b.groups,
+  aHash: a.hash, bHash: b.hash, aRetries: { count: a.retries.length, identical: a.retries.filter((x) => x.identical).length, byGroups: byGroups(a.retries) },
+  bRetries: { count: b.retries.length, identical: b.retries.filter((x) => x.identical).length, byGroups: byGroups(b.retries) }, errors, ok: errors.length === 0 && union.size === U.size }))
+for (const [n, r] of [['A', a.retries], ['B', b.retries]]) for (const x of r) console.log(`${n} retry ${x.key}: accepted ${x.accepted}; other ${x.others.join(', ')}; identical ${x.identical}; rule ${x.rule}`)
+if (errors.length || union.size !== U.size) process.exit(1)

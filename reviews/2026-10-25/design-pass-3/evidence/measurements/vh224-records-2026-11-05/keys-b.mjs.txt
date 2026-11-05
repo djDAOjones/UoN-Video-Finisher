@@ -1,0 +1,31 @@
+// VH-224 #1 (from VH-223's keys-a.mjs, the original untouched): batch B's key list, by the item's exclusive rule, proved by count.
+// Batch B is every stillUnrun key not in batch A: the views zoom200proxy and zoom400proxy, and the modes reduced-motion, spacing,
+// fallback and font32 at w1280. Exits 1 on any count but 22 + 20 + 22 + 22 + 10 + 10 = 106, a key in two classes, a mode key off
+// w1280, a key in batch A's list, a stillUnrun key in neither batch, or a repeat in either input (the design compare).
+// Usage: node keys-b.mjs <unrun json> <batch A keys file> [out file]
+import { readFileSync, writeFileSync } from 'node:fs'
+const [src, aFile, out] = process.argv.slice(2)
+const { stillUnrun } = JSON.parse(readFileSync(src, 'utf8'))
+const aLines = readFileSync(aFile, 'utf8').split('\n').map((l) => l.trim()).filter(Boolean), A = new Set(aLines)
+const VIEWS = ['zoom200proxy', 'zoom400proxy'], MODES = ['reduced-motion', 'spacing', 'fallback', 'font32']
+const counts = Object.fromEntries([...VIEWS, ...MODES].map((c) => [c, 0]))
+const errors = []
+if (aLines.length !== 108 || A.size !== 108) errors.push(`batch A list: ${aLines.length} lines, ${A.size} distinct (108 wanted)`)
+if (new Set(stillUnrun).size !== stillUnrun.length || stillUnrun.length !== 214) errors.push(`stillUnrun: ${stillUnrun.length} entries, ${new Set(stillUnrun).size} distinct (214 wanted)`)
+const keys = stillUnrun.filter((k) => {
+  const p = k.split('__'); if (p.length !== 4) throw new Error('key shape ' + k)
+  const [, , view, mode] = p
+  const v = VIEWS.includes(view), m = MODES.includes(mode)
+  if (v && m) errors.push('key in two classes ' + k)
+  if (m && view !== 'w1280') errors.push('mode key off w1280 ' + k)
+  if (v) counts[view]++
+  if (m) counts[mode]++
+  if ((v || m) && A.has(k)) errors.push('in batch A ' + k)
+  if (!(v || m) && !A.has(k)) errors.push('in neither batch ' + k)
+  return v || m
+}).sort()
+const want = { zoom200proxy: 22, zoom400proxy: 20, 'reduced-motion': 22, spacing: 22, fallback: 10, font32: 10 }
+const ok = keys.length === 106 && Object.entries(want).every(([c, n]) => counts[c] === n) && new Set(keys).size === 106 && errors.length === 0
+console.log(JSON.stringify({ stillUnrun: stillUnrun.length, batchA: A.size, batchB: keys.length, counts, errors, ok }))
+if (!ok) process.exit(1)
+if (out) writeFileSync(out, keys.join('\n') + '\n')

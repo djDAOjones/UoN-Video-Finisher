@@ -1,0 +1,155 @@
+1. **The keys**
+
+   Derive B independently as `Set(stillUnrun) − Set(keys-a.txt)`, then verify the item’s class rule separately. I checked: **214 − 108 = 106 unique keys**, exactly equal to the supplied `keys-b.txt`; the six classes are **22, 20, 22, 22, 10, 10**, with no overlap and all four mode classes at w1280. Also reject duplicates in the input lists: converting A straight to a set can conceal them. (`project/items/VH-224.md:9`; `/Users/uazjob/UoN-Video-Helper-side/vh224-walk/keys-b.mjs:9`.)
+
+   All 106 occur **once each in `PLANS.matrix()`**, through its finite-scenario expansion; none occurs in the other directly declared plans, including `priority`. The scenario totals are:
+
+   | ID | Keys |
+   |---|---:|
+   | S-03 | 8 |
+   | S-16 | 12 |
+   | S-24 | 13 |
+   | S-41 | 8 |
+   | S-48 | 13 |
+   | S-53 | 4 |
+   | S-56 | 12 |
+   | S-58 | 8 |
+   | S-63 | 8 |
+   | S-76 | 8 |
+   | S-81 | 12 |
+
+   References below abbreviate `reviews/2026-10-25/design-pass-3/evidence/measurements/` as **M/** and its `walker/` as **W/**. The declaration is `W/scenarios.mjs:1320` and `:1331`.
+
+   There is **no matching VH-172/VH-176 before-reading for these exact keys**: all 106 are in VH-176’s `unrunAfter.keys`, and none is in the earlier priority plan. State “no previous after-reading”; do not substitute another language, viewport or mode. Link the historical manifest and this membership proof in the table’s notes; a genuine matching before-record, if found, belongs beside that key’s accepted-record entry. (`reviews/2026-10-22/design-pass-2/evidence/measurements/after-manifest-2026-10-24.json:1`; `W/scenarios.mjs:1348`; `project/items/VH-224.md:14`.)
+
+2. **The walker**
+
+   **VH-223’s interface is sufficient:** `node matrix.mjs matrix --keys <file>`. It selects existing declarations in plan order and retains their scenario, language, viewport, instruments, assertions and subresults. No plan injection, setup hook, scenario replacement or walker edit is needed. (`W/matrix.mjs:179`, `:218`, `:79`.)
+
+   Before starting, verify the selected declaration has exactly 106 distinct keys, each once; record the landed app commit/diff, browser, OS, fixtures and all walker-file hashes. I independently computed the current revision as **`e377132ba6f70227`**. After every group and at final reconciliation, verify the same provenance and revision, including actual fixture usage. A matching revision printed only at launch is insufficient if files change during the walk. (`W/runner.mjs:50`, `:87`, `:131`, `:234`.)
+
+   Keep VH-223’s key-filter qualification linked. Its already-qualified interface does not require another walker modification or a new qualification exercise. Any proposed instrument change would reopen VH-198’s detection proofs, pilot and method review, contrary to this item’s settled unchanged-walker requirement. (`M/vh223-matrix-a-2026-11-05.md:92`; `project/items/VH-198.md:10`.)
+
+3. **Fixtures and the pilot**
+
+   Batch B reads five distinct fixtures:
+
+   | IDs | Fixtures |
+   |---|---|
+   | S-16 | `captioned-12s.mp4` |
+   | S-24 | `still-10800s.mp4` |
+   | S-41 | `lecture-60s.mp4` |
+   | S-48 | `still-3600s.mp4` |
+   | S-53, S-56, S-58 | `lecture-30s.mp4` |
+   | S-63 | `lecture-30s.mp4`, `lecture-60s.mp4` |
+   | S-03, S-76, S-81 | None |
+
+   These are scenario declarations, not an inference from filenames in a directory. (`W/scenarios.mjs:325`, `:400`, `:541`, `:634`, `:733`, `:747`, `:797`; `M/vh223-matrix-a-2026-11-05.md:94`.)
+
+   Reuse `after-pilot` **only after proving B uses those same Mac Pro fixture bytes**, with the same relevant app behaviour and walker revision. Its fixture-reading IDs cover B; S-16 and S-41 legitimately have no scenario-specific assertions, rather than an assertion pass over an empty set. The comparison file reports the local copies matching VH-223, but the actual run manifests and fixture ledger must substantiate that match. (`M/vh223-records-2026-11-05/after-pilot.outcomes.jsonl:3`, `:5`, `:7`, `:10`; `/Users/uazjob/UoN-Video-Helper-side/vh224-walk/fix-compare.txt:5`, `:19`, `:21`, `:32`, `:34`; `W/runner.mjs:131`.)
+
+   If any required fixture differs, provenance is unavailable, or relevant setup behaviour changed, run a separate proof group first covering every affected fixture-reading ID. Require reached state and passing applicable assertions; keep it outside the 106 accepted records. **S-24 was not proved reachable by the pilot**: retain the explicit speed exception, never call its failed state assertion a fixture proof or pass. (`M/vh223-records-2026-11-05/after-pilot.outcomes.jsonl:4`; `M/vh223-matrix-a-2026-11-05.md:100`.)
+
+4. **The walk**
+
+   I recommend four sequential groups:
+
+   | Order | IDs | Size | Reason |
+   |---|---|---:|---|
+   | 1 | S-03, S-76, S-81 | 28 | Establish non-media views, dialog and footer readings first |
+   | 2 | S-16, S-41, S-53, S-56, S-58, S-63 | 52 | Ordinary media setups and result states |
+   | 3 | S-24 | 13 | Isolate the known hardware-dependent reach failure |
+   | 4 | S-48 | 13 | Isolate the live, expensive encoding state |
+
+   Preserve `PLANS.matrix` order within each filtered group. Run **one driver job per launcher invocation**, waiting for cleanup before the next group. `walk.sh` launches multiple supplied jobs concurrently, so passing four job arguments would violate this design. (`W/scenarios.mjs:1331`, `:1361`; `/Users/uazjob/UoN-Video-Helper-side/vh224-walk/walk.sh:43`.)
+
+   The driver should only record conditions/key-list identity and invoke the unchanged matrix CLI. It is not an alternative scenario runner or a judgement engine. (`/Users/uazjob/UoN-Video-Helper-side/vh224-walk/vh224-driver.mjs:22`.)
+
+   On this desktop require AC, the shared lock, free ports, and both one- and five-minute loads below 8 before launch; preserve 30-second samples. Missing `powermode` on this AC-powered Mac is already accounted for. The launcher does not continuously enforce these conditions, so review its logs afterwards. Void compromised attempts explicitly, retain their files and reason, and exclude them from accepted evidence; do not silently overwrite them. (`/Users/uazjob/UoN-Video-Helper-side/vh224-walk/go.sh:12`, `:22`; `.../walk.sh:18`, `:28`; `M/vh223-matrix-a-2026-11-05.md:112`.)
+
+   If any load sample reaches 8, re-walk that group’s timing-dependent keys at low load—not automatically every static record. In B, S-48 is the clearest whole-group case; inspect finished-job/player timing in S-53, S-58 and S-63 and any other timed evidence actually used. Compare status, reach, instruments, assertion/subresult outcomes and non-passing rows. Retain both attempts; identical results do not manufacture a clean timing measurement. (`M/vh223-matrix-a-2026-11-05.md:116`, `:118`; `W/phase8.mjs:79`.)
+
+   S-24 and S-48 are the explicitly heavy setups; completed-job scenarios also encode before measurement. High-DPR proxy captures add cost, so do not budget using the original machine’s timings without adjustment. (`W/scenarios.mjs:156`, `:164`, `:1361`, `:1411`.)
+
+5. **Judging each key**
+
+   Separate **attempted**, **reached**, **structurally complete**, and **judged OK**. A successful process exit or `status: "ok"` is not an accessibility verdict. Require correct identity/provenance, passing `reached`, a valid post-instrument state, every declared instrument and expected subject, and then inspect measured outcomes. (`W/runner.mjs:133`; `W/matrix.mjs:258`.)
+
+   An OK judgement needs no unexplained applicable failure. Preserve justified exemptions and `not-applicable` reasons. Inspect every `cannot-determine`: it is an unresolved measurement, never a measured pass. A key may follow batch A’s “OK with documented measurement limitations” convention, but its affected WCAG claim must remain qualified. A missing instrument, missing expected assertion, expired state or unexplained uncertainty cannot be hidden under that convention. (`W/runner.mjs:33`, `:149`; `M/vh223-matrix-a-2026-11-05.md:101`.)
+
+   Attribute each NOT-OK to one or more explicit classes:
+
+   - Observed product defect.
+   - Known obsolete walker expectation or measurement limitation.
+   - Environment/load/fixture/reach failure.
+   - Unresolved cause requiring further evidence.
+
+   Record the exact failing subject, evidence and existing wish/fix reference. Claude’s attribution and Codex astra’s blind attribution must then be compared. A demonstrated product failure without an adequate existing disposition needs its own fix item before VH-203; absence of a historical reading does not excuse it. (`project/items/VH-224.md:11`.)
+
+   Expected cases are S-03’s eight old-order failures, including the missing declared `formatTip` subjects; S-24’s thirteen likely speed-related non-reaches; and possible S-81 wrapped-link focus shortfalls. Expect the known trim-target, trim non-text-contrast and mixed-script measurement limitations too. These are expectations to verify per record, not blanket exemptions. (`M/vh223-matrix-a-2026-11-05.md:93`, `:97`, `:100`, `:101`; `project/wish-list.md:59`, `:73`.)
+
+6. **WCAG**
+
+   Apply the criteria to the subjects actually exposed and measured:
+
+   | Criterion | Batch B evidence and qualification |
+   |---|---|
+   | **1.4.3, 1.4.6** | `contrastText`, with file-button glyph evidence in `contrastExtra`; apply across all reached views/modes. AAA thresholds also support the lower AA threshold where the same text is measured. |
+   | **1.4.4** | Proxy enlargement and `font32`: reached viewport/root-font checks, `overflow`, scenario functionality and S-76’s operated-dialog subresults. These are qualified enlargement evidence, not proof of real browser zoom. |
+   | **1.4.10** | `overflow`, especially the 320-CSS-pixel `zoom400proxy`; inspect clipping as well as document width. Other widths provide supporting observations. |
+   | **1.4.11** | `contrastExtra` for applicable boundaries/graphics; retain the trim thumb/track person-reading gap. |
+   | **1.4.12** | The 22 `spacing` keys: spacing presence, overflow/clipping and functional assertions. `type` deliberately relaxes its normal line-height comparison here; it is not itself a spacing-compliance verdict. |
+   | **2.3.3** | The 22 `reduced-motion` keys: reached preference plus `motion` observations during interaction. This proves the sampled interactions, not every possible animation. |
+   | **2.4.7, 2.4.13** | `focus` on each declared focus subject; inspect visibility, contrast and area separately and retain known perimeter ambiguities. |
+   | **2.5.5** | `targets`, with reasoned inline, disabled and other applicable exemptions; unresolved thumb geometry stays unresolved. |
+
+   Instrument wiring: `W/matrix.mjs:98`, `:105`, `:112`, `:114`, `:118`; enlargement/mode validation: `W/qualify.mjs:443`, `:973`, `:1012`; dialog functionality: `W/scenarios.mjs:1780`; adopted thresholds: `project/digests/wcag-2.2-aaa.md:18`, `:20`, `:27`, `:32`.
+
+   No requested criterion is wholly outside B. However, ordinary fallback mode is **not** an enlargement, spacing or reduced-motion test; those specialised claims require their own modes. An absent player/limiting warning can legitimately be n/a. An unreached state supplies no WCAG pass. Real browser zoom remains a person check, and a `font32` full-page shot cannot support visual approval because it shows the default-size rendering. (`W/matrix.mjs:295`, `:301`; `project/wish-list.md:79`.)
+
+7. **The table and reconciliation**
+
+   Drive `table-1page.mjs` with pairs such as `no-before:after-b1,no-before:after-b2,...`, where `no-before` has no run records. Do not pair after against itself. State prominently that Before’s `?`, “after-only”, and the generated “Nothing moved” mean **no comparison exists**, not stability. (`/Users/uazjob/UoN-Video-Helper-side/table-1page.mjs:34`, `:75`, `:130`; `M/vh223-matrix-a-2026-11-05.md:90`.)
+
+   Supply a separate accepted-record index and judgement summary. The generator’s detail-copy loop iterates before records, so `--detail-failing` does **not** automatically preserve after-only failures. Explicitly bundle their full records and required supporting evidence. Also avoid relying on directory order: its loader silently overwrites repeated keys in its in-memory map. (`/Users/uazjob/UoN-Video-Helper-side/table-1page.mjs:39`, `:79`, `:87`.)
+
+   Each accepted entry should identify key, group, run, attempt, record path/hash, manifest path/hash, revision, judgement, attribution and retry disposition. “Accepted” means the selected authoritative outcome—including an accurately recorded non-reach—not “passed”. (`M/vh223-matrix-a-2026-11-05.md:95`; `W/runner.mjs:83`.)
+
+   The reconciliation script should fail unless:
+
+   - Inputs contain exactly 214 unique target keys, 108 unique A keys and 106 unique B keys.
+   - A and B are disjoint and their union equals `stillUnrun`, with both set differences empty.
+   - Each target has exactly one selected record, whose embedded identity, declaration, provenance and hashes agree.
+   - No extra selected key exists.
+   - Every retry/pilot/void is retained and explicitly excluded or superseded, with replacement and reason traceable.
+
+   Check raw-list multiplicity before set conversion. Report reach/completeness/verdict totals separately from the 214-key accounting proof. (`project/items/VH-224.md:12`; `W/runner.mjs:142`, `:194`.)
+
+   Narrow VH-172.1 to its four landscape/DPR-3 unresolved readings, **while preserving all outstanding S-24 after-readings elsewhere**: A’s fifteen already belong to VH-223.1; B’s actual non-reaches need an explicit ledger line or extension. Reconciling 214 selected outcomes must not imply 214 successful after-readings. (`project/wish-list.md:44`, `:100`; `project/items/VH-224.md:12`.)
+
+8. **Risks**
+
+   - **S-24 cannot be repaired by relabelling the reached state.** Its predicate explicitly excludes `veryLongJob`; preserve the failed record and speed attribution. Changing its fixture or band would change the experiment. (`W/scenarios.mjs:400`.)
+   - **S-48 is a live job.** It waits for encoding past 3%, then measurements take time; modes may share a setup. Check both state assertions and discard any expired-state evidence as a successful reading. (`W/scenarios.mjs:156`, `:634`; `W/matrix.mjs:226`, `:263`.)
+   - **S-76 needs subresults at enlargement.** A measured open dialog is insufficient: its keyboard entry, use, handoff and exit must be present. A thrown subresult becomes `cannot-determine`, not success. (`W/scenarios.mjs:1780`; `W/matrix.mjs:154`.)
+   - **Timed player rows can describe a later state.** The finish-plus-one-second callback queries the then-current player. Interpret it with setup actions and load logs; retain VH-199.1’s limitation. (`W/phase8.mjs:79`; `project/wish-list.md:58`.)
+   - **Fallback must block Font resources, not font-looking URLs.** The implementation correctly distinguishes Vite’s module imports, disables cache and checks for loaded faces; preserve its separate setup group and verify the observed font state. (`W/qualify.mjs:445`, `:1018`; `W/matrix.mjs:229`, `:242`.)
+   - **DPR-4 focus/capture work is expensive; small pixel differences are not defects by themselves.** Read the full contrast/area evidence, not `f.changedAny` alone. Do not transfer landscape/DPR-3 uncertainty automatically to these different views. (`W/qualify.mjs:977`; `M/vh223-matrix-a-2026-11-05.md:123`.)
+   - **The shell’s completion is not the job’s verdict.** Inspect each job exit and manifest: the wrapper logs job status but ends with cleanup output. (`/Users/uazjob/UoN-Video-Helper-side/vh224-walk/walk.sh:45`, `:50`, `:59`.)
+
+**Musts**
+
+- Prove the exact 106 keys and unchanged revision; preserve fixture and build provenance.
+- Run sequentially, retain load/power evidence, and account for every retry and void.
+- Judge every key, including assertions and subresults; never convert non-reach or uncertainty into a pass.
+- Preserve the settled old-order, font32-capture and pixel-noise qualifications.
+- Provide truthful after-only reporting, complete failure evidence and a multiplicity-aware 214-key reconciliation.
+- Preserve outstanding readings in the ledger; create separate fix items for newly established product defects.
+- Complete the item’s blind attribution comparison and final candidate review. Treat the owner’s “Gateless” instruction as the gate disposition, not as a fabricated green result. (`project/items/VH-224.md:11`, `:18`, `:19`.)
+
+**Mays**
+
+- Split the 52-key group further if runtime warrants, preserving exact coverage and setup semantics.
+- Reuse VH-223’s pilot after proving identity; an unnecessary duplicate pilot adds no coverage.
+- Keep an original accepted record when a properly documented retry agrees, following batch A’s precedent.
+- Add explicitly labelled viewport captures or manual observations as supplementary evidence, without altering the walker or claiming that its font32 full-page shots prove enlargement.

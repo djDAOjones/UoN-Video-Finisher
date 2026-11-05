@@ -1,0 +1,13 @@
+**Follow-up verdict: pass with conditions.** The three re-check points are resolved. Nothing changed.
+
+1. **r1 repair passes.** Rerun exited 0 and exactly matched the saved output; script copies and recorded hashes match. It establishes 214 unique accepted keys, A/B disjoint, none missing or extra; verifies all **106 B records** and **24 A records copied whole**. The other 84 A records are explicitly outside its hash coverage. It lists all **41 A retried keys and six B retried keys**, accepted and other runs, applying their respective rules correctly. The original script/output hashes remain unchanged.
+
+2. **A’s selection is correct.** VH-223’s explicit rule retains the first walk when the re-walk is identical. Thus a5 and a6 stand. My earlier objection is withdrawn; VH-224 has nothing to repair there.
+
+3. **The table’s Notes suffice.** They explain before provenance, 106 keys versus 112 records, 81/12/13, all four cannot-determine classes and the six superseded records. No further table edit is required, provided the close records the agreed qualifications.
+
+**Still required at close:**
+
+- Complete the ledger and Disposition link; add VH-224.1 for B’s 13 unreached S-24 keys, retain existing follow-ups, and narrow VH-172.1 to the four scale-3 cases.
+- In the decision and commit, explain the generated `?`/“Nothing moved” text, S-03’s ten absent `formatTip` subjects, and the adopted WCAG qualifications—including visible focus versus failed area readings, proxy counts, mixed-script qualification and untested scope. Name the applicable digest rules.
+- Preserve the evidence freeze, including both reconciliation versions; obtain a green settled-machine gate, run `node tools/check.mjs`, and complete Codex’s final-candidate close check before committing.

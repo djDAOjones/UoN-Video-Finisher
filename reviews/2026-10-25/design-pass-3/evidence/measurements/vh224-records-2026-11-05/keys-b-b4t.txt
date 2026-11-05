@@ -1,0 +1,4 @@
+S-48__ms-MY__w1280__fallback
+S-48__ms-MY__w1280__font32
+S-48__ms-MY__w1280__reduced-motion
+S-48__ms-MY__w1280__spacing
