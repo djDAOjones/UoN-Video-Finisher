@@ -24,6 +24,18 @@
      moves the oldest entries verbatim to project/decisions-YYYY-MM.md,
      beside this file, listed in project/archive-index.md. -->
 
+## 2026-11-05 — VH-231 — Raised: a cut Matroska or WebM file said cut short with the finished video, never "the whole video", in the owner's words
+
+**Decision:** VH-231 takes VH-158.1's case, found by VH-222 on the Mac Pro: a cut Matroska or WebM file's warning is withdrawn when the job ends, and the trim and the record call its read length "the whole video". It is its own fix item, after VH-224 and before VH-203, built here: the warning first with the finished video, its announcement and the retained result; the trim's and the record's words and spec §5.4's row as the owner approved them. "Duration" stays.
+
+**Rationale:** The owner's answer, verbatim: "Yes, as drafted" (in Orchestrator #40's session, about 07:15Z), to "Which wording should VH-231 build?", whose recommended option was the three lines leaving "Duration" alone. Approved: for a cut Matroska or WebM file, the trim's "Keeping {kept}." in place of "Keeping the whole video, {duration}." and "Keeping {kept} of {duration}.", and the record's "{kept}, from {from} to {to}" in place of "the whole video ({duration})" and "{kept} of {duration}, from {from} to {to}", with the zh-Hans and ms-MY machine drafts, whose native check is wish VH-231.1; and spec §5.4's cut-short row extended to "said first among the warnings before processing, and again with the finished video and its completion announcement". Not taken: Video properties' "Duration" relabelled "Length that can be read". The owner chose the option that leaves it, so it is not deferred. The owner's answer 1 of 2026-11-05, "Here on the Mac Pro (Recommended)" (`plan8-owner-words.md`): a fix item raised by VH-220 to VH-224 is built, walked, gated and landed here, on its own branch; VH-222's stage rule makes a defect it finds a fix item before VH-203. Evidence: VH-222 #4's proof5 and VH-222 #5's g1, 81 of 81 cells. In every cell the panel gives the read length as the whole length; S-23 before Create shows the warning and `#status` names it; in all 45 finished cells the record says "the whole video (20 seconds / 5 seconds)", the warning is absent and `#status` is silent. The cause: `withdrawVerdict()` at the job's end, the card's warnings only the production ones, and `endedEarly` blind to a Matroska index. VH-231 #1's design and Codex astra's blind design check agreed on the warning carried with its existing words and no element; "the whole video" settled toward Codex by VH-139's precedent, the cut MP4's record. S-170, the cut WebM before Create, still unread, is VH-231's, given by Orchestrator #40. The Items list restates VH-229's, the latest, with VH-230 in its place after VH-218 (its raise carried no list) and VH-231 after VH-224. This raise builds nothing; the criteria are drafts for its worker: `project/items/VH-231.md`.
+
+**Supersedes:** 2026-10-30 — VH-229 — Raised: the promises and the privacy line behind a "?" beside the title, on the owner's choice
+
+**Items:** VH-182, VH-183, VH-184, VH-185, VH-186, VH-187, VH-188, VH-189, VH-190, VH-191, VH-192, VH-193, VH-194, VH-196, VH-197, VH-198, VH-205, VH-199, VH-200, VH-201, VH-202, VH-211, VH-206, VH-207, VH-208, VH-212, VH-213, VH-214, VH-215, VH-216, VH-227, VH-217, VH-229, VH-209, VH-218, VH-230, VH-219, VH-210, VH-225, VH-220, VH-221, VH-222, VH-223, VH-224, VH-231, VH-203, VH-195, VH-204, VH-226
+
+**Deferred:** VH-231
+
 ## 2026-11-05 — PLAN-8 — The owner's three answers from the Mac Pro: fix items built here, walked cells re-walked here, VH-203 across workers under its one ID
 
 **Decision:** While the owner steers from the Claude iOS app only, a fix item raised by VH-220 to VH-224 is built, walked, gated and landed on the Mac Pro, each on its own branch; the MacBook Pro keeps VH-204, VH-14 and VH-226. The cells VH-220 to VH-223 walked on the MacBook Pro are walked again on the Mac Pro, so each table rests on one machine, with the earlier records cited as support only. VH-203's after-run runs across successive workers under its one ID, as VH-199 ran, not as bounded items. These are the owner's answers to the two questions the entry below left open and to VH-203's open question.
@@ -636,13 +648,3 @@ Each walk records its machine. Two questions remain for the owner:
 **Supersedes:** none
 
 **Deferred:** VH-198
-
-## 2026-10-25 — VH-194 — Spec §9.3 and UI-STANDARDS take Phase 7's five corrections, S26 to S31, U1 and U2, verbatim
-
-**Decision:** Spec §9.3 counts a CJK glyph as two, hands focus on by the transition, narrows the thumbs' person-only check, records the file chooser's exception and names "Announce progress"; UI-STANDARDS adds a larger default font to 2.4.13's conditions. Documents only, as the owner approved the sheet.
-
-**Rationale:** The owner approved the wording sheet on 2026-10-24, "all seems good." (PLAN-8 — the sheet approved), promoting VH-177.1 to VH-177.5. Each old text matched once with its wrapping ignored, and each new text is in place word for word. The ledger's count takes the spec from 8,074 to 8,100 of 8,100 and UI-STANDARDS from 2,400 to 2,393 of 2,400, as the sheet said. The readability test's list and the statement were read against S29 and S30: neither is contradicted, but two gaps are wish lines, VH-194.1 (§9.3's "holds this list" now follows the file chooser, which the test does not hold) and VH-194.2 (the statement names only the Chinese and Malay pages for the file chooser). Codex astra: "Commit", with no musts (`reviews/2026-10-24/codex-astra-vh194-check-2026-10-25.md`). Digest rules applied: WCAG 2.2 AAA, every exception recorded (2.5.3) and focus appearance's conditions (2.4.13); Nielsen 3, focus handed on, never taken.
-
-**Supersedes:** none
-
-**Deferred:** VH-197
