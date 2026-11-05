@@ -1,0 +1,41 @@
+#!/bin/zsh
+# VH-220 #3: arms one group by Orchestrator #40's turn rule (2026-11-05): no chained sequences; before arming, `ps` for go.sh and wait-seq;
+# another worker's waiting script is let into the lock first. go.sh, walk.sh and seq.zsh are run unchanged.
+# Usage: zsh vh220-arm.zsh <side> <group> ["<lock owner to wait for first>"] ["<driver arguments after --name>"]
+# Waits (60 s checks) until the lock's owner.txt names the first owner, if given; then, for each other worker with a go.sh or wait-seq
+# in `ps` whose ID is not the lock's owner, until its ID is in owner.txt (or its script has gone); then runs seq.zsh for the one group.
+# An exit 9 (go.sh's 45-minute wait) is set aside as void/<side>-<group>-wait.N and the arming starts again.
+S=/Users/uazjob/UoN-Video-Helper-side; D=$S/vh220-walk; cd "$D" || exit 1
+side=$1; g=$2; FIRST=$3; JOB=$4   # with driver arguments (Orchestrator #40's S-115 per-mode groups), go.sh runs the job directly, as the brief's section 7 gives
+[ -n "$JOB" ] && JOB="node vh220-driver.mjs walk --walker \"\$WALKER\" --label $side --name $g $JOB"
+W=$S/vh220; WALKER=$W/reviews/2026-10-25/design-pass-3/evidence/measurements/walker
+LOG="$D/$side-$g.arm.log"
+owner() { head -1 "$S/walk.lock/owner.txt" 2>/dev/null; }
+say() { echo "$(date -u +%T) $*" | tee -a "$LOG"; }
+waiting() { ps -axo command | grep -E '[g]o\.sh|[w]ait-seq' | grep -oE 'UoN-Video-Helper-side/vh2[0-9]+' | sed 's#.*/##' | sort -u | grep -v '^vh220$'; }
+say "arm $side $g, first: ${FIRST:-none}"
+while :; do
+  if [ -n "$FIRST" ]; then
+    until owner | grep -qF -- "$FIRST"; do sleep 60; done
+    say "lock: $(owner)"; FIRST=""
+  fi
+  ps -axo pid,etime,command | grep -E '[g]o\.sh|[w]ait-seq' | cut -c1-200 >> "$LOG"
+  pending=()
+  for w in $(waiting); do id="VH-${w#vh}"; owner | grep -q "^$id " || pending+=("$w"); done
+  say "ps: waiting, not in the lock: ${pending:-none}"
+  while [ ${#pending} -gt 0 ]; do
+    sleep 60; keep=()
+    for w in $pending; do id="VH-${w#vh}"
+      if owner | grep -q "^$id "; then say "lock: $(owner)"
+      elif waiting | grep -qx "$w"; then keep+=("$w")
+      else say "$w: its script has gone"; fi
+    done
+    pending=($keep)
+  done
+  say "armed $side-$g"
+  if [ -n "$JOB" ]; then zsh go.sh "$side-$g" "$side $g" "$WALKER" "$W" "$JOB" > "$side-$g.go.out" 2>&1; rc=$?; echo "$side-$g exit $rc $(date -u +%T) (go.sh direct)" >> "$side.seq.log"
+  else zsh seq.zsh "$side" "$WALKER" "$W" "$g"; rc=$?; fi
+  if [ $rc = 9 ]; then i=1; while [ -e "void/$side-$g-wait.$i" ]; do i=$((i+1)); done
+    mkdir -p "void/$side-$g-wait.$i"; mv "$side-$g.go.out" "void/$side-$g-wait.$i/"; say "exit 9 set aside as void/$side-$g-wait.$i"; continue; fi
+  say "RC $rc $side-$g"; exit $rc
+done

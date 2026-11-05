@@ -1,0 +1,57 @@
+The base matches `ca093da0`. This was read-only.
+
+**1–2. State mapping and coverage**
+
+Each state has 24 conditions. “Recorded” below means a matching state snapshot exists; it does not mean every behavioural assertion was proved.
+
+| VH-150 state | Best existing route and reason | Recorded / unrecorded |
+|---|---|---:|
+| Watchdog failure | **S-90b + F11**: waits for locks to lift and Create to return. S-90a captures the earlier stopping interval, not R2-1’s settled state. [scenarios.mjs:1055](/Users/joe/UoN-Video-Helper-side/vh220/reviews/2026-10-25/design-pass-3/evidence/measurements/walker/scenarios.mjs:1055) | **3 / 21** |
+| Second job | **S-60, no fault**: completes a first job, confirms discard, starts another. Its current setup also checks disposal of the previous player. [scenarios.mjs:2986](/Users/joe/UoN-Video-Helper-side/vh220/reviews/2026-10-25/design-pass-3/evidence/measurements/walker/scenarios.mjs:2986) | **3 / 21** |
+| Unreadable beside unsaved result | **S-30, no fault**: finishes `lecture-30s.mp4`, then chooses `notvideo.mp4`, retaining an enabled Save. [scenarios.mjs:462](/Users/joe/UoN-Video-Helper-side/vh220/reviews/2026-10-25/design-pass-3/evidence/measurements/walker/scenarios.mjs:462) | **6 / 18** |
+| Kept result with warnings | **S-91 + F6a + F16**: retains the closing fallback and metadata warning beside a newly selected video; explicitly checks no nested notification. S-138 additionally exercises Keep it and two warnings, but adds no matching coordinates. [scenarios.mjs:3023](/Users/joe/UoN-Video-Helper-side/vh220/reviews/2026-10-25/design-pass-3/evidence/measurements/walker/scenarios.mjs:3023) | **6 / 18** |
+| Storage re-check still blocked | **New S-31 retry variant + existing F3**. S-31 stops at the first block. | **0 / 24** |
+| Both Set buttons | **S-32 + F7** supplies the preview-unavailable rendering. Neither focus-handoff branch is exercised; add two focused variants. [scenarios.mjs:477](/Users/joe/UoN-Video-Helper-side/vh220/reviews/2026-10-25/design-pass-3/evidence/measurements/walker/scenarios.mjs:477) | **6 / 18**, rendering only |
+
+**24 endpoint conditions are recorded; 120 need endpoint measurements.** Additionally, all 24 both-Set conditions need both handoff readings: the six cited S-32 snapshots cannot discharge that obligation. Counting complete both-Set conditions instead gives **18 reusable / 126 outstanding**; reuse those six snapshots for rendering without repeating their instruments.
+
+I calculated declared `PLANS['run-01'…'run-12']` minus each run’s missing keys, then intersected the requested coordinates. All credited cells are light: watchdog/second-job at 1280 in all languages; unreadable/warnings/S-32 at both widths in all languages. Sources: [parts.mjs:194](/Users/joe/UoN-Video-Helper-side/vh220/reviews/2026-10-25/design-pass-3/evidence/measurements/walker/parts.mjs:194), [coverage:17](/Users/joe/UoN-Video-Helper-side/vh220/reviews/2026-10-25/design-pass-3/evidence/measurements/matrix-coverage-2026-10-27.json:17). S-115 and S-138 overlap existing coordinates; do not double-count them.
+
+**3. No new storage fault is needed.**
+
+F3 installs a worker-level `navigator.storage.estimate` replacement returning the configured quota and zero usage **on every call**. S-31 sets 5 MiB. It is neither consumed nor cleared by re-checking. Releasing F3 removes interception for future worker loads; it does not restore an already running worker’s function. [faults.mjs:47](/Users/joe/UoN-Video-Helper-side/vh220/reviews/2026-10-25/design-pass-3/evidence/measurements/walker/faults.mjs:47), [faults.mjs:90](/Users/joe/UoN-Video-Helper-side/vh220/reviews/2026-10-25/design-pass-3/evidence/measurements/walker/faults.mjs:90).
+
+F9 repeatedly rejects estimates, producing storage-unknown rather than insufficient storage. F10 repeatedly breaks capability inspection. F12 throws once during workspace writes, then permits retry; it does not model a persistent preflight storage block. [faults.mjs:179](/Users/joe/UoN-Video-Helper-side/vh220/reviews/2026-10-25/design-pass-3/evidence/measurements/walker/faults.mjs:179).
+
+The missing operation is **letting Check again finish**: J3 presses it, then immediately stops it. [scenarios.mjs:1229](/Users/joe/UoN-Video-Helper-side/vh220/reviews/2026-10-25/design-pass-3/evidence/measurements/walker/scenarios.mjs:1229).
+
+Name an in-memory variant `S-31~retry-still-blocked`: establish S-31, mark the exposure log, activate Check again, verify Checking and Stop, then await a fresh block and Check again. Require no intervening `source.readSummary` announcement. The relevant branches are [main.ts:1652](/Users/joe/UoN-Video-Helper-side/vh220/src/main.ts:1652) and [main.ts:2438](/Users/joe/UoN-Video-Helper-side/vh220/src/main.ts:2438).
+
+An external driver registering this variant and plan in memory leaves walker files unchanged. Name, preserve and qualify the driver under [VH-198’s method:11](/Users/joe/UoN-Video-Helper-side/vh220/project/items/VH-198.md:11). Correct VH-220’s “needs a new fault” premise explicitly; do not manufacture one.
+
+**4. “Both Set buttons” means focus during preview failure.**
+
+The click handlers merely copy `currentTime` and commit the trim. The **error handler** chooses End time when Set end held focus, otherwise Start time, disables both buttons and transfers focus. [main.ts:2067](/Users/joe/UoN-Video-Helper-side/vh220/src/main.ts:2067), [main.ts:2090](/Users/joe/UoN-Video-Helper-side/vh220/src/main.ts:2090).
+
+For each branch, start with a working preview, reach the relevant Set button by keyboard, dispatch F7, and immediately record focus on its corresponding editable field, both buttons disabled, and the complete `trim.noPreview` message. Reload/re-establish the preview between branches. F7 is synthetic error-event coverage, not proof of real decoder refusal. [faults.mjs:169](/Users/joe/UoN-Video-Helper-side/vh220/reviews/2026-10-25/design-pass-3/evidence/measurements/walker/faults.mjs:169).
+
+**5. Additional readings**
+
+For every new record, preserve full expected and observed strings, table keys, substitutions, selectors, language, screenshots and transition timestamps. `M.has` checks literal fragments, while mutation summaries truncate text; neither proves whole wording. [scenarios.mjs:41](/Users/joe/UoN-Video-Helper-side/vh220/reviews/2026-10-25/design-pass-3/evidence/measurements/walker/scenarios.mjs:41), [qualify.mjs:57](/Users/joe/UoN-Video-Helper-side/vh220/reviews/2026-10-25/design-pass-3/evidence/measurements/walker/qualify.mjs:57).
+
+Read these state-specific facts:
+
+- Watchdog: failure/remedy remain; stopping disappears after unlock and stays absent after language changes.
+- Second job: capture the reset **before its first stage**, including zero value, cleared stage/time-left and fresh label. [main.ts:3282](/Users/joe/UoN-Video-Helper-side/vh220/src/main.ts:3282).
+- Unreadable: error identifies the new file’s problem; retained Save remains the sole primary.
+- Warnings: complete details survive redraw; no reassurance or nested notification. On this base, warnings are content inside the card before player/Save, following VH-208. [main.ts:3415](/Users/joe/UoN-Video-Helper-side/vh220/src/main.ts:3415).
+
+For **1.4.10**, inspect clipping, overlap, reading order and usable controls; 375 px alone does not establish 320-CSS-pixel reflow—cite/add that evidence and label zoom proxies. For **2.4.3**, record actual transition focus and subsequent Tab order before instruments move focus. For **3.3.1**, inspect identification and association of errors with their affected input. For **4.1.3**, inspect complete live-region updates and absence of stale/duplicate messages; AX exposure is not proof of spoken delivery. [matrix.mjs:278](/Users/joe/UoN-Video-Helper-side/vh220/reviews/2026-10-25/design-pass-3/evidence/measurements/walker/matrix.mjs:278). Apply Nielsen’s “status visible and announced” and “errors say what next”.
+
+**6. Risks**
+
+S-90a lasts approximately ten seconds; use settled S-90b. F11 drops cancellation acknowledgement too, so unlocking is timeout-driven. Second-job reset is too brief for later polling. Apply each colour mode **before** transition capture: the runner normally sets modes after setup and groups modes together. [matrix.mjs:203](/Users/joe/UoN-Video-Helper-side/vh220/reviews/2026-10-25/design-pass-3/evidence/measurements/walker/matrix.mjs:203).
+
+F3 composes with F14; F3 and F9 overwrite the same API. S-115/S-138 declare no 375-px view; use S-60/S-91. Preserve old-page-order assertion failures as instructed. Any unreached condition remains outstanding, never an inferred pass.
+
+Design: Reuse matching snapshots, retain F3, qualify retry and Set-focus variants, and capture transitions separately from settled-state instruments.

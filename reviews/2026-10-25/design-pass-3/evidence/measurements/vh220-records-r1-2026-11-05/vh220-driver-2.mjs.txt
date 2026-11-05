@@ -1,0 +1,224 @@
+// VH-220 #1's driver, from VH-225's vh225-driver.mjs (copied beside it, the original untouched): VH-150's six states by the pass's own runner
+// (matrix.mjs), unchanged, on a plan in memory, with a read-only states probe after each scenario's own `afterMode`.
+// The states: S-90b (a watchdog failure, F11), S-115 (a second job), S-30 (an unreadable file beside an unsaved result), S-138 (a kept result
+// with warnings, F16 + F4d), S-31:recheck (a storage re-check that still fails, F3) and S-32:set-start / S-32:set-end (both Set buttons, F7).
+// In memory only, as VH-225's S-03:open was: S-31:recheck is S-31's own setup, then Check again pressed and the check let finish into the
+// block again; S-32:set-start and :set-end are `ready`, focus on that Set button, then F7 in place. Each variant's setup installs a
+// MutationObserver on #source-status and #status before it acts (it writes nothing to the page); the probe reads it.
+// `--uncited` drops every condition VH-199's records read (PLANS run-01 to run-12 less matrix-coverage-2026-10-27.json's missing keys).
+// VH-220 #4's copy (vh220-driver-2.mjs; vh220-driver.mjs ae571d5a untouched), on Orchestrator #41's word, by S-31:recheck's pattern, adds two
+// in-memory variants, matrix.mjs and every walker file unchanged:
+//   S-115:afterCreate (R2-2's reset instant): S-115's own setup, run unchanged through a proxy of the walk object that, on the first Create
+//     click after the save, installs a reader just before the click; the reader takes the bar, its label, the stage line, the time left and
+//     the status line at the click, at the end of the click's own task (after the page's handler), at the next two frames and at every DOM
+//     change after, each with its time from the click, until S-115's setup has seen encoding begin; then one end reading.
+//   S-90b:langAfter (R2-1's language change): S-90b's own setup in en-GB, settled (locks lifted), then the page language changed to the
+//     record's language by the switcher, then the status line, the job notice and the failure's words read, with every status text between.
+// A scenario spec may carry its own language, `S-90b:langAfter@zh-Hans`, in place of --langs for that spec alone.
+//   APP_URL=… CDP_PORT=… FIX=… OUT_ROOT=… RUN_ROOT=… OUTD=… node vh220-driver-2.mjs walk --walker <dir> --label before --name <group> --scenarios S-31:recheck,… [--modes …] [--langs …] [--views …] [--uncited]
+//   node vh220-driver-2.mjs count --walker <dir> --scenarios … [--uncited]
+import { pathToFileURL, fileURLToPath } from 'node:url'
+import { join, resolve } from 'node:path'
+import { appendFileSync, mkdirSync, readFileSync } from 'node:fs'
+import { execFileSync } from 'node:child_process'
+
+const list = (s) => String(s ?? '').split(',').map((x) => x.trim()).filter(Boolean)
+const args = (() => { const a = process.argv.slice(2), o = { _: [] }; for (let i = 0; i < a.length; i++) { if (a[i].startsWith('--')) { const k = a[i].slice(2); if (a[i + 1] === undefined || a[i + 1].startsWith('--')) o[k] = true; else o[k] = a[++i] } else o._.push(a[i]) } return o })()
+
+export const STATES = 'S-90b,S-115,S-30,S-138,S-31:recheck,S-32:set-start,S-32:set-end'
+export const MODES = 'light,dark,forced-light,forced-dark'
+export const VIEWS_IN = 'w1280,w375'
+const CHECK_AGAIN = '#stop-actions > button:nth-child(2)'
+
+// Installed by a variant's setup before it acts: every distinct text of the source line and the status line, in order, and whether a check ran.
+const WATCH = `(() => { const L = (window.__vh220 = { src: [], status: [], checking: false, t0: Date.now() }); const t = (e) => (e ? e.textContent.replace(/\\s+/g, ' ').trim() : null);
+  const s = document.getElementById('source-status'), st = document.getElementById('status');
+  L.src.push(t(s)); L.status.push(t(st));
+  const on = () => { const a = t(s), b = t(st); if (L.src.at(-1) !== a) L.src.push(a); if (L.status.at(-1) !== b) L.status.push(b); if (window.__mx && window.__mx.checking()) L.checking = true };
+  const o = { subtree: true, childList: true, characterData: true, attributes: true }; new MutationObserver(on).observe(s, o); new MutationObserver(on).observe(st, o); new MutationObserver(on).observe(document.getElementById('stop-actions'), o); return true })()`
+
+// Taken by a variant's setup once its action has settled, before the walker sets a mode or runs an instrument (matrix.mjs:203–228 sets modes
+// after setup): where focus went, the Set buttons, the preview note, Check again. main.ts has no colour-mode branch, so one reading per language and view.
+const AFTER = `(() => { const L = window.__vh220; const a = document.activeElement, q = (s) => document.querySelector(s)
+  L.after = { at: Date.now() - L.t0, focus: a ? (a.id || a.tagName) : null, setStartDisabled: !!(q('#trim-set-start') || {}).disabled, setEndDisabled: !!(q('#trim-set-end') || {}).disabled,
+    noteShown: !!q('#trim-preview-note') && !q('#trim-preview-note').hidden, noteText: (q('#trim-preview-note') || {}).textContent ? q('#trim-preview-note').textContent.replace(/\\s+/g, ' ').trim() : null,
+    checkAgain: window.__mx.checkAgain(), block: window.__mx.kindIn('#source-block') }; return L.after })()`
+
+// S-115:afterCreate's reader, installed just before the second job's Create click (VH-220 #4). It writes nothing to the page.
+const CREATE_SEL = '#process-actions button:nth-child(2)'
+export const WATCH_CREATE = `(() => { const q = (s) => document.querySelector(s), t = (e) => (e ? e.textContent.replace(/\\s+/g, ' ').trim() : null)
+  const shown = (el) => !!el && !el.hidden && !el.closest('[hidden]') && el.getClientRects().length > 0
+  const read = () => { const p = q('#process-progress'), x = q('#process-progress-text'), l = q('#process-progress-label'), tl = q('#process-time-left')
+    return { value: p ? (p.hasAttribute('value') ? p.value : 'none') : null, barShown: shown(p), text: t(x), textShown: shown(x), label: t(l), labelShown: shown(l), left: t(tl), leftShown: shown(tl), status: t(q('#status')), title: document.title, res: window.__mx.res(), running: window.__mx.running() } }
+  window.__vh220read = read
+  const L = (window.__vh220 = { kind: 'afterCreate', armed: read(), click: null, log: [], dropped: 0 })
+  const key = (r) => JSON.stringify([r.value, r.barShown, r.text, r.textShown, r.label, r.labelShown, r.left, r.leftShown, r.status, r.title])
+  const ms = () => Math.round((performance.now() - L.click.t) * 10) / 10
+  let last = null
+  const on = () => { if (!L.click) return; const r = read(), k = key(r); if (k === last) return; last = k; if (L.log.length < 240) L.log.push({ t: ms(), ...r }); else L.dropped++ }
+  const isCreate = (e) => e.target instanceof Element && !!e.target.closest(${JSON.stringify(CREATE_SEL)})
+  addEventListener('click', (e) => { if (L.click || !isCreate(e)) return; L.click = { t: performance.now(), wall: new Date().toISOString(), at: read() }; last = key(L.click.at)
+    requestAnimationFrame(() => { L.frame = { t: ms(), ...read() }; requestAnimationFrame(() => { L.frame2 = { t: ms(), ...read() } }) })
+    setTimeout(() => { L.task = { t: ms(), ...read() } }, 0) }, true)
+  addEventListener('click', (e) => { if (L.click && !L.handler && isCreate(e)) L.handler = { t: ms(), ...read() } })
+  const o = { subtree: true, childList: true, characterData: true, attributes: true }
+  new MutationObserver(on).observe(q('#status').parentElement, o)
+  return L.armed })()`
+// Taken once S-115's own setup has seen encoding begin: the end reading, and what any reading after the click shared with the first job's last words.
+export const END_CREATE = `(() => { const L = window.__vh220, A = L.click.at, r = window.__vh220read()
+  L.end = { t: Math.round((performance.now() - L.click.t) * 10) / 10, ...r }
+  const all = [L.handler, L.task, L.frame, L.frame2, ...L.log, L.end].filter(Boolean)
+  const old = (x) => (x.barShown && typeof A.value === 'number' && A.value > 0 && x.value === A.value) || (x.textShown && !!A.text && x.text === A.text) || (x.labelShown && !!A.label && x.label === A.label) || (x.leftShown && !!A.left && x.left === A.left)
+  const firstShown = all.find((x) => x.barShown || x.textShown) || null
+  L.checks = { readings: all.length, logged: L.log.length, dropped: L.dropped, handlerAt: L.handler ? L.handler.t : null, frameAt: L.frame ? L.frame.t : null,
+    resetAtHandler: !!L.handler && L.handler.value === 0 && L.handler.text === '' && L.handler.left === '', firstShownAt: firstShown ? firstShown.t : null, firstShown,
+    showingFirstJobs: all.filter(old).map((x) => x.t) }
+  return L.checks })()`
+
+// S-90b:langAfter's reader, installed once the watchdog failure has settled (locks lifted), before the language changes (VH-220 #4).
+export const WATCH_LANG = `(() => { const M = window.__mx, q = (s) => document.querySelector(s), t = (e) => (e ? e.textContent.replace(/\\s+/g, ' ').trim() : null)
+  const shown = (el) => !!el && !el.hidden && !el.closest('[hidden]') && el.getClientRects().length > 0
+  const norm = (s) => String(s).replace(/\\s+/g, ' ')
+  const inLang = (text, path, tag) => { const s = M.msg(path, tag); if (typeof s !== 'string' || text == null) return false; const parts = s.split(/\\{[^}]+\\}/).map((p) => norm(p).trim()).filter((p) => p.length >= 2); return parts.length > 0 && parts.every((p) => norm(text).includes(p)) }
+  const TAGS = ['en-GB', 'zh-Hans', 'ms-MY']
+  const stopping = (s) => TAGS.filter((g) => inLang(s, 'status.stoppingAfterFailure', g))
+  const read = () => { const st = t(q('#status')), jn = q('#job-notice'), res = t(q('#process-result'))
+    const per = Object.fromEntries(TAGS.map((g) => [g, { stoppingInStatus: inLang(st, 'status.stoppingAfterFailure', g), stoppingInNotice: inLang(t(jn), 'status.stoppingAfterFailure', g), couldNotInStatus: inLang(st, 'status.couldNotCreate', g), timedOutInStatus: inLang(st, 'failure.timedOut.what', g), timedOutInResult: inLang(res, 'failure.timedOut.what', g), tryAgainInResult: inLang(res, 'failure.tryAgain', g) }]))
+    return { lang: document.documentElement.lang, status: st, jobNotice: t(jn), jobNoticeShown: shown(jn), result: res ? res.slice(0, 400) : res, title: document.title, tables: TAGS.filter((g) => !!M.tables[g]), per } }
+  window.__vh220read = read
+  const L = (window.__vh220 = { kind: 'langAfter', t0: performance.now(), before: read(), log: [] })
+  const on = () => { const st = t(q('#status')), jn = t(q('#job-notice')), lang = document.documentElement.lang, x = L.log.at(-1); if (x && x.status === st && x.jobNotice === jn && x.lang === lang) return
+    L.log.push({ t: Math.round(performance.now() - L.t0), lang, status: st, jobNotice: jn, stopping: [...new Set([...stopping(st), ...stopping(jn)])] }) }
+  const o = { subtree: true, childList: true, characterData: true, attributes: true }
+  new MutationObserver(on).observe(q('#status'), o); new MutationObserver(on).observe(q('#job-notice'), o)
+  new MutationObserver(on).observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] })
+  return L.before })()`
+export const AFTER_LANG = `(() => { const L = window.__vh220, a = (L.after = { at: Math.round(performance.now() - L.t0), ...window.__vh220read() }), b = L.before, was = b.lang, now = a.lang
+  const any = (x, k) => Object.values(x.per).some((p) => p[k])
+  L.checks = { from: was, to: now, changed: was !== now, tables: a.tables.length,
+    stoppingBefore: any(b, 'stoppingInStatus') || any(b, 'stoppingInNotice'), stoppingAfter: any(a, 'stoppingInStatus') || any(a, 'stoppingInNotice'), stoppingBetween: L.log.filter((x) => x.stopping.length).map((x) => x.t),
+    statusInNew: !!a.per[now] && a.per[now].couldNotInStatus && a.per[now].timedOutInStatus, statusOldLeft: was !== now && (a.per[was].couldNotInStatus || a.per[was].timedOutInStatus),
+    resultInNew: !!a.per[now] && a.per[now].timedOutInResult, resultOldLeft: was !== now && a.per[was].timedOutInResult, statusTexts: L.log.length }
+  return L.checks })()`
+
+export const STATES_PROBE = `(() => {
+  const de = document.documentElement, q = (s) => document.querySelector(s)
+  const text = (el) => (el ? el.textContent.replace(/\\s+/g, ' ').trim() : null)
+  const shown = (el) => !!el && el.getClientRects().length > 0 && getComputedStyle(el).visibility !== 'hidden' && !el.closest('[hidden]') && (!el.checkVisibility || el.checkVisibility({ visibilityProperty: true }))
+  const a = document.activeElement
+  const clipped = (el) => { const out = []; for (const n of el.querySelectorAll('*')) { if (!shown(n)) continue; if (n.scrollWidth > n.clientWidth + 1 && /hidden|clip/.test(getComputedStyle(n).overflowX)) out.push(n.id || n.className || n.tagName) } return out.slice(0, 6) }
+  const notes = [...document.querySelectorAll('.notification')].filter(shown).map((n) => ({ in: (n.parentElement.closest('[id]') || {}).id || null, kind: n.dataset.kind || null, nested: !!n.parentElement.closest('.notification'), text: text(n).slice(0, 160) }))
+  const buttons = [...document.querySelectorAll('.button, button, label.file-button, input[type=file]')].filter(shown).filter((b) => /button/.test(b.className) && !/button--(secondary|danger|ghost|tertiary)/.test(b.className)).map((b) => b.id || text(b).slice(0, 40))
+  const P = window.__p8 || {}
+  return { lang: de.lang, hscroll: de.scrollWidth > de.clientWidth, cw: de.clientWidth, sw: de.scrollWidth,
+    focus: a ? { id: a.id || null, tag: a.tagName, text: text(a) ? text(a).slice(0, 60) : null, shown: shown(a) } : null,
+    status: text(q('#status')), source: text(q('#source-status')), saveStatus: text(q('#save-status')),
+    notes, nestedNotes: notes.filter((n) => n.nested).length, primaries: buttons,
+    checkAgain: !!(window.__mx && window.__mx.checkAgain()), checking: !!(window.__mx && window.__mx.checking()),
+    clipped: [...new Set([q('#source-block'), q('#process-result'), q('#status'), q('#step-trim')].filter(Boolean).flatMap(clipped))],
+    bar: q('#process-progress') ? { value: q('#process-progress').value, max: q('#process-progress').max, label: text(q('#process-progress-label')), text: text(q('#process-progress-text')), left: text(q('#process-time-left')) } : null,
+    writes: (P.writes || []).slice(-8).map((x) => (typeof x === 'string' ? x : x && (x.text ?? x.t ?? JSON.stringify(x).slice(0, 120)))),
+    watched: window.__vh220 || null }
+})()`
+
+function power() {
+  const sh = (cmd, a) => execFileSync(cmd, a, { encoding: 'utf8' })
+  const batt = sh('pmset', ['-g', 'batt']), pm = sh('pmset', ['-g']), up = sh('uptime', []).trim()
+  const ac = /AC Power/.test(batt), level = Number((batt.match(/(\d+)%/) ?? [])[1]), mode = Number((pm.match(/^\s*powermode\s+(\d+)/m) ?? [])[1])
+  return { at: new Date().toISOString(), source: ac ? 'AC' : 'battery', level, powermode: mode, load: Number((up.match(/load averages?: ([\d.]+)/) ?? [])[1]), ok: ac || (level > 50 && !(/lowpowermode\s+1/.test(pm) || mode === 1)) }
+}
+
+// VH-199's read conditions: PLANS run-01 to run-12, less every missing key in the coverage account.
+function citedSet(walker, S) {
+  const cov = JSON.parse(readFileSync(join(walker, '..', 'matrix-coverage-2026-10-27.json'), 'utf8'))
+  const missing = new Set(cov.runs.flatMap((r) => r.missing.map((m) => m.key)))
+  const read = new Set()
+  for (let i = 1; i <= 12; i++) for (const r of S.PLANS['run-' + String(i).padStart(2, '0')]()) { const id = r.id + (r.variant ? ':' + r.variant : ''); const k = [id, r.lang, r.view, r.mode].join('__'); if (!missing.has(k)) read.add(k) }
+  return read
+}
+
+async function build(walker) {
+  const at = (f) => import(pathToFileURL(join(walker, f)).href)
+  const S = await at('scenarios.mjs'); await at('parts.mjs')
+  const modes = list(args.modes ?? MODES), views = list(args.views ?? VIEWS_IN), langs = list(args.langs ?? 'en-GB,zh-Hans,ms-MY')
+  const cited = citedSet(walker, S)
+  const all = list(args.scenarios ?? STATES).flatMap((spec) => { const [base, own] = spec.split('@'); const [id, variant] = base.split(':'); if (!S.SCENARIOS[id]) throw new Error('no scenario ' + id)
+    return (own ? [own] : langs).flatMap((lang) => views.flatMap((view) => modes.map((mode) => ({ id, lang, view, mode, ...(variant ? { variant } : {}) })))) })
+  const keyOf = (r) => [r.id + (r.variant ? ':' + r.variant : ''), r.lang, r.view, r.mode].join('__')
+  const records = args.uncited ? all.filter((r) => !cited.has(keyOf(r))) : all
+  return { S, records, all, cited: all.filter((r) => cited.has(keyOf(r))).map(keyOf) }
+}
+
+async function walk() {
+  for (const k of ['APP_URL', 'CDP_PORT', 'FIX', 'OUT_ROOT', 'RUN_ROOT', 'OUTD']) if (!process.env[k]) throw new Error('set ' + k)
+  const walker = resolve(args.walker), label = args.label ?? 'before'
+  const matrixUrl = pathToFileURL(join(walker, 'matrix.mjs')).href
+  const at = (f) => import(new URL('./' + f, matrixUrl).href)
+  const { S, records, cited } = await build(walker)
+  const { SCENARIOS, PLANS, ready } = S
+  const { sleep } = await at('walk.mjs')
+  const { applyFault } = await at('faults.mjs')
+  const plan = `vh220-${label}-${args.name ?? 'run'}`, p = power()
+  mkdirSync(process.env.RUN_ROOT, { recursive: true })
+  appendFileSync(join(process.env.RUN_ROOT, 'vh220-ledger.jsonl'), JSON.stringify({ plan, label, power: p, walker, records: records.length, cited, args }) + '\n')
+  if (!p.ok) { console.log('POWER-STOP'); process.exit(3) }
+  const OUT = join(process.env.RUN_ROOT, `vh220-probe-${plan}.jsonl`)
+  const wrap = (id, vid, orig) => async (w) => {
+    if (orig) await orig(w)
+    let g
+    try { g = await w.evaluate(STATES_PROBE) } catch (e) { g = { error: String(e.message ?? e).slice(0, 200) } }
+    appendFileSync(OUT, JSON.stringify({ plan, cell: w.name.split('/').pop(), walk: w.name, id, ...(vid ? { variant: vid } : {}), mode: w.qualMode, at: new Date().toISOString(), ...g }) + '\n')
+  }
+  const MINE = {
+    'S-31': { recheck: (orig) => ({ name: `${orig.name}, then Check again pressed and the re-check let finish: still blocked (VH-220's in-memory variant)`,
+      state: `(${orig.state}) && !!window.__vh220 && window.__vh220.checking && !!window.__vh220.after`,
+      setup: async (w, lang) => { await orig.setup(w, lang); await w.evaluate(WATCH); await w.click(CHECK_AGAIN)
+        await w.waitFor(`window.__vh220.checking`, { label: 'the re-check running', timeout: 30000 })
+        await w.waitFor(`(() => { const M = window.__mx; return !M.checking() && M.kindIn('#source-block') === 'error' && M.checkAgain() })()`, { label: 'blocked again', timeout: 120000 }); await sleep(400); await w.evaluate(AFTER) } }) },
+    'S-32': Object.fromEntries(['start', 'end'].map((e) => ['set-' + e, (orig) => ({ name: `${orig.name}, with focus on "Set ${e} here" when the preview fails (VH-220's in-memory variant)`,
+      state: `(${orig.state}) && !!window.__vh220 && !!window.__vh220.after && window.__vh220.before === 'trim-set-${e}'`,
+      setup: async (w, lang) => { await ready(w, lang); await w.evaluate(WATCH); await w.evaluate(`(() => { document.querySelector('#trim-set-${e}').focus(); window.__vh220.before = document.activeElement.id; return window.__vh220.before })()`); await applyFault(w, 'F7'); await sleep(400); await w.evaluate(AFTER) } })])),
+    // VH-220 #4: S-115's own setup, unchanged, through a proxy: after waitSaved, the next click on Create gets the reader first and a read after.
+    'S-115': { afterCreate: (orig) => ({ name: `${orig.name}, read from the second job's Create click until encoding begins: the bar, its words and the time left (VH-220's in-memory variant)`,
+      state: `(${orig.state}) && !!window.__vh220 && window.__vh220.kind === 'afterCreate' && !!window.__vh220.click && !!window.__vh220.checks`,
+      setup: async (w, lang) => {
+        let armed = false, seen = 0
+        const wp = new Proxy(w, { get(t, k) {
+          const v = Reflect.get(t, k, t)
+          if (k === 'waitSaved') return async (...a) => { const x = await v.apply(t, a); armed = true; return x }
+          if (k === 'click') return async (sel, ...a) => {
+            if (!armed || sel !== t.createButton()) return v.apply(t, [sel, ...a])
+            armed = false; seen++; await t.evaluate(WATCH_CREATE); const x = await v.apply(t, [sel, ...a]); await t.evaluate(`(() => { const L = window.__vh220; if (L.click) L.firstEvaluate = { t: Math.round((performance.now() - L.click.t) * 10) / 10, ...window.__vh220read() }; return !!L.click })()`); return x }
+          return typeof v === 'function' ? v.bind(t) : v } })
+        await orig.setup(wp, lang)
+        if (seen !== 1) throw new Error('afterCreate: the second Create click was intercepted ' + seen + ' times')
+        await w.evaluate(END_CREATE) } }) },
+    // VH-220 #4: S-90b's own setup in en-GB, settled; then the page language changed to the record's; then the readings.
+    'S-90b': { langAfter: (orig) => ({ name: `${orig.name}, set up in en-GB, then the page language changed after the failure settled (VH-220's in-memory variant)`,
+      state: `(${orig.state}) && !!window.__vh220 && window.__vh220.kind === 'langAfter' && !!window.__vh220.checks && window.__vh220.checks.changed`,
+      setup: async (w, lang) => {
+        if (lang === 'en-GB') throw new Error('langAfter: the record language must differ from en-GB')
+        await orig.setup(w, 'en-GB'); await w.evaluate(WATCH_LANG)
+        await w.chooseLanguage(S.LANG_VALUE[lang]); await sleep(700); await w.evaluate(AFTER_LANG) } }) },
+  }
+  for (const id of [...new Set(records.map((r) => r.id))]) {
+    const orig = SCENARIOS[id]; if (!orig) continue
+    SCENARIOS[id] = { ...orig, afterMode: wrap(id, null, orig.afterMode) }
+    const vs = { ...(orig.variants ?? {}) }
+    for (const v of new Set(records.filter((r) => r.id === id && r.variant).map((r) => r.variant))) { if (!MINE[id]?.[v]) throw new Error('no variant ' + id + ':' + v); vs[v] = MINE[id][v](orig) }
+    if (Object.keys(vs).length) SCENARIOS[id].variants = Object.fromEntries(Object.entries(vs).map(([v, x]) => [v, { ...x, afterMode: wrap(id, v, x.afterMode ?? orig.afterMode) }]))
+  }
+  PLANS[plan] = () => records.map((r) => ({ ...r }))
+  process.argv = [process.argv[0], fileURLToPath(matrixUrl), plan]
+  await import(matrixUrl)
+}
+
+// Read-only: the plan's records and the cited conditions.
+async function count() {
+  const { records, all, cited } = await build(resolve(args.walker))
+  const by = {}; for (const r of records) { const k = r.id + (r.variant ? ':' + r.variant : ''); by[k] = (by[k] ?? 0) + 1 }
+  console.log('conditions', all.length, 'records', records.length, JSON.stringify(by), 'cited', cited.length, cited.join(' '))
+}
+if (args._[0] === 'walk') await walk()
+else if (args._[0] === 'count') await count()
+else if (args._[0] !== 'lib') { console.log('usage: node vh220-driver-2.mjs walk|count --walker <dir> [--label l --name n] [--scenarios …] [--modes …] [--langs …] [--views …] [--uncited]'); process.exit(2) }

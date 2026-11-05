@@ -1,0 +1,23 @@
+Pass: the four repairs are complete, the worktree matches the r1 freeze, and the additions introduce no new contradiction or outstanding correction.
+
+1. **Freeze — met.** Branch `side/vh220` and HEAD `95d18eed5db1ae56d1fe6512053bad714357d899` match. `tracked.diff` and `status.txt` match byte-for-byte; all **278** untracked-file SHA-1s match, with no missing or extra untracked files. Comparing freezes shows exactly the four repairs and two additions: [tracked.diff:40](/Users/uazjob/UoN-Video-Helper-side/vh220-frozen-r1/tracked.diff:40), [status.txt:13](/Users/uazjob/UoN-Video-Helper-side/vh220-frozen-r1/status.txt:13), [untracked.sha1.txt:5](/Users/uazjob/UoN-Video-Helper-side/vh220-frozen-r1/untracked.sha1.txt:5).
+
+2. **Repairs — met, with nothing else changed since the first freeze.**
+
+   - **Next step:** exactly `None.` at [VH-220.md:28](/Users/uazjob/UoN-Video-Helper-side/vh220/project/items/VH-220.md:28).
+   - **Deferred:** the explanation at [decisions.md:31](/Users/uazjob/UoN-Video-Helper-side/vh220/project/decisions.md:31) is sound. The grammar permits target IDs or `none` (:16); [ledger.mjs:429](/Users/uazjob/UoN-Video-Helper-side/vh220/tools/ledger.mjs:429) restricts targets to known open, shipped or retired items. Wish `VH-220.1` is therefore unsuitable as a Deferred target. Its explicit follow-up remains captured at [wish-list.md:99](/Users/uazjob/UoN-Video-Helper-side/vh220/project/wish-list.md:99). This resolves my earlier objection; `Deferred: none` can remain.
+   - **Quotation:** `Gateless covers the rest of Phase 8: …` includes the required colon at decisions.md:31.
+   - **Units:** `5 MiB (5,242,880 bytes)` appears at decisions.md:31 and [VH-220.md:40](/Users/uazjob/UoN-Video-Helper-side/vh220/project/items/VH-220.md:40), correctly expressing `5 * 1024 * 1024` in `walker/scenarios.mjs:473`. Leaving the historical evidence page unchanged is consistent with your instruction.
+
+3. **Added copies — met by the supplied SHA-1 identities.** Whole-file hashes match the supplied prefixes and [r1 manifest:5–6](/Users/uazjob/UoN-Video-Helper-side/vh220-frozen-r1/untracked.sha1.txt:5):
+
+   | File | Computed SHA-1 |
+   |---|---|
+   | `vh220-codex-close-brief-2026-11-05.md` | `7bdfa9d47f25d48529d4c36d3a4fecfea03f9a90` |
+   | `vh220-codex-close-2026-11-05.md.txt` | `aa1c0697de2d33fbcd897e5295d1d11a3ba84c85` |
+
+   This establishes identity against the supplied hashes without opening prohibited originals.
+
+4. **Consistency — met; no new contradiction found.** The repaired decision preserves the evidence’s bounded claims and explicitly records the remaining wish. The unchanged r1 page’s “5 MB” at `vh220-states-r1-2026-11-05.md:87` is the historical unit error now corrected in the ledger, not evidence of a different quota. The Nielsen digest rules remain named at decisions.md:31: “status visible and announced” and “errors say what next”.
+
+I independently ran `node tools/check.mjs`: **0 failures, 1 warning**, the stated VH-122 sample-path warning. I accept gate 2 on your supplied record; I did not rerun `npm run check`. No files were changed.

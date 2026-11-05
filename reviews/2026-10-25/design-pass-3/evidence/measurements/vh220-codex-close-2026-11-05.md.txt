@@ -1,0 +1,85 @@
+Pass with conditions: the evidence settles the blind check’s substantive points, but the close needs record-wording corrections before commit.
+
+References below use **M** for `reviews/2026-10-25/design-pass-3/evidence/measurements/`, **R** for `M/vh220-records-r1-2026-11-05/`, and **r1** for `M/vh220-states-r1-2026-11-05.md`.
+
+**Freeze — met.** Branch and HEAD match the brief. `tracked.diff` and `status.txt` match byte-for-byte; all **276** untracked-file SHA-1s match. I repeated these checks at the end. The walker’s independently calculated revision is `9c52269607bccc4c`. Nothing was changed.
+
+1. **The blind check’s points — met.**
+
+   - **R2-2:** `R/before-gv.vh220-probe-vh220-before-gv.jsonl:1` records value **0**, empty stage text and empty time-left at **3.7 ms**, in the click’s own task; the first frame at **15.1 ms** agrees. The mutation log first records the new job’s “Getting ready” at **17.5 ms**. No recorded post-click reading shows the previous job’s progress.
+   - **R2-1:** the same file, line **2**, records the settled English failure, then Chinese status and failure text after the switch, with no old-language failure or stopping message restored. This supports the bounded transition claim in **r1:97–99**.
+   - **Five fixture proofs:** explicitly distinguished from the 144 conditions at **r1:83,95**.
+   - **Player’s two items:** distinguished at **r1:93**—finish+1s timing versus the native scrubber’s size exemption.
+   - **`detail/`:** present, with **22** complete records: 21 g138 cells and the fixture-proof S-138 cell.
+
+   One evidence nuance is harmless: the saved summary’s `firstShownAt:32` comes from searching an unsorted array; the raw mutation log supports the page’s **17.5 ms** statement. No new walk is needed.
+
+2. **Acceptance criteria — met within the recorded scope, with the qualifications below.**
+
+   | Criterion | Finding and evidence |
+   |---|---|
+   | Every state read | **Met.** Six × two widths × three languages × four modes = **144 conditions**; **15 cited + 129 walked**. `R/before-*.outcomes.jsonl`; **r1:83–85**. |
+   | Faults | **Met under #38.** F11 reaches the settled failure. F3 persists across estimates; the re-check is observed at both widths. The premise correction is now in `project/items/VH-220.md:40`; variant, driver hash and revision are at **r1:87**. |
+   | Mapped first | **Met.** Fifteen historical conditions remain cited; the five repeated fixture qualifications are explicitly outside that accounting. **r1:83**. |
+   | Expected strings and behaviour | **Met for the recorded observations.** The probes support whole visible text, no horizontal overflow, correct transitions and no nested notifications; gv supplies the previously missing transitions. |
+   | Every row ends read | **Met.** No required condition remains unreached after S-115’s recovery runs; gv settles the two missing expectations. **r1:91,97–99**. |
+   | Measurement/stage rule | **Met.** One unchanged base and walker revision; self-pairing disclosed; table in the required measurements folder. **r1:10–12,81–85**. |
+   | WCAG re-check | **Met for the bounded re-check**, as **r1:105** states. **Cannot say** for full 320-CSS-pixel 1.4.10 conformance or actual screen-reader speech; neither is established by these records. |
+   | Tokens and documents | **Met.** No product, token, control, UI-STANDARDS or `docs/` change. |
+   | Gate and checker | **Met on the supplied gate record.** I independently ran `node tools/check.mjs`: exit 0, **0 failures, 1 warning**, exactly the stated VH-122 sample-path warning. I did not rerun `npm run check`. The existing skip is unchanged. |
+   | Codex check | **Met by this follow-up review**, conditional on its wording corrections being applied and this verdict retained. The future commit’s required `Checked:` line remains to be written. |
+   | Linked | **Met.** Disposition row `design-pass-3-2026-10-27.md:759` links VH-220 and the r1 evidence page. |
+   | Sizing/hand-back | **Cannot say.** `VH-220.md:41` names workers #1–#5, but permitted evidence does not establish their context usage or hand-back thresholds. Multiple workers under the same ID alone do not demonstrate a violation. |
+
+3. **Ledger — not met in two wording details; otherwise met.**
+
+   Required corrections:
+
+   - [VH-220.md:28](/Users/uazjob/UoN-Video-Helper-side/vh220/project/items/VH-220.md:28) repeats status in `Now`: “None: closed…”. The [schema:49](/Users/uazjob/UoN-Video-Helper-side/vh220/project/items/_schema.md:49) expressly prohibits that. Use `Next step: None.`; retain the dated history in Notes.
+   - [decisions.md:35](/Users/uazjob/UoN-Video-Helper-side/vh220/project/decisions.md:35) says `Deferred: none`, although the same entry carries VH-220.1’s future VH-203 work. Reconcile that field with the named follow-up.
+
+   The remaining ledger checks are **met**:
+
+   - Backlog removal, one trajectory line (`:52`), and wish **VH-220.1** (`wish-list.md:99`) satisfy rules 5–6.
+   - The wish’s factual claim is true: evaluating VH-199’s plans yields S-115 in **light only**, in run-07 and run-10. `walker/scenarios.mjs:2283` really requires Cancel focus.
+   - Both Notes entries are dated. #38’s premise correction is explicit and attributed to the orchestrator.
+   - The newest decision distinguishes owner authority from #38–#41’s rulings, preserves both earlier verdicts, and explicitly says gv settles R2-2/R2-1.
+   - The owner quotations match their cited passages in the permitted owner record as quotations or abbreviated excerpts. For exact punctuation, preserve the colon in “Gateless covers the rest of Phase 8: …”.
+   - Rule 8’s digest and both required rules are named at `decisions.md:31`.
+   - VH-194’s archived entry is **byte-for-byte identical** to the former live entry. The archive contains **127 entries**, and its index includes VH-194.
+   - The Disposition edit is confined to the requested linkage.
+
+4. **Numbers and statements — met except one unit correction and the verification limits above.**
+
+   The counts reconcile:
+
+   - **153** successful main-walk records represent **129** conditions because both Set buttons require separate records.
+   - Adding **14** proof records, **15** original unsuccessful S-115 attempts and **2** gv records gives **184 records / 169 reached**.
+   - S-115 is **6 + 6 + 6 + 3 = 21** successful cells.
+   - Evidence directories contain **115** and **151** files; r1 includes **22** detail files.
+   - All manifest base/revision claims and listed provenance hashes match.
+   - Load-log peaks and counts match: g115fl **9.09 / 6 samples ≥8**; g115d375 **8.66 / 3**; gv **4.77 / 0**.
+   - Recorded re-check focus is `file-input`; Set focus is `trim-start`/`trim-end`.
+
+   **Not met literally:** “5 MB quota” in the decision, item Note and **r1:87** should be **5 MiB (5,242,880 bytes)**. `walker/scenarios.mjs:473` specifies `5 * 1024 * 1024`. This changes wording only.
+
+5. **Copies — met.**
+
+   Without opening the outside source files, the computed hashes match every supplied prefix:
+
+   | Copy | SHA-1 prefix |
+   |---|---|
+   | Codex design, whole file | `8c25018a` |
+   | Codex blind, whole file | `9056ea0b` |
+   | Claude design, after two header lines | `acecae1e` |
+   | Codex design brief, after header | `4758a33c` |
+   | Design compare, after header | `941aea92` |
+   | Claude verdict, after header | `4e3e0d4e` |
+   | Codex blind brief, after header | `8b61389a` |
+   | Codex compare, after header | `0a1921e8` |
+
+6. **Nothing else — met.**
+
+   The tracked diff contains exactly the eight specified files. No product, `docs/`, protected-path, dependency, fault, scenario or walker-file change exists. The driver variants are preserved evidence and execute in memory.
+
+**Nothing found requires a product fix, new fault, additional scenario or re-walk.** Apply the record corrections, retain this conditional verdict, and refresh the close checks and freeze for the corrected candidate before committing.

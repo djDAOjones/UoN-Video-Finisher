@@ -24,6 +24,16 @@
      moves the oldest entries verbatim to project/decisions-YYYY-MM.md,
      beside this file, listed in project/archive-index.md. -->
 
+## 2026-11-05 — VH-220 — Closes: VH-150's six states read in Chrome at 375 px and in three languages, no new fault, no defect
+
+**Decision:** VH-220 closes as a check with no product diff: VH-150's six states read true in Chrome at 1280 and 375 px, in en-GB, zh-Hans and ms-MY, in four modes, 144 conditions, 15 cited from VH-199's records and 129 walked on the Mac Pro, all reached; the storage re-check that still fails reached by F3 and an in-memory variant, so no new fault, which corrects the item's premise; the second job's reset at Create and the watchdog failure's change of language read by two variants and passing; wish VH-220.1.
+
+**Rationale:** The owner's words (`plan8-owner-words.md`): "yes to the question mark, and A and B. ensure everything passes UX / design / Accessibility" (2026-10-27, :275; group B holds this item); "Gateless covers the rest of Phase 8: …" (2026-10-25, :185); "Yes, leave them" (2026-10-30, :366); "Yes, move it" (:369) and "yes" to the side-by-side run (:375), both 2026-10-30; "gateless run where possible" (2026-10-31, :395); "no, I want all of the walks and checks on the other mac. just deploy here" (2026-11-04, :425) and "Re-walk here (Recommended)" (2026-11-05, :438), so every walked record is the Mac Pro's and VH-220 #1's MacBook Pro walk is support only. The table: `reviews/2026-10-25/design-pass-3/evidence/measurements/vh220-states-r1-2026-11-05.md`, with its 151 records, 22 under `detail/`; it adds group gv and corrects three notes of the first page, `vh220-states-2026-11-05.md`, which stands unrewritten. Every group ran on `95d18ee` with no tracked change, walker revision `9c52269607bccc4c` unchanged, on AC Power, each starting with both loads below 8. Cited: S-90b 3, S-115 3, S-30 6 and S-138 3, all light; five were re-read by before-fixproof as fixture proofs outside the 144, since this Mac's ffmpeg changed four of the five fixtures' sha1s. Walked: 129 conditions as 153 records (S-32's state is two records). Routes: S-90b with F11; S-115; S-30; S-138 with F16 and F4d; `S-31:recheck`; `S-32:set-start` and `S-32:set-end` with F7. The orchestrators' rulings, not the owner's, listed for them: #38, no new fault, since F3 rewrites the worker's storage estimate on every call and every re-check meets the same 5 MiB (5,242,880 bytes) quota; `S-31:recheck` reaches the re-check let finish in the driver's memory (`vh220-driver.mjs` `ae571d5a`), qualified at 1280 and 375 px by before-proof, the item's dated Notes line its condition 2. For the owner: the criterion "a storage re-check that still fails needs a new fault" rested on that wrong premise. #39, the launcher's power condition with no powermode line, and before-fixproof as the fixtures' proof. #40, S-115 as 6 + 15 = 21: one `matrix.mjs` run reaches only each setup's first mode, focus then sitting on `body` (the MacBook Pro's voided run read the same, so not this Mac's speed), and the 15 were walked one setup per mode, wish VH-220.1. #41, two in-memory variants (`vh220-driver-2.mjs` `348e0956`), one setup each at 1280 px in light, peak load 4.77: `S-115:afterCreate` reads the bar at 0 with its stage line and time left empty by the end of the click's own task (3.7 ms), before the first frame, the new job's "Getting ready" first shown at 17.5 ms, and none of 20 readings after the click showing the first job's value or words; `S-90b:langAfter` reads the status line and the failure in zh-Hans 1.2 s after the switch, no en-GB left, "The job is stopping" in no language. The hidden progress text keeps en-GB "Getting ready", neither shown nor exposed, emptied at the next job's click. Claude's verdict, saved first: pass, no defect. Codex astra's blind verdict, as given: "Fail: the evidence reaches all 144 conditions, but does not demonstrate the second job's immediate progress reset, and the candidate still has incomplete acceptance records and an insufficient basis for a full WCAG 1.4.10 claim." Its three notes are applied in the r1 page's notes; the disagreement on R2-2's instant and R2-1's language change is settled by #41's two variants, with no defect, fallback or further wish. Samples at 8 or above: g115fl 6 (peak 9.09) and g115d375 3 (peak 8.66), whose readings are states and strings, none a timing. S-138's player row fails in all 21 cells as two known items: the finish+1s timing row (VH-199.1) and the native scrubber's user-agent size; no claim rests on either. WCAG re-checked: 1.4.10 at 375 px, no sideways scroll, not a 320 px reflow claim; 2.4.3, focus after the re-check, the Set buttons and the second job's Create; 3.3.1, each failure named in text with what to do next; 4.1.3, the status and source lines as written, programmatically, speech staying VH-150.2's. The Deferred line takes item IDs only, so wish VH-220.1 carries the follow-up for VH-203. The digest rules applied: nielsen, "status visible and announced" and "errors say what next".
+
+**Supersedes:** none
+
+**Deferred:** none
+
 ## 2026-11-05 — VH-221 — Closes: VH-153's rows a job or a failing browser reaches, read in Chrome in three languages, no defect
 
 **Decision:** VH-221 closes as a check with no product diff: VH-153's ten rows a job or a failing browser reaches read true in en-GB, zh-Hans and ms-MY at 1280 and 375 px in four modes and at 320 px in light, 267 cells on the Mac Pro, failing 0; the pending and passed browser sentences retired; the file kind read from the picker's argument; one scenario, S-155, added for the out-of-date Chrome reason at 375 px. Wish VH-153.1 narrowed to the native dialog as a person sees it.
@@ -606,45 +616,3 @@ Each walk records its machine. Two questions remain for the owner:
 **Supersedes:** none
 
 **Deferred:** VH-200, VH-203
-
-## 2026-10-26 — VH-198 — Pass 3's instruments qualified at revision 2e7b0c044ce11f2b: Codex astra's method check and three re-checks, 3,267 records, about 9.8 h
-
-**Decision:** VH-198 closes. The walker is extended for Phase 8, re-proved and qualified at instrument revision `2e7b0c044ce11f2b`, and every page is walked visible. Codex astra's method check gave five points and its first two re-checks four rank 1 musts; all were applied, none refused, and the third re-check said "Fit for VH-199". The matrix is 3,267 records in twelve runs, about 9.8 h, with S-104 source-only. The blind review's D-05 (rank 1), D-06 and V-46 go to VH-200. VH-199 is next.
-
-**Rationale:**
-
-- **Walker.** The design-pass-2 walker was copied byte for byte (`SOURCE.md`, source `4ec3d31`) and extended for each element Phase 8 added: the finished video's player, the second "?", the footer's headings, the limiting warning and Video language. The extension adds S-92 to S-153, S-140n and S-144p; faults F15 to F19 and F4e; and fixtures N6 to N14.
-- **Proofs** at `2e7b0c044ce11f2b` (`56e373c`): prove 93/93, prove-172 8/8, prove-8 76/76, player 41/41, the app run 11/11, faults 27/27, fixtures 8 of 9 (N11 the declared exception), prove-resume 12/12, prove-m04 8/8.
-- **The visible-page method.** Headless Chrome hid every page but the first: timers throttled to 1 s, media deferred, as Phase 7's later walk pages ran. A record now fails unless its page is visible. Chrome runs with `--disable-backgrounding-occluded-windows`, `--disable-background-timer-throttling` and `--disable-renderer-backgrounding`, and each manifest reads them from the browser process. It is a comparison-method change against VH-176 (M-05): a timing, readiness or paint difference is "attribution unresolved" unless a matched probe settles it.
-- **Parts.** 1: 699 · 2: 157 + 48 · 3: 2,131 · 3b: 216 · 4: 16. That is 3,267, the sizing script's 3,298 less S-104's 31, and at least the approved 3,266, so there is no reduction. 3b's +32 are counted as the script counts them, which is more coverage.
-- **S-104 is source-only** by its own contingency: N11's duration reads as 10 seconds.
-- **The pilot** `pilot3-2026-10-26T09-47-41-142Z-db5c25`: 77 of 77 whole, keys `fdc4e3dd17ebc634`. The qualification runs were part 4 16/16, the transitions 48/48, the route cells 7/7 and the subresults 6/6, at `2cbba731c59d8036`. They stand at the final revision: its only change is the player's ring reading, which only S-127 opts into and none of them calls. The calibration is about 9.8 h (9.83 h) against the script's 11.4 h, which stays the upper bound.
-- **The blind review** was saved verbatim before any finding (`dad952b`). D-05 is rank 1: VH-185's "This video has no audio" is said for real sound under one 400 ms block. D-06 is rank 2, and so is V-46/VH-178. They go to VH-200 (its Notes) with three pilot readings:
-  - S-15's ring at 32 px, 284 of 304 px²;
-  - T-46.1's card past the window;
-  - S-149's read-failure branch, with focus left on the body.
-- **The method check** said "Fit after the musts below" (`1cd71f2`). M-01 to M-05 were applied at `2d16e337abe51539`.
-- **Re-check 1** said "Not fit" (`6df3490`), with three rank 1 musts, all applied at `2cbba731c59d8036`:
-  - real declarations carry `expects`;
-  - the completion's write is bound to the card's mutation;
-  - 2.4.13's area is the ring's own pixels. S-127's volume ring at 320 px moved from pass, by the whole redraw (446 of 384), to "cannot determine", by its own pixels (103 of 384); no record's outcome changed.
-- **Re-check 2** said "Not fit" (`6df3490`), with one rank 1 must: an outline drawn whether focused or not passed 2.4.13, its contrast read against the ring-removed image. A ring pixel now counts only where it meets 3:1 against unfocused, for 2.4.7 too, at `2e7b0c044ce11f2b` (`56e373c`). The rerun found two repairs. At 3:1 the ring must also stand at 3:1 (`kr >= 3 && ko >= 3`), because faint removal pixels inside a disclosure had passed M-02's 2.4.7 negative. And the first exception's `ringAny` read a missing field. No outcome changed in the pilot.
-- **Re-check 3** said "Fit for VH-199" (`codex-astra-method-recheck-3-2026-10-26.md`). It confirmed the `kr >= 3 && ko >= 3` judgement and found no regression, coverage reduction or qualification run needing a rerun. Its one may goes to wish line VH-198.2: 2.4.7's "cannot determine" words name one comparison where two apply. The outcome is sound and the row carries both counts; changing the words now would move the revision.
-- **Records that would have hung.** S-132's "Leave site?" hang is fixed in its setup. Part 4's first attempt hung 21 minutes at J4 in Malay, cause not found. The guard is wish line VH-198.1; VH-199 watches each run, restarts Chrome and resumes.
-- **VH-193.2** is narrowed to two absent tests for VH-202, after a 6 of 6 scratch probe.
-- **No product code changed.**
-- **CI was red on three checkpoints.** The Verify lines of `877f3ab`, `cc5a52b` and `20440da` read "review files only; node tools/check.mjs 0/0". They overstated the gate by omission: `npm run lint` lints the walker, and the full gate did not run on those commits. CI was red on Pages runs 40229271406, 40232548332 and 40233727718 (`Buffer` and `setInterval` undefined; `k`, `APP` and `w` unused). Each failed before deploying, so the preview stayed on the last green build. `d43a7f5`'s lint fixes made run 40234029957 green. History is not rewritten. Since then every commit is gated on exactly what it holds.
-- **The owner's gateless word** for Phase 8 decided each point (VH-197's entry).
-- **Digest rules applied**, from WCAG 2.2 AAA, as instruments rather than verdicts:
-  - 2.4.13, by the ring's own pixels at 3:1 against unfocused, each exception on its own evidence;
-  - 2.4.7, by the same pixels;
-  - 2.4.11 and 2.4.12, author content only;
-  - 2.5.5, the user agent's exception only where no author rule sizes a control;
-  - 1.4.6, measured contrast;
-  - 2.1.3, keyboard.
-
-  Every exception is recorded: where the user agent draws the player's controls, the exception is named or "cannot determine" is left per control, for VH-200. The Carbon and Nielsen lenses go to VH-200 unchanged.
-
-**Supersedes:** none
-
-**Deferred:** VH-199, VH-200, VH-202

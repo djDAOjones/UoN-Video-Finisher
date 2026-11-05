@@ -1,0 +1,29 @@
+// VH-220 #1: a read-only summary of a walk group: each record's status, reached, every instrument's outcome, failing rows, and the states probe.
+//   node vh220-sum.mjs <group dir> [--rows]
+import { readdirSync, readFileSync, existsSync } from 'node:fs'
+import { join } from 'node:path'
+const G = process.argv[2], showRows = process.argv.includes('--rows')
+const runs = join(G, 'runs'), dirs = readdirSync(runs).filter((d) => !/\.jsonl$/.test(d))
+const recs = dirs.flatMap((d) => readdirSync(join(runs, d)).filter((f) => /^S-.*\.json$/.test(f)).map((f) => JSON.parse(readFileSync(join(runs, d, f), 'utf8'))))
+const probe = readdirSync(runs).filter((f) => /^vh220-probe-.*\.jsonl$/.test(f)).flatMap((f) => readFileSync(join(runs, f), 'utf8').trim().split('\n').filter(Boolean).map((l) => JSON.parse(l)))
+const tally = {}, fails = {}, status = {}
+for (const r of recs) {
+  const k = `${r.id}${r.variant ? ':' + r.variant : ''}`
+  status[`${r.status}/${r.reached?.outcome}`] = (status[`${r.status}/${r.reached?.outcome}`] ?? 0) + 1
+  if (r.reached?.outcome !== 'pass') (fails['NOT REACHED ' + (r.reached?.problems ?? []).join('; ').slice(0, 160)] ??= []).push(r.key)
+  for (const [n, v] of Object.entries(r.instruments ?? {})) { tally[`${n}:${v?.outcome}`] = (tally[`${n}:${v?.outcome}`] ?? 0) + 1
+    if (v?.outcome === 'fail') { const why = (v.items ?? v.rows_ ?? []).filter((x) => x && (x.outcome === 'fail' || x.pass === false)).map((x) => (x.what ?? x.el ?? x.sel ?? JSON.stringify(x).slice(0, 80))).slice(0, 3).join(' | ') || (v.why ?? JSON.stringify(v).slice(0, 160)); (fails[`${n}: ${String(why).slice(0, 200)}`] ??= []).push(r.key) } }
+}
+console.log('records', recs.length, JSON.stringify(status))
+console.log('instruments', JSON.stringify(tally))
+for (const [w, ks] of Object.entries(fails)) console.log('FAIL', ks.length, w, '::', ks.slice(0, 4).join(' '), ks.length > 4 ? '…' : '')
+// The states probe: per record, the facts the design names.
+const pr = {}
+for (const p of probe) {
+  const a = p.watched?.after
+  const line = [p.variant ? p.id + ':' + p.variant : p.id, p.cell?.replace(/^.*?(S-)/, '$1'), p.mode, `focus ${p.focus?.id ?? p.focus?.tag}`, a ? `after.focus ${a.focus} setDisabled ${a.setStartDisabled}/${a.setEndDisabled} note ${a.noteShown} checkAgain ${a.checkAgain} block ${a.block}` : '',
+    p.watched ? `src ${JSON.stringify(p.watched.src)} status ${JSON.stringify(p.watched.status).slice(0, 300)} checking ${p.watched.checking}` : '',
+    `nested ${p.nestedNotes} primaries ${JSON.stringify(p.primaries)} hscroll ${p.hscroll} clipped ${JSON.stringify(p.clipped)}`, p.bar ? `bar ${p.bar.value}/${p.bar.max} ${p.bar.label ?? ''} | ${p.bar.text ?? ''}` : '', `status "${(p.status ?? '').slice(0, 120)}" source "${(p.source ?? '').slice(0, 80)}"`].filter(Boolean).join(' · ')
+  console.log('PROBE', line)
+}
+if (showRows) for (const r of recs.slice(0, 2)) console.log(JSON.stringify(r.instruments?.asserts).slice(0, 600))

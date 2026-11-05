@@ -1,0 +1,8 @@
+records 6 {"ok/pass":6}
+instruments {"overflow:pass":6,"ax:pass":6,"targets:pass":6,"contrastText:pass":6,"contrastExtra:cannot-determine":6,"measure:pass":5,"type:pass":6,"focus:pass":6,"player:not-applicable":6,"formatTip:not-applicable":6,"footer:pass":6,"limiting:not-applicable":6,"videoLanguage:pass":6,"asserts:pass":6,"measure:cannot-determine":1}
+PROBE S-115 · S-115-en-GB-w1280 · forced-dark · focus BUTTON · nested 0 primaries [] hscroll false clipped ["visually-hidden"] · bar 0.046153846153846156/1 Encoding video — 5% | Encoding video — 5% · status "Encoding video" source "Video read."
+PROBE S-115 · S-115-en-GB-w375 · forced-dark · focus BUTTON · nested 0 primaries [] hscroll false clipped ["visually-hidden"] · bar 0.046153846153846156/1 Encoding video — 5% | Encoding video — 5% · status "Encoding video" source "Video read."
+PROBE S-115 · S-115-zh-Hans-w1280 · forced-dark · focus BUTTON · nested 0 primaries [] hscroll false clipped ["visually-hidden"] · bar 0.03956043956043956/1 视频编码 — 4% | 视频编码 — 4% · status "视频编码" source "视频已读取。"
+PROBE S-115 · S-115-zh-Hans-w375 · forced-dark · focus BUTTON · nested 0 primaries [] hscroll false clipped ["visually-hidden"] · bar 0.04945054945054945/1 视频编码 — 5% | 视频编码 — 5% · status "视频编码" source "视频已读取。"
+PROBE S-115 · S-115-ms-MY-w1280 · forced-dark · focus BUTTON · nested 0 primaries [] hscroll false clipped ["visually-hidden"] · bar 0.04945054945054945/1 Pengekodan video — 5% | Pengekodan video — 5% · status "Pengekodan video" source "Video dibaca."
+PROBE S-115 · S-115-ms-MY-w375 · forced-dark · focus BUTTON · nested 0 primaries [] hscroll false clipped ["visually-hidden"] · bar 0.04945054945054945/1 Pengekodan video — 5% | Pengekodan video — 5% · status "Pengekodan video" source "Video dibaca."

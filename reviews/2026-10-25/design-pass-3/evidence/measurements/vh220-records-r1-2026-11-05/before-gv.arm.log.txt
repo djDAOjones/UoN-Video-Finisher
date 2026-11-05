@@ -1,0 +1,4 @@
+chain shell 3021 2026-11-05T15:30:21Z
+QUEUED 15:30:21 pid 3021: VH-220 #4 gv
+TURN 16:43:26 VH-220 #4 gv
+chain exit 0 16:47:52

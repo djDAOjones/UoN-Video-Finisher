@@ -37,7 +37,6 @@ The public release on Xerte (PLAN-6) is VH-204's cut.
 
 ### Phase 8 — the owner's UX pass, then a third full design pass
 
-- [ ] VH-220 — Check VH-150.3 — since 2026-10-27 — (from: VH-150, 2026-10-22)
 - [ ] VH-222 — Check VH-155.2, VH-156.1, VH-158.1 — since 2026-10-27 — (from: VH-155, 2026-10-22)
 - [ ] VH-224 — VH-172.1, batch B — since 2026-10-27 — (from: VH-172, 2026-10-23)
 - [ ] VH-231 — A cut MKV or WebM said cut short with the finished video, never "the whole video" — since 2026-11-05 — (from: VH-222, 2026-11-05)

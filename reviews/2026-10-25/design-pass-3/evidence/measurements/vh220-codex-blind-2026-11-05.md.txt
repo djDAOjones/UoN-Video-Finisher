@@ -1,0 +1,110 @@
+Fail: the evidence reaches all 144 conditions, but does not demonstrate the second job’s immediate progress reset, and the candidate still has incomplete acceptance records and an insufficient basis for a full WCAG 1.4.10 claim.
+
+References below use **M** for `reviews/2026-10-25/design-pass-3/evidence/measurements/`, **R** for its `vh220-records-2026-11-05/` folder, and **W** for `/Users/uazjob/UoN-Video-Helper-side/vh220-walk/`. I read no excluded verdict or handover files and changed nothing.
+
+**1. Every state read — met for condition coverage; not sufficient to establish every expectation.**
+
+| State | VH-199 cited | Newly reached conditions | Total |
+|---|---:|---:|---:|
+| Watchdog settled, S-90b | 3 | 21 | 24 |
+| Second job, S-115 | 3 | 21 | 24 |
+| Unreadable beside unsaved result, S-30 | 6 | 18 | 24 |
+| Kept result with warnings, S-138 | 3 | 21 | 24 |
+| Storage re-check, S-31:recheck | 0 | 24 | 24 |
+| Both Set buttons, S-32 variants | 0 | 24 | 24 |
+| **Total** | **15** | **129** | **144** |
+
+The Set-button state requires 48 records for its 24 conditions. Thus the main walks supply **153 distinct successful records**. Adding 14 proof records and 15 unsuccessful original S-115 attempts gives the table’s **182 records, 167 reached**.
+
+I independently reproduced the cited-key mapping using the driver’s read-only `count` operation and reconciled the raw walk records. S-115’s recovery is correctly **6 + 6 + 6 + 3 = 21**. No required condition remains unreached after those recovery walks. Evidence: `R/before-*.outcomes.jsonl`; `W/before-*/runs/*/S-*.json`.
+
+**2. Faults — met technically; item Notes correction not met.**
+
+- **F11 reaches the watchdog failure.** S-90b requires the timed-out failure, restored chooser and Create, and withdrawn Cancel. Its 21 probes show the final failure announcement without the stopping sentence. See `walker/faults.mjs:190–194`, `walker/scenarios.mjs:1064`, and `R/before-g90.vh220-probe-vh220-before-g90.jsonl`.
+- **The storage re-check genuinely runs and fails again.** The observer records block → empty source line → block, while status records checking → storage remedy. No intervening “Video read.” appears. See the `watched` fields in `R/before-g31.vh220-probe-vh220-before-g31.jsonl`.
+- **No new fault is necessary.** F3 replaces every worker storage-estimate call; S-31 supplies a 5 MB quota. `runPreflight` clears the old verdict and takes the block branch before `payReadLine()`. See `walker/faults.mjs:91`, `walker/scenarios.mjs:469`, and [main.ts](/Users/uazjob/UoN-Video-Helper-side/vh220/src/main.ts:1597).
+- The variant is named, its driver hash supplied, and `before-proof` qualifies it at both widths. This meets ruling #38.
+- However, [VH-220.md:10](/Users/uazjob/UoN-Video-Helper-side/vh220/project/items/VH-220.md:10) still says a new fault is needed, and its Notes contain no correction.
+
+**3. Mapped first — met for the coverage allocation, with a wording correction needed.**
+
+The 15 cited keys exactly match the applicable VH-199 plans minus coverage gaps. None appears in the **main coverage walks**.
+
+“Cited, not walked” is nevertheless too absolute: `R/before-fixproof.outcomes.jsonl` repeats five cited English/light keys—S-115, S-138 and S-90b at 1280, plus S-30 at both widths. These are legitimate fixture qualifications under ruling #39, outside the 144-condition accounting. The table should explicitly distinguish that exception.
+
+**4. Expected strings and behaviours — partly met.**
+
+| Expectation | Finding |
+|---|---|
+| R2-1: settled watchdog no longer says stopping | **Met** for settled snapshots in all three languages. **Cannot say** from these walks whether changing language after that same failure re-announces stale text: S-90b does not perform that transition. Source at `main.ts:3264` supports the intended behaviour. |
+| R2-2: reset immediately when starting another job | **Cannot say.** S-115 waits for encoding before recording. Its 4–5% bar and current stage prove the later running state, not the startup interval. |
+| R2-3: Save remains the only primary | **Met.** All g30 probes report only the translated Save button as primary beside the unreadable-file error. |
+| Kept warnings: no nested notification or inappropriate reassurance | **Met under the subsequent VH-208 requirement.** Probes report zero nested notifications; source uses `contentOnly: true` and `reassure: false`. VH-208 explicitly replaced the old sibling placement with warning content inside the single card treatment. See `project/items/VH-208.md`, `main.ts:3419`, and `main.ts:3460`. |
+| Storage block without “Video read.” first | **Met**, as above. |
+| Set-button focus handoff | **Met for the preview-error transition.** The recorded `watched.after.focus` matches each button’s own field. |
+
+Across the 167 reached records, overflow, accessibility exposure, focus, text contrast and typography instruments pass. The probes’ `clipped: ["visually-hidden"]` entries are intentional hidden content, not visible text truncation.
+
+The displayed error and preview strings agree with the corresponding language-table entries. This establishes the recorded text and geometry, not native-language editorial approval.
+
+The table’s statement that the later S-115 reading “answers R2-2” is unsupported. [main.ts:3128](/Users/uazjob/UoN-Video-Helper-side/vh220/src/main.ts:3128) and `resetProgress()` at line 3282 support the implementation, but do not replace the requested browser reading of that instant.
+
+**5. Every row ends read — not met as a complete acceptance claim.**
+
+All condition keys now have reached-state evidence. The startup-reset observation and watchdog language-change transition remain unobserved.
+
+Also, table line 82 says **wish VH-220.1** requests the S-115 setup correction, but neither `project/wish-list.md` nor `project/backlog.md` contains that line. The existing VH-199.1 player-instrument follow-up does exist.
+
+**6. Stage rule, provenance and remaining close criteria.**
+
+- **Before — met.** The main walked records identify clean base `95d18eed5db1…` and walker `9c52269607bccc4c`; matched historical conditions remain cited. Self-pairing is disclosed and appropriate for this check item. “182 unmoved” supplies no independent after-run validation.
+- **Table location — met.** It is in the required measurements folder. Its actual November date is sensible; the item’s October filename template is stale.
+- **Evidence packaging — partly met.** Every listed `sources.txt` hash matched. However, the table’s opening paragraph promises a `detail/` directory containing named failing cells; that directory is absent. Full records remain available under W.
+- **Tokens/documents — met.** The diff against the specified base is empty: no product, token, control, progress-bar or `docs/` change.
+- **Gate — cannot say.** No candidate gate result is supplied. “Gateless” does not waive the test gate; the owner record explicitly preserves it. I did not run potentially writing checks during this read-only review.
+- **Report linkage — not met yet.** The report’s Disposition row at `design-pass-3-2026-10-27.md:759` names VH-220 but does not link this evidence table.
+- **Blind check — this answer supplies it.** Repair, follow-up check, final commit wording and close-time digest citation remain pending.
+- **Sizing/hand-back — cannot say.** The measurement records do not establish worker context usage or compliance with the hand-back threshold.
+
+**7. WCAG re-check.**
+
+| Criterion | Judgment |
+|---|---|
+| **1.4.10 Reflow** | **Cannot say for conformance.** The 375 px results pass their bounded test, but 375 px is not the criterion’s 320 CSS px reflow threshold. The explicit limitation is honest; it cannot establish the full criterion. |
+| **2.4.3 Focus Order** | **Met for the recorded transitions:** storage re-check to chooser, preview-error handoff to the correct time field, second-job start to Cancel. Variant handoff snapshots are taken before instrument interference; subsequent `body` focus is not evidence of an app handoff defect. |
+| **3.3.1 Error Identification** | **Met for these states.** The unreadable-file, storage and watchdog errors identify the problem in text and provide a next step in all three languages. |
+| **4.1.3 Status Messages** | **Met for recorded programmatic exposure**, with the watchdog language-change gap noted above. AX records and `index.html:139,600` establish live status regions. Actual screen-reader speech is not demonstrated or claimed. |
+
+**8. Power, load and timing — recorded accurately, with bounded conclusions.**
+
+All groups record **AC Power**, with no numeric power-mode reading. That meets ruling #39; it does not prove mode 2.
+
+| Group (`before-`) | Peak load | Samples ≥8 / total |
+|---|---:|---:|
+| fixproof | 6.38 | 0/21 |
+| proof | 5.42 | 0/4 |
+| g90 | 5.77 | 0/33 |
+| g115 | 7.14 | 0/25 |
+| g115fl | 9.09 | 6/26 |
+| g115fd | 7.68 | 0/23 |
+| g115d375 | 8.66 | 3/12 |
+| g30 | 7.37 | 0/6 |
+| g138 | 7.64 | 0/10 |
+| g31 | 4.64 | 0/9 |
+| g32 | 4.88 | 0/13 |
+
+These match every corresponding `R/before-*.load.log.txt`. The two elevated-load groups still reached the required running state. Their exact percentage depends on sampling time; it cannot prove startup reset. Watchdog execution is timer-driven, but the settled-state predicate—not a claimed precise duration—supports its result.
+
+**9. Remaining instrument and machine qualifications.**
+
+- **S-138 player — cannot say, correctly not an app failure.** Its finish-plus-one-second sample is the known unverified class described in `M/matrix-2026-10-27.md:63`, including nominal historical passes. The separate “control target” row carries an explicit user-agent-size exemption; it should not be described as the same timing fault. Neither establishes a new player defect.
+- **`measure` — cannot say:** mixed-script line-length interpretation, not demonstrated clipping.
+- **`targets` — cannot say:** circular trim-thumb interpretation; not a demonstrated undersized rectangular control.
+- **`contrastExtra` — cannot say:** range pseudo-element paint needs a pixel/person reading.
+- **`limiting` — cannot say:** S-138 changes page language after completion, preventing the instrument’s comparison against current-language warning text. The completion write exists; the automatic comparison remains unresolved.
+
+Those outcomes must remain visible qualifications, not become passes through self-comparison. See the corresponding instrument objects in `W/before-g138/runs/*/S-138__en-GB__w1280__dark.json` and VH-199’s matching digests.
+
+**One-machine requirement — met for the walked evidence.** All included walks are the Mac Pro groups; no `macbook-pro/` or `void/` records enter the table. The 15 historical citations are explicitly identified as MacBook Pro evidence.
+
+**App defects found:** none established by this evidence. The immediate-reset question is a measurement gap, not proof of an app bug. The required repairs are to the evidence and acceptance record: capture or explicitly retain the missing behavioural checks, correct the unsupported claims, add the named follow-up and report link, and complete the close checks.
