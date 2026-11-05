@@ -1,0 +1,17 @@
+// VH-221 #1: read-only map of VH-199's records onto the item's grid (w1280, w375 x en-GB, zh-Hans, ms-MY x light, dark, forced-light, forced-dark):
+// VH-199's twelve runs are the walker's PLANS run-01 to run-12 (their counts match matrix-coverage-2026-10-27.json's expected), less coverage's missing keys.
+import { pathToFileURL } from 'node:url'; import { join } from 'node:path'; import { readFileSync } from 'node:fs'
+const [walker, coverage, ids] = [process.argv[2], process.argv[3], process.argv[4].split(',')]
+const at = (f) => import(pathToFileURL(join(walker, f)).href)
+const { PLANS } = await at('scenarios.mjs'); await at('parts.mjs')
+const cov = JSON.parse(readFileSync(coverage, 'utf8')), missing = new Set(cov.runs.flatMap((r) => r.missing.map((m) => m.key)))
+const VIEWS = ['w1280', 'w375'], MODES = ['light', 'dark', 'forced-light', 'forced-dark']
+for (const r of cov.runs) { const n = (PLANS[r.name]?.() ?? []).length; if (n !== r.expected) console.log('COUNT MISMATCH', r.name, n, r.expected) }
+for (const id of ids) {
+  const cells = new Set()
+  for (const r of cov.runs) for (const x of PLANS[r.name]() ?? []) {
+    if (x.id !== id || x.variant || !VIEWS.includes(x.view) || !MODES.includes(x.mode)) continue
+    const key = `${x.id}__${x.lang}__${x.view}__${x.mode}`; if (!missing.has(key)) cells.add(`${x.lang}/${x.view}/${x.mode}`)
+  }
+  console.log(id, cells.size, 'of 24:', [...cells].sort().join(' '))
+}

@@ -1,0 +1,20 @@
+FAIL — the row evidence passes, but the complete close needs record corrections.
+
+1. **Coverage is overstated in three ledger lines.** [decisions.md:27](/Users/uazjob/UoN-Video-Helper-side/vh221/project/decisions.md:27), [trajectory.md:52](/Users/uazjob/UoN-Video-Helper-side/vh221/project/trajectory.md:52) and [VH-221.md:42](/Users/uazjob/UoN-Video-Helper-side/vh221/project/items/VH-221.md:42) say “1280, 375 and 320 px in four modes.” The records contain **240 scenario cells at 1280/375 in four modes, plus 27 at 320 in light only**. Also, [the repaired table:70](/Users/uazjob/UoN-Video-Helper-side/vh221/reviews/2026-10-25/design-pass-3/evidence/measurements/vh221-browser-rows-r1-2026-11-05.md:70) says “each scenario at w320”; S-155 has no 320 cell. R8 is covered there through S-02. Correct the descriptions; no additional walk is needed.
+
+2. **The speech-check remainder needs a ledger line or explicit existing-item assignment.** [decisions.md:29](/Users/uazjob/UoN-Video-Helper-side/vh221/project/decisions.md:29) leaves “a speech reading” to a person, but its Deferred line says `none`. VH-153.1 now covers only the native dialog; VH-105.2 covers native-language review. I found no line explicitly covering these status announcements, particularly Creating’s rapid replacement. VH-70 specifies the progress bar, not this whole remainder. Record the speech check under rule 5 and put the applicable IDs in Deferred.
+
+3. **The mapping repair needs reproducible provenance.** [vh221-map.mjs.txt:2](/Users/uazjob/UoN-Video-Helper-side/vh221/reviews/2026-10-25/design-pass-3/evidence/measurements/vh221-records-r1-2026-11-05/vh221-map.mjs.txt:2) says the plan counts match. Running it against the candidate walker produces:
+   - `run-01`: 370 versus 369;
+   - `run-10`: 108 versus 103;
+   - `run-11`: 116 versus 113.
+
+   The saved output omits those warnings. **All listed scenario keys reproduce**, so this does not invalidate current coverage. Record the exact input revision and invocation, and preserve or explain the count differences.
+
+4. **Freeze, scope and substantive evidence pass.** HEAD matches the specified base; tracked diff SHA1 is `d7dc1eb91aad60a0`; status and all 171 untracked hashes match, including at review end. No product or protected path changed. All 267 scenario cells are distinct; targeted checks report zero failures and zero sideways scroll. The repaired spoken-row description, picker-argument limitation, retired sentences and S-155 coverage agree with the records. All 80 `sources.txt` checksums pass; applicable allowed walk sources match their copies.
+
+5. **The remaining close mechanics pass.** The backlog removal, trajectory placement, verbatim archive move and Disposition link are consistent. Nielsen’s “errors say what next” is named. The checker exits successfully: **0 failures, 1 stated VH-122 warning**, trajectory budget **292/300**. The gate log reports **84 files, 1,663 passed, one standing skip**. I accept the supplied load ruling with all four samples disclosed. Owner quotations agree with this brief; orchestrator rulings are explicitly attributed.
+
+6. **Review-copy equality remains unverified.** The review copies identify originals such as `vh221-codex/blind.md`, but those originals were not available in the permitted locations I inspected. Freeze hashes establish the copies’ identity, not equality to their originals. I did not read prohibited locations. The external `plan8-owner-words.md` line references likewise could not be independently checked.
+
+Before commit: correct points 1–3, provide permitted provenance for the review-copy comparison, preserve this verdict and its follow-up, then rerun the required close checks. No product defect or additional browser walk is established by this review.

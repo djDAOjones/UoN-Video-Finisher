@@ -24,6 +24,16 @@
      moves the oldest entries verbatim to project/decisions-YYYY-MM.md,
      beside this file, listed in project/archive-index.md. -->
 
+## 2026-11-05 — VH-221 — Closes: VH-153's rows a job or a failing browser reaches, read in Chrome in three languages, no defect
+
+**Decision:** VH-221 closes as a check with no product diff: VH-153's ten rows a job or a failing browser reaches read true in en-GB, zh-Hans and ms-MY at 1280 and 375 px in four modes and at 320 px in light, 267 cells on the Mac Pro, failing 0; the pending and passed browser sentences retired; the file kind read from the picker's argument; one scenario, S-155, added for the out-of-date Chrome reason at 375 px. Wish VH-153.1 narrowed to the native dialog as a person sees it.
+
+**Rationale:** The owner's scope, verbatim: "yes to the question mark, and A and B. ensure everything passes UX / design / Accessibility" (2026-10-27, `plan8-owner-words.md:275`), group B covering a new scenario named and qualified by VH-198's method; "yes" to the side-by-side run (:375); "Gateless covers the rest of Phase 8 …" (:185); "gateless run where possible" (:395); "Yes, leave them" (:366); and their answers of 2026-11-05 (the entry below): the walks re-run on the Mac Pro, the MacBook Pro's records support only. Evidence: `vh221-browser-rows-r3-2026-11-05.md` and its records, the notes repaired after Codex's blind and close checks and Claude's reading of the close, from the first table, whose walk they share. The design's settlements: 0 of 240 row cells cited from VH-199's records (their per-cell readings are outside the repository and VH-208 reordered the result area), so all walked, the map kept; one walk on the base serves both columns; S-155 qualified at 1280 and 375 px (6 of 6; the phone user agent's branch fails it 3 of 3), revision 9c52269607bccc4c to c27c325ffc8c3b6f, which made the records (landed beside VH-223's `matrix.mjs` change, the walker reads 77a0a0bc2e2c1e5d); the file kind read by a CDP breakpoint, no function replaced, in 27 of 27 cells: one type, video/mp4 .mp4, described in each language. The spoken rows, Creating and could not create, are read in the status region's text and history, not by geometry. This Mac's ffmpeg changed the three fixtures' sha1s, so a proof group reached each ID's state on them first (6 of 6). Orchestrators' rulings, not the owner's, listed for them: #39, the launcher's mode condition on a desktop with no powermode line and the proof group; #40, the job and save groups walked under load at or above 8 for 2 and 10 samples (peaks 9.39 and 10.18), every reading passing and none a timing measure, so no re-walk, and the walk lock's turn rule. WCAG 1.4.10, 3.1.5, 3.3.1 and 4.1.3 re-checked; the digest rule applied: nielsen, "errors say what next". Codex astra's blind verdict: PASS WITH NOTES, its notes applied. Person checks: the native dialog (VH-153.1), a speech reading of the status rows (VH-221.1), a native reading of the two languages (VH-105.2); the Deferred line takes item IDs only, so the wish lines carry them.
+
+**Supersedes:** none
+
+**Deferred:** none
+
 ## 2026-11-05 — VH-223 — Closes: VH-172.1's batch A, 108 keys walked on the Mac Pro by an exact key list, no new defect
 
 **Decision:** VH-223 closes as a check with no product diff: the walker's `matrix.mjs` takes an exact key list, `--keys <file>`, which VH-224 reuses unchanged, and batch A's 108 keys, each walked once on the Mac Pro, read 84 OK, 9 NOT-OK on known readings (S-03 ×4, VH-216.1; S-81 ms-MY ×5, VH-200.1 and VH-210.2) and 15 not reached because of this Mac's speed (S-24, wish VH-223.1); no new defect and no fix item.
@@ -638,13 +648,3 @@ Each walk records its machine. Two questions remain for the owner:
 **Supersedes:** none
 
 **Deferred:** VH-199, VH-200, VH-202
-
-## 2026-10-25 — VH-204 — raised: a new release is cut after Phase 8 closes, and that one goes to Xerte; 0.2.0 is not uploaded
-
-**Decision:** Phase 8 gains VH-204 after VH-195: a release cut once Phase 8 has closed, which the owner uploads to Xerte. 0.2.0 is not uploaded; VH-14 waits on VH-204's package.
-
-**Rationale:** The owner, to orchestrator #5 on 2026-10-25, verbatim: "Wait: cut a new release after Phase 8 closes and I'll upload that one to Xerte." 0.2.0 was cut on 2026-10-24 for Xerte (VH-162), before Phase 8 changed the page (VH-182 to VH-196, and pass 3's fixes to come), so its package is no longer the app. VH-204 repeats VH-162's method: the version on the cut chat's recommendation (0.3.0 unless it argues otherwise), the statement brought up to date where the release needs it, the gate, a tag, a push, then `npm run package:xerte` and the zip's path to the owner. The words are in orchestrator #5's notes, `plan8-owner-words.md`, "VH-14, the Xerte upload". VH-197's commit could not record them, since rule 3 kept it to VH-197's own lines, so they go in as VH-198's first record commit. No product code changed.
-
-**Supersedes:** 2026-10-24 — VH-162 — The cut: 0.2.0 does not wait for VH-137's November review; Xerte is the public home, GitHub Pages the preview
-
-**Deferred:** VH-204, VH-14

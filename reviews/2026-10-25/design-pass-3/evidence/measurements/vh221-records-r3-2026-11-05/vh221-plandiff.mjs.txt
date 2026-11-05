@@ -1,0 +1,22 @@
+// VH-221 #5: read-only, the walker's PLANS run-01 to run-12 compared key by key between two walker folders (base, then candidate),
+// to explain the map's three COUNT MISMATCH lines on the candidate. Writes nothing.   node vh221-plandiff.mjs <base walker> <candidate walker>
+import { pathToFileURL } from 'node:url'
+import { join } from 'node:path'
+const [a, b] = process.argv.slice(2)
+const load = async (w) => {
+  const at = (f) => import(pathToFileURL(join(w, f)).href)
+  const { PLANS } = await at('scenarios.mjs'); await at('parts.mjs')
+  return { PLANS, revision: (await at('runner.mjs')).instrumentRevision().revision }
+}
+const A = await load(a), B = await load(b)
+const key = (x) => `${x.id}__${x.lang}__${x.view}__${x.mode}${x.variant ? `__${x.variant}` : ''}`
+const runs = (P) => Object.keys(P).filter((r) => /^run-\d\d$/.test(r)).sort()
+console.log(`base ${A.revision}, candidate ${B.revision}`)
+for (const r of runs(B.PLANS)) {
+  const ka = (A.PLANS[r]?.() ?? []).map(key), kb = B.PLANS[r]().map(key), sa = new Set(ka), sb = new Set(kb)
+  const add = kb.filter((k) => !sa.has(k)), rem = ka.filter((k) => !sb.has(k)), s155 = add.filter((k) => k.startsWith('S-155__'))
+  console.log(`${r} base ${ka.length} candidate ${kb.length}: S-155 cells in ${s155.length}${s155.length ? ` (${s155.join(' ')})` : ''}; other cells in ${add.length - s155.length}, out ${rem.length}`)
+}
+const all = (P) => new Set(runs(P).flatMap((r) => P[r]().map(key)))
+const ua = all(A.PLANS), ub = all(B.PLANS), only = [...ub].filter((k) => !ua.has(k)), gone = [...ua].filter((k) => !ub.has(k))
+console.log(`all twelve runs: base ${ua.size} keys, candidate ${ub.size}; only in the candidate ${only.length} (${only.join(' ')}); only in the base ${gone.length}`)

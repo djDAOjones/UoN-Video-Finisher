@@ -1,0 +1,74 @@
+R1 S-02 en-GB: 9 cells (w320 1, w1280 4, w375 4)
+  9x This tool is designed and built for Chrome, and this browser has not passed all the checks for it to run. The system check at the foot of the page says what is 
+R1 S-02 ms-MY: 9 cells (w320 1, w1280 4, w375 4)
+  9x Alat ini direka bentuk dan dibina untuk Chrome, dan pelayar ini belum lulus semua pemeriksaan yang diperlukan untuk menjalankannya. Pemeriksaan sistem di kaki h
+R1 S-02 zh-Hans: 9 cells (w320 1, w1280 4, w375 4)
+  9x 此工具专为 Chrome 浏览器设计和构建，但此浏览器尚未通过运行此工具所需的全部检查。页面底部的系统检查信息显示了缺失的功能。
+R1 S-106 en-GB: 9 cells (w320 1, w1280 4, w375 4)
+  9x This tool is designed and built for Chrome, and this browser has not passed all the checks for it to run. The system check at the foot of the page says what is 
+R1 S-106 ms-MY: 9 cells (w320 1, w1280 4, w375 4)
+  9x Alat ini direka bentuk dan dibina untuk Chrome, dan pelayar ini belum lulus semua pemeriksaan yang diperlukan untuk menjalankannya. Pemeriksaan sistem di kaki h
+R1 S-106 zh-Hans: 9 cells (w320 1, w1280 4, w375 4)
+  9x 此工具专为 Chrome 浏览器设计和构建，但此浏览器尚未通过运行此工具所需的全部检查。页面底部的系统检查信息显示了缺失的功能。
+R2 S-48 en-GB: 10 cells (w320 1, w1280 5, w375 4)
+  10x Encoding video | spoken: Encoding video
+R2 S-48 ms-MY: 9 cells (w320 1, w1280 4, w375 4)
+  9x Pengekodan video | spoken: Pengekodan video
+R2 S-48 zh-Hans: 9 cells (w320 1, w1280 4, w375 4)
+  9x 视频编码 | spoken: 视频编码
+R3 S-56 en-GB: 10 cells (w320 1, w1280 5, w375 4)
+  10x The video could not be created. This device ran out of working space part-way through. Your original file has not been changed. Free some space, or choose the s
+R3 S-56 ms-MY: 9 cells (w320 1, w1280 4, w375 4)
+  9x Video itu tidak dapat dicipta. Peranti ini kehabisan ruang kerja di pertengahan jalan. Fail asal anda tidak diubah. Kosongkan sedikit ruang atau pilih fail yang
+R3 S-56 zh-Hans: 9 cells (w320 1, w1280 4, w375 4)
+  9x 视频无法制作。该设备运行到一半时工作空间不足了。您的原始文件未被更改。腾出一些空间，或者选择较小的文件，然后重试。[dev: fault F12] | spoken: 视频无法制作。该设备运行到一半时工作空间不足了。您的原始文件未被更改。腾出一些空间，或者选择较小的文件，然后重试。[dev: fault F12]
+R4 S-66 en-GB: 10 cells (w320 1, w1280 5, w375 4)
+  10x Save stopped. The video is still here when you want it.
+R4 S-66 ms-MY: 9 cells (w320 1, w1280 4, w375 4)
+  9x Penyimpanan dihentikan. Video masih ada di sini apabila anda mahukannya.
+R4 S-66 zh-Hans: 9 cells (w320 1, w1280 4, w375 4)
+  9x 保存已停止。视频仍在这里，您随时可以保存。
+R5 S-67 en-GB: 10 cells (w320 1, w1280 5, w375 4)
+  10x Not saved. The video is still here when you want it.
+R5 S-67 ms-MY: 9 cells (w320 1, w1280 4, w375 4)
+  9x Tidak disimpan. Video itu masih ada di sini apabila anda mahukannya.
+R5 S-67 zh-Hans: 9 cells (w320 1, w1280 4, w375 4)
+  9x 未保存。视频仍在这里，您随时可以保存。
+R6 S-69 en-GB: 10 cells (w320 1, w1280 5, w375 4)
+  10x The video could not be saved.It is still here to try again.
+R6 S-69 ms-MY: 9 cells (w320 1, w1280 4, w375 4)
+  9x Video itu tidak dapat disimpan.Ia masih di sini untuk dicuba lagi.
+R6 S-69 zh-Hans: 9 cells (w320 1, w1280 4, w375 4)
+  9x 视频保存失败。您可以再次尝试保存。
+R7 S-74 en-GB: 9 cells (w320 1, w1280 4, w375 4)
+  9x 
+R7 S-74 ms-MY: 9 cells (w320 1, w1280 4, w375 4)
+  9x 
+R7 S-74 zh-Hans: 9 cells (w320 1, w1280 4, w375 4)
+  9x 
+R8 S-02 en-GB: 9 cells (w320 1, w1280 4, w375 4)
+  5x This browser cannot process video, so the tool cannot run here. This copy of Chrome may be out of date, or a setting on this computer may have turned the featur
+  4x This browser cannot process video, so the tool cannot run here. Chrome on a computer is the browser this tool is built for — try it there.
+R8 S-02 ms-MY: 9 cells (w320 1, w1280 4, w375 4)
+  5x Pelayar ini tidak dapat memproses video, jadi alat ini tidak dapat dijalankan di sini. Salinan Chrome ini mungkin sudah lapuk atau tetapan pada komputer ini mun
+  4x Pelayar ini tidak dapat memproses video, jadi alat ini tidak dapat dijalankan di sini. Chrome pada komputer ialah pelayar yang digunakan untuk alat ini — cubala
+R8 S-02 zh-Hans: 9 cells (w320 1, w1280 4, w375 4)
+  5x 此浏览器无法处理视频，因此该工具无法在此运行。此 Chrome 浏览器版本可能已过期，或者此计算机上的某个设置可能已关闭此功能。请更新 Chrome 浏览器，或咨询计算机管理员。
+  4x 此浏览器无法处理视频，因此该工具无法在此运行。本工具专为电脑上的 Chrome 浏览器而设计——请在 Chrome 浏览器上尝试使用。
+R8 S-155 en-GB: 8 cells (w1280 4, w375 4)
+  8x This browser cannot process video, so the tool cannot run here. This copy of Chrome may be out of date, or a setting on this computer may have turned the featur
+R8 S-155 ms-MY: 8 cells (w1280 4, w375 4)
+  8x Pelayar ini tidak dapat memproses video, jadi alat ini tidak dapat dijalankan di sini. Salinan Chrome ini mungkin sudah lapuk atau tetapan pada komputer ini mun
+R8 S-155 zh-Hans: 8 cells (w1280 4, w375 4)
+  8x 此浏览器无法处理视频，因此该工具无法在此运行。此 Chrome 浏览器版本可能已过期，或者此计算机上的某个设置可能已关闭此功能。请更新 Chrome 浏览器，或咨询计算机管理员。
+R9 calls:
+  1x proof-fix en-GB [{"description":"MP4 video (.mp4)","accept":{"video/mp4":[".mp4"]}}]
+  9x save en-GB [{"description":"MP4 video (.mp4)","accept":{"video/mp4":[".mp4"]}}]
+  9x save ms-MY [{"description":"Video MP4 (.mp4)","accept":{"video/mp4":[".mp4"]}}]
+  9x save zh-Hans [{"description":"MP4 视频（.mp4）","accept":{"video/mp4":[".mp4"]}}]
+page:
+  27x errors hscroll false
+  54x job hscroll false
+  6x proof-fix hscroll false
+  108x save hscroll false
+  78x startup hscroll false

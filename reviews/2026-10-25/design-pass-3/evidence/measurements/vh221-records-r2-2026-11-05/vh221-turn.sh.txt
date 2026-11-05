@@ -1,0 +1,17 @@
+#!/bin/zsh
+# VH-221 #4: #40's turn rule. Workers ahead = those with a go.sh or wait-seq script now, plus any named as args; each leaves when seen as the lock's owner,
+# or (only once every other has left) after 10 min with no script of its own. Then prints ARM and exits 0. Checks every 15 s. Never touches the lock.
+LOCK=/Users/uazjob/UoN-Video-Helper-side/walk.lock
+others() { ps -axo command | grep -E 'go\.sh|wait-seq' | grep -vE 'shell-snapshots|grep ' | grep -oE 'vh2[0-9]{2}' | grep -v '^vh221$' | sort -u; }
+owner() { cat $LOCK/owner.txt 2>/dev/null | grep -oE '^VH-[0-9]+' | tr -d '-' | tr 'VH' 'vh'; }
+typeset -A pend gone
+for w in $(others) "$@"; do pend[$w]=1; done
+O=$(owner); [ -n "$O" ] && unset "pend[$O]"
+echo "START $(date -u +%T) ahead: ${(k)pend} lock: $(cat $LOCK/owner.txt 2>/dev/null || echo free)"
+while [ ${#pend} -gt 0 ]; do
+  sleep 15
+  O=$(owner); now=$(date +%s); cur=" $(others | tr '\n' ' ') "
+  [ -n "$O" ] && [ -n "${pend[$O]}" ] && { unset "pend[$O]"; echo "SEEN $O $(date -u +%T)"; }
+  if [ ${#pend} = 1 ]; then w=${(k)pend}; if [[ "$cur" != *" $w "* ]]; then [ -z "${gone[$w]}" ] && gone[$w]=$now; [ $(( now - gone[$w] )) -ge 600 ] && { unset "pend[$w]"; echo "NO SCRIPT $w 10 min $(date -u +%T)"; }; else unset "gone[$w]"; fi; fi
+done
+echo "ARM $(date -u +%T) lock: $(cat $LOCK/owner.txt 2>/dev/null || echo free); waiting: $(others | tr '\n' ' ')"

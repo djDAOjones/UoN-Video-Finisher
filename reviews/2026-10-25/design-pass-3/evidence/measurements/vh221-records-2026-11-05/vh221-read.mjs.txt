@@ -1,0 +1,19 @@
+// VH-221 #4: read-only. Per row and language, across the five groups' probes: the cells, the distinct texts the row's element held where vh221-sum.mjs judges it,
+// the page's sideways scroll, and for R9 every showSaveFilePicker call's types. Prints text; writes nothing.
+//   node vh221-read.mjs startup job save errors proof-fix
+import { readdirSync, readFileSync } from 'node:fs'; import { join } from 'node:path'
+const ROWS = { 'S-02': ['R1', 'R8'], 'S-155': ['R8'], 'S-106': ['R1'], 'S-48': ['R2'], 'S-56': ['R3'], 'S-66': ['R4'], 'S-67': ['R5'], 'S-69': ['R6'], 'S-62': ['R9'], 'S-74': ['R7'] }
+const out = {}, hs = {}, r9 = {}
+for (const g of process.argv.slice(2)) for (const f of readdirSync(join(g, 'runs')).filter((x) => /-probe-.*\.jsonl$/.test(x))) for (const l of readFileSync(join(g, 'runs', f), 'utf8').trim().split('\n')) {
+  const x = JSON.parse(l), view = x.cell.split('-').at(-1)
+  hs[`${g} hscroll ${x.page?.hscroll}`] = (hs[`${g} hscroll ${x.page?.hscroll}`] ?? 0) + 1
+  for (const r of ROWS[x.id] ?? []) {
+    const v = x.rows?.[r]; if (!v) continue
+    if (r === 'R9') { for (const c of v.calls ?? []) { const k = `${g} ${x.lang} ${JSON.stringify(c.types)}`; r9[k] = (r9[k] ?? 0) + 1 } ; continue }
+    const k = `${r} ${x.id} ${x.lang}`; const o = (out[k] ??= { n: 0, views: {}, texts: {} }); o.n++; o.views[view] = (o.views[view] ?? 0) + 1
+    const t = [v.text, v.spoken].filter(Boolean).join(' | spoken: ').slice(0, 160); o.texts[t] = (o.texts[t] ?? 0) + 1
+  }
+}
+for (const [k, o] of Object.entries(out).sort()) { console.log(`${k}: ${o.n} cells (${Object.entries(o.views).map(([a, b]) => `${a} ${b}`).join(', ')})`); for (const [t, n] of Object.entries(o.texts)) console.log(`  ${n}x ${t}`) }
+console.log('R9 calls:'); for (const [k, n] of Object.entries(r9).sort()) console.log(`  ${n}x ${k}`)
+console.log('page:'); for (const [k, n] of Object.entries(hs).sort()) console.log(`  ${n}x ${k}`)

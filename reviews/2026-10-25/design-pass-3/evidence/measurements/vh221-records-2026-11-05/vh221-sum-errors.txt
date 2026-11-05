@@ -1,0 +1,4 @@
+R7 S-74 w1280 pass 12 other 0 fail 0
+R7 S-74 w320 pass 3 other 0 fail 0
+R7 S-74 w375 pass 12 other 0 fail 0
+failing 0

@@ -1,0 +1,37 @@
+#!/bin/zsh
+# VH-221 #1 (copied from VH-225's go.sh, the original untouched): wait (checking every 60 s) for AC, or by #2 for the owner's battery above 50%, at powermode 2, a 1-minute load below 8 and a free walk lock; then run walk.sh once,
+# VH-221 #2, on Orchestrator #38's word: the lock wait has no 45-minute limit; exit 9 only when the same owner.txt has held the lock 3 h, power has not been ready 45 min, or the lock was free and the load not ready 45 min.
+# logging load, source, level and mode every 30 s into <name>.load.log and the launcher's output into <name>.launcher.log.
+# Modelled read-only on VH-212's go-1.sh. Usage: zsh go-1.sh <name> <what for the lock> <walker dir> <app root> "<job line>" …
+D=/Users/uazjob/UoN-Video-Helper-side/vh221-walk
+NAME=$1
+LOCK=/Users/uazjob/UoN-Video-Helper-side/walk.lock
+for f in "$D/$NAME" "$D/$NAME.launcher.log" "$D/$NAME.load.log"; do [ -e "$f" ] && { echo "EXISTS: $f"; exit 2; }; done
+s=$(date +%s); LO=""; ls0=0; pw0=0
+while :; do
+  while :; do
+    L=$(uptime | sed -E 's/.*load averages?: ([0-9.]+).*/\1/')
+    L5=$(uptime | sed -E 's/.*load averages?: [0-9.]+,? ([0-9.]+).*/\1/')
+    AC=0; pmset -g batt | grep -q 'AC Power' && AC=1
+    M=$(pmset -g | sed -nE 's/^ *powermode +([0-9]+).*/\1/p')
+    MOK=0; [ "$M" = 2 ] && MOK=1; [ $AC = 1 ] && ! pmset -g | grep -qE "^ *powermode " && MOK=1  # VH-221 #3, #39's ruling: on AC with no powermode line (a desktop on mains) the mode condition passes; any other reading still waits.
+    LV=$(pmset -g batt | grep -oE '[0-9]+%' | head -1 | tr -d %); POWEROK=$AC; [ "$LV" -gt 50 ] && POWEROK=1
+    now=$(date +%s)
+    if [ -e $LOCK ]; then O=$(cat $LOCK/owner.txt 2>/dev/null); [ "$O" != "$LO" ] && { LO="$O"; ls0=$now; }; s=$now
+      [ $(( now - ls0 )) -ge 10800 ] && { echo "NOT READY $(date -u +%T) lock held 3 h by $(print -r -- "$O" | cut -c1-80)"; exit 9; }
+    else LO=""; fi
+    if [ $POWEROK = 1 ] && [ $MOK = 1 ]; then pw0=0; else [ $pw0 = 0 ] && pw0=$now; [ $(( now - pw0 )) -ge 2700 ] && { echo "NOT READY $(date -u +%T) power not ready 45 min: ac $AC level $LV% powermode $M"; exit 9; }; fi
+    if [ $POWEROK = 1 ] && [ $MOK = 1 ] && [ "$(echo "$L < 8" | bc)" = 1 ] && [ "$(echo "$L5 < 8" | bc)" = 1 ] && [ ! -e $LOCK ]; then break; fi
+    [ $(( now - s )) -ge 2700 ] && { echo "NOT READY $(date -u +%T) load $L 5-min $L5 ac $AC powermode $M, lock free"; exit 9; }
+    sleep 60
+  done
+  echo "GO $(date -u +%T) load $L 5-min $L5 AC powermode $M" >> "$D/$NAME.launcher.log"
+  ( while :; do echo "$(date -u +%T) load $(uptime | sed -E 's/.*load averages?: ([0-9.]+).*/\1/') $(pmset -g batt | sed -nE "1s/Now drawing from '(.*)'/\1/p") $(pmset -g batt | grep -oE '[0-9]+%' | head -1) pm$(pmset -g | sed -nE 's/^ *powermode +([0-9]+).*/\1/p')" >> "$D/$NAME.load.log"; sleep 30; done ) &
+  LP=$!
+  zsh "$D/vh221-walk.sh" "$@" >> "$D/$NAME.launcher.log" 2>&1
+  rc=$?
+  kill $LP 2>/dev/null; wait $LP 2>/dev/null
+  echo "walk exit $rc $(date -u +%T)" >> "$D/$NAME.launcher.log"
+  if { [ $rc = 3 ] || [ $rc = 8 ]; } && [ ! -e "$D/$NAME" ]; then continue; fi
+  echo "walk exit $rc"; exit $rc
+done

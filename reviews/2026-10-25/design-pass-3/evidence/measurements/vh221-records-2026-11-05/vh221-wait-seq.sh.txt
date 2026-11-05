@@ -1,0 +1,28 @@
+#!/bin/zsh
+# VH-221 #4's lock-waiting script (#40, 10:00Z: every lock-waiting script carries wait-seq or go.sh in its command line). Never touches the lock. Checks every 15 s.
+# Usage: zsh vh221-wait-seq.sh "<owner text 1>" "<owner text 2>" [<worker ahead> …]
+# Phase 1: until owner.txt holds both texts (or the process holding text 2 has been seen and is gone). Phase 2, the turn rule: workers ahead are those with a
+# go.sh or wait-seq script then, plus any named; each leaves when seen as the lock's owner, or, last alone, after 10 min with no script. Then prints ARM.
+LOCK=/Users/uazjob/UoN-Video-Helper-side/walk.lock
+A1=$1; A2=$2; shift 2
+others() { ps -axo command | grep -E 'go\.sh|wait-seq' | grep -vE 'shell-snapshots|grep ' | grep -oE 'vh2[0-9]{2}' | grep -v '^vh221$' | sort -u; }
+owner() { cat $LOCK/owner.txt 2>/dev/null | grep -oE '^VH-[0-9]+' | tr -d '-' | tr 'VH' 'vh'; }
+echo "WAIT $(date -u +%T) for owner '$A1' '$A2'; lock: $(cat $LOCK/owner.txt 2>/dev/null || echo free)"
+seen2=0
+while :; do
+  OT=$(cat $LOCK/owner.txt 2>/dev/null)
+  [[ "$OT" == *"$A1"* && "$OT" == *"$A2"* ]] && { echo "OWNER $(date -u +%T) $OT"; break; }
+  if ps -axo command | grep -vE 'shell-snapshots|grep |vh221-wait-seq' | grep -q -- "$A2"; then seen2=1; elif [ $seen2 = 1 ]; then echo "GONE $(date -u +%T) '$A2' seen and ended"; break; fi
+  sleep 15
+done
+typeset -A pend gone
+for w in $(others) "$@"; do pend[$w]=1; done
+O=$(owner); [ -n "$O" ] && unset "pend[$O]"
+echo "START $(date -u +%T) ahead: ${(k)pend} lock: $(cat $LOCK/owner.txt 2>/dev/null || echo free)"
+while [ ${#pend} -gt 0 ]; do
+  sleep 15
+  O=$(owner); now=$(date +%s); cur=" $(others | tr '\n' ' ') "
+  [ -n "$O" ] && [ -n "${pend[$O]}" ] && { unset "pend[$O]"; echo "SEEN $O $(date -u +%T)"; }
+  if [ ${#pend} = 1 ]; then w=${(k)pend}; if [[ "$cur" != *" $w "* ]]; then [ -z "${gone[$w]}" ] && gone[$w]=$now; [ $(( now - gone[$w] )) -ge 600 ] && { unset "pend[$w]"; echo "NO SCRIPT $w 10 min $(date -u +%T)"; }; else unset "gone[$w]"; fi; fi
+done
+echo "ARM $(date -u +%T) lock: $(cat $LOCK/owner.txt 2>/dev/null || echo free); waiting: $(others | tr '\n' ' ')"

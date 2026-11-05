@@ -1,0 +1,4 @@
+START 06:40:44 ahead: vh220 vh223 lock: VH-222 #5 — 2026-11-05T06:38:51Z — g1 (S-23, S-23w 72; S-23s 9) (g1)
+SEEN vh220 07:03:10
+SEEN vh223 07:16:32
+ARM 07:16:32 lock: VH-223 #4 — 2026-11-05T07:16:23Z — rewalk a5 (rewalk-a5); waiting: vh223 

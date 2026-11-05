@@ -1,0 +1,64 @@
+PASS WITH NOTES — the specified scenario change and row evidence pass; VH-221 is not ready to close until the checks and record tasks below are complete.
+
+I verified base `95d18eed5db1`, the original diff hash `335461b545a32fe1`, and every checksum in `sources.txt`. I changed nothing. Ledger and report edits appeared during this review; this verdict covers the candidate identified in the brief, not blanket approval of those later edits.
+
+Evidence filenames below refer to the [records folder](/Users/uazjob/UoN-Video-Helper-side/vh221/reviews/2026-10-25/design-pass-3/evidence/measurements/vh221-records-2026-11-05).
+
+1. **Every row and its expected wording — PASS, with an evidence-description correction.**  
+   I independently checked the relevant probe fields across all 267 scenario cells: no targeted row failures. The main matrix contains all three languages, both widths and all four modes. R1, R4–R8 have the expected text and appropriate geometry; R9 has the expected picker argument. R6 contains both sentences.
+
+   R2 and R3 are intentionally spoken-only status text, not visible prose whose geometry the probe establishes. Creating is recorded in the earlier live-region history; the later R2 snapshot says “Encoding video.” The table’s blanket “shown whole” wording should distinguish these cases.
+
+   Evidence: `startup`, `job`, `save` and `errors.vh221-probe-*.jsonl`, fields `rows`, `ok`, `spoken`, `heard`, `clipped`, `broken`; [paintStatus](/Users/uazjob/UoN-Video-Helper-side/vh221/src/main.ts:931), Creating at line 3145 and could-not-create at line 3223. The three language tables contain the corresponding strings.
+
+2. **Retired browser sentences — PASS.**  
+   Only pending and passed are retired. [browserNote()](/Users/uazjob/UoN-Video-Helper-side/vh221/src/ui/system-check.ts:71) returns `browserNote.notPassed` for fail/warn and otherwise returns `null`. R1 reads that remaining sentence in S-02 and S-106: 27 cells each, including the additional 320 px checks. Evidence: startup probes, `rows.R1`.
+
+3. **Save-dialog file kind — PASS; native dialog remains outstanding.**  
+   All 27 S-62 cells contain one `types` entry accepting `video/mp4: [".mp4"]`, with:
+   
+   - en-GB: `MP4 video (.mp4)`
+   - zh-Hans: `MP4 视频（.mp4）`
+   - ms-MY: `Video MP4 (.mp4)`
+
+   Evidence: save probes, `rows.R9.calls[].types`. `vh221-driver.mjs.txt`, function `pickerBreakpoint`, reads `options.types` at the served call using CDP. This proves the argument, not the native dialog. The narrowed remainder already exists in [wish VH-153.1](/Users/uazjob/UoN-Video-Helper-side/vh221/project/wish-list.md:43).
+
+4. **Mapped first to VH-199 — coverage passes; traceability is a close task.**  
+   The [table’s notes](/Users/uazjob/UoN-Video-Helper-side/vh221/reviews/2026-10-25/design-pass-3/evidence/measurements/vh221-browser-rows-2026-11-05.md:67) explicitly say **0 cited**, and the new records establish the required coverage.
+
+   However, the supplied bundle gives the conclusion and scenario allocation, not an independently auditable row-by-row comparison with VH-199’s record keys and digests. `matrix-coverage-2026-10-27.json` is a coverage inventory, not that comparison. Before close, preserve the mapping or name the relevant old keys and why none supplies the required row reading. This is a provenance gap, not evidence of an unwalked current cell.
+
+5. **S-155 — PASS.**  
+   The sole original walker change is the ten-line addition at [scenarios.mjs](/Users/uazjob/UoN-Video-Helper-side/vh221/reviews/2026-10-25/design-pass-3/evidence/measurements/walker/scenarios.mjs:238). It reuses F2 and restores the desktop UA after viewport setup.
+
+   The [qualification](/Users/uazjob/UoN-Video-Helper-side/vh221/reviews/2026-10-25/design-pass-3/evidence/measurements/vh221-s155-qualification-2026-11-04.txt) records both revisions: `9c52269607bccc4c` → `c27c325ffc8c3b6f`. Raw qualification probes confirm six correct cases with `R8.ok=true`; all three wrong-branch 375 px cases have `ok=false`, `tryChrome=true`. The desktop controls pass. The main run then reads R8 through S-155 in all 24 required cells.
+
+6. **Every live row ends read — PASS within the stated scope.**  
+   No additional live row needs an unreachable-row wish. R2 is reached through its announcement history; R8 at 375 px is reached through S-155; R9 is read at the call boundary. Only the native-dialog remainder stays outstanding. Evidence: the probes and `vh221-sum-<group>.txt`; R7’s actual text is nested under `heading` and `intro`, so its blank top-level text in `vh221-read.txt` is not a missing reading.
+
+7. **Stage rule — measurement passes; close remains blocked.**  
+   The 267 cells comprise 240 main scenario cells and 27 additional 320 px/light cells. All have `page.hscroll=false`. Visible target rows have no reported clipping or broken words.
+
+   - **1.4.10:** supported by the narrow-width geometry and overflow records.
+   - **3.1.5:** translated wording received an agent reading, not native-reader validation. The English reading-grade gate still needs its final green result.
+   - **3.3.1:** these system failures are not input-validation errors; the recorded explanations and recovery directions are appropriate.
+   - **4.1.3:** programmatic status exposure is supported. `heard` means a matching DOM live-region event, not verified speech.
+   
+   The original candidate changes no product token, literal, control, element or progress bar. No document-rule change is needed. Apply and name Nielsen’s **“errors say what next”** at close.
+
+   I ran `node tools/check.mjs` against the then-current working tree: **exit 1**, with the latest four trajectory lines at **308 words against a 300-word limit**. It also warned about the malformed `src/ui/system-check.ts:71` path in VH-221 and the existing VH-122 sample reference. The budget failure blocks close. I did not run `npm run check`.
+
+The requested judgement points:
+
+- **One walk serving both columns:** valid for this unchanged product. Self-pairing establishes identity, not an independent before/after experiment. The table discloses this correctly.
+- **Load:** job’s elevated samples are at 08:20:13 and 08:20:44, affecting S-48/en-GB/1280 dark, forced-light and forced-dark readings. Save’s elevated intervals concern S-66/en-GB/375 and zh-Hans/1280 and /375, across their modes. Evidence: `job.load.log.txt`, `save.load.log.txt`, and probe `at`, `cell`, `mode`. These are wording/state readings; no claimed elapsed time, estimate accuracy or timeout margin depends on them. They stand under the supplied ruling.
+- **S-02 at 375 px:** designed branch, not a product gap. [blockContextFor()](/Users/uazjob/UoN-Video-Helper-side/vh221/src/ui/preflight-panel.ts:49) distinguishes handheld UA from desktop Chrome. S-155 supplies the missing desktop-at-narrow-width condition.
+- **R2’s snapshot:** “Encoding video” does not disprove Creating. More precisely, the probe’s `text` includes the hidden spoken span. The retained S-48 `captures/*__mutations.json` files contain the complete Creating sentence and notice in all three languages. `src/main.ts:3145` intentionally sends it through `spokenOnly`. The summary should say this explicitly.
+- **R6’s joined text:** no missing-space defect. `#save-error` has separate visual blocks; `rows.R6.status.spoken` contains the correctly separated spoken sentences, with `spokenOk=true`.
+- **R3’s `[dev: fault F12]`:** expected fault-injection detail. F12 throws `QuotaExceededError("fault F12")` at `walker/faults.mjs:205`. It does not show an untranslated production string.
+- **Different fixture SHA1s:** the proof group is sufficient for these text/state checks. It establishes all six fixture-dependent scenarios on this machine before the matrix. Evidence: `vh221-fix.sha1.txt`, `proof-fix.digest.md.txt` and proof probes. It does not establish media equivalence or timing equivalence.
+- **Product defects:** none established in the targeted rows, languages, modes or widths. The evidence does not justify a broader claim that every accessibility instrument passes; some unrelated instrument results remain `cannot-determine`.
+
+Before close, complete the auditable VH-199 mapping, clarify spoken-only evidence in the table, fix the trajectory budget and VH-221 path warning, resolve or link the remaining checker warning, and obtain the settled-machine gate plus a green final checker. Preserve this verdict and reconcile the ledger and Disposition with the actual completed close.
+
+A person must still inspect the native save dialog in Chinese and Malay. Actual screen-reader delivery also remains unverified—particularly whether Creating’s rapid replacement is spoken usefully—and native-language readability remains an acknowledged limit.

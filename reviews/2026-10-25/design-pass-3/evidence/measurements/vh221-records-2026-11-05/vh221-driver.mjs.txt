@@ -1,0 +1,148 @@
+// VH-221 #1's driver, copied from VH-225's vh225-driver.mjs (the original untouched) and adapted: the item's cells by the pass's own runner (matrix.mjs),
+// unchanged, on a plan in memory, with a read-only row probe after each scenario's own `afterMode`, and, for S-62, a CDP breakpoint that reads showSaveFilePicker's argument.
+// The probe reads, per cell, each of VH-221's nine row groups where the page holds it: the element's text against the page's own table (window.__mx: M.is, M.says,
+// M.has), shown or spoken only (a .visually-hidden child of a role=status or aria-live region), its box against the viewport, its own scrollWidth against its
+// clientWidth, its lines, any Latin word broken inside it, the region's spoken history (window.__audit.live), the page's sideways scroll, and the picker
+// argument's `types` (R9). It writes nothing to the page. R9 (the design compare's settlement 14): Debugger.setBreakpointByUrl on the served src/media/save.ts at
+// the line holding `showSaveFilePicker(options)` (found in the served text); on Debugger.paused, `options.types` is evaluated on the top frame and recorded, then
+// the page resumes. No function is replaced; the walker's stub is untouched and is not the dialog. In memory, qualification only: `S-155:phoneua` is S-155 with
+// S-02's setup, the phone user agent kept: the wrong branch, whose state must fail at w375.
+//   APP_URL=… CDP_PORT=… FIX=… OUT_ROOT=… RUN_ROOT=… OUTD=… node vh221-driver.mjs walk --walker <dir> --label before --name <group> --plan cross --scenarios S-02,S-106 --modes light,dark,forced-light,forced-dark --views w1280,w375
+import { pathToFileURL, fileURLToPath } from 'node:url'
+import { join, resolve } from 'node:path'
+import { appendFileSync, mkdirSync } from 'node:fs'
+import { execFileSync } from 'node:child_process'
+
+const list = (s) => String(s ?? '').split(',').map((x) => x.trim()).filter(Boolean)
+const args = (() => { const a = process.argv.slice(2), o = { _: [] }; for (let i = 0; i < a.length; i++) { if (a[i].startsWith('--')) { const k = a[i].slice(2); if (a[i + 1] === undefined || a[i + 1].startsWith('--')) o[k] = true; else o[k] = a[++i] } else o._.push(a[i]) } return o })()
+
+export const MODES_MAIN = 'light,dark,forced-light,forced-dark'
+export const ROW_PROBE = `(() => {
+  const round = (n) => Math.round(n * 100) / 100, de = document.documentElement, q = (s) => document.querySelector(s), M = window.__mx
+  if (!M) return { error: 'no __mx' }
+  const box = (el) => { if (!el) return null; const r = el.getBoundingClientRect(); return { l: round(r.left), t: round(r.top), r: round(r.right), b: round(r.bottom), w: round(r.width), h: round(r.height) } }
+  const rects = (range) => [...range.getClientRects()].filter((x) => x.width > 0 && x.height > 0)
+  const lines = (el) => { const r = document.createRange(); r.selectNodeContents(el); return new Set(rects(r).map((x) => Math.round(x.top))).size }
+  const broken = (el) => { const out = [], tw = document.createTreeWalker(el, NodeFilter.SHOW_TEXT); let n
+    while ((n = tw.nextNode())) { if (n.parentElement && n.parentElement.closest('.visually-hidden')) continue; const re = /\\S+/g; let m; while ((m = re.exec(n.data))) { if (/[\\u3000-\\u9fff\\uff00-\\uffef]/.test(m[0])) continue; const r = document.createRange(); r.setStart(n, m.index); r.setEnd(n, m.index + m[0].length); if (new Set(rects(r).map((x) => Math.round(x.top))).size > 1) out.push(m[0]) } }
+    return out }
+  const text = (el) => (el ? el.textContent.replace(/\\s+/g, ' ').trim() : null)
+  const region = (el) => { const r = el && el.closest('[aria-live],[role="status"],[role="alert"]'); return r ? { id: r.id || r.tagName.toLowerCase(), role: r.getAttribute('role'), live: r.getAttribute('aria-live') } : null }
+  const read = (sel) => { const el = q(sel); if (!el) return { sel, present: false }
+    const b = box(el), vis = M.vis(el), sp = el.querySelector('.visually-hidden')
+    return { sel, present: true, text: text(el), visible: vis, hidden: el.hidden, spoken: sp ? text(sp) : null, box: b, inView: !!b && b.w > 0 && b.l >= -0.5 && b.r <= de.clientWidth + 0.5,
+      clipped: el.scrollWidth > el.clientWidth + 0.5, lines: vis ? lines(el) : null, broken: vis ? broken(el) : [], region: region(el), lang: (el.closest('[lang]') || de).getAttribute('lang') } }
+  const heard = (r, path) => ((window.__audit || {}).live || []).filter((x) => x.region === r && M.matches(x.text, path)).length
+  const rows = {
+    R1: { ...read('#browser-note'), ok: M.is('browserNote.notPassed', '#browser-note') },
+    R2: { ...read('#status'), ok: M.says('status.creating', { notice: { msg: 'progress.jobNotice' } }, '#status'), heard: heard('#status', 'status.creating') },
+    R3: { ...read('#status'), ok: M.has('status.couldNotCreate', '#status'), heard: heard('#status', 'status.couldNotCreate') },
+    R4: { ...read('#save-status'), ok: M.is('status.saveStopped', '#save-status') },
+    R5: { ...read('#save-status'), ok: M.is('status.notSaved', '#save-status') },
+    R6: { ...read('#save-error'), ok: M.has('status.saveFailedWhat', '#save-error') && M.has('status.saveFailedNext', '#save-error'), kind: M.kindIn('#save-error'),
+      spokenOk: M.has('status.saveFailedWhat', '#save-status') && M.has('status.saveFailedNext', '#save-status'), status: read('#save-status') },
+    R7: { heading: { ...read('#errors-heading'), ok: M.is('errors.heading', '#errors-heading') }, intro: { ...read('#errors-intro'), ok: M.is('failure.captured', '#errors-intro') },
+      heard: heard('#page-announcer', 'errors.revealed'), panel: M.vis('#errors-panel') },
+    R8: { ...read('#source-status'), ok: M.says('failure.startup.noWebCodecs', { remedy: { msg: 'preflight.chromeLacks' } }, '#source-status'),
+      tryChrome: M.says('failure.startup.noWebCodecs', { remedy: { msg: 'preflight.tryChrome' } }, '#source-status') },
+    R9: { calls: null, expected: M.msg('save.pickerDescription') },
+  }
+  return { lang: de.lang, page: { cw: de.clientWidth, sw: de.scrollWidth, hscroll: de.scrollWidth > de.clientWidth, fontPx: parseFloat(getComputedStyle(de).fontSize) }, ua: navigator.userAgent.includes('Mobile') ? 'mobile' : 'desktop', rows } })()`
+
+function power() {
+  const sh = (cmd, a) => execFileSync(cmd, a, { encoding: 'utf8' })
+  const batt = sh('pmset', ['-g', 'batt']), pm = sh('pmset', ['-g']), up = sh('uptime', []).trim()
+  const ac = /AC Power/.test(batt), level = Number((batt.match(/(\d+)%/) ?? [])[1]), mode = Number((pm.match(/^\s*powermode\s+(\d+)/m) ?? [])[1])
+  return { at: new Date().toISOString(), source: ac ? 'AC' : 'battery', level, powermode: mode, load: Number((up.match(/load averages?: ([\d.]+)/) ?? [])[1]), ok: ac || (level > 50 && !(/lowpowermode\s+1/.test(pm) || mode === 1)) }
+}
+
+// The views PLANS declares for a scenario (every plan, parts registered), in the walker's order.
+function declaredViews(PLANS, VIEWS, id) {
+  const seen = new Set()
+  for (const fn of Object.values(PLANS)) { let recs; try { recs = fn() } catch { continue } for (const r of recs ?? []) if (r.id === id) seen.add(r.view) }
+  return Object.keys(VIEWS).filter((v) => seen.has(v))
+}
+function declaresRM(PLANS, id) {
+  for (const fn of Object.values(PLANS)) { let recs; try { recs = fn() } catch { continue } if ((recs ?? []).some((r) => r.id === id && r.mode === 'reduced-motion')) return true }
+  return false
+}
+
+async function build(walker) {
+  const at = (f) => import(pathToFileURL(join(walker, f)).href)
+  const S = await at('scenarios.mjs'); await at('parts.mjs')
+  const { VIEWS } = await at('qualify.mjs')
+  const plan = args.plan ?? 'cross'
+  let records
+  if (plan === 'cross') {
+    const modes = list(args.modes ?? MODES_MAIN)
+    records = list(args.scenarios).flatMap((spec) => {
+      const [id, variant] = spec.split(':'), sc = S.SCENARIOS[id]
+      if (!sc) throw new Error('no scenario ' + id)
+      const langs = list(args.langs ?? 'en-GB,zh-Hans,ms-MY').filter((l) => !sc.langs || sc.langs.includes(l))
+      const dv = declaredViews(S.PLANS, VIEWS, id), views = (dv.length ? dv : list(args.views)).filter((v) => !args.views || list(args.views).includes(v))
+      const rm = args.rm && declaresRM(S.PLANS, id) ? langs.map((lang) => ({ id, lang, view: 'w1280', mode: 'reduced-motion' })) : []
+      return [...langs.flatMap((lang) => views.flatMap((view) => modes.map((mode) => ({ id, lang, view, mode })))), ...rm].map((r) => (variant ? { ...r, variant } : r))
+    })
+  } else if (plan === 'smoke') records = S.PLANS.smoke().filter((r) => !list(args.skip).includes(r.id))
+  else if (plan === 'titles') records = list(args.scenarios ?? 'S-48,S-53,S-56,S-52').flatMap((id) => list(args.langs ?? 'en-GB,zh-Hans,ms-MY').map((lang) => ({ id, lang, view: 'w1280', mode: 'light' })))
+  else throw new Error('plan ' + plan)
+  return { S, records }
+}
+
+// R9: the served save.ts line that calls the picker, a breakpoint there, and on each pause `options.types` read on the top frame, then resumed.
+async function pickerBreakpoint(w) {
+  const served = await (await fetch(new URL('src/media/save.ts', process.env.APP_URL))).text()
+  const lineNumber = served.split('\n').findIndex((l) => l.includes('showSaveFilePicker(options)'))
+  if (lineNumber < 0) throw new Error('the picker call is not in the served save.ts')
+  w.__vh221Picker = []
+  if (!w.__vh221Paused) { w.__vh221Paused = true; w.page.on('Debugger.paused', async (p) => {
+    try { const f = p.callFrames[0], r = await w.page.send('Debugger.evaluateOnCallFrame', { callFrameId: f.callFrameId, expression: 'JSON.stringify(options && options.types)', returnByValue: true })
+      w.__vh221Picker.push({ at: new Date().toISOString(), url: f.url.replace(/^.*\/src\//, 'src/'), line: f.location.lineNumber, types: JSON.parse(r?.result?.value ?? 'null') })
+    } catch (e) { w.__vh221Picker.push({ error: String(e.message ?? e).slice(0, 200) }) } finally { await w.page.send('Debugger.resume', {}) } }) }
+  await w.page.send('Debugger.enable', {})
+  await w.page.send('Debugger.setBreakpointByUrl', { urlRegex: '/src/media/save\\.ts(\\?.*)?$', lineNumber })
+}
+
+async function walk() {
+  for (const k of ['APP_URL', 'CDP_PORT', 'FIX', 'OUT_ROOT', 'RUN_ROOT', 'OUTD']) if (!process.env[k]) throw new Error('set ' + k)
+  const walker = resolve(args.walker), label = args.label ?? 'before'
+  const matrixUrl = pathToFileURL(join(walker, 'matrix.mjs')).href
+  const at = (f) => import(new URL('./' + f, matrixUrl).href)
+  const { S, records } = await build(walker)
+  const { SCENARIOS, PLANS } = S
+  const { sleep } = await at('walk.mjs')
+  const plan = `vh221-${label}-${args.name ?? 'run'}`, p = power()
+  mkdirSync(process.env.RUN_ROOT, { recursive: true })
+  appendFileSync(join(process.env.RUN_ROOT, 'vh221-ledger.jsonl'), JSON.stringify({ plan, label, power: p, walker, records: records.length, args }) + '\n')
+  if (!p.ok) { console.log('POWER-STOP'); process.exit(3) }
+  const OUT = join(process.env.RUN_ROOT, `vh221-probe-${plan}.jsonl`)
+  const wrap = (id, vid, orig) => async (w) => {
+    // VH-219's in-memory spacing modes (as VH-210's driver): the prefix sets the colours, this adds the walker's own 1.4.12 sheet.
+    if (/.-spacing$/.test(w.qualMode)) { await w.spacing(true); await sleep(100) }
+    if (orig) await orig(w)
+    let g
+    try { g = await w.evaluate(ROW_PROBE) } catch (e) { g = { error: String(e.message ?? e).slice(0, 200) } }
+    if (g.rows?.R9) g.rows.R9.calls = w.__vh221Picker ?? []
+    appendFileSync(OUT, JSON.stringify({ plan, cell: w.name.split('/').pop(), walk: w.name, id, ...(vid ? { variant: vid } : {}), mode: w.qualMode, at: new Date().toISOString(), ...g }) + '\n')
+  }
+  for (const id of [...new Set(records.map((r) => r.id))]) {
+    const orig = SCENARIOS[id]; if (!orig) continue // a route: the walker's own records only, no hook
+    SCENARIOS[id] = { ...orig, setup: id === 'S-62' ? async (w, lang) => { await pickerBreakpoint(w); return orig.setup(w, lang) } : orig.setup, afterMode: wrap(id, null, orig.afterMode) }
+    const vs = { ...(orig.variants ?? {}) }
+    if (id === 'S-155' && records.some((r) => r.id === id && r.variant === 'phoneua')) vs.phoneua = { name: 'S-155 with the phone user agent kept: the wrong branch (qualification only)', setup: SCENARIOS['S-02'].setup }
+    if (Object.keys(vs).length) SCENARIOS[id].variants = Object.fromEntries(Object.entries(vs).map(([v, x]) => [v, { ...x, afterMode: wrap(id, v, x.afterMode ?? orig.afterMode) }]))
+  }
+  PLANS[plan] = () => records.map((r) => ({ ...r }))
+  process.argv = [process.argv[0], fileURLToPath(matrixUrl), plan]
+  await import(matrixUrl)
+}
+
+// Read-only: the plan's records, by `node vh221-driver.mjs count --walker <dir> --plan … [--scenarios …] [--modes …] [--rm]`.
+async function count() {
+  const { records } = await build(resolve(args.walker))
+  const by = {}; for (const r of records) { const k = r.id + (r.variant ? ':' + r.variant : ''); by[k] = (by[k] ?? 0) + 1 }
+  console.log('records', records.length, JSON.stringify(by))
+}
+if (args._[0] === 'walk') await walk()
+else if (args._[0] === 'count') await count()
+else if (args._[0] !== 'lib') { console.log('usage: node vh221-driver.mjs walk|count --walker <dir> [--label l --name n] --plan cross|smoke|titles [--scenarios …] [--modes …] [--langs …] [--rm] [--skip …]'); process.exit(2) }

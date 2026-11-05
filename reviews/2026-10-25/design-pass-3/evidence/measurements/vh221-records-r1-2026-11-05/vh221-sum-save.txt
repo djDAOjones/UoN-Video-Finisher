@@ -1,0 +1,13 @@
+R4 S-66 w1280 pass 12 other 0 fail 0
+R4 S-66 w320 pass 3 other 0 fail 0
+R4 S-66 w375 pass 12 other 0 fail 0
+R5 S-67 w1280 pass 12 other 0 fail 0
+R5 S-67 w320 pass 3 other 0 fail 0
+R5 S-67 w375 pass 12 other 0 fail 0
+R6 S-69 w1280 pass 12 other 0 fail 0
+R6 S-69 w320 pass 3 other 0 fail 0
+R6 S-69 w375 pass 12 other 0 fail 0
+R9 S-62 w1280 pass 12 other 0 fail 0
+R9 S-62 w320 pass 3 other 0 fail 0
+R9 S-62 w375 pass 12 other 0 fail 0
+failing 0

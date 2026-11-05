@@ -1,0 +1,60 @@
+<!-- markdownlint-disable -->
+# vh221-qual-s155 — record by record
+
+Run `vh221-qual-s155-2026-11-05T01-48-49-698Z-095e4c`. 12 declared, 12 observed, not whole. c-d is "cannot determine"; n/a "not applicable".
+
+| Record | overflow | ax | targets | contrastText | contrastExtra | measure | type | focus | player | formatTip | footer | limiting | videoLanguage | asserts |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| S-155__en-GB__w1280__light | pass | pass | pass | pass | pass | pass | pass | pass | n/a | n/a | pass | n/a | pass | n/a |
+| S-155__en-GB__w375__light | pass | pass | pass | pass | pass | pass | pass | pass | n/a | n/a | pass | n/a | pass | n/a |
+| S-155__ms-MY__w1280__light | pass | pass | pass | pass | pass | pass | pass | pass | n/a | n/a | pass | n/a | pass | n/a |
+| S-155__ms-MY__w375__light | pass | pass | pass | pass | pass | pass | pass | pass | n/a | n/a | pass | n/a | pass | n/a |
+| S-155__zh-Hans__w1280__light | pass | pass | pass | pass | pass | c-d | pass | pass | n/a | n/a | pass | n/a | pass | n/a |
+| S-155__zh-Hans__w375__light | pass | pass | pass | pass | pass | pass | pass | pass | n/a | n/a | pass | n/a | pass | n/a |
+| S-155~phoneua__en-GB__w1280__light | pass | pass | pass | pass | pass | pass | pass | pass | n/a | n/a | pass | n/a | pass | n/a |
+| S-155~phoneua__en-GB__w375__light (failed) | — | — | — | — | — | — | — | — | — | — | — | — | — | — |
+| S-155~phoneua__ms-MY__w1280__light | pass | pass | pass | pass | pass | pass | pass | pass | n/a | n/a | pass | n/a | pass | n/a |
+| S-155~phoneua__ms-MY__w375__light (failed) | — | — | — | — | — | — | — | — | — | — | — | — | — | — |
+| S-155~phoneua__zh-Hans__w1280__light | pass | pass | pass | pass | pass | c-d | pass | pass | n/a | n/a | pass | n/a | pass | n/a |
+| S-155~phoneua__zh-Hans__w375__light (failed) | — | — | — | — | — | — | — | — | — | — | — | — | — | — |
+
+Not passing (rows, first four per instrument):
+
+- S-155__en-GB__w1280__light — player not-applicable: every row exempt: no finished card on the page
+- S-155__en-GB__w1280__light — formatTip not-applicable: every row exempt: walked in the scenarios that own it (S-03, S-141 to S-144)
+- S-155__en-GB__w1280__light — limiting not-applicable: every row exempt: no finished card on the page
+- S-155__en-GB__w1280__light — asserts not-applicable: every row exempt: the scenario declares none beyond its state
+- S-155__en-GB__w375__light — player not-applicable: every row exempt: no finished card on the page
+- S-155__en-GB__w375__light — formatTip not-applicable: every row exempt: walked in the scenarios that own it (S-03, S-141 to S-144)
+- S-155__en-GB__w375__light — limiting not-applicable: every row exempt: no finished card on the page
+- S-155__en-GB__w375__light — asserts not-applicable: every row exempt: the scenario declares none beyond its state
+- S-155__ms-MY__w1280__light — player not-applicable: every row exempt: no finished card on the page
+- S-155__ms-MY__w1280__light — formatTip not-applicable: every row exempt: walked in the scenarios that own it (S-03, S-141 to S-144)
+- S-155__ms-MY__w1280__light — limiting not-applicable: every row exempt: no finished card on the page
+- S-155__ms-MY__w1280__light — asserts not-applicable: every row exempt: the scenario declares none beyond its state
+- S-155__ms-MY__w375__light — player not-applicable: every row exempt: no finished card on the page
+- S-155__ms-MY__w375__light — formatTip not-applicable: every row exempt: walked in the scenarios that own it (S-03, S-141 to S-144)
+- S-155__ms-MY__w375__light — limiting not-applicable: every row exempt: no finished card on the page
+- S-155__ms-MY__w375__light — asserts not-applicable: every row exempt: the scenario declares none beyond its state
+- S-155__zh-Hans__w1280__light — measure cannot-determine: p.notification-body "发送电子邮件至 joe.bell@nottingham.ac.uk，提出更好的 41 chars "发送电子邮件至 joe.bell@nottingham.ac.uk，提出更好的措" mixed scripts: each character against 40 and CJK 40 plus Latin 80 disagree; the reading
+- S-155__zh-Hans__w1280__light — player not-applicable: every row exempt: no finished card on the page
+- S-155__zh-Hans__w1280__light — formatTip not-applicable: every row exempt: walked in the scenarios that own it (S-03, S-141 to S-144)
+- S-155__zh-Hans__w1280__light — limiting not-applicable: every row exempt: no finished card on the page
+- S-155__zh-Hans__w1280__light — asserts not-applicable: every row exempt: the scenario declares none beyond its state
+- S-155__zh-Hans__w375__light — player not-applicable: every row exempt: no finished card on the page
+- S-155__zh-Hans__w375__light — formatTip not-applicable: every row exempt: walked in the scenarios that own it (S-03, S-141 to S-144)
+- S-155__zh-Hans__w375__light — limiting not-applicable: every row exempt: no finished card on the page
+- S-155__zh-Hans__w375__light — asserts not-applicable: every row exempt: the scenario declares none beyond its state
+- S-155~phoneua__en-GB__w1280__light — player not-applicable: every row exempt: no finished card on the page
+- S-155~phoneua__en-GB__w1280__light — formatTip not-applicable: every row exempt: walked in the scenarios that own it (S-03, S-141 to S-144)
+- S-155~phoneua__en-GB__w1280__light — limiting not-applicable: every row exempt: no finished card on the page
+- S-155~phoneua__en-GB__w1280__light — asserts not-applicable: every row exempt: the scenario declares none beyond its state
+- S-155~phoneua__ms-MY__w1280__light — player not-applicable: every row exempt: no finished card on the page
+- S-155~phoneua__ms-MY__w1280__light — formatTip not-applicable: every row exempt: walked in the scenarios that own it (S-03, S-141 to S-144)
+- S-155~phoneua__ms-MY__w1280__light — limiting not-applicable: every row exempt: no finished card on the page
+- S-155~phoneua__ms-MY__w1280__light — asserts not-applicable: every row exempt: the scenario declares none beyond its state
+- S-155~phoneua__zh-Hans__w1280__light — measure cannot-determine: p.notification-body "发送电子邮件至 joe.bell@nottingham.ac.uk，提出更好的 41 chars "发送电子邮件至 joe.bell@nottingham.ac.uk，提出更好的措" mixed scripts: each character against 40 and CJK 40 plus Latin 80 disagree; the reading
+- S-155~phoneua__zh-Hans__w1280__light — player not-applicable: every row exempt: no finished card on the page
+- S-155~phoneua__zh-Hans__w1280__light — formatTip not-applicable: every row exempt: walked in the scenarios that own it (S-03, S-141 to S-144)
+- S-155~phoneua__zh-Hans__w1280__light — limiting not-applicable: every row exempt: no finished card on the page
+- S-155~phoneua__zh-Hans__w1280__light — asserts not-applicable: every row exempt: the scenario declares none beyond its state

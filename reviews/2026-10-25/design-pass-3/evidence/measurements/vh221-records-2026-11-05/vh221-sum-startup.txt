@@ -1,0 +1,12 @@
+R1 S-02 w1280 pass 12 other 0 fail 0
+R1 S-02 w320 pass 3 other 0 fail 0
+R1 S-02 w375 pass 12 other 0 fail 0
+R1 S-106 w1280 pass 12 other 0 fail 0
+R1 S-106 w320 pass 3 other 0 fail 0
+R1 S-106 w375 pass 12 other 0 fail 0
+R8 S-02 w1280 pass 12 other 0 fail 0
+R8 S-02 w320 pass 3 other 0 fail 0
+R8 S-02 w375 pass 0 other 12 fail 0
+R8 S-155 w1280 pass 12 other 0 fail 0
+R8 S-155 w375 pass 12 other 0 fail 0
+failing 0

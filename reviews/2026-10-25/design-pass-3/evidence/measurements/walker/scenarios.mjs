@@ -235,6 +235,16 @@ export const SCENARIOS = {
     focus: ['#system-check summary', RADIO_LANG, '#feedback-open'],
     faults: ['F2'], fixtures: [],
   },
+  // VH-221 (2026-11-04): S-02 in Chrome on a computer at any width. The 375 view sets a phone user agent (qualify.mjs, setViewport), so
+  // blockContextFor (src/ui/preflight-panel.ts:49-52) gives preflight.tryChrome there; this restores the browser's own desktop user agent after the
+  // view is set, as the desktop views do, so the start-up sentence carries preflight.chromeLacks (src/ui/failure-text.ts:118) at 375 px too. F2 as S-02.
+  'S-155': {
+    name: 'Startup blocked in Chrome on a computer, at a phone width too',
+    state: `M.el('#file-input').disabled && M.el('#check-webcodecs')?.dataset.state === 'fail' && !/Android|iPhone|iPad|Mobile/.test(navigator.userAgent) && M.says('failure.startup.noWebCodecs', { remedy: { msg: 'preflight.chromeLacks' } }, '#source-status')`,
+    setup: async (w, lang) => { await fresh(w, lang); await w.page.send('Emulation.setUserAgentOverride', { userAgent: '' }); await applyFault(w, 'F2'); await w.goto() },
+    focus: ['#system-check summary', RADIO_LANG, '#feedback-open'],
+    faults: ['F2'], fixtures: [],
+  },
   'S-03': {
     name: 'Empty',
     state: `!M.chosen() && !document.querySelector('dialog[open]') && !M.el('#file-input').disabled && M.el('#step-trim').hidden`,

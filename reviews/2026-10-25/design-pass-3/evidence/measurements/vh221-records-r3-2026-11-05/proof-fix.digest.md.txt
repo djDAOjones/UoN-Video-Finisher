@@ -1,0 +1,38 @@
+<!-- markdownlint-disable -->
+# vh221-proof-fix — record by record
+
+Run `vh221-proof-fix-2026-11-05T06-31-35-023Z-b9bb17`. 6 declared, 6 observed, whole. c-d is "cannot determine"; n/a "not applicable".
+
+| Record | overflow | ax | targets | contrastText | contrastExtra | measure | type | focus | player | formatTip | footer | limiting | videoLanguage | asserts |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| S-48__en-GB__w1280__light | pass | pass | pass | pass | c-d | pass | pass | pass | n/a | n/a | pass | n/a | pass | pass |
+| S-56__en-GB__w1280__light | pass | pass | c-d | pass | c-d | pass | pass | pass | n/a | n/a | pass | n/a | pass | pass |
+| S-62__en-GB__w1280__light | pass | pass | c-d | pass | c-d | pass | pass | c-d | pass | n/a | pass | pass | pass | pass |
+| S-66__en-GB__w1280__light | pass | pass | c-d | pass | c-d | pass | pass | pass | pass | n/a | pass | pass | pass | pass |
+| S-67__en-GB__w1280__light | pass | pass | c-d | pass | c-d | pass | pass | pass | pass | n/a | pass | pass | pass | pass |
+| S-69__en-GB__w1280__light | pass | pass | c-d | pass | c-d | pass | pass | pass | pass | n/a | pass | pass | pass | pass |
+
+Not passing (rows, first four per instrument):
+
+- S-48__en-GB__w1280__light — contrastExtra cannot-determine: input#trim-start-range.range-input[range] "Start" painted pseudo-elements: non-text contrast needs a pixel reading (person check); input#trim-end-range.range-input[range] "End" painted pseudo-elements: non-text contrast needs a pixel reading (person check)
+- S-48__en-GB__w1280__light — player not-applicable: every row exempt: no finished card on the page
+- S-48__en-GB__w1280__light — formatTip not-applicable: every row exempt: walked in the scenarios that own it (S-03, S-141 to S-144)
+- S-48__en-GB__w1280__light — limiting not-applicable: every row exempt: no finished card on the page
+- S-56__en-GB__w1280__light — targets cannot-determine: input#trim-start-range.range-input[range] "Start" a disc: its hit box is 44 x 44, no 44 px square fits inside; the reading is VH-173's; input#trim-end-range.range-input[range] "End" a disc: its hit box is 44 x 44, no 44 px square fits inside; the reading is VH-173's
+- S-56__en-GB__w1280__light — contrastExtra cannot-determine: input#trim-start-range.range-input[range] "Start" painted pseudo-elements: non-text contrast needs a pixel reading (person check); input#trim-end-range.range-input[range] "End" painted pseudo-elements: non-text contrast needs a pixel reading (person check)
+- S-56__en-GB__w1280__light — player not-applicable: every row exempt: no finished card on the page
+- S-56__en-GB__w1280__light — formatTip not-applicable: every row exempt: walked in the scenarios that own it (S-03, S-141 to S-144)
+- S-56__en-GB__w1280__light — limiting not-applicable: every row exempt: no finished card on the page
+- S-62__en-GB__w1280__light — targets cannot-determine: input#trim-start-range.range-input[range] "Start" a disc: its hit box is 44 x 44, no 44 px square fits inside; the reading is VH-173's; input#trim-end-range.range-input[range] "End" a disc: its hit box is 44 x 44, no 44 px square fits inside; the reading is VH-173's
+- S-62__en-GB__w1280__light — contrastExtra cannot-determine: input#trim-start-range.range-input[range] "Start" painted pseudo-elements: non-text contrast needs a pixel reading (person check); input#trim-end-range.range-input[range] "End" painted pseudo-elements: non-text contrast needs a pixel reading (person check)
+- S-62__en-GB__w1280__light — focus cannot-determine: #process-result > .notification[data-kind="success"] .actions > button.button focus did not land on the control
+- S-62__en-GB__w1280__light — formatTip not-applicable: every row exempt: walked in the scenarios that own it (S-03, S-141 to S-144)
+- S-66__en-GB__w1280__light — targets cannot-determine: input#trim-start-range.range-input[range] "Start" a disc: its hit box is 44 x 44, no 44 px square fits inside; the reading is VH-173's; input#trim-end-range.range-input[range] "End" a disc: its hit box is 44 x 44, no 44 px square fits inside; the reading is VH-173's
+- S-66__en-GB__w1280__light — contrastExtra cannot-determine: input#trim-start-range.range-input[range] "Start" painted pseudo-elements: non-text contrast needs a pixel reading (person check); input#trim-end-range.range-input[range] "End" painted pseudo-elements: non-text contrast needs a pixel reading (person check)
+- S-66__en-GB__w1280__light — formatTip not-applicable: every row exempt: walked in the scenarios that own it (S-03, S-141 to S-144)
+- S-67__en-GB__w1280__light — targets cannot-determine: input#trim-start-range.range-input[range] "Start" a disc: its hit box is 44 x 44, no 44 px square fits inside; the reading is VH-173's; input#trim-end-range.range-input[range] "End" a disc: its hit box is 44 x 44, no 44 px square fits inside; the reading is VH-173's
+- S-67__en-GB__w1280__light — contrastExtra cannot-determine: input#trim-start-range.range-input[range] "Start" painted pseudo-elements: non-text contrast needs a pixel reading (person check); input#trim-end-range.range-input[range] "End" painted pseudo-elements: non-text contrast needs a pixel reading (person check)
+- S-67__en-GB__w1280__light — formatTip not-applicable: every row exempt: walked in the scenarios that own it (S-03, S-141 to S-144)
+- S-69__en-GB__w1280__light — targets cannot-determine: input#trim-start-range.range-input[range] "Start" a disc: its hit box is 44 x 44, no 44 px square fits inside; the reading is VH-173's; input#trim-end-range.range-input[range] "End" a disc: its hit box is 44 x 44, no 44 px square fits inside; the reading is VH-173's
+- S-69__en-GB__w1280__light — contrastExtra cannot-determine: input#trim-start-range.range-input[range] "Start" painted pseudo-elements: non-text contrast needs a pixel reading (person check); input#trim-end-range.range-input[range] "End" painted pseudo-elements: non-text contrast needs a pixel reading (person check)
+- S-69__en-GB__w1280__light — formatTip not-applicable: every row exempt: walked in the scenarios that own it (S-03, S-141 to S-144)

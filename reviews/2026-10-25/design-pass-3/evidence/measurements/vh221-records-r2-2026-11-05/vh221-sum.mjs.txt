@@ -1,0 +1,32 @@
+// VH-221 #1 (S-155 as R8, the view from the cell's name and the variant in the key, by #2): read-only: each walk group's row probe (runs/vh221-probe-*.jsonl) judged per row and cell against the design's expected; prints a tally and every failing cell.
+//   node vh221-sum.mjs <group dir> [<group dir> …]
+import { readdirSync, readFileSync, existsSync } from 'node:fs'; import { join } from 'node:path'
+const ROWS = { 'S-02': ['R1', 'R8'], 'S-155': ['R8'], 'S-106': ['R1'], 'S-48': ['R2'], 'S-56': ['R3'], 'S-66': ['R4'], 'S-67': ['R5'], 'S-69': ['R6'], 'S-62': ['R9'], 'S-74': ['R7'] }
+const whole = (r) => r && r.present && r.visible && r.inView && !r.clipped && (r.broken ?? []).length === 0
+const live = (r) => !!r && !!r.region && (r.region.role === 'status' || !!r.region.live)
+const JUDGE = {
+  R1: (x) => x.ok && whole(x),
+  R2: (x) => (x.ok || x.heard > 0) && live(x),
+  R3: (x) => (x.ok || x.heard > 0) && live(x),
+  R4: (x) => x.ok && whole(x) && live(x),
+  R5: (x) => x.ok && whole(x) && live(x),
+  R6: (x) => x.ok && x.kind === 'error' && whole(x) && x.spokenOk && live(x.status),
+  R7: (x) => x.heading.ok && whole(x.heading) && x.intro.ok && whole(x.intro) && x.heard > 0 && x.panel,
+  R8: (x, p) => (p.ua === 'mobile' ? (x.tryChrome && whole(x) ? 'not reached (phone: tryChrome read, whole)' : false) : x.ok && whole(x)),
+  R9: (x) => x.calls.length > 0 && x.calls.every((c) => c.types?.[0]?.description === x.expected && JSON.stringify(c.types?.[0]?.accept) === '{"video/mp4":[".mp4"]}'),
+}
+const tally = {}, fails = []
+for (const g of process.argv.slice(2)) {
+  const rd = join(g, 'runs'); if (!existsSync(rd)) { console.log('no runs in', g); continue }
+  for (const f of readdirSync(rd).filter((f) => /^vh221-probe-.*\.jsonl$/.test(f))) for (const line of readFileSync(join(rd, f), 'utf8').trim().split('\n').filter(Boolean)) {
+    const p = JSON.parse(line), view = (String(p.cell).match(/-(w\d+|zoom\d+proxy)$/) ?? p.walk.match(/__(w\d+|zoom\d+proxy)__/) ?? [])[1] ?? p.cell
+    for (const row of ROWS[p.id] ?? []) {
+      const k = `${row} ${p.id}${p.variant ? ':' + p.variant : ''} ${view}`, x = p.rows?.[row]; tally[k] ??= { pass: 0, other: 0, fail: 0 }
+      let v; try { v = x ? JUDGE[row](x, p) : false } catch (e) { v = false }
+      if (v === true) tally[k].pass++; else if (v) tally[k].other++; else { tally[k].fail++; fails.push(`${k} ${p.lang} ${p.mode} ${p.page?.hscroll ? 'HSCROLL ' : ''}${JSON.stringify(x).slice(0, 300)}`) }
+      if (p.page?.hscroll) fails.push(`${k} ${p.lang} ${p.mode} page sideways scroll ${p.page.sw}/${p.page.cw}`)
+    }
+  }
+}
+for (const [k, t] of Object.entries(tally).sort()) console.log(k, 'pass', t.pass, 'other', t.other, 'fail', t.fail)
+console.log('failing', fails.length); for (const f of fails.slice(0, 40)) console.log(' ', f)

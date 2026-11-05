@@ -1,0 +1,7 @@
+R2 S-48 w1280 pass 1 other 0 fail 0
+R3 S-56 w1280 pass 1 other 0 fail 0
+R4 S-66 w1280 pass 1 other 0 fail 0
+R5 S-67 w1280 pass 1 other 0 fail 0
+R6 S-69 w1280 pass 1 other 0 fail 0
+R9 S-62 w1280 pass 1 other 0 fail 0
+failing 0

@@ -1,0 +1,14 @@
+base 9c52269607bccc4c, candidate c27c325ffc8c3b6f
+run-01 base 369 candidate 370: S-155 cells in 0; other cells in 19, out 18
+run-02 base 330 candidate 330: S-155 cells in 1 (S-155__en-GB__w1280__light); other cells in 18, out 19
+run-03 base 157 candidate 157: S-155 cells in 0; other cells in 0, out 0
+run-04 base 358 candidate 358: S-155 cells in 0; other cells in 0, out 0
+run-05 base 383 candidate 383: S-155 cells in 0; other cells in 0, out 0
+run-06 base 338 candidate 338: S-155 cells in 0; other cells in 0, out 0
+run-07 base 355 candidate 355: S-155 cells in 0; other cells in 0, out 0
+run-08 base 367 candidate 367: S-155 cells in 0; other cells in 0, out 0
+run-09 base 330 candidate 330: S-155 cells in 0; other cells in 0, out 0
+run-10 base 103 candidate 108: S-155 cells in 0; other cells in 61, out 56
+run-11 base 113 candidate 116: S-155 cells in 8 (S-155__en-GB__w375__light S-155__en-GB__w320__light S-155__zh-Hans__w1280__light S-155__zh-Hans__w375__light S-155__zh-Hans__w320__light S-155__ms-MY__w1280__light S-155__ms-MY__w375__light S-155__ms-MY__w320__light); other cells in 56, out 61
+run-12 base 16 candidate 16: S-155 cells in 0; other cells in 0, out 0
+all twelve runs: base 3219 keys, candidate 3228; only in the candidate 9 (S-155__en-GB__w1280__light S-155__en-GB__w375__light S-155__en-GB__w320__light S-155__zh-Hans__w1280__light S-155__zh-Hans__w375__light S-155__zh-Hans__w320__light S-155__ms-MY__w1280__light S-155__ms-MY__w375__light S-155__ms-MY__w320__light); only in the base 0
