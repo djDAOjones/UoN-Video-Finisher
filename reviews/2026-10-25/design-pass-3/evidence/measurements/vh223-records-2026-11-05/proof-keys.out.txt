@@ -1,0 +1,24 @@
+old revision 9c52269607bccc4c
+new revision e377132ba6f70227
+keys-a: exit 1, run dirs 1, name matrix-keys, declared 108, last line: --keys: 108 of matrix's 1886 records
+keys-a: declared = keys-a.txt (108)
+unknown: exit 1, run dirs 0, last line: Error: --keys: 1 not declared by the plan: S-03__en-GB__w9999__light
+repeat: exit 1, run dirs 0, last line: Error: --keys: listed twice: S-24__en-GB__w375__light
+trailing: exit 1, run dirs 0, last line: Error: --keys <file> goes straight after the plan name, alone
+nofile: exit 1, run dirs 0, last line: Error: --keys <file> goes straight after the plan name, alone
+ids-old: exit 1, run dirs 1, name matrix-part, declared 42, last line: [TypeError: fetch failed] {
+ids-new: exit 1, run dirs 1, name matrix-part, declared 42, last line: [TypeError: fetch failed] {
+smoke-old: exit 1, run dirs 1, name smoke, declared 183, last line: [TypeError: fetch failed] {
+smoke-new: exit 1, run dirs 1, name smoke, declared 183, last line: [TypeError: fetch failed] {
+ids: old and new declare byte-same records (42)
+smoke: old and new declare byte-same records (183)
+empty: exit 1, run dirs 0, last line: Error: --keys: the list is empty
+shape: exit 1, run dirs 0, last line: Error: --keys: not a record key: S-03__en-GB__w320
+complement: exit 1, run dirs 1, name matrix-keys, declared 106, last line: --keys: 106 of matrix's 1886 records
+complement: declared = stillUnrun less batch A (106)
+all-new: exit 1, run dirs 1, name matrix, declared 1886, last line: [TypeError: fetch failed] {
+keys-a: 108 declared, 0 differ from the unfiltered declaration, plan order kept: true
+complement: 106 declared, 0 differ from the unfiltered declaration, plan order kept: true
+files: 41 new, 41 old; differing: matrix.mjs
+resume+keys: exit 1, Error: --keys <file> goes straight after the plan name, alone, run dirs 0
+records 108 {"w375":42,"light":90,"landscape":24,"short":24,"w1280":18,"dark":6,"forced-light":6,"forced-dark":6}

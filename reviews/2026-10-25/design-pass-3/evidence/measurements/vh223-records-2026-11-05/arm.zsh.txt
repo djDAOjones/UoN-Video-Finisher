@@ -1,0 +1,17 @@
+#!/bin/zsh
+# VH-223 #4: #40's turn rule for one re-walk group. Every 20 s: if <after> is given, wait until lock-order.log has a line matching it;
+# then arm only when every other worker running a go.sh or wait script holds the lock (or none runs); then wait-seq.zsh rewalk <walker> <app> <group>.
+# Usage: zsh arm.zsh <group> <walker> <app> [<after pattern>]
+D=/Users/uazjob/UoN-Video-Helper-side/vh223-walk; cd "$D" || exit 5; G=$1; WK=$2; A=$3; AFTER=$4; L=/Users/uazjob/UoN-Video-Helper-side/walk.lock
+AL="$D/arm-$G.log"; [ -e "$AL" ] && { echo "EXISTS $AL"; exit 2; }
+while :; do
+  if [ -z "$AFTER" ] || grep -qE "$AFTER" lock-order.log; then
+    holder=$(sed -nE 's/^VH-([0-9]+).*/vh\1/p' $L/owner.txt 2>/dev/null)
+    waiting=$(ps -axo command | grep -E '[g]o\.sh|[w]ait-seq' | grep -v -e '/vh223/' -e 'vh223-walk' | grep -oE '/vh2[0-9]{2}/' | tr -d / | sort -u | grep -vx "${holder:-none}" | tr '\n' ' ')
+    if [ -z "$waiting" ]; then echo "$(date -u +%T) ARM $G: holder ${holder:-free}, no other worker waiting" >> "$AL"; break; fi
+    [ "$waiting" != "$pw" ] && { echo "$(date -u +%T) hold: holder ${holder:-free}, waiting $waiting" >> "$AL"; pw="$waiting"; }
+  fi
+  sleep 20
+done
+zsh wait-seq.zsh rewalk "$WK" "$A" "$G" > "wait-rewalk-$G.out" 2>&1; rc=$?
+echo "$(date -u +%T) wait-seq exit $rc" >> "$AL"; echo "wait-seq exit $rc" >> "wait-rewalk-$G.out"; exit $rc

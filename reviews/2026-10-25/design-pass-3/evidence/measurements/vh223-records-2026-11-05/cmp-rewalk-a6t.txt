@@ -1,0 +1,1 @@
+compare after-a6 → rewalk-a6t: 12 keys, 12 identical, 0 differ

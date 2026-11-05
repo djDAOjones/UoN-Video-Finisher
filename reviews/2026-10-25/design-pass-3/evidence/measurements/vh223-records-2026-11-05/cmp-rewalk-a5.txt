@@ -1,0 +1,1 @@
+compare after-a5 → rewalk-a5: 15 keys, 15 identical, 0 differ

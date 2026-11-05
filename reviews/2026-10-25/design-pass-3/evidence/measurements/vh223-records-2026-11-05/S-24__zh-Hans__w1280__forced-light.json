@@ -1,0 +1,86 @@
+{
+ "runId": "2026-11-05T03-28-29-189Z-245c05",
+ "key": "S-24__zh-Hans__w1280__forced-light",
+ "revision": "e377132ba6f70227",
+ "attempt": 1,
+ "id": "S-24",
+ "lang": "zh-Hans",
+ "view": "w1280",
+ "mode": "forced-light",
+ "requires": [
+  "overflow",
+  "ax",
+  "targets",
+  "contrastText",
+  "contrastExtra",
+  "measure",
+  "type",
+  "focus",
+  "player",
+  "formatTip",
+  "footer",
+  "limiting",
+  "videoLanguage",
+  "asserts"
+ ],
+ "viewport": {
+  "w": 1280,
+  "h": 900,
+  "dpr": 1
+ },
+ "expects": {
+  "focus": {
+   "subjects": [
+    "#process-actions > button:nth-child(2)",
+    "#preset-choice input:checked"
+   ]
+  },
+  "asserts": {
+   "subjects": [
+    "Create reads \"Create the video\""
+   ]
+  }
+ },
+ "timing": {
+  "setupMs": 118735,
+  "recordMs": 376,
+  "firstOfGroup": false
+ },
+ "status": "failed",
+ "reached": {
+  "outcome": "fail",
+  "problems": [
+   "state predicate false: (() => { const M = window.__mx; return (M.verdict() === 'warning' && M.has('preflight.reasons.longJob', '#preflight-repo"
+  ],
+  "seen": {
+   "visibility": "visible",
+   "lang": "zh-Hans",
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "rootFontPx": 16,
+   "media": {
+    "dark": false,
+    "forced": true,
+    "reducedMotion": false,
+    "coarse": false
+   },
+   "spacing": false,
+   "fonts": [
+    "Lora:loaded"
+   ],
+   "bodyFont": "Arial, \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\", \"Noto Sans SC\", \"Source Han Sans SC\", sans-serif",
+   "dialog": null,
+   "running": false,
+   "result": false,
+   "statementOpen": false,
+   "fileChosen": true,
+   "kind": "staff",
+   "status": "设备检查完成。这样做可行，但速度会很慢。这大约需要1小时5分钟。您可以继续操作，但使用台式电脑会快得多。预计大小最大可达2.4 GB。",
+   "sourceStatus": "视频已读取。",
+   "active": "input[radio language=zh-Hans] \"中文\""
+  }
+ }
+}

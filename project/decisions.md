@@ -24,6 +24,16 @@
      moves the oldest entries verbatim to project/decisions-YYYY-MM.md,
      beside this file, listed in project/archive-index.md. -->
 
+## 2026-11-05 — VH-223 — Closes: VH-172.1's batch A, 108 keys walked on the Mac Pro by an exact key list, no new defect
+
+**Decision:** VH-223 closes as a check with no product diff: the walker's `matrix.mjs` takes an exact key list, `--keys <file>`, which VH-224 reuses unchanged, and batch A's 108 keys, each walked once on the Mac Pro, read 84 OK, 9 NOT-OK on known readings (S-03 ×4, VH-216.1; S-81 ms-MY ×5, VH-200.1 and VH-210.2) and 15 not reached because of this Mac's speed (S-24, wish VH-223.1); no new defect and no fix item.
+
+**Rationale:** The owner's words (`plan8-owner-words.md`): "yes to the question mark, and A and B. ensure everything passes UX / design / Accessibility" (2026-10-27; group B holds this item); "Yes, leave them" (2026-10-30, the rows pinning the old order); "Gateless covers the rest of Phase 8" (2026-10-25) and "gateless run where possible" (2026-10-31); "no, I want all of the walks and checks on the other mac. just deploy here" (2026-11-04); and "Re-walk here (Recommended)" (2026-11-05), so every record in the table is the Mac Pro's and the MacBook Pro's earlier walk is support only. The keys, by script from `stillUnrun`: w375 42, landscape 24, short 24, dark 6, forced-dark 6, forced-light 6. The walker change, named and qualified by VH-198's method (`proof-keys.out.txt`): one `recordKey` per line, revision `9c52269607bccc4c` to `e377132ba6f70227`; VH-224's interface is `node matrix.mjs matrix --keys <file>`. Groups a1 to a7 ran on AC Power, each starting with both loads below 8: 93 keys reached, 89 structurally whole (S-03's four lack `formatTip`'s subjects, the page order VH-216.1 holds). By the timed-row rule a5 was re-walked whole and a6's twelve timing-dependent keys were re-walked: 15 of 15 and 12 of 12 identical. S-43 ms-MY and S-49 en-GB, above load 8 in both walks and identical, are "read against the load logs, no timing claim rests on them" (Orchestrator #40). This Mac's ffmpeg changed 33 of the walker's 36 fixtures' sha1s; every fixture-reading ID was proved on them first, but S-24. Cannot-determine rows stay documented readings, none a measured pass: the trim thumbs' and track's non-text contrast (78 keys, a person's reading, wish VH-223.2), their disc as a target (36, VH-173's reading), a mixed-script line (23, VH-173's). WCAG over the 93 reached: 1.4.3, 1.4.6 and 1.4.10 pass in all; 1.4.11 but the thumbs; 2.4.7 and 2.4.13 but S-81 ms-MY ×5; 2.5.5 but the disc; 1.4.4, 1.4.12 and 2.3.3 are batch B's. Claude's verdict, saved first, and Codex astra's blind check both read "pass with conditions"; their one disagreement, S-66's re-walk, is settled by its records' times, all below load 8 (Orchestrator #40). The orchestrators' rulings, listed for the owner: #40, S-24 recorded as not reached by speed with nothing changed, S-66 standing, the walk lock's order and turn rule, and `npm ci` taking the lock like a walk. Shortfall: S-24's 15 keys owe an after-reading; VH-172.1 stays as written for VH-224 to narrow. The table: `reviews/2026-10-25/design-pass-3/evidence/measurements/vh223-matrix-a-2026-11-05.md`.
+
+**Supersedes:** none
+
+**Deferred:** none
+
 ## 2026-11-05 — VH-231 — Raised: a cut Matroska or WebM file said cut short with the finished video, never "the whole video", in the owner's words
 
 **Decision:** VH-231 takes VH-158.1's case, found by VH-222 on the Mac Pro: a cut Matroska or WebM file's warning is withdrawn when the job ends, and the trim and the record call its read length "the whole video". It is its own fix item, after VH-224 and before VH-203, built here: the warning first with the finished video, its announcement and the retained result; the trim's and the record's words and spec §5.4's row as the owner approved them. "Duration" stays.
@@ -638,13 +648,3 @@ Each walk records its machine. Two questions remain for the owner:
 **Supersedes:** 2026-10-24 — VH-162 — The cut: 0.2.0 does not wait for VH-137's November review; Xerte is the public home, GitHub Pages the preview
 
 **Deferred:** VH-204, VH-14
-
-## 2026-10-25 — VH-197 — Pass 3's plan approved on the owner's standing word: 3,266 records, about 10.9 h, no reduction
-
-**Decision:** The third pass runs as `reviews/2026-10-25/design-pass-3/` plans it: scenarios to S-154, an eighteen-row Phase 8 contract, and the matrix in five parts by `sizing-2026-10-25.mjs`'s recipes, with Codex astra's ten points applied. VH-198 is next.
-
-**Rationale:** The owner, in this item's chat: "please go gateless where possible, you have my permission to use your recommendations"; relayed by the orchestrator and confirmed to it directly: "Gateless covers the rest of Phase 8: approve VH-197's plan and every later choice on the sessions' recommendations; only stop for me on something the recommendations don't settle, and keep reporting outcomes". The plan is at least as broad as Phase 7's in every dimension. Part 1 holds VH-172's 699 keys and its baseline in every class; part 2 re-verifies VH-178 to VH-181 (205); part 3 walks Phase 8 in full (2,162); part 3b meets VH-199's light-cell criterion (184) and is the only possible cut, not recommended and not taken; part 4 completes the routes (16). The 63 new scenarios, S-92 to S-154, trace to VH-182 to VH-194 and VH-196; S-153 is walked only if fixture N14 can be made, and S-154 is source-only. Codex astra on the draft (`7e520f3`): "Revise", nine musts and one should, saved verbatim (`codex-astra-plan-critique-2026-10-25.md`); all ten applied, none refused, each listed under the plan's "After Codex astra's critique". A scenario check's sixteen errors and six omissions were applied too. VH-193.2's non-finite and lowered-ceiling paths are verified in VH-198, not left to VH-202. No product code changed. Digest rules applied: the three digests are the plan's lenses unchanged; WCAG 2.2 AAA, every exception recorded (the player judged under spec §9.3's recorded exception); Nielsen, no control for power users (the rule that holds binds every remedy).
-
-**Supersedes:** none
-
-**Deferred:** VH-198

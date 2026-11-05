@@ -1,0 +1,44 @@
+#!/bin/zsh
+# VH-223 #1: the key list's proof, no browser (VH-198's "proved to detect" for a filter). Each case runs matrix.mjs with CDP_PORT at a closed port (9),
+# so Run.create writes the declared records and the connect then fails at once; no Vite, no Chrome, no page. Old = a git archive of the base's walker.
+# Usage: zsh proof-keys.zsh <app root> <base sha>     Writes proof/<case>/ and prints one line per case.
+APP=$1; BASE=$2; D=/Users/uazjob/UoN-Video-Helper-side/vh223-walk; P=$D/proof; WREL=reviews/2026-10-25/design-pass-3/evidence/measurements/walker
+[ -e $P ] && { echo "EXISTS $P"; exit 2; }
+mkdir -p $P/old && git -C "$APP" archive "$BASE" "$WREL" | tar -x -C $P/old || exit 3
+NEW="$APP/$WREL"; OLD="$P/old/$WREL"
+echo "old revision $(cd $OLD && node --input-type=module -e "const m=await import(process.cwd()+'/runner.mjs');console.log(m.instrumentRevision().revision)")"
+echo "new revision $(cd $NEW && node --input-type=module -e "const m=await import(process.cwd()+'/runner.mjs');console.log(m.instrumentRevision().revision)")"
+printf '%s\n' S-03__en-GB__w9999__light >> $P/bad-unknown.txt; cat $D/keys-a-pilot.txt >> $P/bad-unknown.txt
+cat $D/keys-a-pilot.txt > $P/bad-repeat.txt; head -1 $D/keys-a-pilot.txt >> $P/bad-repeat.txt
+run() { local c=$1 w=$2; shift 2; mkdir -p $P/$c; (cd $w && CDP_PORT=9 APP_ROOT="$APP" RUN_ROOT=$P/$c/runs FIX=$D/fix OUT_ROOT=$P/$c/out node matrix.mjs "$@" > $P/$c/log.txt 2>&1); local rc=$?
+  local dirs=($P/$c/runs/*(N/)); local keys=''
+  if [ ${#dirs} = 1 ]; then keys=$(node --input-type=module -e "import {readFileSync} from 'node:fs';const j=JSON.parse(readFileSync('${dirs[1]}/run.json','utf8'));const {recordKey}=await import('$NEW/runner.mjs');console.log(j.declared.map(recordKey).sort().join('\n'))"); print -r -- "$keys" > $P/$c/declared.txt; node --input-type=module -e "import {readFileSync} from 'node:fs';console.log(JSON.stringify(JSON.parse(readFileSync('${dirs[1]}/run.json','utf8')).declared))" > $P/$c/declared.json; fi
+  echo "$c: exit $rc, run dirs ${#dirs}$( [ ${#dirs} = 1 ] && echo ", name $(basename ${dirs[1]} | sed -E 's/-2026.*//'), declared $(grep -c . $P/$c/declared.txt)"), last line: $(grep -v '^\s*at ' $P/$c/log.txt | grep -E 'Error|refus|key' | head -1 | cut -c1-160)"; }
+run keys-a $NEW matrix --keys $D/keys-a.txt
+cmp -s $P/keys-a/declared.txt $D/keys-a.txt && echo "keys-a: declared = keys-a.txt (108)" || echo "keys-a: DECLARED DIFFERS"
+run unknown $NEW matrix --keys $P/bad-unknown.txt
+run repeat $NEW matrix --keys $P/bad-repeat.txt
+run trailing $NEW matrix --keys $D/keys-a-pilot.txt S-03
+run nofile $NEW matrix --keys
+run ids-old $OLD matrix S-03
+run ids-new $NEW matrix S-03
+run smoke-old $OLD smoke
+run smoke-new $NEW smoke
+for c in ids smoke; do cmp -s $P/$c-old/declared.json $P/$c-new/declared.json && echo "$c: old and new declare byte-same records ($(grep -c . $P/$c-new/declared.txt))" || echo "$c: OLD AND NEW DIFFER"; done
+# Codex's widened proofs (the design compare): an empty list, a line not of a key's shape, the 106-key complement, each selection byte-equal to the unfiltered declaration, every file but matrix.mjs unchanged.
+: > $P/bad-empty.txt; printf '%s\n' S-03__en-GB__w320 > $P/bad-shape.txt
+node -e 'const fs=require("fs");const a=new Set(fs.readFileSync(process.argv[2],"utf8").split("\n").filter(Boolean));const u=require(process.argv[1]).stillUnrun.filter(k=>!a.has(k)).sort();fs.writeFileSync(process.argv[3],u.join("\n")+"\n")' "$APP/reviews/2026-10-25/design-pass-3/evidence/measurements/unrun-2026-10-27.json" $D/keys-a.txt $P/keys-complement.txt
+run empty $NEW matrix --keys $P/bad-empty.txt
+run shape $NEW matrix --keys $P/bad-shape.txt
+run complement $NEW matrix --keys $P/keys-complement.txt
+cmp -s $P/complement/declared.txt $P/keys-complement.txt && echo "complement: declared = stillUnrun less batch A ($(grep -c . $P/keys-complement.txt))" || echo "complement: DECLARED DIFFERS"
+run all-new $NEW matrix
+node --input-type=module -e "
+import {readFileSync} from 'node:fs'; const {recordKey}=await import('$NEW/runner.mjs'); const P='$P'
+const all=new Map(JSON.parse(readFileSync(P+'/all-new/declared.json','utf8')).map(r=>[recordKey(r),JSON.stringify(r)]))
+for (const c of ['keys-a','complement']) { const d=JSON.parse(readFileSync(P+'/'+c+'/declared.json','utf8')); const off=d.filter(r=>all.get(recordKey(r))!==JSON.stringify(r)).length
+  const order=d.map(recordKey).join('|')===[...all.keys()].filter(k=>d.some(r=>recordKey(r)===k)).join('|'); console.log(c+': '+d.length+' declared, '+off+' differ from the unfiltered declaration, plan order kept: '+order) }"
+node --input-type=module -e "
+const o=(await import('$OLD/runner.mjs')).instrumentRevision(), n=(await import('$NEW/runner.mjs')).instrumentRevision()
+const om=new Map(o.files.map(f=>[f.file,f.sha256])), nm=new Map(n.files.map(f=>[f.file,f.sha256]))
+const diff=[...new Set([...om.keys(),...nm.keys()])].filter(f=>om.get(f)!==nm.get(f)); console.log('files: '+n.files.length+' new, '+o.files.length+' old; differing: '+diff.join(', '))"

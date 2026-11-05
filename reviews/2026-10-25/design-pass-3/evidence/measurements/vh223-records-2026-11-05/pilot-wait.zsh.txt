@@ -1,0 +1,15 @@
+#!/bin/zsh
+# VH-223 #3: this Mac's pilot (keys-a-pilot3.txt, 23 keys, Orchestrator #39's yes) by go.sh directly, since seq.zsh's group names are fixed.
+# go.sh's exit 9 (its 45-minute wait) is retried; once one lock holder has been named by four such waits in a row (3 h), one line, exit 12.
+# Usage: zsh pilot-wait.zsh <walker> <app>
+D=/Users/uazjob/UoN-Video-Helper-side/vh223-walk; cd "$D" || exit 5
+JOB="node vh223-driver.mjs walk --walker \"\$WALKER\" --label after --name pilot --keys $D/keys-a-pilot3.txt"
+pwho=""; n=0
+while :; do
+  zsh go.sh after-pilot "after pilot (23 keys)" "$1" "$2" "$JOB" > after-pilot.go.out 2>&1; rc=$?
+  echo "$(date -u +%T) go.sh exit $rc: $(tail -1 after-pilot.go.out)" >> pilot-wait.log
+  [ $rc = 9 ] || exit $rc
+  who=$(sed -nE 's/.*lock (.+)$/\1/p' after-pilot.go.out | tail -1); who=${who%% — *}
+  if [ -n "$who" ] && [ "$who" = "$pwho" ]; then n=$((n+1)); else pwho="$who"; n=1; fi
+  [ -n "$who" ] && [ $n -ge 4 ] && { echo "WAIT STOP $(date -u +%T): $who named by four 45-minute waits in a row" | tee -a pilot-wait.log; exit 12; }
+done

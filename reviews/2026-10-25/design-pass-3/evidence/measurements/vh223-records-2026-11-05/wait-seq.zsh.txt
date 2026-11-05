@@ -1,0 +1,34 @@
+#!/bin/zsh
+# VH-223 #2: the lock wait with no 45-minute limit (Orchestrator #38's word). Every 60 s: while the walk lock is held, record its owner.txt,
+# and stop with one line (exit 12) once the same holder (owner.txt's name, before its first " — ") has held it 3 h at every check, in one go or several (VH-223 #2, a sibling's chain of short groups); while it is free and power, powermode 2 and both loads below 8
+# hold, run seq.zsh with the arguments given; while it is free but those fail, stop with one line (exit 9) after 45 minutes of it.
+# seq.zsh's own exit 9 (go.sh's 45-minute wait) with a lock named loops; any other exit ends this with that code.
+# ACONLY=1 (VH-223 #2, for the re-walks: "on AC", Orchestrator #38) starts only on AC.
+# Usage: zsh wait-seq.zsh <side> <walker> <app> <groups…>
+D=/Users/uazjob/UoN-Video-Helper-side/vh223-walk; cd "$D"
+LOCK=/Users/uazjob/UoN-Video-Helper-side/walk.lock
+WL="$D/wait-$1.log"
+prev=""; pwho=""; held=0; free=0
+while :; do
+  if [ -e "$LOCK" ]; then
+    o=$(cat "$LOCK/owner.txt" 2>/dev/null); who=${o%% — *}; free=0
+    [ "$o" != "$prev" ] && { prev="$o"; echo "$(date -u +%T) lock held: $o" >> "$WL"; }
+    if [ "$who" = "$pwho" ]; then held=$((held+60)); else pwho="$who"; held=0; fi
+    [ $held -ge 10800 ] && { echo "WAIT STOP $(date -u +%T): $who has held the lock 3 h by this loop's 60 s checks, in one or more goes: $o" | tee -a "$WL"; exit 12; }
+  else
+    prev=""; pwho=""; held=0
+    L=$(uptime | sed -E 's/.*load averages?: ([0-9.]+).*/\1/'); L5=$(uptime | sed -E 's/.*load averages?: [0-9.]+,? ([0-9.]+).*/\1/')
+    AC=0; pmset -g batt | grep -q 'AC Power' && AC=1; LV=$(pmset -g batt | grep -oE '[0-9]+%' | head -1 | tr -d %)
+    M=$(pmset -g | sed -nE 's/^ *powermode +([0-9]+).*/\1/p'); P=$AC; [ "$LV" -gt 50 ] && P=1; [ -n "$ACONLY" ] && P=$AC
+    if [ $P = 1 ] && { [ "$M" = 2 ] || { [ $AC = 1 ] && [ -z "$M" ]; }; } && [ "$(echo "$L < 8" | bc)" = 1 ] && [ "$(echo "$L5 < 8" | bc)" = 1 ]; then
+      echo "$(date -u +%T) free, load $L $L5, ac $AC $LV% pm$M: seq.zsh $*" >> "$WL"
+      zsh seq.zsh "$@"; rc=$?
+      for g in ${@:4}; do [ -s "$1-$g.go.out" ] && sed "s/^/$1-$g.go.out: /" "$1-$g.go.out" >> "$WL"; done
+      echo "$(date -u +%T) seq exit $rc" >> "$WL"
+      if [ $rc = 9 ] && grep -h 'NOT READY' $1-*.go.out 2>/dev/null | tail -1 | grep -qE 'lock .+$'; then continue; fi
+      exit $rc
+    fi
+    free=$((free+60)); [ $free -ge 2700 ] && { echo "WAIT STOP $(date -u +%T): lock free 45 min, not ready: load $L $L5 ac $AC $LV% pm$M" | tee -a "$WL"; exit 9; }
+  fi
+  sleep 60
+done

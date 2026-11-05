@@ -1,0 +1,32 @@
+Read-only check completed; nothing changed.
+
+Below, `M` means `reviews/2026-10-25/design-pass-3/evidence/measurements/`, and `R` means its `vh223-records-2026-11-05/` folder.
+
+1. **Freeze and scope — pass.** HEAD is the specified `95d18ee…`. The tracked patch matches byte-for-byte, SHA-1 `90761325ba699d6f…`; status matches all 19 lines; the untracked inventory and all 133 hashes match. Only VH-223’s walker, evidence and ledger files change; the archive move is housekeeping for this close. Sources: `../vh223-frozen/status.txt:1`, `untracked.sha1.txt:1`, `tracked.patch:1`.
+
+2. **Acceptance criteria — met with the recorded shortfalls.** Against [VH-223.md:9](/Users/uazjob/UoN-Video-Helper-side/vh223/project/items/VH-223.md:9):
+   - Exact keys and qualified selector: **met**, independently checked.
+   - Each key walked and judged: **met with shortfalls**, not complete measurement coverage: 108 attempted, 93 reached, 89 structurally whole. S-24’s 15 remain VH-223.1; S-03’s four subject gaps remain under VH-216.1.
+   - Measurement table, attribution comparison, tokens/no product diff, documents, gate and Disposition link: **met**.
+   - Applicable WCAG: **met within stated limits**; person/instrument gaps remain named, and enlargement, spacing and reduced motion belong to VH-224.
+   - Scope remains bounded; no demonstrated new product defect requires a fix item.
+   - This supplies the final-candidate check; its saved verdict and commit’s `Checked:` line remain closing mechanics.
+
+   Evidence: `M/vh223-matrix-a-2026-11-05.md:90–111`; report `design-pass-3-2026-10-27.md:759`.
+
+3. **Blind conditions — settled as stated.** Counts, provenance, player limitation, comparison, links and retained wishes are present. The 15-key and 12-key comparisons report no differences. The supplied orchestrator ruling settles S-66 and the two elevated-load readings without claiming timing validation. Sources: `M/vh223-verdict-compare-mp-2026-11-05.md:21–37`; table `:116–122`; `R/cmp-rewalk-a5.txt:1`, `R/cmp-rewalk-a6t.txt:1`.
+
+4. **Ledger — pass.** The newest decision has the required fields, sources, shortfall and seven requested WCAG criterion numbers. `Deferred: none` is consistent with captured wishes rather than promoted backlog work. Wish numbers and grammar are correct; backlog removal, trajectory and item status agree. The VH-194 archive entry is byte-identical to HEAD’s removed entry, and the index increments to 127. Sources: `project/decisions.md:27–35`, `wish-list.md:99–100`, `trajectory.md:52`, `backlog.md:40–44`, `items/VH-223.md:24–39`, `decisions-2026-10.md:1440`, `archive-index.md:3`. Owner quotations match `../plan8-owner-words.md:185,275,366,395,425,438`.
+
+5. **Evidence integrity — verified with one limitation.** All 50 table-listed hashes match; all 108 accepted records and their manifest hashes match the walk sources. Forty-seven directly comparable record-folder copies match, including 15 of the 16 named renames. However, the original `table-1page.mjs` and the eight review-copy originals are outside the permitted source reads. Thus I cannot independently certify their source equality. Also, `R/renamed.txt:1` says the table hashes every named rename, but the table omits `table-1page.mjs`. I found no other unsupported substantive outcome claim.
+
+6. **Gate — pass; no newly deleted or skipped test.** The log records 84 files, 1,663 passes and the existing single skip. No test files change. Start loads were **4.90 / 4.59**, on AC power; peak was 6.38. My fresh `node tools/check.mjs` also returned zero failures and the stated missing-sample warning. Sources: `../vh223-gate-1.log:27–30,140–141`; `../vh223-gate-1.load.log:1–4`; `../vh223-walk/gate-1.wait.log:14–18`.
+
+7. **VH-224 interface — pass.** `node matrix.mjs matrix --keys <file>` selects full declarations in plan order. The proof covers the exact 106-key complement and refusal cases. Sources: `M/walker/matrix.mjs:179–222`; `R/proof-keys.out.txt:17–23`.
+
+**Verdict: pass with conditions.** Before commit:
+
+- Complete the source-hash verification for the eight review copies and `table-1page.mjs`; add that script’s missing hash or correct `renamed.txt`’s claim.
+- Save this close verdict and carry the required `Verify:` and `Checked:` commit lines. Re-freeze and gate any resulting candidate edits.
+
+No product change or further walk is required by this review.

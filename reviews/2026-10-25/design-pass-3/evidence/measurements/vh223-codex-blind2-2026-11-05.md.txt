@@ -1,0 +1,209 @@
+**Pass with conditions for the walker change; VH-223 is not ready to close.** The remaining work is the 30 low-load re-walks, explicit recording of evidence gaps, comparison of the two verdicts, and the close gate. I found no demonstrated new product defect.
+
+Nothing was changed. I did not read the excluded material.
+
+For record citations below, `W` means `/Users/uazjob/UoN-Video-Helper-side/vh223-walk`; `M` means `reviews/2026-10-25/design-pass-3/evidence/measurements`.
+
+1. **Walker change — qualified, within scope.**
+
+   The actual diff hash is `1c683ffb940e364a`. Only `matrix.mjs` changes. `keepKeys` selects existing declarations in plan order; it does not rewrite scenarios, instruments or assertions. It rejects empty, malformed, duplicate and undeclared keys before creating a run. The CLI rejects missing filenames, extra arguments and `--resume` combined with `--keys`. Without `--keys`, the previous scenario-ID filtering and resume paths remain intact. [Code](./reviews/2026-10-25/design-pass-3/evidence/measurements/walker/matrix.mjs:179)
+
+   [The proof](../vh223-walk/proof-keys.out.txt:1) establishes:
+
+   - Exact 108-key selection and exact 106-key complement.
+   - Both selections byte-equal to their unfiltered declarations, preserving plan order.
+   - Existing ID-filtered declarations unchanged: 42 records.
+   - Existing smoke declarations unchanged: 183 records.
+   - Only `matrix.mjs` differs among 41 walker files.
+   - The negative cases refuse before creating run directories.
+
+   Its exit-1 results deliberately stop at the closed browser port. They prove declaration and refusal behaviour, **not completed browser runs**. That is adequate qualification for this selection-only change. VH-224 can use `matrix --keys <its-file>` directly; no second filter is needed.
+
+   Small provenance correction: HEAD versus `ca093da0c8c5` also changes `.gitignore`, beyond the directories named in the brief. There is still no product diff.
+
+2. **Keys — exact selection and one counted attempt each; incomplete evidence in 19 cells.**
+
+   I independently compared `stillUnrun`, `keys-a.txt`, every counted record and current `declareRecord` output:
+
+   - Exactly **108 unique keys**, no missing or extra keys.
+   - Classes **42 + 24 + 24 + 6 + 6 + 6**.
+   - Group counts **15, 27, 15, 15, 15, 15, 6**.
+   - Record identities, required instruments, viewport declarations and expected subjects match the current plan.
+   - All 93 reached records pass both their initial and final state checks.
+
+   However, “every declared instrument” cannot mean complete coverage merely because its object exists:
+
+   - **15 S-24 records:** state not reached; instruments did not run.
+   - **Four S-03 records:** `formatTip` returns not-applicable because the button is hidden, but its ten declared subjects are missing. The a1 manifest correctly reports `coverage.whole:false`.
+
+   Sources: each `after-a*/runs/*/manifest.json`, each key’s JSON, and `matrix.mjs:47–78`; subject enforcement is in `runner.mjs:133–181`.
+
+3. **Pilot — 20 scenario IDs proved under the stated fixture rule.**
+
+   Proved: **S-16, S-41, S-43, S-48, S-49, S-50, S-53, S-56, S-57, S-58, S-60, S-61, S-63, S-65, S-66, S-72a, S-81, S-85, S-90a, S-90b**.
+
+   Their pilot records are `ok`, reached, and have passing applicable assertions. Scenarios with no assertions return not-applicable; that is not an assertion failure. S-81’s focus failure does not invalidate its fixture proof under #39’s rule.
+
+   **Not proved:** S-03, whose two pilot cells fail the stale assertions and lack the declared format-tip subjects; S-24, whose fixture produces `veryLongJob`, outside its predicate. **S-76 was not in the pilot**; it is fixture-free and its four counted records reach successfully.
+
+   Source: `W/after-pilot/runs/matrix-keys-2026-11-05T02-36-37-145Z-e590ad/<key>.json`. The 33 changed hashes in `fix-compare.txt` are fixture identity changes, not themselves evidence of defective fixtures.
+
+4. **Acceptance criteria.**
+
+   | Criterion | Assessment |
+   |---|---|
+   | Exact keys | **Met** |
+   | Qualified exact-key walker change | **Met** |
+   | Every key reached with complete declared evidence | **Not met:** 15 S-24 gaps and four S-03 subject gaps |
+   | Every key judged; blind attribution compared | This verdict supplies the blind judgement; comparison **not yet** |
+   | Measurement table and VH-176 links | **Not yet**, close task |
+   | Applicable WCAG readings | Exercised within the limits below; no blanket conformance pass |
+   | Tokens, controls, progress bar | **Met:** no product change |
+   | Documents | **Met for this candidate:** no rule or protected document change needed |
+   | Settled-machine gate and structural check | **Not yet evidenced here** |
+   | Saved final-diff check and Checked line | Walker candidate checked; completed close candidate **not yet** |
+   | Report Disposition link | **Not yet** |
+   | One-worker scope | Change remains appropriately bounded; no product remedy established |
+
+   These follow [the item’s criteria](./project/items/VH-223.md:7). The accepted S-24 reading and owner-retained stale rows must be recorded as exceptions/gaps, never converted into completed measurements.
+
+5. **Every key’s judgement.**
+
+   I use **unresolved** where a required reading remains unverified, even if the summary script calls the cell OK. This prevents known person checks and nominal player passes becoming blanket passes.
+
+   The table exhaustively identifies all 108 keys. Each suffix listed forms a separate full key by appending it to the scenario ID:
+
+   - `P` = `__en-GB__w375__light`, `__ms-MY__w375__light`, `__zh-Hans__w375__light`.
+   - `Q` = `__ms-MY__landscape__light`, `__ms-MY__short__light`, `__zh-Hans__landscape__light`, `__zh-Hans__short__light`.
+   - `R` = `__ms-MY__w1280__dark`, `__ms-MY__w1280__forced-dark`, `__ms-MY__w1280__forced-light`.
+   - `T` = `__en-GB__landscape__light`, `__en-GB__short__light`, `__zh-Hans__w1280__dark`, `__zh-Hans__w1280__forced-dark`, `__zh-Hans__w1280__forced-light`.
+
+   | Scenario | Suffixes | Group | Judgement / attribution codes below |
+   |---|---|---|---|
+   | S-03 | Q | a1 | **NOT-OK**, O, H; Chinese cells also M |
+   | S-76 | Q | a1 | **OK**, with M on Chinese cells |
+   | S-81 | Q, R | a1 | Malay: **unresolved**, F; Chinese: **OK**, M |
+   | S-16 | Q | a2 | **Unresolved**, C, D, M on Chinese |
+   | S-41 | Q | a2 | **Unresolved**, C, D, M on Chinese |
+   | S-53 | Q | a2 | **Unresolved**, C, D, P1, M on Chinese |
+   | S-56 | Q, R | a2 | **Unresolved**, C, D, M on Chinese |
+   | S-58 | Q | a2 | **Unresolved**, C, D, M on Chinese |
+   | S-63 | Q | a2 | **Unresolved**, C, D, P1, M on Chinese |
+   | S-24 | P, Q, R, T | a3 | **Not reached**, E |
+   | S-48 | P, Q, R, T | a4 | **Unresolved**, C; M on Chinese except w375 |
+   | S-43 | P | a5 | **Unresolved**, C, L |
+   | S-49 | P | a5 | **Unresolved**, C, L |
+   | S-50 | P | a5 | **Unresolved**, C, L |
+   | S-57 | P | a5 | **Unresolved**, C, L |
+   | S-85 | P | a5 | **Unresolved**, C, L |
+   | S-60 | P | a6 | **Unresolved**, C, L |
+   | S-61 | P | a6 | **Unresolved**, C, P1, L |
+   | S-65 | P | a6 | **Unresolved**, C, P1, L |
+   | S-66 | P | a6 | **Unresolved**, C, D, P1, L |
+   | S-72a | P | a6 | **Unresolved**, C, D, P1, L |
+   | S-90a | P | a7 | **Unresolved**, C |
+   | S-90b | P | a7 | **Unresolved**, C, D |
+
+   Totals under that evidence-completeness convention: **6 OK, 4 NOT-OK, 83 unresolved, 15 not reached**. These are not 87 product failures.
+
+   Record citation for every table entry: `W/after-<group>/runs/<run>/<full-key>.json`. The unique run suffixes are:
+
+   | Group | Run |
+   |---|---|
+   | a1 | `matrix-keys-2026-11-05T03-19-19-942Z-02d885` |
+   | a2 | `matrix-keys-2026-11-05T03-20-52-288Z-97dcf4` |
+   | a3 | `matrix-keys-2026-11-05T03-28-29-189Z-245c05` |
+   | a4 | `matrix-keys-2026-11-05T03-50-22-327Z-f15d96` |
+   | a5 | `matrix-keys-2026-11-05T04-28-59-449Z-270cd1` |
+   | a6 | `matrix-keys-2026-11-05T05-29-08-029Z-27e4e8` |
+   | a7 | `matrix-keys-2026-11-05T05-54-39-987Z-e28278` |
+
+6. **Row-level attribution.**
+
+   | Code | Row and evidence | Cause |
+   |---|---|---|
+   | O | S-03 `asserts`: format “?” 44×44 assertion and “Tab from the top…” fail. Actual stops include `about-help-button`, then Choose file. | **Old-order rows**, [VH-216.1](./project/wish-list.md:73) |
+   | H | S-03 `formatTip`: hidden/unreachable exemption replaces all ten expected subjects; a1 manifest lists four evidence failures. | **Known scenario-layout cause**, with a declaration/applicability gap that the close must explicitly carry |
+   | F | S-81 `focus`, `#accessibility-statement a`: 356×41 enclosing box; required area 1,571; measured 1,361 in landscape/short/dark, 1,360 forced-dark, 1,362 forced-light. `focusVisible:true` throughout. | **Known instrument reading; unresolved fragment perimeter**, VH-200.1; forced cells also VH-210.2 |
+   | E | S-24 `reached`: predicate requires `longJob` and excludes `veryLongJob`; observed estimate about 1 h 5 min. | **Environment/speed**, #40’s accepted reading; not S-169 |
+   | C | `contrastExtra`: both “range thumb and track” rows require a pixel/person reading; **156 rows in 78 keys**. | **Known instrument limitation**, `digest-contrastExtra-2026-10-27.md:20,32–37` |
+   | D | `targets`: start/end thumb discs have 44×44 hit boxes but no inscribed 44px square; **72 rows in 36 keys**. | **Known instrument/interpretation limitation**, `digest-targets-2026-10-27.md:20–24` |
+   | M | `measure`: mixed-script notification/enforcement lines disagree under the two character-count rules; all remain inside the house measure. | **Documented reading**, `judged-2026-10-27.md:414–425,752`; not a new width defect |
+   | P1 | `player`: “paused a second after the card appeared”; **20 nominal passes** in the cells listed above. | **Known instrument/timing limitation**, [VH-199.1](./project/wish-list.md:58); unverified |
+   | L | State acquisition, transition, focus or media timing in a5/a6. | **Environment/timing**, pending low-load comparison |
+
+   The S-81 attribution follows `judged-2026-10-27.md:492–495,950`. It does not prove the fragment perimeter passes. No row here establishes a new product defect requiring a fix item.
+
+7. **Cannot-determine classes.**
+
+   - **Mixed script:** 31 rows across 23 keys. The house-width judgement is settled: within the measure. The raw character-count ambiguity remains visible; do not relabel the instrument output.
+   - **Thumb target geometry:** documented ambiguity/person check, not a demonstrated failure and not a measured pass.
+   - **Thumb/track non-text contrast:** documented measurement gap; unresolved until the required pixel/person reading.
+   - **Wrapped-link focus:** emitted as fail rather than cannot-determine, but the documented judgement is unresolved reference geometry.
+   - **Finish+1s:** emitted as pass here, but all 20 remain unverified by the standing ruling.
+
+8. **Conditions and re-walks.**
+
+   Every counted group and the pilot stayed on **AC Power**, with no powermode line. Every start had both loads below 8. Logs have maximum sampling gaps of 30–31 seconds, with no source change.
+
+   | Group | Start load 1m / 5m | Samples ≥8 / total | Peak |
+   |---|---:|---:|---:|
+   | Pilot | 4.28 / 5.12 | 0 / 82 | 7.76 |
+   | a1 | 5.10 / 5.24 | 0 / 4 | 5.71 |
+   | a2 | 4.35 / 5.09 | 0 / 16 | 6.51 |
+   | a3 | 5.70 / 5.48 | 0 / 44 | 5.70 |
+   | a4 | 3.73 / 3.85 | 0 / 77 | 5.99 |
+   | a5 | 6.00 / 5.08 | 8 / 120 | 11.41 |
+   | a6 | 4.45 / 4.16 | 2 / 51 | 12.34 |
+   | a7 | 5.55 / 5.25 | 0 / 28 | 6.59 |
+
+   These use `conditions.txt`; a6’s slightly earlier launcher GO reads **4.14 / 4.10**. Sources: each group’s conditions, launcher and load log.
+
+   a5’s elevated interval is **04:38:59–04:42:30Z**; a6’s samples are **05:44:09 and 05:44:39Z**. No counted group is void. `void/pilot-stopped-1` contains a stopped lock-wait attempt, not measured cells.
+
+   **Re-walk all 30 a5/a6 keys listed in point 5:**
+
+   - S-43: submission locking while encoding.
+   - S-49: time-left appearance and its wait.
+   - S-50: switching during an active job.
+   - S-57: failure, retry and re-entry into encoding.
+   - S-85: announcement choice during processing.
+   - S-60: discard-to-new-job transition.
+   - S-61: transient saving state under F4b.
+   - S-65: overlap between saving and checking.
+   - S-66: stopping the save after a timed delay.
+   - S-72a: focus retained across completion.
+
+   Sources: `scenarios.mjs:577–584,641–655,740–747,776–790,825–839,889–897,1019–1025`.
+
+   Apply the stated rule: identical re-walk → cite it and retain the first; differing re-walk → use it and report the difference. Neither a low-load repeat nor a nominal pass repairs the finish+1s instrument’s sampling problem.
+
+9. **WCAG coverage in batch A.**
+
+   | Criterion | Instrument and limit |
+   |---|---|
+   | 1.4.3, 1.4.6 | `contrastText`; file-button glyph pixels in `contrastExtra`. Counted readings pass in reached cells. |
+   | 1.4.4 | **Not reached at enlargement:** no font32 or 200% cells. |
+   | 1.4.10 | `overflow` checks actual selected views; no 320px/400% reflow condition here. |
+   | 1.4.11 | `contrastExtra` and relevant focus pixels; thumb/track gap remains. |
+   | 1.4.12 | **Not reached:** no spacing-mode cells; ordinary `type` readings are not spacing-override tests. |
+   | 2.3.3 | **Not reached:** no reduced-motion cells, hence no motion instrument. |
+   | 2.4.7 | `focus`; declared targets show visible focus, including the five S-81 rows. |
+   | 2.4.13 | `focus`; S-81 fragment reference unresolved. Native-player keyboard rings are not exercised by these scenarios. |
+   | 2.5.5 | `targets`; declared exemptions retained, thumb-disc readings unresolved. |
+
+   Source: `matrix.mjs:47–78,99–145`, record `requires` and instrument rows. S-24 contributes no measurement to these criteria.
+
+10. **What the close must carry.**
+
+   - The table must distinguish **108 attempted, 93 reached, 89 structurally whole**, four S-03 declaration gaps, 15 S-24 non-reaches, and unresolved instrument rows. It must not say “108 passed”.
+   - Record candidate/base/revision, Mac Pro and Chrome identity, changed fixture hashes, pilot qualification, load conditions and re-walk disposition. Each before is **“no previous after-reading”**, with the relevant VH-176 reference—not a synthetic before/after improvement.
+   - Compare this verdict with Claude’s, save disagreements and their resolution, then review the completed close candidate.
+   - Link the report’s Disposition row to VH-223 and its measurement table.
+   - Leave **VH-172.1’s narrowing to VH-224**, preserving its other unresolved readings.
+   - Carry existing VH-216.1, VH-199.1, VH-200.1 and VH-210.2; do not duplicate them.
+   - I checked the wish list/backlog: they do not explicitly capture **S-03’s ten missing formatTip subjects**, **this Mac’s 15 S-24 non-reaches**, or **these thumb target/non-text-contrast gaps as follow-up work**. Add explicit lines or extend the appropriate existing line with these precise scopes; the existing thumb-ring line alone is not all three checks.
+   - No new product fix item is established by this evidence. Any defect established by the re-walks needs its own planned item before VH-203.
+   - Record the decision, applied WCAG digest rules and exceptions; run `npm run check` on the settled machine, then `node tools/check.mjs`. Preserve the required Checked line and normal backlog/trajectory close.
+
+**Verdict: pass with conditions.** Before close: complete the 30 low-load comparisons, preserve every gap above without claiming a pass, reconcile the blind verdicts, finish the linked evidence/ledger, and obtain the green close gate.

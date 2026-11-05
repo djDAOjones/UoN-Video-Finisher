@@ -1,0 +1,16 @@
+// VH-223 #2, read-only: every row that is not pass, exempt or not-applicable in batch A's latest records, by instrument, what and why,
+// with the count of keys and of rows, and the keys for each. Usage: node cd-a.mjs <walk dir> <keys file> <group,group,…>
+import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs'
+import { join } from 'node:path'
+const [walk, kf, gs] = process.argv.slice(2)
+const keys = readFileSync(kf, 'utf8').split('\n').filter(Boolean), found = {}
+for (const g of gs.split(',')) { const runs = join(walk, g, 'runs'); if (!existsSync(runs)) continue
+  for (const e of readdirSync(runs).sort()) { const p = join(runs, e); if (!statSync(p).isDirectory()) continue
+    for (const f of readdirSync(p).filter((x) => /^S-\d+.*\.json$/.test(x))) (found[f.replace('.json', '')] ??= []).push(JSON.parse(readFileSync(join(p, f), 'utf8'))) } }
+const by = {}
+for (const k of keys) { const j = found[k]?.at(-1); if (!j) continue
+  for (const [n, v] of Object.entries(j.instruments ?? {})) { if (!v || v.outcome === 'pass' || v.outcome === 'not-applicable') continue
+    const rows = (v.items ?? v.steps ?? []).filter((i) => !i.exempt && i.outcome && i.outcome !== 'pass' && i.outcome !== 'not-applicable')
+    if (!rows.length) { const id = `${n} | ${v.outcome} | (instrument) | ${String(v.why ?? '').slice(0, 140)}`; (by[id] ??= { keys: new Set(), rows: 0 }).keys.add(k); by[id].rows++ }
+    for (const i of rows) { const id = `${n} | ${i.outcome} | ${String(i.what ?? i.el ?? i.sel ?? '').replace(/\s+/g, ' ').slice(0, 60)} | ${String(i.why ?? (i.ratio !== undefined ? 'ratio ' + i.ratio + ' need ' + i.need : '')).slice(0, 140)}`; (by[id] ??= { keys: new Set(), rows: 0 }).keys.add(k); by[id].rows++ } } }
+for (const [id, v] of Object.entries(by).sort()) console.log(`${id} | keys ${v.keys.size} rows ${v.rows} | ${[...v.keys].map((k) => k.replace(/__/g, ' ')).slice(0, 6).join('; ')}${v.keys.size > 6 ? ' …' : ''}`)

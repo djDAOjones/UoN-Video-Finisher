@@ -1446,3 +1446,13 @@ INTAKE.2 stays a wish line: only a person listening can judge the Teams output. 
 **Supersedes:** none
 
 **Deferred:** VH-197
+
+## 2026-10-25 — VH-197 — Pass 3's plan approved on the owner's standing word: 3,266 records, about 10.9 h, no reduction
+
+**Decision:** The third pass runs as `reviews/2026-10-25/design-pass-3/` plans it: scenarios to S-154, an eighteen-row Phase 8 contract, and the matrix in five parts by `sizing-2026-10-25.mjs`'s recipes, with Codex astra's ten points applied. VH-198 is next.
+
+**Rationale:** The owner, in this item's chat: "please go gateless where possible, you have my permission to use your recommendations"; relayed by the orchestrator and confirmed to it directly: "Gateless covers the rest of Phase 8: approve VH-197's plan and every later choice on the sessions' recommendations; only stop for me on something the recommendations don't settle, and keep reporting outcomes". The plan is at least as broad as Phase 7's in every dimension. Part 1 holds VH-172's 699 keys and its baseline in every class; part 2 re-verifies VH-178 to VH-181 (205); part 3 walks Phase 8 in full (2,162); part 3b meets VH-199's light-cell criterion (184) and is the only possible cut, not recommended and not taken; part 4 completes the routes (16). The 63 new scenarios, S-92 to S-154, trace to VH-182 to VH-194 and VH-196; S-153 is walked only if fixture N14 can be made, and S-154 is source-only. Codex astra on the draft (`7e520f3`): "Revise", nine musts and one should, saved verbatim (`codex-astra-plan-critique-2026-10-25.md`); all ten applied, none refused, each listed under the plan's "After Codex astra's critique". A scenario check's sixteen errors and six omissions were applied too. VH-193.2's non-finite and lowered-ceiling paths are verified in VH-198, not left to VH-202. No product code changed. Digest rules applied: the three digests are the plan's lenses unchanged; WCAG 2.2 AAA, every exception recorded (the player judged under spec §9.3's recorded exception); Nielsen, no control for power users (the rule that holds binds every remedy).
+
+**Supersedes:** none
+
+**Deferred:** VH-198

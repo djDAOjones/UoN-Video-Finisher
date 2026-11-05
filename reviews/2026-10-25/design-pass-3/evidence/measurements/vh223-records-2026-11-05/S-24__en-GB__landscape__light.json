@@ -1,0 +1,86 @@
+{
+ "runId": "2026-11-05T03-28-29-189Z-245c05",
+ "key": "S-24__en-GB__landscape__light",
+ "revision": "e377132ba6f70227",
+ "attempt": 1,
+ "id": "S-24",
+ "lang": "en-GB",
+ "view": "landscape",
+ "mode": "light",
+ "requires": [
+  "overflow",
+  "ax",
+  "targets",
+  "contrastText",
+  "contrastExtra",
+  "measure",
+  "type",
+  "focus",
+  "player",
+  "formatTip",
+  "footer",
+  "limiting",
+  "videoLanguage",
+  "asserts"
+ ],
+ "viewport": {
+  "w": 812,
+  "h": 375,
+  "dpr": 3
+ },
+ "expects": {
+  "focus": {
+   "subjects": [
+    "#process-actions > button:nth-child(2)",
+    "#preset-choice input:checked"
+   ]
+  },
+  "asserts": {
+   "subjects": [
+    "Create reads \"Create the video\""
+   ]
+  }
+ },
+ "timing": {
+  "setupMs": 117687,
+  "recordMs": 361,
+  "firstOfGroup": true
+ },
+ "status": "failed",
+ "reached": {
+  "outcome": "fail",
+  "problems": [
+   "state predicate false: (() => { const M = window.__mx; return (M.verdict() === 'warning' && M.has('preflight.reasons.longJob', '#preflight-repo"
+  ],
+  "seen": {
+   "visibility": "visible",
+   "lang": "en-GB",
+   "viewport": {
+    "w": 812,
+    "h": 375,
+    "dpr": 3
+   },
+   "rootFontPx": 16,
+   "media": {
+    "dark": false,
+    "forced": false,
+    "reducedMotion": false,
+    "coarse": true
+   },
+   "spacing": false,
+   "fonts": [
+    "Lora:loaded"
+   ],
+   "bodyFont": "Arial, system-ui, -apple-system, \"Segoe UI\", Roboto, sans-serif",
+   "dialog": null,
+   "running": false,
+   "result": false,
+   "statementOpen": false,
+   "fileChosen": true,
+   "kind": "staff",
+   "status": "Device check complete. This will work, but it will be slow. This will take about 1 hour 5 minutes. You can continue, but",
+   "sourceStatus": "Video read.",
+   "active": "body"
+  }
+ }
+}

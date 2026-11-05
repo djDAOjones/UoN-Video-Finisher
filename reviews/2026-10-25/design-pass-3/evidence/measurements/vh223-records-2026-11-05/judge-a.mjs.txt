@@ -1,0 +1,61 @@
+// VH-223 #2, read-only: batch A's judgement and accepted-record index. Usage:
+//   node judge-a.mjs compare <walk dir> <first group> <re-walk group>     each key the re-walk holds: outcome signature equal or not
+//   node judge-a.mjs index <walk dir> <keys file> <g1,g2,…> [--out <file.jsonl>]   a later group's record replaces an earlier one's, key by key
+// The signature: status, reached, each instrument's outcome, each assert row's outcome, and each non-passing row (instrument, subject, outcome, why).
+// Judgement in three (the design compare): OK; NOT-OK (a failing instrument or row, or not ok/reached); unresolved (a cannot-determine row,
+// or a failing row, that no rule below attributes). Attribution by row, more than one cause allowed; the rules are Claude's (VH-223 #2).
+import { existsSync, readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
+import { createHash } from 'node:crypto'
+import { join } from 'node:path'
+const [mode, walk, ...rest] = process.argv.slice(2)
+const sha = (p) => createHash('sha1').update(readFileSync(p)).digest('hex')
+const recordsOf = (g) => { const out = {}, runs = join(walk, g, 'runs'); if (!existsSync(runs)) return out
+  for (const e of readdirSync(runs).sort()) { const p = join(runs, e); if (!statSync(p).isDirectory()) continue
+    for (const f of readdirSync(p).filter((x) => /^S-\d+.*\.json$/.test(x))) out[f.replace('.json', '')] = { g, run: e, path: join(g, 'runs', e, f), manifest: existsSync(join(p, 'manifest.json')) ? join(g, 'runs', e, 'manifest.json') : null, j: JSON.parse(readFileSync(join(p, f), 'utf8')) } }
+  return out }
+const clean = (s) => String(s ?? '').replace(/\s+/g, ' ').trim()
+const nonPass = (j) => { const out = []
+  for (const [n, v] of Object.entries(j.instruments ?? {})) { if (!v) continue
+    const items = (v.items ?? v.steps ?? []).filter((i) => !i.exempt && i.outcome && !['pass', 'not-applicable', 'not-counted', 'superseded'].includes(i.outcome))
+    if (n === 'asserts') { for (const i of items) out.push({ ins: n, subject: clean(i.what).slice(0, 80), outcome: i.outcome, why: '' }); continue }
+    if (v.outcome === 'pass' || v.outcome === 'not-applicable') continue
+    if (!items.length) out.push({ ins: n, subject: '(instrument)', outcome: v.outcome, why: clean(v.why).slice(0, 160) })
+    for (const i of items) out.push({ ins: n, subject: clean(i.sel ?? i.el ?? i.what).slice(0, 80), outcome: i.outcome, why: clean(i.why).slice(0, 160) }) }
+  return out }
+const signature = (j) => JSON.stringify({ status: j.status, reached: j.reached?.outcome, ins: Object.fromEntries(Object.entries(j.instruments ?? {}).filter(([k]) => k !== 'asserts').map(([k, v]) => [k, v?.outcome])),
+  rows: (j.instruments?.asserts?.items ?? []).map((i) => [clean(i.what).slice(0, 80), i.outcome]), nonPass: nonPass(j).map((r) => [r.ins, r.subject, r.outcome, r.why]).sort() })
+const RULES = [
+  { test: (r, k) => r.ins === 'asserts' && /^S-03__/.test(k) && /^"About the video format" 44 x 44|^Tab from the top/.test(r.subject), cause: 'old-order row, expected both sides', link: 'wish VH-216.1; "Yes, leave them" (plan8-owner-words.md:366)' },
+  { test: (r, k) => r.ins === 'focus' && r.outcome === 'fail' && /^S-81__ms-MY__/.test(k) && r.subject === '#accessibility-statement a', cause: 'known: S-81\'s wrapped statement link, its fragment perimeter unread, missing evidence, as VH-199\'s ×11', link: 'wish VH-200.1 (judged-2026-10-27.md:950; digest-focus-2026-10-27.md); the forced cells also wish VH-210.2' },
+  { test: (r) => r.ins === 'contrastExtra' && r.outcome === 'cannot-determine' && /^painted pseudo-elements: non-text contrast needs a pixel reading \(person check\)$/.test(r.why), cause: 'documented reading: the trim thumbs, a declared person check', link: 'digest-contrastExtra-2026-10-27.md' },
+  { test: (r) => r.ins === 'targets' && r.outcome === 'cannot-determine' && /the reading is VH-173's$/.test(r.why) && /trim-(start|end)-range/.test(r.subject), cause: 'documented reading: the trim thumb\'s disc, VH-173\'s', link: 'digest-targets-2026-10-27.md' },
+  { test: (r) => r.ins === 'measure' && r.outcome === 'cannot-determine' && /^mixed scripts: .*the reading is VH-173's$/.test(r.why), cause: 'documented reading: a mixed-script line, VH-173\'s', link: 'VH-175\'s ask; matrix-2026-10-27.md' },
+]
+function judge(k, j) { const rows = nonPass(j), causes = [], open = []
+  for (const r of rows) { const rule = RULES.find((x) => x.test(r, k)); if (rule) { if (!causes.some((c) => c.cause === rule.cause)) causes.push({ cause: rule.cause, link: rule.link }) } else open.push(r) }
+  const failing = rows.some((r) => r.outcome === 'fail') || j.status !== 'ok' || j.reached?.outcome !== 'pass'
+  return { judgement: open.length ? 'unresolved' : failing ? 'NOT-OK' : 'OK', causes, open } }
+if (mode === 'compare') {
+  const [ga, gb] = rest, A = recordsOf(ga), B = recordsOf(gb); let same = 0, diff = 0
+  for (const k of Object.keys(B).sort()) { if (!A[k]) { console.log(`${k}: not in ${ga}`); diff++; continue }
+    const sa = signature(A[k].j), sb = signature(B[k].j); if (sa === sb) { same++; continue }
+    diff++; const a = JSON.parse(sa), b = JSON.parse(sb), d = []
+    for (const f of ['status', 'reached']) if (a[f] !== b[f]) d.push(`${f} ${a[f]} → ${b[f]}`)
+    for (const n of new Set([...Object.keys(a.ins), ...Object.keys(b.ins)])) if (a.ins[n] !== b.ins[n]) d.push(`${n} ${a.ins[n]} → ${b.ins[n]}`)
+    const ra = new Map(a.rows), rb = new Map(b.rows); for (const w of new Set([...ra.keys(), ...rb.keys()])) if (ra.get(w) !== rb.get(w)) d.push(`row "${w.slice(0, 50)}" ${ra.get(w)} → ${rb.get(w)}`)
+    const na = new Set(a.nonPass.map((x) => x.join(' | '))), nb = new Set(b.nonPass.map((x) => x.join(' | ')))
+    for (const x of na) if (!nb.has(x)) d.push(`- ${x.slice(0, 160)}`); for (const x of nb) if (!na.has(x)) d.push(`+ ${x.slice(0, 160)}`)
+    console.log(`${k}: DIFFERS ${d.join('; ')}`) }
+  console.log(`compare ${ga} → ${gb}: ${Object.keys(B).length} keys, ${same} identical, ${diff} differ`)
+} else if (mode === 'index') {
+  const [kf, gs, flag, out] = rest, keys = readFileSync(kf, 'utf8').split('\n').filter(Boolean), acc = {}
+  for (const g of gs.split(',')) Object.assign(acc, recordsOf(g))
+  const lines = [], tally = {}, notOk = []
+  for (const k of keys) { const r = acc[k]; if (!r) { lines.push({ key: k, record: null, judgement: 'not reached', causes: [] }); (tally['not reached'] ??= 0); tally['not reached']++; continue }
+    const v = judge(k, r.j); tally[v.judgement] = (tally[v.judgement] ?? 0) + 1
+    lines.push({ key: k, group: r.g, run: r.run, record: r.path, sha1: sha(join(walk, r.path)), manifest: r.manifest, manifestSha1: r.manifest ? sha(join(walk, r.manifest)) : null, revision: r.j.revision ?? null, status: r.j.status, reached: r.j.reached?.outcome, judgement: v.judgement, causes: v.causes, open: v.open })
+    if (v.judgement !== 'OK') notOk.push(`${v.judgement} ${k} [${r.g}]: ${[...new Set(nonPass(r.j).filter((x) => x.outcome === 'fail' || v.open.includes(x)).map((x) => `${x.ins} ${x.outcome} ${x.subject}`))].join('; ')} | ${v.causes.filter((c) => !/^documented/.test(c.cause)).map((c) => c.cause + ' (' + c.link + ')').join('; ')}${v.open.length ? ' | OPEN ' + JSON.stringify(v.open).slice(0, 300) : ''}`) }
+  const byCause = {}; for (const l of lines) for (const c of l.causes) byCause[c.cause] = (byCause[c.cause] ?? 0) + 1
+  console.log('keys', keys.length, 'indexed', lines.length, JSON.stringify(tally)); console.log('by cause', JSON.stringify(byCause)); for (const n of notOk) console.log(n)
+  if (flag === '--out') writeFileSync(out, lines.map((l) => JSON.stringify(l)).join('\n') + '\n')
+} else { console.log('usage: compare|index'); process.exit(2) }

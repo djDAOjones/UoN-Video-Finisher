@@ -1,0 +1,143 @@
+1. **The keys.** Select from `stillUnrun`, using the full four-part key, with the item’s Boolean rule. I checked the data and evaluated the declarations without running scenario setups: **108 keys, 108 unique, each belonging to exactly one class and declared exactly once by `PLANS.matrix`**. The six classes are:
+
+   | Class | Exact membership | Count |
+   | --- | --- | ---: |
+   | `w375`, light | All three languages × S-24, S-43, S-48, S-49, S-50, S-57, S-60, S-61, S-65, S-66, S-72a, S-85, S-90a, S-90b | 42 |
+   | `landscape`, light | zh-Hans and ms-MY × the eleven `FINITE` scenarios; en-GB × S-24 and S-48 | 24 |
+   | `short`, light | Same membership as landscape | 24 |
+   | `w1280`, dark | zh-Hans × S-24/S-48; ms-MY × S-24/S-48/S-56/S-81 | 6 |
+   | `w1280`, forced-dark | Same membership as dark | 6 |
+   | `w1280`, forced-light | Same membership as dark | 6 |
+
+   `FINITE` is S-03, S-24, S-16, S-41, S-48, S-53, S-63, S-58, S-56, S-76, S-81. Thus **42 + 24 + 24 + 6 + 6 + 6 = 108**; the complement is 106. The view classes contain only light records, while the colour classes use w1280, so the classes cannot overlap. Sources: [VH-223.md:9](/Users/joe/UoN-Video-Helper-side/vh223/project/items/VH-223.md:9), [unrun-2026-10-27.json:431](/Users/joe/UoN-Video-Helper-side/vh223/reviews/2026-10-25/design-pass-3/evidence/measurements/unrun-2026-10-27.json:431), [scenarios.mjs:1318](/Users/joe/UoN-Video-Helper-side/vh223/reviews/2026-10-25/design-pass-3/evidence/measurements/walker/scenarios.mjs:1318).
+
+   **No matching VH-176 or VH-172 reading exists in the supplied record.** All 108 occur in VH-176’s `unrunAfter.keys`, none in its recorded outcomes, and none in `PLANS.priority`, the 699-key VH-172 baseline. Historical absence belongs in each key’s before/provenance entry, linked to those manifests; a similar scenario in another language, view or mode is contextual evidence, never that key’s before. These keys also stand outside VH-199’s twelve runs. Sources: [after-manifest-2026-10-24.json:1](/Users/joe/UoN-Video-Helper-side/vh223/reviews/2026-10-22/design-pass-2/evidence/measurements/after-manifest-2026-10-24.json:1), [matrix-manifest-2026-10-23.json:1](/Users/joe/UoN-Video-Helper-side/vh223/reviews/2026-10-22/design-pass-2/evidence/measurements/matrix-manifest-2026-10-23.json:1), [decisions.md:147](/Users/joe/UoN-Video-Helper-side/vh223/project/decisions.md:147).
+
+2. **The walker change.** Add one optional selector at the existing selection boundary:
+
+   ```text
+   node matrix.mjs matrix --keys /absolute/path/group.keys.json
+   ```
+
+   The file is a **non-empty JSON array of exact canonical key strings**, such as `"S-24__zh-Hans__w1280__dark"`. Use `recordKey`, including its existing `~variant` convention; do not invent another identity format. Store batch/group lists outside the walker, beside the item’s evidence. VH-224 passes its own lists through the identical interface, without a code change or a hard-coded item/count. Sources: [matrix.mjs:192](/Users/joe/UoN-Video-Helper-side/vh223/reviews/2026-10-25/design-pass-3/evidence/measurements/walker/matrix.mjs:192), [runner.mjs:29](/Users/joe/UoN-Video-Helper-side/vh223/reviews/2026-10-25/design-pass-3/evidence/measurements/walker/runner.mjs:29).
+
+   Read the named plan once, validate membership/multiplicity, then filter its records **in the plan’s existing order**, retaining complete record objects before `declareRecord`. Refuse unreadable/malformed JSON, a non-array, an empty array, non-string entries, duplicate keys, keys absent from the named plan, or a requested key declared more than once. Refuse missing/repeated `--keys`, mixing it with scenario IDs, and combining it with `--resume`. All refusal happens **before `Run.create`, run-directory creation or browser connection**. Sources: [matrix.mjs:176](/Users/joe/UoN-Video-Helper-side/vh223/reviews/2026-10-25/design-pass-3/evidence/measurements/walker/matrix.mjs:176), [runner.mjs:55](/Users/joe/UoN-Video-Helper-side/vh223/reviews/2026-10-25/design-pass-3/evidence/measurements/walker/runner.mjs:55).
+
+   Name a selected run `matrix-keys-<existing timestamp/random runId>`; identify VH-223 and the group through its enclosing directory and manifest. Resume solely from the saved declaration and pinned provenance, without rereading the selector file.
+
+   Keep the legacy branch unchanged: IDs after the plan name, its `-part` suffix, unfiltered names, `--resume`, fixture discovery, declarations, grouping and parts/run guards. “Byte-same” should mean serialized declarations and unchanged source outside the selector patch, not inherently variable timestamps or browser pixels. Leave `runner.mjs`, scenarios, instruments and `parts.mjs` untouched. Sources: [matrix.mjs:183](/Users/joe/UoN-Video-Helper-side/vh223/reviews/2026-10-25/design-pass-3/evidence/measurements/walker/matrix.mjs:183), [parts.mjs:265](/Users/joe/UoN-Video-Helper-side/vh223/reviews/2026-10-25/design-pass-3/evidence/measurements/walker/parts.mjs:265).
+
+3. **Qualification by VH-198’s method.**
+
+   - **Named:** identify the selector change, base source, old instrument revision `9c52269607bccc4c`, the single new revision, changed files, and key-list hashes. Separate the instrument’s before/after qualification from the product readings, which have no before walk.
+   - **Proved to detect:** exercise every refusal above, including a well-formed but undeclared key and a duplicate declaration. Prove selection does not widen to another language/view/mode of the same scenario, respects variants, preserves plan order and complete declarations, and selects both A’s 108 and its 106-key complement exactly. Plant an omitted, extra, duplicate, stale, failed and state-expired output; drop a required instrument or expected assertion subject; verify none can become an accepted pass. Also prove filtered resume keeps the saved selection and rejects provenance drift.
+   - **Browser proof:** retain VH-198’s scratch-fixture demonstrations—overflow, undersized focus ring, missing accessible name and native-player failure—with positive controls. Do not replace those with a successful count check.
+   - **Pilot:** run a small explicit list through the new path in one language and three modes, comparing selected declarations with the old path. Exercise every batch-declared instrument, inspect its rows and justified `n/a`s, and include representative narrow/short views and a job. Separately exercise conditional declarations needed by VH-224, especially reduced motion and S-76 enlargement subresults. Label supplemental pilot keys separately from the 108.
+   - **Manifest:** source identity, old/new instrument revisions, selector/list identity, browser/OS/flags, actual viewport/DPR/font and scaling method, fixture hashes, expected/observed keys and hashes, proof results, pilot records and unresolved checks. Save the method verdict and disposition of each point before the full walk.
+
+   These requirements follow [VH-198.md:10](/Users/joe/UoN-Video-Helper-side/vh223/project/items/VH-198.md:10), the declaration contract in [matrix.mjs:45](/Users/joe/UoN-Video-Helper-side/vh223/reviews/2026-10-25/design-pass-3/evidence/measurements/walker/matrix.mjs:45), and evidence/provenance validation in [runner.mjs:133](/Users/joe/UoN-Video-Helper-side/vh223/reviews/2026-10-25/design-pass-3/evidence/measurements/walker/runner.mjs:133).
+
+   **A lightweight declaration-only proof that reaches no browser needs no walk lock.** Browser proofs, pilots, walks and gates do. The recorded exclusivity rule is one walk or gate at a time; it does not reserve the machine for reading declarations. Source: [decisions.md:137](/Users/joe/UoN-Video-Helper-side/vh223/project/decisions.md:137).
+
+4. **The walk.** I recommend these groups, in this order, taking only each scenario’s batch-A keys:
+
+   | Order | Scenarios | Keys |
+   | --- | --- | ---: |
+   | 1 | S-03, S-76, S-81 | 15 |
+   | 2 | S-16, S-41, S-53, S-56, S-58, S-63 | 27 |
+   | 3 | S-24 | 15 |
+   | 4 | S-48 | 15 |
+   | 5 | S-43, S-49, S-50, S-57, S-85 | 15 |
+   | 6 | S-60, S-61, S-65, S-66, S-72a | 15 |
+   | 7 | S-90a, S-90b | 6 |
+
+   This exposes layout/interpretation problems early, isolates the long-estimate and running scenarios, and leaves the watchdog cases in their own small group. It preserves sharing of setup across colour modes. The existing estimator gives approximately **3, 6, 26, 34, 55, 20 and 19 minutes**, respectively—planning estimates, not deadlines. Sources: [scenarios.mjs:1411](/Users/joe/UoN-Video-Helper-side/vh223/reviews/2026-10-25/design-pass-3/evidence/measurements/walker/scenarios.mjs:1411), [matrix.mjs:203](/Users/joe/UoN-Video-Helper-side/vh223/reviews/2026-10-25/design-pass-3/evidence/measurements/walker/matrix.mjs:203).
+
+   Run **one job per group, groups sequentially**. The driver should only launch the real CLI, supply environment, monitor conditions and collect results. No in-memory plan, Cartesian expansion, `afterMode` wrapper, page-name probe or automatic opening of the title panel is needed. Those are VH-225-specific behaviours that would alter this check’s declared states. Sources: [vh225-driver.mjs:65](/Users/joe/UoN-Video-Helper-side/vh225-walk/vh225-driver.mjs:65), [vh225-driver.mjs:99](/Users/joe/UoN-Video-Helper-side/vh225-walk/vh225-driver.mjs:99).
+
+   Required fixtures are exactly `captioned-12s.mp4`, `lecture-30s.mp4`, `lecture-60s.mp4`, `lecture-360s.mp4`, `still-3600s.mp4` and `still-10800s.mp4`. Verify availability and hash identities before launch; do not substitute shorter files to accelerate a state. Missing fixtures are recorded by the runner rather than universally rejected at creation, so the launcher must check them. Sources: [scenarios.mjs:3182](/Users/joe/UoN-Video-Helper-side/vh223/reviews/2026-10-25/design-pass-3/evidence/measurements/walker/scenarios.mjs:3182), [runner.mjs:257](/Users/joe/UoN-Video-Helper-side/vh223/reviews/2026-10-25/design-pass-3/evidence/measurements/walker/runner.mjs:257).
+
+   Use the fixed walk lock; start on AC or battery above 50%, mode 2, with both one- and five-minute loads below 8. Record actual power source, not the launcher’s hard-coded “AC” message. Sample every 30 seconds. Void an unfinished group, sleep gap over 180 seconds, changed source/mode, or unacceptable battery condition; require usable logs and endpoint samples. Preserve void attempts and rerun that group alone. Sources: [go.sh:12](/Users/joe/UoN-Video-Helper-side/vh225-walk/go.sh:12), [vh225-seq.zsh:10](/Users/joe/UoN-Video-Helper-side/vh225-walk/vh225-seq.zsh:10).
+
+   For **samples at or above 8**, retain the evidence but rewalk the affected group under settled conditions before accepting timing/readiness/interaction-paint conclusions. Group-level repetition is conservative and auditable with 30-second sampling; unrelated groups remain valid. VH-225’s text-specific permission to retain high-load groups should not silently cover these job and focus measurements. Source: [matrix-2026-10-27.md:68](/Users/joe/UoN-Video-Helper-side/vh223/reviews/2026-10-25/design-pass-3/evidence/measurements/matrix-2026-10-27.md:68).
+
+5. **Judging each key.** Keep three separate facts: **record present**, **record complete**, and **measurement judgement**. `status: "ok"` and exit zero establish neither accessibility nor design success; instrument failures are deliberately tallied separately. Source: [runner.mjs:1](/Users/joe/UoN-Video-Helper-side/vh223/reviews/2026-10-25/design-pass-3/evidence/measurements/walker/runner.mjs:1).
+
+   Recommend **OK** only when the accepted record has matching identity/provenance, passing `reached` and `reachedAfter`, no expiration, every required instrument and expected subject, and passing applicable counted rows. Inspect scenario assertions and conditional subresults, not only aggregate outcomes. Justified `not-applicable`/exempt rows are acceptable as exemptions, never positive measurements. Missing evidence and `cannot-determine` remain **NOT-OK/unresolved** unless a documented interpretation or supplemental measurement resolves the specific claim. Preserve the raw result. Sources: [runner.mjs:38](/Users/joe/UoN-Video-Helper-side/vh223/reviews/2026-10-25/design-pass-3/evidence/measurements/walker/runner.mjs:38), [runner.mjs:146](/Users/joe/UoN-Video-Helper-side/vh223/reviews/2026-10-25/design-pass-3/evidence/measurements/walker/runner.mjs:146), [matrix.mjs:235](/Users/joe/UoN-Video-Helper-side/vh223/reviews/2026-10-25/design-pass-3/evidence/measurements/walker/matrix.mjs:235).
+
+   Attribute each NOT-OK by row, allowing multiple causes per key:
+
+   - product defect;
+   - known product issue, linked to its existing disposition;
+   - known instrument/scenario mismatch;
+   - new instrument/fixture/selection failure;
+   - environment or timing contamination;
+   - unresolved measurement or applicability interpretation.
+
+   Claude and Codex astra should judge independently before comparison. A **newly established product defect** means reliable evidence of behaviour violating the applicable requirement, without an existing disposition covering it; it need not be a proven regression, because these keys lack befores. Give it its own fix item before VH-203. A new measurement failure needs its own remedy/accounting, not a product patch. The old-order failures remain expected failures linked to VH-216.1. Sources: [VH-223.md:11](/Users/joe/UoN-Video-Helper-side/vh223/project/items/VH-223.md:11), [wish-list.md:73](/Users/joe/UoN-Video-Helper-side/vh223/project/wish-list.md:73).
+
+6. **WCAG.** Record applicability and measured coverage separately:
+
+   | Criterion | Batch-A recommendation |
+   | --- | --- |
+   | **1.4.3, 1.4.6** | Assess visible applicable text in every represented view/palette using `contrastText` and text rows of `contrastExtra`, including the file-button glyph reading. AAA’s 7:1 normal/4.5:1 large-text pass also satisfies AA; an AAA failure does not automatically establish an AA failure. |
+   | **1.4.4** | **Not exercised by A’s selection:** no enlarged-font or zoom-proxy keys. Do not report a resize-text pass from ordinary-size records. |
+   | **1.4.10** | Use `overflow` for document overflow, clipping and spills at all A views, especially w375. Report these as reflow/layout evidence at their actual dimensions; A contains no 320 px or 400% proxy test, so it cannot establish the criterion’s full conformance condition. |
+   | **1.4.11** | Use non-text rows in `contrastExtra` for relevant boundaries/graphics, with 3:1 readings and justified exceptions. Range paint remains unresolved where the instrument says it needs pixels. |
+   | **1.4.12** | **Not exercised:** A contains no spacing mode. Ordinary layout/type readings do not substitute for the spacing override. |
+   | **2.3.3** | **Not exercised:** no reduced-motion keys, and `motion` is only added/watched for that mode. Do not infer success from absence of that instrument. |
+   | **2.4.7** | Assess declared keyboard-focus subjects using `focus` evidence and retained focused/unfocused clips. `:focus-visible` or a small nonzero `changedAny` alone is insufficient evidence of a visible indicator. |
+   | **2.4.13** | Use `focus`’s CSS-pixel area at ≥3:1 against the appropriate perimeter, retaining clipping and interpretation limitations. Do not convert a native-player exception into a pass. |
+   | **2.5.5** | Use `targets` and relevant passive `player` target rows; require 44 × 44 CSS px or a supported exception. Keep inline, inactive and user-agent exceptions explicit. |
+
+   The instrument mapping comes from [matrix.mjs:95](/Users/joe/UoN-Video-Helper-side/vh223/reviews/2026-10-25/design-pass-3/evidence/measurements/walker/matrix.mjs:95), [qualify.mjs:180](/Users/joe/UoN-Video-Helper-side/vh223/reviews/2026-10-25/design-pass-3/evidence/measurements/walker/qualify.mjs:180), [qualify.mjs:735](/Users/joe/UoN-Video-Helper-side/vh223/reviews/2026-10-25/design-pass-3/evidence/measurements/walker/qualify.mjs:735), and [wcag-2.2-aaa.md:18](/Users/joe/UoN-Video-Helper-side/vh223/project/digests/wcag-2.2-aaa.md:18).
+
+   “Not exercised in A” does **not** mean those criteria are inapplicable to the product. Also, none of A’s scenarios opts into `playerKeys`; passive player readings do not establish its inner controls’ focus or keyboard conformance. Source: [phase8.mjs:918](/Users/joe/UoN-Video-Helper-side/vh223/reviews/2026-10-25/design-pass-3/evidence/measurements/walker/phase8.mjs:918).
+
+7. **The table.** Drive the generator with a deliberately empty before side and **accepted after groups only**. Never pair after with itself, duplicate after records into a before folder, or present the old instrument revision as a measured product before.
+
+   Use a small, saved adapter outside the walker to make the generated page say:
+
+   - **Before:** “no previous after-reading”; source, diff and instrument provenance “not applicable—no before walk”.
+   - **Counts:** 0 before records, actual accepted after count—108 when complete—with the actual reached count.
+   - **Comparison:** 0 paired comparisons, 108 after-only keys, and “change/unmoved not assessed”.
+
+   This adapter is necessary because the current helper prints `?` provenance for an absent group and “Nothing moved, row by row” when there were no comparisons. The latter must not imply stability. Sources: [table-1page.mjs:34](/Users/joe/UoN-Video-Helper-side/table-1page.mjs:34), [table-1page.mjs:75](/Users/joe/UoN-Video-Helper-side/table-1page.mjs:75), [table-1page.mjs:119](/Users/joe/UoN-Video-Helper-side/table-1page.mjs:119).
+
+   Publish a machine-readable **accepted-record index**, preferably JSONL, with exactly one row per full key: record path/hash, run ID, manifest path, source identity, instrument revision, conditions/group reference, judgement, attribution/evidence references and superseded attempts. “Accepted” means the authoritative evidence record, which may be NOT-OK. Validate exact equality with A’s key list; VH-224 can then verify a disjoint union of 214.
+
+   Preserve every accepted full record and the artifacts its judgement cites. The helper’s outcomes file omits detailed measurements, and `--detail-failing` only copies records inside its before/after matching loop: it will **not** save full after-only records. Its directory traversal also permits silent replacement of duplicate keys, so the index must resolve acceptance explicitly before rendering. Sources: [table-1page.mjs:37](/Users/joe/UoN-Video-Helper-side/table-1page.mjs:37), [table-1page.mjs:60](/Users/joe/UoN-Video-Helper-side/table-1page.mjs:60), [table-1page.mjs:87](/Users/joe/UoN-Video-Helper-side/table-1page.mjs:87).
+
+8. **Risks.**
+
+   - **S-03 can fail structural completeness beyond the settled old-order assertions.** Its four A keys declare `formatTip`, so `expectsFor` requires ten named subjects. With the title panel closed, `formatTip` returns one `not-applicable` row because the button is hidden; `verify` still reports missing subjects. Account for that known hidden-control mismatch explicitly. Do not open the panel in the driver or suppress the expected subjects to obtain “whole”. Sources: [matrix.mjs:70](/Users/joe/UoN-Video-Helper-side/vh223/reviews/2026-10-25/design-pass-3/evidence/measurements/walker/matrix.mjs:70), [phase8.mjs:622](/Users/joe/UoN-Video-Helper-side/vh223/reviews/2026-10-25/design-pass-3/evidence/measurements/walker/phase8.mjs:622), [runner.mjs:169](/Users/joe/UoN-Video-Helper-side/vh223/reviews/2026-10-25/design-pass-3/evidence/measurements/walker/runner.mjs:169).
+
+   - **S-24 depends on measured performance.** Its state requires specifically the long-job warning and excludes the very-long warning. A faster/slower machine can miss that band. Pilot it under accepted conditions; preserve an unreached result if it misses. Substituting a fixture or forcing the verdict exceeds the selector change. Source: [scenarios.mjs:400](/Users/joe/UoN-Video-Helper-side/vh223/reviews/2026-10-25/design-pass-3/evidence/measurements/walker/scenarios.mjs:400).
+
+   - **Job scenarios are genuinely slow.** Encoding may wait five minutes; S-57 performs failure and retry; S-60 completes one job before starting another; S-65 requires checking and saving simultaneously. Monitor progress against their actual bounds, not a generic short timeout. Sources: [scenarios.mjs:156](/Users/joe/UoN-Video-Helper-side/vh223/reviews/2026-10-25/design-pass-3/evidence/measurements/walker/scenarios.mjs:156), [scenarios.mjs:740](/Users/joe/UoN-Video-Helper-side/vh223/reviews/2026-10-25/design-pass-3/evidence/measurements/walker/scenarios.mjs:740), [scenarios.mjs:825](/Users/joe/UoN-Video-Helper-side/vh223/reviews/2026-10-25/design-pass-3/evidence/measurements/walker/scenarios.mjs:825).
+
+   - **S-90a has a narrow window.** After the 120-second watchdog, its locked state lasts ten seconds. Instruments must finish before `reachedAfter`; expiration is failed evidence. S-90b deliberately waits for unlock. Run their group settled and alone; never relax the predicate. Source: [scenarios.mjs:1055](/Users/joe/UoN-Video-Helper-side/vh223/reviews/2026-10-25/design-pass-3/evidence/measurements/walker/scenarios.mjs:1055).
+
+   - **Subresults are conditional.** S-76 declares them, but its `when` predicate excludes landscape and short: **zero A keys require subresults**. Preserve that condition; do not claim the dialog was entered, operated and exited through those subresults in A. VH-224’s enlargement records will need them. Source: [scenarios.mjs:1780](/Users/joe/UoN-Video-Helper-side/vh223/reviews/2026-10-25/design-pass-3/evidence/measurements/walker/scenarios.mjs:1780).
+
+   - **Read final amendments, not the first scenario definition.** S-50 now switches video type while video language remains locked; its earlier setup/state is obsolete. S-72a intentionally checks retained focus before instruments, then uses a weaker `hold` because instruments move focus. Sources: [scenarios.mjs:2962](/Users/joe/UoN-Video-Helper-side/vh223/reviews/2026-10-25/design-pass-3/evidence/measurements/walker/scenarios.mjs:2962), [scenarios.mjs:889](/Users/joe/UoN-Video-Helper-side/vh223/reviews/2026-10-25/design-pass-3/evidence/measurements/walker/scenarios.mjs:889).
+
+   - **Known measurement limits remain.** Finish+1s player rows are unverified even when nominally passing; wrapped-link perimeter, clipped-card rings and pseudo-element target bounds need attribution. S-81’s forced-link issue is already recorded separately. Keep the settled 32 px capture limitation and `changedAny` noise out of approval claims. Sources: [matrix-2026-10-27.md:63](/Users/joe/UoN-Video-Helper-side/vh223/reviews/2026-10-25/design-pass-3/evidence/measurements/matrix-2026-10-27.md:63), [wish-list.md:57](/Users/joe/UoN-Video-Helper-side/vh223/project/wish-list.md:57), [wish-list.md:89](/Users/joe/UoN-Video-Helper-side/vh223/project/wish-list.md:89).
+
+   - **A launched job can fail without the shell reporting failure.** `walk.sh` echoes the child status inside its background subshell; the sequence’s void check primarily looks for an end line and conditions. Require the child result, manifests and accepted-key reconciliation. CDP tracing reports unanswered calls but supplies no timeout, so a stalled browser still needs controlled teardown/retry with its evidence retained. Sources: [walk.sh:45](/Users/joe/UoN-Video-Helper-side/vh225-walk/walk.sh:45), [cdp.mjs:37](/Users/joe/UoN-Video-Helper-side/vh223/reviews/2026-10-25/design-pass-3/evidence/measurements/walker/cdp.mjs:37).
+
+**Musts**
+
+- Exact 108-key selection, one declaration each, with a reusable selector and pre-directory rejection proofs.
+- One walker revision after `9c52269607bccc4c`; preserve legacy callers and all deferred checks.
+- Qualified method and pilot, sequential locked walks, actual provenance and conditions, and no contaminated timing/paint claim.
+- One authoritative record and explicit judgement per key; preserve expected failures, inconclusive measurements and structural gaps.
+- Independent NOT-OK attribution and comparison; new product defects receive separate fix items before VH-203.
+- A truthful after-only table, complete records and a machine-readable acceptance index.
+- At close, the required gate and checker, final blind review, Disposition link and named digest rules. Gateless authority does not waive those explicit criteria. Source: [VH-223.md:17](/Users/joe/UoN-Video-Helper-side/vh223/project/items/VH-223.md:17).
+
+**Mays**
+
+- Split a proposed group further if pilot timing warrants it, preserving exact coverage and sequential execution.
+- Count valid pilot records toward the 108 only when they meet the final build, revision, conditions and acceptance rules.
+- Add focused supplementary probes to resolve a specific uncertainty, clearly separate from the declared walk; no general page probe is needed.

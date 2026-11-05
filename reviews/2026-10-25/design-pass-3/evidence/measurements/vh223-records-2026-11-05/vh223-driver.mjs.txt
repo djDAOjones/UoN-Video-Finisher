@@ -1,0 +1,44 @@
+// VH-223 #1's driver, from VH-225's vh225-driver.mjs (copied here, the original untouched), reduced: the walker now selects the keys itself
+// (matrix.mjs's `--keys`, the one walker change VH-223's criteria name), so there is no plan in memory, no probe and no hook. It records power
+// and the key list in a ledger line, refuses to start off power, then runs the pass's own runner on PLANS.matrix as declared: `matrix --keys <file>`.
+//   APP_URL=… CDP_PORT=… FIX=… OUT_ROOT=… RUN_ROOT=… OUTD=… node vh223-driver.mjs walk --walker <dir> --label after --name <group> --keys <file>
+//   RUN_ROOT=<any> node vh223-driver.mjs count --walker <dir> --keys <file>     (read-only: the records the list keeps, by class)
+import { pathToFileURL, fileURLToPath } from 'node:url'
+import { join, resolve } from 'node:path'
+import { appendFileSync, mkdirSync, readFileSync } from 'node:fs'
+import { execFileSync } from 'node:child_process'
+import { createHash } from 'node:crypto'
+
+const args = (() => { const a = process.argv.slice(2), o = { _: [] }; for (let i = 0; i < a.length; i++) { if (a[i].startsWith('--')) { const k = a[i].slice(2); if (a[i + 1] === undefined || a[i + 1].startsWith('--')) o[k] = true; else o[k] = a[++i] } else o._.push(a[i]) } return o })()
+
+function power() {
+  const sh = (cmd, a) => execFileSync(cmd, a, { encoding: 'utf8' })
+  const batt = sh('pmset', ['-g', 'batt']), pm = sh('pmset', ['-g']), up = sh('uptime', []).trim()
+  const ac = /AC Power/.test(batt), level = Number((batt.match(/(\d+)%/) ?? [])[1]), mode = Number((pm.match(/^\s*powermode\s+(\d+)/m) ?? [])[1])
+  return { at: new Date().toISOString(), source: ac ? 'AC' : 'battery', level, powermode: mode, load: Number((up.match(/load averages?: ([\d.]+)/) ?? [])[1]), ok: ac || (level > 50 && !(/lowpowermode\s+1/.test(pm) || mode === 1)) }
+}
+const keyFile = () => { if (typeof args.keys !== 'string') throw new Error('--keys <file> is required'); return resolve(args.keys) }
+
+async function walk() {
+  for (const k of ['APP_URL', 'CDP_PORT', 'FIX', 'OUT_ROOT', 'RUN_ROOT', 'OUTD']) if (!process.env[k]) throw new Error('set ' + k)
+  const walker = resolve(args.walker), label = args.label ?? 'after', file = keyFile(), bytes = readFileSync(file)
+  const keys = String(bytes).split('\n').map((l) => l.trim()).filter(Boolean)
+  const matrixUrl = pathToFileURL(join(walker, 'matrix.mjs')).href, p = power()
+  mkdirSync(process.env.RUN_ROOT, { recursive: true })
+  appendFileSync(join(process.env.RUN_ROOT, 'vh223-ledger.jsonl'), JSON.stringify({ label, name: args.name, power: p, walker, keys: { file, count: keys.length, sha1: createHash('sha1').update(bytes).digest('hex') }, args }) + '\n')
+  if (!p.ok) { console.log('POWER-STOP'); process.exit(3) }
+  process.argv = [process.argv[0], fileURLToPath(matrixUrl), 'matrix', '--keys', file]
+  await import(matrixUrl)
+}
+
+async function count() {
+  const walker = resolve(args.walker), at = (f) => import(pathToFileURL(join(walker, f)).href)
+  const { PLANS } = await at('scenarios.mjs'); await at('parts.mjs'); const { keepKeys } = await at('matrix.mjs')
+  const keys = readFileSync(keyFile(), 'utf8').split('\n').map((l) => l.trim()).filter(Boolean)
+  const kept = keepKeys(PLANS.matrix(), keys), by = {}
+  for (const r of kept) for (const t of [r.view, r.mode]) by[t] = (by[t] ?? 0) + 1
+  console.log('records', kept.length, JSON.stringify(by))
+}
+if (args._[0] === 'walk') await walk()
+else if (args._[0] === 'count') await count()
+else { console.log('usage: node vh223-driver.mjs walk|count --walker <dir> [--label l --name n] --keys <file>'); process.exit(2) }

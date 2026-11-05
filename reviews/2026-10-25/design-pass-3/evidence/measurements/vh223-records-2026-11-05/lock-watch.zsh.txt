@@ -1,0 +1,4 @@
+#!/bin/zsh
+# VH-223 #4, read-only: records each change of the walk lock's owner.txt, every 10 s, into lock-order.log (for #40's lock order).
+L=/Users/uazjob/UoN-Video-Helper-side/walk.lock; O=/Users/uazjob/UoN-Video-Helper-side/vh223-walk/lock-order.log; prev="?"
+while :; do o=$(cat $L/owner.txt 2>/dev/null || echo free); [ "$o" != "$prev" ] && { echo "$(date -u +%T) $o" >> $O; prev="$o"; }; sleep 10; done

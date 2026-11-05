@@ -1,0 +1,27 @@
+#!/bin/zsh
+# VH-223 #3, on the Mac Pro: regenerate the 36 fixtures into vh223-walk/fix/ by the walker's own fixtures.sh (which calls fixtures-8.sh) and,
+# for still8-1080p.png (which fixtures-8.sh makes and deletes), its own recipe line (fixtures-8.sh, N7's first line), under the walk lock (siblings
+# take it for fixtures too, so no walk runs beside the encode). Waits for the lock by a 60 s loop, one line (exit 12) once one holder has held it 3 h.
+# Logs load every 30 s to fix-gen.load.log. Usage: zsh vh223-fix.zsh <walker dir>
+WALKER=$1; D=/Users/uazjob/UoN-Video-Helper-side/vh223-walk; LOCK=/Users/uazjob/UoN-Video-Helper-side/walk.lock; WHO="VH-223 #3"; cd "$D" || exit 5
+for f in fix fix-gen.log fix-gen.load.log; do [ -e "$f" ] && { echo "EXISTS: $f"; exit 2; }; done
+pwho=""; held=0
+while ! mkdir "$LOCK" 2>/dev/null; do
+  o=$(cat "$LOCK/owner.txt" 2>/dev/null); who=${o%% — *}
+  if [ "$who" = "$pwho" ]; then held=$((held+60)); else pwho="$who"; held=0; echo "$(date -u +%T) lock held: $o" >> fix-gen.wait.log; fi
+  [ $held -ge 10800 ] && { echo "WAIT STOP $(date -u +%T): $who has held the lock 3 h: $o"; exit 12; }
+  sleep 60
+done
+echo "$WHO — $(date -u +%FT%TZ) — fixtures (vh223-fix.zsh)" > "$LOCK/owner.txt"
+caffeinate -i -w $$ &
+CAF=$!
+( while :; do echo "$(date -u +%T) load $(uptime | sed -E 's/.*load averages?: ([0-9.]+).*/\1/') $(pmset -g batt | sed -nE "1s/Now drawing from '(.*)'/\1/p")" >> fix-gen.load.log; sleep 30; done ) &
+LP=$!
+{ echo "start $(date -u +%FT%TZ)"; pmset -g batt | head -1; uptime; ffmpeg -version | head -1; command -v ffmpeg; } > fix-gen.log
+zsh "$WALKER/fixtures.sh" "$D/fix" >> fix-gen.log 2>&1; rc=$?
+echo "fixtures.sh exit $rc $(date -u +%FT%TZ)" >> fix-gen.log
+ffmpeg -v error -y -f lavfi -i testsrc2=size=1920x1080:rate=1 -frames:v 1 "$D/fix/still8-1080p.png" >> fix-gen.log 2>&1; echo "still8 exit $? $(date -u +%FT%TZ)" >> fix-gen.log
+{ echo "end $(date -u +%FT%TZ)"; pmset -g batt | head -1; uptime; } >> fix-gen.log
+kill $LP 2>/dev/null; wait $LP 2>/dev/null; kill $CAF 2>/dev/null
+grep -q "$WHO" "$LOCK/owner.txt" && rm -r "$LOCK"
+echo "fix done rc $rc; lock: $(ls -d $LOCK 2>/dev/null && cat $LOCK/owner.txt || echo released)"

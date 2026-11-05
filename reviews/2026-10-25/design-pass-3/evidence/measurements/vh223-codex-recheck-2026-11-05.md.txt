@@ -1,0 +1,15 @@
+Read-only re-check completed; nothing changed. Below, `M` means `reviews/2026-10-25/design-pass-3/evidence/measurements/`; `R` means its `vh223-records-2026-11-05/` folder.
+
+1. **Freeze — pass.** HEAD is `95d18eed5db1ae56d1fe6512053bad714357d899`. The tracked patch matches both freezes byte-for-byte, SHA-1 `90761325ba699d6f0b8a8a6c7b5d6be90f6a4f48`; the staged patch is empty. All 21 status lines, 135 untracked paths and their hashes match the new freeze. Relative to the first freeze, only `renamed.txt` changed and the close pair was added. Sources: `../vh223-frozen-r1/status.txt:1`, `untracked.sha1.txt:5–6,110`; first freeze `untracked.sha1.txt:108`.
+
+2. **Source equality — pass.** All eight review copies and both close-pair copies are byte-identical to their permitted sources. The eight hashes in `R/renamed.txt:3` are correct. `table-1page.mjs.txt` matches its source with SHA-1 `fe9203451770e75559ee150bfb7ee9d6a2cba498`, correctly recorded at `R/sources.txt:121`. All 15 other renamed files match the table’s hashes (`M/vh223-matrix-a-2026-11-05.md:15–35`). The repaired hash claims in `R/renamed.txt:1–3` are true for the files present.
+
+3. **Additions — no substantive defect found.** The old brief’s “each” claim remains historical (`M/vh223-codex-close-brief-2026-11-05.md:14`), corrected by `R/renamed.txt:1`. However, `R/renamed.txt:3` already claims source equality for the forthcoming re-check pair: that remains unverified until those files exist. Fresh `node tools/check.mjs`: zero structural or budget failures; only the previously recorded missing-sample warning. The final full gate remains pending as planned.
+
+**Verdict: pass with conditions.** Before commit:
+
+- Save this re-check and its brief; verify their source equality to fulfil `renamed.txt:3`.
+- Run the final `npm run check` under the walk lock after those additions; require green.
+- Carry the `Verify:` and requested `Checked:` commit lines.
+
+No further repair or walk is required by this re-check.

@@ -1,0 +1,41 @@
+#!/bin/zsh
+# VH-223 #1 (copied from vh225-walk/vh225-seq.zsh, the original untouched): the groups, in sequence, one at a time, one chain. Usage: zsh seq.zsh after <walker> <app> [groups…]
+# Restarts cleanly: a group whose folder has its `end` line and passes the void check is kept and skipped; an unfinished one, or one crossing a sleep (a gap above 180 s in its 30 s load log) or a change of power source or mode, is void: moved under void/ whole and re-run alone, at most twice, the others kept.
+# Load samples at 8 or above are recorded, not voided (text readings; brief section 0, "Load").
+# Stops at the first non-zero exit from go.sh (exit 9 is its 45-minute wait).
+side=$1; W=$2; A=$3; shift 3
+D=/Users/uazjob/UoN-Video-Helper-side/vh223-walk; cd "$D"
+LOG="$side.seq.log"
+groups=("$@")
+voidreason() { node -e "
+const fs=require('fs');const n=process.argv[1];const c=fs.existsSync(n+'/conditions.txt')?fs.readFileSync(n+'/conditions.txt','utf8'):'';
+if(!/^end /m.test(c)){console.log('unfinished');process.exit(0)}
+const l=fs.existsSync(n+'.load.log')?fs.readFileSync(n+'.load.log','utf8').trim().split('\n').filter(Boolean):[];
+const sec=(t)=>{const[a,b,d]=t.split(':').map(Number);return a*3600+b*60+d};let prev=null,src=new Set();
+for(const x of l){const p=x.split(' ');const s=sec(p[0]);if(prev!==null){let g=s-prev;if(g<0)g+=86400;if(g>180){console.log('gap '+g+' s at '+p[0]);process.exit(0)}}prev=s;src.add(p.slice(3).filter(w=>!/%$/.test(w)).join(' '))}
+if(src.size>1){console.log('power changed: '+[...src].join(' | '));process.exit(0)}
+if(process.env.VH210_LOAD_VOID){const hi=l.filter(x=>Number(x.split(' ')[2])>=8);if(hi.length){console.log('load at 8 or above in '+hi.length+' samples, peak '+Math.max(...hi.map(x=>Number(x.split(' ')[2]))));process.exit(0)}}
+" "$1"; }
+moveaside() { local n=$1 i=1; mkdir -p void; while [ -e "void/$n.$i" ]; do i=$((i+1)); done; mkdir "void/$n.$i"; for f in "$n" "$n.launcher.log" "$n.load.log" "$n.go.out"; do [ -e "$f" ] && mv "$f" "void/$n.$i/"; done; echo "$n void: moved to void/$n.$i ($2) $(date -u +%T)" >> "$LOG"; }
+DRV='node vh223-driver.mjs walk --walker "$WALKER"'
+for g in $groups; do
+  n="$side-$g"
+  for try in 1 2 3 4; do
+    if [ -e "$n" ]; then
+      v=$(voidreason "$n")
+      if [ -z "$v" ]; then echo "$n kept $(date -u +%T)" >> "$LOG"; break; fi
+      if [ $try = 4 ]; then echo "SEQ STOP $n void three times: $v" >> "$LOG"; exit 10; fi
+      moveaside "$n" "$v"
+    fi
+    case $g in
+      pilot|a1|a2|a3|a4|a5|a6|a7|a4t|a6t) job="$DRV --label $side --name $g --keys $D/keys-a-$g.txt" ;;
+      *) echo "SEQ STOP unknown group $g" >> "$LOG"; exit 11 ;;
+    esac
+    zsh go.sh "$n" "$side $g" "$W" "$A" "$job" > "$n.go.out" 2>&1; rc=$?
+    echo "$n exit $rc $(date -u +%T)" >> "$LOG"
+    [ $rc = 0 ] || { echo "SEQ STOP $n rc $rc" >> "$LOG"; exit $rc; }
+    v=$(voidreason "$n"); [ -z "$v" ] && break
+    echo "$n void after run $try: $v" >> "$LOG"
+  done
+done
+echo "SEQ DONE $side $(date -u +%T)" >> "$LOG"

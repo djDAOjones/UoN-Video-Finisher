@@ -1,0 +1,26 @@
+keys 108 indexed 108 {"NOT-OK":24,"OK":84}
+by cause {"old-order row, expected both sides":4,"documented reading: a mixed-script line, VH-173's":23,"documented reading: the trim thumb's disc, VH-173's":36,"documented reading: the trim thumbs, a declared person check":78,"known: S-81's wrapped statement link, its fragment perimeter unread, missing evidence, as VH-199's ×11":5}
+NOT-OK S-03__ms-MY__landscape__light [after-a1]: asserts fail "About the video format" 44 x 44, collapsed, controlling #format-help; asserts fail Tab from the top: skip link, Page language, (the notice's link), About the video | old-order row, expected both sides (wish VH-216.1; "Yes, leave them" (plan8-owner-words.md:366))
+NOT-OK S-03__ms-MY__short__light [after-a1]: asserts fail "About the video format" 44 x 44, collapsed, controlling #format-help; asserts fail Tab from the top: skip link, Page language, (the notice's link), About the video | old-order row, expected both sides (wish VH-216.1; "Yes, leave them" (plan8-owner-words.md:366))
+NOT-OK S-03__zh-Hans__landscape__light [after-a1]: asserts fail "About the video format" 44 x 44, collapsed, controlling #format-help; asserts fail Tab from the top: skip link, Page language, (the notice's link), About the video | old-order row, expected both sides (wish VH-216.1; "Yes, leave them" (plan8-owner-words.md:366))
+NOT-OK S-03__zh-Hans__short__light [after-a1]: asserts fail "About the video format" 44 x 44, collapsed, controlling #format-help; asserts fail Tab from the top: skip link, Page language, (the notice's link), About the video | old-order row, expected both sides (wish VH-216.1; "Yes, leave them" (plan8-owner-words.md:366))
+NOT-OK S-24__en-GB__landscape__light [after-a3]:  | 
+NOT-OK S-24__en-GB__short__light [after-a3]:  | 
+NOT-OK S-24__en-GB__w375__light [after-a3]:  | 
+NOT-OK S-24__ms-MY__landscape__light [after-a3]:  | 
+NOT-OK S-24__ms-MY__short__light [after-a3]:  | 
+NOT-OK S-24__ms-MY__w1280__dark [after-a3]:  | 
+NOT-OK S-24__ms-MY__w1280__forced-dark [after-a3]:  | 
+NOT-OK S-24__ms-MY__w1280__forced-light [after-a3]:  | 
+NOT-OK S-24__ms-MY__w375__light [after-a3]:  | 
+NOT-OK S-24__zh-Hans__landscape__light [after-a3]:  | 
+NOT-OK S-24__zh-Hans__short__light [after-a3]:  | 
+NOT-OK S-24__zh-Hans__w1280__dark [after-a3]:  | 
+NOT-OK S-24__zh-Hans__w1280__forced-dark [after-a3]:  | 
+NOT-OK S-24__zh-Hans__w1280__forced-light [after-a3]:  | 
+NOT-OK S-24__zh-Hans__w375__light [after-a3]:  | 
+NOT-OK S-81__ms-MY__landscape__light [after-a1]: focus fail #accessibility-statement a | known: S-81's wrapped statement link, its fragment perimeter unread, missing evidence, as VH-199's ×11 (wish VH-200.1 (judged-2026-10-27.md:950; digest-focus-2026-10-27.md); the forced cells also wish VH-210.2)
+NOT-OK S-81__ms-MY__short__light [after-a1]: focus fail #accessibility-statement a | known: S-81's wrapped statement link, its fragment perimeter unread, missing evidence, as VH-199's ×11 (wish VH-200.1 (judged-2026-10-27.md:950; digest-focus-2026-10-27.md); the forced cells also wish VH-210.2)
+NOT-OK S-81__ms-MY__w1280__dark [after-a1]: focus fail #accessibility-statement a | known: S-81's wrapped statement link, its fragment perimeter unread, missing evidence, as VH-199's ×11 (wish VH-200.1 (judged-2026-10-27.md:950; digest-focus-2026-10-27.md); the forced cells also wish VH-210.2)
+NOT-OK S-81__ms-MY__w1280__forced-dark [after-a1]: focus fail #accessibility-statement a | known: S-81's wrapped statement link, its fragment perimeter unread, missing evidence, as VH-199's ×11 (wish VH-200.1 (judged-2026-10-27.md:950; digest-focus-2026-10-27.md); the forced cells also wish VH-210.2)
+NOT-OK S-81__ms-MY__w1280__forced-light [after-a1]: focus fail #accessibility-statement a | known: S-81's wrapped statement link, its fragment perimeter unread, missing evidence, as VH-199's ×11 (wish VH-200.1 (judged-2026-10-27.md:950; digest-focus-2026-10-27.md); the forced cells also wish VH-210.2)

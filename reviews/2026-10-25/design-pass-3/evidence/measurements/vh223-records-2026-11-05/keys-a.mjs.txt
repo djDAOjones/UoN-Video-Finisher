@@ -1,0 +1,21 @@
+// VH-223 #1: batch A's key list, by the item's exclusive rule, proved by count.
+// Usage: node keys-a.mjs <unrun json> [out file]. Exits 1 on any count but 42+24+24+6+6+6 = 108.
+import { readFileSync, writeFileSync } from 'node:fs'
+const [src, out] = process.argv.slice(2)
+const { stillUnrun } = JSON.parse(readFileSync(src, 'utf8'))
+const VIEWS = ['w375', 'landscape', 'short'], MODES = ['dark', 'forced-dark', 'forced-light']
+const counts = Object.fromEntries([...VIEWS, ...MODES].map((c) => [c, 0]))
+const keys = stillUnrun.filter((k) => {
+  const p = k.split('__'); if (p.length !== 4) throw new Error('key shape ' + k)
+  const [, , view, mode] = p
+  const v = VIEWS.includes(view), m = MODES.includes(mode)
+  if (v && m) throw new Error('key in two classes ' + k)
+  if (v) counts[view]++
+  if (m) counts[mode]++
+  return v || m
+}).sort()
+const want = { w375: 42, landscape: 24, short: 24, dark: 6, 'forced-dark': 6, 'forced-light': 6 }
+const ok = keys.length === 108 && Object.entries(want).every(([c, n]) => counts[c] === n) && new Set(keys).size === 108
+console.log(JSON.stringify({ stillUnrun: stillUnrun.length, batchA: keys.length, counts, ok }))
+if (!ok) process.exit(1)
+if (out) writeFileSync(out, keys.join('\n') + '\n')
