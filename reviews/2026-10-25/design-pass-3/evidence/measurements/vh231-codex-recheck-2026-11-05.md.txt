@@ -1,0 +1,11 @@
+Verdict: Commit
+
+1. **should** — `project/items/VH-231.md:26`: Keep the repaired trimmed-file criterion. It covers cut MKV and WebM before Create and finished, inherits the full matrix, leaves IDs to the orchestrator and requires qualification. It introduces no additional product wording, element, specification change or present walker edit.
+
+2. **should** — `project/items/VH-231.md:60`: The proof5 attribution now answers the must: the summary establishes cells and string coverage; the detailed readings are attributed separately. All three evidence hashes match. The cited underlying records and progress notes remain outside the allowlist, so their contents were not independently verified.
+
+3. **should** — `project/items/VH-231.md:38`: The search filenames, cut-file qualification and corrected g1 description answer the earlier should. The four permitted item files contain none of the searched terms. The external progress-note search and assertion about their cells remain reported evidence, not independently verified findings.
+
+4. **should** — `project/decisions.md:27`, `project/items/VH-231.md:1`: Preserve this candidate. The tracked diff matches `03166c8f5fddcded`; the item matches `81fed25897aedfff84d1e25449e7e8512d941d55`. Changes remain ledger-only, nothing is staged, and `git diff --check` passes. The previous untracked contents are unavailable here for a complete line-by-line comparison.
+
+5. **must** — `project/items/VH-231.md:35`: Complete the promised exact-tree gate before committing and report its actual result. I did not rerun it. The structural checker independently reports zero failures and the single known missing-sample warning. If unchanged, report “1,663 passed, 1 standing skip (EBU cases 7 and 8)”. The raise’s `Checked:` line should use this verdict, `Commit`, scope `VH-231 raised`, and the actual reviewing model’s identity.

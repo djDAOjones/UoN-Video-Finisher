@@ -1,0 +1,834 @@
+{
+ "runId": "2026-11-05T20-32-55-881Z-c6e3ee",
+ "name": "vh231-after-t1a-forced-light",
+ "created": "2026-11-05T20:32:56.162Z",
+ "provenance": {
+  "source": {
+   "commit": "4bc3a40fd771042b971d235a55404f76a7ae7693",
+   "dirty": true,
+   "diffSha256": "4c9a14b388306870"
+  },
+  "instruments": {
+   "revision": "9c52269607bccc4c",
+   "files": [
+    {
+     "file": "again-190.mjs",
+     "sha256": "c87210f9f463f16c"
+    },
+    {
+     "file": "card-215.mjs",
+     "sha256": "fd4820886c9217c8"
+    },
+    {
+     "file": "cdp.mjs",
+     "sha256": "236e93be01a46929"
+    },
+    {
+     "file": "design-walk.mjs",
+     "sha256": "50c2b05bda2e7e61"
+    },
+    {
+     "file": "digest.mjs",
+     "sha256": "b58bfc4e16da02cd"
+    },
+    {
+     "file": "faults.mjs",
+     "sha256": "7b10cc52772035fe"
+    },
+    {
+     "file": "fixtures-8.sh",
+     "sha256": "63fa545bc29e59f5"
+    },
+    {
+     "file": "fixtures.sh",
+     "sha256": "58a1c94dcaab0dfa"
+    },
+    {
+     "file": "footer-182.mjs",
+     "sha256": "ac479fc4c96f246e"
+    },
+    {
+     "file": "heavy-193.mjs",
+     "sha256": "54cbff0b91b93218"
+    },
+    {
+     "file": "inventory.mjs",
+     "sha256": "c2c16ea752c5e01e"
+    },
+    {
+     "file": "labels-189.mjs",
+     "sha256": "b4e39a730b577c3f"
+    },
+    {
+     "file": "lang-191.mjs",
+     "sha256": "ea6bec378b7c6779"
+    },
+    {
+     "file": "matrix.mjs",
+     "sha256": "a755d975c93da2db"
+    },
+    {
+     "file": "name-181.mjs",
+     "sha256": "7c2a15e25096c1d5"
+    },
+    {
+     "file": "note-180.mjs",
+     "sha256": "961d9427eeac771f"
+    },
+    {
+     "file": "page-183.mjs",
+     "sha256": "e1936c38cc88e158"
+    },
+    {
+     "file": "parts.mjs",
+     "sha256": "41ac1539a3d83b55"
+    },
+    {
+     "file": "phase8.mjs",
+     "sha256": "090f41a1c7bb6af8"
+    },
+    {
+     "file": "player-192.mjs",
+     "sha256": "9e586e52bf2ff91d"
+    },
+    {
+     "file": "preset-188.mjs",
+     "sha256": "9008b6c98979053b"
+    },
+    {
+     "file": "prove-172.mjs",
+     "sha256": "03e07056cf331744"
+    },
+    {
+     "file": "prove-8.mjs",
+     "sha256": "b8809c978b6c8ffc"
+    },
+    {
+     "file": "prove-fixtures-8.mjs",
+     "sha256": "f070fb844cfef3c7"
+    },
+    {
+     "file": "prove-m04.mjs",
+     "sha256": "d5d8cef75177d065"
+    },
+    {
+     "file": "prove-resume.mjs",
+     "sha256": "2e282c03e4ec4436"
+    },
+    {
+     "file": "prove.mjs",
+     "sha256": "190906965e7f3df0"
+    },
+    {
+     "file": "qualify.mjs",
+     "sha256": "a152d39c5a3018b7"
+    },
+    {
+     "file": "report-172.mjs",
+     "sha256": "a60f519698952657"
+    },
+    {
+     "file": "rings-179.mjs",
+     "sha256": "19578e809609f224"
+    },
+    {
+     "file": "runner.mjs",
+     "sha256": "e0b95b012f1e78fc"
+    },
+    {
+     "file": "scenarios.mjs",
+     "sha256": "57c547f6497d9796"
+    },
+    {
+     "file": "sliver-185.mjs",
+     "sha256": "3382b51be3d137e2"
+    },
+    {
+     "file": "tip-184.mjs",
+     "sha256": "589f75dc5976fff3"
+    },
+    {
+     "file": "tip-196.mjs",
+     "sha256": "050fc920ff41b6ec"
+    },
+    {
+     "file": "tokens.mjs",
+     "sha256": "59bff4a79c7984ff"
+    },
+    {
+     "file": "top-187.mjs",
+     "sha256": "1d8f24021effb424"
+    },
+    {
+     "file": "transitions.mjs",
+     "sha256": "fbc3a958e9f17bd0"
+    },
+    {
+     "file": "walk.mjs",
+     "sha256": "119a8ff6e7d2410f"
+    },
+    {
+     "file": "wcag-checks.mjs",
+     "sha256": "2496aa09cfcbadda"
+    },
+    {
+     "file": "words-186.mjs",
+     "sha256": "fcd79b36b6d9f22d"
+    }
+   ]
+  },
+  "appRoot": "/Users/uazjob/UoN-Video-Helper-side/vh231",
+  "fixtures": [
+   {
+    "file": "cut-short-10s.webm",
+    "path": "/Users/uazjob/UoN-Video-Helper-side/vh231-walk/fix/cut-short-10s.webm",
+    "bytes": 713993,
+    "sha256": "418def50cf628aae"
+   },
+   {
+    "file": "cut-short-30s.mkv",
+    "path": "/Users/uazjob/UoN-Video-Helper-side/vh231-walk/fix/cut-short-30s.mkv",
+    "bytes": 7062807,
+    "sha256": "60be81956c95389e"
+   },
+   {
+    "file": "lecture-30s.mp4",
+    "path": "/Users/uazjob/UoN-Video-Helper-side/vh231-walk/fix/lecture-30s.mp4",
+    "bytes": 10097658,
+    "sha256": "325dc896a75f4ca3"
+   }
+  ]
+ },
+ "declared": [
+  {
+   "id": "S-171s",
+   "lang": "en-GB",
+   "view": "w1280",
+   "mode": "forced-light",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#process-actions > button:nth-child(2)"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-171s",
+   "lang": "en-GB",
+   "view": "w375",
+   "mode": "forced-light",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 375,
+    "h": 812,
+    "dpr": 3
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#process-actions > button:nth-child(2)"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-171s",
+   "lang": "en-GB",
+   "view": "w320",
+   "mode": "forced-light",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#process-actions > button:nth-child(2)"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-171s",
+   "lang": "zh-Hans",
+   "view": "w1280",
+   "mode": "forced-light",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#process-actions > button:nth-child(2)"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-171s",
+   "lang": "zh-Hans",
+   "view": "w375",
+   "mode": "forced-light",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 375,
+    "h": 812,
+    "dpr": 3
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#process-actions > button:nth-child(2)"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-171s",
+   "lang": "zh-Hans",
+   "view": "w320",
+   "mode": "forced-light",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#process-actions > button:nth-child(2)"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-171s",
+   "lang": "ms-MY",
+   "view": "w1280",
+   "mode": "forced-light",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#process-actions > button:nth-child(2)"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-171s",
+   "lang": "ms-MY",
+   "view": "w375",
+   "mode": "forced-light",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 375,
+    "h": 812,
+    "dpr": 3
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#process-actions > button:nth-child(2)"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-171s",
+   "lang": "ms-MY",
+   "view": "w320",
+   "mode": "forced-light",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#process-actions > button:nth-child(2)"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-172s",
+   "lang": "en-GB",
+   "view": "w1280",
+   "mode": "forced-light",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#process-actions > button:nth-child(2)"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-172s",
+   "lang": "en-GB",
+   "view": "w375",
+   "mode": "forced-light",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 375,
+    "h": 812,
+    "dpr": 3
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#process-actions > button:nth-child(2)"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-172s",
+   "lang": "en-GB",
+   "view": "w320",
+   "mode": "forced-light",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#process-actions > button:nth-child(2)"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-172s",
+   "lang": "zh-Hans",
+   "view": "w1280",
+   "mode": "forced-light",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#process-actions > button:nth-child(2)"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-172s",
+   "lang": "zh-Hans",
+   "view": "w375",
+   "mode": "forced-light",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 375,
+    "h": 812,
+    "dpr": 3
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#process-actions > button:nth-child(2)"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-172s",
+   "lang": "zh-Hans",
+   "view": "w320",
+   "mode": "forced-light",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#process-actions > button:nth-child(2)"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-172s",
+   "lang": "ms-MY",
+   "view": "w1280",
+   "mode": "forced-light",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#process-actions > button:nth-child(2)"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-172s",
+   "lang": "ms-MY",
+   "view": "w375",
+   "mode": "forced-light",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 375,
+    "h": 812,
+    "dpr": 3
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#process-actions > button:nth-child(2)"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-172s",
+   "lang": "ms-MY",
+   "view": "w320",
+   "mode": "forced-light",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#process-actions > button:nth-child(2)"
+     ]
+    }
+   }
+  }
+ ]
+}

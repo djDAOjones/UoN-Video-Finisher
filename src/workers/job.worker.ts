@@ -19,7 +19,11 @@ import {
   type ContentClass,
   type PresetId,
 } from '../config/presets'
-import { detectSourceWarnings, type AudioWarning } from '../audio/warnings'
+import {
+  detectFinishedWarnings,
+  detectSourceWarnings,
+  type AudioWarning,
+} from '../audio/warnings'
 import type { BrandingChoice } from '../config/branding'
 import { analyseOutputAudio, analyseSourceAudio } from '../media/audio-plan'
 import {
@@ -37,7 +41,6 @@ import {
   shortfall,
 } from '../media/ends-early'
 import { UnreadableFileError, inspectFile, openInput } from '../media/inspect'
-import { matroskaCutShort } from '../media/matroska-cut'
 import {
   KeptRangeError,
   keptDurationSeconds,
@@ -285,8 +288,13 @@ async function handleProcess(
 
     // The finished file is the only honest place to enforce criterion 2: the
     // limiter, resampler and AAC encoder all sit after the planning pass.
-    // Anything the pipeline already knows it cost the user rides along.
-    const outputWarnings: AudioWarning[] = [...result.outputWarnings]
+    // Anything the pipeline already knows it cost the user rides along, after
+    // a file cut short, which this job read from its own source (VH-231): the
+    // card, the status line and a kept result then read one list.
+    const outputWarnings: AudioWarning[] = detectFinishedWarnings(
+      report.cutShort,
+      result.outputWarnings,
+    )
     // Another window the encode loop's progress does not cover: this walks
     // the whole finished file (VH-51). A stage of its own, because "Finishing
     // the file — 100%" used to precede checks that can still refuse the file
@@ -539,8 +547,8 @@ async function handlePreflight(
     let audioWarnings: readonly AudioWarning[] = []
     // A Matroska or WebM file has no index to say it ends early, as an MP4's
     // does above: its own bytes are read for a size or a block past its end
-    // (VH-158). A few bytes at each end, never the file.
-    const fileCutShort = await matroskaCutShort(file, report.container, openInput(file))
+    // (VH-158), once, by the inspection above (VH-231).
+    const fileCutShort = report.cutShort
     /** Whether the job will carry sound: the source has some, in the part kept. */
     let keptHasSound = report.audio !== null
     /** The pass, timed: the unit the estimate prices every audio stage in (VH-100). */

@@ -1,0 +1,153 @@
+**Verdict: Commit after the musts below.**
+
+The product change implements the approved wording and warning behaviour. The principal blocker is incomplete retained-result coverage: the final cards were measured in all four modes, but their transitions were measured only in light mode. The required disposition link and full gate evidence are also outstanding.
+
+I verified the candidate diff hash as `18bd9c46d0e81dec`. I wrote no files.
+
+**Musts**
+
+1. **Complete the retained-result readings in the other three modes, before and after.**  
+   `transitions-b1-a1.txt` reports 72 relevant cells per side, but only 18 with transitions and **54 `noSteps`**. Those 18 cover both IDs, all languages and widths, exclusively in light mode.
+
+   The driver captures `finished`, `question`, `kept`, `previous` and `questionAgain` during scenario setup; `afterMode` consumes that capture once. Subsequent mode changes measure the final card, not those transitions. See [vh231-driver.mjs](/Users/uazjob/UoN-Video-Helper-side/vh231-walk/vh231-driver.mjs:97). This falls short of the item’s requirement that the named readings cover all four modes. Complete those readings without changing the settled walker revision.
+
+2. **Add VH-231 and its evidence link to the required Disposition row.**  
+   [The owner’s old issues row](/Users/uazjob/UoN-Video-Helper-side/vh231/reviews/2026-10-25/design-pass-3/design-pass-3-2026-10-27.md:759) currently contains neither. This is an explicit acceptance criterion.
+
+3. **Obtain the complete green gate on the final candidate before closing.**  
+   The supplied test, TypeScript and changed-file ESLint results do not establish `npm run check` in full. I ran the read-only structural checker: **0 structural/budget failures**, with the existing missing `samples/CULT2011.mp4` warning. Link checking reported **0 broken links**. Review that warning and complete the required gate, close records and follow-up review after repairs.
+
+**1. Acceptance criteria**
+
+| Criterion | Assessment |
+|---|---|
+| Fact available where shown | **Met for the implemented per-step route**, with the read-count qualification below. `inspectFile` supplies `SourceReport.cutShort`; trim and record consume the inspected fact; finished warnings consume processing’s own report. |
+| Approved trim wording | **Met.** [trim.ts:148](/Users/uazjob/UoN-Video-Helper-side/vh231/src/ui/trim.ts:148) substitutes the approved string for both trimmed and untrimmed cut files. Whole-file branches remain unchanged. The b1/a1 probes support this. |
+| Approved record wording | **Met in code and recorded states.** `result-summary.ts:80,190,234` carries it through the summary and discard passage. The existing `made` override retains VH-139’s length-made precedence. Retained-state mode coverage remains incomplete. |
+| Strings, translator notes and machine drafts | **Met.** Two additions per language; notes in `sheet.ts`; CSV draft marking; table tests; native review remains explicitly recorded as VH-231.1. |
+| Finished warning and announcement | **Met in code and measured final cards.** `warnings.ts:248` prepends `cut-short`; `job.worker.ts:294` uses it; `main.ts:3187–3215` carries the list into the card and announcement. Existing retained-result storage preserves it. Production order remains intact; `endedEarly` is not borrowed. |
+| Spec amendment | **Met.** Only the approved row changes, verbatim. **8,153 words**, below 8,200. |
+| Unchanged behaviour listed by the item | **Met for the specified visible outcomes.** Duration is unchanged; the MP4 shortfall/release logic is untouched; pre-flight precedence remains cut-short then ends-early; whole-file wording and warnings remain unchanged. No new control, checkbox or separate notification structure. See broader I/O effects below. |
+| Named tests | **Met at the helper-test level**, with integration gaps below. `matroska-cut.test.ts` is unchanged. |
+| Before/after stage matrix | **Partial.** All 15 IDs × three languages × three widths × four modes are present: 540 reached per side. Transition readings omit three modes. |
+| WCAG recheck | **Supported within the measured states**, not a complete sign-off across the missing transitions; details below. |
+| Tokens and progress | **Met.** No CSS/token change, new design literal or progress-bar removal. |
+| Documents | **Met.** No UI-STANDARDS rule changed; only the approved specification line changes under `docs/`. |
+| Gate | **Not yet established in full.** Must 3. |
+| Blind review and follow-up | This is the requested blind review. Repairs require the stipulated follow-up verdict. |
+| Disposition link | **Not met.** Must 2. |
+| Post-landing rereads | **Pending by design:** VH-222 g1/proof5 remain the specified post-landing work. |
+| Sizing and hand-back | No scope expansion requiring a separate implementation item is evident in this diff. |
+
+**2. The route and “read once”**
+
+For one ordinary selection → pre-flight → Create sequence:
+
+| Worker step | Before: detector calls | After: detector calls |
+|---|---:|---:|
+| Inspection | 0 | 1 |
+| Pre-flight | 1 separate call | 1 inside `inspectFile`; no second call |
+| Processing | 0 | 1 inside `inspectFile` |
+| **Total** | **1** | **3** |
+
+Each additional pre-flight repeats inspection and therefore adds another detector call.
+
+The relevant points are [inspect.ts:349](/Users/uazjob/UoN-Video-Helper-side/vh231/src/media/inspect.ts:349), worker inspection calls at lines 215, 424 and 468, and pre-flight’s reuse at line 551.
+
+Thus:
+
+- **Once per worker step:** yes.
+- **Once per complete job:** no.
+- **No duplicate detector invocation inside pre-flight:** yes.
+
+The criterion explicitly describes pre-flight’s own inspection consuming this fact, and VH-82 remains open. I therefore accept this as the described per-step route, **not as completion of VH-82 or a single-read job**. The close decision should state the actual counts.
+
+The detector remains bounded: a 1 KB head and tail windows growing through 4, 8, 16 and 32 MiB. These are buffered slices, not a `ReadableStream`; growing windows reread overlapping bytes. A sufficiently small file fits entirely inside a tail slice. This is the existing bounded-window design, not a new unbounded whole-file allocation. It adds no decode pass. Non-Matroska/WebM containers return false before these slice reads.
+
+**3. Other behaviour**
+
+The change has effects beyond the three visible destinations:
+
+- **Every `inspectFile` caller changes.** Acceptance tooling and the framerate, content-class, modes, real, shapes and estimate spikes now perform the detector read for Matroska/WebM too. Intact files incur that work as well as cut files. Other containers acquire the false report field without detector slice I/O.
+- **Diagnostics gain a field.** `main.ts:1552` passes the report to `setDiagnosticsContext`, so the dev bundle now includes `source.cutShort`. This is a non-identifying boolean, not a filename or media payload. The production feedback allow-list does not automatically expose it.
+- **Read errors propagate.** A detector rejection now fails initial inspection or processing where those steps previously did not perform this read. Worker handlers catch it; they do not silently substitute false. Inspection reports an unreadable-source failure; pre-flight and processing use their existing failure paths.
+- **Cancellation is bounded by completion of this operation.** The detector accepts no signal. `inspectFile` checks cancellation after it returns. Cancellation during the read cannot publish a successful report, but does not interrupt its tail-window reads immediately. Worker catch handlers also recognise an aborted signal.
+- **The record and finished warning use different snapshots.** `main.ts:3113` captures the selection inspection’s flag, whereas processing supplies the warning from a fresh inspection. Ordinary File/Blob usage keeps this coherent, and choosing another file invalidates the earlier selection. But if successive reads could successfully observe different bytes, the code does not reconcile those flags; a stale record and fresh warning could disagree. An underlying file becoming unreadable instead takes the failure path. The walks do not exercise either case.
+- **There is no initial “whole video” flash while inspection is pending.** Selection clears the report and sets the trim’s reading state. The reply assigns `inspectedReport` before `resetTrim` renders the summary (`main.ts:1491–1495,1547–1548`). The cut-aware line is therefore the first populated summary.
+
+**4. Strings and specification**
+
+Only these keys are added, in each language:
+
+| Key | en-GB | zh-Hans | ms-MY |
+|---|---|---|---|
+| `trim.keepingCut` | `Keeping {kept}.` | `保留 {kept}。` | `Menyimpan {kept}.` |
+| `result.keptCut` | `{kept}, from {from} to {to}` | `{kept}，从 {from} 到 {to}` | `{kept}, dari {from} hingga {to}` |
+
+No existing user-facing string changes. The three existing CSV summary rows change translator notes only, adding `result.keptCut` to the possible sources of `{part}`.
+
+The new notes explain the missing whole-length claim and placeholders. The CSV marks Chinese and Malay as agent drafts; both languages remain in `MACHINE_TRANSLATED`. Tests assert the approved wording and sheet notes. The existing warning heading/detail remain untouched.
+
+The specification row contains exactly the approved extension. Its increase from 8,141 to **8,153 words** is within budget.
+
+**5. Evidence**
+
+The principal readings are supported:
+
+- The candidate and recorded after diff hashes agree.
+- b1/a1 contain all 540 matching cells, with no failed instrument outcome.
+- The independently counted probe changes match the table: **trim 360, status 260, result 216, steps 18**.
+- The cut-file wording, warning order, completion status and unchanged controls agree with the recorded probes.
+- p1’s two unsuccessful qualifications are preserved; p2 successfully qualifies the repaired transition scenarios before b1.
+- The evidence bundle’s `sources.txt` hashes validate.
+
+There are qualifications to “every reading”:
+
+- **Coverage is reduced for transitions**, as described in Must 1. IDs, languages and widths are complete; transition modes are not.
+- **“Zero failing” is accurate, but does not mean every instrument passed.** Both sides contain `cannot-determine` outcomes, including targets and extra contrast in all 540 cells, and measure in 60. These are unchanged limitations.
+- **The p1 median is mislabelled.** Its conventional median is **5.175**, approximately 5.18. The generator selects the upper middle sample, **5.42**, for an even-sized set.
+- “Every probe field equals b1” for a1t needs “except status in four cells.”
+
+**Timing and load:** the estimate is genuinely a timing-derived reading. The replacement handling is reasonable: all 72 S-64/S-91 cells were rerun sequentially, a1t is declared authoritative, and a1 remains preserved. I independently find only four differing fields against b1—all `status`, for S-64 en-GB at 375 px in the four modes.
+
+Those four low-load differences matter to the explanation: they prevent claiming that load alone caused every discrepancy. Unchanged calculation code, rounding and variable measured throughput support treating this as estimate variability rather than evidence of a VH-231 regression. They do **not** establish a performance comparison, especially because the before also ran under load. The cut-short wording and state conclusions do not depend on measured execution speed.
+
+**First generation:** setting it aside and regenerating was acceptable. The table and measurement files remain unchanged; the substantive packaging difference is preserving the notes source as `.md.txt` instead of a second Markdown document, with the manifest adjusted. This did not discard adverse measurements or manufacture a new walk. It also did not repair the transition-coverage gap.
+
+**6. WCAG and Nielsen**
+
+| Rule | My judgment from this evidence |
+|---|---|
+| **1.3.1** | Supported: the warning uses the existing titled list structure within the result card. |
+| **1.4.10** | Supported for measured final states: no overflow at 320 px. Not established for retained transitions in the omitted modes. |
+| **2.4.6** | Supported: existing descriptive headings remain; the warning title identifies the condition. |
+| **3.1.5** | The English is short and familiar. “Shorter than before” alone does not prove reading-level compliance. Chinese/Malay judgment remains with the acknowledged native review, VH-231.1. |
+| **3.3.1** | The condition is identified in text before processing and with the result. This is an advisory source-file condition, not a newly introduced field-validation error. |
+| **3.3.3** | The unchanged detail gives concrete next steps: check the output; choose a complete copy if available. |
+| **4.1.3** | Supported programmatically: completion puts the warning in the existing status announcement. DOM/AX evidence and helper tests do not demonstrate actual screen-reader delivery. |
+
+Nielsen’s **“status visible and announced”** is satisfied by the card and completion live-region content in the measured states. **“Errors say what next”** is satisfied by the retained warning detail. Neither requires reopening the settled wording or adding an element.
+
+**7. Tests**
+
+The named suites cover the requested helper behaviours: cut/whole, trimmed/untrimmed, finished warning order, unchanged pre-flight precedence, spoken wording and all three language additions. No test is deleted or newly skipped in this diff.
+
+The important gaps are:
+
+- No regression test of the new `inspectFile` → worker → UI transport, or detector invocation count.
+- The “MP4” finished-warning test supplies `false`; it does not itself verify container dispatch.
+- No new test of detector-read rejection or cancellation through inspection/processing.
+- No test combining `cutShort: true` with a differing `made` range.
+- No automated test of disagreement between selection’s flag and processing’s fresh flag.
+
+The real-browser walks provide substantial happy-path integration evidence, but do not cover those failure cases.
+
+**Shoulds**
+
+- Add focused tests for the new read/abort/error boundary and the `cutShort` plus `made` precedence. These protect the new route more directly than further string snapshots.
+- Correct the p1 median and qualify the a1t “every field” sentence.
+- State explicitly in the close decision that the route performs three detector calls per ordinary job, one per worker step, and also affects diagnostic/spike callers.
+
+**Notes**
+
+The applicable digest rules are Nielsen’s two named rules, WCAG’s semantic/status/reflow requirements, Carbon’s existing notification pattern, and house conventions on bounded memory, explicit failure handling and invariant-focused tests. Native-language review remains VH-231.1; the post-landing rereads remain pending.

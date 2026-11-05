@@ -4,7 +4,11 @@
 
 import { afterEach, describe, expect, it } from 'vitest'
 
-import { detectProductionWarnings, type AudioWarning } from '../audio/warnings'
+import {
+  detectFinishedWarnings,
+  detectProductionWarnings,
+  type AudioWarning,
+} from '../audio/warnings'
 import { setLanguage, t } from '../i18n'
 import { lossesSpoken, spoken, warningsSpoken } from './announce'
 import { warningText } from './warning-text'
@@ -62,6 +66,29 @@ describe('warningsSpoken', () => {
       }) + warnings.heavyLimiting.detail,
     )
   })
+
+  it('speaks a file said cut short first at the end of the job, heavy limiting’s detail still last (VH-231)', () => {
+    const both = detectProductionWarnings({ limiterBiteLu: 8.1, metadataCarried: false })
+    const { warnings } = t()
+    expect(warningsSpoken(warnings.finishedHeading, detectFinishedWarnings(true, both))).toBe(
+      'Worth knowing about the finished video: The video file is shorter than expected; The loudest moments were held down hard; The file’s title, author, and date could not be copied across. ' +
+        warnings.heavyLimiting.detail,
+    )
+    expect(warningsSpoken(warnings.finishedHeading, detectFinishedWarnings(true, []))).toBe(
+      'Worth knowing about the finished video: The video file is shorter than expected.',
+    )
+  })
+
+  it.each(['zh-Hans', 'ms-MY'] as const)(
+    'speaks it in %s with the heading and title unchanged (VH-231)',
+    (tag) => {
+      setLanguage(tag)
+      const { warnings } = t()
+      expect(warningsSpoken(warnings.finishedHeading, detectFinishedWarnings(true, []))).toBe(
+        warnings.spoken({ heading: warnings.finishedHeading, titles: warnings.cutShort.heading }),
+      )
+    },
+  )
 
   it('says nothing when there are no warnings', () => {
     expect(warningsSpoken('Worth knowing about the sound', [])).toBe('')

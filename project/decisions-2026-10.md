@@ -1552,3 +1552,49 @@ INTAKE.2 stays a wish line: only a person listening can judge the Teams output. 
 **Supersedes:** none
 
 **Deferred:** VH-200, VH-203
+
+## 2026-10-27 — VH-200 — Pass 3 judged: seven draft findings, D-05 at rank 1, V-46 regressed; VH-205's "?" the owner's fix, labelled
+
+**Decision:** VH-200 closes. `judged-2026-10-27.md`, `wcag-2026-10-27.md` and `person-checklist-2026-10-27.md` judge the Phase 8 page from VH-199's evidence. There are seven draft findings and none needs a new element: D-05 at rank 1; D-06, V-46 (regressed), V-48, V-49 and V-18 (incomplete) at rank 2; V-50 at rank 3. VH-201 is next.
+
+**Rationale:**
+
+- **The findings** (`reviews/2026-10-25/design-pass-3/judged-2026-10-27.md`, "Draft findings"):
+  - **D-05, rank 1.** "This video has no audio" for real sound kept under one 400 ms block. The cause it states is false, but the notice comes before Create. The words that tell this case apart are the owner's to approve, and the threshold stays. Orchestrator #11 was told at once.
+  - **D-06.** The heavy-limiting advice comes after the player and Save.
+  - **V-46, regressed.** S-149 ×3: VH-191 moved Video language into the step the read-failure branch withdraws with no hand-on, VH-178's omission.
+  - **V-48.** At the 32 px font, the onset "?"'s ring is 460 of 464 px².
+  - **V-49.** In the forced palettes, the wrapped Creators team link's ring is lost over the next link.
+  - **V-18, incomplete.** The first action sits inside the first screen at 1280 × 900 in English and Chinese, but not in Malay or at 320 px.
+  - **V-50, rank 3.** At the 32 px font in a 320 or 401 px window, the choices and the trim's Set buttons push the page sideways (S-113 ×6). No adopted rule asks for it, and step 4's selects stay wish VH-189.1.
+- **Read as the instrument's, not the page's:**
+  - the 32 px radio ring, measured against a box where it rings a disc;
+  - S-81's wrapped statement link, measured against an enclosing box;
+  - S-127's player rings, whose background the walker did not read.
+  Each is missing evidence for VH-203's after-run, wish VH-200.1.
+- **WCAG:**
+  - 35 met, 10 met-in-source and 17 n-a;
+  - 2 defects (2.4.3, 2.4.13), 11 accepted limitations and 11 missing evidence, 1.4.3 and 1.4.6 among them for the file button's words at the 32 px font;
+  - the finish+1s player class, 823 rows, counted as neither pass nor fail.
+- **VH-205** is judged as the fix of the owner's finding. Its verdicts are labelled "manually checked in VH-205", "missing" or "to be measured in VH-203's after-run", and text spacing and forced colours are missing.
+- **Codex astra**, on the owner's word ("please also do everything in partnership with codex as a comparison"):
+  - its blind review is the comparison throughout;
+  - it gave blind attributions, blind VH-205 verdicts and blind WCAG and finding verdicts, each compared under four headings;
+  - its points on the radio's disc, the onset "?" and Creators ranks, S-127, 1.4.11, 1.4.12, 2.5.5 and 2.5.8 were taken on the evidence, and Claude's 1.4.2 kept on S-126's assert;
+  - nothing is held for the owner;
+  - its close check, `codex-astra-judged-check-2026-10-27.md.txt`, said "Commit after the musts below". All four musts and both shoulds are applied, and none is refused:
+    - must 1: 1.4.3 and 1.4.6 become missing evidence;
+    - must 2: S-113's choices and Set buttons are judged as V-50, rank 3, so no blind step;
+    - must 3: the checklist's setup order is fixed;
+    - must 4: the gate and the checker are recorded on the final content;
+    - should 5: 1.4.8's mixed-line and line-height wording;
+    - should 6: the statement's +288 px and S-149's next Tab;
+    - its may (7) keeps the rest.
+- **No product code changed,** and no page was walked or probed. Digest rules applied:
+  - wcag-2.2-aaa, 2.4.13 Focus Appearance and "every exception recorded";
+  - nielsen 1, 2, 5 and 9;
+  - carbon, one look per component kind.
+
+**Supersedes:** none
+
+**Deferred:** VH-201, VH-202, VH-203

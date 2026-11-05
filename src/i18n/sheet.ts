@@ -268,7 +268,8 @@ const PLACEHOLDERS: Readonly<Record<string, string>> = {
   progress: 'a stage name and a milestone, from progress.stageMilestone, like "Encoding video — half done"',
   left: 'the time left, from progress.timeLeft or progress.fewSecondsLeft',
   app: 'the product name, from app.title',
-  part: 'what part of the video was kept, from result.keptWhole or result.keptPart',
+  part:
+    'what part of the video was kept, from result.keptWhole, result.keptPart or result.keptCut',
   output: 'the output chosen, from preset.inRecord',
   closing: 'how the video closes, from result.closing…',
   title: 'a heading from this sheet',
@@ -350,6 +351,8 @@ const NOTES: Readonly<Record<string, string>> = {
   'trim.problem.notATime.end': 'Keep the example times 1:05.5 and 65.5 as they are.',
   'trim.handleBeginning': 'Completes "Start, at the beginning" for screen readers.',
   'trim.handleEnd': 'Completes "End, at the end" for screen readers.',
+  'trim.keepingCut':
+    'Said in place of trim.keepingWhole and trim.keeping when the file is shorter than expected (warnings.cutShort): only the length kept, never "the whole video" or what it is out of, since the length read is not the whole file.',
   'closing.helpExistingText':
     'Follows "The last second of video" on the same line, so it starts with a dash; "it" is that second.',
   'closing.helpFreezeText': 'Follows "A held last frame" on the same line, so it starts with a dash.',
@@ -410,6 +413,8 @@ const NOTES: Readonly<Record<string, string>> = {
     'The label of a checkbox that adds the words of closing.internalWords to the closing card. Use the same words.',
   'closing.internalWords':
     'Drawn in bold under the logo at the end of the video, like a stamp on a document, so it must fit on one line: keep it about as short as the English. A change here means the closing videos are built again.',
+  'result.keptCut':
+    'Said in place of result.keptWhole and result.keptPart when the file is shorter than expected (warnings.cutShort): the length made and where it runs, never "the whole video" or what it is out of, since the length read is not the whole file.',
   'result.closingInternal':
     'Adds to how the video closes, like "a cut to the blue closing card, marked “Internal use only”". Keep the quotation marks.',
   'preset.labels.best': 'The name of the larger output: what it is, then what it is for.',

@@ -1,0 +1,61 @@
+1. **What is false.** The numbers are readable lengths, not invented measurements. Mediabunny drops the incomplete Matroska cluster and reports what remains; `inspect.ts:341` takes the longer track duration. Thus “Duration 20 seconds” or “Duration 5 seconds” is numerically true of the readable remainder, but misleading as an unqualified statement of the original recording’s length—the precise distinction VH-158.1 requires.
+
+   “Keeping the whole video” and the finished record’s “the whole video” falsely imply completeness under that criterion. Internally, `null` means no user trim; that implementation convention does not make the user-facing claim true.
+
+   The missing finished warning is an omission, not a false sentence. “Your video is ready” can be true while concealing that its source was incomplete. The cut-short warning itself is true; only its proposed cause is uncertain. WebM’s before-Create state remains **unread**, although its code path predicts the same problem.
+
+2. **Where the warning goes.** `job.worker.ts:543` detects cut-short during pre-flight; `detectSourceWarnings` places it first. `main.ts:1698` renders it in `#audio-warnings`.
+
+   At completion, `withdrawVerdict()` (`:995`, called around `:3172`) clears that element. The processed reply carries pipeline production warnings, which contain heavy limiting and lost metadata, not cut-short. `renderResult` (`:3388–3465`) renders those inside `#process-result`, in `section.result-warnings`, before the player, lifetime and Save. With no production warnings, no warning heading appears there. The completion status likewise receives only those warnings and any `endedEarlyText`; these fixtures produce neither. Looking only at `#audio-warnings` would therefore be insufficient, but the supplied proof checks the card and status too.
+
+3. **Remedy criteria.** I recommend a complete correction, conditional on the wording/spec approval in point 4:
+
+   - Carry an explicit source-level cut-short fact in `SourceReport` (`inspect.ts:99,338`), detected during inspection using the existing detector. Never infer it from a filename, rounded duration or translated warning.
+   - In `source-panel.ts:135`, identify the number as the **readable** duration when that fact is true. Keep the numerical extent used by trimming unchanged.
+   - In `trim.ts:142` and `main.ts:1961`, describe the selected readable amount without “whole” or an unqualified original-length denominator. Preserve validation, handles and limits.
+   - In `result-summary.ts:68,167,204`, describe the actual source span made, without asserting original completeness. Use the encode’s existing `madeSeconds`/span information, excluding title card and closing; preserve the same account in the discard question.
+   - In `job.worker.ts:295,347`, carry the cut-short warning into the processed result. Preserve it in `RetainedResult`, the card and completion announcement.
+
+   Reuse `warnings.cutShort.heading/detail` unchanged: all three languages describe an incomplete source and advise checking the new video, which remains true after completion. Reuse `warnings.finishedHeading` and `warnings.spoken`: both remain true. Keep existing `result.keptWhole` only for sources not known cut-short. Do **not** borrow `result.endedEarly`: its indexed times and held-picture claims are not established here.
+
+4. **Words and documents.** My recommended correction needs narrowly scoped new wording. A warning beside “whole video” does not cancel that assertion; substituting “Unknown” or “20 seconds of 20 seconds” is not an honest solution.
+
+   Proposed strings, **unapproved drafts**, with Chinese/Malay requiring language review:
+
+   | Use | en-GB | zh-Hans | ms-MY |
+   |---|---|---|---|
+   | Duration label | Length that can be read | 可读取的时长 | Tempoh yang boleh dibaca |
+   | Cut-source trim summary | Keeping {kept}. | 保留 {kept}。 | Menyimpan {kept}. |
+   | Cut-source result fragment | {kept}, from {from} to {to} | {kept}，从 {from} 到 {to} | {kept}, dari {from} hingga {to} |
+
+   The result fragment applies to trimmed and untrimmed cut sources and fits the existing summary templates.
+
+   Draft a wish for §5.4’s cut-short row: “Said first among source warnings before processing, and retained with the finished video and its completion announcement.” Preserve heavy limiting’s established first position among production warnings. Clarify the preamble: “Source warnings are shown before processing; the cut-short warning is also retained with the finished video. Post-processing warnings accompany the finished video.”
+
+   These are proposals, not authorized edits. **The raise should record the wishes and stop the build pending the owner’s decision**, as instructed. Spec §9.2’s summary requirement needs no change.
+
+5. **Elements.** No new control, checkbox or separately designed element is needed. Replace text in existing rows/paragraphs and populate the existing result-warning region. Preserve VH-208’s content-only treatment, without a second notification rail.
+
+6. **Unchanged behaviour.** Nothing supports changing truncated MP4 handling. Preserve VH-139’s per-track indexed shortfalls, actual made range and ended-early passage, and VH-215’s submission-card calculation and release guard.
+
+   Preserve `detectSourceWarnings` precedence: cut-short first, then ends-early; ends-early continues to displace misleading no-audio advice where declared sound never arrives. Both codes can coexist; do not turn that ordering into mutual exclusion.
+
+7. **Cost and lifecycle.** Today the fact is known in pre-flight, then lost. Moving detection into inspection makes it available before panel/trim rendering and to the job’s own inspection. This repeats the bounded detector at existing inspection calls; remove the separate pre-flight call to avoid doubling it there.
+
+   Retain the 1 KB head and bounded 4–32 MiB tail-window strategy; no whole-file buffer or new decode pass. Measure the repeated-read cost on the largest fixture and cancellation responsiveness. Keep the fact attached to the source/job, never current controls. “Keep it,” “Previous video,” save and language repaint must preserve the original result’s warning and account.
+
+8. **Tests.** Node tests should pin detector boundaries, whole-file negatives, missing-Cues negatives, unknown-size limitations, source-fact propagation, processed-warning composition, precedence and all three languages’ summaries. Cover trimmed/untrimmed cut sources, simultaneous warnings, discard text and stale-source isolation. Test the worker boundary, not just a formatting predicate.
+
+   Preserve MP4 and VH-215 regressions. Only browser evidence establishes rendered placement, disclosure visibility, wrapping, focus and live-region writes; actual screen-reader speech remains a person’s check.
+
+9. **Walk.** S-23 reaches MKV pre-flight. S-23s/S-23sn reach its finished submission with Cut/no closing; S-23w/S-23wn do the same for WebM. Their setup reads the submission running-time line before Create, **not** the complete WebM warning/panel state.
+
+   Add and qualify a WebM pre-flight scenario. Explicitly open Video properties for visible readings. Include cut-source trims and retained-result transitions. Controls: S-22 and S-64 for MP4; whole-file results; S-20/no-audio; S-91/metadata and S-136/heavy-limiting placement. Preserve output-card readings.
+
+10. **Re-reads.** VH-222 must renew affected source, warning, record and announcement cells. VH-220’s retained-result-with-warnings state must be checked against the changed path. VH-221’s save/outcome cells need renewal where that path changes. VH-223/224 must identify intersecting keys rather than assume every cell is affected. VH-203 must include these new scenarios and VH-215’s `fixOnly` scenarios explicitly; the frozen matrix does not automatically include them.
+
+11. **Size.** The implementation and targeted verification plausibly fit one approximately 45k worker after approval. New duration reconstruction, broader corruption detection or an exhaustive new media corpus would exceed this remedy and require a separate item. Do not split away the truthfulness correction merely to ship warning persistence first.
+
+12. **Raise requirements and risks.** Keep the evidence qualified to this Mac’s six proof cells; do not claim WebM pre-flight was observed. Require before/after on the build’s base at **1280, 375 and 320**, all three languages and four colour modes. Preserve the complete stage rule, gate/checker, blind final review, Disposition link and digest obligations: explicit data-loss handling, streaming, visible/announced status, existing Carbon notification treatment and applicable WCAG checks. Record approval blockers explicitly; general “gateless” wording does not override this task’s specific restrictions.
+
+Design verdict: Raise VH-231 as a complete truthfulness fix with explicit wording and specification wishes, but do not authorize its build under the current approvals.

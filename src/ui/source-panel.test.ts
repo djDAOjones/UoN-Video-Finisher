@@ -67,6 +67,7 @@ function report(overrides: Partial<SourceReport> = {}): SourceReport {
     videoTrackCount: 1,
     audioTrackCount: 1,
     tracks: scan(),
+    cutShort: false,
     ...overrides,
   }
 }

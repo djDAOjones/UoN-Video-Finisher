@@ -1,0 +1,5 @@
+src/i18n/en-GB.ts messages 526 -> 528 ; added [["trim.keepingCut","Keeping {kept}."],["result.keptCut","{kept}, from {from} to {to}"]] ; removed 0 ; changed []
+src/i18n/zh-Hans.ts messages 526 -> 528 ; added [["trim.keepingCut","保留 {kept}。"],["result.keptCut","{kept}，从 {from} 到 {to}"]] ; removed 0 ; changed []
+src/i18n/ms-MY.ts messages 526 -> 528 ; added [["trim.keepingCut","Menyimpan {kept}."],["result.keptCut","{kept}, dari {from} hingga {to}"]] ; removed 0 ; changed []
+index.html identical
+filled sheet lines 523 -> 525 ; added ["trim.keepingCut","result.keptCut"] ; removed 0 ; changed ["result.summary","result.summaryWithCard.staff","result.summaryWithCard.submission"]

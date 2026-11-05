@@ -234,6 +234,8 @@ export const enGB = {
     tooShort: 'It is shorter than {seconds} seconds, so it cannot be trimmed.',
     keepingWhole: 'Keeping the whole video, {duration}.',
     keeping: 'Keeping {kept} of {duration}.',
+    /** For a file said cut short, in place of both above: its read length is not its whole (VH-231). */
+    keepingCut: 'Keeping {kept}.',
     handleBeginning: 'the beginning',
     handleEnd: 'the end',
     problem: {
@@ -458,6 +460,8 @@ export const enGB = {
     keptWhole: 'the whole video ({duration})',
     /** "2 minutes of 4 minutes, 12 seconds, from 0:30.0 to 2:30.0". */
     keptPart: '{kept} of {duration}, from {from} to {to}',
+    /** "20 seconds, from 0:00.0 to 0:20.0", for a file said cut short, in place of both (VH-231). */
+    keptCut: '{kept}, from {from} to {to}',
     closingNone: 'no University closing graphics',
     /** "a cut to the blue closing card, marked “Internal use only”". */
     closingInternal: '{closing}, marked “{words}”',

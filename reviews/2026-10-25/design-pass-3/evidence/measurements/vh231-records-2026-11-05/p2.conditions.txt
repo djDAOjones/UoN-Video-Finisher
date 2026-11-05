@@ -1,0 +1,13 @@
+start 2026-11-05T14:33:30Z
+machine MacPro7,1 Intel(R) Xeon(R) W-3223 CPU @ 3.50GHz 26.5.1 x86_64
+Now drawing from 'AC Power'
+14:33  up 108 days, 7 mins, 2 users, load averages: 3.81 4.21 3.95
+ports: 0 Claude CLOSED entries ignored (ruling 2)
+commit 4bc3a40fd771042b971d235a55404f76a7ae7693
+porcelain lines 0
+diff hash da39a3ee5e6b4b0d
+instrument revision 9c52269607bccc4c
+job1 exit 0 2026-11-05T14:34:34Z
+end 2026-11-05T14:34:34Z
+Now drawing from 'AC Power'
+14:34  up 108 days, 8 mins, 2 users, load averages: 4.71 4.38 4.03

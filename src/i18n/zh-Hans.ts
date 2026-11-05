@@ -175,6 +175,7 @@ export const zhHans: Messages = {
     tooShort: '它比 {seconds} 秒短，因此不能进行裁剪。',
     keepingWhole: '保留整个视频，{duration}。',
     keeping: '保留 {duration} 中的 {kept}。',
+    keepingCut: '保留 {kept}。',
     handleBeginning: '开始',
     handleEnd: '结束',
     problem: {
@@ -383,6 +384,7 @@ export const zhHans: Messages = {
     lifetimeDelivered: '它会一直显示在这里，直到你开始制作另一个视频或关闭此标签页。',
     keptWhole: '完整视频（{duration}）',
     keptPart: '保留了 {duration} 中的 {kept}，从 {from} 到 {to}',
+    keptCut: '{kept}，从 {from} 到 {to}',
     closingNone: '无大学结尾图形',
     closingInternal: '{closing}，并标注“{words}”',
     closingCut: {

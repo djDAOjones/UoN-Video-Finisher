@@ -1,0 +1,11 @@
+Verdict: Commit after repairs
+
+1. **must** — `project/items/VH-231.md:24`–`:28`: Explicitly require **trimmed and untrimmed cut-source browser readings**. The listed S-23 variants leave the trim unchanged; `vh215Job` at `reviews/2026-10-25/design-pass-3/evidence/measurements/walker/scenarios.mjs:3510` does not set a trim. Reading “the trim line” therefore does not exercise both approved replacements. Require qualified trimmed variants, including their finished records, across the stated matrix.
+
+2. **must** — `project/items/VH-231.md:59`: Narrow the claim attributed to `proof5.sum.txt`. That file establishes scenario counts and warning-string coverage; it does **not** report widths, languages, record wording or completion-status text. Cite the supporting record for those details, or retain only what this summary establishes. The corresponding g1 claims at `:60` are supported by `g1.cut.txt`, and all three evidence hashes match.
+
+3. **should** — `project/items/VH-231.md:37`: Make the progress-note search reproducible by identifying the files searched. My search confirms no listed terms in the four item files. The progress notes are absent from this worktree and outside the supplied external-file allowlist, so I could not independently verify that part. Also qualify “they re-read nothing”: absence of those terms alone does not establish that retained-result and save checks cannot intersect the changed shared path.
+
+4. **should** — `project/items/VH-231.md:34`: Keep the raise’s `Verify:` line precise: the supplied full gate passed with **1,663 passed and one standing skip**, not zero skips. My checker run independently returned **zero structural/budget failures and one missing-sample warning**; `git diff --check` passed. I did not rerun the full gate.
+
+5. **should** — `project/decisions.md:27`, `project/backlog.md:45`, `project/wish-list.md:99`: Preserve the remaining raise as written. The approved three-language wording, unchanged “Duration”, MP4 protections, warning precedence, inspection-time route, stage obligations and build tag agree with the brief. The Items list and Supersedes heading match exactly after the two required insertions; placement, blocker, wish and archive move are correct. The candidate hashes match, and its changes remain ledger-only.

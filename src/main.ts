@@ -1961,7 +1961,11 @@ function renderTrim(): void {
   trimResult.textContent =
     problem !== null
       ? ''
-      : trimSummary('range' in trim ? trim.range : null, trimDuration) +
+      : trimSummary(
+          'range' in trim ? trim.range : null,
+          trimDuration,
+          inspectedReport?.cutShort === true,
+        ) +
         (trimDuration < KEPT_MIN_SECONDS ? ` ${t().trim.tooShort({ seconds: KEPT_MIN_SECONDS })}` : '')
   trimClear.disabled =
     jobInFlight || saveInFlight || (problem === null && 'range' in trim && trim.range === null)
@@ -3104,6 +3108,9 @@ function beginJob(file: File): void {
     wordsLanguage,
     videoKind,
     titleCard: titleCard !== null,
+    // Read with the file this job makes, so the record never calls a cut
+    // file's readable part the whole video (VH-231).
+    cutShort: inspectedReport?.cutShort === true,
   }
 
   const { id, promise } = requestWithId(

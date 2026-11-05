@@ -138,9 +138,24 @@ export function trimRangeFor(
   }
 }
 
-/** What is kept, in words, for the line under the controls. */
-export function trimSummary(range: KeptRange | null, durationSeconds: number): string {
+/**
+ * What is kept, in words, for the line under the controls.
+ *
+ * @param cutShort - Whether the file is said cut short (VH-158): its read
+ *   length is then never called the whole video, nor given as what the part
+ *   kept is out of; only the length kept is said (VH-231, the owner's words).
+ */
+export function trimSummary(
+  range: KeptRange | null,
+  durationSeconds: number,
+  cutShort = false,
+): string {
   const duration = formatDuration(durationSeconds)
+  if (cutShort) {
+    return t().trim.keepingCut({
+      kept: formatDuration(range ? range.endSeconds - range.startSeconds : durationSeconds),
+    })
+  }
   if (!range) return t().trim.keepingWhole({ duration })
   return t().trim.keeping({ kept: formatDuration(range.endSeconds - range.startSeconds), duration })
 }

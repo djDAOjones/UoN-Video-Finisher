@@ -181,6 +181,7 @@ export const msMY: Messages = {
     tooShort: 'Ia lebih pendek daripada {seconds} saat, jadi ia tidak boleh dipangkas.',
     keepingWhole: 'Menyimpan keseluruhan video, {duration}.',
     keeping: 'Menyimpan {kept} daripada {duration}.',
+    keepingCut: 'Menyimpan {kept}.',
     handleBeginning: 'permulaan',
     handleEnd: 'penghujungnya',
     problem: {
@@ -401,6 +402,7 @@ export const msMY: Messages = {
     lifetimeDelivered: 'Ia kekal di sini sehingga anda memulakan video lain atau menutup tab ini.',
     keptWhole: 'keseluruhan video ({duration})',
     keptPart: '{kept} daripada {duration}, dari {from} hingga {to}',
+    keptCut: '{kept}, dari {from} hingga {to}',
     closingNone: 'tiada grafik penutup Universiti',
     closingInternal: '{closing}, bertanda “{words}”',
     closingCut: {

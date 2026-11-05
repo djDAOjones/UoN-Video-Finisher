@@ -1,0 +1,45 @@
+fa9c3f8a1ddc35b78b14367c6fbfca32cc3fc667  t1b.conditions.txt  vh231-walk/t1b/conditions.txt
+cba260ca2472c9289d3dff713d1519b4efba41bf  t1b.load.log.txt  vh231-walk/t1b.load.log
+6040bf0a551d0813f91508bf4360cbdaa91ed353  t1b.launcher.log.txt  vh231-walk/t1b.launcher.log
+09d02455d6ee4480d2a75716df3042567cb02af6  t1b.vh231-before-t1b-dark.manifest.json  vh231-walk/t1b/runs/vh231-before-t1b-dark-2026-11-05T19-49-22-389Z-4ec811/manifest.json
+654cb99330d505b4a73dd9a886105dc13ea540d1  t1b.vh231-before-t1b-dark.run.json  vh231-walk/t1b/runs/vh231-before-t1b-dark-2026-11-05T19-49-22-389Z-4ec811/run.json
+d64e316ca500bdbd200ee64788ace67e7fdb0108  t1b.vh231-before-t1b-forced-dark.manifest.json  vh231-walk/t1b/runs/vh231-before-t1b-forced-dark-2026-11-05T20-05-26-914Z-6f4d9c/manifest.json
+0d1628e6f84594f8ab5e949dc658c50594cd30f7  t1b.vh231-before-t1b-forced-dark.run.json  vh231-walk/t1b/runs/vh231-before-t1b-forced-dark-2026-11-05T20-05-26-914Z-6f4d9c/run.json
+0f4ae0211d1dc714f836de72d9e75abeb87234ce  t1b.vh231-before-t1b-forced-light.manifest.json  vh231-walk/t1b/runs/vh231-before-t1b-forced-light-2026-11-05T19-57-26-179Z-3f3854/manifest.json
+5f93b94e321d3a17ec82354534374a0f2e1fcd73  t1b.vh231-before-t1b-forced-light.run.json  vh231-walk/t1b/runs/vh231-before-t1b-forced-light-2026-11-05T19-57-26-179Z-3f3854/run.json
+ca2c6d887591dfa04ef227ae64e6706ffeccd6e8  t1b.vh231-ledger.jsonl  vh231-walk/t1b/runs/vh231-ledger.jsonl
+cc8c6c55ffd9366fceae11c6e4bc3761fb39ed41  t1b.vh231-probe-vh231-before-t1b-dark.jsonl  vh231-walk/t1b/runs/vh231-probe-vh231-before-t1b-dark.jsonl
+be64b00b5d047f517f301ae54d916132a5b4909b  t1b.vh231-probe-vh231-before-t1b-forced-dark.jsonl  vh231-walk/t1b/runs/vh231-probe-vh231-before-t1b-forced-dark.jsonl
+bfd43559a09e2d5bfbfc1c1e6b3de7bb3ac8a05d  t1b.vh231-probe-vh231-before-t1b-forced-light.jsonl  vh231-walk/t1b/runs/vh231-probe-vh231-before-t1b-forced-light.jsonl
+a4af6145def04872bdb3769df7aaedca247d5b6c  t1b.outcomes.jsonl  written from t1b/runs
+661bae7cbbe192e98ca75799c9f794caa49d86ac  t1a.conditions.txt  vh231-walk/t1a/conditions.txt
+7380e0dc85f8aeec79060f01b78777b46fbac15f  t1a.load.log.txt  vh231-walk/t1a.load.log
+cb21391f69d30c3fd7448069245aa26a9c122dae  t1a.launcher.log.txt  vh231-walk/t1a.launcher.log
+c738d90973abfa783230ff5b3708c0db4f2ea2d3  t1a.vh231-after-t1a-dark.manifest.json  vh231-walk/t1a/runs/vh231-after-t1a-dark-2026-11-05T20-24-54-421Z-1724d7/manifest.json
+41f85ad160601a960c15f6a1719bfabad81e0c36  t1a.vh231-after-t1a-dark.run.json  vh231-walk/t1a/runs/vh231-after-t1a-dark-2026-11-05T20-24-54-421Z-1724d7/run.json
+661dafe9f34b12c456dea4d0e516d381e080e315  t1a.vh231-after-t1a-forced-dark.manifest.json  vh231-walk/t1a/runs/vh231-after-t1a-forced-dark-2026-11-05T20-40-55-769Z-590b84/manifest.json
+867dcc497c564be55909d5b708b9c20afd69813d  t1a.vh231-after-t1a-forced-dark.run.json  vh231-walk/t1a/runs/vh231-after-t1a-forced-dark-2026-11-05T20-40-55-769Z-590b84/run.json
+8b24d3281b565d6c0a8eae7239b33164004f6628  t1a.vh231-after-t1a-forced-light.manifest.json  vh231-walk/t1a/runs/vh231-after-t1a-forced-light-2026-11-05T20-32-55-881Z-c6e3ee/manifest.json
+aa02f41df53667e3f0dd2b636fa1c8d00ad3f601  t1a.vh231-after-t1a-forced-light.run.json  vh231-walk/t1a/runs/vh231-after-t1a-forced-light-2026-11-05T20-32-55-881Z-c6e3ee/run.json
+947070da72595c334a2805d325f03b6173b2f180  t1a.vh231-ledger.jsonl  vh231-walk/t1a/runs/vh231-ledger.jsonl
+c4e82d099e2038db3cad4738a8c8839f02f67e14  t1a.vh231-probe-vh231-after-t1a-dark.jsonl  vh231-walk/t1a/runs/vh231-probe-vh231-after-t1a-dark.jsonl
+e91506c1230e1d46230128ffad247771c4f3682e  t1a.vh231-probe-vh231-after-t1a-forced-dark.jsonl  vh231-walk/t1a/runs/vh231-probe-vh231-after-t1a-forced-dark.jsonl
+218cb6dd1ec9183427c63fe6839bfc4e73f29e13  t1a.vh231-probe-vh231-after-t1a-forced-light.jsonl  vh231-walk/t1a/runs/vh231-probe-vh231-after-t1a-forced-light.jsonl
+5001d7a00ce18e5651d644d6c436cda7cd587e1b  t1a.outcomes.jsonl  written from t1a/runs
+8da01d57f21a331a8c64d6aba39ec190a9da7ffc  t1br.conditions.txt  vh231-walk/t1br/conditions.txt
+6636441278d00f458f8d33d6bfa51f76541efc35  t1br.load.log.txt  vh231-walk/t1br.load.log
+0ca60e2659bfd26cc20612979c163db8cd998e40  t1br.launcher.log.txt  vh231-walk/t1br.launcher.log
+1495b71c8c3fee260c8f76df6f03f0f4c93d3244  t1br.vh231-before-t1br.manifest.json  vh231-walk/t1br/runs/vh231-before-t1br-2026-11-05T20-22-58-429Z-260ac4/manifest.json
+629cdad553faed78c668882cadfc08597552febe  t1br.vh231-before-t1br.run.json  vh231-walk/t1br/runs/vh231-before-t1br-2026-11-05T20-22-58-429Z-260ac4/run.json
+3f9e8d89c9cc3fd4355f45007ddbce08a11540cd  t1br.vh231-ledger.jsonl  vh231-walk/t1br/runs/vh231-ledger.jsonl
+676babae55dc808692baebe648fb9d163d415a6e  t1br.vh231-probe-vh231-before-t1br.jsonl  vh231-walk/t1br/runs/vh231-probe-vh231-before-t1br.jsonl
+43a66a97cef3e51a62307b450f0b1b36ec2905b1  t1br.outcomes.jsonl  written from t1br/runs
+4b7aa1ff1f047a9e4fc76f969cf891050f032c56  vh231-driver-t1.mjs  vh231-walk//Users/uazjob/UoN-Video-Helper-side/vh231-walk/vh231-driver-t1.mjs
+2d70dcae2e7bf55224e5838636eb46d22c47dcd4  walk.sh  vh231-walk//Users/uazjob/UoN-Video-Helper-side/vh231-walk/walk.sh
+d2d7e0333df340bd321e81d970169b21637c4927  go.sh  vh231-walk//Users/uazjob/UoN-Video-Helper-side/vh231-walk/go.sh
+ee9afc57ef62e7c6617e01b96d9736473de90605  sum-t1.mjs.txt  vh231-walk//Users/uazjob/UoN-Video-Helper-side/vh231-walk/sum-t1.mjs.txt
+70cdc91a6b976d62d39ad35c35ff34ea572fc30a  transitions.mjs  vh231-walk//Users/uazjob/UoN-Video-Helper-side/vh231-walk/transitions.mjs
+1fd2e66fe46a490b6c5d60384f52d85d40c22dc0  t1.sum.txt  vh231-walk//Users/uazjob/UoN-Video-Helper-side/vh231-walk/t1.sum.txt
+52c4f0394c5c3b9aa841e191b2b3ab61f6725f8d  vh231-t1b-prep.zsh  vh231-walk//Users/uazjob/UoN-Video-Helper-side/vh231-t1b-prep.zsh
+fe9203451770e75559ee150bfb7ee9d6a2cba498  table-1page.mjs  vh231-walk//Users/uazjob/UoN-Video-Helper-side/table-1page.mjs
+d332fa636f6ead8772eec8086bcf0a15e8c10b47  vh231-cut-whole-r1-notes-2.md.txt  vh231-walk//Users/uazjob/UoN-Video-Helper-side/vh231-cut-whole-r1-notes-2.md.txt

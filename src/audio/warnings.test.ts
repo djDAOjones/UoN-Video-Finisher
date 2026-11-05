@@ -18,6 +18,7 @@ import { Compressor } from './compressor'
 import { TruePeakDetector } from './truepeak'
 import type { AudioAnalysis } from './analyse'
 import {
+  detectFinishedWarnings,
   detectOutputWarning,
   detectProductionWarnings,
   detectSourceWarnings,
@@ -353,5 +354,32 @@ describe('an entirely silent track', () => {
       stepSeconds: 0.1,
     })
     expect(codes(silent)).not.toContain('noisy')
+  })
+})
+
+describe('the finished video’s warnings (VH-231)', () => {
+  const both = detectProductionWarnings({ limiterBiteLu: 8.1, metadataCarried: false })
+  const codes = (warnings: readonly { code: string }[]) => warnings.map((w) => w.code)
+
+  it('puts a file said cut short first, before what producing it cost, in their own order', () => {
+    expect(codes(detectFinishedWarnings(true, both))).toEqual([
+      'cut-short',
+      'heavy-limiting',
+      'metadata-lost',
+    ])
+    expect(detectFinishedWarnings(true, [])).toEqual([{ code: 'cut-short', detail: {} }])
+  })
+
+  it('adds nothing for a whole file or an MP4, whose reading is false', () => {
+    expect(detectFinishedWarnings(false, both)).toEqual(both)
+    expect(detectFinishedWarnings(false, [])).toEqual([])
+  })
+
+  it('leaves the order before processing as it was: cut short, then ends early', () => {
+    const short = { stopsAtSeconds: 20, endSeconds: 30 }
+    expect(codes(detectSourceWarnings(healthy(), short, true)).slice(0, 2)).toEqual([
+      'cut-short',
+      'ends-early',
+    ])
   })
 })

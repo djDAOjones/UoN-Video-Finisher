@@ -1,0 +1,67 @@
+// VH-231 #6: S-171s's and S-172s's transitions in the t1 groups (one mode per record, read in that mode by vh231-driver-t1.mjs's
+// --setup-mode), against the light cells of the same side and the other side. Read-only.
+// Usage: node sum-t1.mjs <t1 group> <light group> [<other side's t1 group>]   (groups are folders under vh231-walk/)
+import { readdirSync, readFileSync, existsSync } from 'node:fs'
+const [g, light, other] = process.argv.slice(2)
+const STEPS = ['trimmed', 'finished', 'question', 'kept', 'previous', 'questionAgain']
+const load = (grp) => readdirSync(`${grp}/runs`).filter((x) => /probe/.test(x)).flatMap((f) => readFileSync(`${grp}/runs/${f}`, 'utf8').trim().split('\n').map((l) => JSON.parse(l))).filter((j) => /^S-17[12]s_/.test(j.cell))
+// What a step shows, mode and geometry apart; `status` kept whole (it carries the pre-Create estimate in some steps).
+const view = (p) => p && ({
+  res: p.res, trim: p.trim, aw: p.audioWarnings?.titles, open: p.props?.open, props: JSON.stringify(p.props?.rows),
+  title: p.result?.title, lines: JSON.stringify(p.result?.lines), wt: JSON.stringify(p.result?.warningTitles),
+  rh: JSON.stringify(p.result?.headings), rl: JSON.stringify(p.result?.langs),
+  q: p.question?.text, qb: JSON.stringify(p.question?.buttons), status: p.status, headings: JSON.stringify(p.headings),
+  ovf: p.overflow ? p.overflow.scrollWidth > p.overflow.clientWidth : undefined, error: p.error,
+})
+const modeOk = (p, mode) => !!p?.modeRead && p.modeRead.forced === mode.startsWith('forced') && p.modeRead.dark === (mode === 'dark' || mode === 'forced-dark')
+const stepsOf = (j) => ({ ...(j.steps ?? {}), final: j })
+const rows = load(g)
+const c = { records: rows.length, withSteps: 0, stepsRead: 0, modeOk: 0, modeBad: [], errors: 0 }
+for (const j of rows) {
+  if (j.steps) c.withSteps++
+  for (const [k, p] of Object.entries(stepsOf(j))) { c.stepsRead++; if (p.error) c.errors++; if (modeOk(p, j.mode)) c.modeOk++; else c.modeBad.push(`${j.cell} ${j.mode} ${k}`) }
+}
+console.log(g, JSON.stringify({ ...c, modeBad: c.modeBad.slice(0, 10) }))
+const byCell = (rs, f = () => true) => new Map(rs.filter(f).map((j) => [j.cell + (f.name === 'lightOnly' ? '' : ' ' + j.mode), j]))
+const diff = (a, b) => { const out = []; for (const k of Object.keys({ ...a, ...b })) if (JSON.stringify(a?.[k]) !== JSON.stringify(b?.[k])) out.push(k); return out }
+function compare(label, A, keyB) {
+  const fields = {}, statusDiffs = new Map(), missing = []
+  let cells = 0, same = 0
+  for (const j of rows) {
+    const o = keyB(j); if (!o) { missing.push(j.cell + ' ' + j.mode); continue }
+    cells++
+    let cellSame = true
+    for (const k of [...STEPS, 'final']) {
+      const a = view(stepsOf(j)[k]), b = view(stepsOf(o)[k])
+      for (const f of diff(a, b)) {
+        cellSame = false; fields[`${k}.${f}`] = (fields[`${k}.${f}`] ?? 0) + 1
+        if (f === 'status') { const s = `${k}: ${b?.status} → ${a?.status}`; statusDiffs.set(s, (statusDiffs.get(s) ?? []).concat(`${j.cell.replace(/__/g, ' ')} ${j.mode}`)) }
+      }
+    }
+    if (cellSame) same++
+  }
+  console.log(`${label}: ${cells} cells compared, ${same} identical in every step, missing ${missing.length}${missing.length ? ' (' + missing.slice(0, 4).join(', ') + ')' : ''}`)
+  for (const [f, n] of Object.entries(fields)) console.log(`   ${f}: differs in ${n}`)
+  return statusDiffs
+}
+if (light && existsSync(`${light}/runs`)) {
+  const L = new Map(load(light).filter((j) => j.steps).map((j) => [j.cell, j]))
+  const sd = compare(`${g} against ${light}'s light cells (same ID, language, width)`, null, (j) => L.get(j.cell))
+  for (const [s, cs] of sd) console.log(`   status ${s.slice(0, 260)} — ${cs.length}: ${cs.slice(0, 6).join('; ')}`)
+}
+if (other && existsSync(`${other}/runs`)) {
+  const O = new Map(load(other).map((j) => [j.cell + ' ' + j.mode, j]))
+  compare(`${g} against ${other} (same cell and mode)`, null, (j) => O.get(j.cell + ' ' + j.mode))
+}
+// Each record's time, for the load log (its setup ran between the record before it and this one).
+const times = rows.map((j) => [j.at, j.cell, j.mode]).sort()
+console.log('records from', times[0]?.[0], 'to', times.at(-1)?.[0])
+if (existsSync(`${g}.load.log`)) {
+  const hi = readFileSync(`${g}.load.log`, 'utf8').trim().split('\n').map((l) => l.split(' ')).filter((x) => Number(x[2]) >= 8).map((x) => x[0])
+  for (const t of hi) {
+    const day = times[0][0].slice(0, 11)
+    const at = Date.parse(day + t + 'Z')
+    const hit = times.filter(([a], i) => { const end = Date.parse(a), start = i ? Date.parse(times[i - 1][0]) : end - 120000; return at >= start - 60000 && at <= end + 60000 })
+    console.log(`load sample at 8 or above ${t}: cells set up within a minute of it: ${hit.map(([, cell, m]) => cell.replace(/__/g, ' ') + ' ' + m).join('; ')}`)
+  }
+}

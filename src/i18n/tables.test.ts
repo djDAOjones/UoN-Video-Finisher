@@ -457,3 +457,47 @@ describe('heavy limiting’s advice, in the owner’s words (VH-212)', () => {
     expect(row.notes).toContain('before you use it')
   })
 })
+
+describe('a file cut short, in the owner’s words (VH-231)', () => {
+  // His "Yes, as drafted" to VH-231.1 (the VH-231 Raised decision, 2026-11-05):
+  // the item's words; the Chinese and Malay machine drafts, as the item holds
+  // them, marked so in the filled sheet until the native check (VH-231.1).
+  const OWNER = {
+    'en-GB': { trim: 'Keeping {kept}.', record: '{kept}, from {from} to {to}' },
+    'zh-Hans': { trim: '保留 {kept}。', record: '{kept}，从 {from} 到 {to}' },
+    'ms-MY': { trim: 'Menyimpan {kept}.', record: '{kept}, dari {from} hingga {to}' },
+  } as const
+
+  it.each(Object.entries(LANGUAGE_TABLES))('%s says them verbatim', (tag, table) => {
+    const words = OWNER[tag as keyof typeof OWNER]
+    expect(table.trim.keepingCut).toBe(words.trim)
+    expect(table.result.keptCut).toBe(words.record)
+  })
+
+  it.each(Object.entries(LANGUAGE_TABLES))(
+    '%s keeps the warning’s heading and detail apart from them',
+    (_tag, table) => {
+      for (const line of [table.trim.keepingCut, table.result.keptCut]) {
+        expect(line).not.toBe(table.trim.keepingWhole)
+        expect(line).not.toBe(table.result.keptWhole)
+        expect(line).not.toContain('{duration}')
+      }
+    },
+  )
+
+  it('carries both rows, their notes and the machine-draft mark into the filled sheet', () => {
+    const [heading, ...rows] = parseCsv(
+      readFileSync(new URL(`../../${FILLED_SHEET}`, import.meta.url), 'utf8'),
+    )
+    for (const key of ['trim.keepingCut', 'result.keptCut']) {
+      const filled = rows.find((cells) => cells[0] === key)!
+      const row = sheetRows().find((sheetRow) => sheetRow.key === key)!
+      expect(filled[heading!.indexOf('English')], key).toBe(row.english)
+      expect(filled[heading!.indexOf('notes')], key).toBe(row.notes)
+      expect(filled[heading!.indexOf('changed by the agent')], key).toBe(
+        'VH-231: Chinese and Malay drafted by the agent',
+      )
+      expect(row.notes, key).toContain('warnings.cutShort')
+    }
+  })
+})

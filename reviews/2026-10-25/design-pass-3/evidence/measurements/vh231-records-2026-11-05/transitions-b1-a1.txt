@@ -1,0 +1,2 @@
+b1 {"cells":72,"finished:sameRecord":18,"kept:sameRecord":18,"previous:sameRecord":18,"question:carriesRecord":18,"questionAgain:carriesRecord":18,"final:sameRecord":18,"noSteps":54}
+a1 {"cells":72,"finished:sameRecord":18,"finished:cutFirst":18,"kept:sameRecord":18,"kept:cutFirst":18,"previous:sameRecord":18,"previous:cutFirst":18,"question:carriesRecord":18,"questionAgain:carriesRecord":18,"final:sameRecord":18,"final:cutFirst":18,"noSteps":54}

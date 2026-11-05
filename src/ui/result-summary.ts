@@ -48,6 +48,12 @@ export interface JobRecord {
    * is the video's: the staff card, or a submission's (VH-128).
    */
   readonly titleCard: boolean
+  /**
+   * Whether the file was said cut short when it was read (VH-158): the record
+   * then gives the length made and where, never "the whole video" nor what it
+   * is out of (VH-231). Absent for a whole file.
+   */
+  readonly cutShort?: boolean
 }
 
 /** What the finished file actually carries, which is not always what was asked for. */
@@ -64,9 +70,25 @@ export interface ClosingOutcome {
   readonly endedEarly?: EndedEarly | null
 }
 
-/** "the whole video (4 minutes, 12 seconds)" or "2 minutes of 4 minutes, 12 seconds, from 0:30.0 to 2:30.0". */
-export function keptPartText(range: KeptRange | null, durationSeconds: number): string {
+/**
+ * "the whole video (4 minutes, 12 seconds)" or "2 minutes of 4 minutes, 12
+ * seconds, from 0:30.0 to 2:30.0"; for a file said cut short, "20 seconds,
+ * from 0:00.0 to 0:20.0", trimmed or not (VH-231, the owner's words).
+ */
+export function keptPartText(
+  range: KeptRange | null,
+  durationSeconds: number,
+  cutShort = false,
+): string {
   const duration = formatDuration(durationSeconds)
+  if (cutShort) {
+    const { startSeconds, endSeconds } = range ?? { startSeconds: 0, endSeconds: durationSeconds }
+    return t().result.keptCut({
+      kept: formatDuration(endSeconds - startSeconds),
+      from: formatTrimTime(startSeconds),
+      to: formatTrimTime(endSeconds),
+    })
+  }
   if (!range) return t().result.keptWhole({ duration })
   return t().result.keptPart({
     kept: formatDuration(range.endSeconds - range.startSeconds),
@@ -168,7 +190,11 @@ export function endedEarlyText(ended: EndedEarly | null | undefined, closingInFi
 export function jobSummaryText(record: JobRecord, made: KeptRange | null = null): string {
   const parts = {
     name: record.sourceName,
-    part: keptPartText(made ?? record.keptRange, record.durationSeconds),
+    part: keptPartText(
+      made ?? record.keptRange,
+      record.durationSeconds,
+      record.cutShort === true,
+    ),
     output: t().preset.inRecord[record.presetId],
     closing: closingChoiceText(record.closing, record.wordsLanguage),
   }

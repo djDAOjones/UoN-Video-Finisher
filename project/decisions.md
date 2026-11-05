@@ -24,6 +24,16 @@
      moves the oldest entries verbatim to project/decisions-YYYY-MM.md,
      beside this file, listed in project/archive-index.md. -->
 
+## 2026-11-05 — VH-231 — Closes: a cut Matroska or WebM file said cut short, never "the whole video"
+
+**Decision:** VH-231 closes as a fix: a cut Matroska or WebM file is said cut short with the finished video, its kept length in the owner's words; walked on the Mac Pro, all cells reached.
+
+**Rationale:** The Decision in full, shortened in the line for the slice's budget at the landing: VH-231 closes as a fix: the inspection's source report carries VH-158's bounded cut-short reading, so the trim line, shown before pre-flight, the record and the finished video say it by the same rule, read once per inspection; `cut-short` comes first among the finished video's warnings and in its completion announcement, and "Keep it" and "Previous video" keep it; the trim says "Keeping {kept}." and the record "{kept}, from {from} to {to}", in en-GB and in zh-Hans and ms-MY machine drafts (wish VH-231.1); spec §5.4's row extended as approved; walked on the Mac Pro, all cells reached, only the route's words and warning moving but for the time estimate's recorded timing readings. The owner's words. "Yes, as drafted" (via Orchestrator #40, about 07:15Z; the VH-231 Raised entry of this date) approved the trim's and the record's words, the machine drafts and the spec row; "Duration" stays, by the owner's choice. In `plan8-owner-words.md`: "Here on the Mac Pro (Recommended)" and "Re-walk here (Recommended)" (2026-11-05, :437 and :438); "ensure everything passes UX / design / Accessibility" (2026-10-27, :275); "Gateless covers the rest of Phase 8" (:185) and "gateless run where possible" (2026-10-31, :395). **The route:** the trim line is painted from the inspection before pre-flight, so the fact rides in `SourceReport.cutShort` from `inspectFile`; pre-flight reads `report.cutShort` rather than calling `matroskaCutShort` again; `beginJob` puts the selection's flag in the job's record; processing's inspection gives the finished warnings (`detectFinishedWarnings`), with `result.endedEarly` not borrowed. **The reads:** each worker step's inspection makes the bounded read once (1 KB at the start and a 4–32 MiB tail, no decode, no whole-file buffer), so an ordinary job reads a Matroska or WebM file three times where the base read it once, in pre-flight: VH-82's three inspections per job, which stays open. Nothing is read for any other container. The other `inspectFile` callers, `src/acceptance/run.ts` and six spikes under `src/spike/`, now make the read too. A failed or cancelled read fails the inspection or processing by their existing paths (`src/media/inspect.test.ts`); cancellation is checked after the bounded read, not during it. The record's flag comes from the selection's inspection and the warning from processing's: one reading for an unchanged file, unreconciled if successive reads saw different bytes, which no walk reads. **Diagnostics:** the dev-only, redacted bundle gains the report's non-identifying `cutShort` boolean, through `setDiagnosticsContext({ source: reply.report })`. **Strings:** two keys added, `trim.keepingCut` and `result.keptCut`, none changed, each with its translator note, the Chinese and Malay marked as machine drafts, the filled sheet's rows beside them. **The walks,** on the Mac Pro on AC Power, walker `9c52269607bccc4c` unchanged, the before on base 4bc3a40: `vh231-cut-whole-2026-11-05.md`, fifteen IDs at 1280, 375 and 320 px in three languages and four modes, 540 cells a side, all reached, every instrument 0 failing, 540 unmoved by instrument and row; and `vh231-cut-whole-r1-2026-11-05.md`, the retained result's transitions for S-171s and S-172s in dark, forced light and forced dark (the first table read them in light only, Codex's must 1), 54 cells a side, all reached, the before from a temporary worktree of the base, by a driver copy that sets the mode first. VH-215's S-23 variants, S-170 to S-172s (VH-231's) and the controls S-20, S-22, S-64, S-91 and S-136; fixtures made afresh by this Mac's ffmpeg and proved by p1 and p2; VH-199's records cited only. **The orchestrators' rulings:** #41, S-64 and S-91 walked again as a1t below load 8, of record for those 72 cells, a1's 44 read under load set aside; #41, the transitions' plan; t1br of record for the two t1b cells the orchestrator's rule selected (t1b's ledger also records 9.15 at 19:49:22Z, and 30-second samples cannot show exactly when the load fell below 8). The time estimate, from `calibrationProbe` and rounded by `approximateDuration`, moved at its rounding step in 4 a1t cells against b1, in 1 cell from t1b to t1a and in 4 t1a cells against a1's light: on #41's and #42's rulings a timing reading, not this item's, since the diff touches neither function nor their inputs. The first table's "every probe field" sentence for a1t is corrected in r1's notes: every field but `status`, which equals b1's in 68 of 72. Each table's first generation was set aside whole, outside the repository, after a lint failed on an evidence copy (the first's notes as `.md`, r1's `sum-t1.mjs`, which holds an unused variable); each was made again at once from the same records, its notes kept as `.md.txt` and that script as `sum-t1.mjs.txt`, the same files by sha1. **Codex astra:** Claude's verdict, "Commit, at the close", was saved before the blind check's answer, "Commit after the musts below", was opened; its must 1 was repaired by the r1 walk, its must 2 is the Disposition row, its must 3 the gate; its two tests were added. **Digest rules applied (rule 8):** nielsen, "status visible and announced" and "errors say what next"; wcag-2.2-aaa 1.3.1, 1.4.10, 2.4.6, 3.1.5, 3.3.1, 3.3.3 and 4.1.3. Not walked: the 32 px font, outside the stage rule; Tab order, as no element is added. After it lands, VH-222's g1 (named in VH-222's Notes) and its proof5 (named in this item's criteria) re-read their cut cells, on the orchestrator's word; VH-222 is open.
+
+**Supersedes:** none
+
+**Deferred:** none
+
 ## 2026-11-05 — VH-232 — Raised: the feedback dialog's status brought whole into view, no words or element changed
 
 **Decision:** VH-222's second defect, the dialog's status set out of view, is a fix item before VH-203: the dialog alone scrolls it into view.
@@ -548,49 +558,3 @@ Each walk records its machine. Two questions remain for the owner:
 **Supersedes:** none
 
 **Deferred:** VH-202, VH-203
-
-## 2026-10-27 — VH-200 — Pass 3 judged: seven draft findings, D-05 at rank 1, V-46 regressed; VH-205's "?" the owner's fix, labelled
-
-**Decision:** VH-200 closes. `judged-2026-10-27.md`, `wcag-2026-10-27.md` and `person-checklist-2026-10-27.md` judge the Phase 8 page from VH-199's evidence. There are seven draft findings and none needs a new element: D-05 at rank 1; D-06, V-46 (regressed), V-48, V-49 and V-18 (incomplete) at rank 2; V-50 at rank 3. VH-201 is next.
-
-**Rationale:**
-
-- **The findings** (`reviews/2026-10-25/design-pass-3/judged-2026-10-27.md`, "Draft findings"):
-  - **D-05, rank 1.** "This video has no audio" for real sound kept under one 400 ms block. The cause it states is false, but the notice comes before Create. The words that tell this case apart are the owner's to approve, and the threshold stays. Orchestrator #11 was told at once.
-  - **D-06.** The heavy-limiting advice comes after the player and Save.
-  - **V-46, regressed.** S-149 ×3: VH-191 moved Video language into the step the read-failure branch withdraws with no hand-on, VH-178's omission.
-  - **V-48.** At the 32 px font, the onset "?"'s ring is 460 of 464 px².
-  - **V-49.** In the forced palettes, the wrapped Creators team link's ring is lost over the next link.
-  - **V-18, incomplete.** The first action sits inside the first screen at 1280 × 900 in English and Chinese, but not in Malay or at 320 px.
-  - **V-50, rank 3.** At the 32 px font in a 320 or 401 px window, the choices and the trim's Set buttons push the page sideways (S-113 ×6). No adopted rule asks for it, and step 4's selects stay wish VH-189.1.
-- **Read as the instrument's, not the page's:**
-  - the 32 px radio ring, measured against a box where it rings a disc;
-  - S-81's wrapped statement link, measured against an enclosing box;
-  - S-127's player rings, whose background the walker did not read.
-  Each is missing evidence for VH-203's after-run, wish VH-200.1.
-- **WCAG:**
-  - 35 met, 10 met-in-source and 17 n-a;
-  - 2 defects (2.4.3, 2.4.13), 11 accepted limitations and 11 missing evidence, 1.4.3 and 1.4.6 among them for the file button's words at the 32 px font;
-  - the finish+1s player class, 823 rows, counted as neither pass nor fail.
-- **VH-205** is judged as the fix of the owner's finding. Its verdicts are labelled "manually checked in VH-205", "missing" or "to be measured in VH-203's after-run", and text spacing and forced colours are missing.
-- **Codex astra**, on the owner's word ("please also do everything in partnership with codex as a comparison"):
-  - its blind review is the comparison throughout;
-  - it gave blind attributions, blind VH-205 verdicts and blind WCAG and finding verdicts, each compared under four headings;
-  - its points on the radio's disc, the onset "?" and Creators ranks, S-127, 1.4.11, 1.4.12, 2.5.5 and 2.5.8 were taken on the evidence, and Claude's 1.4.2 kept on S-126's assert;
-  - nothing is held for the owner;
-  - its close check, `codex-astra-judged-check-2026-10-27.md.txt`, said "Commit after the musts below". All four musts and both shoulds are applied, and none is refused:
-    - must 1: 1.4.3 and 1.4.6 become missing evidence;
-    - must 2: S-113's choices and Set buttons are judged as V-50, rank 3, so no blind step;
-    - must 3: the checklist's setup order is fixed;
-    - must 4: the gate and the checker are recorded on the final content;
-    - should 5: 1.4.8's mixed-line and line-height wording;
-    - should 6: the statement's +288 px and S-149's next Tab;
-    - its may (7) keeps the rest.
-- **No product code changed,** and no page was walked or probed. Digest rules applied:
-  - wcag-2.2-aaa, 2.4.13 Focus Appearance and "every exception recorded";
-  - nielsen 1, 2, 5 and 9;
-  - carbon, one look per component kind.
-
-**Supersedes:** none
-
-**Deferred:** VH-201, VH-202, VH-203

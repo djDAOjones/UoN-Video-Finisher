@@ -1,0 +1,13 @@
+Verdict: Commit
+
+1. **note — `project/decisions.md:29`:** Must 1 is resolved. The Decision now distinguishes the shared detection rule from separate inspections and qualifies the unchanged walk results with the recorded timing differences.
+
+2. **note — `project/decisions.md:31`:** Should 5 is resolved. The qualification accurately identifies the orchestrator-selected replacement cells, the additional 9.15 reading and the limits of 30-second sampling.
+
+3. **note — `project/items/VH-231.md:47`, `project/items/VH-222.md:41`, `project/backlog.md:45`:** Should 8 is resolved. The g1 and proof5 references now identify their respective records accurately; VH-222 remains open, and VH-231 no longer blocks VH-203.
+
+4. **note — `../vh231-frozen-r4/diffhash.txt:1`, `../vh231-frozen-r4/untracked.sha1:1`:** The candidate matches r4 exactly. Against r3, only the listed three tracked record files changed; all 135 earlier untracked files retain their hashes, with exactly two review copies added. HEAD and branch match the brief; nothing is staged. No product code changed or new contradiction was introduced.
+
+5. **note — `../vh231-gate-wait-6.log:4`, `../vh231-gate-6.log:27`, `../vh231-gate-6.load.log:1`:** Gate 6 records this candidate’s diff hash and exits 0: 85 test files passed, 1,690 tests passed, one standing skip. Power was AC; recorded one-minute loads were 5.01, 4.60 and 4.67. I independently ran `node tools/check.mjs`: zero failures, the existing missing-sample warning only.
+
+6. **note — `reviews/2026-10-25/design-pass-3/evidence/measurements/vh231-codex-close2-2026-11-05.md.txt:1`:** The answer copy matches its permitted source by SHA-1. The accompanying brief matches r4’s manifest; its equality to the external original remains your attestation because that source brief is excluded from reading. I changed no files.

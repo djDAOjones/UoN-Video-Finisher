@@ -9,6 +9,7 @@
 import { describe, expect, it } from 'vitest'
 
 import { KEPT_MIN_SECONDS } from '../config/trim'
+import { setLanguage } from '../i18n'
 import {
   formatTrimTime,
   parseTrimTime,
@@ -130,6 +131,33 @@ describe('what the step says', () => {
     expect(trimSummary({ startSeconds: 12, endSeconds: 124 }, 130)).toBe(
       'Keeping 1 minute 52 seconds of 2 minutes 10 seconds.',
     )
+  })
+
+  // VH-231: a cut file's read length is not its whole, so it is never the
+  // whole video, nor what the part kept is out of; only the length kept.
+  it('says only the length kept for a file said cut short, trimmed or not', () => {
+    expect(trimSummary(null, 20, true)).toBe('Keeping 20 seconds.')
+    expect(trimSummary({ startSeconds: 5, endSeconds: 20 }, 20, true)).toBe('Keeping 15 seconds.')
+    expect(trimSummary({ startSeconds: 0, endSeconds: 4 }, 5, true)).toBe('Keeping 4 seconds.')
+  })
+
+  it('keeps both lines for a whole file, trimmed or not', () => {
+    expect(trimSummary(null, 20, false)).toBe('Keeping the whole video, 20 seconds.')
+    expect(trimSummary({ startSeconds: 5, endSeconds: 20 }, 20, false)).toBe(
+      'Keeping 15 seconds of 20 seconds.',
+    )
+  })
+
+  it.each([
+    ['zh-Hans', '保留 15秒钟。'],
+    ['ms-MY', 'Menyimpan 15 saat.'],
+  ] as const)('says it in %s in the owner’s approved words', (tag, line) => {
+    setLanguage(tag)
+    try {
+      expect(trimSummary({ startSeconds: 5, endSeconds: 20 }, 20, true)).toBe(line)
+    } finally {
+      setLanguage('en-GB')
+    }
   })
 
   it('gives each handle a place in words', () => {

@@ -1,0 +1,94 @@
+records 540
+S-20 en-GB: 12 cells, 1 reading(s)
+   12× {"res":"none","trim":"Keeping the whole video, 10 seconds.","aw":["This video has no audio"],"st":"Device check complete. Ready to go. This should take a few s","open":false,"dur":"10 seconds"}
+S-22 en-GB: 12 cells, 1 reading(s)
+   12× {"res":"none","trim":"Keeping the whole video, 30 seconds.","aw":["The file ends early"],"st":"Device check complete. Ready to go. This should take about 1","open":false,"dur":"30 seconds"}
+S-23 en-GB: 12 cells, 1 reading(s)
+   12× {"res":"none","trim":"Keeping 20 seconds.","aw":["The video file is shorter than expected"],"st":"Device check complete. Ready to go. This should take about 1","open":false,"dur":"20 seconds"}
+S-23s en-GB: 12 cells, 1 reading(s)
+   12× {"res":"result","trim":"Keeping 20 seconds.","wt":["The video file is shorter than expected"],"rec":"a 5-second submission card, then 20 seconds, from 0:00.0 to 0:20.0, hi","st":"Your video is ready. Worth knowing about the finished video:","open":false,"dur":"20 seconds"}
+S-23sn en-GB: 12 cells, 1 reading(s)
+   12× {"res":"result","trim":"Keeping 20 seconds.","wt":["The video file is shorter than expected"],"rec":"a 5-second submission card, then 20 seconds, from 0:00.0 to 0:20.0, hi","st":"Your video is ready. Worth knowing about the finished video:","open":false,"dur":"20 seconds"}
+S-23w en-GB: 12 cells, 1 reading(s)
+   12× {"res":"result","trim":"Keeping 5 seconds.","wt":["The video file is shorter than expected"],"rec":"a 5-second submission card, then 5 seconds, from 0:00.0 to 0:05.1, hig","st":"Your video is ready. Worth knowing about the finished video:","open":false,"dur":"5 seconds"}
+S-23wn en-GB: 12 cells, 1 reading(s)
+   12× {"res":"result","trim":"Keeping 5 seconds.","wt":["The video file is shorter than expected"],"rec":"a 5-second submission card, then 5 seconds, from 0:00.0 to 0:05.1, hig","st":"Your video is ready. Worth knowing about the finished video:","open":false,"dur":"5 seconds"}
+S-64 en-GB: 12 cells, 2 reading(s)
+   8× {"res":"result","trim":"Keeping the whole video, 1 minute.","rec":"21 seconds of 30 seconds, from 0:00.0 to 0:20.9, high quality, a cut t","st":"Device check complete. Ready to go. This should take about 2","open":false,"dur":"1 minute"}
+   4× {"res":"result","trim":"Keeping the whole video, 1 minute.","rec":"21 seconds of 30 seconds, from 0:00.0 to 0:20.9, high quality, a cut t","st":"Device check complete. Ready to go. This should take about 3","open":false,"dur":"1 minute"}
+S-91 en-GB: 12 cells, 1 reading(s)
+   12× {"res":"result","trim":"Keeping the whole video, 1 minute.","wt":["The file’s title, author, and date could not be copied across"],"rec":"the whole video (30 seconds), high quality, the blue closing graphics ","st":"Device check complete. Ready to go. This should take about 3","open":false,"dur":"1 minute"}
+S-136 en-GB: 12 cells, 1 reading(s)
+   12× {"res":"result","trim":"Keeping the whole video, 20 seconds.","wt":["The loudest moments were held down hard","The file’s title, author, and date could not be copied across"],"rec":"the whole video (20 seconds), high quality, a cut to the blue closing ","st":"Your video is ready. Worth knowing about the finished video:","open":false,"dur":"20 seconds"}
+S-170 en-GB: 12 cells, 1 reading(s)
+   12× {"res":"none","trim":"Keeping 5 seconds.","aw":["The video file is shorter than expected"],"st":"Device check complete. Ready to go. This should take a few s","open":false,"dur":"5 seconds"}
+S-171 en-GB: 12 cells, 1 reading(s)
+   12× {"res":"none","trim":"Keeping 15 seconds.","aw":["The video file is shorter than expected"],"st":"Device check complete. Ready to go. This should take about 1","open":true,"dur":"20 seconds"}
+S-171s en-GB: 12 cells, 1 reading(s)
+   12× {"res":"result","trim":"Keeping 15 seconds.","wt":["The video file is shorter than expected"],"rec":"15 seconds, from 0:05.0 to 0:20.0, high quality, a cut to the blue clo","st":"Your video is ready. Worth knowing about the finished video:","open":true,"dur":"20 seconds"}
+S-172 en-GB: 12 cells, 1 reading(s)
+   12× {"res":"none","trim":"Keeping 4 seconds.","aw":["The video file is shorter than expected"],"st":"Device check complete. Ready to go. This should take a few s","open":true,"dur":"5 seconds"}
+S-172s en-GB: 12 cells, 1 reading(s)
+   12× {"res":"result","trim":"Keeping 4 seconds.","wt":["The video file is shorter than expected"],"rec":"4 seconds, from 0:00.0 to 0:04.0, high quality, a cut to the blue clos","st":"Your video is ready. Worth knowing about the finished video:","open":true,"dur":"5 seconds"}
+S-20 zh-Hans: 12 cells, 1 reading(s)
+   12× {"res":"none","trim":"保留整个视频，10秒钟。","aw":["这段视频没有音频"],"st":"设备检查完成。准备就绪。这应该只需要几秒钟。预计大小最大可达6.8 MB。 值得了解的音频特性：这段视频没有音频。","open":false,"dur":"10秒钟"}
+S-22 zh-Hans: 12 cells, 1 reading(s)
+   12× {"res":"none","trim":"保留整个视频，30秒钟。","aw":["文件提前结束"],"st":"设备检查完成。准备就绪。这大约需要10秒钟。预计大小最大可达14.5 MB。 值得了解的音频特性：文件提前结束。","open":false,"dur":"30秒钟"}
+S-23 zh-Hans: 12 cells, 1 reading(s)
+   12× {"res":"none","trim":"保留 20秒钟。","aw":["视频文件比预期短"],"st":"设备检查完成。准备就绪。这大约需要10秒钟。预计大小最大可达10.9 MB。 值得了解的音频特性：视频文件比预期短。","open":false,"dur":"20秒钟"}
+S-23s zh-Hans: 12 cells, 1 reading(s)
+   12× {"res":"result","trim":"保留 20秒钟。","wt":["视频文件比预期短"],"rec":"由 cut-short-30s.mkv 构成：5 秒的学生提交作品卡，随后是20秒钟，从 0:00.0 到 0:20.0、高质量、镜头切换到","st":"您的视频已准备就绪。 关于最终视频值得了解的事项：视频文件比预期短。","open":false,"dur":"20秒钟"}
+S-23sn zh-Hans: 12 cells, 1 reading(s)
+   12× {"res":"result","trim":"保留 20秒钟。","wt":["视频文件比预期短"],"rec":"由 cut-short-30s.mkv 构成：5 秒的学生提交作品卡，随后是20秒钟，从 0:00.0 到 0:20.0、高质量、无大学结尾","st":"您的视频已准备就绪。 关于最终视频值得了解的事项：视频文件比预期短。","open":false,"dur":"20秒钟"}
+S-23w zh-Hans: 12 cells, 1 reading(s)
+   12× {"res":"result","trim":"保留 5秒钟。","wt":["视频文件比预期短"],"rec":"由 cut-short-10s.webm 构成：5 秒的学生提交作品卡，随后是5秒钟，从 0:00.0 到 0:05.1、高质量、镜头切换到","st":"您的视频已准备就绪。 关于最终视频值得了解的事项：视频文件比预期短。","open":false,"dur":"5秒钟"}
+S-23wn zh-Hans: 12 cells, 1 reading(s)
+   12× {"res":"result","trim":"保留 5秒钟。","wt":["视频文件比预期短"],"rec":"由 cut-short-10s.webm 构成：5 秒的学生提交作品卡，随后是5秒钟，从 0:00.0 到 0:05.1、高质量、无大学结尾","st":"您的视频已准备就绪。 关于最终视频值得了解的事项：视频文件比预期短。","open":false,"dur":"5秒钟"}
+S-64 zh-Hans: 12 cells, 2 reading(s)
+   8× {"res":"result","trim":"保留整个视频，1分钟。","rec":"由 truncated-30s.mp4 构成：保留了 30秒钟 中的 21秒钟，从 0:00.0 到 0:20.9、高质量、镜头切换到蓝色结","st":"设备检查完成。准备就绪。这大约需要20秒钟。预计大小最大可达25.5 MB。","open":false,"dur":"1分钟"}
+   4× {"res":"result","trim":"保留整个视频，1分钟。","rec":"由 truncated-30s.mp4 构成：保留了 30秒钟 中的 21秒钟，从 0:00.0 到 0:20.9、高质量、镜头切换到蓝色结","st":"设备检查完成。准备就绪。这大约需要30秒钟。预计大小最大可达25.5 MB。","open":false,"dur":"1分钟"}
+S-91 zh-Hans: 12 cells, 2 reading(s)
+   4× {"res":"result","trim":"保留整个视频，1分钟。","wt":["无法复制文件的标题、作者和日期"],"rec":"由 lecture-30s.mp4 构成：完整视频（30秒钟）、高质量、蓝色的结尾图形逐渐淡入，覆盖画面。","st":"设备检查完成。准备就绪。这大约需要30秒钟。预计大小最大可达25.5 MB。","open":false,"dur":"1分钟"}
+   8× {"res":"result","trim":"保留整个视频，1分钟。","wt":["无法复制文件的标题、作者和日期"],"rec":"由 lecture-30s.mp4 构成：完整视频（30秒钟）、高质量、蓝色的结尾图形逐渐淡入，覆盖画面。","st":"设备检查完成。准备就绪。这大约需要20秒钟。预计大小最大可达25.5 MB。","open":false,"dur":"1分钟"}
+S-136 zh-Hans: 12 cells, 1 reading(s)
+   12× {"res":"result","trim":"保留整个视频，20秒钟。","wt":["最响亮的部分被大幅压低了","无法复制文件的标题、作者和日期"],"rec":"由 clicks-20s.mp4 构成：完整视频（20秒钟）、高质量、镜头切换到蓝色结束卡。","st":"您的视频已准备就绪。 关于最终视频值得了解的事项：最响亮的部分被大幅压低了；无法复制文件的标题、作者和日期。为了达到通常","open":false,"dur":"20秒钟"}
+S-170 zh-Hans: 12 cells, 1 reading(s)
+   12× {"res":"none","trim":"保留 5秒钟。","aw":["视频文件比预期短"],"st":"设备检查完成。准备就绪。这应该只需要几秒钟。预计大小最大可达2.8 MB。 值得了解的音频特性：视频文件比预期短。","open":false,"dur":"5秒钟"}
+S-171 zh-Hans: 12 cells, 1 reading(s)
+   12× {"res":"none","trim":"保留 15秒钟。","aw":["视频文件比预期短"],"st":"设备检查完成。准备就绪。这大约需要10秒钟。预计大小最大可达9.1 MB。 值得了解的音频特性：视频文件比预期短。","open":true,"dur":"20秒钟"}
+S-171s zh-Hans: 12 cells, 1 reading(s)
+   12× {"res":"result","trim":"保留 15秒钟。","wt":["视频文件比预期短"],"rec":"由 cut-short-30s.mkv 构成：15秒钟，从 0:05.0 到 0:20.0、高质量、镜头切换到蓝色结束卡。","st":"您的视频已准备就绪。 关于最终视频值得了解的事项：视频文件比预期短。","open":true,"dur":"20秒钟"}
+S-172 zh-Hans: 12 cells, 1 reading(s)
+   12× {"res":"none","trim":"保留 4秒钟。","aw":["视频文件比预期短"],"st":"设备检查完成。准备就绪。这应该只需要几秒钟。预计大小最大可达2.6 MB。 值得了解的音频特性：视频文件比预期短。","open":true,"dur":"5秒钟"}
+S-172s zh-Hans: 12 cells, 1 reading(s)
+   12× {"res":"result","trim":"保留 4秒钟。","wt":["视频文件比预期短"],"rec":"由 cut-short-10s.webm 构成：4秒钟，从 0:00.0 到 0:04.0、高质量、镜头切换到蓝色结束卡。","st":"您的视频已准备就绪。 关于最终视频值得了解的事项：视频文件比预期短。","open":true,"dur":"5秒钟"}
+S-20 ms-MY: 12 cells, 1 reading(s)
+   12× {"res":"none","trim":"Menyimpan keseluruhan video, 10 saat.","aw":["Video ini tiada audio"],"st":"Pemeriksaan peranti selesai. Sedia untuk bermula. Ini sepatu","open":false,"dur":"10 saat"}
+S-22 ms-MY: 12 cells, 1 reading(s)
+   12× {"res":"none","trim":"Menyimpan keseluruhan video, 30 saat.","aw":["Fail ini berakhir lebih awal"],"st":"Pemeriksaan peranti selesai. Sedia untuk bermula. Ini sepatu","open":false,"dur":"30 saat"}
+S-23 ms-MY: 12 cells, 1 reading(s)
+   12× {"res":"none","trim":"Menyimpan 20 saat.","aw":["Fail video lebih pendek daripada yang dijangka"],"st":"Pemeriksaan peranti selesai. Sedia untuk bermula. Ini sepatu","open":false,"dur":"20 saat"}
+S-23s ms-MY: 12 cells, 1 reading(s)
+   12× {"res":"result","trim":"Menyimpan 20 saat.","wt":["Fail video lebih pendek daripada yang dijangka"],"rec":"kad serahan 5 saat, kemudian 20 saat, dari 0:00.0 hingga 0:20.0, kuali","st":"Video anda sudah siap. Perlu diketahui tentang video yang te","open":false,"dur":"20 saat"}
+S-23sn ms-MY: 12 cells, 1 reading(s)
+   12× {"res":"result","trim":"Menyimpan 20 saat.","wt":["Fail video lebih pendek daripada yang dijangka"],"rec":"kad serahan 5 saat, kemudian 20 saat, dari 0:00.0 hingga 0:20.0, kuali","st":"Video anda sudah siap. Perlu diketahui tentang video yang te","open":false,"dur":"20 saat"}
+S-23w ms-MY: 12 cells, 1 reading(s)
+   12× {"res":"result","trim":"Menyimpan 5 saat.","wt":["Fail video lebih pendek daripada yang dijangka"],"rec":"kad serahan 5 saat, kemudian 5 saat, dari 0:00.0 hingga 0:05.1, kualit","st":"Video anda sudah siap. Perlu diketahui tentang video yang te","open":false,"dur":"5 saat"}
+S-23wn ms-MY: 12 cells, 1 reading(s)
+   12× {"res":"result","trim":"Menyimpan 5 saat.","wt":["Fail video lebih pendek daripada yang dijangka"],"rec":"kad serahan 5 saat, kemudian 5 saat, dari 0:00.0 hingga 0:05.1, kualit","st":"Video anda sudah siap. Perlu diketahui tentang video yang te","open":false,"dur":"5 saat"}
+S-64 ms-MY: 12 cells, 1 reading(s)
+   12× {"res":"result","trim":"Menyimpan keseluruhan video, 1 minit.","rec":"21 saat daripada 30 saat, dari 0:00.0 hingga 0:20.9, kualiti tinggi, p","st":"Pemeriksaan peranti selesai. Sedia untuk bermula. Ini sepatu","open":false,"dur":"1 minit"}
+S-91 ms-MY: 12 cells, 1 reading(s)
+   12× {"res":"result","trim":"Menyimpan keseluruhan video, 1 minit.","wt":["Tajuk, pengarang dan tarikh fail tidak dapat disalin"],"rec":"keseluruhan video (30 saat), kualiti tinggi, grafik penutup biru pudar","st":"Pemeriksaan peranti selesai. Sedia untuk bermula. Ini sepatu","open":false,"dur":"1 minit"}
+S-136 ms-MY: 12 cells, 1 reading(s)
+   12× {"res":"result","trim":"Menyimpan keseluruhan video, 20 saat.","wt":["Bahagian paling kuat telah ditekan dengan banyak","Tajuk, pengarang dan tarikh fail tidak dapat disalin"],"rec":"keseluruhan video (20 saat), kualiti tinggi, potongan kepada kad penut","st":"Video anda sudah siap. Perlu diketahui tentang video yang te","open":false,"dur":"20 saat"}
+S-170 ms-MY: 12 cells, 1 reading(s)
+   12× {"res":"none","trim":"Menyimpan 5 saat.","aw":["Fail video lebih pendek daripada yang dijangka"],"st":"Pemeriksaan peranti selesai. Sedia untuk bermula. Ini sepatu","open":false,"dur":"5 saat"}
+S-171 ms-MY: 12 cells, 1 reading(s)
+   12× {"res":"none","trim":"Menyimpan 15 saat.","aw":["Fail video lebih pendek daripada yang dijangka"],"st":"Pemeriksaan peranti selesai. Sedia untuk bermula. Ini sepatu","open":true,"dur":"20 saat"}
+S-171s ms-MY: 12 cells, 1 reading(s)
+   12× {"res":"result","trim":"Menyimpan 15 saat.","wt":["Fail video lebih pendek daripada yang dijangka"],"rec":"15 saat, dari 0:05.0 hingga 0:20.0, kualiti tinggi, potongan kepada ka","st":"Video anda sudah siap. Perlu diketahui tentang video yang te","open":true,"dur":"20 saat"}
+S-172 ms-MY: 12 cells, 1 reading(s)
+   12× {"res":"none","trim":"Menyimpan 4 saat.","aw":["Fail video lebih pendek daripada yang dijangka"],"st":"Pemeriksaan peranti selesai. Sedia untuk bermula. Ini sepatu","open":true,"dur":"5 saat"}
+S-172s ms-MY: 12 cells, 1 reading(s)
+   12× {"res":"result","trim":"Menyimpan 4 saat.","wt":["Fail video lebih pendek daripada yang dijangka"],"rec":"4 saat, dari 0:00.0 hingga 0:04.0, kualiti tinggi, potongan kepada kad","st":"Video anda sudah siap. Perlu diketahui tentang video yang te","open":true,"dur":"5 saat"}

@@ -18,6 +18,7 @@ import {
   keptPartText,
   recordPassage,
   runningJobText,
+  type ClosingOutcome,
   type JobRecord,
 } from './result-summary'
 
@@ -314,5 +315,68 @@ describe('a file that ends early, in the record (VH-139)', () => {
     expect(endedEarlyText(audited, false)).toBe(
       'Fail yang anda pilih berakhir lebih awal. Gambar dan audionya berhenti pada 0:20 daripada 0:30. Jika anda mempunyai salinan yang lengkap, cipta video itu semula daripada salinan tersebut.',
     )
+  })
+})
+
+describe('a file said cut short, in the record (VH-231)', () => {
+  afterEach(() => setLanguage('en-GB'))
+
+  /** VH-158's cut MKV: 20 seconds read, its whole length unknown. */
+  const cut: JobRecord = {
+    ...whole,
+    sourceName: 'cut-short-30s.mkv',
+    durationSeconds: 20,
+    cutShort: true,
+  }
+
+  it('gives the length made and where, never "the whole video", untrimmed', () => {
+    const text = jobSummaryText(cut)
+    expect(text).toBe(
+      'Made from cut-short-30s.mkv: 20 seconds, from 0:00.0 to 0:20.0, high quality, a cut to the blue closing card.',
+    )
+    expect(text).not.toContain('the whole video')
+  })
+
+  it('gives the length made and where, never what it is out of, trimmed', () => {
+    const trimmed = { ...cut, keptRange: { startSeconds: 5, endSeconds: 20 } }
+    expect(jobSummaryText(trimmed)).toContain(': 15 seconds, from 0:05.0 to 0:20.0, high quality')
+    expect(jobSummaryText(trimmed)).not.toContain('of 20 seconds')
+    expect(keptPartText({ startSeconds: 0, endSeconds: 4 }, 5, true)).toBe(
+      '4 seconds, from 0:00.0 to 0:04.0',
+    )
+  })
+
+  it('gives the length made where it differs from the part asked (VH-139’s rule)', () => {
+    expect(jobSummaryText(cut, { startSeconds: 0, endSeconds: 18.4 })).toContain(
+      ': 18 seconds, from 0:00.0 to 0:18.4, high quality',
+    )
+    const trimmed = { ...cut, keptRange: { startSeconds: 5, endSeconds: 20 } }
+    const text = jobSummaryText(trimmed, { startSeconds: 5, endSeconds: 18.4 })
+    expect(text).toContain(': 13 seconds, from 0:05.0 to 0:18.4, high quality')
+    expect(text).not.toContain('15 seconds')
+    expect(text).not.toContain('of 20 seconds')
+    expect(text).not.toContain('the whole video')
+  })
+
+  it('carries the same account into the discard question', () => {
+    const outcome: ClosingOutcome = { applied: true, mode: 'hard-cut', endedEarly: null }
+    expect(recordPassage(cut, outcome)).toContain('20 seconds, from 0:00.0 to 0:20.0')
+    expect(recordPassage(cut, outcome)).not.toContain('the whole video')
+  })
+
+  it('leaves a whole file’s record as it was, trimmed or not', () => {
+    expect(jobSummaryText({ ...cut, cutShort: false })).toContain('the whole video (20 seconds)')
+    expect(jobSummaryText(whole)).toContain('the whole video (4 minutes 12 seconds)')
+    expect(
+      jobSummaryText({ ...cut, cutShort: false, keptRange: { startSeconds: 5, endSeconds: 20 } }),
+    ).toContain('15 seconds of 20 seconds, from 0:05.0 to 0:20.0')
+  })
+
+  it.each([
+    ['zh-Hans', '15秒钟，从 0:05.0 到 0:20.0'],
+    ['ms-MY', '15 saat, dari 0:05.0 hingga 0:20.0'],
+  ] as const)('says it in %s in the owner’s approved words', (tag, part) => {
+    setLanguage(tag)
+    expect(keptPartText({ startSeconds: 5, endSeconds: 20 }, 20, true)).toBe(part)
   })
 })

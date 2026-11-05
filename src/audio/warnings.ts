@@ -234,3 +234,20 @@ export function detectProductionWarnings(produced: {
   if (!produced.metadataCarried) found.push({ code: 'metadata-lost', detail: {} })
   return found
 }
+
+/**
+ * What the finished video shows and its completion announcement says, in
+ * order: a Matroska or WebM file cut short first, as before processing, since
+ * the new video holds only what arrived (VH-158, VH-231); then what producing
+ * it cost, in its own order.
+ *
+ * @param fileCutShort - The job's own reading of its source (`SourceReport.cutShort`),
+ *   never the withdrawn verdict: false for a whole file and for any other container.
+ * @param production - {@link detectProductionWarnings}' list, as the pipeline returned it.
+ */
+export function detectFinishedWarnings(
+  fileCutShort: boolean,
+  production: readonly AudioWarning[],
+): AudioWarning[] {
+  return [...(fileCutShort ? [{ code: 'cut-short' as const, detail: {} }] : []), ...production]
+}

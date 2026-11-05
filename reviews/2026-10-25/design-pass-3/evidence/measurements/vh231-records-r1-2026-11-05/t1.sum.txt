@@ -1,0 +1,47 @@
+# node sum-t1.mjs (ee9afc57) and node transitions.mjs (70cdc91a), VH-231 #6, 2026-11-05T20:49:25Z
+
+## node sum-t1.mjs t1b b1
+t1b {"records":54,"withSteps":54,"stepsRead":378,"modeOk":378,"modeBad":[],"errors":0}
+t1b against b1's light cells (same ID, language, width): 54 cells compared, 54 identical in every step, missing 0
+records from 2026-11-05T19:49:44.584Z to 2026-11-05T20:13:17.681Z
+load sample at 8 or above 19:49:46: cells set up within a minute of it: S-171s en-GB w1280 dark; S-171s en-GB w375 dark; S-171s en-GB w320 dark; S-171s zh-Hans w1280 dark
+load sample at 8 or above 19:50:16: cells set up within a minute of it: S-171s en-GB w1280 dark; S-171s en-GB w375 dark; S-171s en-GB w320 dark; S-171s zh-Hans w1280 dark; S-171s zh-Hans w375 dark
+
+## node sum-t1.mjs t1br b1 t1b
+t1br {"records":2,"withSteps":2,"stepsRead":14,"modeOk":14,"modeBad":[],"errors":0}
+t1br against b1's light cells (same ID, language, width): 2 cells compared, 2 identical in every step, missing 0
+t1br against t1b (same cell and mode): 2 cells compared, 2 identical in every step, missing 0
+records from 2026-11-05T20:23:18.133Z to 2026-11-05T20:23:51.626Z
+
+## node sum-t1.mjs t1a a1 t1b
+t1a {"records":54,"withSteps":54,"stepsRead":378,"modeOk":378,"modeBad":[],"errors":0}
+t1a against a1's light cells (same ID, language, width): 54 cells compared, 50 identical in every step, missing 0
+   previous.status: differs in 4
+   status previous: Device check complete. Ready to go. This should take about 20 seconds. Estimated size up to 14.5 MB. → Device check complete. Ready to go. This should take about 10 seconds. Estimated size up to 14.5 MB. — 3: S-171s en-GB w320 dark; S-171s en-GB w320 forced-dark; S-171s en-GB w320 forced-light
+   status previous: Pemeriksaan peranti selesai. Sedia untuk bermula. Ini sepatutnya mengambil masa kira-kira 10 saat. Anggaran saiz sehingga 14.5 MB. → Pemeriksaan peranti selesai. Sedia untuk bermula. Ini sepatutnya mengambil masa kira-kira 20 saat. Anggaran saiz sehi — 1: S-172s ms-MY w1280 forced-dark
+t1a against t1b (same cell and mode): 54 cells compared, 0 identical in every step, missing 0
+   trimmed.trim: differs in 54
+   finished.trim: differs in 54
+   finished.lines: differs in 54
+   finished.wt: differs in 54
+   finished.status: differs in 54
+   question.trim: differs in 54
+   question.q: differs in 54
+   kept.trim: differs in 54
+   kept.lines: differs in 54
+   kept.wt: differs in 54
+   previous.lines: differs in 54
+   previous.wt: differs in 54
+   questionAgain.trim: differs in 54
+   questionAgain.q: differs in 54
+   final.trim: differs in 54
+   final.lines: differs in 54
+   final.wt: differs in 54
+   final.status: differs in 54
+   previous.status: differs in 1
+records from 2026-11-05T20:25:14.345Z to 2026-11-05T20:48:46.907Z
+
+## node transitions.mjs t1b t1br t1a
+t1b {"cells":54,"finished:sameRecord":54,"kept:sameRecord":54,"previous:sameRecord":54,"question:carriesRecord":54,"questionAgain:carriesRecord":54,"final:sameRecord":54}
+t1br {"cells":2,"finished:sameRecord":2,"kept:sameRecord":2,"previous:sameRecord":2,"question:carriesRecord":2,"questionAgain:carriesRecord":2,"final:sameRecord":2}
+t1a {"cells":54,"finished:sameRecord":54,"finished:cutFirst":54,"kept:sameRecord":54,"kept:cutFirst":54,"previous:sameRecord":54,"previous:cutFirst":54,"question:carriesRecord":54,"questionAgain:carriesRecord":54,"final:sameRecord":54,"final:cutFirst":54}

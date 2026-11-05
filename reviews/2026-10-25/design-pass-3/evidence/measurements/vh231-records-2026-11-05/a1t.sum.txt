@@ -1,0 +1,14 @@
+records 72
+S-64 en-GB: 12 cells, 2 reading(s)
+   8× {"res":"result","trim":"Keeping the whole video, 1 minute.","rec":"21 seconds of 30 seconds, from 0:00.0 to 0:20.9, high quality, a cut t","st":"Device check complete. Ready to go. This should take about 2","open":false,"dur":"1 minute"}
+   4× {"res":"result","trim":"Keeping the whole video, 1 minute.","rec":"21 seconds of 30 seconds, from 0:00.0 to 0:20.9, high quality, a cut t","st":"Device check complete. Ready to go. This should take about 3","open":false,"dur":"1 minute"}
+S-91 en-GB: 12 cells, 1 reading(s)
+   12× {"res":"result","trim":"Keeping the whole video, 1 minute.","wt":["The file’s title, author, and date could not be copied across"],"rec":"the whole video (30 seconds), high quality, the blue closing graphics ","st":"Device check complete. Ready to go. This should take about 2","open":false,"dur":"1 minute"}
+S-64 zh-Hans: 12 cells, 1 reading(s)
+   12× {"res":"result","trim":"保留整个视频，1分钟。","rec":"由 truncated-30s.mp4 构成：保留了 30秒钟 中的 21秒钟，从 0:00.0 到 0:20.9、高质量、镜头切换到蓝色结","st":"设备检查完成。准备就绪。这大约需要20秒钟。预计大小最大可达25.5 MB。","open":false,"dur":"1分钟"}
+S-91 zh-Hans: 12 cells, 1 reading(s)
+   12× {"res":"result","trim":"保留整个视频，1分钟。","wt":["无法复制文件的标题、作者和日期"],"rec":"由 lecture-30s.mp4 构成：完整视频（30秒钟）、高质量、蓝色的结尾图形逐渐淡入，覆盖画面。","st":"设备检查完成。准备就绪。这大约需要20秒钟。预计大小最大可达25.5 MB。","open":false,"dur":"1分钟"}
+S-64 ms-MY: 12 cells, 1 reading(s)
+   12× {"res":"result","trim":"Menyimpan keseluruhan video, 1 minit.","rec":"21 saat daripada 30 saat, dari 0:00.0 hingga 0:20.9, kualiti tinggi, p","st":"Pemeriksaan peranti selesai. Sedia untuk bermula. Ini sepatu","open":false,"dur":"1 minit"}
+S-91 ms-MY: 12 cells, 1 reading(s)
+   12× {"res":"result","trim":"Menyimpan keseluruhan video, 1 minit.","wt":["Tajuk, pengarang dan tarikh fail tidak dapat disalin"],"rec":"keseluruhan video (30 saat), kualiti tinggi, grafik penutup biru pudar","st":"Pemeriksaan peranti selesai. Sedia untuk bermula. Ini sepatu","open":false,"dur":"1 minit"}

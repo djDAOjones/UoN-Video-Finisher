@@ -23,6 +23,7 @@ import { log } from '../core/logger'
 import { conformCost, type ConformDecision } from './framerate'
 import { throwIfAborted } from './pipeline'
 import { scanTrackHandlers, type TrackScan } from './isobmff'
+import { matroskaCutShort } from './matroska-cut'
 
 /**
  * The containers this tool accepts, rather than Mediabunny's `ALL_FORMATS`.
@@ -135,6 +136,13 @@ export interface SourceReport {
    * where the caller must say nothing rather than guess.
    */
   readonly tracks: TrackScan
+  /**
+   * Whether a Matroska or WebM file's own bytes show it cut short (VH-158),
+   * read here so the trim line, which shows before pre-flight, and the
+   * finished video say it from one reading (VH-231). Always false for any
+   * other container, which VH-139's index check covers.
+   */
+  readonly cutShort: boolean
 }
 
 /**
@@ -335,6 +343,12 @@ export async function inspectFile(
       })()
     : null
 
+  // A few bytes at each end, never the file, and nothing read for any other
+  // container (VH-158): once per step, so pre-flight reads it from here
+  // rather than again (VH-82, VH-231).
+  const cutShort = await matroskaCutShort(file, container, input)
+  throwIfAborted(signal)
+
   const report: SourceReport = {
     container,
     fileSizeBytes: file.size,
@@ -345,6 +359,7 @@ export async function inspectFile(
     videoTrackCount: videoTracks.length,
     audioTrackCount: audioTracks.length,
     tracks,
+    cutShort,
   }
 
   // Deliberately logs characteristics and not the filename — see

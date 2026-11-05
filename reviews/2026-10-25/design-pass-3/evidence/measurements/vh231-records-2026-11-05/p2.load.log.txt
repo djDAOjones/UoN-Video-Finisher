@@ -1,0 +1,3 @@
+14:33:30 load 3.81 AC Power  pm
+14:34:00 load 4.01 AC Power  pm
+14:34:30 load 4.68 AC Power  pm
