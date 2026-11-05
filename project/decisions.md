@@ -24,6 +24,16 @@
      moves the oldest entries verbatim to project/decisions-YYYY-MM.md,
      beside this file, listed in project/archive-index.md. -->
 
+## 2026-11-05 — PLAN-8 — The owner's three answers from the Mac Pro: fix items built here, walked cells re-walked here, VH-203 across workers under its one ID
+
+**Decision:** While the owner steers from the Claude iOS app only, a fix item raised by VH-220 to VH-224 is built, walked, gated and landed on the Mac Pro, each on its own branch; the MacBook Pro keeps VH-204, VH-14 and VH-226. The cells VH-220 to VH-223 walked on the MacBook Pro are walked again on the Mac Pro, so each table rests on one machine, with the earlier records cited as support only. VH-203's after-run runs across successive workers under its one ID, as VH-199 ran, not as bounded items. These are the owner's answers to the two questions the entry below left open and to VH-203's open question.
+
+**Rationale:** The owner's own answers in Orchestrator #39's chat on the Mac Pro, 2026-11-05 at about 00:00Z, each choosing the option marked recommended: "Here on the Mac Pro (Recommended)", "Re-walk here (Recommended)" and "One ID across workers (Recommended)" (`plan8-owner-words.md`, with what was shown). Before them, in the same chat: "how do we keep developing all the way til the next scheduled deployment, with only ios app control? can you go gateless with my express permission (granted). can you spawn new chats when the context gets too big?". "Gateless" keeps the meaning the owner gave it on 2026-10-25 and 2026-10-31: the owner's approval stops are off and choices go on the sessions' recommendations, the unconditional stops remain, and rule 7's gate still runs. The re-walk was #38's recommendation and VH-221's worker's: text readings could stand across machines, but timed, focus and geometry readings could not be told from a page change. VH-203's question was Claude's recommendation against Codex astra's (VH-211's ask, point 4), a disagreement the evidence did not settle, so it was the owner's. The entry below gated green on the Mac Pro at 23:59Z (1,663 passed and 1 standing skip, EBU cases 7 and 8; 121 s; load 5.5 to 6.5) and landed by fast-forward, its SHA unchanged. The Mac Pro's load threshold is Orchestrator #39's ruling: a gate or walk starts only at a 1-minute load below 8, its physical core count.
+
+**Supersedes:** none
+
+**Deferred:** none
+
 ## 2026-11-04 — PLAN-8 — The walks and CPU- and GPU-heavy work move to the Mac Pro; main development stays on the MacBook Pro, on the owner's word
 
 **Decision:** From 2026-11-04 the owner's 2019 Mac Pro runs Phase 8's walks and CPU- and GPU-heavy work: VH-220 to VH-224, fix items' before and after walks, and VH-203's after-run. The gate (`npm run check`) runs there too. Main development stays on the MacBook Pro in the OneDrive checkout: code, the record, the release cut (VH-204) and deployment. A commit made on the MacBook Pro reaches main through a branch that the Mac Pro gates and lands. The reason is that the Mac Pro is otherwise idle and takes the load off the development machine. No table mixes readings from the two machines.
@@ -636,13 +646,3 @@ Each walk records its machine. Two questions remain for the owner:
 **Supersedes:** none
 
 **Deferred:** VH-197
-
-## 2026-10-25 — VH-193 — A warning with the finished video when levelling needed over 3 LU of limiting, measured in the job; first, and unchanged after a save
-
-**Decision:** The plan carries the limiter's measured bite, unrounded: the unlimited chain plus the solved gain, less the last limited pass before the codec. Over `HEAVY_LIMITING_LU` = 3, the finished video shows B11's warning, first among its warnings and spoken with it, and a save leaves it as it is (the owner's 1A and 2A). Spec §5.4 takes S25 and S32.
-
-**Rationale:** The owner on the open points, verbatim: "1A and 2A: heavy limiting first, before the metadata warning; after a save the warning stays as it is, with no new words". The solver returns the gain it last measured, so the last limited pass ran at that gain (`gain-solve.ts`). A non-finite pass gives no bite. `detectProductionWarnings` returns the post-processing warnings in that order, and the pipeline's `outputWarnings` carries them through the worker as before. Measured in Chrome (`reviews/2026-10-24/vh193-heavy-2026-10-25.md`): the Teams recording bites 7.94 LU and warns. Every lecture, edited piece and phone clip bites 0.00 to 2.42 LU and does not. Three files have no audio and five branding assets have no audio stream. C0413.MP4, an unedited studio interview camera original with a 19.2 LU range, bites 5.17 LU and warns. It went to the owner under the item's criterion, and his answer, verbatim: "it's not typical, so ship as is". The matrix passed 36 of 36, the under-threshold cells 3 of 3, and the completed-save flows 3 of 3. The Chinese and Malay rows are agent drafts. Codex astra: "Commit after the musts below". Its three musts are done: the evidence; the corpus walker's rounding, skips and silent jobs; and a save proven complete. Its translation flags are taken. The rest is wish lines VH-193.1 and VH-193.2 (`reviews/2026-10-24/codex-astra-vh193-check-2026-10-25.md`). Digest rules applied: Nielsen 1 (the cost of processing is visible before the save) and 9 (a cause and a way forward, without blame); Carbon's existing notification pattern, with no new control; WCAG 2.2 AAA 4.1.3 (the warning is spoken with the result); house conventions, numbers in `src/config/`.
-
-**Supersedes:** none
-
-**Deferred:** VH-194
