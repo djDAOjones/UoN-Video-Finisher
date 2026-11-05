@@ -39,7 +39,8 @@ The public release on Xerte (PLAN-6) is VH-204's cut.
 
 - [ ] VH-222 — Check VH-155.2, VH-156.1, VH-158.1 — since 2026-10-27 — (from: VH-155, 2026-10-22)
 - [ ] VH-231 — A cut MKV or WebM said cut short with the finished video, never "the whole video" — since 2026-11-05 — (from: VH-222, 2026-11-05)
-- [ ] VH-203 — Pass 3's after-run — since 2026-10-25 — blocked: VH-220 to VH-224 and VH-231
+- [ ] VH-232 — The feedback dialog's status brought whole into view when it is set — since 2026-11-05 — (from: VH-222, 2026-11-05)
+- [ ] VH-203 — Pass 3's after-run — since 2026-10-25 — blocked: VH-220 to VH-224, VH-231 and VH-232
 - [ ] VH-195 — Phase 8 closes — since 2026-10-24
 - [ ] VH-204 — The release cut for Xerte — since 2026-10-25 — blocked: VH-195
 - [!] VH-226 — The project folder renamed — since 2026-10-28 — blocked: VH-204
