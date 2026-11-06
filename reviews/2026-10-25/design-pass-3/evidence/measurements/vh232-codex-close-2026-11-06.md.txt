@@ -1,0 +1,19 @@
+The raise is sound, but I found two small omissions from the accepted design that should be repaired before commit.
+
+1. **Item file:** schema, source-line references, paths, counts, sizing and stage rule check out. The geometry helper, paint callback, lifecycle tests, variants, keyboard route, focus constraints and explicit stops carry the remedy faithfully. No string, element or `docs/` change is authorised. VH-232.2’s promised measurement is covered by the lifecycle tests at line 26.
+
+   Two accepted details were lost:
+   - Restore **3.2.2** to the WCAG list at [VH-232.md:43](/Users/uazjob/UoN-Video-Helper-side/vh232/project/items/VH-232.md:43); Claude’s accepted design explicitly includes it.
+   - Restore the explicit readings of **the dialog heading, Tab order, `role`, `aria-live`, and the accessibility tree’s live region** alongside the measurement criteria. Preserving attributes and saying “announcement proved” does not fully carry that measurement instruction. Keep the existing qualification that actual speech is a person’s reading.
+
+2. **Re-reads:** correct. VH-222’s 72 S-79a/S-79b cells and VH-224’s four S-76 zoom-proxy keys are required. `DIALOG_ENLARGED_SUB.when` supports excluding the other named S-76 keys. The 65 available VH-220/VH-221/VH-223 manifests contain no nonzero `dialogOperated` count. VH-231 has no affected feedback cell.
+
+3. **Ledger:** correct scope, placement and grammar. I verified the Items list equals VH-231 Raised’s list with VH-232 inserted after VH-231; Supersedes matches exactly. The VH-222 note and VH-232.2 wish are present. VH-205’s archive move is **byte-for-byte identical**. No trajectory or product file changed.
+
+4. **Deferred deviation:** justified. `tools/ledger.mjs:433` rejects a wish-only target, and VH-231 provides the stated precedent. VH-232.2 remains visible in the decision’s Rationale and wish list; the commit draft explicitly explains why it is absent from Deferred. No checker change or artificial backlog item is needed.
+
+5. **Commit draft:** accurately describes the raise and follows `4bc3a40`’s form. Both owner quotations match the permitted source. Add the explicit source references `plan8-owner-words.md:437` and `:275` beside them to meet “with sources” unambiguously. Replace `GATE` and `CHECKED` before committing; neither placeholder is a completed attestation.
+
+6. **Verification and other blockers:** the tracked diff exactly matches frozen SHA-1 `2fed7886…`; the item matches `7ddba8df…`. The supplied gate records 84 files passed, 1,663 tests passed and the standing skip. My independent `node tools/check.mjs` run returned zero failures and only the known VH-122 missing-sample warning. No other blocker found. The item repairs will change the frozen candidate, so refresh verification and obtain the follow-up check before quoting a clean verdict. No files changed, no network used, no build or walk performed.
+
+**Checked: gpt-6-astra — Commit after restoring the two omitted design checks and adding the owner-source references; repaired candidate to be re-checked — VH-232 raised**

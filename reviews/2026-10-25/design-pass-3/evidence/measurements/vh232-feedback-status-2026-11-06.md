@@ -1,0 +1,79 @@
+<!-- markdownlint-disable -->
+# VH-232 — the feedback dialog's status brought whole into view when it is set
+
+VH-232's stage-rule measure, one page by `table-1page.mjs`. The records are in [`vh232-records-2026-11-06/`](vh232-records-2026-11-06/): each cell's outcomes and rows, the probes, states and logs whole, and in `detail/` the whole record of each moved or named failing cell.
+
+## Provenance
+
+| | Before | After |
+| --- | --- | --- |
+| Commit | `1cb3cbad7197` | `1cb3cbad7197` |
+| Diff hash | `da39a3ee5e6b4b0d` (0 lines of status) | `3dba5c0267998195` (3 lines of status) |
+| Instrument revision | `77a0a0bc2e2c1e5d` | `77a0a0bc2e2c1e5d` |
+
+- `vh232-driver.mjs` sha1 `46301e4c4c8090c5109de6101adee79741587892`
+- `go.sh` sha1 `d577a7a2779e95ff22d349e47b182bc0e4d84688`
+- `walk.sh` sha1 `e2a1be625f823c261e84596c5a4630c30be53156`
+- `side.zsh` sha1 `f981344f39ba3606e076983af39dcb911c827b8f`
+- `vh232-sum.mjs` sha1 `4d50dc3462c3dbd2731d4eaa6c36d06c805675a2`
+- `before.sum.txt` sha1 `07435bbfba6ae018073b8e6118c571976f446a1c`
+- `after-r.sum.txt` sha1 `29fbffbbf65cc8d5fddbdc533fe1962f2d30bfcc`
+- `after.sum.txt` sha1 `2b5bbcde1480e335ac537bdde5d64bcdb3751f1e`
+
+## Runs, power and load
+
+| Group | UTC | Cells, reached | Power | Load median, peak | Samples at 8 or above |
+| --- | --- | --- | --- | --- | --- |
+| b1 | 00:32:16–00:47:25 | 162, 162 | AC Power, mode ? | 3.94, 5.28 | 0 of 31 |
+| r1 | 02:25:00–02:40:05 | 162, 162 | AC Power, mode ? | 3.42, 5.47 | 0 of 31 |
+| b2 | 00:49:47–01:04:41 | 162, 162 | AC Power, mode ? | 3.84, 4.68 | 0 of 30 |
+| r2 | 02:40:07–02:55:00 | 162, 162 | AC Power, mode ? | 3.15, 4.56 | 0 of 30 |
+| b3 | 01:06:43–01:12:21 | 11, 11 | AC Power, mode ? | 3.67, 4.77 | 0 of 12 |
+| r3 | 02:55:02–03:00:38 | 11, 11 | AC Power, mode ? | 3.03, 3.96 | 0 of 12 |
+| a1 (set aside) | 01:39:16–01:54:21 | 162, 162 | AC Power, mode ? | 4.01, 6.68 | 0 of 31 |
+| a2 (set aside) | 01:54:23–02:09:19 | 162, 162 | AC Power, mode ? | 3.69, 6.18 | 0 of 30 |
+| a3 (set aside) | 02:10:01–02:15:36 | 11, 11 | AC Power, mode ? | 3.37, 4.02 | 0 of 12 |
+
+## Before → after
+
+Scenario cells: 335 before (335 reached), 335 after (335 reached); **335 unmoved**. Not on the other side: 0 after-only, 0 before-only.
+
+Nothing moved, row by row.
+
+Page probe, 335 readings a side: `status` moved in 70; `dialog` moved in 70; `focus` moved in 70; `whole` moved in 69; `wholeClient` moved in 69; `lastFragInView` moved in 69; `clip` moved in 69; `wholeWin` moved in 49.
+
+States probe: 201 readings before, 201 after; 0 unmoved.
+
+| Field | Readings moved | Commonest before → after |
+| --- | --- | --- |
+| `plan` | 201 | vh232-before-keys → vh232-after-r-keys (180) |
+| `walk` | 201 | vh232-before-keys-2026-11-06T01-09-22-372Z-31508a/R-232a-en-GB-w1280 → vh232-after-r-keys-2026-11-06T02-57-40-581Z-560934/R-232a-en-GB-w1280 (10) |
+| `at` | 201 | 2026-11-06T00:33:23.141Z → 2026-11-06T02:26:06.482Z (1) |
+| `settledMs` | 134 | 102 → 103 (21) |
+| `status.t` | 26 | 206 → 193 (3) |
+| `status.b` | 26 | 624 → 519 (2) |
+| `dialog.scrollTop` | 26 | 210 → 315 (1) |
+| `focus.box.t` | 26 | 34 → 21 (3) |
+| `focus.box.b` | 26 | 78 → 65 (3) |
+| `whole` | 23 | false → true (23) |
+| `wholeClient` | 23 | false → true (23) |
+| `lastFragInView` | 23 | false → true (23) |
+| `clip` | 23 | [#feedback-dialog] → [] (23) |
+| `wholeWin` | 19 | false → true (19) |
+| `focus.ringInClient` | 4 | false → true (4) |
+| `page.scrollY` | 4 | 0 → 454 (1) |
+
+## Notes
+
+- **One walked diff.** The after is `r1`–`r3`, on the candidate with tracked diff hash `3dba5c0267998195` (`src/main.ts`) and the two new files `src/ui/reveal-status.ts` (sha1 `91185c1a`) and `src/ui/reveal-status.test.ts` (`4c1a5267`). The before is `b1`–`b3`, on the base `1cb3cba` (diff hash `da39a3ee5e6b4b0d`). Walker revision `77a0a0bc2e2c1e5d` both sides; the same driver (`vh232-driver.mjs` `46301e4c`), `go.sh` (`d577a7a2`) and plans each side; AC Power, no powermode line on this Mac. Fixture `lecture-60s.mp4` `f9b2439a` (this Mac's ffmpeg 9.0.2-tessus; S-78k reads it), proved in `q1`.
+- **Superseded, set aside:** `a1`–`a3` (01:39–02:15Z), on an earlier candidate (diff hash `ef6e077c3449817c`, `reveal-status.ts` `1950ae34`) whose reveal scrolled the focused Open email app out of view in S-76's three `zoom400proxy` hand-offs (focus in view 9 of 12, against 12 of 12 before). The orchestrator ruled "focus wins": the helper was repaired and the whole after side walked again as `r1`–`r3`. `a1`–`a3` stay in the records; `after-r.sum.txt` reads the same as their `after.sum.txt` in every line but S-76's hand-off.
+- **One plan per mode, both sides** (the orchestrator's condition): each matrix record is read at its own setup, since a group's later modes are read after an earlier record's instruments have moved focus and scroll. The same plans ran before and after.
+- **"Whole and in view"** is the probe's reading at the state, before any instrument moves focus or scrolls: complete text (read from `textContent`), every text fragment inside the dialog's client area and the window, the focused control's box and ring in view; the clip rule as VH-222's (FLAWED: shown and clipped by an ancestor, or not whole). The cell compare reads only `S-*` records, so the routes (`R-232a`, `R-232b`, `R-232o`) and S-76's hand-off are compared as states; route readings wait until the dialog's scroll is still. The two "Tab" and two "Tab+shift" readings of a route share a state key, so the states compare holds the second of each pair; the records hold both.
+- **The matrix cells read 0 FLAWED after** (S-78, S-79a, S-79b, S-80a, S-80b at 1280, 375 and 320 px, three languages, four modes: 180 of 180 whole, focus in view 180 of 180; 68 FLAWED before, 70 with S-79b's two variants). Controls S-75, S-76, S-77 and S-78k: the status empty and the dialog's `scrollTop` and focus identical before and after (S-77's and S-78k's reopened dialog keeps Chrome's kept scroll, 186/210/234 at 320 px, alike each side).
+- **S-79b en-GB 320 px in text spacing** (a variant, not a matrix cell) reads FLAWED after: the status at 346–598 in a 17–551 client area, `scrollTop` 396, 252 px tall. The walker sets the mode after setup (`matrix.mjs`: `setup`, then `setMode`; `qualify.mjs`'s `setMode` applies the spacing), so the spacing grows the text after the status was revealed. Accepted by the orchestrator as the walker's order; no new route. Its reduced-motion twin reads whole.
+- **The enlargement fallback** (the item's "Taller than the visible area" clause, and the orchestrator's focus ruling): S-76's hand-off at `zoom400proxy`, light, in en-GB, zh-Hans and ms-MY. The client area is 191 px (17–208); from Open email app's top to the status's end is 298 px (en-GB) and 319 px (zh-Hans, ms-MY), the actions stacked, so no scroll holds both. The reveal keeps Open email app and its ring wholly in view and the status is partial (193–319, 193–340). These 3 are recorded as the fallback, **never as "whole and in view"**. The other 9 hand-offs read whole with focus in view (3 of 12 whole before).
+- **The keyboard route** (`R-232a`, `R-232b`; 1280, 375, 320 px, three languages, light): with no key pressed, the status is whole in 9 of 9 each after (6 and 4 before), focus on Open email app in view in 18 of 18 (14 before). PageUp, ArrowUp and Home then scroll up past it as before; PageDown, ArrowDown and End bring it whole 9 of 9 each side; Tab, Shift+Tab and Escape as before (Escape returns focus to the opener). `R-232o` (S-79b with "What will be sent" open): whole 9 of 9 after, 0 of 9 before.
+- **Cited, not paired:** VH-222's `g4` (base `95d18ee`, revision `9c522696`), the finding's source. **Its 72 S-79a and S-79b cells** are walked here in the same 72 conditions on the change (`r1`, `r2`): all 72 whole and in view, its 17 FLAWED among them; the re-read of VH-222's own records after the landing is the orchestrator's.
+- **VH-224's four S-76 zoom-proxy keys** (light), read on the change in `r3`: zh-Hans `zoom200proxy`, the hand-off whole, focus in view; ms-MY `zoom200proxy`, the same; zh-Hans `zoom400proxy` and ms-MY `zoom400proxy`, the enlargement fallback above (focus kept, the status partial). Their state readings (the status empty at S-76's own state) are unchanged. The ruling on their re-reads is the orchestrator's.
+- **Not walked:** J3's feedback steps (the design's choice). A speech reading is a person's. No group sampled a load at 8 or above.
+- **Launchers:** `walk.sh` line 10, WHO "VH-232 #3" to "VH-232 #4" (`24a32d61` to `e2a1be62`); `side.zsh` line 13, the queue label likewise (`6901c8eb` to `f981344f`); those words only. `b1`–`b3` and `q1`, `q2` ran under the earlier sha1s.

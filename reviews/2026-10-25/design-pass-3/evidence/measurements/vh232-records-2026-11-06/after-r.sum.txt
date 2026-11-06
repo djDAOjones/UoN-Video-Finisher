@@ -1,0 +1,32 @@
+cells 365, reached 365
+status S-78   cells 36 whole 36 complete 36 focus-in-view 36 FLAWED 0
+status S-79a  cells 36 whole 36 complete 36 focus-in-view 36 FLAWED 0
+status S-79b  cells 38 whole 37 complete 38 focus-in-view 38 FLAWED 1: S-79b__en-GB__w320__spacing 346-598 in 17-551 top 396
+status S-80a  cells 36 whole 36 complete 36 focus-in-view 36 FLAWED 0
+status S-80b  cells 36 whole 36 complete 36 focus-in-view 36 FLAWED 0
+control S-75   cells 36 empty 36 scrollTop {"0":36} focus {"feedback-message":36}
+control S-76   cells 45 empty 45 scrollTop {"0":42,"170":1,"194":1,"218":1} focus {"feedback-message":45}
+control S-77   cells 36 empty 36 scrollTop {"0":24,"186":4,"210":4,"234":4} focus {"feedback-message":36}
+control S-78k  cells 36 empty 36 scrollTop {"0":24,"186":4,"210":4,"234":4} focus {"feedback-message":36}
+route S-76-handoff opened    n 12 whole 9 focus-in-view 12 at-top 3 at-end 9 focus {"button[submit]":12} FLAWED 3: en-GB zoom400proxy 193-319 in 17-208; zh-Hans zoom400proxy 193-340 in 17-208; ms-MY zoom400proxy 193-340 in 17-208
+route R-232a at once         n 9 whole 9 focus-in-view 9 at-top 6 at-end 8 focus {"button[submit]":9}
+route R-232a PageUp          n 9 whole 6 focus-in-view 6 at-top 9 at-end 5 focus {"button[submit]":9} FLAWED 3: en-GB w320 708-813 in 17-551; zh-Hans w320 684-810 in 17-551; ms-MY w320 732-858 in 17-551
+route R-232a ArrowUp         n 9 whole 6 focus-in-view 6 at-top 9 at-end 5 focus {"button[submit]":9} FLAWED 3: en-GB w320 708-813 in 17-551; zh-Hans w320 684-810 in 17-551; ms-MY w320 732-858 in 17-551
+route R-232a Home            n 9 whole 6 focus-in-view 6 at-top 9 at-end 5 focus {"button[submit]":9} FLAWED 3: en-GB w320 708-813 in 17-551; zh-Hans w320 684-810 in 17-551; ms-MY w320 732-858 in 17-551
+route R-232a PageDown        n 9 whole 9 focus-in-view 9 at-top 5 at-end 9 focus {"button[submit]":9}
+route R-232a ArrowDown       n 9 whole 9 focus-in-view 9 at-top 5 at-end 9 focus {"button[submit]":9}
+route R-232a End             n 9 whole 9 focus-in-view 9 at-top 5 at-end 9 focus {"button[submit]":9}
+route R-232a Tab             n 18 whole 18 focus-in-view 18 at-top 10 at-end 18 focus {"feedback-copy":9,"feedback-close":9}
+route R-232a Tab+shift       n 18 whole 18 focus-in-view 18 at-top 10 at-end 18 focus {"feedback-copy":9,"button[submit]":9}
+route R-232a Escape          n 9 whole 0 focus-in-view 0 at-top 0 at-end 0 focus {"feedback-open":9}
+route R-232b at once         n 9 whole 9 focus-in-view 9 at-top 4 at-end 9 focus {"button[submit]":9}
+route R-232b PageUp          n 9 whole 4 focus-in-view 6 at-top 9 at-end 4 focus {"button[submit]":9} FLAWED 5: en-GB w375 660-807 in 17-795; en-GB w320 708-897 in 17-551; zh-Hans w320 684-873 in 17-551; ms-MY w375 684-852 in 17-795; ms-MY w320 732-942 in 17-551
+route R-232b ArrowUp         n 9 whole 4 focus-in-view 6 at-top 9 at-end 4 focus {"button[submit]":9} FLAWED 5: en-GB w375 660-807 in 17-795; en-GB w320 708-897 in 17-551; zh-Hans w320 684-873 in 17-551; ms-MY w375 684-852 in 17-795; ms-MY w320 732-942 in 17-551
+route R-232b Home            n 9 whole 4 focus-in-view 6 at-top 9 at-end 4 focus {"button[submit]":9} FLAWED 5: en-GB w375 660-807 in 17-795; en-GB w320 708-897 in 17-551; zh-Hans w320 684-873 in 17-551; ms-MY w375 684-852 in 17-795; ms-MY w320 732-942 in 17-551
+route R-232b PageDown        n 9 whole 9 focus-in-view 9 at-top 4 at-end 9 focus {"button[submit]":9}
+route R-232b ArrowDown       n 9 whole 9 focus-in-view 9 at-top 4 at-end 9 focus {"button[submit]":9}
+route R-232b End             n 9 whole 9 focus-in-view 9 at-top 4 at-end 9 focus {"button[submit]":9}
+route R-232b Tab             n 18 whole 18 focus-in-view 18 at-top 8 at-end 18 focus {"feedback-copy":9,"feedback-close":9}
+route R-232b Tab+shift       n 18 whole 18 focus-in-view 18 at-top 8 at-end 18 focus {"feedback-copy":9,"button[submit]":9}
+route R-232b Escape          n 9 whole 0 focus-in-view 0 at-top 0 at-end 0 focus {"feedback-open":9}
+route R-232o state           n 9 whole 9 focus-in-view 9 at-top 0 at-end 9 focus {"button[submit]":9}

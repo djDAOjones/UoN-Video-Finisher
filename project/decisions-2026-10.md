@@ -1625,3 +1625,15 @@ INTAKE.2 stays a wish line: only a person listening can judge the Teams output. 
 **Supersedes:** none
 
 **Deferred:** VH-202, VH-203
+
+## 2026-10-27 — PLAN-8 — Pass 3's fix plan: VH-206 to VH-210 for six findings, built after VH-202 and before VH-203
+
+**Decision:** Phase 8 gains five fix items, in this order: VH-206 (V-51, rank 1, in the owner's words), VH-207 (V-46), VH-208 (V-52), VH-209 (V-50, only if the owner takes it) and VH-210 (V-48 and V-49). Each keeps VH-203's stage rule, and none adds a control.
+
+**Rationale:** Planned with `verbs/plan.md` from pass 3's report; the plan is `reviews/2026-10-25/design-pass-3/fix-plan-2026-10-27.md`. The order: V-51 first as the one rank 1, its data path and strings untouched by the CSS that follows; VH-207 leads if its words wait. V-46 next, the one level A failure and a regression, walked by keys before any CSS moves. V-52 third, the finished card's order in `main.ts`, before the CSS reads the card. V-50 before the rings, since V-48's one record is among its six. The rings last, on the final DOM and CSS. V-18 has no fix item; it was accepted in Phase 7 (VH-175.4), and whether that stands is in the ask. The backlog stands at 891 of 1,000 words after these lines.
+
+**Supersedes:** none
+
+**Items:** VH-206, VH-207, VH-208, VH-209, VH-210
+
+**Deferred:** VH-206, VH-207, VH-208, VH-209, VH-210

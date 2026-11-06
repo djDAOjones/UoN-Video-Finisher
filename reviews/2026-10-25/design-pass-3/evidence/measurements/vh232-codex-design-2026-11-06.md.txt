@@ -1,0 +1,159 @@
+**Raise VH-232 as a dialog-only status-reveal fix.** Keep the existing text, element, live-region semantics and layout. When a non-empty status is painted, immediately scroll only `#feedback-dialog` by the minimum distance needed to reveal the complete status.
+
+This is a design verdict, not a completed implementation or browser verification. HEAD is `926b2d7eaed980f882f20b1223a976aeba48b0f3`; I changed nothing and used no network.
+
+**1. Remedy and its boundaries**
+
+The defect is established: the permitted g4 probe, `g4.vh222-probe-vh222-base-g4.jsonl:117`, puts English S-79a’s status at y=498–603; `:153` puts S-79b’s at y=498–687 and explicitly records clipping by `#feedback-dialog`. The complete text is present, including the address and omission sentence. This supports the ruled **Nielsen visibility defect**, without reclassifying it as a demonstrated WCAG failure. See also the permitted table `vh222-warning-rows-2026-11-05.md:99` and blind verdict `vh222-codex-blind.md:98–100`.
+
+The builder’s criteria should be:
+
+- After each non-empty status paint, measure the rendered status against the dialog’s **client scrollport**, excluding borders and scrollbars and intersected with the visible viewport.
+- If the status fits and is already wholly visible, do nothing.
+- Otherwise, scroll the dialog vertically by the smallest distance that brings its whole status box into view. Below the scrollport means reveal its bottom; above means reveal its top. Clamp to the dialog’s actual scroll range.
+- Use an **instant** scroll, never smooth animation. Do not use unrestricted `scrollIntoView()`, which can also scroll ancestors.
+- Do not call `focus()`, add `tabindex`, replace the status node, change its role, or reinsert it to force an announcement.
+- Do not change the document’s scroll position, the dialog’s horizontal scroll, its dimensions or positioning rules, DOM order, spacing, typography, controls or disclosure state. The dialog’s contents necessarily move together on screen when its scroll offset changes; their layout positions relative to one another do not.
+- Preserve ordinary text-driven height changes already produced by the existing CSS. The remedy must not introduce an additional resize.
+
+The status remains after the actions, as [index.html:900–907](/Users/uazjob/UoN-Video-Helper-side/vh232/index.html:900) defines it.
+
+**Over-height status:** no scrolling algorithm can put text taller than the scrollport wholly in view simultaneously. Align its beginning with the scrollport’s top, retain every word, and leave ordinary vertical scrolling available through its end. Do not oscillate between its edges, truncate it or shrink the type. Record this as the over-height fallback, **not** as a “whole and in view” pass. All normal required matrix cells must meet the stronger whole-visible criterion; a normal cell that cannot fit blocks acceptance and requires reconsideration.
+
+**Focus:** unchanged `activeElement` is necessary but insufficient. Measure the focused control and its indicator after the reveal. The ordinary submit/copy cases must keep them visible. Also test a delayed copy response after the user has moved focus elsewhere in the dialog. If the focused control and complete status cannot fit together, the item must expose that conflict; it must not silently claim AAA compliance or move focus to conceal it.
+
+**Empty status:** no explicit reveal or scroll reset. Opening continues to clear the previous status before `showModal()` ([main.ts:3707](/Users/uazjob/UoN-Video-Helper-side/vh232/src/main.ts:3707)). Any browser clamping caused by content becoming shorter is distinguished from an authored scroll.
+
+**Closed dialog and asynchronous completion:** a late clipboard result must neither reopen nor scroll the closed dialog, nor populate a later opening with an old result. Associate pending copy work with the opening that started it; discard its UI result if that opening has ended, including close-and-reopen before completion. Both Close and Escape must invalidate it. This covers the asynchronous sets at `main.ts:3791` and `:3796`.
+
+**Language change:** reveal from inside the registered paint callback, after the new text is assigned, so the translated status is measured afresh. Preserve the existing language-switch announcement policy: the switch deliberately quietens live regions during repaint; do not make feedback speak independently over it (`main.ts:3863–3892`, `:3921–3924`).
+
+I reject the alternatives for this item:
+
+| Option | Reason |
+|---|---|
+| Move the status earlier in the DOM | Changes reading order and layout; still does not guarantee visibility in a scrolled dialog. |
+| Sticky status | Can cover controls and focus, and consumes substantial space at 320 px. |
+| Shorter text | Needs owner-approved wording and risks losing recovery information. |
+| Taller dialog | Already capped near the viewport height; cannot solve the narrow-window case reliably. |
+| Dialog-only reveal | Directly addresses the missing visibility with the smallest behavioural change. |
+
+**2. Code, tokens and tests**
+
+The integration point is [main.ts:3656–3660](/Users/uazjob/UoN-Video-Helper-side/vh232/src/main.ts:3656): assign the text, then reveal it within the existing `show()` callback. `show()` registers and executes the painter at `:276–279`; language repaint executes it again at `:3924`.
+
+All status-producing branches must use that path: oversized submission `:3772`, normal/omitted-details handoff `:3780–3782`, copy success `:3791`, and copy failure `:3796`.
+
+The geometry comes from existing styles:
+
+- [app.css:464](/Users/uazjob/UoN-Video-Helper-side/vh232/src/styles/app.css:464): status margin and reserved minimum height.
+- [app.css:1641](/Users/uazjob/UoN-Video-Helper-side/vh232/src/styles/app.css:1641): dialog size, padding, border and `overflow: auto`.
+- [tokens.carbon.css:36](/Users/uazjob/UoN-Video-Helper-side/vh232/src/styles/tokens.carbon.css:36), `:38`, `:83`: `--spacing-05`, `--spacing-07`, `--dialog-width`.
+- `app.css:1699` onward: existing narrow-window rules remain intact.
+
+No new spacing value is needed: derive the scrollport from DOM geometry rather than duplicating token values in TypeScript. Any numerical tolerance, boundary constant or other added number belongs in `src/config/` or a CSS token, with its purpose documented—[project/rules.md:18](/Users/uazjob/UoN-Video-Helper-side/vh232/project/rules.md:18). Keep Carbon and brand token systems separate.
+
+A small, feedback-specific helper in `src/ui/` is justified because geometry and lifecycle invariants need independent tests. Follow the narrow stand-in approach documented in [focus-hand-on.ts:1–12](/Users/uazjob/UoN-Video-Helper-side/vh232/src/ui/focus-hand-on.ts:1); do not create a general scrolling framework or mix DOM geometry into the report-content functions in `src/ui/feedback.ts`.
+
+Tests must cover:
+
+- Already visible; clipped below; clipped above; exact fit; fractional geometry; scroll-range clamping.
+- Over-height content, including repeated calls without oscillation.
+- Empty, closed and disconnected targets.
+- No focus call, ancestor scroll, horizontal scroll or content mutation.
+- A translated/replaced message measured using its current geometry.
+- Delayed copy success and failure after Close, Escape, and close/reopen.
+- Focus moved by the user while copy is pending.
+- Browser verification of the actual integration; stand-ins cannot prove layout, native keyboard scrolling or announcements.
+
+Keep existing mailto, omission, copy and redaction tests intact (`src/ui/feedback.test.ts:137–205`).
+
+**3. Words and elements**
+
+**None required:** no new or changed user-facing string in any language, no `docs/` edit, and no element, control or checkbox.
+
+The existing paragraph remains `<p class="status" role="status" aria-live="polite">` at `index.html:907`. No wording draft needs owner approval for this design. If implementation proves that a new control, wording change or layout redesign is necessary, that is a new decision to put to the owner before building it.
+
+**4. Standards and their checks**
+
+The principal digest rule is **Nielsen “status visible and announced”**, with **“errors say what next”**: revealing only the opening lines is insufficient when the recovery address or omission sentence remains hidden. Sources: [profile.md:39–40](/Users/uazjob/UoN-Video-Helper-side/vh232/project/profile.md:39), [nielsen.md:17–34](/Users/uazjob/UoN-Video-Helper-side/vh232/project/digests/nielsen.md:17), and `UI-STANDARDS.md:123–134`. Nielsen 3, 4 and 8 also apply: retain user control, existing conventions and a minimal interface.
+
+| Criterion | Required check |
+|---|---|
+| 1.4.10 Reflow | Whole lines remain readable without horizontal scrolling; vertical scrolling remains available. Do not call the historical clipping a reflow failure. |
+| 1.4.4 / 1.4.12 | Enlarged text and text-spacing probes exercise the over-height fallback without truncation or lost controls. |
+| 2.1.1 / 2.1.3 / 2.1.2 | Keyboard alone reaches the complete text and recovery controls, and can leave the dialog without a trap. |
+| 2.3.3 | Reveal is instant in normal and reduced-motion modes; existing reduced-motion CSS alone does not establish this. |
+| 2.4.3 / 2.4.7 / 2.4.11 / 2.4.12 / 2.4.13 | Focus identity and order remain unchanged; inspect the focused component and full indicator after scrolling, including asynchronous cases. |
+| 3.2.1 / 3.2.5 | Merely focusing a control does not initiate the reveal or another action; status handling does not navigate, reopen the dialog or steal focus. Existing requested mailto behaviour remains unchanged. |
+| 4.1.3 | Same live-region node and semantics, complete text, no focus transfer or extra announcement mechanism. |
+
+The AAA digest specifically covers keyboard, focus, motion and context changes at `project/digests/wcag-2.2-aaa.md:24–37`; `UI-STANDARDS.md:180–184` and `:236–246` supply the local rules.
+
+DOM and accessibility-tree readings support the announcement contract; **actual speech and return from the native email application remain person checks**, as the prior blind verdict records at `vh222-codex-blind.md:138–141`. Do not report those as automatically verified.
+
+**5. Stage rule and measurement**
+
+Carry [VH-203.md:9–15](/Users/uazjob/UoN-Video-Helper-side/vh232/project/items/VH-203.md:9) whole into the item, in the concrete form used by `VH-231.md:22–37`.
+
+Build, walk, gate and land on the **Mac Pro**, on its own branch. Measure the before on the **actual build base**, then the final candidate on the same machine. The supplied g4 findings support the defect; they do not replace that before. This follows `project/decisions.md:69–75` and the permitted owner-source lines `:437–438`.
+
+Use the unchanged pass walker with an external driver and read-only geometry probe:
+
+- **Status cases:** S-78, S-79a, S-79b, S-80a and S-80b.
+- **Controls:** S-75 and S-76 opening empty; S-77 validation and its intentional focus return; S-78k close/reopen and draft retention.
+- **Keyboard controls:** K-dialog and J3’s feedback segment.
+- **Additional variants:** open disclosure; repeated status; language repaint; delayed clipboard outcomes; close/reopen races; moved focus; over-height status.
+
+The scenario definitions are `walker/scenarios.mjs:932–1002`; K-dialog is `:1132–1145`, and J3’s feedback steps are `:1262–1268`.
+
+Run the nine scenario cases at **1280×900, 375×812 and 320×568**, in **en-GB, zh-Hans and ms-MY**, in **light, dark, forced light and forced dark**: 324 scenario cells per side, with routes and extra variants counted separately. Include targeted reduced-motion, enlarged-text and spacing checks.
+
+Save the table as:
+
+`reviews/2026-10-25/design-pass-3/evidence/measurements/vh232-feedback-status-2026-11-DD.md`
+
+**“Whole and in view” must mean all of these:**
+
+1. Exact complete expected status text, including the full configured address and S-79b’s omission sentence.
+2. Every rendered text fragment inside the dialog’s visible client scrollport and viewport, with no ancestor clipping, truncation or horizontal overflow.
+3. The complete status measured immediately after the product reveal settles, **before any instrument focuses or scrolls another element**.
+4. Recorded dialog scroll offset, scroll range, status rectangle and text fragments; active element and focused-control rectangle; page scroll offsets; dialog dimensions.
+5. A separate boolean for complete text, whole visibility, focus visibility and keyboard reachability. Do not collapse them into one “pass”.
+
+The old row resolver truncates the captured address at a full stop in the supplied S-79a record (`g4` probe `:117`), so its `whole: true` alone is not sufficient evidence for the complete address.
+
+**Keyboard-only scrolling, before and after:**
+
+- Add an in-memory route/plan through the external driver; keep walker files unchanged. Qualify the route and probe before relying on them.
+- Start fresh; Tab to the feedback opener, Enter, enter the scenario’s message through keyboard input, Tab to submit/copy and activate it.
+- Record the immediate status checkpoint.
+- From naturally reached controls, issue PageDown/ArrowDown and reverse with PageUp/ArrowUp; Tab/Shift+Tab through the actions. Record each key, active element, dialog `scrollTop`, textarea/disclosure scroll positions, page offsets and visible text fragments.
+- Demonstrate movement in **both directions** where a scroll range exists. After the fix has already revealed the bottom, scroll upwards first, then back down; “PageDown did nothing at the bottom” is not a failure.
+- Prove that successive keyboard-only views cover every status line and reach Copy and Close; Escape returns focus to the opener.
+- Do not use `.focus()`, `.scrollTo()`, wheel input or probe-side mutations to establish keyboard reachability. Distinguish textarea scrolling and nested details scrolling from dialog scrolling.
+- Record failed or unavailable routes honestly; K-dialog’s existing focus-cycle test does not itself prove scrolling.
+
+Use the existing real CDP key dispatch, `walker/qualify.mjs:533–538`, rather than synthetic DOM keyboard events.
+
+The remaining stage obligations stay explicit: touched WCAG checks; separate token systems; no added element/control/checkbox; progress bar kept; UI-STANDARDS amended only if a rule changes and within budget; any `docs/` change drafted for the owner; `npm run check` green on a settled Mac Pro, no deleted or skipped tests, then `node tools/check.mjs`; digest rules named at close; Disposition linked to the finding and table; saved Codex astra review of final diff, base and evidence, repairs rechecked, unresolved disagreement put to the owner. Commit with `Verify:` and `Checked: gpt-6-astra — <verdict> — VH-232`.
+
+**6. Re-reads after landing**
+
+- **VH-222:** re-read all S-79a/S-79b cells—36 each—on the landed build. These are explicitly in `project/items/VH-222.md:11`. Text should remain identical; dialog scroll and visible geometry change where reveal is needed.
+- **VH-220:** its item’s states and faults (`:9–12`) do not name feedback-dialog readings. No identified cell changes.
+- **VH-221:** its browser/job wording checks (`:9–16`) identify no feedback-dialog cell. No identified cell changes.
+- **VH-223:** its batch-selection rule (`:9`) includes four empty-dialog cells: S-76, ms-MY and zh-Hans, each in landscape and short/light.
+- **VH-224:** its complementary rule (`:9`) includes eight empty-dialog cells: S-76, those two languages, each at w1280 reduced-motion and spacing, and zoom200proxy/zoom400proxy light.
+
+Those twelve keys are in `unrun-2026-10-27.json:606–617`, specifically within `stillUnrun`, not the earlier `ran` list. **They should not change under this non-empty-only remedy.** Re-read them as empty-state regression controls; do not claim they demonstrate repaired status visibility.
+
+VH-203’s integrated after-run must also retain S-78/S-80 and J3 coverage: those reach the same changed setter even though they are not additional feedback cells in the VH-223/224 batches.
+
+**7. Size and risk**
+
+This fits one worker at approximately **45k of work**, provided it remains a small reveal helper, narrow lifecycle protection, tests and the bounded evidence run. VH-211’s plan uses a 50k envelope and requires hand-back under the same ID (`vh211-plan-2026-10-27.md:6–12`); `VH-231.md:39` provides the corresponding item wording.
+
+It outgrows that scope if normal matrix messages cannot fit, preserving visible focus requires rearranging the dialog, native keyboard scrolling needs a new interaction, or the solution expands into general modal infrastructure. Hand back under VH-232 when necessary; any remainder becomes an explicit fix item before VH-203, never an unrecorded follow-up.
+
+**Verdict: Raise VH-232 as designed; no owner approval is needed first for this remedy. Any required new wording, element, `docs/` edit, or unresolved visibility-versus-focus conflict goes to the owner before implementation proceeds beyond this design.**

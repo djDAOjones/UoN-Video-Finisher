@@ -1,0 +1,3 @@
+All three repairs are present and faithful to the accepted design. The freezes differ only in the two repaired item lines and their checksum; the working tree matches the fresh freeze. The checker reports zero failures and the known VH-122 warning. No other blocker found; the parallel gate result remains unverified here.
+
+Checked: gpt-6-astra — Repairs verified; no remaining review blocker; commit subject to a green gate and replacement of both attestation placeholders — VH-232 raised

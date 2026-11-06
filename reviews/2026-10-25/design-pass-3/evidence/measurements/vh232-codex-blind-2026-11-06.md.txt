@@ -1,0 +1,145 @@
+**Verdict: Commit after the musts below.**
+
+The product change follows the settled design, and the walked results support its intended improvement. I found no demonstrated regression in the reveal itself. The remaining musts concern lifecycle-test accuracy and completing the acceptance record.
+
+I verified the tracked diff hash `3dba5c0267998195` and both new-file hashes. I wrote no files and did not read the excluded notes.
+
+**Musts**
+
+1. **Make the late-result tests exercise the final focus-aware call.** In [reveal-status.test.ts:257](/Users/uazjob/UoN-Video-Helper-side/vh232/src/ui/reveal-status.test.ts:257), the close/reopen test omits the focused-control argument and asserts an unrestricted, whole reveal. The moved-focus test at line 270 likewise omits that argument; its local `doc.activeElement` is never read by the helper. These tests do not record the production outcome now implemented at [main.ts:3678](/Users/uazjob/UoN-Video-Helper-side/vh232/src/main.ts:3678). Supply the current focused control through `focusInside`, including a case where preserving that control makes the status partial. Keep the existing Close/Escape guards. This does **not** require implementing the deferred opening identity guard.
+
+2. **Complete the close requirements and retain their evidence.**
+   - Run the complete `npm run check` on the settled Mac, then `node tools/check.mjs` after the final record edits. The supplied test/type/lint results are not the complete gate.
+   - Add VH-232 and its evidence link to the owner’s-old-issues Disposition row at [the report:758](/Users/uazjob/UoN-Video-Helper-side/vh232/reviews/2026-10-25/design-pass-3/design-pass-3-2026-10-27.md:758); they are absent.
+   - Record the focus-first ruling and the measured limitations accurately, including the baseline empty-dialog focus clipping described below. Complete the required decision/backlog/trajectory work and name the applied digest rules.
+
+I independently ran TypeScript and eslint on the three changed TypeScript files: both exited 0. `node tools/check.mjs` reported **0 failures, 1 warning**: the existing missing/outside-repository `samples/CULT2011.mp4` reference in VH-122. Review that warning under rule 10 at close; I did not run the full gate.
+
+**Shoulds**
+
+- Add a rounded-scroll stand-in test. The existing fractional test preserves every fractional assignment; it does not model quantisation of `scrollTop`.
+- Clarify the generated table’s labels: “335 unmoved” means unchanged instrument outcomes/assertion rows, not unchanged geometry; the group-3 “11 cells” excludes its 30 route records. The notes explain this, but the headings are easy to misread.
+- Remove the unconditional “starts at its top” implication from the lifecycle-test commentary. Chrome’s retained scroll on reopening is explicitly present in the records.
+
+**1. Acceptance criteria**
+
+| Criterion in VH-232 | Finding |
+|---|---|
+| Reveal by minimum geometry, padding, clamping, instant movement | Met for the measured cases and the settled focus-first rule. Subpixel qualification below. |
+| Only the dialog scrolls; layout and CSS unchanged | Met for the reveal. The sole write is `dialog.scrollTop`; all 335 paired probes retain page offsets, dialog size, horizontal scroll and content offsets. |
+| Focus unchanged and pressed control/ring retained | Met at every measured status-setting matrix cell, immediate keyboard result and S-76 hand-off. No matrix cell triggers the sizing stop. This is not a claim that every empty-dialog or later manually scrolled state has fully visible focus. |
+| Announcement unchanged | Met structurally and in accessibility-tree exposure: same node, tag, class, role, live setting and text. Speech remains a person’s check. |
+| Runs inside `show()`’s paint callback | Met, [main.ts:3671](/Users/uazjob/UoN-Video-Helper-side/vh232/src/main.ts:3671). All four non-empty result paths use it. |
+| Empty, closed and disconnected guards | Met in the helper. Opening retains existing browser behaviour; it introduces no reset-to-top operation. |
+| Over-height fallback, no oscillation | Implemented and tested. **No recorded status is itself taller than its client area.** The three enlarged fallbacks arise because status plus focused button cannot fit together. |
+| Small helper in `src/ui/`, stand-in tests | Met. No dependency, token or configurable numeric constant added; zeroes are arithmetic boundaries. |
+| Words/elements/specification unchanged | Met. No strings, elements, controls, CSS or `docs/` changes. |
+| Required test categories | Mostly met; final focus-aware lifecycle coverage needs must 1. `feedback.test.ts` is untouched. |
+| Same-Mac before/after, unchanged walker, qualification | Met: base/candidate provenance agrees; q1/q2 reached 7/7 qualification records; walker revision unchanged. |
+| Required matrix, enlargements, variants and keyboard coverage | Met: 365/365 reached each side, detailed below. |
+| Separate complete/visible/focus/keyboard readings | Present. “Complete” alone is a weak predicate, but full text is retained, unchanged across sides, and required addresses are present. |
+| WCAG recheck and digest rules | Findings below; do not record an unqualified all-focus-visible conclusion. |
+| Tokens, progress bar, UI-STANDARDS and documents | Unchanged, as required. |
+| Complete gate | Not yet evidenced; must 2. |
+| Blind candidate review | This review supplies it; repair and recheck the musts before using the final Checked verdict. |
+| Disposition linkage | Missing; must 2. |
+| Post-landing rereads | Still post-landing obligations. These candidate walks cover the corresponding conditions but do not fulfil a future reread of the landed build. |
+| Sized boundary | Respected: no matrix fit failure, rearrangement, new interaction or wording required. |
+
+**2. Geometry**
+
+[reveal-status.ts:116](/Users/uazjob/UoN-Video-Helper-side/vh232/src/ui/reveal-status.ts:116) correctly places the client top at `rect.top + clientTop`, excluding the border. Its client bottom is that top plus `clientHeight`.
+
+- **Already visible:** returns before padding or focus adjustments. Thus an already visible status does not move merely to acquire padding.
+- **Clipped above:** aligns the status start with the client top—the least upward movement that reveals its start.
+- **Clipped below:** requests the bottom overflow plus computed end padding, capped at the movement that would align the start. This avoids buying padding by clipping the status’s beginning.
+- **Exact fit:** an already aligned box does not move. A displaced exact-height box is aligned at its start; padding necessarily yields.
+- **Over-height:** aligns the start, subject to focus and scroll-range constraints. Repetition settles instead of alternating between start and end.
+- **Invalid padding:** non-finite parsing becomes zero; negative values are also bounded at zero.
+- **Range:** the final assignment is clamped to `[0, scrollHeight − clientHeight]`.
+
+The focus interval is sound: its lower bound keeps the ring’s bottom above the client bottom; its upper bound keeps the ring’s top below the client top. Projecting the requested scroll onto that interval gives the nearest focus-preserving scroll. A control taller than the client area has no such interval; the helper explicitly leaves the status target unchanged in that case.
+
+Fractional arithmetic is retained, and the return value reads back the actual assigned scroll. **Exact mathematical containment is not guaranteed under scroll quantisation.** In a rounded stand-in, an exact-height status requiring `scrollTop=200.4` can settle at 200, leaving 0.4 px outside; repeated calls report zero movement rather than oscillating. The probe permits 0.5 px tolerance. I found no measured cell failing because of this, but the fractional unit test does not establish rounded behaviour.
+
+**3. Only the dialog, and focus**
+
+The helper writes only [reveal-status.ts:140](/Users/uazjob/UoN-Video-Helper-side/vh232/src/ui/reveal-status.ts:140). It does not call `focus`, `scrollIntoView`, replace nodes, change attributes or write horizontal/page scroll.
+
+Across the 335 paired scenario probes, these are unchanged: text, focus identity, dialog rectangle/client area/scroll height, `scrollLeft`, page offsets, content offsets, heading, Tab order, disclosure state, textarea scroll and details scroll.
+
+The measured reveal outcomes preserve the pressed button and ring:
+
+- 180/180 status-setting matrix cells;
+- 18/18 immediate keyboard results;
+- 12/12 S-76 hand-offs, including the three focus-first fallbacks.
+
+**Not every walked focus state is wholly visible.** In S-76’s empty `zoom400proxy` state, all three languages have the focused message field at **88–258**, against client **17–208**, identically before and after. Its box and ring visibility flags are false. Later PageUp/Home readings also deliberately scroll the focused button out of view. Neither is evidence that this helper displaced focus.
+
+Announcement wiring is unchanged: [index.html:907](/Users/uazjob/UoN-Video-Helper-side/vh232/index.html:907) remains the same status paragraph; `textContent` remains the writer. AX records expose `role=status`, `live=polite`. They prove exposure, not speech.
+
+**4. Other behaviour**
+
+- **Oversized email, ordinary/trimmed email, Copy success and Copy failure:** each now reveals through the same callback; their text, mailto/clipboard work and error handling are otherwise unchanged.
+- **Opening:** empty text prevents the reveal. There is no authored scroll reset. S-77/S-78k retain the same 320 px offsets—186/210/234 according to language—on both sides.
+- **Language repaint while closed:** text can repaint, but the closed guard prevents scrolling.
+- **Language repaint while open:** the newly translated text is measured again and may scroll, subject to current focus. Existing live-region quietening/restoration is unchanged. Ordinary interaction cannot reach the page’s language controls behind the modal.
+- **Late Copy after Close or Escape:** the result still writes text; the closed dialog does not scroll.
+- **Late Copy after reopening:** the old result can overwrite the new opening’s status and invoke its reveal. Current focus constrains that reveal.
+- **Focus moved meanwhile:** identity is preserved; geometry uses the control focused when the callback runs.
+
+The reopened stale result is a real existing lifecycle defect, explicitly deferred as [VH-232.2](/Users/uazjob/UoN-Video-Helper-side/vh232/project/wish-list.md:105). This change adds reveal behaviour when that stale write lands in an open dialog. Report that outcome under the existing wish; do not silently claim it is prevented.
+
+There is also a measured downstream keyboard difference: after the reveal, R-232b PageUp/ArrowUp at 375 px records page `scrollY` values **454/414** in English and **604/564** in Malay, versus zero before. These are subsequent key readings, not page movement at the reveal. The table records all four differences; “only the dialog scrolls” should remain a statement about the helper.
+
+**5. Evidence**
+
+The [table and notes](/Users/uazjob/UoN-Video-Helper-side/vh232/reviews/2026-10-25/design-pass-3/evidence/measurements/vh232-feedback-status-2026-11-06.md) reconcile with the records, with the labelling qualifications above. I checked the bundle hashes and 113 corresponding original-source hashes: no mismatches.
+
+- **Coverage:** 324 matrix cells + 9 enlargements + 9 disclosure-open routes + 2 variants + 3 K-dialog routes + 18 keyboard routes = **365 each side**, all reached. No required condition was dropped.
+- **Matrix status results:** 180/180 whole, complete and focused control/ring in view after; **FLAWED 0**, against 68 before.
+- **Spacing variant:** remains FLAWED, correctly disclosed. Its status is 346–598 against client 17–551. This is the settled setup-before-spacing order.
+- **Enlarged hand-offs:** 9/12 whole after versus 3/12 before. At 400%, status heights are 126/147 px within a 191 px client area, but button-to-status-end spans are 298/319 px. Those three are correctly recorded as partial, focus-first fallbacks.
+- **Earlier candidate comparison:** all substantive scenario-probe fields match `a1`–`a3`; the summary changes only the S-76 hand-off line. The repair retains focus in all 12 instead of 9.
+- **Keyboard:** immediate whole status improves to 9/9 for each route; PageDown/ArrowDown/End reach whole status 9/9 each side. Home reaches the top; Tab/Shift+Tab and Escape retain their recorded routes.
+- **States counts:** 237 raw readings each side become 201 comparison keys because repeated Tab/Shift+Tab keys collapse, as the notes disclose.
+- **VH-222:** g4’s distinct base/revision and 3+14 finding are corroborated; it is cited, not paired.
+- **J3:** intentionally not walked.
+
+All groups report AC power, with no power-mode value supplied. Recorded load figures are:
+
+| Groups | Recorded median / peak |
+|---|---|
+| b1 / b2 / b3 | 3.94/5.28 · 3.84/4.68 · 3.67/4.77 |
+| r1 / r2 / r3 | 3.42/5.47 · 3.15/4.56 · 3.03/3.96 |
+| a1 / a2 / a3 | 4.01/6.68 · 3.69/6.18 · 3.37/4.02 |
+
+q1’s two samples are 3.30 and 4.35; q2’s sample is 3.80. **No sampled load reaches 8.** The generator uses the upper middle sample for even-sized “medians”.
+
+No acceptance conclusion rests on a performance timing comparison. Routes wait for scroll to settle; all recorded settles completed. `settledMs` differences are acquisition metadata, not proof of UX improvement.
+
+**6. WCAG and Nielsen**
+
+| Criteria | Judgment from this change and these readings |
+|---|---|
+| 1.3.2 | Reading/DOM order unchanged; supported. |
+| 1.4.4, 1.4.10 | Enlarged/reflow content remains available through scrolling; the focus-first partial status is not content deletion. No new failure demonstrated. |
+| 1.4.12 | Spacing content remains scroll-reachable. Automatic whole reveal after the walker subsequently changes spacing is not demonstrated and is not claimed. |
+| 2.1.1, 2.1.2, 2.1.3 | Required keyboard routes complete, reach both ends and escape; no new trap or timing-dependent operation. |
+| 2.3.3 | Direct instant scrolling, no introduced animation or smooth-scroll style. |
+| 2.4.3 | Focus identity and order preserved. |
+| 2.4.7, 2.4.11 | Reveal retains visible focused buttons; no reveal-induced complete obscuration shown. |
+| 2.4.12 | Supported for the reveal’s pressed controls. **Do not mark every walked state wholly unobscured:** the baseline empty S-76 field clipping remains. |
+| 2.4.13 | Existing measured focus appearance passes; ring styling is unchanged and the reveal retains its measured extent. |
+| 3.2.1, 3.2.2, 3.2.5 | No new focus transfer, navigation or control change. Result-driven scrolling follows the requested action; stale Copy attribution remains VH-232.2. |
+| 4.1.3 | Status semantics and AX exposure preserved. Actual spoken delivery remains unverified here. |
+
+Nielsen’s **“status visible and announced”** improves as intended in all matrix result cells, with the explicitly accepted enlargement fallback. **“Errors say what next”** is preserved: complete existing recovery text remains present, and previously hidden instructions become visible. Neither conclusion substitutes for a person’s speech reading.
+
+**7. Tests**
+
+The 28 added tests cover visible/below/above/exact-fit/fractional geometry, range bounds, over-height repetition, guards, isolated vertical writes, unchanged content, translation replacement, outline parsing and several focus-clamp cases.
+
+Their main omissions are rounded assignment behaviour and the **production composition of lifecycle handling with current focus**. The close/reopen test currently records “late text lands in the new opening and is revealed whole”; that is the unrestricted helper outcome, not a general result of the final caller. Correcting that evidence is the substantive pre-commit test must.
+
+Applied standards: Nielsen’s two named rules; the listed WCAG criteria; Carbon’s existing-token separation; and house conventions on isolated helpers, invariant tests and the separate browser verification layer.

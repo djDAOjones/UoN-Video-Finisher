@@ -175,6 +175,7 @@ import { buildLosses, readLine, renderSourceError, renderSourceReport } from './
 import type { SourceReport } from './media/inspect'
 import { lossesSpoken, spoken, warningsSpoken } from './ui/announce'
 import { focusHeldBy as handOnFocus, type HandOn } from './ui/focus-hand-on'
+import { focusInside, outlineReach, revealStatus } from './ui/reveal-status'
 import { browserNote, summariseChecks, type CheckState } from './ui/system-check'
 import { headingFontUrl, installBrandAssets } from './ui/brand-assets'
 import {
@@ -3660,10 +3661,24 @@ show(feedbackIntro, () => {
   feedbackIntro.textContent = t().feedback.intro({ address: FEEDBACK_ADDRESS })
 })
 
-/** What the dialog's status line says, as a thunk, so a change of language says it again. */
+/**
+ * What the dialog's status line says, as a thunk, so a change of language says it again.
+ * Each paint then brings the status whole into view by the least scroll of the dialog
+ * alone, keeping its end padding below (VH-232); an emptied status or a closed dialog
+ * moves nothing, and focus, the words and the live region are untouched. Focus wins:
+ * the scroll never takes the focused control or its ring out of view.
+ */
 function setFeedbackStatus(message: Text): void {
   show(feedbackStatus, () => {
     feedbackStatus.textContent = textOf(message)
+    revealStatus(
+      feedbackStatus,
+      feedbackDialog,
+      parseFloat(getComputedStyle(feedbackDialog).paddingBlockEnd),
+      focusInside(feedbackDialog, document.activeElement, (control) =>
+        outlineReach(getComputedStyle(control)),
+      ),
+    )
   })
 }
 

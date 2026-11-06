@@ -1,0 +1,15 @@
+Verdict: Commit
+
+1. **note — Freeze record `vh232-frozen-b/`.** The candidate matches: tracked diff `eb680c862fb9d5eb`, app diff `3dba5c0267998195`, all 140 untracked hashes, and nothing staged. The saved status uses collapsed directories; expanding them explains the listing difference.
+
+2. **note — `src/ui/reveal-status.test.ts:289`, `src/main.ts:3671`.** The earlier test must and shoulds are met: lifecycle cases pass focus through `focusInside`, include partial visibility under retained focus, and cover outside/null focus. Rounded scrolling settles within 0.5 px; the lifecycle comment correctly describes retained browser scroll. Product code remains the walked version: helper `91185c1a`, repaired tests `d0f51621`.
+
+3. **note — `project/items/VH-232.md`, closing Notes; `project/decisions.md:31`.** Acceptance is supported under the explicitly recorded orchestrator rulings. The three enlargement hand-offs are identified as focus-first fallbacks, not whole-status successes. This qualifies the original top-alignment criterion. The spacing variant, retained reopening scroll and baseline empty-state focus clipping are disclosed. No unauthorized wording, element, CSS or specification change appears.
+
+4. **note — Records `r1`, `r2`, `r3` in `vh232-records-2026-11-06/`.** Independently counted all 72 requested S-79a/S-79b cells: complete and whole, with focus rings visible. All 180 matrix status cells pass those checks. The four requested S-76 zoom keys are present: two whole at `zoom200proxy`, two partial with focus retained at `zoom400proxy`. They support the recorded substitution for post-landing re-reads.
+
+5. **note — Closing ledger and Disposition record.** The decision follows the declared grammar and preserves the expanded decision at the Rationale’s start. VH-201 moved verbatim into the archive. Backlog removal, VH-203’s remaining blocker, trajectory, item status and evidence link agree. VH-232.2 retains its scope and remains open. I found no newly promised follow-up silently dropped. Nielsen and WCAG digest rules are named.
+
+6. **note — Measurement copies and set-aside generation.** The table is byte-identical; record differences are exactly the notes filename and its `sources.txt` line. All 126 set-aside hashes match. The four permitted earlier Codex sources match their copies byte-for-byte. **The other eight originals were prohibited reads, so their source-to-copy identity is not independently verified here**; their candidate bytes do match the freeze.
+
+7. **note — `vh232-5-gate-2.log`, its load log, and `tools/check.mjs`.** Gate evidence supports 86 passing files, 1,721 passing tests, the existing skip, successful builds and clean documentation checks. Recorded load peaks at 4.78. My checker run confirms zero structural/budget failures and the known missing-sample warning. I did not rerun the full gate. The proposed `Verify:` can cite that recorded run and supplied power provenance; the review attestation can read `Checked: gpt-6-astra — Commit — VH-232`.

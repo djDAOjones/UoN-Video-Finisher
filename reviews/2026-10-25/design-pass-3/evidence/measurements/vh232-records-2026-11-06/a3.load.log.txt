@@ -1,0 +1,12 @@
+02:10:01 load 2.73 AC Power  pm
+02:10:31 load 3.44 AC Power  pm
+02:11:01 load 2.60 AC Power  pm
+02:11:31 load 3.81 AC Power  pm
+02:12:01 load 3.50 AC Power  pm
+02:12:31 load 3.44 AC Power  pm
+02:13:01 load 3.37 AC Power  pm
+02:13:31 load 4.02 AC Power  pm
+02:14:01 load 3.29 AC Power  pm
+02:14:32 load 2.82 AC Power  pm
+02:15:02 load 2.57 AC Power  pm
+02:15:32 load 2.34 AC Power  pm
