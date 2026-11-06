@@ -1,0 +1,50 @@
+result.endedEarly.sound                    not shown in any walked cell
+result.endedEarly.together                 not shown in any walked cell
+result.endedEarly.both                     not shown in any walked cell
+warnings.endsEarly.detail                  not shown in any walked cell
+warnings.noAudio.heading                   not shown in any walked cell
+warnings.noAudio.detail                    not shown in any walked cell
+warnings.clipping.heading                  not shown in any walked cell
+warnings.targetMissed.heading              not shown in any walked cell
+warnings.soundHeading                      read 36/36 in S-167
+preflight.reasons.noAacEncodeHere          read 24/36 in S-156 UNREACHED 12
+preflight.reasons.noAacEncodeElsewhere     read 12/48 in S-156 S-157 ABSENT 24 UNREACHED 12
+preflight.reasons.noSourceDecodeHere       read 24/36 in S-28 ABSENT 12
+preflight.reasons.noSourceDecodeElsewhere  read 24/48 in S-160 S-28 ABSENT 24
+failure.unreadable.soundOnly               read 36/36 in S-158
+failure.unlevellable.what                  not shown in any walked cell
+failure.outputLoudness.what                not shown in any walked cell
+failure.outputPeak.what                    not shown in any walked cell
+systemCheck.rows.aac                       read 36/36 in S-159
+systemCheck.values.aacNotSupported         read 36/36 in S-159
+failure.unreadable.noTracks                read 36/36 in S-166
+preflight.reasons.veryLongJob              not shown in any walked cell
+preflight.reasons.veryLongJobUnknown       not shown in any walked cell
+preflight.reasons.longJob                  not shown in any walked cell
+preflight.reasons.longJobUnknown           not shown in any walked cell
+failure.badTrim.next                       not shown in any walked cell
+failure.unlevellable.next                  not shown in any walked cell
+failure.encoderRefused.next                not shown in any walked cell
+failure.checkFailed.next                   not shown in any walked cell
+failure.tryAgain                           not shown in any walked cell
+result.endedEarly.picture                  not shown in any walked cell
+status.saved                               not shown in any walked cell
+warnings.decodeDamage.detail.one           not shown in any walked cell
+warnings.decodeDamage.detail.other         read 36/36 in S-167
+warnings.veryQuiet.detail                  not shown in any walked cell
+warnings.metadataLost.heading              not shown in any walked cell
+warnings.metadataLost.detail               not shown in any walked cell
+feedback.tooLong                           not shown in any walked cell
+feedback.someOmitted                       not shown in any walked cell
+failure.startup.workerNotStarted           not shown in any walked cell
+warnings.cutShort.heading                  not shown in any walked cell
+warnings.cutShort.detail                   not shown in any walked cell
+S-156    cells 36 reached 24
+S-157    cells 12 reached 12
+S-158    cells 36 reached 36
+S-159    cells 36 reached 36
+S-160    cells 12 reached 12
+S-166    cells 36 reached 36
+S-167    cells 36 reached 36
+S-28     cells 36 reached 36
+total cells 240 reached 228

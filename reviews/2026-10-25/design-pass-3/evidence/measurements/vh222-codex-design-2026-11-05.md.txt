@@ -1,0 +1,52 @@
+HEAD is `ca093da`. This review is read-only.
+
+1. **Rows.** I derive **41 distinct changed string keys**, after deduplicating the ends-early rows: **1,476 nominal row-cells** at 36 cells each. Supporting headings, recovery sentences and the cut-file source/result context must also be read; they are not additional changed keys. Derivation: `446f702^:project/wish-list.md:46–48`, commits `9d033ec`, `16e49eb`, `d17a46e`, and [the current table](/Users/joe/UoN-Video-Helper-side/vh222/src/i18n/en-GB.ts:511).
+
+2. **Reach.** Below, `W=warnings`, `P=preflight.reasons`, `F=failure`, `R=result.endedEarly`; braces expand into separate keys. Fixture names retain their repository spelling. “New fault” means no existing qualified fault reaches that branch.
+
+| Keys | Existing reach, or missing route |
+|---|---|
+| `W.soundHeading`, `W.veryQuiet.detail` | S-18; `quiet-30s.mp4`; no fault |
+| `W.clipping.heading` | S-19; `clipped-30s.mp4`; no fault |
+| `W.noAudio.{heading,detail}` | S-20; `silent-10s.mp4`; no fault |
+| `W.endsEarly.detail` | S-22; `truncated-30s.mp4`; no fault |
+| `W.cutShort.{heading,detail}` | S-23, `cut-short-30s.mkv`; S-23w/wn, `cut-short-10s.webm`; no fault |
+| `W.decodeDamage.detail.{one,other}` | S-27, `burst-float-30s.mov`: English `one`, Chinese/Malay `other`. English `other` needs a multiple-burst fixture |
+| `W.metadataLost.{heading,detail}` | S-91; F6a+F16; `lecture-30s.mp4`, then `lecture-60s.mp4` |
+| `W.targetMissed.heading` | Unreachable: `detectOutputWarning` has no production caller; failed output verification refuses the file |
+| `P.noSourceDecode{Here,Elsewhere}` | S-28; `prores-1080p.mov`; desktop/375-UA branches. Preserve that UA distinction when filling other widths |
+| `P.noAacEncode{Here,Elsewhere}` | New worker AAC fault. F17 changes the page’s encoder check only |
+| `P.longJob`, `P.veryLongJob` | S-24 and S-25a/b respectively; `still-10800s.mp4`; F13 for S-25 |
+| `P.longJobUnknown`, `P.veryLongJobUnknown` | No scenario. First is unreachable through verdict classification; second needs a qualified non-finite-estimate fault |
+| `R.{picture,sound,together,both}` | S-64 reaches **together only**, using truncated-30s then lecture-60s. Other branches need qualified cut fixtures or new faults |
+| `F.unreadable.soundOnly` | New scenario using existing `pcmMp4` helper |
+| `F.unreadable.noTracks` | New valid trackless fixture; `notvideo.mp4` reaches a different failure |
+| `F.unlevellable.{what,next}`, `F.outputLoudness.what`, `F.outputPeak.what`, `F.badTrim.next` | New faults or demonstrated fixtures. Old S-102’s loudness refusal no longer occurs |
+| `F.encoderRefused.next` | S-147; F18; `lecture-30s.mp4` |
+| `F.checkFailed.next` | S-89; F10; `lecture-30s.mp4` |
+| `F.tryAgain` | S-90b; F11; `lecture-360s.mp4` |
+| `F.startup.workerNotStarted` | S-01b; F1; no fixture |
+| `systemCheck.rows.aac` | S-82; no fault/fixture |
+| `systemCheck.values.aacNotSupported` | New in-memory scenario: F17 **plus opening System check**; S-106 leaves it closed |
+| `status.saved` | S-62; `lecture-30s.mp4`; picker helper |
+| `feedback.{tooLong,someOmitted}` | S-79a/b; typed messages; no media/fault |
+
+Scenario evidence: [356](/Users/joe/UoN-Video-Helper-side/vh222/reviews/2026-10-25/design-pass-3/evidence/measurements/walker/scenarios.mjs:356), [790](/Users/joe/UoN-Video-Helper-side/vh222/reviews/2026-10-25/design-pass-3/evidence/measurements/walker/scenarios.mjs:790), [963](/Users/joe/UoN-Video-Helper-side/vh222/reviews/2026-10-25/design-pass-3/evidence/measurements/walker/scenarios.mjs:963), [2148](/Users/joe/UoN-Video-Helper-side/vh222/reviews/2026-10-25/design-pass-3/evidence/measurements/walker/scenarios.mjs:2148), [2804](/Users/joe/UoN-Video-Helper-side/vh222/reviews/2026-10-25/design-pass-3/evidence/measurements/walker/scenarios.mjs:2804), [3023](/Users/joe/UoN-Video-Helper-side/vh222/reviews/2026-10-25/design-pass-3/evidence/measurements/walker/scenarios.mjs:3023), [3557](/Users/joe/UoN-Video-Helper-side/vh222/reviews/2026-10-25/design-pass-3/evidence/measurements/walker/scenarios.mjs:3557).
+
+Chinese/Malay `one` cells are inapplicable under [plural selection](/Users/joe/UoN-Video-Helper-side/vh222/src/i18n/compile.ts:96). `longJobUnknown` cannot follow the [finite long-job band](/Users/joe/UoN-Video-Helper-side/vh222/src/media/preflight.ts:123). Do not manufacture those states and call them page coverage. The [picture helper](/Users/joe/UoN-Video-Helper-side/vh222/test/helpers/picture-pcm-mp4.ts:5) contains undecodable dummy video; it cannot qualify browser fixtures.
+
+3. **Mapped first.** Reuse actual surviving records only where language, width, mode, selected branch, substitutions, local styling/container and relevant behaviour match. Header movement alone does not invalidate unchanged local wrapping; it invalidates absolute-position comparisons.
+
+Candidates include S-18/19/20/22/23/27/28/62/64/79a/b/89/90b/01b/147; S-24/25 additionally require matching estimate conditions. [S-64’s record](/Users/joe/UoN-Video-Helper-evidence/pass3-vh199/runs/run-02-2026-10-26T13-43-03-102Z-5e74aa/S-64__en-GB__w1280__light.json:3973) proves `together`, not its siblings.
+
+Exclude changed System-check geometry, relocated production warnings, S-99’s replaced no-audio wording, S-102’s obsolete refusal, closed disclosures, and absent cells. Revalidate feedback handoff thresholds after the subject rename. The relevant changes are [System check CSS](/Users/joe/UoN-Video-Helper-side/vh222/src/styles/app.css:352), [warning placement](/Users/joe/UoN-Video-Helper-side/vh222/src/main.ts:3415), and [warning branching](/Users/joe/UoN-Video-Helper-side/vh222/src/ui/warning-text.ts:69).
+
+4. **Cut-short truth.** Inspection reports readable track extent; the source panel labels it duration. Matroska can discard a partial cluster, leaving no index shortfall. Consequently, the finished record can say **“the whole video”** at that shortened duration, without an ended-early sentence. The cut-short warning supplies no original duration. I judge the unqualified completeness claim misleading and requiring a defect decision; the warning does not repair it. Evidence: [Matroska behaviour](/Users/joe/UoN-Video-Helper-side/vh222/src/media/matroska-cut.ts:4), [source duration](/Users/joe/UoN-Video-Helper-side/vh222/src/ui/source-panel.ts:135), [whole-record construction](/Users/joe/UoN-Video-Helper-side/vh222/src/ui/result-summary.ts:68).
+
+5. **Reading contract.** Each cell needs expected/resolved text, substitutions and plural branch; actual complete text; selector/container; visible line bounds, clipping/overflow and screenshot; trigger/state evidence; and a separate outcome per criterion. Capture live-region mutations and accessibility exposure—not claimed speech. For 4.1.3, judge the status transition; every explanatory paragraph need not announce independently. For 3.3.1, distinguish detected input errors from operational failures, while applying Nielsen’s cause/recovery requirement to both. Also judge reflow, meaningful headings and reading level, with native-language limitations stated ([item:13–20](/Users/joe/UoN-Video-Helper-side/vh222/project/items/VH-222.md:13)).
+
+6. **Sizing.** Build and qualify necessary new faults within the authorised scope; “needs new code” alone is not grounds for deferral. Risks are artificial states and consuming the budget. Deferral risks silently shrinking group B. If qualification cannot fit, hand back under VH-222 and retain explicit outstanding wish lines; do not claim completion ([item:12–23](/Users/joe/UoN-Video-Helper-side/vh222/project/items/VH-222.md:12)).
+
+7. **Before walking:** qualify extensions with controls and a pilot; freeze source, driver and walker identities; explicitly schedule fix-only scenarios; check state throughout measurements. Serialise expensive work, record load/power, and bound timing-sensitive estimates/watchdogs. Keep old-order failures failing. Honour the walker-file stop, external fixture location and protected samples. Product defects become separate fix items; retain gate/checker, final review, disposition linkage and named digest obligations ([VH-198:11](/Users/joe/UoN-Video-Helper-side/vh222/project/items/VH-198.md:11), [VH-222:18](/Users/joe/UoN-Video-Helper-side/vh222/project/items/VH-222.md:18)).
+
+design sound with changes: explicit row coverage, qualified missing routes, conditional evidence reuse, and a decision on the cut-file completeness claim.

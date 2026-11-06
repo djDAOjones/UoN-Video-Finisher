@@ -1,0 +1,17 @@
+#!/bin/zsh
+# walk-queue-wait-seq.zsh "<who and what>": Orchestrator #40's first-come queue for the walk lock (2026-11-05, 12:45Z).
+# The calling chain runs:  zsh $S/walk-queue-wait-seq.zsh "VH-NNN #k <what>" && <your go.sh, or your gate, which takes the lock at once>
+# It appends one line "<pid> <who> <time>" to $S/walk.queue, where pid is the chain's ($PPID, or QPID if set), and the line lives as long as the chain.
+# It waits until its line is the first line whose pid is alive and the lock is free, then exits 0. No other deferral logic: the queue is the turn rule.
+# Re-queue after each group or gate by a new chain, which lands at the end. Never edit or delete lines: a dead pid's line is skipped.
+S=/Users/uazjob/UoN-Video-Helper-side; Q=$S/walk.queue; L=$S/walk.lock
+P=${QPID:-$PPID}; W="$1"
+test -n "$W" || { echo "usage: who"; exit 2; }
+echo "$P $W $(date -u +%FT%TZ)" >> $Q
+echo "QUEUED $(date -u +%T) pid $P: $W"
+while :; do
+  head=""
+  while read -r pid rest; do kill -0 "$pid" 2>/dev/null && { head=$pid; break; }; done < $Q
+  if [ "$head" = "$P" ] && [ ! -e $L ]; then echo "TURN $(date -u +%T) $W"; exit 0; fi
+  sleep 20
+done

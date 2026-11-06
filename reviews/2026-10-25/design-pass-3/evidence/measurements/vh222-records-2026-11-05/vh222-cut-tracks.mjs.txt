@@ -1,0 +1,69 @@
+// VH-222 #3, outside the walker: a cut MP4 whose tracks stop at different times, as an interrupted copy whose index lists every chunk while
+// its data stops part-way (VH-139). From an MP4 with its index before its data: every chunk kept (a track not named, or a named track's chunk
+// starting before its stop) is written first, in the file's own order; the rest follow, and the file is cut where they start, so the index
+// declares them past the end. No sample is changed; only the chunk offsets (stco/co64) are rewritten in place, so no box changes size.
+//   node vh222-cut-tracks.mjs <in.mp4> <out.mp4> picture=20 | sound=20 | picture=15,sound=22
+import { readFileSync, writeFileSync, existsSync } from 'node:fs'
+const [inp, out, spec] = process.argv.slice(2)
+if (!inp || !out || !spec) { console.error('usage: node vh222-cut-tracks.mjs <in.mp4> <out.mp4> picture=20[,sound=22]'); process.exit(2) }
+if (existsSync(out)) { console.error('EXISTS ' + out); process.exit(2) }
+const stops = Object.fromEntries(spec.split(',').map((s) => s.split('=')).map(([k, v]) => [k, Number(v)]))
+const b = Buffer.from(readFileSync(inp))
+const u32 = (o) => b.readUInt32BE(o)
+function boxes(start, end) {
+  const r = []
+  for (let o = start; o + 8 <= end;) {
+    let size = u32(o), hdr = 8
+    const type = b.toString('latin1', o + 4, o + 8)
+    if (size === 1) { size = Number(b.readBigUInt64BE(o + 8)); hdr = 16 }
+    if (size === 0) size = end - o
+    r.push({ type, o, size, body: o + hdr, end: o + size }); o += size
+  }
+  return r
+}
+const top = boxes(0, b.length), moov = top.find((x) => x.type === 'moov'), mdat = top.find((x) => x.type === 'mdat')
+if (!moov || !mdat || !(moov.o < mdat.o)) throw new Error('the index (moov) must come before the data (mdat)')
+const child = (box, type) => boxes(box.body, box.end).find((x) => x.type === type)
+const chunks = [], facts = []
+for (const trak of boxes(moov.body, moov.end).filter((x) => x.type === 'trak')) {
+  const mdia = child(trak, 'mdia'), mdhd = child(mdia, 'mdhd'), hdlr = child(mdia, 'hdlr')
+  const timescale = b[mdhd.body] === 1 ? u32(mdhd.body + 20) : u32(mdhd.body + 12)
+  const handler = b.toString('latin1', hdlr.body + 8, hdlr.body + 12)
+  const kind = handler === 'vide' ? 'picture' : handler === 'soun' ? 'sound' : handler
+  const stbl = child(child(mdia, 'minf'), 'stbl')
+  const stts = child(stbl, 'stts'), stsc = child(stbl, 'stsc'), stsz = child(stbl, 'stsz'), stco = child(stbl, 'stco') ?? child(stbl, 'co64')
+  const wide = stco.type === 'co64'
+  const durs = []; for (let i = 0, n = u32(stts.body + 4); i < n; i++) { const c = u32(stts.body + 8 + i * 8), d = u32(stts.body + 12 + i * 8); for (let j = 0; j < c; j++) durs.push(d) }
+  const fixed = u32(stsz.body + 4), count = u32(stsz.body + 8)
+  const sizes = []; for (let i = 0; i < count; i++) sizes.push(fixed || u32(stsz.body + 12 + i * 4))
+  const sc = []; for (let i = 0, n = u32(stsc.body + 4); i < n; i++) sc.push({ first: u32(stsc.body + 8 + i * 12), per: u32(stsc.body + 12 + i * 12) })
+  const nChunks = u32(stco.body + 4)
+  let s = 0, t = 0
+  for (let c = 1; c <= nChunks; c++) {
+    const per = sc.filter((e) => e.first <= c).at(-1).per, entry = stco.body + 8 + (c - 1) * (wide ? 8 : 4)
+    const offset = wide ? Number(b.readBigUInt64BE(entry)) : u32(entry)
+    let size = 0; const start = t / timescale
+    for (let k = 0; k < per; k++, s++) { size += sizes[s]; t += durs[s] }
+    const stop = stops[kind], kept = stop === undefined || start < stop
+    chunks.push({ kind, entry, wide, offset, size, start, end: t / timescale, kept })
+  }
+  facts.push({ kind, timescale, samples: count, chunks: nChunks, indexEnd: t / timescale })
+}
+// The kept chunks in the file's own order, then the rest; the file ends where the rest begin.
+const order = [...chunks.filter((c) => c.kept).sort((x, y) => x.offset - y.offset), ...chunks.filter((c) => !c.kept).sort((x, y) => x.offset - y.offset)]
+const head = mdat.body, parts = [b.subarray(0, head)]
+let at = head, cutAt = null
+for (const c of order) {
+  if (!c.kept && cutAt === null) cutAt = at
+  if (c.kept) parts.push(Buffer.from(b.subarray(c.offset, c.offset + c.size)))
+  if (c.wide) b.writeBigUInt64BE(BigInt(at), c.entry); else b.writeUInt32BE(at, c.entry)
+  at += c.size
+}
+parts[0] = Buffer.from(b.subarray(0, head)) // the index, with its rewritten offsets
+const outBuf = Buffer.concat(parts)
+writeFileSync(out, outBuf, { flag: 'wx' })
+for (const f of facts) {
+  const kept = chunks.filter((c) => c.kind === f.kind && c.kept)
+  f.dataEnd = kept.length ? Math.max(...kept.map((c) => c.end)) : null
+}
+console.log(JSON.stringify({ out, spec, bytes: outBuf.length, mdatDeclared: mdat.size, cutAt: cutAt ?? outBuf.length, tracks: facts }))

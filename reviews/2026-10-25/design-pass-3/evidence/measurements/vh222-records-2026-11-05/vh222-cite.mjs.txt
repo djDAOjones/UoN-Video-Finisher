@@ -1,0 +1,36 @@
+// VH-222 #1: read-only. Which of VH-199's records already read a row: for each named scenario's cells in VH-199's runs (a later ok record supersedes
+// an earlier, as VH-199's merge), each of the 39 rows is found as M.matches finds it (every literal part of two or more characters between its
+// placeholders, in the page language's own table at the base), in one `measure` item's lines (the record's text elements); it is read when that
+// item is not clipped (`overflow.clipped`), the page has no sideways scroll and the record's state was reached.
+//   node vh222-cite.mjs <vh199 runs dir> <app root> S-18,S-19,… [--json out.json]
+import { readdirSync, readFileSync, writeFileSync, existsSync } from 'node:fs'
+import { join } from 'node:path'
+import { pathToFileURL } from 'node:url'
+const [runsDir, app, ids, flag, outJson] = process.argv.slice(2)
+const ROWS = [...new Set(Object.values(JSON.parse(readFileSync(new URL('./rows.json', import.meta.url), 'utf8'))).flat())]
+const tables = {}
+for (const tag of ['en-GB', 'zh-Hans', 'ms-MY']) { const m = await import(pathToFileURL(join(app, 'src/i18n', `${tag}.ts`)).href); tables[tag] = Object.values(m).find((v) => v?.meta?.locale === tag) }
+const msg = (lang, path) => path.split('.').reduce((v, k) => (v == null ? v : v[k]), tables[lang])
+const norm = (s) => String(s).replace(/\s+/g, ' ')
+const matches = (text, s) => { const tx = norm(text); const parts = s.split(/\{[^}]+\}/).map((p) => norm(p).trim()).filter((p) => p.length >= 2); return parts.length > 0 && parts.every((p) => tx.includes(p)) }
+const dirs = readdirSync(runsDir).filter((d) => /^run-/.test(d) && d !== 'run-01-2026-10-26T10-21-52-396Z-e3fbb5').sort((a, b) => a.replace(/^run-\d+(-part)?-/, '').localeCompare(b.replace(/^run-\d+(-part)?-/, '')))
+const want = ids.split(','), recs = {}
+for (const d of dirs) for (const f of readdirSync(join(runsDir, d)).filter((x) => x.endsWith('.json') && want.includes(x.split('__')[0]))) {
+  const j = JSON.parse(readFileSync(join(runsDir, d, f), 'utf8')); if (j.status === 'ok') recs[f.replace('.json', '')] = { ...j, dir: d }
+}
+const out = { revision: new Set(), cells: {} }
+for (const [k, j] of Object.entries(recs).sort()) {
+  out.revision.add(j.revision)
+  const items = j.instruments?.measure?.items ?? [], clipped = JSON.stringify(j.instruments?.overflow?.clipped ?? []), hs = !!j.instruments?.overflow?.hscroll
+  const rows = {}
+  for (const r of ROWS) {
+    const s = msg(j.lang, r); if (typeof s !== 'string') continue
+    const hit = items.filter((i) => { const ls = (i.lines ?? []).map((l) => l.text); return matches(ls.join(' '), s) || matches(ls.join(''), s) }) // CJK lines join with no space
+    if (!hit.length) continue
+    rows[r] = { read: j.reached?.outcome === 'pass' && !hs && hit.some((i) => !clipped.includes(i.el.slice(0, 40))), el: hit[0].el.slice(0, 90), measure: hit[0].outcome }
+  }
+  out.cells[k] = { dir: j.dir, reached: j.reached?.outcome, hscroll: hs, rows }
+}
+for (const [k, c] of Object.entries(out.cells)) console.log(k.padEnd(34), c.reached, c.hscroll ? 'HSCROLL' : '', Object.entries(c.rows).map(([r, v]) => `${r.replace(/^(warnings|preflight\.reasons|failure|result)\./, '')}${v.read ? '' : '(NOT READ)'}`).join(' '))
+console.log('records', Object.keys(out.cells).length, 'revisions', [...out.revision].join(','))
+if (flag === '--json') writeFileSync(outJson, JSON.stringify(out, (k, v) => (v instanceof Set ? [...v] : v), 1))

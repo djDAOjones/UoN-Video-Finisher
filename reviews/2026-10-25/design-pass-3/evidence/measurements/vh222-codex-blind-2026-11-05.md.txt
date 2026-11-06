@@ -1,0 +1,143 @@
+**FAIL — the candidate does not yet satisfy VH-222’s close criteria.** The records confirm VH-231’s cut-file defect, reveal a feedback-status visibility defect, and leave coverage and close tasks outstanding. No files were changed.
+
+Evidence references below use **R** for [the submitted records folder](/Users/uazjob/UoN-Video-Helper-side/vh222/reviews/2026-10-25/design-pass-3/evidence/measurements/vh222-records-2026-11-05), and **W/gN** for `/Users/uazjob/UoN-Video-Helper-side/vh222-walk/gN/runs/`. A cell key plus field identifies the record within that group.
+
+1. **Every listed row read — incomplete.**
+
+   The inventory contains 41 distinct rows. I independently compared every recorded `tpl` against the current three language modules across all 1,285 probes: **no template mismatches**. The visible matches show no broken words, unresolved placeholders or sideways overflow; the exceptions are the 17 feedback clipping readings.
+
+   However, “39 rows read whole” is too strong:
+
+   - `warnings.targetMissed.heading` is not displayed and can be retired with the source described under criterion 6.
+   - `preflight.reasons.longJobUnknown` is not read and needs an outstanding wish line.
+   - `feedback.tooLong` has three clipped readings; `feedback.someOmitted` has fourteen.
+   - The four browser-refusal rows are not each measured at all three widths. The `Here` variants have 1280/320 readings; the `Elsewhere` variants have 375 readings. Duplicate scenarios at 375 do not cover the other widths.
+
+   Evidence: **R/vh222-rows.json**, **R/vh222-rows-read.txt**, and each group probe’s `rows`, `tpl`, `page`.
+
+2. **Nothing false beside the cut-short warning — fails on this base.**
+
+   In S-23, the source panel presents the cut MKV’s readable portion as its duration: **20 seconds / 20秒钟 / 20 saat**, alongside the cut-short warning. After completion, S-23s calls that portion the whole video; S-23w does the same for the cut WebM’s five seconds. Neither finished state retains the cut-short warning.
+
+   That is the substantive truthfulness defect already assigned to **VH-231**, not a fix to build in VH-222. Merely naming VH-231 does not turn this base’s reading into a pass. The close must preserve that failing disposition and link the separately verified remedy and required re-reading.
+
+   Evidence: **R/g1.vh222-probe-*.jsonl**, fields `ctx.#source-report`, `ctx.#audio-warnings`, `ctx.#process-result`, `ctx.#status`; **R/vh222-cut-g1.txt**.
+
+3. **Scenarios and variants — substantially covered, with explicit gaps.**
+
+   The outcomes confirm:
+
+   | Group | Coverage |
+   |---|---|
+   | g1 | S-23: 36; S-23w: 36; S-23s: 9 |
+   | g2 | S-18, 19, 20, 22, 27, 89: 27 each, supplemented by citations |
+   | g3 | S-24: 0/28 reached; S-169: 36/36; S-25a/b: 27 each, supplemented by citations |
+   | g4 | S-56, 62, 64, 79a/b: 36 each |
+   | g5 | S-01b, 106, 147, 82, 90b, 91: 36 each |
+   | g6–g8 | Audio-only, browser refusals, no-tracks, decode damage, three early-ending variants, unlevellable and other failures |
+
+   S-21 and S-26a/b are not walked here. Their definitions concern the too-short trim and mobile discouragement, rather than the listed rows; that is a defensible row-based mapping, but should be stated explicitly.
+
+   **No submitted probe reads the cut WebM before Create.** S-23w’s finished reading does not substitute for that checkpoint. The proposed VH-231 S-170 evidence remains a close dependency.
+
+   Evidence: **R/g1–g8.outcomes.jsonl**; walker **scenarios.mjs:378**, **425**; **R/vh222-driver.mjs.txt**, scenario definitions.
+
+4. **Mapped first to VH-199 — counts and exclusion logic agree; verification has limits.**
+
+   The citation file yields exactly **80 eligible grid cells**: nine each for S-18/19/20/22/25a/25b/27/89, and eight for S-24. The driver excludes those keys. This explains the corresponding 27-cell groups and S-24’s 28 attempts.
+
+   The historical citations are explicitly identified as VH-199’s machine and revision, rather than being included among the 1,285 Mac Pro walks. That distinction is appropriate under the item’s express citation rule.
+
+   The citation reader, however, matches literal template fragments and reports abbreviated element text. It does not itself establish substituted values or semantic truth. The repository’s VH-199 coverage and overflow digest corroborate the run structure and absence of relevant overflow failures, but I did not locate the original cited per-cell JSON within the permitted repository evidence. **I cannot independently certify every historical row’s full wording from these extracts.**
+
+   Evidence: **R/vh222-cite-vh199-2.json**, `cells`; **R/vh222-cite.mjs.txt**, `matches` and `read`; **R/vh222-driver.mjs.txt**, `args.except`; `matrix-coverage-2026-10-27.json` and `digest-overflow-2026-10-27.md`.
+
+5. **Expected strings whole, in place and true — text identity supported; unconditional pass rejected.**
+
+   The recorded templates match `src/i18n/*.ts`. Their displayed placement and complete text are supported except for the feedback visibility issue. The cut-file context is demonstrably untrue.
+
+   Also, `resolved.whole` is not an exact-string oracle: in English and Malay `feedback.tooLong`, the resolver captures the address only through `nottingham`, although `text` correctly contains the complete `.ac.uk` address. This is an **instrument limitation, not a product truncation**.
+
+   Evidence: **R/g4.vh222-probe-vh222-base-g4.jsonl**, S-79a, `text` versus `resolved.said/subs`; **R/vh222-driver.mjs.txt**, `resolveRow`.
+
+6. **Every row ends read or properly disposed — close work required.**
+
+   - **Retire `warnings.targetMissed.heading`: supported.** Commit `12f4dd4` removed the worker’s `detectOutputWarning` call and replaced warning-only output validation with a failure. Current source has no production caller of that detector. The strings and renderer branch remain, so the accurate statement is “no longer emitted by the product”, not “deleted from the language table”.
+   - **Keep `longJobUnknown` outstanding:** `src/media/preflight.ts:123` routes null to unavailable, values above the upper threshold to very-long-job, and only the finite intermediate band to long-job. The fallback remains in `src/ui/preflight-panel.ts:116`. Its unreachability explanation is sound, but **no corresponding wish line exists in this checkout**.
+   - The plural split is legitimate: English’s `one` and `other` are separately exercised; Chinese and Malay use `other`.
+   - Browser-width gaps and feedback visibility cannot be retired as absent product sentences.
+
+   The brief says VH-155.2, VH-156.1 and VH-158.1 are in the current wish list; they are not present there. Their promoted scope is preserved in VH-222’s item file. The close should describe that actual ledger state.
+
+7. **Stage rule and standards — incomplete.**
+
+   The walks span the required languages, widths and four modes overall. They do **not** establish that every applicable row has all 36 readings, particularly the browser-refusal variants. Width and mobile identity should be varied separately to complete those readings, or an explicit recorded exception is needed.
+
+   - **1.4.10:** no sideways scroll in all 1,285 probes. Scrollable dialog content is not automatically a reflow failure.
+   - **2.4.6:** the warning headings describe their topics; no contrary heading evidence found.
+   - **3.1.5:** machine template equality and an English readability test do not establish Chinese/Malay reading level. Native review remains.
+   - **3.3.1:** the blanket “not applicable” statement is too broad: S-79a rejects a user-supplied message for length. Its textual explanation and recovery route should be assessed explicitly.
+   - **4.1.3:** the feedback messages have `role=status`, `aria-live=polite` and accessibility-tree exposure. This supports programmatic status provision, not verified speech. S-64 and S-91 are retained previous-result states; their lack of current live-region matches is not itself a missing-announcement defect.
+
+   `git diff` against the supplied base is empty. No product token, literal, control, element or walker change was introduced.
+
+   Still required: evidence corrections and missing readings/dispositions; the separate defect items; settled-machine `npm run check`, then `node tools/check.mjs`; final ledger entries and report evidence link; saved review and follow-up verdict; commit verification/check lines. I did not run the close gate during this read-only verdict.
+
+   Applicable digest rules: Nielsen **status visible and announced** and **errors say what next**, plus Carbon’s token separation and the named WCAG checks.
+
+8. **Sized — keep fixes separate.**
+
+   The evidence shows successive workers continuing under VH-222, rather than a single completed 45k session. That is consistent with handing back under the permanent ID, although the files do not establish each worker’s token usage.
+
+   VH-231 correctly owns the cut-file repair. The feedback visibility repair also needs its own fix item before VH-203. Completing evidence and ledger dispositions belongs to VH-222; expanding it into either product repair would exceed its check-only scope.
+
+**Specific points**
+
+- **(a) g1 beside the warning:** all 36 S-23 cells show the MKV warning before Create and the misleading 20-second duration. All 45 finished cells—nine MKV and 36 WebM—describe the readable portion as whole and omit the warning. This is a product defect owned by **VH-231**. The evidence does not show a warning simultaneously present on those finished pages.
+
+- **(b) Feedback clipping:** **a product visibility defect, although not a demonstrated 1.4.10 or 4.1.3 failure.**  
+  In **W/g4/S-79b__en-GB__w320__light.json**, `instruments.measure.items` puts “Some details…” on lines 6–9. The probe places the status block at **y=498–687** in a **568px** viewport. Chinese’s omission warning begins on line 7; Malay’s on line 8, with its block ending at **708px**. The important omission warning is below the visible area, despite the opening status lines being visible.  
+  `src/main.ts:3657` only updates text; it does not reveal that warning. Vertical scrolling makes the content recoverable, and the polite region exposes it programmatically, but neither establishes Nielsen’s immediate visual status requirement. S-79a similarly leaves part of its recovery instruction below the dialog’s visible area. Record the defect separately; do not dismiss all 17 readings with “its start in view”.
+
+- **(c) Cut WebM before Create:** **not evidenced.** A scenario traversing that state is not a recorded reading of its source panel and warning. Link and inspect VH-231’s S-170 checkpoint at close.
+
+- **444 `focus` failures:** **instrument configuration, not 444 page defects.**  
+  The driver supplies plain `'#file-input'`; the walker’s native scenarios use `{sel:'#file-input', ref:'file-button'}`. At 320px, S-156 measures **704px² against 976px²**, using the whole 196×52 input. S-28 measures the same **704px² against 640px²**, using the painted 120×44 button. Evidence: **W/g6**, those cells’ `instruments.focus.items`. The driver’s missing reference explains the difference.
+
+- **S-24 and S-156:** the stated reachability results are correct. All 28 S-24 probes show `veryLongJob`; none reaches the long-job predicate. S-169 reaches the replacement state in all 36 cells, with proof7 qualifying it. S-156 fails its explicit `!M.phone()` predicate in all twelve 375px cells; S-157 reaches the phone refusal. **That explains the failures but does not complete each row’s width coverage.**
+
+- **Load:** the samples align with these probe intervals:
+
+  | Group | Samples ≥8 | Cell being approached/read at the sample |
+  |---|---|---|
+  | g2 | 12:01:07, 12:02:07 | S-18, en-GB and zh-Hans, 375 dark |
+  | g2 | 12:02:38 | S-18, ms-MY, 1280 dark |
+  | g2 | 12:12:40 | S-27, en-GB, 1280 forced-light |
+  | g3 | 13:17:50 | S-24, zh-Hans, 1280 dark setup |
+  | g6 | 16:51:54 | S-156, ms-MY, 320 dark |
+  | g6 | 16:52:25 | S-157, zh-Hans, 375 forced-dark |
+  | g6 | 16:54:55 | S-159, en-GB, 1280 light |
+  | g6 | 16:56:56 | S-160, en-GB, 375 forced-dark |
+  | g6 | 16:57:26 | S-28, en-GB, 1280 light setup |
+
+  Evidence: **R/g2/g3/g6.load.log.txt**, correlated with probe `at`. These are sampled intervals, not continuous CPU measurements. The accepted g2/g6 row claims concern stable text or injected states, so they can stand under the supplied ruling. The g3 S-24 timing-dependent cell is not used as a successful long-job reading.
+
+  **Setting aside proof6 is correct:** its ledger starts at load **32.21** while qualifying a timing-dependent long-job state. Proof7 supplies the replacement evidence.
+
+- **Changed fixture hashes / proof5:** sufficient for the bounded claim that the changed fixtures still reach the intended text states, together with proof7 for S-169. Proof5 records **66 attempts, 62 reached**; the four failures are the two F17-only controls and two S-24 attempts. It does not establish byte identity or identical timing across machines, and should not be described as doing so.
+
+- **One walk serving both columns:** acceptable for this unchanged check candidate. “1,285 unmoved” is self-comparison, not independent regression evidence or proof that the page is correct.
+
+**Defects to carry forward**
+
+1. **VH-231:** cut MKV/WebM readable length presented as the whole video, with the cut warning absent from the finished state.
+2. **New separate fix item:** feedback’s omission warning and recovery information can lie below the dialog’s visible area when the status changes. Preserve the distinction between this visual-status defect and the supported live-region/reflow evidence.
+
+I found no additional broken-word, unresolved-placeholder or horizontal-overflow defect in the submitted row probes. That does not certify unmeasured cells.
+
+**What a person must still check**
+
+- Keyboard-only access to the complete feedback status and recovery action, including returning from the email application.
+- Actual screen-reader announcements for feedback, failures, cut warnings and completion—not merely live-region attributes.
+- Native Chinese and Malay clarity and reading level.
+- The separately repaired cut-file flow before Create and after completion, reading source facts, warning and result together.

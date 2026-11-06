@@ -1,0 +1,300 @@
+// VH-222 #1's driver, copied from VH-225's vh225-driver.mjs (the original untouched): the item's cells by the pass's own runner (matrix.mjs),
+// unchanged, on a plan in memory, with a read-only row probe after each scenario's own `afterMode`.
+// The probe reads, per cell, for each of the item's 39 rows (rows.json), every smallest shown element whose text holds the row in the page's own
+// table (window.__mx, M.matches): its container, text, box, lines, Latin words broken across lines, clipping by itself or a clipping ancestor,
+// whether it lies inside the viewport, and its live region; then the page's sideways scroll and the text of the containers the rows live in.
+// Nothing is written to the page. In memory only, no walker file changed: S-156 (F17 with lecture-30s.mp4 chosen), S-157 (the same as a phone,
+// S-26a's asPhone, 375 only), S-158 (an audio-only file made by VH-222 #1 in fix/),
+// S-159 (S-106's F17, the System check opened), S-160 (S-28's file as a phone), F22 (F17 in the worker), by VH-222 #2.
+//   APP_URL=… CDP_PORT=… FIX=… OUT_ROOT=… RUN_ROOT=… OUTD=… node vh222-driver.mjs walk --walker <dir> --label base --name <group> --plan cross --scenarios S-18,… --modes <list> [--langs …] [--views …]
+import { readFileSync } from 'node:fs'
+import { pathToFileURL, fileURLToPath } from 'node:url'
+import { join, resolve } from 'node:path'
+import { appendFileSync, mkdirSync } from 'node:fs'
+import { execFileSync } from 'node:child_process'
+
+const list = (s) => String(s ?? '').split(',').map((x) => x.trim()).filter(Boolean)
+const args = (() => { const a = process.argv.slice(2), o = { _: [] }; for (let i = 0; i < a.length; i++) { if (a[i].startsWith('--')) { const k = a[i].slice(2); if (a[i + 1] === undefined || a[i + 1].startsWith('--')) o[k] = true; else o[k] = a[++i] } else o._.push(a[i]) } return o })()
+
+export const MODES_MAIN = 'light,dark,forced-light,forced-dark'
+const ROWS = [...new Set(Object.values(JSON.parse(readFileSync(new URL('./rows.json', import.meta.url), 'utf8'))).flat())]
+const CONTAINERS = ['#source-status', '#source-report', '#audio-warnings', '#preflight-report', '#process-result', '#save-status', '#feedback-status', '#check-aac', '#browser-note', '#status']
+
+// VH-222 #2: the resolved reading, by the design compare's Codex only 7. The template's literal parts in order, each placeholder a capture;
+// whole is the sentence there in one piece, subs the values put in, unresolved a brace left in what the page says. Plural branches by the key's last part.
+export function resolveRow(tpl, text) {
+  const norm = (s) => String(s).replace(/\s+/g, ' ').trim(), names = []
+  const parts = norm(tpl).split(/(\{[^}]+\})/).filter((p) => p !== '')
+  const src = parts.map((p, i) => { const m = /^\{([^}]+)\}$/.exec(p); if (m) { names.push(m[1]); return i === parts.length - 1 ? '([\\s\\S]+?)(?=[.。]|$)' : '([\\s\\S]+?)' }
+    return p.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/ /g, '\\s*') }).join('')
+  let m; try { m = new RegExp(src).exec(norm(text)) } catch (e) { return { whole: false, error: String(e.message).slice(0, 80) } }
+  if (!m) return { whole: false }
+  const subs = {}; names.forEach((n, i) => { subs[n] = m[i + 1].slice(0, 120) })
+  return { whole: true, subs, said: m[0].slice(0, 400), unresolved: /\{[^}]+\}/.test(m[0]) }
+}
+const PLURAL = ['zero', 'one', 'two', 'few', 'many', 'other']
+
+export const ROW_PROBE = `(() => {
+  const M = window.__mx, de = document.documentElement, round = (n) => Math.round(n * 100) / 100
+  const resolveRow = ${resolveRow.toString()}, PLURAL = ${JSON.stringify(PLURAL)}
+  const norm = (s) => String(s).replace(/\\s+/g, ' ').trim()
+  const box = (el) => { const r = el.getBoundingClientRect(); return { l: round(r.left), t: round(r.top), r: round(r.right), b: round(r.bottom), w: round(r.width), h: round(r.height) } }
+  const rects = (range) => [...range.getClientRects()].filter((x) => x.width > 0 && x.height > 0)
+  const lines = (el) => { const r = document.createRange(); r.selectNodeContents(el); return new Set(rects(r).map((x) => Math.round(x.top))).size }
+  const broken = (el) => { const out = [], tw = document.createTreeWalker(el, NodeFilter.SHOW_TEXT); let n
+    while ((n = tw.nextNode())) { const re = /[A-Za-z0-9\\u00C0-\\u024F'’]+/g; let m; while ((m = re.exec(n.data))) { if (m[0].length < 2) continue; const r = document.createRange(); r.setStart(n, m.index); r.setEnd(n, m.index + m[0].length); if (new Set(rects(r).map((x) => Math.round(x.top))).size > 1) out.push(m[0]) } }
+    return out }
+  const shown = (el) => !!el && el.getClientRects().length > 0 && getComputedStyle(el).visibility !== 'hidden' && !el.closest('details:not([open])') && !el.closest('[hidden]') && (!el.checkVisibility || el.checkVisibility({ visibilityProperty: true, opacityProperty: true }))
+  const clip = (el) => { const r = el.getBoundingClientRect(), out = []
+    const cs0 = getComputedStyle(el); if (cs0.textOverflow === 'ellipsis' && el.scrollWidth > el.clientWidth + 1) out.push('ellipsis')
+    for (let a = el; a && a !== document.body; a = a.parentElement) { const cs = getComputedStyle(a)
+      if (a !== el && (cs.overflowX !== 'visible' || cs.overflowY !== 'visible')) { const q = a.getBoundingClientRect()
+        if ((cs.overflowX !== 'visible' && (r.left < q.left - 1 || r.right > q.right + 1)) || (cs.overflowY !== 'visible' && (r.top < q.top - 1 || r.bottom > q.bottom + 1))) out.push((a.id ? '#' + a.id : a.tagName.toLowerCase() + '.' + [...a.classList].join('.')).slice(0, 60)) }
+      if (a === el && (cs.overflowX !== 'visible') && el.scrollWidth > el.clientWidth + 1) out.push('self-x') }
+    return out }
+  const sel = (el) => { const parts = []; for (let a = el; a && a !== document.body && parts.length < 4; a = a.parentElement) { parts.unshift(a.id ? '#' + a.id : a.tagName.toLowerCase() + (a.classList.length ? '.' + [...a.classList].slice(0, 2).join('.') : '')); if (a.id) break } return parts.join(' > ') }
+  const els = [...document.body.querySelectorAll('*')].filter((el) => !/^(SCRIPT|STYLE|TEMPLATE|SVG|PATH)$/i.test(el.tagName))
+  const out = { lang: de.lang, page: { cw: de.clientWidth, sw: de.scrollWidth, hscroll: de.scrollWidth > de.clientWidth + 0.5, fontPx: parseFloat(getComputedStyle(de).fontSize) }, rows: {}, ctx: {} }
+  if (!M || !M.tables || !M.tables[de.lang]) { out.error = 'tables not loaded'; return out }
+  for (const k of ${JSON.stringify(ROWS)}) {
+    const v = M.msg(k); if (typeof v !== 'string') { out.rows[k] = { table: typeof v }; continue }
+    const hit = (el) => M.matches(el.textContent || '', k)
+    const hits = els.filter((el) => hit(el) && ![...el.children].some(hit))
+    if (!hits.length) continue
+    ;(out.tpl ??= {})[k] = v
+    out.rows[k] = hits.slice(0, 4).map((el) => { const s = shown(el), b = s ? box(el) : null, live = el.closest('[aria-live],[role=status],[role=alert]')
+      return { sel: sel(el), tag: el.tagName.toLowerCase(), shown: s, box: b, inside: !!b && b.l >= -0.5 && b.r <= de.clientWidth + 0.5, lines: s ? lines(el) : null, broken: s ? broken(el) : [], clip: s ? clip(el) : [],
+        live: live ? { sel: sel(live), role: live.getAttribute('role'), live: live.getAttribute('aria-live') } : null, text: norm(el.textContent).slice(0, 400), resolved: resolveRow(v, el.textContent || '') } })
+    const kp = k.split('.'), last = kp[kp.length - 1]
+    if (PLURAL.includes(last)) { const base = kp.slice(0, -1).join('.'), sib = M.msg(base);
+      (out.plural ??= {})[k] = ({ branch: last, branches: sib && typeof sib === 'object' ? Object.keys(sib) : [], alsoMatch: sib && typeof sib === 'object' ? Object.keys(sib).filter((b) => b !== last && hits.some((el) => M.matches(el.textContent || '', base + '.' + b))) : [] }) }
+  }
+  for (const c of ${JSON.stringify(CONTAINERS)}) { const el = document.querySelector(c); if (el && shown(el)) out.ctx[c] = norm(el.textContent).slice(0, 900) }
+  return out })()`
+
+// In memory only (no walker file changed): the new scenarios, named and proved on the base. Their helpers are the walker's own, imported read-only;
+// asPhone is S-26a's (scenarios.mjs:144–150), copied, since the walker does not export it.
+// VH-222 #2: F22, in memory (disagreement 1 of the design compare): F17 changes only the page's AudioEncoder, but the refusal is the worker's own
+// check (src/workers/job.worker.ts:614, canEncodeAudio, src/media/capability.ts:96). F22 is F17's answer in the worker: a prelude on the worker's
+// entry module, by the walker's own route and its one 'worker-prelude' route id and w.preludes map (faults.mjs:41-65, copied, since it is not exported),
+// so it composes with the walker's other worker faults as they compose with each other.
+function addFaults(FAULTS, route, unroute) {
+  if (FAULTS.F22) return
+  const prelude = async (w, id, code) => {
+    w.preludes = w.preludes ?? new Map(); w.preludes.set(id, code)
+    await route(w, 'worker-prelude', { urlPattern: '*job.worker.ts*', requestStage: 'Response', match: (p) => /job\.worker\.ts\?worker_file/.test(p.request.url),
+      handle: async (p) => { const { body, base64Encoded } = await w.page.send('Fetch.getResponseBody', { requestId: p.requestId })
+        const src = base64Encoded ? Buffer.from(body, 'base64').toString('utf8') : body
+        for (const seen of w.preludes.keys()) w.faultsSeen.push(seen + ': worker rewritten')
+        await w.page.send('Fetch.fulfillRequest', { requestId: p.requestId, responseCode: 200, responseHeaders: p.responseHeaders, body: Buffer.from([...w.preludes.values(), src].join('\n')).toString('base64') }) } })
+  }
+  FAULTS.F22 = { name: "the worker's AAC encoder refused (VH-222)",
+    for: "S-156 and S-157: F17's answer in the worker, AudioEncoder.isConfigSupported supported: false for any mp4a codec, so the worker's pre-flight (src/workers/job.worker.ts:614) gives no-aac-encode for a file with sound",
+    before: (w) => prelude(w, 'F22', `(() => { const real = AudioEncoder.isConfigSupported.bind(AudioEncoder); self.__f22 = { asked: 0 }; AudioEncoder.isConfigSupported = async (c) => { if (String(c.codec).startsWith('mp4a')) { self.__f22.asked++; return { supported: false, config: c }; } return real(c); }; })();`),
+    release: async (w) => { w.preludes?.delete('F22'); if (!w.preludes?.size) await unroute(w, 'worker-prelude') } }
+  const drop = (id) => async (w) => { w.preludes?.delete(id); if (!w.preludes?.size) await unroute(w, 'worker-prelude') }
+  // A worker decoder class whose output passes through fn(frame, n) first: n counts the instances made, in order; fn returns the frame to pass on, or null.
+  const decoderHook = (cls, fn) => `(() => { const R = self.${cls}; let made = 0; self.${cls} = class extends R { constructor(init) { const n = made++, out = init.output, f = ${fn};
+      super({ ...init, output: (x) => { let y; try { y = f(x, n); } catch (e) { y = x; } if (y) out(y); } }); } }; })();`
+  // Scales an f32 or f32-planar AudioData by k (other formats pass unchanged); poke sets one sample of the first plane to 0.999.
+  const SCALE = `(x, k, poke) => { if (!/^f32/.test(x.format)) return x; const planar = /planar/.test(x.format), planes = planar ? x.numberOfChannels : 1, parts = [];
+      for (let i = 0; i < planes; i++) { const a = new Float32Array(x.allocationSize({ planeIndex: i }) / 4); x.copyTo(a, { planeIndex: i }); if (k !== 1) for (let j = 0; j < a.length; j++) a[j] *= k; if (poke && i === 0 && a.length > 10) a[10] = 0.999; parts.push(a); }
+      const data = new Float32Array(parts.reduce((t, a) => t + a.length, 0)); let o = 0; for (const a of parts) { data.set(a, o); o += a.length; }
+      const y = new AudioData({ format: x.format, sampleRate: x.sampleRate, numberOfFrames: x.numberOfFrames, numberOfChannels: x.numberOfChannels, timestamp: x.timestamp, data }); x.close(); return y; }`
+  FAULTS.F23 = { name: "a track's decoded content stops early (VH-222)",
+    for: "S-161 (and :sound, :both): the worker's VideoDecoder and/or AudioDecoder close and drop every frame from opts.picture / opts.sound seconds on, while the file's index still declares the rest, so the pipeline's decoded end falls short of the declared one (src/media/pipeline.ts:847, ends-early.ts:237): the ends-early record's picture, sound or both line",
+    before: (w, { picture = null, sound = null } = {}) => prelude(w, 'F23', [picture != null ? decoderHook('VideoDecoder', `(x) => { if (x.timestamp >= ${Number(picture) * 1e6}) { x.close(); return null; } return x; }`) : '', sound != null ? decoderHook('AudioDecoder', `(x) => { if (x.timestamp >= ${Number(sound) * 1e6}) { x.close(); return null; } return x; }`) : ''].join('\n')),
+    release: drop('F23') }
+  FAULTS.F24 = { name: 'each decode of the sound a different level (VH-222)',
+    for: "S-162: the worker's n-th AudioDecoder scales its output by 2^-n, so each planning pass measures a different recording and the plan's predicted loudness misses the contract (src/media/pipeline.ts:386-397): the unlevellable failure, before the encode",
+    before: (w) => prelude(w, 'F24', decoderHook('AudioDecoder', `(x, n) => (${SCALE})(x, Math.pow(2, -n), false)`)),
+    release: drop('F24') }
+  FAULTS.F25 = { name: "the finished file's check reads other sound (VH-222)",
+    for: "S-163 (and :peak): once the worker has posted the finishing stage, an AudioDecoder made after it (the output check's, src/workers/job.worker.ts:316) scales by 0.25, so the output misses -16 LUFS (output-loudness), or (opts.peak) sets one sample to 0.999, a true peak over -2 dBTP with the loudness kept (output-peak)",
+    before: (w, { peak = false } = {}) => prelude(w, 'F25', `(() => { const real = self.postMessage.bind(self); self.__f25 = false; self.postMessage = (m, ...rest) => { if (m && m.kind === 'stage' && m.stage === 'finishing') self.__f25 = true; return real(m, ...rest); }; })();\n` + decoderHook('AudioDecoder', `(() => { let poked = false; return (x) => { if (!self.__f25) return x; const p = ${peak ? 'true' : 'false'} && !poked; poked = true; return (${SCALE})(x, ${peak ? 1 : 0.25}, p); }; })()`)),
+    release: drop('F25') }
+  FAULTS.F26 = { name: "the job's kept range altered on its way to the worker (VH-222)",
+    for: "S-164: a page init script rewrites the process message's keptRange to start 20 s, end 10 s, past the page's own validation, so the worker's normaliseKeptRange throws KeptRangeError (src/media/kept-range.ts:56-79), classified bad-trim (src/workers/failure.ts:50)",
+    before: async (w) => { w.scriptF26 = (await w.page.send('Page.addScriptToEvaluateOnNewDocument', { source: `(() => { const real = Worker.prototype.postMessage; window.__f26 = 0; Worker.prototype.postMessage = function (m, ...rest) { if (m && m.kind === 'process') { window.__f26++; m = { ...m, keptRange: { startSeconds: 20, endSeconds: 10 } }; } return real.call(this, m, ...rest); }; })();` })).identifier },
+    release: async (w) => { if (w.scriptF26) await w.page.send('Page.removeScriptToEvaluateOnNewDocument', { identifier: w.scriptF26 }); w.scriptF26 = null } }
+  FAULTS.F27 = { name: "the worker's estimate not finite (VH-222)",
+    for: "S-165: with S-25a's F13 and file (a very long job), every estimatedSeconds the worker posts above 0 becomes Infinity, the non-finite estimate no fixture gives, so the very-long-job reason has no time to say (src/ui/preflight-panel.ts:112-114, src/ui/format.ts:69)",
+    before: (w) => prelude(w, 'F27', `(() => { const real = self.postMessage.bind(self); const fix = (v, d) => { if (!v || typeof v !== 'object' || d > 6) return v; if (Array.isArray(v)) return v.map((x) => fix(x, d + 1)); const o = {}; for (const [k, x] of Object.entries(v)) o[k] = k === 'estimatedSeconds' && typeof x === 'number' && x > 0 ? Infinity : (x instanceof Blob || ArrayBuffer.isView(x) || x instanceof ArrayBuffer ? x : fix(x, d + 1)); return o; }; self.__f27 = 0; self.postMessage = (m, ...rest) => { const y = fix(m, 0); if (JSON.stringify(y) !== JSON.stringify(m)) self.__f27++; return real(y, ...rest); }; })();`),
+    release: drop('F27') }
+}
+
+function newScenarios(S, F17, applyFault) {
+  const asPhone = async (w) => w.page.send('Emulation.setUserAgentOverride', {
+    userAgent: 'Mozilla/5.0 (Linux; Android 14; Pixel 8) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Mobile Safari/537.36',
+    platform: 'Linux armv8l',
+    userAgentMetadata: { brands: [{ brand: 'Chromium', version: '155' }, { brand: 'Google Chrome', version: '155' }], fullVersionList: [{ brand: 'Chromium', version: '155.0.8059.85' }, { brand: 'Google Chrome', version: '155.0.8059.85' }], platform: 'Android', platformVersion: '14.0.0', architecture: '', model: 'Pixel 8', mobile: true },
+  })
+  return {
+    'S-156': { name: 'VH-222: no AAC encoder (F17) and a video with audio chosen: the refusal in Chrome on a computer',
+      state: `!M.phone() && M.says('preflight.reasons.noAacEncodeHere', { remedy: { msg: 'preflight.chromeLacks' } }, '#source-status')`,
+      setup: async (w, lang) => { await applyFault(w, 'F17'); await applyFault(w, 'F22'); await S.ready(w, lang, 'lecture-30s.mp4') },
+      variants: { f17only: { name: 'S-156 with F17 alone (the design\'s first route, disagreement 1)', setup: async (w, lang) => { await applyFault(w, 'F17'); await S.ready(w, lang, 'lecture-30s.mp4') }, faults: ['F17'] } },
+      focus: ['#file-input'], faults: ['F17', 'F22'], fixtures: ['lecture-30s.mp4'] },
+    'S-157': { name: 'VH-222: no AAC encoder (F17) and a video with audio chosen, as a phone: the refusal elsewhere',
+      views: ['w375'], viewsWhy: "the phone verdict needs the phone view (userAgentData.mobile, src/media/capability.ts:72), as S-26a's",
+      state: `M.phone() && M.says('preflight.reasons.noAacEncodeElsewhere', { remedy: { msg: 'preflight.tryChrome' } }, '#source-status')`,
+      setup: async (w, lang) => { await asPhone(w); await applyFault(w, 'F17'); await applyFault(w, 'F22'); await S.ready(w, lang, 'lecture-30s.mp4') },
+      focus: ['#file-input'], faults: ['F17', 'F22'], fixtures: ['lecture-30s.mp4'] },
+    // VH-222 #2, the nine rows no existing scenario reaches (the orchestrator's word: S-161 to S-168, F26 to F28 added; build them here).
+    // VH-222 #3: F23 (decoder output dropped) hung the job to the walker's 10-minute timeout in proof2 (S-161 at 1280 and 320), so S-161 reads
+    // cut fixtures instead, made by vh222-cut-tracks.mjs from lecture-30s.mp4: the index lists every chunk, the data stops early per track.
+    'S-161': { name: 'VH-222: the picture stops at 20 s of 30 (a cut fixture, VH-222 #3): the ends-early record, picture',
+      state: `M.finished() && M.has('result.endedEarly.picture', '#process-result')`,
+      setup: async (w, lang) => { await S.ready(w, lang, join(process.env.FIX, 'endsearly-picture20-30s.mp4')); await create(w); await w.waitRunning(); await w.waitFinished() },
+      variants: {
+        sound: { name: 'S-161, the sound stops at 20 s of 30 (a cut fixture): the ends-early record, sound', state: `M.finished() && M.has('result.endedEarly.sound', '#process-result')`,
+          setup: async (w, lang) => { await S.ready(w, lang, join(process.env.FIX, 'endsearly-sound20-30s.mp4')); await create(w); await w.waitRunning(); await w.waitFinished() } },
+        both: { name: 'S-161, the picture stops at 15 s and the sound at 22 s of 30 (a cut fixture): the ends-early record, both', state: `M.finished() && M.has('result.endedEarly.both', '#process-result')`,
+          setup: async (w, lang) => { await S.ready(w, lang, join(process.env.FIX, 'endsearly-p15s22-30s.mp4')); await create(w); await w.waitRunning(); await w.waitFinished() } } },
+      focus: ['#file-input'], faults: [], fixtures: [] },
+    'S-162': { name: 'VH-222: each decode of the sound a different level (F24): the unlevellable failure',
+      state: `M.res() === 'failure' && M.has('failure.unlevellable.what', '#process-result') && M.has('failure.unlevellable.next', '#process-result')`,
+      setup: async (w, lang) => { await applyFault(w, 'F24'); await S.ready(w, lang, 'lecture-30s.mp4'); await create(w); await w.waitFailed() },
+      focus: ['#file-input'], faults: ['F24'], fixtures: ['lecture-30s.mp4'] },
+    'S-163': { name: "VH-222: the finished file's check reads the sound 12 dB down (F25): the output-loudness failure",
+      state: `M.res() === 'failure' && M.has('failure.outputLoudness.what', '#process-result')`,
+      setup: async (w, lang) => { await applyFault(w, 'F25'); await S.ready(w, lang, 'lecture-30s.mp4'); await create(w); await w.waitFailed() },
+      variants: { peak: { name: "S-163, the finished file's check reads one sample at 0.999 (F25 peak): the output-peak failure", state: `M.res() === 'failure' && M.has('failure.outputPeak.what', '#process-result')`,
+        setup: async (w, lang) => { await applyFault(w, 'F25', { peak: true }); await S.ready(w, lang, 'lecture-30s.mp4'); await create(w); await w.waitFailed() } } },
+      focus: ['#file-input'], faults: ['F25'], fixtures: ['lecture-30s.mp4'] },
+    'S-164': { name: "VH-222: the job's kept range altered past the page's validation (F26): the bad-trim failure",
+      state: `M.res() === 'failure' && M.has('failure.badTrim.next', '#process-result')`,
+      setup: async (w, lang) => { await applyFault(w, 'F26'); await S.ready(w, lang, 'lecture-30s.mp4'); await create(w); await w.waitFailed() },
+      focus: ['#file-input'], faults: ['F26'], fixtures: ['lecture-30s.mp4'] },
+    'S-165': { name: "VH-222: S-25a's very long job with the worker's estimate not finite (F13, F27): the reason with no time",
+      state: `M.verdict() === 'warning' && M.has('preflight.reasons.veryLongJobUnknown', '#preflight-report')`,
+      setup: async (w, lang) => { await applyFault(w, 'F13'); await applyFault(w, 'F27'); await S.ready(w, lang, 'still-10800s.mp4') },
+      focus: ['#file-input'], faults: ['F13', 'F27'], fixtures: ['still-10800s.mp4'] },
+    'S-166': { name: 'VH-222: an MP4 holding only a text track (made by VH-222 #2): the no-tracks failure',
+      state: `M.has('failure.unreadable.noTracks', '#source-status') && M.el('#step-trim').hidden`,
+      setup: async (w, lang) => { await S.fresh(w, lang); await w.setFiles(join(process.env.FIX, 'notracks-text.mp4')); await w.waitSettled(); await sleepMs(1500) },
+      focus: ['#file-input'], faults: [], fixtures: [] },
+    'S-167': { name: "VH-222: S-27's damage at two moments (12 s and 20 s; made by VH-222 #2): the decode-damage line's other branch",
+      state: `!!M.verdict() && M.has('warnings.decodeDamage.heading', '#audio-warnings')`,
+      setup: async (w, lang) => S.ready(w, lang, join(process.env.FIX, 'burst2-float-30s.mov')),
+      focus: ['#file-input'], faults: [], fixtures: [] },
+    'S-160': { name: "VH-222: S-28's blocked file (prores-1080p.mov) as a phone: the decoder's refusal elsewhere",
+      views: ['w375'], viewsWhy: "the phone verdict needs the phone view (userAgentData.mobile, src/media/capability.ts:72), as S-26a's",
+      state: `M.phone() && M.says('preflight.reasons.noSourceDecodeElsewhere', { remedy: { msg: 'preflight.tryChrome' } }, '#source-status')`,
+      setup: async (w, lang) => { await asPhone(w); await S.ready(w, lang, 'prores-1080p.mov') },
+      focus: ['#file-input'], faults: [], fixtures: ['prores-1080p.mov'] },
+    'S-158': { name: 'VH-222: an audio-only file (made by VH-222 #1: a 440 Hz sine, AAC, no picture)',
+      state: `M.has('failure.unreadable.soundOnly', '#source-status') && M.el('#step-trim').hidden`,
+      setup: async (w, lang) => { await S.fresh(w, lang); await w.setFiles(join(process.env.FIX, 'audio-only-30s.mp4')); await w.waitSettled(); await sleepMs(1500) },
+      focus: ['#file-input'], faults: [], fixtures: [] },
+    'S-159': { name: 'VH-222: no AAC encoder (F17), the System check opened: its AAC row says not supported (S-106\'s setup, then the summary pressed, as S-82)',
+      state: `M.el('#system-check').open && M.el('#check-aac')?.dataset.state === 'warn' && M.has('systemCheck.values.aacNotSupported', '#check-aac') && ![...document.querySelectorAll('#checks .check')].some((r) => r.dataset.state === 'pending')`,
+      setup: async (w, lang) => { await applyFault(w, 'F17'); await S.fresh(w, lang); await w.click('#system-check summary'); await sleepMs(300) },
+      focus: ['#system-check summary'], faults: ['F17'], fixtures: [] },
+    // VH-222 #5, Orchestrator #39's ruling (hand-over 4): S-24's long-job state (20–60 min) on a still sized for the Mac Pro's longJob band,
+    // since still-10800s.mp4 reads veryLongJob here ("about 1 hour 5 minutes", proof5). S-24's own entry, state, hold, focus and asserts as they stand;
+    // only the file differs: still-6600s.mp4, made by fixtures.sh:76-80's still recipe with D=6600 on this Mac's ffmpeg (9.0.2-tessus).
+    'S-169': { ...S.SCENARIOS['S-24'], name: "VH-222: S-24's long job, 20–60 min, on a still sized for the Mac Pro's longJob band (still-6600s.mp4, made by VH-222 #5)",
+      setup: async (w, lang) => S.ready(w, lang, 'still-6600s.mp4'),
+      faults: [], fixtures: ['still-6600s.mp4'] },
+  }
+}
+const sleepMs = (ms) => new Promise((r) => setTimeout(r, ms))
+// The walker's create (scenarios.mjs:152-155), copied, since it is not exported.
+async function create(w) { if (await w.evaluate(`(() => { const M = window.__mx; return M.ack(); })()`)) { await w.click(w.acknowledgeButton()); await sleepMs(200) } await w.click(w.createButton()) }
+
+function power() {
+  const sh = (cmd, a) => execFileSync(cmd, a, { encoding: 'utf8' })
+  const batt = sh('pmset', ['-g', 'batt']), pm = sh('pmset', ['-g']), up = sh('uptime', []).trim()
+  const ac = /AC Power/.test(batt), level = Number((batt.match(/(\d+)%/) ?? [])[1]), mode = Number((pm.match(/^\s*powermode\s+(\d+)/m) ?? [])[1])
+  return { at: new Date().toISOString(), source: ac ? 'AC' : 'battery', level, powermode: mode, load: Number((up.match(/load averages?: ([\d.]+)/) ?? [])[1]), ok: ac || (level > 50 && !(/lowpowermode\s+1/.test(pm) || mode === 1)) }
+}
+
+// The views PLANS declares for a scenario (every plan, parts registered), in the walker's order.
+function declaredViews(PLANS, VIEWS, id) {
+  const seen = new Set()
+  for (const fn of Object.values(PLANS)) { let recs; try { recs = fn() } catch { continue } for (const r of recs ?? []) if (r.id === id) seen.add(r.view) }
+  return Object.keys(VIEWS).filter((v) => seen.has(v))
+}
+function declaresRM(PLANS, id) {
+  for (const fn of Object.values(PLANS)) { let recs; try { recs = fn() } catch { continue } if ((recs ?? []).some((r) => r.id === id && r.mode === 'reduced-motion')) return true }
+  return false
+}
+
+async function build(walker) {
+  const at = (f) => import(pathToFileURL(join(walker, f)).href)
+  const S = await at('scenarios.mjs'); await at('parts.mjs')
+  const { VIEWS } = await at('qualify.mjs')
+  const { applyFault, FAULTS, route, unroute } = await at('faults.mjs')
+  addFaults(FAULTS, route, unroute)
+  // VH-222 #2: the walker wraps each scenario's state and hold so its predicates read window.__mx as M (scenarios.mjs:3177-3179), at module load;
+  // a scenario added in memory is wrapped the same way, or its predicate throws and reads false (the first proof walk, 10:30Z).
+  const wrapM = (expr) => `(() => { const M = window.__mx; return (${expr}); })()`
+  // VH-222 #3: a variant with its own state is wrapped too, its hold its own (S-161:sound, :both and S-163:peak read false unwrapped in proof3).
+  for (const [id, sc] of Object.entries(newScenarios(S, 'F17', applyFault))) if (!S.SCENARIOS[id]) { sc.hold = wrapM(sc.hold ?? sc.state); sc.state = wrapM(sc.state)
+    for (const v of Object.values(sc.variants ?? {})) if (v.state) { v.hold = wrapM(v.hold ?? v.state); v.state = wrapM(v.state) }
+    S.SCENARIOS[id] = sc }
+  const plan = args.plan ?? 'cross'
+  let records
+  if (plan === 'cross') {
+    const modes = list(args.modes ?? MODES_MAIN)
+    records = list(args.scenarios).flatMap((spec) => {
+      const [id, variant] = spec.split(':'), sc = S.SCENARIOS[id]
+      if (!sc) throw new Error('no scenario ' + id)
+      const langs = list(args.langs ?? 'en-GB,zh-Hans,ms-MY').filter((l) => !sc.langs || sc.langs.includes(l))
+      // VH-222: the stage rule's three widths are asked by --views; a scenario that restricts its views (S-26a's phone) keeps its restriction.
+      const asked = args.views ? list(args.views) : declaredViews(S.PLANS, VIEWS, id), allowed = sc.views ?? Object.keys(VIEWS)
+      const views = asked.filter((v) => allowed.includes(v) && VIEWS[v])
+      const rm = args.rm && declaresRM(S.PLANS, id) ? langs.map((lang) => ({ id, lang, view: 'w1280', mode: 'reduced-motion' })) : []
+      return [...langs.flatMap((lang) => views.flatMap((view) => modes.map((mode) => ({ id, lang, view, mode })))), ...rm].map((r) => (variant ? { ...r, variant } : r))
+    })
+  } else if (plan === 'smoke') records = S.PLANS.smoke().filter((r) => !list(args.skip).includes(r.id))
+  else if (plan === 'titles') records = list(args.scenarios ?? 'S-48,S-53,S-56,S-52').flatMap((id) => list(args.langs ?? 'en-GB,zh-Hans,ms-MY').map((lang) => ({ id, lang, view: 'w1280', mode: 'light' })))
+  else throw new Error('plan ' + plan)
+  // VH-222: cells VH-199 already read are cited, not walked again: --except names a cite file (vh222-cite.mjs --json) whose cells with every found row read are dropped.
+  if (args.except) { const c = JSON.parse(readFileSync(args.except, 'utf8')).cells, drop = new Set(Object.entries(c).filter(([, v]) => v.reached === 'pass' && !v.hscroll && Object.values(v.rows).length && Object.values(v.rows).every((r) => r.read)).map(([k]) => k))
+    records = records.filter((r) => !drop.has([r.id, r.lang, r.view, r.mode].join('__'))) }
+  return { S, records }
+}
+
+async function walk() {
+  for (const k of ['APP_URL', 'CDP_PORT', 'FIX', 'OUT_ROOT', 'RUN_ROOT', 'OUTD']) if (!process.env[k]) throw new Error('set ' + k)
+  const walker = resolve(args.walker), label = args.label ?? 'before'
+  const matrixUrl = pathToFileURL(join(walker, 'matrix.mjs')).href
+  const at = (f) => import(new URL('./' + f, matrixUrl).href)
+  const { S, records } = await build(walker)
+  const { SCENARIOS, PLANS } = S
+  const { sleep } = await at('walk.mjs')
+  const plan = `vh222-${label}-${args.name ?? 'run'}`, p = power()
+  mkdirSync(process.env.RUN_ROOT, { recursive: true })
+  appendFileSync(join(process.env.RUN_ROOT, 'vh222-ledger.jsonl'), JSON.stringify({ plan, label, power: p, walker, records: records.length, args }) + '\n')
+  if (!p.ok) { console.log('POWER-STOP'); process.exit(3) }
+  const OUT = join(process.env.RUN_ROOT, `vh222-probe-${plan}.jsonl`)
+  const wrap = (id, vid, orig) => async (w) => {
+    // VH-219's in-memory spacing modes (as VH-210's driver): the prefix sets the colours, this adds the walker's own 1.4.12 sheet.
+    if (/.-spacing$/.test(w.qualMode)) { await w.spacing(true); await sleep(100) }
+    if (orig) await orig(w)
+    let g
+    try { g = await w.evaluate(ROW_PROBE) } catch (e) { g = { error: String(e.message ?? e).slice(0, 200) } }
+    appendFileSync(OUT, JSON.stringify({ plan, cell: w.name.split('/').pop(), walk: w.name, id, ...(vid ? { variant: vid } : {}), mode: w.qualMode, at: new Date().toISOString(), ...g }) + '\n')
+  }
+  for (const id of [...new Set(records.map((r) => r.id))]) {
+    const orig = SCENARIOS[id]; if (!orig) continue // a route: the walker's own records only, no hook
+    SCENARIOS[id] = { ...orig, afterMode: wrap(id, null, orig.afterMode) }
+    const vs = { ...(orig.variants ?? {}) }
+    if (Object.keys(vs).length) SCENARIOS[id].variants = Object.fromEntries(Object.entries(vs).map(([v, x]) => [v, { ...x, afterMode: wrap(id, v, x.afterMode ?? orig.afterMode) }]))
+  }
+  PLANS[plan] = () => records.map((r) => ({ ...r }))
+  process.argv = [process.argv[0], fileURLToPath(matrixUrl), plan]
+  await import(matrixUrl)
+}
+
+// Read-only: the plan's records, by `node vh222-driver.mjs count --walker <dir> --plan … [--scenarios …] [--modes …] [--rm]`.
+async function count() {
+  const { records } = await build(resolve(args.walker))
+  const by = {}; for (const r of records) { const k = r.id + (r.variant ? ':' + r.variant : ''); by[k] = (by[k] ?? 0) + 1 }
+  console.log('records', records.length, JSON.stringify(by))
+}
+if (args._[0] === 'walk') await walk()
+else if (args._[0] === 'count') await count()
+else if (args._[0] !== 'lib') { console.log('usage: node vh222-driver.mjs walk|count --walker <dir> [--label l --name n] --plan cross|smoke|titles [--scenarios …] [--modes …] [--langs …] [--rm] [--skip …]'); process.exit(2) }

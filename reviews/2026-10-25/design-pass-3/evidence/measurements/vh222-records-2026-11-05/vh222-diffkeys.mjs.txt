@@ -1,0 +1,23 @@
+// usage: node diffkeys.mjs <repo> <rev> [file]  -> dotted keys whose English value changed in <rev>
+import { execFileSync } from 'node:child_process';
+import { writeFileSync, mkdtempSync } from 'node:fs';
+import { join } from 'node:path';
+const [repo, rev, file = 'src/i18n/en-GB.ts'] = process.argv.slice(2);
+const dir = mkdtempSync(join(process.env.SP, 'k-'));
+async function load(r) {
+  const src = execFileSync('git', ['-C', repo, 'show', `${r}:${file}`], { encoding: 'utf8', maxBuffer: 1 << 26 });
+  const p = join(dir, `${r.replace(/[^a-z0-9]/gi, '_')}.ts`);
+  writeFileSync(p, src.replace(/\}\s*as const\s*;?/g, '};').replace(/\}\s*satisfies\s+[^;]+;/g, '};'));
+  const m = await import(p);
+  return Object.values(m)[0];
+}
+function flat(o, pre = '', out = {}) {
+  for (const [k, v] of Object.entries(o)) {
+    const key = pre ? `${pre}.${k}` : k;
+    if (v && typeof v === 'object') flat(v, key, out); else out[key] = v;
+  }
+  return out;
+}
+const a = flat(await load(`${rev}^`)), b = flat(await load(rev));
+for (const k of Object.keys(b)) if (a[k] !== b[k]) console.log(`${k}\t${a[k] === undefined ? 'NEW' : 'CHANGED'}`);
+for (const k of Object.keys(a)) if (!(k in b)) console.log(`${k}\tREMOVED`);

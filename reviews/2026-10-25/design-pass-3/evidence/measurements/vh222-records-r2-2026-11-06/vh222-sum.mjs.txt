@@ -1,0 +1,54 @@
+// VH-222 #1: read-only summary of the row probes. For each group under the walk folder: each cell's reached outcome (the walker's own record)
+// and, for each of the 41 rows (rows.json), whether the cell shows it and whether it is read: shown, inside the viewport, unclipped, no Latin word broken,
+// the page without sideways scroll, in a reached cell. A row a scenario shows in any of its cells is expected in all of them.
+//   node vh222-sum.mjs <walk dir> <group>[,<group>…] [--json out.json]
+import { existsSync, readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
+import { join } from 'node:path'
+const [walk, gs, flag, outJson] = process.argv.slice(2)
+const ROWS = [...new Set(Object.values(JSON.parse(readFileSync(new URL('./rows.json', import.meta.url), 'utf8'))).flat())]
+const cells = {} // key id|lang|view|mode -> { reached, status, probe, group }
+for (const g of gs.split(',')) {
+  const runs = join(walk, g, 'runs'); if (!existsSync(runs)) { console.log('no runs', g); continue }
+  for (const e of readdirSync(runs)) {
+    const p = join(runs, e)
+    if (statSync(p).isDirectory()) { for (const f of readdirSync(p).filter((x) => /^S-\d+.*__.*\.json$/.test(x))) { const j = JSON.parse(readFileSync(join(p, f), 'utf8')); const k = [j.key ? j.key.split('__')[0] : j.id, j.lang, j.view, j.mode].join('|'); (cells[k] ??= {}).reached = j.reached?.outcome; cells[k].status = j.status; cells[k].group = g; cells[k].why = j.reached?.problems?.slice?.(0, 2) } }
+    else if (/-probe-.*\.jsonl$/.test(e)) for (const l of readFileSync(p, 'utf8').trim().split('\n').filter(Boolean)) { const j = JSON.parse(l); const lv = /-(en-GB|zh-Hans|ms-MY)-(w\d+)/.exec(j.cell) ?? []; const k = [j.id + (j.variant ? '~' + j.variant : ''), lv[1], lv[2], j.mode].join('|'); /* VH-222 #2: the walk's cell is a slug (id-variant-lang-view), not __-joined */ (cells[k] ??= {}).probe = j; cells[k].group ??= g }
+  }
+}
+// VH-222 #2: a read row is also whole as a sentence, nothing left in braces (the probe's resolved reading; a probe without it, before #2, is read as before).
+const ok = (h) => h.shown && h.inside && !h.clip.length && !h.broken.length && (!h.resolved || (h.resolved.whole && !h.resolved.unresolved))
+// VH-222 #2: a row whose template's literal parts all lie within another found row's, on the same element, is that row's sentence read by
+// its shared words (noAacEncodeHere's 'This browser cannot add audio to a video file. {remedy}' inside noAacEncodeElsewhere's): not a reading of it.
+const lits = (t) => String(t).split(/\{[^}]+\}/).map((x) => x.replace(/\s+/g, ' ').trim()).filter((x) => x.length >= 2)
+function subsumed(probe) {
+  const out = new Set(), T = probe?.tpl ?? {}, R = probe?.rows ?? {}
+  for (const a of Object.keys(T)) for (const b of Object.keys(T)) { if (a === b || !Array.isArray(R[a]) || !Array.isArray(R[b])) continue
+    const la = lits(T[a]), lb = lits(T[b]).join(' | ')
+    if (lb.length > la.join(' | ').length && la.every((x) => lb.includes(x)) && R[a].every((h) => R[b].some((g) => g.sel === h.sel))) out.add(a) }
+  return out
+}
+for (const c of Object.values(cells)) if (c.probe) { c.subsumed = subsumed(c.probe); for (const r of c.subsumed) { (c.probe.subsumedRows ??= {})[r] = c.probe.rows[r]; delete c.probe.rows[r] } }
+const byScenario = {}
+for (const [k, c] of Object.entries(cells)) { const id = k.split('|')[0]; (byScenario[id] ??= []).push([k, c]) }
+const result = { cells: Object.keys(cells).length, reached: 0, scenarios: {}, rows: {} }
+for (const [id, list] of Object.entries(byScenario).sort()) {
+  const expected = new Set(); for (const [, c] of list) for (const [r, hits] of Object.entries(c.probe?.rows ?? {})) if (Array.isArray(hits) && hits.some((h) => h.shown)) expected.add(r)
+  const sc = result.scenarios[id] = { cells: list.length, reached: 0, noProbe: 0, hscroll: [], rows: [...expected] }
+  for (const [k, c] of list) {
+    if (c.reached === 'pass') { sc.reached++; result.reached++ }
+    if (!c.probe) sc.noProbe++
+    if (c.probe?.page?.hscroll) sc.hscroll.push(k)
+    for (const r of expected) {
+      const R = (result.rows[r] ??= { read: 0, cells: 0, scenarios: new Set(), flawed: [], absent: [], unreached: [] }); R.cells++; R.scenarios.add(id)
+      const hits = c.probe?.rows?.[r]
+      if (c.reached !== 'pass') { R.unreached.push(k); continue }
+      if (!Array.isArray(hits) || !hits.some((h) => h.shown)) { R.absent.push(k); continue }
+      if (hits.some(ok) && !c.probe.page.hscroll) R.read++
+      else R.flawed.push(`${k} ${JSON.stringify(hits.filter((h) => h.shown).map((h) => ({ sel: h.sel, inside: h.inside, clip: h.clip, broken: h.broken, whole: h.resolved?.whole, unresolved: h.resolved?.unresolved })))}`.slice(0, 400))
+    }
+  }
+}
+for (const r of ROWS) { const R = result.rows[r]; console.log(r.padEnd(42), R ? `read ${R.read}/${R.cells} in ${[...R.scenarios].join(' ')}${R.flawed.length ? ` FLAWED ${R.flawed.length}` : ''}${R.absent.length ? ` ABSENT ${R.absent.length}` : ''}${R.unreached.length ? ` UNREACHED ${R.unreached.length}` : ''}` : 'not shown in any walked cell') }
+for (const [id, s] of Object.entries(result.scenarios)) console.log(id.padEnd(8), `cells ${s.cells} reached ${s.reached}${s.noProbe ? ` noProbe ${s.noProbe}` : ''}${s.hscroll.length ? ` hscroll ${s.hscroll.length}` : ''}`)
+console.log('total cells', result.cells, 'reached', result.reached)
+if (flag === '--json') writeFileSync(outJson, JSON.stringify(result, (k, v) => (v instanceof Set ? [...v] : v), 1))

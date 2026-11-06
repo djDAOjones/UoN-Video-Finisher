@@ -1,0 +1,26 @@
+<!-- markdownlint-disable -->
+
+# VH-222 #7 — the g9 compare: Claude's reading and Codex's blind reading
+
+- Claude's `vh222-claude-g9.md` (4aeab00d2ccfbbb1) saved 23:30:10Z. Codex's `vh222-codex-g9.md` (4f19d7e94a286eaf; run 23:29:44–23:31:59Z from `vh222-codex-g9-brief.md`) opened 23:32:10Z, after.
+- Verdicts as given: Claude "PASS"; Codex "PASS with notes — g9 supplies the 24 missing readings with qualified, additive scenarios. “Inside the viewport” means within its width; speech and reading-level conformance remain unproved."
+
+## Agreed
+- The walker change is S-173 and S-174 alone (+24 lines), additive, within the criteria; `fixOnly` is right; every plan's output is the same before and after (Claude 35 `PLANS` entries, Codex 33 registered plans); `GAPS` gains two lines; the revision changes, 9c52269607bccc4c → 6e7fd163e4f3d0bc.
+- proof8 qualifies both IDs; the controls (S-156 not reached, S-28 reading `Elsewhere`) show the predicate turns on the user agent.
+- 24 of 24 reached; each `Here` sentence is the language table's, unclipped, no Latin word broken, no sideways scroll, in `#source-block` and whole in the polite `#source-status`.
+- The condition is Chrome on a computer by `userAgentData.mobile` false and no phone token; the heading is the block's "This cannot run here." (and its translations), not the phone verdict; `Here` is the right branch.
+- 2.4.6, 3.3.1 and 4.1.3 as read; Nielsen 1 and 9 hold. No defect, nothing for a fix item. Load below 8 throughout, no timing reading.
+
+## Codex only, adopted for the r1 page
+1. **Codex's full-text check:** all 24 visible bodies match the language table exactly, the whole `chromeLacks` remedy included, which closes the `resolveRow` limit for g9.
+2. **`fixOnly` keeps S-173 out of the plans but does not make it runnable without the driver** (F22). The page says S-173 runs by `vh222-driver.mjs`.
+3. **proof8 qualifies the user agent's restoration, not F22's necessity;** F22's necessity rests on proof5's control on this Mac (S-156:f17only, F17 alone, not reached 0/2; proof2 likewise on the MacBook Pro), named.
+4. **The condition is emulation:** headless Chrome 157 on macOS, the 375 view's mobile metrics and five-point touch kept, the desktop user agent restored. Not a physical phone or a real narrow window.
+5. **1.4.10's 320 px condition** for these rows is read at 320 px by S-156 and S-28 in the first table; g9 alone shows 375 px only. **3.1.5 and speech** stay a person's checks. The broken-word check covers Latin words only. This Mac prints no power-mode line; AC is recorded.
+
+## Disagreed, settled by the evidence
+- **"Inside the viewport."** Claude wrote that each body lies inside the viewport. Codex: the probe's `inside` checks the left and right bounds only (`vh222-driver.mjs:66`), and in 20 of the 24 cells part or all of the visible body lies below the first 812 px screen (S-173 en-GB 716–842, zh-Hans 884–989, ms-MY 977–1124; S-174 588–714, 780–885, 825–972). **Claude concedes:** "inside" means within the width. Both read it as no defect: the block is in the page's flow after the chosen file's panel, reached by scrolling the page, not clipped or hidden, and announced whole by the polite status; the same positions are in the first table's 375 px phone-view cells (S-157 716–821 to 977–1124, S-160 588–756 to 825–1056) and 320 px cells (S-28 687–855 to 964–1174), whose `inside` was the same width-only test. The r1 page states the meaning and the vertical positions; the first table is not rewritten.
+
+## Result
+g9 stands: the two `Here` rows read at 375 px, 24 of 24, no defect. The r1 page carries points 1 to 5 and the disagreement's settlement. Nothing for the orchestrator to rule.

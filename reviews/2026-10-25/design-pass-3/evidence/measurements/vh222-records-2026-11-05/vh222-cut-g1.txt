@@ -1,0 +1,85 @@
+S-23   en-GB   w1280 light        pass      panel 20 seconds | warning SHOWN | status names it | no record | status: Device check complete. Ready to go. This should take about 10 seconds.
+S-23   en-GB   w1280 dark         pass      panel 20 seconds | warning SHOWN | status names it | no record | status: Device check complete. Ready to go. This should take about 10 seconds.
+S-23   en-GB   w1280 forced-light pass      panel 20 seconds | warning SHOWN | status names it | no record | status: Device check complete. Ready to go. This should take about 10 seconds.
+S-23   en-GB   w1280 forced-dark  pass      panel 20 seconds | warning SHOWN | status names it | no record | status: Device check complete. Ready to go. This should take about 10 seconds.
+S-23   en-GB   w375  light        pass      panel 20 seconds | warning SHOWN | status names it | no record | status: Device check complete. Ready to go. This should take about 10 seconds.
+S-23   en-GB   w375  dark         pass      panel 20 seconds | warning SHOWN | status names it | no record | status: Device check complete. Ready to go. This should take about 10 seconds.
+S-23   en-GB   w375  forced-light pass      panel 20 seconds | warning SHOWN | status names it | no record | status: Device check complete. Ready to go. This should take about 10 seconds.
+S-23   en-GB   w375  forced-dark  pass      panel 20 seconds | warning SHOWN | status names it | no record | status: Device check complete. Ready to go. This should take about 10 seconds.
+S-23   en-GB   w320  light        pass      panel 20 seconds | warning SHOWN | status names it | no record | status: Device check complete. Ready to go. This should take about 10 seconds.
+S-23   en-GB   w320  dark         pass      panel 20 seconds | warning SHOWN | status names it | no record | status: Device check complete. Ready to go. This should take about 10 seconds.
+S-23   en-GB   w320  forced-light pass      panel 20 seconds | warning SHOWN | status names it | no record | status: Device check complete. Ready to go. This should take about 10 seconds.
+S-23   en-GB   w320  forced-dark  pass      panel 20 seconds | warning SHOWN | status names it | no record | status: Device check complete. Ready to go. This should take about 10 seconds.
+S-23   zh-Hans w1280 light        pass      panel 20秒钟       | warning SHOWN | status names it | no record | status: 设备检查完成。准备就绪。这大约需要10秒钟。预计大小最大可达10.9 MB。 值得了解的音频特性：视频文件比预期短。
+S-23   zh-Hans w1280 dark         pass      panel 20秒钟       | warning SHOWN | status names it | no record | status: 设备检查完成。准备就绪。这大约需要10秒钟。预计大小最大可达10.9 MB。 值得了解的音频特性：视频文件比预期短。
+S-23   zh-Hans w1280 forced-light pass      panel 20秒钟       | warning SHOWN | status names it | no record | status: 设备检查完成。准备就绪。这大约需要10秒钟。预计大小最大可达10.9 MB。 值得了解的音频特性：视频文件比预期短。
+S-23   zh-Hans w1280 forced-dark  pass      panel 20秒钟       | warning SHOWN | status names it | no record | status: 设备检查完成。准备就绪。这大约需要10秒钟。预计大小最大可达10.9 MB。 值得了解的音频特性：视频文件比预期短。
+S-23   zh-Hans w375  light        pass      panel 20秒钟       | warning SHOWN | status names it | no record | status: 设备检查完成。准备就绪。这大约需要10秒钟。预计大小最大可达10.9 MB。 值得了解的音频特性：视频文件比预期短。
+S-23   zh-Hans w375  dark         pass      panel 20秒钟       | warning SHOWN | status names it | no record | status: 设备检查完成。准备就绪。这大约需要10秒钟。预计大小最大可达10.9 MB。 值得了解的音频特性：视频文件比预期短。
+S-23   zh-Hans w375  forced-light pass      panel 20秒钟       | warning SHOWN | status names it | no record | status: 设备检查完成。准备就绪。这大约需要10秒钟。预计大小最大可达10.9 MB。 值得了解的音频特性：视频文件比预期短。
+S-23   zh-Hans w375  forced-dark  pass      panel 20秒钟       | warning SHOWN | status names it | no record | status: 设备检查完成。准备就绪。这大约需要10秒钟。预计大小最大可达10.9 MB。 值得了解的音频特性：视频文件比预期短。
+S-23   zh-Hans w320  light        pass      panel 20秒钟       | warning SHOWN | status names it | no record | status: 设备检查完成。准备就绪。这大约需要10秒钟。预计大小最大可达10.9 MB。 值得了解的音频特性：视频文件比预期短。
+S-23   zh-Hans w320  dark         pass      panel 20秒钟       | warning SHOWN | status names it | no record | status: 设备检查完成。准备就绪。这大约需要10秒钟。预计大小最大可达10.9 MB。 值得了解的音频特性：视频文件比预期短。
+S-23   zh-Hans w320  forced-light pass      panel 20秒钟       | warning SHOWN | status names it | no record | status: 设备检查完成。准备就绪。这大约需要10秒钟。预计大小最大可达10.9 MB。 值得了解的音频特性：视频文件比预期短。
+S-23   zh-Hans w320  forced-dark  pass      panel 20秒钟       | warning SHOWN | status names it | no record | status: 设备检查完成。准备就绪。这大约需要10秒钟。预计大小最大可达10.9 MB。 值得了解的音频特性：视频文件比预期短。
+S-23   ms-MY   w1280 light        pass      panel 20 saat    | warning SHOWN | status names it | no record | status: Pemeriksaan peranti selesai. Sedia untuk bermula. Ini sepatutnya menga
+S-23   ms-MY   w1280 dark         pass      panel 20 saat    | warning SHOWN | status names it | no record | status: Pemeriksaan peranti selesai. Sedia untuk bermula. Ini sepatutnya menga
+S-23   ms-MY   w1280 forced-light pass      panel 20 saat    | warning SHOWN | status names it | no record | status: Pemeriksaan peranti selesai. Sedia untuk bermula. Ini sepatutnya menga
+S-23   ms-MY   w1280 forced-dark  pass      panel 20 saat    | warning SHOWN | status names it | no record | status: Pemeriksaan peranti selesai. Sedia untuk bermula. Ini sepatutnya menga
+S-23   ms-MY   w375  light        pass      panel 20 saat    | warning SHOWN | status names it | no record | status: Pemeriksaan peranti selesai. Sedia untuk bermula. Ini sepatutnya menga
+S-23   ms-MY   w375  dark         pass      panel 20 saat    | warning SHOWN | status names it | no record | status: Pemeriksaan peranti selesai. Sedia untuk bermula. Ini sepatutnya menga
+S-23   ms-MY   w375  forced-light pass      panel 20 saat    | warning SHOWN | status names it | no record | status: Pemeriksaan peranti selesai. Sedia untuk bermula. Ini sepatutnya menga
+S-23   ms-MY   w375  forced-dark  pass      panel 20 saat    | warning SHOWN | status names it | no record | status: Pemeriksaan peranti selesai. Sedia untuk bermula. Ini sepatutnya menga
+S-23   ms-MY   w320  light        pass      panel 20 saat    | warning SHOWN | status names it | no record | status: Pemeriksaan peranti selesai. Sedia untuk bermula. Ini sepatutnya menga
+S-23   ms-MY   w320  dark         pass      panel 20 saat    | warning SHOWN | status names it | no record | status: Pemeriksaan peranti selesai. Sedia untuk bermula. Ini sepatutnya menga
+S-23   ms-MY   w320  forced-light pass      panel 20 saat    | warning SHOWN | status names it | no record | status: Pemeriksaan peranti selesai. Sedia untuk bermula. Ini sepatutnya menga
+S-23   ms-MY   w320  forced-dark  pass      panel 20 saat    | warning SHOWN | status names it | no record | status: Pemeriksaan peranti selesai. Sedia untuk bermula. Ini sepatutnya menga
+S-23w  en-GB   w1280 light        pass      panel 5 seconds  | warning absent | status silent | record whole (5 seconds) | status: Your video is ready.
+S-23w  en-GB   w1280 dark         pass      panel 5 seconds  | warning absent | status silent | record whole (5 seconds) | status: Your video is ready.
+S-23w  en-GB   w1280 forced-light pass      panel 5 seconds  | warning absent | status silent | record whole (5 seconds) | status: Your video is ready.
+S-23w  en-GB   w1280 forced-dark  pass      panel 5 seconds  | warning absent | status silent | record whole (5 seconds) | status: Your video is ready.
+S-23w  en-GB   w375  light        pass      panel 5 seconds  | warning absent | status silent | record whole (5 seconds) | status: Your video is ready.
+S-23w  en-GB   w375  dark         pass      panel 5 seconds  | warning absent | status silent | record whole (5 seconds) | status: Your video is ready.
+S-23w  en-GB   w375  forced-light pass      panel 5 seconds  | warning absent | status silent | record whole (5 seconds) | status: Your video is ready.
+S-23w  en-GB   w375  forced-dark  pass      panel 5 seconds  | warning absent | status silent | record whole (5 seconds) | status: Your video is ready.
+S-23w  en-GB   w320  light        pass      panel 5 seconds  | warning absent | status silent | record whole (5 seconds) | status: Your video is ready.
+S-23w  en-GB   w320  dark         pass      panel 5 seconds  | warning absent | status silent | record whole (5 seconds) | status: Your video is ready.
+S-23w  en-GB   w320  forced-light pass      panel 5 seconds  | warning absent | status silent | record whole (5 seconds) | status: Your video is ready.
+S-23w  en-GB   w320  forced-dark  pass      panel 5 seconds  | warning absent | status silent | record whole (5 seconds) | status: Your video is ready.
+S-23w  zh-Hans w1280 light        pass      panel 5秒钟        | warning absent | status silent | record whole (5秒钟) | status: 您的视频已准备就绪。
+S-23w  zh-Hans w1280 dark         pass      panel 5秒钟        | warning absent | status silent | record whole (5秒钟) | status: 您的视频已准备就绪。
+S-23w  zh-Hans w1280 forced-light pass      panel 5秒钟        | warning absent | status silent | record whole (5秒钟) | status: 您的视频已准备就绪。
+S-23w  zh-Hans w1280 forced-dark  pass      panel 5秒钟        | warning absent | status silent | record whole (5秒钟) | status: 您的视频已准备就绪。
+S-23w  zh-Hans w375  light        pass      panel 5秒钟        | warning absent | status silent | record whole (5秒钟) | status: 您的视频已准备就绪。
+S-23w  zh-Hans w375  dark         pass      panel 5秒钟        | warning absent | status silent | record whole (5秒钟) | status: 您的视频已准备就绪。
+S-23w  zh-Hans w375  forced-light pass      panel 5秒钟        | warning absent | status silent | record whole (5秒钟) | status: 您的视频已准备就绪。
+S-23w  zh-Hans w375  forced-dark  pass      panel 5秒钟        | warning absent | status silent | record whole (5秒钟) | status: 您的视频已准备就绪。
+S-23w  zh-Hans w320  light        pass      panel 5秒钟        | warning absent | status silent | record whole (5秒钟) | status: 您的视频已准备就绪。
+S-23w  zh-Hans w320  dark         pass      panel 5秒钟        | warning absent | status silent | record whole (5秒钟) | status: 您的视频已准备就绪。
+S-23w  zh-Hans w320  forced-light pass      panel 5秒钟        | warning absent | status silent | record whole (5秒钟) | status: 您的视频已准备就绪。
+S-23w  zh-Hans w320  forced-dark  pass      panel 5秒钟        | warning absent | status silent | record whole (5秒钟) | status: 您的视频已准备就绪。
+S-23w  ms-MY   w1280 light        pass      panel 5 saat     | warning absent | status silent | record whole (5 saat) | status: Video anda sudah siap.
+S-23w  ms-MY   w1280 dark         pass      panel 5 saat     | warning absent | status silent | record whole (5 saat) | status: Video anda sudah siap.
+S-23w  ms-MY   w1280 forced-light pass      panel 5 saat     | warning absent | status silent | record whole (5 saat) | status: Video anda sudah siap.
+S-23w  ms-MY   w1280 forced-dark  pass      panel 5 saat     | warning absent | status silent | record whole (5 saat) | status: Video anda sudah siap.
+S-23w  ms-MY   w375  light        pass      panel 5 saat     | warning absent | status silent | record whole (5 saat) | status: Video anda sudah siap.
+S-23w  ms-MY   w375  dark         pass      panel 5 saat     | warning absent | status silent | record whole (5 saat) | status: Video anda sudah siap.
+S-23w  ms-MY   w375  forced-light pass      panel 5 saat     | warning absent | status silent | record whole (5 saat) | status: Video anda sudah siap.
+S-23w  ms-MY   w375  forced-dark  pass      panel 5 saat     | warning absent | status silent | record whole (5 saat) | status: Video anda sudah siap.
+S-23w  ms-MY   w320  light        pass      panel 5 saat     | warning absent | status silent | record whole (5 saat) | status: Video anda sudah siap.
+S-23w  ms-MY   w320  dark         pass      panel 5 saat     | warning absent | status silent | record whole (5 saat) | status: Video anda sudah siap.
+S-23w  ms-MY   w320  forced-light pass      panel 5 saat     | warning absent | status silent | record whole (5 saat) | status: Video anda sudah siap.
+S-23w  ms-MY   w320  forced-dark  pass      panel 5 saat     | warning absent | status silent | record whole (5 saat) | status: Video anda sudah siap.
+S-23s  en-GB   w1280 light        pass      panel 20 seconds | warning absent | status silent | record whole (20 seconds) | status: Your video is ready.
+S-23s  en-GB   w375  light        pass      panel 20 seconds | warning absent | status silent | record whole (20 seconds) | status: Your video is ready.
+S-23s  en-GB   w320  light        pass      panel 20 seconds | warning absent | status silent | record whole (20 seconds) | status: Your video is ready.
+S-23s  zh-Hans w1280 light        pass      panel 20秒钟       | warning absent | status silent | record whole (20秒钟) | status: 您的视频已准备就绪。
+S-23s  zh-Hans w375  light        pass      panel 20秒钟       | warning absent | status silent | record whole (20秒钟) | status: 您的视频已准备就绪。
+S-23s  zh-Hans w320  light        pass      panel 20秒钟       | warning absent | status silent | record whole (20秒钟) | status: 您的视频已准备就绪。
+S-23s  ms-MY   w1280 light        pass      panel 20 saat    | warning absent | status silent | record whole (20 saat) | status: Video anda sudah siap.
+S-23s  ms-MY   w375  light        pass      panel 20 saat    | warning absent | status silent | record whole (20 saat) | status: Video anda sudah siap.
+S-23s  ms-MY   w320  light        pass      panel 20 saat    | warning absent | status silent | record whole (20 saat) | status: Video anda sudah siap.
+cells 81
+  36 × S-23|pass|warning SHOWN|status names it|no record
+  36 × S-23w|pass|warning absent|status silent|whole
+  9 × S-23s|pass|warning absent|status silent|whole

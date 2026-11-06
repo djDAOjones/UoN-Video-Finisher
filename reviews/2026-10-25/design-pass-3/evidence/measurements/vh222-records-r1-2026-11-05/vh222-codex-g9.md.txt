@@ -1,0 +1,65 @@
+**PASS with notes — g9 supplies the 24 missing readings with qualified, additive scenarios. “Inside the viewport” means within its width; speech and reading-level conformance remain unproved.**
+
+References below use `walker/` for the repository’s measurement walker and `walk/` for `/Users/uazjob/UoN-Video-Helper-side/vh222-walk/`.
+
+1. **Change and scope.** The diff adds only S-173 and S-174, 24 lines in `walker/scenarios.mjs:455–478`. No product or `docs/` change appears. This fits the authorised new-scenario scope.
+
+   `fixOnly` is appropriate: `scenarios.mjs:1353` excludes these entries from matrix/smoke enumeration; `parts.mjs:141` excludes them from the frozen parts. I evaluated all 33 registered plans with and without the two registry entries: their outputs were identical.
+
+   **Other output does change:** `GAPS` gains two width-restriction descriptions because its enumeration does not exclude `fixOnly` (`scenarios.mjs:3209–3216`). The instrument revision also changes, as expected from `runner.mjs:235–238`. Therefore “all walker output unchanged” would be false.
+
+   S-173 requires the driver to register F22 (`vh222-driver.mjs:81–94,224–229`). `fixOnly` prevents accidental inclusion in normal plans; it does not make an explicitly requested S-173 runnable without that driver. S-174 itself needs no fault.
+
+2. **Qualification.** In `proof8/runs/*/S-173__en-GB__w375__light.json` and the corresponding S-174 record, both `reached.outcome` and `reachedAfter.outcome` are `pass`. The proof’s conditions identify the stipulated base commit.
+
+   The controls discriminate the changed browser context:
+
+   - S-156, retaining the phone-view UA, fails its desktop/Here predicate and displays the AAC `Elsewhere` sentence with `tryChrome`.
+   - S-28 reaches its ordinary blocked-file state but displays the decode `Elsewhere` sentence.
+
+   These are visible in `proof8/runs/vh222-probe-*.jsonl`, `ctx["#source-status"]`. S-28’s own pass is expected; it is the displayed alternative sentence that supplies the negative control. This qualifies the UA-restoration scenarios, not a fresh isolated proof of F22’s necessity.
+
+3. **The 24 readings.** All 24 records pass both reached checks. I independently compared every visible notification body against the corresponding language-table string, including the **complete** `chromeLacks` substitution: **24 exact matches**.
+
+   Sources: `src/i18n/en-GB.ts:611–620`, `zh-Hans.ts:500–509`, `ms-MY.ts:531–541`; `g9/runs/vh222-probe-vh222-base-g9.jsonl`, `rows`, `text` and `ctx`.
+
+   Each visible body occupies x=69–309 within 375 px, with `clip:[]`, `broken:[]`, and `page.hscroll:false`. Each sits in `#source-block > section.notification > p.notification-body`. The faults and ProRes fixture support the respective refusal.
+
+   **Vertical qualification:** the viewport is 812 px high. Across all four modes, the bodies’ vertical bounds are:
+
+   | Scenario | English | Chinese | Malay |
+   |---|---:|---:|---:|
+   | S-173 | 716–842 | 884–989 | 977–1124 |
+   | S-174 | 588–714 | 780–885 | 825–972 |
+
+   Thus 20 cells require vertical scrolling for some or all of the body. They are not clipped, but are not wholly inside the initial screen. The probe’s `inside` checks only left/right bounds (`vh222-driver.mjs:66`). Its broken-word detector covers Latin tokens, not Chinese linguistic segmentation (`:44–46`).
+
+4. **Condition and truth.** This is real desktop Chrome **under emulation**, not a physical-phone test: the manifest records Chrome/157.0.8103.39, macOS, and `--headless=new`. The view retains mobile metrics, DPR 3 and five-point touch emulation (`qualify.mjs:969,988–992`); setup restores the browser’s own UA.
+
+   Every passing predicate confirms both `!M.phone()` and absence of handheld UA tokens. Recorded `media.coarse:true` does not contradict desktop classification: `capability.ts:72–79` prioritises the boolean UA-data mobile signal.
+
+   The refusal headings say “This cannot run here” and its translations, not the phone warning; the contextual text contains no phone verdict. `Here` is correct under `blockContextFor`, `remedyFor` and `reasonText` (`preflight-panel.ts:49–52,72–95`).
+
+5. **Accessibility and Nielsen.**
+
+   - **1.4.10:** no horizontal overflow or lost text at this measured width; vertical scrolling is compatible with reflow. g9 alone does not establish the criterion’s 320-CSS-pixel condition or real zoom.
+   - **2.4.6:** the refusal titles describe the blocked state; no misleading phone title appears.
+   - **3.1.5:** exact translation-table matching is not reading-level validation. No demonstrated lower-secondary assessment or supplementary simpler version is supplied here.
+   - **3.3.1:** the detected limitation is identified in text beside the selected file. These are capability/file-format refusals, rather than ordinary invalid field entries.
+   - **4.1.3:** the full message is supplied through `#source-status`, `role="status"`, `aria-live="polite"` (`index.html:139`; `src/main.ts:901–902,931–942`). The probe records this separate spoken copy; its intentional visual clipping is not clipping of the visible notification. Accessibility-tree evidence supports exposure, not actual speech.
+
+   Nielsen’s **“status visible and announced”** is supported by visible text and announcement markup, subject to that speech limitation. **“Errors say what next”** holds: update Chrome/contact its manager, or re-export and choose the MP4. These apply digest rules 1 and 9 (`project/digests/nielsen.md`).
+
+6. **Load and power.** No supplied g9 reading rests on timing at recorded load ≥8. Group start was **4.44**; its four samples were **4.44, 5.31, 6.50, 6.40**, all on AC (`g9/conditions.txt`, `g9.load.log`, `g9.launcher.log`). Proof8 also starts below 8 and ends at 6.88. These are stable refusal/text readings, not throughput estimates. Sampling does not prove there was no brief inter-sample spike. Power mode is unreported; AC is established.
+
+7. **Required table additions.** State:
+
+   - g9 adds **24 scenario cells, all reached**, yielding **1,309 walked / 1,269 reached** when appended to the first table’s counts; proof8 remains separate.
+   - These fill two rows × three languages × four modes at 375 px under **desktop UA with touch/mobile metrics**. Preserve the original phone readings and S-156 non-reaches.
+   - g1–g8 used `9c52269607bccc4c`; g9/proof8 used `6e7fd163e4f3d0bc`. Do not retain an unqualified “walker unchanged” claim.
+   - Separate unchanged product provenance from the changed walker; archive the driver/F22, proof, records, probes and load evidence.
+   - Include the vertical-scroll, headless/emulation, reading-level and speech limitations above.
+
+One further measurement caveat: `resolveRow` stops a trailing placeholder at punctuation (`vh222-driver.mjs:28`). Its `resolved.whole` alone does not prove the entire multi-sentence remedy. The full-text comparison above closes that gap for g9.
+
+This is a g9 review, not VH-222 close approval. No files changed; the project gate was not run.

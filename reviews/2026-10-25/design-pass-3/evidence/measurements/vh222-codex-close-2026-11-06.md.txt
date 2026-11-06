@@ -1,0 +1,29 @@
+**PASS with notes — the frozen candidate supports closing VH-222 as a check, with its defects assigned separately. Qualifications remain about copied-source verification, absolute links in preserved answers, and the standing test skip.**
+
+HEAD matches `1cb3cbad71972f3d14caa3c5ea1c64f802f5be9f`. `tracked.diff` and `status.txt` match byte-for-byte; all **199 untracked hashes match**.
+
+Below, evidence filenames refer to the [measurements folder](/Users/uazjob/UoN-Video-Helper-side/vh222/reviews/2026-10-25/design-pass-3/evidence/measurements).
+
+1. **Acceptance criteria:** met or explicitly qualified. `vh222-rows-read.txt` accounts for 41 keys: 39 assessed, `warnings.targetMissed.heading` retired with its source, and `longJobUnknown` outstanding as VH-222.1. “39 read whole” must be read alongside the recorded feedback defect—not as 39 universally passing rows. Mapping and the 80 cited grid cells are explained in the first table, lines 93–94; r1 supplies the missing 375 px `Here` readings. Phone-only branches, plural forms and S-24’s replacement route are qualified. The stage’s widths, languages and modes are represented with those exceptions; S-23s remains light-only, explicitly stated.
+
+   The cut-short criterion holds on g1r: 81 reached records, 45 finished cells, and **zero whole-video phrases in their captured context**. r2, lines 47–52, separates the retained “Duration” label, finished warning, announcement and kept span. No product, token, control or standards-document changes occur. The successive workers and separate fix items respect sizing. Earlier blind findings are addressed; this review supplies the final-candidate check.
+
+2. **Decision accuracy:** counts reconcile directly with the outcome records: **1,285/1,245**, **24/24**, **81/81** attempted/reached; total **1,390/1,350**, with the 81 repeated conditions identified. IDs, F23’s unused status, proof8 and walker revisions agree with the driver and tables. The decision correctly distinguishes Nielsen’s visibility defect from WCAG, corrects 3.3.1’s applicability to `feedback.tooLong`, limits 4.1.3 to programmatic exposure, and names the two required Nielsen rules. Native-language, speech, keyboard and screenshot limitations are stated.
+
+   [Decisions, lines 27–35](/Users/uazjob/UoN-Video-Helper-side/vh222/project/decisions.md:27) trace both fix items. VH-231 on `Deferred` is historical delegation, explicitly landed—not outstanding work. VH-232 remains in the backlog. VH-222.1 names the unreachable route and reason in [wish-list line 106](/Users/uazjob/UoN-Video-Helper-side/vh222/project/wish-list.md:106). Rules 4–5 are substantively satisfied.
+
+3. **Rule 6:** the backlog removes exactly VH-222; trajectory adds exactly one line, at [line 57](/Users/uazjob/UoN-Video-Helper-side/vh222/project/trajectory.md:57). Now and Notes distinguish the landed fix, open fix and unreachable row. The three originating wishes were already promoted, so none remains to retire. “Next step: None” describes the proposed completed close; saving this review and committing remain procedural close actions.
+
+4. **Archive:** the removed VH-201 entry occurs verbatim in `decisions-2026-10.md`. The index increases 133 to **134** and adds VH-201. VH-222 is newest. The checker measures the ten-entry slice at **997/1,000 words**, and the required four trajectory lines at **279/300**.
+
+5. **Walker and Disposition:** exactly **24 additive lines**, adding S-173/S-174 with `fixOnly`; no plan file changes. r1 documents qualification, F22’s driver dependency and unchanged plans; r2 documents the rebased revision. The [Disposition row, line 759](/Users/uazjob/UoN-Video-Helper-side/vh222/reviews/2026-10-25/design-pass-3/design-pass-3-2026-10-27.md:759) links VH-222 and all three tables correctly using relative paths.
+
+6. **Copies and links:** the two top-level Codex answers are byte-identical to their permitted originals. All **185 files checked against the three `sources.txt` manifests match their recorded hashes**. I cannot certify the remaining originals differ only by the two-line header: your exclusions prohibit reading several originals. Hash agreement establishes internal consistency, not that additional comparison.
+
+   **Not every embedded link is relative:** the preserved design answer has 22 absolute links, the blind verdict one, and g1r’s answer one. Authored navigation is relative. Preserve the verbatim answers; describe this as an archival exception rather than claiming universal relative links.
+
+7. **Gate and checker:** the supplied gate log completes all stages: **85 test files passed; 1,690 tests passed, one skipped** (`vh222-gate-1.log:27–30`). No test changes occur. The skip is the standing EBU cases 7/8 placeholder (`test/ebu3341/tech3341.test.ts:124`), tracked by VH-27—not introduced here. Load samples are **4.45, 4.16, 3.79, 5.71**, all AC and below 8. The log contains no explicit exit-code marker, so I cannot independently attest the numeric exit code.
+
+   My checker run exited **0**, with zero structural/budget failures. Its missing CULT2011 warning concerns a local sample; the legacy checker’s eight warnings concern the frozen canon record, already covered by INTAKE.8.
+
+8. **Commit blockers:** no substantive implementation or ledger blocker found. Preserve this verdict and its qualifications, and use the required `Verify:` and `Checked:` commit lines. Do not claim zero skipped tests, universal relative links, or source comparisons this review could not perform.

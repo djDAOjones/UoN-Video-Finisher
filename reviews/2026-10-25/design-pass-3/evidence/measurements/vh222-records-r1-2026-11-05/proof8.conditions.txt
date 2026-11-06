@@ -1,0 +1,12 @@
+start 2026-11-05T23:25:54Z
+Now drawing from 'AC Power'
+23:25  up 108 days,  8:59, 2 users, load averages: 5.26 6.59 4.96
+ports: 0 Claude CLOSED entries ignored (ruling 2)
+commit 95d18eed5db1ae56d1fe6512053bad714357d899
+porcelain lines 3
+diff hash 47a2c49b19299a60
+instrument revision 6e7fd163e4f3d0bc
+job1 exit 0 2026-11-05T23:26:17Z
+end 2026-11-05T23:26:17Z
+Now drawing from 'AC Power'
+23:26  up 108 days,  8:59, 2 users, load averages: 6.88 6.86 5.10

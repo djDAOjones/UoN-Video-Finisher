@@ -1,0 +1,39 @@
+**PASS with notes — g1r supports VH-231’s truthfulness fix in all 45 finished cells. It does not support an unqualified claim of vertical viewport visibility, exact kept-span extraction, or every difference being caused by VH-231.**
+
+Evidence shorthand: **P** means the two `vh222-probe-vh222-vh231-g1r*.jsonl` files in [g1r/runs](/Users/uazjob/UoN-Video-Helper-side/vh222-walk/g1r/runs); **W** means that directory’s corresponding `S-23*__language__width__mode.json` records. Cells below identify records within those files.
+
+1. **Provenance and reach: yes.** Both run manifests give `source.commit = 1cb3cbad71972f3d14caa3c5ea1c64f802f5be9f`, `source.dirty = false`, provenance held, and zero records off revision. All 81 W records carry revision `29c3acfcad7eb29c`; independently hashing the current walker by `runner.mjs:235` reproduces it. Both `reached.outcome` and `reachedAfter.outcome` pass throughout: S-23 36, S-23w 36, S-23s nine. The tracked diff is precisely the stated 24-line S-173/S-174 addition; neither scenario runs here. Evidence files are also untracked in this checkout, so “walker-only diff” must not mean “otherwise empty working tree.”
+
+2. **The finished account is consistent.** In every finished P cell, `ctx["#source-report"]` gives 20 seconds for MKV or five seconds for WebM; `ctx["#process-result"]` gives the kept length and endpoints, followed by the cut-short heading **and detail**. None calls that length the whole video. The spans are `0:00.0–0:20.0` and `0:00.0–0:05.1`; rounded duration wording is consistent with these.
+
+   `#audio-warnings` is emptied, but the warning survives in the result card: this is relocation, not withdrawal from the finished page. `src/main.ts:3180` onwards renders the replacement and announces it. “Duration”, read together with the explicit incomplete-file warning, does not assert the original recording was complete. Keeping that label is also explicit in `project/decisions.md:91`. I find no false statement among these three components.
+
+3. **Strings and layout: pass, with a viewport qualification.** Independently checking every P cell found both visible warning elements equal to their `tpl` strings, `resolved.whole = true`, no unresolved placeholders, no reported clipping or broken Latin word, and no horizontal scroll. The tables agree: `en-GB.ts:673`, `zh-Hans.ts:551`, `ms-MY.ts:590`.
+
+   However, `vh222-driver.mjs:65` defines `inside` using **left and right only**. Both warning elements are vertically outside the viewport in all 36 S-23 cells and 27 non-light S-23w cells. They are vertically inside in the 18 finished light cells. For example, S-23/en-GB/1280/light’s heading starts at y=3140.88 in a 900px viewport. The walker resets scrolling (`matrix.mjs:126,145`); this is not itself a clipping defect, but “wholly inside the viewport in all cells” is false.
+
+   Completion exposure is correct for 4.1.3: all 45 finished `ctx["#status"]` values include readiness, the finished-warning introduction and cut-short heading, exposed through `role=status`, `aria-live=polite`. This proves programmatic exposure, not actual screen-reader speech. S-23s was tested **only in light**, not four modes.
+
+4. **Comparison: no observed regression, but not every difference is VH-231.** Across all matched P cells, only `#process-result` and `#status` differ—45 each—exactly as the fix requires. Other captured context strings are identical. W also records the expected changed trim descriptions.
+
+   No instrument outcome worsens. Nevertheless, `instruments.asserts` changes from `cannot-determine` to `pass` in all 45 finished cells: g1’s burned-card decode timed out; g1r reads `0:20` or `0:05`. See each record’s `asserts.items[1]`. That is improved measurement availability, not evidence that VH-231 fixed the burned card. Job timings also vary. Therefore “all differences explained by VH-231” is too broad.
+
+5. **Reader: faithful classification, imperfect extraction.** Running `vh222-cut-read-2.mjs` on g1 reproduces the original reader’s output after removing its added result-warning column: 45 whole-video records, no finished warning, no warning in completion status.
+
+   For g1r it correctly identifies the cut-style record and heading inside `#process-result`. But its `cutSpan` expressions (`:17–19`) capture surrounding text: English includes “then”; Malay includes “kemudian”; Chinese includes “随后是” and trailing quality/closing text in the endpoint capture. Its result-warning check is only substring presence of the heading, not verification of detail, placement or visibility. Use P’s warning rows and raw result text for those claims; do not treat the extracted tuple as exact `keptCut` arguments.
+
+6. **Standards, limited to these cells.**
+
+   - **1.4.10:** supported by 81 passing overflow readings and intact warning text at 320px. Vertical page scrolling is permitted.
+   - **2.4.6:** the warning title identifies the problem; the finished-warning introduction identifies its context. No misleading label found in the combined reading.
+   - **3.1.5:** the copy explains the probable cause and concrete next steps. These measurements do not independently establish reading level in three languages; native review of the new Chinese/Malay wording remains VH-231.1 (`decisions.md:31`).
+   - **3.3.1:** the detected source-file problem is identified in text; no missing identification found.
+   - **4.1.3:** programmatic completion announcement passes, with the speech limitation above.
+
+   Applied Nielsen digest rules: **“status visible and announced”** and **“errors say what next”**. The persistent result warning and directions to check the output or choose a complete copy satisfy the inspected behaviour. No new product defect is established by these records.
+
+7. **Load and power:** no recorded reading rests on load ≥8. `g1r/conditions.txt` starts at 6.06; `runs/vh222-ledger.jsonl` records the two starts at 5.98 and 4.11, both AC. `g1r.load.log` peaks at 6.96; all samples show AC. No re-walk is triggered by the recorded evidence. Thirty-second sampling cannot exclude an unsampled excursion; `powermode:null` is not a measured power-mode setting.
+
+8. **The table addition must preserve the historical distinction:** g1 remains the failed reading on `95d18eed5db1`; g1r is the post-VH-231 rereading on `1cb3cba`, dated 6 November, with the new walker revision. State the 36/36/9 coverage, 45 corrected finished accounts, warning relocation, unchanged “Duration”, reader limitations, horizontal-only `inside`, and burned-card measurement improvement. Do not silently replace g1, claim four-mode S-23s coverage, or convert existing `cannot-determine` outcomes into blanket passes.
+
+Read-only throughout. `node tools/check.mjs` returned zero structural/budget failures and one unrelated existing sample-path warning.

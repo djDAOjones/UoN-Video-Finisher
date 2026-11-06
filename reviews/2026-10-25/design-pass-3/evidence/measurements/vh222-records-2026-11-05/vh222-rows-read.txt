@@ -1,0 +1,43 @@
+| Row | Wish | Scenarios (groups) | Read on this Mac / cells it shows in | Flawed, absent, unreached | VH-199 cited (grid) |
+| --- | --- | --- | --- | --- | --- |
+| `result.endedEarly.sound` | VH-155.2, VH-156.1 | S-161~sound (g7) | 36/36 | 0, 0, 0 | 0 |
+| `result.endedEarly.together` | VH-155.2, VH-156.1 | S-64 (g4) | 36/36 | 0, 0, 0 | 0 |
+| `result.endedEarly.both` | VH-155.2, VH-156.1 | S-161~both (g7) | 36/36 | 0, 0, 0 | 0 |
+| `warnings.endsEarly.detail` | VH-155.2 | S-22 (g2) | 27/27 | 0, 0, 0 | 9 |
+| `warnings.noAudio.heading` | VH-155.2 | S-20 (g2) | 27/27 | 0, 0, 0 | 9 |
+| `warnings.noAudio.detail` | VH-155.2 | S-20 (g2) | 27/27 | 0, 0, 0 | 9 |
+| `warnings.clipping.heading` | VH-155.2 | S-19 (g2) | 27/27 | 0, 0, 0 | 9 |
+| `warnings.targetMissed.heading` | VH-155.2 | — | not shown | — | 0 |
+| `warnings.soundHeading` | VH-155.2 | S-23, S-18, S-19, S-20, S-22, S-27, S-167 (g1, g2, g6) | 207/207 | 0, 0, 0 | 45 |
+| `preflight.reasons.noAacEncodeHere` | VH-155.2 | S-156 (g6) | 24/36 | 0, 0, 12 | 0 |
+| `preflight.reasons.noAacEncodeElsewhere` | VH-155.2 | S-156, S-157 (g6) | 12/48 | 0, 24, 12 | 0 |
+| `preflight.reasons.noSourceDecodeHere` | VH-155.2 | S-28 (g6) | 24/36 | 0, 12, 0 | 0 |
+| `preflight.reasons.noSourceDecodeElsewhere` | VH-155.2 | S-160, S-28 (g6) | 24/48 | 0, 24, 0 | 0 |
+| `failure.unreadable.soundOnly` | VH-155.2 | S-158 (g6) | 36/36 | 0, 0, 0 | 0 |
+| `failure.unlevellable.what` | VH-155.2 | S-162 (g8) | 36/36 | 0, 0, 0 | 0 |
+| `failure.outputLoudness.what` | VH-155.2 | S-163 (g8) | 36/36 | 0, 0, 0 | 0 |
+| `failure.outputPeak.what` | VH-155.2 | S-163~peak (g8) | 36/36 | 0, 0, 0 | 0 |
+| `systemCheck.rows.aac` | VH-155.2 | S-01b, S-82, S-159 (g5, g6) | 108/108 | 0, 0, 0 | 0 |
+| `systemCheck.values.aacNotSupported` | VH-155.2 | S-159 (g6) | 36/36 | 0, 0, 0 | 0 |
+| `failure.unreadable.noTracks` | VH-155.2 | S-166 (g6) | 36/36 | 0, 0, 0 | 0 |
+| `preflight.reasons.veryLongJob` | VH-156.1 | S-24, S-25a, S-25b (g3) | 54/82 | 0, 0, 28 | 18 |
+| `preflight.reasons.veryLongJobUnknown` | VH-156.1 | S-165 (g8) | 36/36 | 0, 0, 0 | 0 |
+| `preflight.reasons.longJob` | VH-156.1 | S-169 (g3) | 36/36 | 0, 0, 0 | 8 |
+| `preflight.reasons.longJobUnknown` | VH-156.1 | — | not shown | — | 0 |
+| `failure.badTrim.next` | VH-156.1 | S-164 (g8) | 36/36 | 0, 0, 0 | 0 |
+| `failure.unlevellable.next` | VH-156.1 | S-162 (g8) | 36/36 | 0, 0, 0 | 0 |
+| `failure.encoderRefused.next` | VH-156.1 | S-147 (g5) | 36/36 | 0, 0, 0 | 0 |
+| `failure.checkFailed.next` | VH-156.1 | S-89 (g2) | 27/27 | 0, 0, 0 | 9 |
+| `failure.tryAgain` | VH-156.1 | S-90b, S-163, S-163~peak (g5, g8) | 108/108 | 0, 0, 0 | 0 |
+| `result.endedEarly.picture` | VH-156.1 | S-161 (g7) | 36/36 | 0, 0, 0 | 0 |
+| `status.saved` | VH-156.1 | S-62 (g4) | 36/36 | 0, 0, 0 | 0 |
+| `warnings.decodeDamage.detail.one` | VH-156.1 | S-27 (g2) | 9/27 | 0, 18, 0 | 3 |
+| `warnings.decodeDamage.detail.other` | VH-156.1 | S-27, S-167 (g2, g6) | 54/63 | 0, 9, 0 | 6 |
+| `warnings.veryQuiet.detail` | VH-156.1 | S-18 (g2) | 27/27 | 0, 0, 0 | 9 |
+| `warnings.metadataLost.heading` | VH-156.1 | S-91 (g5) | 36/36 | 0, 0, 0 | 0 |
+| `warnings.metadataLost.detail` | VH-156.1 | S-91 (g5) | 36/36 | 0, 0, 0 | 0 |
+| `feedback.tooLong` | VH-156.1 | S-79a (g4) | 33/36 | 3, 0, 0 | 0 |
+| `feedback.someOmitted` | VH-156.1 | S-79b (g4) | 22/36 | 14, 0, 0 | 0 |
+| `failure.startup.workerNotStarted` | VH-156.1 | S-01b (g5) | 36/36 | 0, 0, 0 | 0 |
+| `warnings.cutShort.heading` | VH-158.1 | S-23 (g1) | 36/36 | 0, 0, 0 | 0 |
+| `warnings.cutShort.detail` | VH-158.1 | S-23 (g1) | 36/36 | 0, 0, 0 | 0 |

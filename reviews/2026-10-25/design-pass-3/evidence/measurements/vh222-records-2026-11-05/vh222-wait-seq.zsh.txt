@@ -1,0 +1,26 @@
+#!/bin/zsh
+# VH-222 #5, on Orchestrator #40's word (10:00Z): a lock-waiting script carries wait-seq or go.sh in its command line. Check
+# $S/walk.lock/owner.txt every 60 s; once it matches <owner pattern> (grep -E), log the scripts and run go.sh <name> once (go.sh then waits
+# for the lock, power and load as it stands). Past the deadline: one line, exit 10. Holds no lock while it waits.
+#   zsh vh222-wait-seq.zsh <name> "<what for the lock>" <deadline, YYYY-MM-DDTHH:MM:SS UTC> '<owner pattern>' '<job line>'
+S=/Users/uazjob/UoN-Video-Helper-side; D=$S/vh222-walk; W=$S/vh222; LOCK=$S/walk.lock
+WALKER="$W/reviews/2026-10-25/design-pass-3/evidence/measurements/walker"
+NAME=$1; WHAT=$2; DL=$3; PAT=$4; JOB=$5
+LOG=$D/vh222-wait-seq-$NAME.log
+for f in "$LOG" "$D/$NAME" "$D/$NAME.go.out"; do [ -e "$f" ] && { echo "EXISTS: $f"; exit 2; }; done
+DEADLINE=$(date -j -u -f '%Y-%m-%dT%H:%M:%S' "$DL" +%s) || exit 2
+echo "$(date -u +%T) $NAME: waiting for owner.txt to match: $PAT" >> $LOG
+LAST="-"
+while :; do
+  O=$(cat $LOCK/owner.txt 2>/dev/null)
+  [ "$O" != "$LAST" ] && { echo "$(date -u +%T) owner: ${O:-none} | load $(uptime | sed -E 's/.*load averages?: //')" >> $LOG; LAST=$O; }
+  print -r -- "$O" | grep -qE -- "$PAT" && break
+  [ $(date +%s) -ge $DEADLINE ] && { echo "$(date -u +%T) DEADLINE" >> $LOG; echo "NOT ARMED by $DL: owner.txt never matched '$PAT'; owner: ${O:-none}"; exit 10; }
+  sleep 60
+done
+echo "$(date -u +%T) armed; the go.sh and wait scripts now:" >> $LOG
+ps -axo pid,command | grep -E '[g]o\.sh|[w]ait-seq' | grep -v 'eval' | cut -c1-200 >> $LOG
+cd $D && zsh go.sh "$NAME" "$WHAT" "$WALKER" "$W" "$JOB" >> "$D/$NAME.go.out" 2>&1
+rc=$?
+echo "$(date -u +%T) go exit $rc" >> $LOG
+echo "go exit $rc"; tail -3 "$D/$NAME.go.out"

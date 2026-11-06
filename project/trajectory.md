@@ -54,6 +54,7 @@
 - VH-220 — VH-150's six states read in Chrome at 1280 and 375 px in three languages and four modes: 144 conditions, 15 cited and 129 walked on the Mac Pro, all reached, no product diff; no new fault for the failing re-check; the reset at Create and the failure's change of language read and passing; one wish (2026-11-05) — see decisions
 - VH-224 — VH-172.1's batch B: 106 keys walked once each on the Mac Pro by VH-223's `--keys <file>`, the walker unchanged; 81 OK, 12 NOT-OK on known readings (S-03's old-order rows, S-81 ms-MY's wrapped link), 13 not reached because of this Mac's speed (S-24); no new defect; the 214 reconciled, batch A's 108 and B's 106 disjoint and whole; one wish (2026-11-05) — see decisions
 - VH-231 — a cut Matroska or WebM file said cut short with the finished video and its announcement; the trim's "Keeping {kept}." and the record's "{kept}, from {from} to {to}" in the owner's words, never "the whole video"; spec §5.4's row; 594 cells a side walked on the Mac Pro (2026-11-05) — see decisions
+- VH-222 — VH-155.2's, VH-156.1's and VH-158.1's 41 rows that a warning, a failure or a record reaches, read in Chrome on the Mac Pro in three languages and four modes at 1280, 375 and 320 px over three tables: 39 read, one retired with its source, one unreachable (wish VH-222.1); two defects raised as VH-231 (landed, re-read: never "the whole video") and VH-232; S-173 and S-174 for the `Here` refusals at 375 px; no product diff (2026-11-06) — see decisions
 
 ## V3 adoption
 

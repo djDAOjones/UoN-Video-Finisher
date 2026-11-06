@@ -1,0 +1,31 @@
+<!-- markdownlint-disable -->
+
+# VH-222 — Codex astra's blind reading of group g1r
+
+You are Codex astra, giving a blind reading, read-only, for item VH-222 of the UoN Video Finisher. You read from the repository at the current directory: a worktree on `side/vh222`, HEAD `1cb3cbad71972f3d14caa3c5ea1c64f802f5be9f`, which is VH-231's landing on main.
+
+**Background.** VH-222 is a check item, so it has no product diff. Its criterion "Nothing false beside the cut-short warning" reads three things together on a cut MKV or WebM: the source panel, the warning and the finished record. A false statement among them is a defect; a cut file's read length given as its whole is one. On VH-222's base, `95d18eed5db1`, group g1 read S-23, S-23w and S-23s (81 cells). It found that the finished record said "the whole video (…)" in 45 of 45 finished cells and that the warning appeared on no finished page. That defect became the fix item VH-231, built and landed by its own worker (`project/decisions.md`, the 2026-11-05 VH-231 entries; `project/items/VH-231.md`). The orchestrator then had `side/vh222` rebased onto VH-231's landing and g1 re-read there as group **g1r**: the same 81 cells (S-23 and S-23w in light, dark, forced light and forced dark; S-23s in light), at 1280, 375 and 320 px, in en-GB, zh-Hans and ms-MY.
+
+**The candidate:** `git diff` in this worktree is VH-222's walker change only. `reviews/2026-10-25/design-pass-3/evidence/measurements/walker/scenarios.mjs` gains S-173 and S-174 (+24 lines, added earlier for group g9), which g1r does not use. The walker revision is `29c3acfcad7eb29c` (`runner.mjs`, `instrumentRevision`).
+
+**The evidence** (read-only), in `/Users/uazjob/UoN-Video-Helper-side/vh222-walk/`:
+- g1r: `g1r/` (`conditions.txt`, `runs/*/S-23*.json`, `runs/vh222-probe-vh222-vh231-g1r.jsonl`, `runs/vh222-probe-vh222-vh231-g1rs.jsonl`, `logs/job1.log`), `g1r.sum.txt`, `g1r.cut.txt`, `g1r.load.log` and `g1r.launcher.log`.
+- g1, the reading on the base: `g1/`, `g1.sum.txt` and `g1.cut.txt`.
+- The readers: `vh222-sum.mjs` (the sum's rules) with `rows.json`; `vh222-cut-read.mjs` (base strings) and its copy `vh222-cut-read-2.mjs`, which wrote `g1r.cut.txt`; and `vh222-driver.mjs` (the probe).
+- The page's code at HEAD: `src/ui/result-summary.ts`, `src/audio/warnings.ts`, `src/ui/trim.ts`, `src/media/inspect.ts`, `src/main.ts` and `src/i18n/en-GB.ts`, `zh-Hans.ts`, `ms-MY.ts` (`warnings.cutShort`, `result.keptWhole`, `keptPart`, `keptCut`, `keepingCut`); `docs/01-specification.md` §5.4; the walker's `scenarios.mjs` (S-23, and S-23s and S-23w by `vh215Scenario`).
+
+**Do not read:** any folder under `/Users/uazjob/Library/Application Support/Claude/side-session-notes/`. In `/Users/uazjob/UoN-Video-Helper-side/`, do not read any `vh222-claude-*`, `vh222-*compare*`, `vh222-progress.md`, `vh222-handover-*`, `vh222-wip-*`, any `vh222-*brief*` but this one, or any other item's files.
+
+**Rules:** VH-222 builds nothing. A defect it finds becomes a fix item. The owner approved VH-231's words, and VH-231's decision keeps the panel's label "Duration". The orchestrator's load ruling: a group starts below load 8, and a reading taken at 8 or above that depends on timing is re-walked.
+
+**Answer, with evidence (file and line, or record and field):**
+1. Did g1r run on VH-231's landing with the walker as stated, and is every cell reached?
+2. In each finished cell (S-23w, S-23s), read the source panel, the cut-short warning and the finished record together. Is anything false: a read length given as the whole, a warning missing or withdrawn, or a record that contradicts the warning? Does "Duration" beside the warning make a false statement?
+3. Are `warnings.cutShort.heading` and `.detail` each the string the language table holds, shown whole (not clipped, no word broken, inside the viewport, no sideways scroll), in place and true of the state, in all three languages, four modes and three widths? Is the completion announcement right for 4.1.3?
+4. Compare g1 (base) with g1r. Is every difference explained by VH-231's change, and does nothing that held on the base now fail?
+5. Is `vh222-cut-read-2.mjs` a faithful reader of `result.keptCut` and of the result card's warning, and does it reproduce g1's reading?
+6. WCAG 1.4.10, 2.4.6, 3.1.5, 3.3.1 and 4.1.3 for these cells; Nielsen's "status visible and announced" and "errors say what next" (`project/digests/nielsen.md`).
+7. Load and power: does any reading rest on timing taken at or above 8?
+8. Anything a table page adding g1r to the first table (which states g1 as read on the base) must state.
+
+Give a verdict line first ("PASS", "PASS with notes" or "FAIL", with a reason), then each answer, then anything else you find. Keep it under about 1,200 words.

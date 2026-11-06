@@ -1,0 +1,35 @@
+#!/bin/zsh
+# VH-222 #4, on the Mac Pro (2026-11-05): the walker's base fixtures by its own fixtures.sh (read-only, output under vh222-walk/fix/),
+# then the save's six VH-222 fixtures copied (the three endsearly-* remade by vh222-cut-tracks.mjs when lecture-30s.mp4 differs
+# from the MacBook Pro's recorded sha256 fe66c0ad6bcc160d), under the fixed walk lock, as the siblings take it for fixtures.
+S=/Users/uazjob/UoN-Video-Helper-side; D=$S/vh222-walk; LOCK=$S/walk.lock; WHO="VH-222 #4"
+WALKER=$S/vh222/reviews/2026-10-25/design-pass-3/evidence/measurements/walker
+[ -e $D/fix ] && { echo "FIX EXISTS"; exit 2; }
+LO=""; LS=$(date +%s)
+while ! mkdir $LOCK 2>/dev/null; do
+  O=$(cat $LOCK/owner.txt 2>/dev/null); [ "$O" != "$LO" ] && { LO=$O; LS=$(date +%s); }
+  [ $(( $(date +%s) - LS )) -ge 10800 ] && { echo "LOCK HELD 3 h $(date -u +%T) by $O"; exit 9; }
+  sleep 60
+done
+echo "$WHO — $(date -u +%FT%TZ) — fixtures (vh222-fix-4.zsh)" > $LOCK/owner.txt
+caffeinate -i -w $$ &
+CAF=$!
+echo "lock taken $(date -u +%T); $(uptime)"
+mkdir -p $D/fix
+zsh $WALKER/fixtures.sh $D/fix > $D/fix-4.log 2>&1
+echo "fixtures.sh exit $? $(date -u +%T)"
+cp -p $S/vh222-wip-3/fixtures/audio-only-30s.mp4 $S/vh222-wip-3/fixtures/burst2-float-30s.mov $S/vh222-wip-3/fixtures/notracks-text.mp4 $D/fix/
+L=$(shasum -a 256 $D/fix/lecture-30s.mp4 | cut -c1-16)
+if [ "$L" = fe66c0ad6bcc160d ]; then
+  cp -p $S/vh222-wip-3/fixtures/endsearly-*.mp4 $D/fix/; echo "lecture-30s.mp4 same ($L): endsearly-* copied"
+else
+  echo "lecture-30s.mp4 differs ($L): endsearly-* remade"
+  cd $D && node vh222-cut-tracks.mjs fix/lecture-30s.mp4 fix/endsearly-picture20-30s.mp4 picture=20 \
+    && node vh222-cut-tracks.mjs fix/lecture-30s.mp4 fix/endsearly-sound20-30s.mp4 sound=20 \
+    && node vh222-cut-tracks.mjs fix/lecture-30s.mp4 fix/endsearly-p15s22-30s.mp4 picture=15,sound=22
+  echo "cut-tracks exit $?"
+fi
+(cd $D/fix && for f in *(.); do print -r -- "$(shasum -a 1 "$f" | cut -d' ' -f1) $(shasum -a 256 "$f" | cut -c1-16) $(stat -f %z "$f") $f"; done) > $D/vh222-fix-4.sha.txt
+echo "files $(ls $D/fix | wc -l | tr -d ' ') $(date -u +%T)"
+kill $CAF 2>/dev/null
+grep -q "$WHO" $LOCK/owner.txt && rm -r $LOCK && echo "lock released $(date -u +%T)"

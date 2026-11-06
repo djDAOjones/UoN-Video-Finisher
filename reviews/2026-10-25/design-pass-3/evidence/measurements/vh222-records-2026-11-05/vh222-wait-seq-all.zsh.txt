@@ -1,0 +1,29 @@
+#!/bin/zsh
+# VH-222 #5, on Orchestrator #40's word (10:4xZ): one group armed by the turn rule behind several holders. Check $S/walk.lock/owner.txt
+# every 60 s; once it has matched every <owner pattern> (grep -E), each seen since this script started, in any order, log the scripts and
+# run go.sh <name> once (go.sh then waits for the lock, power and load as it stands). Past the deadline: one line, exit 10. Holds no lock.
+#   zsh vh222-wait-seq-all.zsh <name> "<what for the lock>" <deadline, YYYY-MM-DDTHH:MM:SS UTC> '<job line>' '<pattern>' ['<pattern>' …]
+S=/Users/uazjob/UoN-Video-Helper-side; D=$S/vh222-walk; W=$S/vh222; LOCK=$S/walk.lock
+WALKER="$W/reviews/2026-10-25/design-pass-3/evidence/measurements/walker"
+NAME=$1; WHAT=$2; DL=$3; JOB=$4; shift 4; PATS=("$@")
+LOG=$D/vh222-wait-seq-$NAME.log
+for f in "$LOG" "$D/$NAME" "$D/$NAME.go.out"; do [ -e "$f" ] && { echo "EXISTS: $f"; exit 2; }; done
+[ ${#PATS} -gt 0 ] || { echo "NO PATTERN"; exit 2; }
+DEADLINE=$(date -j -u -f '%Y-%m-%dT%H:%M:%S' "$DL" +%s) || exit 2
+typeset -A LEFT; for p in "${PATS[@]}"; do LEFT[$p]=1; done
+echo "$(date -u +%T) $NAME: waiting for owner.txt to match each of: ${(j: | :)PATS}" >> $LOG
+LAST="-"
+while :; do
+  O=$(cat $LOCK/owner.txt 2>/dev/null)
+  [ "$O" != "$LAST" ] && { echo "$(date -u +%T) owner: ${O:-none} | load $(uptime | sed -E 's/.*load averages?: //')" >> $LOG; LAST=$O; }
+  for p in ${(k)LEFT}; do print -r -- "$O" | grep -qE -- "$p" && { unset "LEFT[$p]"; echo "$(date -u +%T) seen: $p" >> $LOG; }; done
+  [ ${#LEFT} = 0 ] && break
+  [ $(date +%s) -ge $DEADLINE ] && { echo "$(date -u +%T) DEADLINE, not seen: ${(kj: | :)LEFT}" >> $LOG; echo "NOT ARMED by $DL: not seen ${(kj: | :)LEFT}; owner: ${O:-none}"; exit 10; }
+  sleep 60
+done
+echo "$(date -u +%T) armed; the go.sh and wait scripts now:" >> $LOG
+ps -axo pid,command | grep -E '[g]o\.sh|[w]ait-seq' | grep -v 'eval' | cut -c1-200 >> $LOG
+cd $D && zsh go.sh "$NAME" "$WHAT" "$WALKER" "$W" "$JOB" >> "$D/$NAME.go.out" 2>&1
+rc=$?
+echo "$(date -u +%T) go exit $rc" >> $LOG
+echo "go exit $rc"; tail -3 "$D/$NAME.go.out"

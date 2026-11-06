@@ -1,0 +1,2 @@
+warnings.cutShort.heading	NEW
+warnings.cutShort.detail	NEW

@@ -1,0 +1,35 @@
+diff --git a/reviews/2026-10-25/design-pass-3/evidence/measurements/walker/scenarios.mjs b/reviews/2026-10-25/design-pass-3/evidence/measurements/walker/scenarios.mjs
+index 7f39454..36d0c1a 100644
+--- a/reviews/2026-10-25/design-pass-3/evidence/measurements/walker/scenarios.mjs
++++ b/reviews/2026-10-25/design-pass-3/evidence/measurements/walker/scenarios.mjs
+@@ -452,6 +452,30 @@ export const SCENARIOS = {
+     focus: [FILE],
+     fixtures: ['prores-1080p.mov'],
+   },
++  // VH-222 (2026-11-05, on S-155's precedent): the two browser refusals for Chrome on a computer at 375 px. The 375 view sets a phone user agent
++  // (qualify.mjs, setViewport), so blockContextFor (src/ui/preflight-panel.ts:49-52) gives the Elsewhere sentences there; each restores the
++  // browser's own desktop user agent after the view is set, as the desktop views do, so the refusal carries its Here sentence at 375 px too.
++  // At 1280 and 320 px the Here sentences are S-156's (VH-222's driver) and S-28's. S-173 takes F17 and F22: F22, F17's answer in the worker, is
++  // VH-222's, defined in memory by its driver (vh222-driver.mjs, FAULTS.F22), so S-173 runs by that driver. Both kept out of the pass's frozen
++  // plans (`fixOnly`: parts.mjs, PLANS.matrix and smoke), as S-149a to S-149f are, and walked by VH-222's driver.
++  'S-173': {
++    name: 'No AAC encoder in Chrome on a computer, at a phone width: the refusal here',
++    fixOnly: true,
++    views: ['w375'], viewsWhy: "the Here sentence at a phone width with a desktop user agent; at 1280 and 320 px it is S-156's (VH-222's driver)",
++    state: `!M.phone() && !/Android|iPhone|iPad|Mobile/.test(navigator.userAgent) && M.says('preflight.reasons.noAacEncodeHere', { remedy: { msg: 'preflight.chromeLacks' } }, '#source-status')`,
++    setup: async (w, lang) => { await w.page.send('Emulation.setUserAgentOverride', { userAgent: '' }); await applyFault(w, 'F17'); await applyFault(w, 'F22'); await ready(w, lang, 'lecture-30s.mp4') },
++    focus: [FILE],
++    faults: ['F17', 'F22'], fixtures: ['lecture-30s.mp4'],
++  },
++  'S-174': {
++    name: 'Blocked file in Chrome on a computer, at a phone width: the refusal here',
++    fixOnly: true,
++    views: ['w375'], viewsWhy: "the Here sentence at a phone width with a desktop user agent; at 1280 and 320 px it is S-28's",
++    state: `M.kindIn('#source-block') === 'error' && M.el('#step-trim').hidden && M.el('#step-create').hidden && !M.phone() && !/Android|iPhone|iPad|Mobile/.test(navigator.userAgent) && M.says('preflight.reasons.noSourceDecodeHere', {}, '#source-status')`,
++    setup: async (w, lang) => { await w.page.send('Emulation.setUserAgentOverride', { userAgent: '' }); await ready(w, lang, 'prores-1080p.mov') },
++    focus: [FILE],
++    faults: [], fixtures: ['prores-1080p.mov'],
++  },
+   'S-29': {
+     name: 'Unreadable, no result',
+     state: `M.kindIn('#source-report') === 'error' && M.el('#step-trim').hidden && M.res() === 'none' && !M.kindIn('#source-block')`,

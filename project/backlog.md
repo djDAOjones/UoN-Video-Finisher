@@ -37,7 +37,6 @@ The public release on Xerte (PLAN-6) is VH-204's cut.
 
 ### Phase 8 — the owner's UX pass, then a third full design pass
 
-- [ ] VH-222 — Check VH-155.2, VH-156.1, VH-158.1 — since 2026-10-27 — (from: VH-155, 2026-10-22)
 - [ ] VH-232 — The feedback dialog's status brought whole into view when it is set — since 2026-11-05 — (from: VH-222, 2026-11-05)
 - [ ] VH-203 — Pass 3's after-run — since 2026-10-25 — blocked: VH-220 to VH-224 and VH-232
 - [ ] VH-195 — Phase 8 closes — since 2026-10-24

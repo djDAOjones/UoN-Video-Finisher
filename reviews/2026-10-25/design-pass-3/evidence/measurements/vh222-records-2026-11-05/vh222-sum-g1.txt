@@ -1,0 +1,45 @@
+result.endedEarly.sound                    not shown in any walked cell
+result.endedEarly.together                 not shown in any walked cell
+result.endedEarly.both                     not shown in any walked cell
+warnings.endsEarly.detail                  not shown in any walked cell
+warnings.noAudio.heading                   not shown in any walked cell
+warnings.noAudio.detail                    not shown in any walked cell
+warnings.clipping.heading                  not shown in any walked cell
+warnings.targetMissed.heading              not shown in any walked cell
+warnings.soundHeading                      read 36/36 in S-23
+preflight.reasons.noAacEncodeHere          not shown in any walked cell
+preflight.reasons.noAacEncodeElsewhere     not shown in any walked cell
+preflight.reasons.noSourceDecodeHere       not shown in any walked cell
+preflight.reasons.noSourceDecodeElsewhere  not shown in any walked cell
+failure.unreadable.soundOnly               not shown in any walked cell
+failure.unlevellable.what                  not shown in any walked cell
+failure.outputLoudness.what                not shown in any walked cell
+failure.outputPeak.what                    not shown in any walked cell
+systemCheck.rows.aac                       not shown in any walked cell
+systemCheck.values.aacNotSupported         not shown in any walked cell
+failure.unreadable.noTracks                not shown in any walked cell
+preflight.reasons.veryLongJob              not shown in any walked cell
+preflight.reasons.veryLongJobUnknown       not shown in any walked cell
+preflight.reasons.longJob                  not shown in any walked cell
+preflight.reasons.longJobUnknown           not shown in any walked cell
+failure.badTrim.next                       not shown in any walked cell
+failure.unlevellable.next                  not shown in any walked cell
+failure.encoderRefused.next                not shown in any walked cell
+failure.checkFailed.next                   not shown in any walked cell
+failure.tryAgain                           not shown in any walked cell
+result.endedEarly.picture                  not shown in any walked cell
+status.saved                               not shown in any walked cell
+warnings.decodeDamage.detail.one           not shown in any walked cell
+warnings.decodeDamage.detail.other         not shown in any walked cell
+warnings.veryQuiet.detail                  not shown in any walked cell
+warnings.metadataLost.heading              not shown in any walked cell
+warnings.metadataLost.detail               not shown in any walked cell
+feedback.tooLong                           not shown in any walked cell
+feedback.someOmitted                       not shown in any walked cell
+failure.startup.workerNotStarted           not shown in any walked cell
+warnings.cutShort.heading                  read 36/36 in S-23
+warnings.cutShort.detail                   read 36/36 in S-23
+S-23     cells 36 reached 36
+S-23s    cells 9 reached 9
+S-23w    cells 36 reached 36
+total cells 81 reached 81

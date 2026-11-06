@@ -1,0 +1,30 @@
+<!-- markdownlint-disable -->
+
+# VH-222 — Codex astra's blind reading of group g9
+
+You are Codex astra, giving a blind reading, read-only, for item VH-222 of the UoN Video Finisher, from the repository at the current directory (a worktree on `side/vh222`, HEAD `95d18eed5db1ae56d1fe6512053bad714357d899`, the base).
+
+**Background.** VH-222 is a check item: no product diff (`src/`, `index.html`, `public/` unchanged). A first table, `reviews/2026-10-25/design-pass-3/evidence/measurements/vh222-warning-rows-2026-11-05.md` (untracked), reads 1,285 cells in groups g1 to g8. Two rows, `preflight.reasons.noAacEncodeHere` and `preflight.reasons.noSourceDecodeHere`, had no reading at 375 px: the walker's 375 view sets a phone user agent, so the page gives the `…Elsewhere` sentences there. The orchestrator ruled that these 24 cells (two rows × en-GB, zh-Hans, ms-MY × light, dark, forced light, forced dark, at 375 px) be walked under two new scenario IDs, S-173 and S-174, on the precedent of VH-221's S-155 (a desktop user agent at 375 px), as one group, g9.
+
+**The candidate:** `git diff` in this worktree: the walker's `reviews/2026-10-25/design-pass-3/evidence/measurements/walker/scenarios.mjs` gains S-173 and S-174 (+24 lines). Walker revision before `9c52269607bccc4c`, after `6e7fd163e4f3d0bc` (`runner.mjs`, `instrumentRevision`). F22 is a fault defined in memory by the item's driver, not in `walker/faults.mjs`.
+
+**The evidence** (read-only), in `/Users/uazjob/UoN-Video-Helper-side/vh222-walk/`:
+- `vh222-driver.mjs` (the driver: F22 at `FAULTS.F22`, S-156 at `newScenarios`, the probe), `vh222-sum.mjs` (the sum's rules), `rows.json`.
+- `proof8/` and `proof8.sum.txt`, `proof8.load.log`: the qualification walk, S-173 and S-174 with S-156 and S-28 at 375 px, en-GB, light.
+- `g9/` (`conditions.txt`, `runs/*/S-17*.json`, `runs/vh222-probe-vh222-base-g9.jsonl`, `logs/job1.log`), `g9.sum.txt`, `g9.load.log`, `g9.launcher.log`: the group.
+- The page's code: `src/ui/preflight-panel.ts` (`blockContextFor`, `remedyFor`, `reasonText`), `src/media/capability.ts`, `src/i18n/en-GB.ts`, `zh-Hans.ts`, `ms-MY.ts`; the walker's `qualify.mjs` (`setViewport`, `VIEWS`), `scenarios.mjs` (S-28, S-155 is not on this base, S-149a's `fixOnly`, `PLANS`, `GAPS`).
+
+**Do not read:** any folder under `/Users/uazjob/Library/Application Support/Claude/side-session-notes/`; in `/Users/uazjob/UoN-Video-Helper-side/`, any `vh222-claude-*`, `vh222-*compare*`, `vh222-progress.md`, `vh222-handover-*`, `vh222-wip-*`, any `vh222-*brief*` but this one, and any other item's files.
+
+**Rules:** the owner's scope covers "a new fault or scenario named and qualified by VH-198's method" (a proof on the base with a control); no walker change beyond that; no `docs/` edit; a defect found becomes a fix item, never built by VH-222. The orchestrator's load ruling: a group starts below load 8; a reading taken at 8 or above that depends on timing is re-walked.
+
+**Answer, with evidence (file and line, or record and field):**
+1. Is the walker change additive and within the criteria? Does any of the walker's plans (`PLANS`) or other output change, and is `fixOnly` right for scenarios that need the driver's F22?
+2. Are S-173 and S-174 qualified by the proof: does each reach its state on the base, and do the controls show the predicate discriminates?
+3. In g9's 24 cells: is each row's string as the language table holds it, shown whole (not clipped, no word broken, inside the viewport, no sideways scroll), in place, and true of the state it names (Chrome on a computer at a phone width), in all three languages and four modes?
+4. Is the condition real: a desktop Chrome at 375 px with touch emulation on; does anything in the cells read as a phone (heading, verdict)? Is the `Here` sentence the right one for it?
+5. WCAG 1.4.10, 2.4.6, 3.1.5, 3.3.1 and 4.1.3 for these cells; Nielsen's "status visible and announced" and "errors say what next" (`project/digests/nielsen.md`).
+6. Load and power: does any reading rest on timing taken at or above 8?
+7. Anything a table page adding g9 to the first table must state.
+
+Give a verdict line first ("PASS", "PASS with notes" or "FAIL", with a reason), then each answer, then anything else you find. Keep it under about 1,200 words.

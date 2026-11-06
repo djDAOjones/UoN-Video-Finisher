@@ -1,0 +1,32 @@
+// Read-only: aggregate the groups' sum files row by row, with VH-199's cited cells (in the stage-rule grid only).
+// node rowsum.mjs <walk dir> g1,g2,...
+import { readFileSync, existsSync } from 'node:fs'
+import { join } from 'node:path'
+const [dir, gs] = process.argv.slice(2)
+const rows = JSON.parse(readFileSync(join(dir, 'rows.json'), 'utf8'))
+const all = [...new Set(Object.values(rows).flat())]
+const cite = JSON.parse(readFileSync(join(dir, 'vh222-cite-vh199-2.json'), 'utf8')).cells
+const grid = (k) => { const [, l, v, m] = k.split('__'); return ['en-GB', 'zh-Hans', 'ms-MY'].includes(l) && ['w1280', 'w375', 'w320'].includes(v) && ['light', 'dark', 'forced-light', 'forced-dark'].includes(m) }
+const agg = {}
+for (const g of gs.split(',')) {
+  const p = join(dir, `${g}.sum.txt`); if (!existsSync(p)) { console.error('no', p); continue }
+  for (const l of readFileSync(p, 'utf8').split('\n')) {
+    const m = /^(\S+)\s+read (\d+)\/(\d+) in (.+?)(?: FLAWED (\d+))?(?: ABSENT (\d+))?(?: UNREACHED (\d+))?$/.exec(l)
+    if (!m) continue
+    const a = (agg[m[1]] ??= { read: 0, cells: 0, sc: new Set(), groups: new Set(), flawed: 0, absent: 0, unreached: 0 })
+    a.read += +m[2]; a.cells += +m[3]; m[4].split(' ').forEach((s) => a.sc.add(s)); a.groups.add(g)
+    a.flawed += +(m[5] ?? 0); a.absent += +(m[6] ?? 0); a.unreached += +(m[7] ?? 0)
+  }
+}
+const citedIn = {}, citedOut = {}
+for (const [k, c] of Object.entries(cite)) for (const [r, x] of Object.entries(c.rows ?? {})) if (x.read) (grid(k) ? citedIn : citedOut)[r] = ((grid(k) ? citedIn : citedOut)[r] ?? 0) + 1
+console.log('| Row | Wish | Scenarios (groups) | Read on this Mac / cells it shows in | Flawed, absent, unreached | VH-199 cited (grid) |')
+console.log('| --- | --- | --- | --- | --- | --- |')
+let nRead = 0
+for (const r of all) {
+  const w = Object.entries(rows).filter(([, v]) => v.includes(r)).map(([k]) => k).join(', ')
+  const a = agg[r]
+  if (a) nRead++
+  console.log(`| \`${r}\` | ${w} | ${a ? `${[...a.sc].join(', ')} (${[...a.groups].join(', ')})` : '—'} | ${a ? `${a.read}/${a.cells}` : 'not shown'} | ${a ? `${a.flawed}, ${a.absent}, ${a.unreached}` : '—'} | ${citedIn[r] ?? 0} |`)
+}
+console.error(`rows ${all.length}, shown in a walked group ${nRead}; cited grid cells by row ${JSON.stringify(citedIn)}; outside grid ${JSON.stringify(citedOut)}`)

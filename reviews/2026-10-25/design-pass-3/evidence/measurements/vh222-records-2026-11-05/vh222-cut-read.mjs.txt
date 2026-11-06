@@ -1,0 +1,54 @@
+// VH-222 #5: read-only. The cut-short reading of VH-158.1 on every cell of the named groups: the source panel's Duration (#source-report),
+// the cut-short warning (#audio-warnings, by its heading in the cell's language), the finished record's kept span (#process-result,
+// "the whole video (…)" or "… of …") and #status, from each probe record's ctx, with the walker's own reached outcome beside them.
+//   node vh222-cut-read.mjs <walk dir> <group>[,<group>…] [--ids S-23,S-23w,S-23s]
+import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs'
+import { join } from 'node:path'
+const [walk, gs, flag, idList] = process.argv.slice(2)
+const IDS = (flag === '--ids' && idList ? idList : 'S-23,S-23w,S-23s').split(',')
+// The strings, as src/i18n/{en-GB,zh-Hans,ms-MY}.ts hold them at the base (source rows duration/videoFormat; warnings.cutShort.heading; result keptWhole).
+const L = {
+  'en-GB': { dur: 'Duration', next: 'Video format', cut: 'The video file is shorter than expected', whole: /the whole video \(([^)]*)\)/, part: /, ([^,]*? of [^,]*?), from / },
+  'zh-Hans': { dur: '时长', next: '视频格式', cut: '视频文件比预期短', whole: /完整视频（([^）]*)）/, part: /保留了 (.*?)，从 / },
+  'ms-MY': { dur: 'Tempoh', next: 'Format video', cut: 'Fail video lebih pendek daripada yang dijangka', whole: /keseluruhan video \(([^)]*)\)/, part: /, (.*? daripada .*?), dari / },
+}
+const reached = {}
+const out = []
+for (const g of gs.split(',')) {
+  const runs = join(walk, g, 'runs'); if (!existsSync(runs)) { console.log('no runs', g); continue }
+  for (const e of readdirSync(runs)) {
+    const p = join(runs, e)
+    if (statSync(p).isDirectory()) {
+      for (const f of readdirSync(p).filter((x) => /^S-\d+.*__.*\.json$/.test(x))) {
+        const j = JSON.parse(readFileSync(join(p, f), 'utf8'))
+        reached[[j.key ? j.key.split('__')[0] : j.id, j.lang, j.view, j.mode].join('|')] = j.reached?.outcome ?? '?'
+      }
+    }
+  }
+  for (const e of readdirSync(runs).filter((x) => /-probe-.*\.jsonl$/.test(x))) {
+    for (const l of readFileSync(join(runs, e), 'utf8').trim().split('\n').filter(Boolean)) {
+      const j = JSON.parse(l); if (!IDS.includes(j.id)) continue
+      const lv = /-(en-GB|zh-Hans|ms-MY)-(w\d+)/.exec(j.cell) ?? []
+      out.push({ g, id: j.id, lang: lv[1] ?? j.lang, view: lv[2], mode: j.mode, ctx: j.ctx ?? {} })
+    }
+  }
+}
+const order = (r) => [IDS.indexOf(r.id), ['en-GB', 'zh-Hans', 'ms-MY'].indexOf(r.lang), ['w1280', 'w375', 'w320'].indexOf(r.view), ['light', 'dark', 'forced-light', 'forced-dark'].indexOf(r.mode)]
+out.sort((a, b) => { const x = order(a), y = order(b); for (let i = 0; i < 4; i++) if (x[i] !== y[i]) return x[i] - y[i]; return 0 })
+const tally = {}
+for (const r of out) {
+  const s = L[r.lang]; const src = r.ctx['#source-report'] ?? '', aw = r.ctx['#audio-warnings'] ?? '', res = r.ctx['#process-result'] ?? '', st = r.ctx['#status'] ?? ''
+  const i = src.indexOf(s.dur), k = i < 0 ? -1 : src.indexOf(s.next, i)
+  const panel = i < 0 ? '(no Duration row)' : src.slice(i + s.dur.length, k < 0 ? i + s.dur.length + 24 : k).trim()
+  const warn = aw.includes(s.cut) ? 'warning SHOWN' : 'warning absent'
+  const stw = st.includes(s.cut) ? 'status names it' : 'status silent'
+  const m = s.whole.exec(res), p = s.part.exec(res)
+  const rec = res ? (m ? `record whole (${m[1]})` : p ? `record part (${p[1]})` : 'record: no span found') : 'no record'
+  const reach = reached[[r.id, r.lang, r.view, r.mode].join('|')] ?? '?'
+  const line = `${r.id.padEnd(6)} ${r.lang.padEnd(7)} ${r.view.padEnd(5)} ${r.mode.padEnd(12)} ${reach.padEnd(9)} panel ${panel.padEnd(10)} | ${warn} | ${stw} | ${rec} | status: ${st.slice(0, 70)}`
+  console.log(line)
+  const key = `${r.id} ${reach} panel ${panel.replace(/\d+/g, (d) => d)} ${warn} ${stw} ${rec.replace(/\(.*\)/, (x) => x)}`
+  tally[`${r.id}|${reach}|${warn}|${stw}|${m ? 'whole' : p ? 'part' : res ? 'none' : 'no record'}`] = (tally[`${r.id}|${reach}|${warn}|${stw}|${m ? 'whole' : p ? 'part' : res ? 'none' : 'no record'}`] ?? 0) + 1
+}
+console.log(`cells ${out.length}`)
+for (const [k, n] of Object.entries(tally)) console.log(`  ${n} × ${k}`)

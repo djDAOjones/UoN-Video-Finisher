@@ -1,0 +1,1333 @@
+{
+ "revision": [
+  "2e7b0c044ce11f2b"
+ ],
+ "cells": {
+  "S-18__en-GB__w1280__light": {
+   "dir": "run-02-2026-10-26T13-43-03-102Z-5e74aa",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "warnings.soundHeading": {
+     "read": true,
+     "el": "p#notification-title-3.notification-title \"Worth knowing abo",
+     "measure": "pass"
+    },
+    "warnings.veryQuiet.detail": {
+     "read": true,
+     "el": "p.notification-body \"It is well below a comfortable listenin",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-18__en-GB__w320__light": {
+   "dir": "run-02-2026-10-26T13-43-03-102Z-5e74aa",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "warnings.soundHeading": {
+     "read": true,
+     "el": "p#notification-title-3.notification-title \"Worth knowing abo",
+     "measure": "pass"
+    },
+    "warnings.veryQuiet.detail": {
+     "read": true,
+     "el": "p.notification-body \"It is well below a comfortable listenin",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-18__en-GB__w375__light": {
+   "dir": "run-11-part-2026-10-27T09-12-14-585Z-f0fb63",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "warnings.soundHeading": {
+     "read": true,
+     "el": "p#notification-title-3.notification-title \"Worth knowing abo",
+     "measure": "pass"
+    },
+    "warnings.veryQuiet.detail": {
+     "read": true,
+     "el": "p.notification-body \"It is well below a comfortable listenin",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-18__ms-MY__w1280__light": {
+   "dir": "run-02-2026-10-26T13-43-03-102Z-5e74aa",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "warnings.soundHeading": {
+     "read": true,
+     "el": "p#notification-title-3.notification-title \"Perlu diketahui t",
+     "measure": "pass"
+    },
+    "warnings.veryQuiet.detail": {
+     "read": true,
+     "el": "p.notification-body \"Ia jauh di bawah tahap pendengaran yang",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-18__ms-MY__w320__light": {
+   "dir": "run-02-2026-10-26T13-43-03-102Z-5e74aa",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "warnings.soundHeading": {
+     "read": true,
+     "el": "p#notification-title-3.notification-title \"Perlu diketahui t",
+     "measure": "pass"
+    },
+    "warnings.veryQuiet.detail": {
+     "read": true,
+     "el": "p.notification-body \"Ia jauh di bawah tahap pendengaran yang",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-18__ms-MY__w375__light": {
+   "dir": "run-11-part-2026-10-27T09-12-14-585Z-f0fb63",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "warnings.soundHeading": {
+     "read": true,
+     "el": "p#notification-title-3.notification-title \"Perlu diketahui t",
+     "measure": "pass"
+    },
+    "warnings.veryQuiet.detail": {
+     "read": true,
+     "el": "p.notification-body \"Ia jauh di bawah tahap pendengaran yang",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-18__zh-Hans__w1280__light": {
+   "dir": "run-02-2026-10-26T13-43-03-102Z-5e74aa",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "warnings.soundHeading": {
+     "read": true,
+     "el": "p#notification-title-3.notification-title \"值得了解的音频特性\"",
+     "measure": "pass"
+    },
+    "warnings.veryQuiet.detail": {
+     "read": true,
+     "el": "p.notification-body \"音量远低于舒适的聆听水平。电平调整会提高它的音量，但提高轻声说话的音量也会同时",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-18__zh-Hans__w320__light": {
+   "dir": "run-02-2026-10-26T13-43-03-102Z-5e74aa",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "warnings.soundHeading": {
+     "read": true,
+     "el": "p#notification-title-3.notification-title \"值得了解的音频特性\"",
+     "measure": "pass"
+    },
+    "warnings.veryQuiet.detail": {
+     "read": true,
+     "el": "p.notification-body \"音量远低于舒适的聆听水平。电平调整会提高它的音量，但提高轻声说话的音量也会同时",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-18__zh-Hans__w375__light": {
+   "dir": "run-11-part-2026-10-27T09-12-14-585Z-f0fb63",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "warnings.soundHeading": {
+     "read": true,
+     "el": "p#notification-title-3.notification-title \"值得了解的音频特性\"",
+     "measure": "pass"
+    },
+    "warnings.veryQuiet.detail": {
+     "read": true,
+     "el": "p.notification-body \"音量远低于舒适的聆听水平。电平调整会提高它的音量，但提高轻声说话的音量也会同时",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-19__en-GB__w1280__light": {
+   "dir": "run-01-2026-10-26T12-20-53-837Z-5f97fb",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "warnings.clipping.heading": {
+     "read": true,
+     "el": "p.notification-item-title \"The audio may be distorted in pla",
+     "measure": "pass"
+    },
+    "warnings.soundHeading": {
+     "read": true,
+     "el": "p#notification-title-3.notification-title \"Worth knowing abo",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-19__en-GB__w320__light": {
+   "dir": "run-01-2026-10-26T12-20-53-837Z-5f97fb",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "warnings.clipping.heading": {
+     "read": true,
+     "el": "p.notification-item-title \"The audio may be distorted in pla",
+     "measure": "pass"
+    },
+    "warnings.soundHeading": {
+     "read": true,
+     "el": "p#notification-title-3.notification-title \"Worth knowing abo",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-19__en-GB__w375__light": {
+   "dir": "run-10-2026-10-27T05-45-03-929Z-0d1d37",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "warnings.clipping.heading": {
+     "read": true,
+     "el": "p.notification-item-title \"The audio may be distorted in pla",
+     "measure": "pass"
+    },
+    "warnings.soundHeading": {
+     "read": true,
+     "el": "p#notification-title-3.notification-title \"Worth knowing abo",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-19__ms-MY__w1280__light": {
+   "dir": "run-01-2026-10-26T12-20-53-837Z-5f97fb",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "warnings.clipping.heading": {
+     "read": true,
+     "el": "p.notification-item-title \"Audio mungkin terherot di beberap",
+     "measure": "pass"
+    },
+    "warnings.soundHeading": {
+     "read": true,
+     "el": "p#notification-title-3.notification-title \"Perlu diketahui t",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-19__ms-MY__w320__light": {
+   "dir": "run-01-2026-10-26T12-20-53-837Z-5f97fb",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "warnings.clipping.heading": {
+     "read": true,
+     "el": "p.notification-item-title \"Audio mungkin terherot di beberap",
+     "measure": "pass"
+    },
+    "warnings.soundHeading": {
+     "read": true,
+     "el": "p#notification-title-3.notification-title \"Perlu diketahui t",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-19__ms-MY__w375__light": {
+   "dir": "run-10-2026-10-27T05-45-03-929Z-0d1d37",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "warnings.clipping.heading": {
+     "read": true,
+     "el": "p.notification-item-title \"Audio mungkin terherot di beberap",
+     "measure": "pass"
+    },
+    "warnings.soundHeading": {
+     "read": true,
+     "el": "p#notification-title-3.notification-title \"Perlu diketahui t",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-19__zh-Hans__w1280__light": {
+   "dir": "run-01-2026-10-26T12-20-53-837Z-5f97fb",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "warnings.clipping.heading": {
+     "read": true,
+     "el": "p.notification-item-title \"音频某些地方可能会失真\"",
+     "measure": "pass"
+    },
+    "warnings.soundHeading": {
+     "read": true,
+     "el": "p#notification-title-3.notification-title \"值得了解的音频特性\"",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-19__zh-Hans__w320__light": {
+   "dir": "run-01-2026-10-26T12-20-53-837Z-5f97fb",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "warnings.clipping.heading": {
+     "read": true,
+     "el": "p.notification-item-title \"音频某些地方可能会失真\"",
+     "measure": "pass"
+    },
+    "warnings.soundHeading": {
+     "read": true,
+     "el": "p#notification-title-3.notification-title \"值得了解的音频特性\"",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-19__zh-Hans__w375__light": {
+   "dir": "run-10-2026-10-27T05-45-03-929Z-0d1d37",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "warnings.clipping.heading": {
+     "read": true,
+     "el": "p.notification-item-title \"音频某些地方可能会失真\"",
+     "measure": "pass"
+    },
+    "warnings.soundHeading": {
+     "read": true,
+     "el": "p#notification-title-3.notification-title \"值得了解的音频特性\"",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-20__en-GB__w1280__light": {
+   "dir": "run-02-2026-10-26T13-43-03-102Z-5e74aa",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "warnings.noAudio.heading": {
+     "read": true,
+     "el": "p.notification-item-title \"This video has no audio\"",
+     "measure": "pass"
+    },
+    "warnings.noAudio.detail": {
+     "read": true,
+     "el": "p.notification-body \"There is no audio to level, so the rest",
+     "measure": "pass"
+    },
+    "warnings.soundHeading": {
+     "read": true,
+     "el": "p#notification-title-3.notification-title \"Worth knowing abo",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-20__en-GB__w320__light": {
+   "dir": "run-02-2026-10-26T13-43-03-102Z-5e74aa",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "warnings.noAudio.heading": {
+     "read": true,
+     "el": "p.notification-item-title \"This video has no audio\"",
+     "measure": "pass"
+    },
+    "warnings.noAudio.detail": {
+     "read": true,
+     "el": "p.notification-body \"There is no audio to level, so the rest",
+     "measure": "pass"
+    },
+    "warnings.soundHeading": {
+     "read": true,
+     "el": "p#notification-title-3.notification-title \"Worth knowing abo",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-20__en-GB__w375__light": {
+   "dir": "run-11-part-2026-10-27T09-12-14-585Z-f0fb63",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "warnings.noAudio.heading": {
+     "read": true,
+     "el": "p.notification-item-title \"This video has no audio\"",
+     "measure": "pass"
+    },
+    "warnings.noAudio.detail": {
+     "read": true,
+     "el": "p.notification-body \"There is no audio to level, so the rest",
+     "measure": "pass"
+    },
+    "warnings.soundHeading": {
+     "read": true,
+     "el": "p#notification-title-3.notification-title \"Worth knowing abo",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-20__ms-MY__w1280__light": {
+   "dir": "run-02-2026-10-26T13-43-03-102Z-5e74aa",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "warnings.noAudio.heading": {
+     "read": true,
+     "el": "p.notification-item-title \"Video ini tiada audio\"",
+     "measure": "pass"
+    },
+    "warnings.noAudio.detail": {
+     "read": true,
+     "el": "p.notification-body \"Tiada audio untuk diratakan, jadi kerja",
+     "measure": "pass"
+    },
+    "warnings.soundHeading": {
+     "read": true,
+     "el": "p#notification-title-3.notification-title \"Perlu diketahui t",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-20__ms-MY__w320__light": {
+   "dir": "run-02-2026-10-26T13-43-03-102Z-5e74aa",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "warnings.noAudio.heading": {
+     "read": true,
+     "el": "p.notification-item-title \"Video ini tiada audio\"",
+     "measure": "pass"
+    },
+    "warnings.noAudio.detail": {
+     "read": true,
+     "el": "p.notification-body \"Tiada audio untuk diratakan, jadi kerja",
+     "measure": "pass"
+    },
+    "warnings.soundHeading": {
+     "read": true,
+     "el": "p#notification-title-3.notification-title \"Perlu diketahui t",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-20__ms-MY__w375__light": {
+   "dir": "run-11-part-2026-10-27T09-12-14-585Z-f0fb63",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "warnings.noAudio.heading": {
+     "read": true,
+     "el": "p.notification-item-title \"Video ini tiada audio\"",
+     "measure": "pass"
+    },
+    "warnings.noAudio.detail": {
+     "read": true,
+     "el": "p.notification-body \"Tiada audio untuk diratakan, jadi kerja",
+     "measure": "pass"
+    },
+    "warnings.soundHeading": {
+     "read": true,
+     "el": "p#notification-title-3.notification-title \"Perlu diketahui t",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-20__zh-Hans__w1280__light": {
+   "dir": "run-02-2026-10-26T13-43-03-102Z-5e74aa",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "warnings.noAudio.heading": {
+     "read": true,
+     "el": "p.notification-item-title \"这段视频没有音频\"",
+     "measure": "pass"
+    },
+    "warnings.noAudio.detail": {
+     "read": true,
+     "el": "p.notification-body \"由于没有需要调节音量的音频，所以后续工作将在没有音频的情况下进行。如果您需要音",
+     "measure": "pass"
+    },
+    "warnings.soundHeading": {
+     "read": true,
+     "el": "p#notification-title-3.notification-title \"值得了解的音频特性\"",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-20__zh-Hans__w320__light": {
+   "dir": "run-02-2026-10-26T13-43-03-102Z-5e74aa",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "warnings.noAudio.heading": {
+     "read": true,
+     "el": "p.notification-item-title \"这段视频没有音频\"",
+     "measure": "pass"
+    },
+    "warnings.noAudio.detail": {
+     "read": true,
+     "el": "p.notification-body \"由于没有需要调节音量的音频，所以后续工作将在没有音频的情况下进行。如果您需要音",
+     "measure": "pass"
+    },
+    "warnings.soundHeading": {
+     "read": true,
+     "el": "p#notification-title-3.notification-title \"值得了解的音频特性\"",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-20__zh-Hans__w375__light": {
+   "dir": "run-11-part-2026-10-27T09-12-14-585Z-f0fb63",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "warnings.noAudio.heading": {
+     "read": true,
+     "el": "p.notification-item-title \"这段视频没有音频\"",
+     "measure": "pass"
+    },
+    "warnings.noAudio.detail": {
+     "read": true,
+     "el": "p.notification-body \"由于没有需要调节音量的音频，所以后续工作将在没有音频的情况下进行。如果您需要音",
+     "measure": "pass"
+    },
+    "warnings.soundHeading": {
+     "read": true,
+     "el": "p#notification-title-3.notification-title \"值得了解的音频特性\"",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-22__en-GB__w1280__light": {
+   "dir": "run-01-2026-10-26T12-20-53-837Z-5f97fb",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "warnings.endsEarly.detail": {
+     "read": true,
+     "el": "p.notification-body \"Its audio stops at 0:20 of 0:30. The fi",
+     "measure": "pass"
+    },
+    "warnings.soundHeading": {
+     "read": true,
+     "el": "p#notification-title-3.notification-title \"Worth knowing abo",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-22__en-GB__w320__light": {
+   "dir": "run-01-2026-10-26T12-20-53-837Z-5f97fb",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "warnings.endsEarly.detail": {
+     "read": true,
+     "el": "p.notification-body \"Its audio stops at 0:20 of 0:30. The fi",
+     "measure": "pass"
+    },
+    "warnings.soundHeading": {
+     "read": true,
+     "el": "p#notification-title-3.notification-title \"Worth knowing abo",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-22__en-GB__w375__light": {
+   "dir": "run-10-2026-10-27T05-45-03-929Z-0d1d37",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "warnings.endsEarly.detail": {
+     "read": true,
+     "el": "p.notification-body \"Its audio stops at 0:20 of 0:30. The fi",
+     "measure": "pass"
+    },
+    "warnings.soundHeading": {
+     "read": true,
+     "el": "p#notification-title-3.notification-title \"Worth knowing abo",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-22__ms-MY__w1280__light": {
+   "dir": "run-01-2026-10-26T12-20-53-837Z-5f97fb",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "warnings.endsEarly.detail": {
+     "read": true,
+     "el": "p.notification-body \"Audionya berhenti pada 0:20 daripada 0:",
+     "measure": "pass"
+    },
+    "warnings.soundHeading": {
+     "read": true,
+     "el": "p#notification-title-3.notification-title \"Perlu diketahui t",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-22__ms-MY__w320__light": {
+   "dir": "run-01-2026-10-26T12-20-53-837Z-5f97fb",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "warnings.endsEarly.detail": {
+     "read": true,
+     "el": "p.notification-body \"Audionya berhenti pada 0:20 daripada 0:",
+     "measure": "pass"
+    },
+    "warnings.soundHeading": {
+     "read": true,
+     "el": "p#notification-title-3.notification-title \"Perlu diketahui t",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-22__ms-MY__w375__light": {
+   "dir": "run-10-2026-10-27T05-45-03-929Z-0d1d37",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "warnings.endsEarly.detail": {
+     "read": true,
+     "el": "p.notification-body \"Audionya berhenti pada 0:20 daripada 0:",
+     "measure": "pass"
+    },
+    "warnings.soundHeading": {
+     "read": true,
+     "el": "p#notification-title-3.notification-title \"Perlu diketahui t",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-22__zh-Hans__w1280__light": {
+   "dir": "run-01-2026-10-26T12-20-53-837Z-5f97fb",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "warnings.endsEarly.detail": {
+     "read": true,
+     "el": "p.notification-body \"音频在0:20处停止，而全长应为0:30。文件可能在复制或录制时被中断。0:2",
+     "measure": "pass"
+    },
+    "warnings.soundHeading": {
+     "read": true,
+     "el": "p#notification-title-3.notification-title \"值得了解的音频特性\"",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-22__zh-Hans__w320__light": {
+   "dir": "run-01-2026-10-26T12-20-53-837Z-5f97fb",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "warnings.endsEarly.detail": {
+     "read": true,
+     "el": "p.notification-body \"音频在0:20处停止，而全长应为0:30。文件可能在复制或录制时被中断。0:2",
+     "measure": "pass"
+    },
+    "warnings.soundHeading": {
+     "read": true,
+     "el": "p#notification-title-3.notification-title \"值得了解的音频特性\"",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-22__zh-Hans__w375__light": {
+   "dir": "run-10-2026-10-27T05-45-03-929Z-0d1d37",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "warnings.endsEarly.detail": {
+     "read": true,
+     "el": "p.notification-body \"音频在0:20处停止，而全长应为0:30。文件可能在复制或录制时被中断。0:2",
+     "measure": "pass"
+    },
+    "warnings.soundHeading": {
+     "read": true,
+     "el": "p#notification-title-3.notification-title \"值得了解的音频特性\"",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-24__en-GB__w1280__dark": {
+   "dir": "run-02-2026-10-26T13-43-03-102Z-5e74aa",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "preflight.reasons.longJob": {
+     "read": true,
+     "el": "p.notification-body \"This will take about 40 minutes. Keep t",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-24__en-GB__w1280__fallback": {
+   "dir": "run-02-2026-10-26T13-43-03-102Z-5e74aa",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "preflight.reasons.longJob": {
+     "read": true,
+     "el": "p.notification-body \"This will take about 40 minutes. Keep t",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-24__en-GB__w1280__font32": {
+   "dir": "run-02-2026-10-26T13-43-03-102Z-5e74aa",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "preflight.reasons.longJob": {
+     "read": true,
+     "el": "p.notification-body \"This will take about 40 minutes. Keep t",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-24__en-GB__w1280__forced-dark": {
+   "dir": "run-02-2026-10-26T13-43-03-102Z-5e74aa",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "preflight.reasons.longJob": {
+     "read": true,
+     "el": "p.notification-body \"This will take about 40 minutes. Keep t",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-24__en-GB__w1280__forced-light": {
+   "dir": "run-02-2026-10-26T13-43-03-102Z-5e74aa",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "preflight.reasons.longJob": {
+     "read": true,
+     "el": "p.notification-body \"This will take about 40 minutes. Keep t",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-24__en-GB__w1280__light": {
+   "dir": "run-02-2026-10-26T13-43-03-102Z-5e74aa",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "preflight.reasons.longJob": {
+     "read": true,
+     "el": "p.notification-body \"This will take about 40 minutes. Keep t",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-24__en-GB__w1280__reduced-motion": {
+   "dir": "run-02-2026-10-26T13-43-03-102Z-5e74aa",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "preflight.reasons.longJob": {
+     "read": true,
+     "el": "p.notification-body \"This will take about 40 minutes. Keep t",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-24__en-GB__w1280__spacing": {
+   "dir": "run-02-2026-10-26T13-43-03-102Z-5e74aa",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "preflight.reasons.longJob": {
+     "read": true,
+     "el": "p.notification-body \"This will take about 40 minutes. Keep t",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-24__en-GB__w320__light": {
+   "dir": "run-02-2026-10-26T13-43-03-102Z-5e74aa",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "preflight.reasons.longJob": {
+     "read": true,
+     "el": "p.notification-body \"This will take about 40 minutes. Keep t",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-24__en-GB__zoom400proxy__light": {
+   "dir": "run-02-2026-10-26T13-43-03-102Z-5e74aa",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "preflight.reasons.longJob": {
+     "read": true,
+     "el": "p.notification-body \"This will take about 40 minutes. Keep t",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-24__ms-MY__w1280__light": {
+   "dir": "run-08-2026-10-27T02-49-02-205Z-c2d97d",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "preflight.reasons.longJob": {
+     "read": true,
+     "el": "p.notification-body \"Ini akan mengambil masa kira-kira 45 mi",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-24__ms-MY__w320__light": {
+   "dir": "run-02-2026-10-26T13-43-03-102Z-5e74aa",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "preflight.reasons.longJob": {
+     "read": true,
+     "el": "p.notification-body \"Ini akan mengambil masa kira-kira 40 mi",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-24__zh-Hans__w1280__light": {
+   "dir": "run-02-2026-10-26T13-43-03-102Z-5e74aa",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "preflight.reasons.longJob": {
+     "read": true,
+     "el": "p.notification-body \"这大约需要40分钟。任务运行期间请保持此标签页打开，因为关闭标签页会停止任务。",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-25a__en-GB__w1280__light": {
+   "dir": "run-02-2026-10-26T13-43-03-102Z-5e74aa",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "preflight.reasons.veryLongJob": {
+     "read": true,
+     "el": "p.notification-body \"This will take about 2 hours. You can c",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-25a__en-GB__w320__light": {
+   "dir": "run-11-part-2026-10-27T09-12-14-585Z-f0fb63",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "preflight.reasons.veryLongJob": {
+     "read": true,
+     "el": "p.notification-body \"This will take about 1 hour 20 minutes.",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-25a__en-GB__w375__light": {
+   "dir": "run-11-part-2026-10-27T09-12-14-585Z-f0fb63",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "preflight.reasons.veryLongJob": {
+     "read": true,
+     "el": "p.notification-body \"This will take about 1 hour 20 minutes.",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-25a__ms-MY__w1280__light": {
+   "dir": "run-11-part-2026-10-27T09-12-14-585Z-f0fb63",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "preflight.reasons.veryLongJob": {
+     "read": true,
+     "el": "p.notification-body \"Ini akan mengambil masa kira-kira 1 jam",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-25a__ms-MY__w320__light": {
+   "dir": "run-11-part-2026-10-27T09-12-14-585Z-f0fb63",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "preflight.reasons.veryLongJob": {
+     "read": true,
+     "el": "p.notification-body \"Ini akan mengambil masa kira-kira 1 jam",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-25a__ms-MY__w375__light": {
+   "dir": "run-11-part-2026-10-27T09-12-14-585Z-f0fb63",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "preflight.reasons.veryLongJob": {
+     "read": true,
+     "el": "p.notification-body \"Ini akan mengambil masa kira-kira 1 jam",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-25a__zh-Hans__w1280__light": {
+   "dir": "run-11-part-2026-10-27T09-12-14-585Z-f0fb63",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "preflight.reasons.veryLongJob": {
+     "read": true,
+     "el": "p.notification-body \"这大约需要1小时20分钟。您可以继续操作，但使用台式电脑会快得多。\"",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-25a__zh-Hans__w320__light": {
+   "dir": "run-11-part-2026-10-27T09-12-14-585Z-f0fb63",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "preflight.reasons.veryLongJob": {
+     "read": true,
+     "el": "p.notification-body \"这大约需要1小时20分钟。您可以继续操作，但使用台式电脑会快得多。\"",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-25a__zh-Hans__w375__light": {
+   "dir": "run-11-part-2026-10-27T09-12-14-585Z-f0fb63",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "preflight.reasons.veryLongJob": {
+     "read": true,
+     "el": "p.notification-body \"这大约需要1小时20分钟。您可以继续操作，但使用台式电脑会快得多。\"",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-25b__en-GB__w1280__light": {
+   "dir": "run-02-2026-10-26T13-43-03-102Z-5e74aa",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "preflight.reasons.veryLongJob": {
+     "read": true,
+     "el": "p.notification-body \"This will take about 1 hour 20 minutes.",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-25b__en-GB__w320__light": {
+   "dir": "run-11-part-2026-10-27T09-12-14-585Z-f0fb63",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "preflight.reasons.veryLongJob": {
+     "read": true,
+     "el": "p.notification-body \"This will take about 1 hour 20 minutes.",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-25b__en-GB__w375__light": {
+   "dir": "run-11-part-2026-10-27T09-12-14-585Z-f0fb63",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "preflight.reasons.veryLongJob": {
+     "read": true,
+     "el": "p.notification-body \"This will take about 1 hour 20 minutes.",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-25b__ms-MY__w1280__light": {
+   "dir": "run-11-part-2026-10-27T09-12-14-585Z-f0fb63",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "preflight.reasons.veryLongJob": {
+     "read": true,
+     "el": "p.notification-body \"Ini akan mengambil masa kira-kira 1 jam",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-25b__ms-MY__w320__light": {
+   "dir": "run-11-part-2026-10-27T09-12-14-585Z-f0fb63",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "preflight.reasons.veryLongJob": {
+     "read": true,
+     "el": "p.notification-body \"Ini akan mengambil masa kira-kira 1 jam",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-25b__ms-MY__w375__light": {
+   "dir": "run-11-part-2026-10-27T09-12-14-585Z-f0fb63",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "preflight.reasons.veryLongJob": {
+     "read": true,
+     "el": "p.notification-body \"Ini akan mengambil masa kira-kira 1 jam",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-25b__zh-Hans__w1280__light": {
+   "dir": "run-11-part-2026-10-27T09-12-14-585Z-f0fb63",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "preflight.reasons.veryLongJob": {
+     "read": true,
+     "el": "p.notification-body \"这大约需要1小时20分钟。您可以继续操作，但使用台式电脑会快得多。\"",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-25b__zh-Hans__w320__light": {
+   "dir": "run-11-part-2026-10-27T09-12-14-585Z-f0fb63",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "preflight.reasons.veryLongJob": {
+     "read": true,
+     "el": "p.notification-body \"这大约需要1小时25分钟。您可以继续操作，但使用台式电脑会快得多。\"",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-25b__zh-Hans__w375__light": {
+   "dir": "run-11-part-2026-10-27T09-12-14-585Z-f0fb63",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "preflight.reasons.veryLongJob": {
+     "read": true,
+     "el": "p.notification-body \"这大约需要1小时20分钟。您可以继续操作，但使用台式电脑会快得多。\"",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-27__en-GB__w1280__light": {
+   "dir": "run-01-2026-10-26T12-20-53-837Z-5f97fb",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "warnings.soundHeading": {
+     "read": true,
+     "el": "p#notification-title-3.notification-title \"Worth knowing abo",
+     "measure": "pass"
+    },
+    "warnings.decodeDamage.detail.one": {
+     "read": true,
+     "el": "p.notification-body \"At 0:11 in the original video, the file",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-27__en-GB__w320__light": {
+   "dir": "run-01-2026-10-26T12-20-53-837Z-5f97fb",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "warnings.soundHeading": {
+     "read": true,
+     "el": "p#notification-title-3.notification-title \"Worth knowing abo",
+     "measure": "pass"
+    },
+    "warnings.decodeDamage.detail.one": {
+     "read": true,
+     "el": "p.notification-body \"At 0:11 in the original video, the file",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-27__en-GB__w375__light": {
+   "dir": "run-11-part-2026-10-27T09-12-14-585Z-f0fb63",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "warnings.soundHeading": {
+     "read": true,
+     "el": "p#notification-title-3.notification-title \"Worth knowing abo",
+     "measure": "pass"
+    },
+    "warnings.decodeDamage.detail.one": {
+     "read": true,
+     "el": "p.notification-body \"At 0:11 in the original video, the file",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-27__ms-MY__w1280__light": {
+   "dir": "run-01-2026-10-26T12-20-53-837Z-5f97fb",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "warnings.soundHeading": {
+     "read": true,
+     "el": "p#notification-title-3.notification-title \"Perlu diketahui t",
+     "measure": "pass"
+    },
+    "warnings.decodeDamage.detail.other": {
+     "read": true,
+     "el": "p.notification-body \"Pada 0:11 dalam video asal, fail ini me",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-27__ms-MY__w320__light": {
+   "dir": "run-01-2026-10-26T12-20-53-837Z-5f97fb",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "warnings.soundHeading": {
+     "read": true,
+     "el": "p#notification-title-3.notification-title \"Perlu diketahui t",
+     "measure": "pass"
+    },
+    "warnings.decodeDamage.detail.other": {
+     "read": true,
+     "el": "p.notification-body \"Pada 0:11 dalam video asal, fail ini me",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-27__ms-MY__w375__light": {
+   "dir": "run-11-part-2026-10-27T09-12-14-585Z-f0fb63",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "warnings.soundHeading": {
+     "read": true,
+     "el": "p#notification-title-3.notification-title \"Perlu diketahui t",
+     "measure": "pass"
+    },
+    "warnings.decodeDamage.detail.other": {
+     "read": true,
+     "el": "p.notification-body \"Pada 0:11 dalam video asal, fail ini me",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-27__zh-Hans__w1280__light": {
+   "dir": "run-01-2026-10-26T12-20-53-837Z-5f97fb",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "warnings.soundHeading": {
+     "read": true,
+     "el": "p#notification-title-3.notification-title \"值得了解的音频特性\"",
+     "measure": "pass"
+    },
+    "warnings.decodeDamage.detail.other": {
+     "read": true,
+     "el": "p.notification-body \"在原始视频的0:11处，文件中有几段噪声，响度超出未损坏的音频可能达到的水平。",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-27__zh-Hans__w320__light": {
+   "dir": "run-01-2026-10-26T12-20-53-837Z-5f97fb",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "warnings.soundHeading": {
+     "read": true,
+     "el": "p#notification-title-3.notification-title \"值得了解的音频特性\"",
+     "measure": "pass"
+    },
+    "warnings.decodeDamage.detail.other": {
+     "read": true,
+     "el": "p.notification-body \"在原始视频的0:11处，文件中有几段噪声，响度超出未损坏的音频可能达到的水平。",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-27__zh-Hans__w375__light": {
+   "dir": "run-11-part-2026-10-27T09-12-14-585Z-f0fb63",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "warnings.soundHeading": {
+     "read": true,
+     "el": "p#notification-title-3.notification-title \"值得了解的音频特性\"",
+     "measure": "pass"
+    },
+    "warnings.decodeDamage.detail.other": {
+     "read": true,
+     "el": "p.notification-body \"在原始视频的0:11处，文件中有几段噪声，响度超出未损坏的音频可能达到的水平。",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-89__en-GB__w1280__light": {
+   "dir": "run-01-2026-10-26T12-20-53-837Z-5f97fb",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "failure.checkFailed.next": {
+     "read": true,
+     "el": "p.notification-body \"Your original file has not been changed",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-89__en-GB__w320__light": {
+   "dir": "run-01-2026-10-26T12-20-53-837Z-5f97fb",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "failure.checkFailed.next": {
+     "read": true,
+     "el": "p.notification-body \"Your original file has not been changed",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-89__en-GB__w320__spacing": {
+   "dir": "run-04-2026-10-26T17-47-08-808Z-d32f0f",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "failure.checkFailed.next": {
+     "read": true,
+     "el": "p.notification-body \"Your original file has not been changed",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-89__en-GB__w375__light": {
+   "dir": "run-04-2026-10-26T17-47-08-808Z-d32f0f",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "failure.checkFailed.next": {
+     "read": true,
+     "el": "p.notification-body \"Your original file has not been changed",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-89__ms-MY__w1280__light": {
+   "dir": "run-01-2026-10-26T12-20-53-837Z-5f97fb",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "failure.checkFailed.next": {
+     "read": true,
+     "el": "p.notification-body \"Fail asal anda tidak diubah. Tekan Sema",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-89__ms-MY__w320__light": {
+   "dir": "run-01-2026-10-26T12-20-53-837Z-5f97fb",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "failure.checkFailed.next": {
+     "read": true,
+     "el": "p.notification-body \"Fail asal anda tidak diubah. Tekan Sema",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-89__ms-MY__w320__spacing": {
+   "dir": "run-04-2026-10-26T17-47-08-808Z-d32f0f",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "failure.checkFailed.next": {
+     "read": true,
+     "el": "p.notification-body \"Fail asal anda tidak diubah. Tekan Sema",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-89__ms-MY__w375__light": {
+   "dir": "run-04-2026-10-26T17-47-08-808Z-d32f0f",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "failure.checkFailed.next": {
+     "read": true,
+     "el": "p.notification-body \"Fail asal anda tidak diubah. Tekan Sema",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-89__zh-Hans__w1280__light": {
+   "dir": "run-01-2026-10-26T12-20-53-837Z-5f97fb",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "failure.checkFailed.next": {
+     "read": true,
+     "el": "p.notification-body \"您的原始文件未被更改。点击“再次检查”重新运行一次检查。如果检查仍然失败，请使",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-89__zh-Hans__w320__light": {
+   "dir": "run-01-2026-10-26T12-20-53-837Z-5f97fb",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "failure.checkFailed.next": {
+     "read": true,
+     "el": "p.notification-body \"您的原始文件未被更改。点击“再次检查”重新运行一次检查。如果检查仍然失败，请使",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-89__zh-Hans__w320__spacing": {
+   "dir": "run-04-2026-10-26T17-47-08-808Z-d32f0f",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "failure.checkFailed.next": {
+     "read": true,
+     "el": "p.notification-body \"您的原始文件未被更改。点击“再次检查”重新运行一次检查。如果检查仍然失败，请使",
+     "measure": "pass"
+    }
+   }
+  },
+  "S-89__zh-Hans__w375__light": {
+   "dir": "run-04-2026-10-26T17-47-08-808Z-d32f0f",
+   "reached": "pass",
+   "hscroll": false,
+   "rows": {
+    "failure.checkFailed.next": {
+     "read": true,
+     "el": "p.notification-body \"您的原始文件未被更改。点击“再次检查”重新运行一次检查。如果检查仍然失败，请使",
+     "measure": "pass"
+    }
+   }
+  }
+ }
+}

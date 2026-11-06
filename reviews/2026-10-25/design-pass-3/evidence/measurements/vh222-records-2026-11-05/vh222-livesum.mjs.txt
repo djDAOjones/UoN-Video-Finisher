@@ -1,0 +1,18 @@
+// Read-only: per row, across the groups' probe files, how many shown readings sit in a live region (role or aria-live), and which;
+// per group, the page readings with sideways scroll. node livesum.mjs <walk dir> g1,g2,...
+import { readFileSync, readdirSync } from 'node:fs'
+import { join } from 'node:path'
+const [dir, gs] = process.argv.slice(2)
+const rows = {}, pages = {}
+for (const g of gs.split(',')) {
+  const runs = join(dir, g, 'runs'); pages[g] = { n: 0, hscroll: 0 }
+  for (const f of readdirSync(runs).filter((x) => /probe.*\.jsonl$/.test(x))) for (const l of readFileSync(join(runs, f), 'utf8').trim().split('\n').filter(Boolean)) {
+    const j = JSON.parse(l); pages[g].n++; if (j.page?.hscroll) pages[g].hscroll++
+    for (const [r, hits] of Object.entries(j.rows ?? {})) for (const h of (Array.isArray(hits) ? hits : []).filter((x) => x.shown)) {
+      const R = (rows[r] ??= { shown: 0, live: 0, kinds: {}, sels: {} }); R.shown++; R.sels[h.sel] = (R.sels[h.sel] ?? 0) + 1
+      if (h.live) { R.live++; const k = `${h.live.sel} ${h.live.role ?? ''}/${h.live.live ?? ''}`; R.kinds[k] = (R.kinds[k] ?? 0) + 1 }
+    }
+  }
+}
+for (const [r, R] of Object.entries(rows).sort()) console.log(`${r}: shown ${R.shown}, in a live region ${R.live}; ${Object.entries(R.kinds).map(([k, n]) => `${k} ${n}`).join('; ')} | at ${Object.keys(R.sels).join(', ')}`)
+console.log('pages', JSON.stringify(pages))

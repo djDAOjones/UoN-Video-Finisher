@@ -1,0 +1,31 @@
+<!-- markdownlint-disable -->
+
+# VH-222 #8 — g1r: Claude's reading and Codex's blind reading compared
+
+- Claude's reading: `vh222-claude-g1r.md`, saved 00:31:51Z on 2026-11-06, "PASS".
+- Codex astra's: `vh222-codex-g1r.md`, from the brief `vh222-codex-g1r-brief.md`. The run went from 00:32:18 to 00:35:19Z and the answer was opened at 00:35:2xZ, after Claude's was saved. It says: "PASS with notes — g1r supports VH-231’s truthfulness fix in all 45 finished cells. It does not support an unqualified claim of vertical viewport visibility, exact kept-span extraction, or every difference being caused by VH-231."
+
+## Agreed
+
+- g1r ran on `1cb3cbad` (VH-231's landing) with walker `29c3acfcad7eb29c`. The tracked diff is only the 24-line S-173 and S-174 addition, which g1r does not use. 81 of 81 cells reached: S-23 36, S-23w 36, S-23s 9.
+- In each of the 45 finished cells, the panel's Duration, the record's kept span (`result.keptCut`, 0:00.0–0:05.1 or 0:00.0–0:20.0) and the cut-short heading and detail in the result card agree. None calls the read length the whole video. "Duration", read beside the warning, is not a false statement, and VH-231's decision keeps that label. **VH-158.1's criterion holds; no new defect.**
+- Both warning rows equal the language tables' strings. They are resolved whole, unclipped, with no Latin word broken and no sideways scroll, in three languages, four modes and three widths (S-23s in light only, as g1).
+- 4.1.3: the completion announcement in the polite status carries the warning. This proves programmatic exposure, not speech. 1.4.10, 2.4.6 and 3.3.1 hold for these cells. Nielsen's "status visible and announced" and "errors say what next" hold.
+- Load: no sample at 8 or above, peak 6.96, AC throughout. No re-walk.
+- The table must keep g1 as read on the base and state g1r as the re-reading on VH-231's landing.
+
+## Codex only, adopted
+
+1. **Vertical position.** The probe's `inside` checks left and right only (driver `:65`). The warning elements lie below the first screen in all 36 S-23 cells and 27 of the non-light S-23w cells. Claude's reading said "inside the viewport's width", which is consistent, and r1's compare settled the same point. The r2 notes state it.
+2. **Not every difference is VH-231's.** Only `#process-result` and `#status` differ in the captured context: 45 each, as the fix requires. But the instrument `asserts` moves from `cannot-determine` to `pass` in all 45 finished cells. Claude verified this in S-23w en-GB 1280 light: in g1, the burned card's decode timed out on this Mac; in g1r it was read. That is better measurement availability, not a VH-231 effect, and job times vary. Claude concedes its reading's "g1 → g1r is VH-231's effect" is too broad; the notes narrow it to the captured strings.
+3. **The reader's extraction.** `vh222-cut-read-2.mjs` classifies faithfully and reproduces g1's reading, but its `cutSpan` captures carry joining words and, in zh-Hans, trailing text after the end time. Its result-card column tests only that the heading is present. Exact claims rest on the probe's rows and raw text. The notes say so.
+4. **3.1.5.** A native review of VH-231's new zh-Hans and ms-MY wording is VH-231.1 (`project/decisions.md`). The reading level is a person's check.
+5. Smaller points: the evidence files are untracked, so "walker-only" means the tracked diff. `powermode` is null, which is not a measured setting. 30-second load samples cannot exclude an unsampled spike. The W records also show VH-231's trim descriptions changed.
+
+## Claude only
+
+- None of substance. Claude's reading also named the reader's joining words and the trim being VH-231's reading.
+
+## Disagreed
+
+- None. Nothing for the orchestrator to rule.

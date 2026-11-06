@@ -1,0 +1,30 @@
+#!/bin/zsh
+# VH-222 #5, on Orchestrator #40's word (~07:1xZ): S-169's proof6, armed by the turn rule behind VH-221 #4's job and VH-223 #4's rewalk-a5.
+# Check $S/walk.lock/owner.txt every 60 s; once it has named VH-221 #4 and VH-223 #4 (each since this script started), run go.sh proof6 once
+# (go.sh then waits for the lock, power and load as it stands). Not both by 10:20Z: one line, exit 10. Writes vh222-arm-proof6.log; output to proof6.go.out.
+# The job: still-6600s.mp4 by fixtures.sh:76-80's still recipe (D=6600, this Mac's ffmpeg) into fix/, its sha1, sha256 and bytes; then S-169 at
+# w1280 and w320, light, en-GB (2 records).
+S=/Users/uazjob/UoN-Video-Helper-side; D=$S/vh222-walk; W=$S/vh222; LOCK=$S/walk.lock
+WALKER="$W/reviews/2026-10-25/design-pass-3/evidence/measurements/walker"
+LOG=$D/vh222-arm-proof6.log
+DEADLINE=$(date -j -u -f '%Y-%m-%dT%H:%M:%S' 2026-11-05T10:20:00 +%s)
+LAST="-"; SEEN221=0; SEEN223=0
+echo "$(date -u +%T) waiting for owner.txt to name VH-221 #4 and VH-223 #4" >> $LOG
+while :; do
+  O=$(cat $LOCK/owner.txt 2>/dev/null)
+  [ "$O" != "$LAST" ] && { echo "$(date -u +%T) owner: ${O:-none} | load $(uptime | sed -E 's/.*load averages?: //')" >> $LOG; LAST=$O; }
+  print -r -- "$O" | grep -q 'VH-221 #4' && SEEN221=1
+  print -r -- "$O" | grep -q 'VH-223 #4' && SEEN223=1
+  # VH-221 #4 had no waiting process at 07:1xZ: it counts as passed while none of its go or wait scripts is alive (the turn rule).
+  W221=$(ps -axo command | grep -E '[v]h221.*(go\.sh|wait)' | grep -vc eval)
+  [ $SEEN223 = 1 ] && { [ $SEEN221 = 1 ] || [ "$W221" = 0 ]; } && break
+  [ $(date +%s) -ge $DEADLINE ] && { echo "$(date -u +%T) NOT BOTH by 10:20Z (221 $SEEN221, 223 $SEEN223)" >> $LOG; echo "NOT BOTH by 10:20Z: VH-221 #4 $SEEN221, VH-223 #4 $SEEN223; last owner: ${O:-none}"; exit 10; }
+  sleep 60
+done
+echo "$(date -u +%T) armed; the go.sh and wait scripts now:" >> $LOG
+ps -axo pid,command | grep -E '[g]o\.sh|[w]ait-seq' | grep -v 'eval' | cut -c1-220 >> $LOG
+JOB='F=/Users/uazjob/.local/bin/ffmpeg; O="$FIX"; test ! -e "$O/still-6600s.mp4" || { echo "EXISTS still-6600s.mp4"; exit 2; }; "$F" -version | head -1; T0=$(date -u +%T); "$F" -v error -y -f lavfi -i testsrc2=size=1920x1080:rate=1 -frames:v 1 "$O/still-1080p.png" && "$F" -v error -y -loop 1 -framerate 25 -i "$O/still-1080p.png" -f lavfi -i "sine=frequency=440:sample_rate=48000" -t 6600 -af "volume=-13dB,aformat=channel_layouts=stereo" -c:v libx264 -preset ultrafast -tune stillimage -crf 40 -pix_fmt yuv420p -c:a aac -b:a 64k -movflags +faststart "$O/still-6600s.mp4"; e0=$?; rm -f "$O/still-1080p.png"; echo "fixture exit $e0 $T0-$(date -u +%T)"; shasum "$O/still-6600s.mp4"; shasum -a 256 "$O/still-6600s.mp4"; stat -f "bytes %z" "$O/still-6600s.mp4"; [ $e0 = 0 ] || exit 3; node vh222-driver.mjs walk --walker "$WALKER" --label base --name proof6 --plan cross --scenarios S-169 --modes light --langs en-GB --views w1280,w320; echo "proof exit $?"'
+cd $D && zsh go.sh proof6 "proof6 (still-6600s.mp4 made; S-169 2)" "$WALKER" "$W" "$JOB" >> $D/proof6.go.out 2>&1
+rc=$?
+echo "$(date -u +%T) go exit $rc" >> $LOG
+echo "go exit $rc"; tail -3 $D/proof6.go.out

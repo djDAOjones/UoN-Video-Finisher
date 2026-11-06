@@ -1,0 +1,22 @@
+#!/bin/zsh
+# VH-222 #5, by its start file: g1 is third in line. Check $S/walk.lock/owner.txt every 60 s; once it names VH-220 #3, run go.sh g1 once
+# (go.sh then waits for the lock, power and load as it stands). Not named by 09:00Z: one line, exit 10. Writes vh222-arm-g1.log; appends to g1.go.out.
+S=/Users/uazjob/UoN-Video-Helper-side; D=$S/vh222-walk; W=$S/vh222; LOCK=$S/walk.lock
+WALKER="$W/reviews/2026-10-25/design-pass-3/evidence/measurements/walker"
+LOG=$D/vh222-arm-g1.log
+DEADLINE=$(date -j -u -f '%Y-%m-%dT%H:%M:%S' 2026-11-05T09:00:00 +%s)
+LAST="-"
+echo "$(date -u +%T) waiting for owner.txt to name VH-220 #3" >> $LOG
+while :; do
+  O=$(cat $LOCK/owner.txt 2>/dev/null)
+  [ "$O" != "$LAST" ] && { echo "$(date -u +%T) owner: ${O:-none} | load $(uptime | sed -E 's/.*load averages?: //')" >> $LOG; LAST=$O; }
+  print -r -- "$O" | grep -q 'VH-220 #3' && break
+  [ $(date +%s) -ge $DEADLINE ] && { echo "$(date -u +%T) NOT NAMED by 09:00Z" >> $LOG; echo "NOT NAMED by 09:00Z; last owner: ${O:-none}"; exit 10; }
+  sleep 60
+done
+echo "$(date -u +%T) armed; the go.sh and wait scripts now:" >> $LOG
+ps -axo pid,command | grep -E '[g]o\.sh|[w]ait-seq' | grep -v 'eval' | cut -c1-220 >> $LOG
+cd $D && zsh go.sh g1 "g1 (S-23, S-23w 72; S-23s 9)" "$WALKER" "$W" 'node vh222-driver.mjs walk --walker "$WALKER" --label base --name g1 --plan cross --scenarios S-23,S-23w --views w1280,w375,w320; echo "first exit $?"; node vh222-driver.mjs walk --walker "$WALKER" --label base --name g1s --plan cross --scenarios S-23s --modes light --views w1280,w375,w320; echo "second exit $?"' >> $D/g1.go.out 2>&1
+rc=$?
+echo "$(date -u +%T) go exit $rc" >> $LOG
+echo "go exit $rc"; tail -3 $D/g1.go.out

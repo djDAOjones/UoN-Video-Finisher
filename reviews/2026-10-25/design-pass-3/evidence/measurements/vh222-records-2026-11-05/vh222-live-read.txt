@@ -1,0 +1,40 @@
+failure.badTrim.next: shown 72, in a live region 36; #status status/polite 36 | at #status > span.visually-hidden, #process-result > section.notification > p.notification-body
+failure.checkFailed.next: shown 54, in a live region 27; #status status/polite 27 | at #preflight-report > section.notification > p.notification-body, #status > span.visually-hidden
+failure.encoderRefused.next: shown 72, in a live region 36; #status status/polite 36 | at #status > span.visually-hidden, #process-result > section.notification > p.notification-body
+failure.outputLoudness.what: shown 72, in a live region 36; #status status/polite 36 | at #status > span.visually-hidden, #notification-title-3
+failure.outputPeak.what: shown 72, in a live region 36; #status status/polite 36 | at #status > span.visually-hidden, #notification-title-3
+failure.startup.workerNotStarted: shown 36, in a live region 36; #source-status status/polite 36 | at #source-status
+failure.tryAgain: shown 216, in a live region 108; #status status/polite 108 | at #status > span.visually-hidden, #process-result > section.notification > p.notification-body
+failure.unlevellable.next: shown 72, in a live region 36; #status status/polite 36 | at #status > span.visually-hidden, #process-result > section.notification > p.notification-body
+failure.unlevellable.what: shown 72, in a live region 36; #status status/polite 36 | at #status > span.visually-hidden, #notification-title-3
+failure.unreadable.noTracks: shown 72, in a live region 36; #source-status status/polite 36 | at #source-status > span.visually-hidden, #notification-title-2
+failure.unreadable.soundOnly: shown 72, in a live region 36; #source-status status/polite 36 | at #source-status > span.visually-hidden, #notification-title-2
+feedback.someOmitted: shown 36, in a live region 36; #feedback-status status/polite 36 | at #feedback-status
+feedback.tooLong: shown 36, in a live region 36; #feedback-status status/polite 36 | at #feedback-status
+preflight.reasons.longJob: shown 72, in a live region 36; #status status/polite 36 | at #preflight-report > section.notification > p.notification-body, #status > span.visually-hidden
+preflight.reasons.noAacEncodeElsewhere: shown 48, in a live region 24; #source-status status/polite 24 | at #source-status > span.visually-hidden, #source-block > section.notification > p.notification-body
+preflight.reasons.noAacEncodeHere: shown 96, in a live region 48; #source-status status/polite 48 | at #source-status > span.visually-hidden, #source-block > section.notification > p.notification-body
+preflight.reasons.noSourceDecodeElsewhere: shown 48, in a live region 24; #source-status status/polite 24 | at #source-status > span.visually-hidden, #source-block > section.notification > p.notification-body
+preflight.reasons.noSourceDecodeHere: shown 48, in a live region 24; #source-status status/polite 24 | at #source-status > span.visually-hidden, #source-block > section.notification > p.notification-body
+preflight.reasons.veryLongJob: shown 164, in a live region 82; #status status/polite 82 | at #preflight-report > section.notification > p.notification-body, #status > span.visually-hidden
+preflight.reasons.veryLongJobUnknown: shown 72, in a live region 36; #status status/polite 36 | at #preflight-report > section.notification > p.notification-body, #status > span.visually-hidden
+result.endedEarly.both: shown 72, in a live region 36; #status status/polite 36 | at #status > span.visually-hidden, #process-result > section.notification > p.notification-body
+result.endedEarly.picture: shown 144, in a live region 72; #status status/polite 72 | at #status > span.visually-hidden, #process-result > section.notification > p.notification-body
+result.endedEarly.sound: shown 72, in a live region 36; #status status/polite 36 | at #status > span.visually-hidden, #process-result > section.notification > p.notification-body
+result.endedEarly.together: shown 36, in a live region 0;  | at #process-result > section.notification > p.notification-body
+status.saved: shown 36, in a live region 36; #save-status status/polite 36 | at #save-status
+systemCheck.rows.aac: shown 108, in a live region 0;  | at #check-aac > span
+systemCheck.values.aacNotSupported: shown 36, in a live region 0;  | at #check-aac > span.value
+warnings.clipping.heading: shown 54, in a live region 27; #status status/polite 27 | at section.notification > ul.notification-list > li > p.notification-item-title, #status > span.visually-hidden
+warnings.cutShort.detail: shown 36, in a live region 0;  | at section.notification > ul.notification-list > li > p.notification-body
+warnings.cutShort.heading: shown 72, in a live region 36; #status status/polite 36 | at section.notification > ul.notification-list > li > p.notification-item-title, #status > span.visually-hidden
+warnings.decodeDamage.detail.one: shown 9, in a live region 0;  | at section.notification > ul.notification-list > li > p.notification-body
+warnings.decodeDamage.detail.other: shown 54, in a live region 0;  | at section.notification > ul.notification-list > li > p.notification-body
+warnings.endsEarly.detail: shown 27, in a live region 0;  | at section.notification > ul.notification-list > li > p.notification-body
+warnings.metadataLost.detail: shown 36, in a live region 0;  | at section.result-warnings > ul.notification-list > li > p.notification-body
+warnings.metadataLost.heading: shown 36, in a live region 0;  | at section.result-warnings > ul.notification-list > li > p.notification-item-title
+warnings.noAudio.detail: shown 27, in a live region 0;  | at section.notification > ul.notification-list > li > p.notification-body
+warnings.noAudio.heading: shown 54, in a live region 27; #status status/polite 27 | at section.notification > ul.notification-list > li > p.notification-item-title, #status > span.visually-hidden
+warnings.soundHeading: shown 414, in a live region 207; #status status/polite 207 | at #notification-title-4, #status > span.visually-hidden, #notification-title-3
+warnings.veryQuiet.detail: shown 27, in a live region 0;  | at section.notification > ul.notification-list > li > p.notification-body
+pages {"g1":{"n":81,"hscroll":0},"g2":{"n":162,"hscroll":0},"g3":{"n":118,"hscroll":0},"g4":{"n":180,"hscroll":0},"g5":{"n":216,"hscroll":0},"g6":{"n":240,"hscroll":0},"g7":{"n":108,"hscroll":0},"g8":{"n":180,"hscroll":0}}

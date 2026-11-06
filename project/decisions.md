@@ -24,6 +24,16 @@
      moves the oldest entries verbatim to project/decisions-YYYY-MM.md,
      beside this file, listed in project/archive-index.md. -->
 
+## 2026-11-06 — VH-222 — Closes: the warnings', failures' and records' rows read in Chrome in three languages; two defects, VH-231 and VH-232
+
+**Decision:** VH-222 closes as a check with no product diff: VH-155.2's, VH-156.1's and VH-158.1's 41 rows read in Chrome on the Mac Pro in en-GB, zh-Hans and ms-MY at 1280, 375 and 320 px in four modes, over three tables: 39 rows read whole, one retired with its source, one unreachable (wish VH-222.1); its two defects became the fix items VH-231, landed and re-read true, and VH-232.
+
+**Rationale:** The owner's scope, verbatim: "yes to the question mark, and A and B. ensure everything passes UX / design / Accessibility" (2026-10-27, `plan8-owner-words.md:275`), group B covering a new fault or scenario named and qualified by VH-198's method; "yes" to the side-by-side run (:375); "Yes, move it" (:369); "Gateless covers the rest of Phase 8" (:185); "gateless run where possible" (:395); "Yes, leave them" (:366); and their answers of 2026-11-05 (the PLAN-8 entry of that date): the walks re-run on the Mac Pro, the MacBook Pro's records support only, fix items built there by their own workers. Evidence, each with its records: `vh222-warning-rows-2026-11-05.md` (g1 to g8, 1,285 scenario cells, 1,245 reached: S-24's 28 not reached because of this Mac's speed, its long-job state read by S-169; S-156's 12 at 375 px false by design in the walker's phone view), `-r1-2026-11-05.md` (g9, 24 of 24) and `-r2-2026-11-06.md` (g1r, 81 of 81); 80 grid cells cited from VH-199's records (the MacBook Pro), outside the walked cells. The rows: 39 read whole, in place and true of their state; `warnings.targetMissed.heading` retired, a sentence the page no longer has (VH-50, `12f4dd4`); `preflight.reasons.longJobUnknown` unreachable, the long-job band always finite (wish VH-222.1). The IDs, by the orchestrators' word: S-156 to S-169 and F22 to F28 (F23 unused), in the item's driver, in memory; the walker's one change, S-173 and S-174 in `scenarios.mjs` (+24 lines, `fixOnly`, on VH-221's S-155 precedent), for the `Here` refusals at 375 px with the desktop user agent restored, qualified by proof8, revision 9c52269607bccc4c → 6e7fd163e4f3d0bc on the base, 29c3acfcad7eb29c on main's walker after the rebase; no plan moved. **The defects.** (a) The cut-short truth, VH-158.1's case: on the base, g1's 81 cells gave a cut file's read length as its whole, the finished record "the whole video" in 45 of 45, the warning on no finished page: the fix item VH-231, landed at `1cb3cbad`; on it, g1r reads the warning with the finished video and in its announcement and the record's kept span in 45 of 45, "the whole video" in 0 of 81; "Duration" beside the warning is no false statement, as VH-231's decision keeps it. The cut WebM before Create is VH-231's S-170. (b) The feedback status at 320 px: in 17 cells `#feedback-status` is set below the dialog's visible area, a defect under Nielsen's "status visible and announced", not a WCAG failure (Orchestrator #42's ruling): the fix item VH-232. WCAG re-checked: 1.4.10 (no sideways scroll in any reading), 2.4.6, 3.1.5 (en-GB by the gate's reading-grade test; zh-Hans and ms-MY without a native reading, wishes VH-105.2 and VH-231.1), 3.3.1 (it applies to `feedback.tooLong`, an input, and passes: it names the message and the limit and gives the recovery; the rest are conditions of the file, the browser or the job, each said in text with what next), 4.1.3 (programmatic exposure, not speech). Digest rules applied: nielsen, "status visible and announced" and "errors say what next". Codex astra: the design's blind check; the verdict's blind check FAIL, its points settled by the orchestrators' rulings (VH-232; g9) and this close; g9's and g1r's blind readings PASS with notes, their notes adopted. Person checks: a native reading of zh-Hans and ms-MY, the speech, and keyboard scrolling of the feedback dialog (VH-232's); 32 px page shots show the default size (VH-217.5).
+
+**Supersedes:** none
+
+**Deferred:** VH-231, VH-232
+
 ## 2026-11-05 — VH-231 — Closes: a cut Matroska or WebM file said cut short, never "the whole video"
 
 **Decision:** VH-231 closes as a fix: a cut Matroska or WebM file is said cut short with the finished video, its kept length in the owner's words; walked on the Mac Pro, all cells reached.
@@ -531,30 +541,3 @@ Each walk records its machine. Two questions remain for the owner:
 **Items:** VH-206, VH-207, VH-208, VH-209, VH-210
 
 **Deferred:** VH-206, VH-207, VH-208, VH-209, VH-210
-
-## 2026-10-27 — VH-201 — Pass 3's report merged: D-05 and D-06 kept as V-51 and V-52, seven findings, Codex astra's blind ranks the same on six, five questions for the owner
-
-**Decision:** VH-201 closes. `design-pass-3-2026-10-27.md` is Pass 3's report: seven findings, none needing a new element. V-51 (D-05) is at rank 1; V-52 (D-06), V-46 (regressed), V-48, V-49 and V-18 (incomplete) at rank 2; V-50 at rank 3. V-51's words wait for the owner. VH-202 is next.
-
-**Rationale:**
-
-- **The merge** (`reviews/2026-10-25/design-pass-3/design-pass-3-2026-10-27.md`, "How it was done"):
-  - D-05 is V-51, its own: verified in source and the unit tests (`src/media/audio-plan.ts:120`; `src/media/sub-block-sound.test.ts:61`, `97`), and the notice read in S-99 ×31, whose sliver is encoder priming. A kept sliver of audible sound was not walked.
-  - D-06 is V-52, its own: verified in source (`src/main.ts:3285`, `3327`, `3497`) and in S-135's records, the tree's order and the completion write.
-  - Codex's V-46 is merged under V-46, regressed (S-149 ×3). None is set aside.
-- **V-51's direction:** words the owner approves, carrying the cause, the consequence and a recovery that applies, with the omission's reason carried into the existing warning (`src/workers/job.worker.ts:535`, `src/audio/warnings.ts:92`). No control; the 400 ms threshold stays unless the owner changes it. The report drafts no words.
-- **Codex astra**, on the owner's word ("please also do everything in partnership with codex as a comparison. codex astra should be used liberally but you decide"):
-  - Claude's ranks were saved first (`ranks-claude-2026-10-27.md`). Codex then ranked blind from a neutral sheet of observations (`findings-neutral-2026-10-27.md`), forbidden every file that carries a rank. Compared in `ranks-compare-2026-10-27.md`: the same rank on six of seven.
-  - Its corrections were taken: S-113's Malay record at 320 px reaches 528 px, and V-18's readings are VH-205's before, so its place at HEAD is unmeasured.
-  - Three disagreements of judgement go to the owner: V-50 at rank 3 or 2; whether the warning's guidance when the finished video cannot play (F15b) is a finding; and whether the statement's preview-only media limitation is rank 2 debt under VH-192.1.
-  - Its critique of the draft, `codex-astra-report-critique-2026-10-27.md`, said "Commit after the musts below". All five musts were applied and none refused: success claims scoped ("at most one filled action"; exposure, not speech); V-51's remedy through the data path; V-50's full list of offenders; the statement and V-50 kept contested; and VH-200's unread readings, the run's conditions and VH-205's labels carried.
-- **Carried unchanged to VH-203's after-run:** the four accepted gaps, the 823 finish+1s rows, VH-200.1's three readings, VH-205's "?" with its labels, 1.4.3 and 1.4.6, VH-185's output tracks and V-46's J4 case. What pass 3 lacked besides is wish VH-201.2.
-- **For the owner,** wish VH-201.1, for VH-202's ask: V-51's words and threshold, V-50's rank, the failed-playback guidance, V-18's Phase 7 acceptance, and the statement's limitation.
-- **No product code changed,** and no page was walked. Digest rules applied:
-  - nielsen, "status visible and announced; errors say what next" (V-51, V-52);
-  - wcag-2.2-aaa, 2.4.3, 2.4.13 and "every exception recorded";
-  - carbon, one primary per state.
-
-**Supersedes:** none
-
-**Deferred:** VH-202, VH-203

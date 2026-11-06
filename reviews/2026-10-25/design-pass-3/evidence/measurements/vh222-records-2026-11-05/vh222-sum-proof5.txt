@@ -1,0 +1,76 @@
+result.endedEarly.sound                    read 2/2 in S-161~sound
+result.endedEarly.together                 read 2/2 in S-64
+result.endedEarly.both                     read 2/2 in S-161~both
+warnings.endsEarly.detail                  read 2/2 in S-22
+warnings.noAudio.heading                   read 2/2 in S-20
+warnings.noAudio.detail                    read 2/2 in S-20
+warnings.clipping.heading                  read 2/2 in S-19
+warnings.targetMissed.heading              not shown in any walked cell
+warnings.soundHeading                      read 14/14 in S-167 S-18 S-19 S-20 S-22 S-23 S-27
+preflight.reasons.noAacEncodeHere          read 2/2 in S-156
+preflight.reasons.noAacEncodeElsewhere     read 1/1 in S-157
+preflight.reasons.noSourceDecodeHere       not shown in any walked cell
+preflight.reasons.noSourceDecodeElsewhere  read 1/1 in S-160
+failure.unreadable.soundOnly               read 2/2 in S-158
+failure.unlevellable.what                  read 2/2 in S-162
+failure.outputLoudness.what                read 2/2 in S-163
+failure.outputPeak.what                    read 2/2 in S-163~peak
+systemCheck.rows.aac                       read 2/2 in S-159
+systemCheck.values.aacNotSupported         read 2/2 in S-159
+failure.unreadable.noTracks                read 2/2 in S-166
+preflight.reasons.veryLongJob              read 4/6 in S-24 S-25a S-25b UNREACHED 2
+preflight.reasons.veryLongJobUnknown       read 2/2 in S-165
+preflight.reasons.longJob                  not shown in any walked cell
+preflight.reasons.longJobUnknown           not shown in any walked cell
+failure.badTrim.next                       read 2/2 in S-164
+failure.unlevellable.next                  read 2/2 in S-162
+failure.encoderRefused.next                read 2/2 in S-147
+failure.checkFailed.next                   read 2/2 in S-89
+failure.tryAgain                           read 6/6 in S-163 S-163~peak S-90b
+result.endedEarly.picture                  read 2/2 in S-161
+status.saved                               read 2/2 in S-62
+warnings.decodeDamage.detail.one           read 2/2 in S-27
+warnings.decodeDamage.detail.other         read 2/2 in S-167
+warnings.veryQuiet.detail                  read 2/2 in S-18
+warnings.metadataLost.heading              read 2/2 in S-91
+warnings.metadataLost.detail               read 2/2 in S-91
+feedback.tooLong                           not shown in any walked cell
+feedback.someOmitted                       not shown in any walked cell
+failure.startup.workerNotStarted           not shown in any walked cell
+warnings.cutShort.heading                  read 2/2 in S-23
+warnings.cutShort.detail                   read 2/2 in S-23
+S-147    cells 2 reached 2
+S-156    cells 2 reached 2
+S-156~f17only cells 2 reached 0
+S-157    cells 1 reached 1
+S-158    cells 2 reached 2
+S-159    cells 2 reached 2
+S-160    cells 1 reached 1
+S-161    cells 2 reached 2
+S-161~both cells 2 reached 2
+S-161~sound cells 2 reached 2
+S-162    cells 2 reached 2
+S-163    cells 2 reached 2
+S-163~peak cells 2 reached 2
+S-164    cells 2 reached 2
+S-165    cells 2 reached 2
+S-166    cells 2 reached 2
+S-167    cells 2 reached 2
+S-18     cells 2 reached 2
+S-19     cells 2 reached 2
+S-20     cells 2 reached 2
+S-22     cells 2 reached 2
+S-23     cells 2 reached 2
+S-23s    cells 2 reached 2
+S-23w    cells 2 reached 2
+S-24     cells 2 reached 0
+S-25a    cells 2 reached 2
+S-25b    cells 2 reached 2
+S-27     cells 2 reached 2
+S-56     cells 2 reached 2
+S-62     cells 2 reached 2
+S-64     cells 2 reached 2
+S-89     cells 2 reached 2
+S-90b    cells 2 reached 2
+S-91     cells 2 reached 2
+total cells 66 reached 62
