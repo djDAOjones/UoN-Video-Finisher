@@ -1,0 +1,37 @@
+// VH-203 #13, read-only: b4 against VH-208's after (vh208-warnings-2026-10-28.md; its records vh208-records-2026-10-28/after-*-S-*.json,
+// extract-5.mjs's cells). Per walked key, each field is compared with every VH-208 after cell of that key (after-1 to after-6, the low-load
+// re-runs among them): an instrument's outcome; each limiting, asserts and player row's outcome, by its "what"; each focus row's sel, outcome,
+// area at 3:1 and 2 px perimeter; the completion's write (liveWrite). A field reads alike when it equals any of VH-208's after readings of the
+// key. Prints the moves grouped by ID, field and values, with a count and one key; then the keys with no VH-208 after cell.
+// Usage: node cmp-b208.mjs <group folder> <VH-208 records folder>   (run in vh203-walk)
+import { readdirSync, readFileSync, statSync } from 'node:fs'
+import { join } from 'node:path'
+const [g, src] = process.argv.slice(2)
+const files = []; const walk = (d) => { for (const f of readdirSync(d)) { const p = join(d, f); if (f === 'captures') continue; if (statSync(p).isDirectory()) walk(p); else if (f.endsWith('.json') && f.includes('__') && p.includes('/runs/')) files.push(p) } }; walk(g)
+const old = new Map()
+for (const f of readdirSync(src).filter((f) => /^after-.*-S-\d+\.json$/.test(f))) for (const c of JSON.parse(readFileSync(join(src, f), 'utf8')).cells) { if (!old.has(c.key)) old.set(c.key, []); old.get(c.key).push({ ...c, from: f }) }
+const rows = (items) => Object.fromEntries((items ?? []).map((i) => [i.what, i.outcome]))
+const foc = (items) => (items ?? []).map((i) => `${i.sel}:${i.outcome}${i.areaAt3to1 != null ? ' ' + i.areaAt3to1 + '/' + i.perimeter2px : ''}`).join('; ')
+const fieldsNew = (r) => { const I = r.instruments ?? {}, o = {}
+  for (const [k, v] of Object.entries(I)) if (v?.outcome) o['outcome ' + k] = v.outcome
+  for (const [n, a] of [['limiting', I.limiting?.items], ['asserts', I.asserts?.items], ['player', I.player?.items]]) for (const [w, x] of Object.entries(rows(a))) o[`${n} row "${w}"`] = x
+  o['focus rows'] = foc(I.focus?.items); o.liveWrite = I.limiting?.items?.find((i) => i.completion?.text)?.completion.text ?? null; o.status = r.status; return o }
+const fieldsOld = (c) => { const o = {}
+  for (const [k, v] of Object.entries(c.outcomes ?? {})) o['outcome ' + k] = v
+  for (const n of ['limiting', 'asserts', 'player']) for (const [w, x] of Object.entries(rows(c[n]))) o[`${n} row "${w}"`] = x
+  o['focus rows'] = foc(c.focus); o.liveWrite = c.liveWrite ?? null; o.status = c.status; return o }
+const moves = new Map(), none = []; let n = 0
+for (const p of files) {
+  const r = JSON.parse(readFileSync(p, 'utf8')), cs = old.get(r.key); n++
+  if (!cs) { none.push(r.key); continue }
+  const now = fieldsNew(r), was = cs.map(fieldsOld)
+  for (const k of new Set([...Object.keys(now), ...was.flatMap(Object.keys)])) {
+    const vals = [...new Set(was.map((w) => JSON.stringify(w[k] ?? null)))], v = JSON.stringify(now[k] ?? null)
+    if (vals.includes(v)) continue
+    const m = `${r.id} | ${k} | VH-208 ${vals.join(' or ').slice(0, 300)} → now ${v.slice(0, 300)}`
+    if (!moves.has(m)) moves.set(m, { n: 0, key: r.key }); moves.get(m).n++
+  }
+}
+console.log(`records ${n}; VH-208 after keys ${old.size}; moved fields ${[...moves.values()].reduce((a, b) => a + b.n, 0)} in ${moves.size} groups`)
+for (const [m, x] of [...moves].sort()) console.log(`×${x.n} ${m} (e.g. ${x.key})`)
+console.log(`no VH-208 after cell: ${none.length}${none.length ? ' ' + none.join(' ') : ''}`)

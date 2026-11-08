@@ -1,0 +1,4 @@
+{"before":12,"after":12,"alike":11,"moved":1,"onlyBefore":0,"onlyAfter":0,"outcomes":{"before":{"pass":12},"after":{"pass":11,"fail":1}}}
+×1 T-46.3 | falseAsserts | "" → "ready" (en-GB light)
+×1 T-46.3 | outcome | "pass" → "fail" (en-GB light)
+×1 T-46.3 | unmet | "" → "ready" (en-GB light)

@@ -1,0 +1,84 @@
+# VH-203 Part D1: Claude's reading of the bounded before on a3039c3 (VH-203 #15, 2026-11-08, saved before any Codex read of it)
+
+**What was walked.** The app at `a3039c3`, exported outside both trees (`$S/vh203-before-a3039c3/`, `git -C $R archive a3039c3 | tar -x`; no worktree, no `samples/` path), served by Vite from the export and walked by the run revision's walker `7db38f355f3c46c2` (`$W`'s, diff hash b28b608c84617b04), on the Mac Pro (ruling 3; the owner's "Yes, all three", item 3). The records' "commit 756b425 clean" is the walker tree's; each group's `conditions.txt` names the export's commit. The list is `d1-list.mjs`'s (fcf1819e): every core key whose after fails in some instrument or is not reached, `keys-d1-nocd.txt` (b4d064b3), **121 keys**, and A2's two transition sets (48), by Orchestrator #45's word (15:5xZ). The 2,554 keys short of pass only by cannot-determine are accounted by script, not walked (below). W19's sliver probe ran beside it at VH-206's landed commit.
+
+| Group | Keys | Sum (sha1) | Walked (Z) | s (ratio) | Peak load | ok / failed |
+|---|---|---|---|---|---|---|
+| d1g1 | 54 | 5f286c6f | 16:19–16:55 | 2148 (1.27) | 3.70 | 15 / 39 |
+| d1g1-split | 32 (one run a key) | db9da3b1 | 16:56–16:58 | 118 (0.41) | 4.66 | 0 / 32 |
+| d1g2 | 35 | 51981b42 | 16:58–17:02 | 242 (0.46) | 3.95 | 7 / 28 |
+| d1t-all | 12 transitions | `d1t-all.pair.txt` b3a4bd41 | 17:03–17:13 | about 591 | 3.99 | 12 pass |
+| d1t-cases | 36 transitions | `d1t-cases.pair.txt` 0930a593 | 17:13–17:28 | about 893 | 4.78 | 35 pass / 1 fail |
+| d1w19 (probe, 5893d9d) | sliver-N14 × 6 | `d1w19.cmp.txt` b41744c3 | 17:29–17:30 | about 82 | 2.61 | 6 ok |
+
+No sample reached 8 in any group, so no re-walk. AC power throughout; both loads below 8 at each start.
+
+**The pairing.** `d1-pair.tsv` (83e7d02c) holds each of the 121 keys' before and after in one row, with every moved field, built by `d1-pair.mjs` (742598bb) from `d1g1.pair.tsv` (bca001bf), `d1g1-split.pair.tsv` (35fd37dd) and `d1g2.pair.tsv` (634de959). Its key set equals `keys-d1-nocd.txt`'s (sha1 of the sorted lists alike).
+
+| Reading | Keys | IDs | Why |
+|---|---|---|---|
+| Pre-existing, failing at both ends | 21 | S-81 ×9, S-132 ×6, S-152 ×6 | S-81's focus fail (`#accessibility-statement a`): every field alike, W9's own (wish VH-200.1); VH-199's reading is `digest-focus-2026-10-27.md:20`. S-132 and S-152: the player's F16 rows, every player field alike, the walker's expected row; VH-199's is `digest-player-2026-10-27.md:33`–`:34`. |
+| Pre-existing, not reached at both ends | 6 | S-93 ×5, S-140 ×1 | S-93: "timeout waiting for the settled verdict" at both ends, D5 (VH-199's read ok on the MacBook Pro). S-140 en-GB w1280: "state predicate false" at both ends, the sample absent (A3's reading). |
+| D5, this Mac's speed | 1 | S-24 ms-MY w1280 light | The after is not reached: its check reads "akan menjadi perlahan … kira-kira 1 jam" (veryLongJob). The before reached at "Bersedia, dengan satu perkara … kira-kira 1 jam" (longJob). It is the same hour on the band's border. `git diff a3039c3 756b425 -- src` changes no veryLong or longJob line. The script's "introduced", read here as D5 by the carried class. |
+| Before not readable by the current route | 93 | S-141 ×36, S-142 ×28, S-143 ×28, S-144 ×1 | Each setup fails at `document.getElementById('about-help').hidden`. The route opens the title's "?" panel first (VH-216.1, W11). `#about-help` was added by VH-229's **92eaf65**, which a3039c3 does not hold (`git merge-base --is-ancestor` false; nor af912d3). Not a finding. **Read again by their own route (VH-203 #17, below): introduced 93.** |
+| Introduced | 0 by the current route; **93 by their own route** (below) | S-141 ×36, S-142 ×28, S-143 ×28, S-144 ×1 | The format "?"'s type, VH-205's own by cc12788's diff (wish VH-217.2). |
+
+**Moves in the pairs, each classed.**
+- S-152 ×6: limiting's row "the heavy warning's detail whole after its title, in the line spoken at completion" moves fail → pass. That is VH-208's own, by 905e103's diff (`src/ui/announce.ts`, `src/ui/warning-text.ts`), which a3039c3 does not hold.
+- No other move in a reached pair. The 93 unreadable befores carry no instrument reading.
+
+**A2's transitions at a3039c3** (`d1t-pair.mjs` bbe76a01; the after is a2t-all, and a2t-cases with a2t-cases-rw winning by key).
+- **Alike, 36:** 11 of the `all` set, T-46.1 ×12 and T-46.2 ×12 pass at both ends. T-46.3 en-GB forced-dark fails `ready` at both ends (D5).
+- **T-46.3 pass → fail, 12, all D5:**
+  - ×11 on `ready` alone (en-GB light in both sets, and 10 cases). The before reads "Ready to go. This should take about 20 minutes." and the after "Ready, with one thing to know. This will take about 20 minutes.", the same proceed/warn border. Every focus assert held and the ring passed at both ends. "T-46.3's `ready` fails stay D5 at both ends" (#45).
+  - ×1 en-GB dark. The after's standing record landed false, with `savingAtSettle` and `ready` unmet and the ring not read. #45 ruled it not reached because of this Mac's speed (a2-reading line 23: the save finished before the check settled, `scenarios.mjs:3397`'s race). At a3039c3 it passes: the same race, the other way.
+- No other transition differs.
+
+**W19's sliver probe.** `no-audio-206-probe-after.mjs --cells sliver-N14` ran at VH-206's landed commit **5893d9d** (`$S/vh203-vh206-5893d9d/`, its own walker, instrument revision b719c727550a49a4), not at VH-206's after tree.
+- **Why not the after tree:** that tree is not rebuildable here. VH-206's records hold no patch (`vh206-no-audio-2026-10-27.md:10`; `cand.patch` not kept). At 5893d9d the src tree is 9c47759f, while VH-206's after was 6a4e3e0f (#14's notes).
+- **The reading:** each of the 6 cells' saved file is **1,583,347 bytes**, with planned bitrate 2,650,319, one video track and no audio, the same as b6's at 756b425. `jdiff-b.mjs` against b6 (`d1w19.cmp.txt` b41744c3, timestamps left out) leaves 41 differing leaves, all of them other kinds of difference:
+  - file paths and OPFS directory names;
+  - the worker's speed readings (frames per second, realtime factors, planning seconds);
+  - zh-Hans's "页面语言：简体中文。" where 756b425 reads "中文" (VH-227's, later than 5893d9d).
+- **So** b6's move from VH-206's MacBook Pro records (1,682,811 → 1,583,347) is read as "this Mac's encoder, likely, at the landed commit, not at the after tree". It is not proved. No finding.
+
+**The 2,675, accounted by script, not walked.** `d1-cd.mjs` (7ee95b66) reads every key of `keys-d1-cd.txt` (f73d0640, 2,675 = the 121 + 2,554 short only by cannot-determine) at its standing after record.
+- **Output:** `d1-cd.tsv` (b736c1a9), `d1-cd.txt` (9f2e1cf4). 2,607 keys hold a cannot-determine: 10,463 items in 50 sets by instrument and subject.
+- **Records by instrument:** contrastExtra 2,481, targets 2,204, measure 566, focus 49, player 39, limiting 37, keys 4.
+- **Citations:** each set is cited from VH-199's MacBook Pro digest of its instrument, its line in the table:
+  - 43 by the same subject;
+  - 5 by the subject's prefix (the digest cuts the text);
+  - 2 at the digest's records tally. These are keys' J1 native select ×4 (`digest-keys-2026-10-27.md:10`, `:20`) and limiting's detail row ×37, a row VH-208's 905e103 added after VH-199's run (`digest-limiting-2026-10-27.md:10`).
+- **The sets:** they are the declared person checks and glyph-pixel readings: the trim thumbs, the forced palettes' system colours, the mixed-script measure, the native player's ring, and the language-changed limiting rows.
+- **Counts:** each set's count sits within 5 of VH-199's row. VH-199 counts its whole run; here it is the core's standing records. They are cited, never paired.
+
+**For the verdict:** no failure is introduced since a3039c3 outside D5. These go to Codex's blind read and Claude's verdict (D2):
+- the 21 pre-existing failures, with VH-199's readings beside them;
+- the 6 not reached at both ends;
+- S-24's border (D5);
+- the 93 befores the current route cannot read (#about-help, 92eaf65);
+- T-46.3's 12 D5 moves;
+- VH-208's limiting row on S-152;
+- W19's bytes, read as this Mac's encoder and not proved;
+- the 50 cannot-determine sets.
+
+D1 stands with no finding.
+
+## The 93, before by their own route (VH-203 #17, 2026-11-08; #45's word, 18:5xZ)
+
+**What was walked.** The 93 keys above (`keys-d1b.txt` 3cbe2f72) at `a3039c3`, from the same export, by **the export's own walker**: a3039c3's, VH-199's instrument, revision `2e7b0c044ce11f2b`, labelled "before by its own route". That walker has no `--keys` (VH-223 added it later), so `d1b-driver.mjs` (70b0f4f5) registers the 93 records of its own `RUNS` as one plan in memory and runs its `matrix.mjs` unchanged; no walker change in either tree.
+
+| Group | Keys | Walked (Z) | s (est, ratio) | Peak load | Read |
+|---|---|---|---|---|---|
+| d1b | 93 | 19:16:47–19:25:13 | 506 (650, 0.78) | 5.70 | 77 reached; S-143's 16 non-first-of-setup records "state predicate false", every first-of-setup S-143 reached |
+| d1b-split (the split rule) | those 16, one run a key | 19:26:48–19:31:23 | about 275 | 3.61 | 16 reached |
+
+AC throughout; no sample at 8 or above, so no re-walk; both void checks stand.
+
+**The pairing.** `d1-pair.mjs` (742598bb, unchanged) over `d1b` and `d1b-split` (the split winning by key): `d1b-all.pair.tsv` (5ee30deb), `d1b-all.pair.txt` (363661e1). `d1-pair.tsv` is amended by `d1b-amend.mjs` (640d88ba) with three columns for the 93 (the before by its own route, its class, the instrument difference named); the table as it stood is kept whole as `superseded/d1-pair-83e7d02c.tsv`.
+
+**The instrument difference, named.** Before: a3039c3's walker, its own route (Page language's radio first; no `#about-help`, no title's panel). After: the run revision `7db38f355f3c46c2` (W1 to W20; the title's panel first, VH-216.1, the owner's item 1). So S-142 ×28's asserts rows differ by route (the old "Page language's radio" and "Video type's checked radio" rows against the new "the title's "?"" and "Choose file" rows); each passes at its own end. No other field moved but the one below.
+
+**The reading: introduced 93, VH-205's own.** Every before reads the format "?" in the type instrument as `Arial / 0.875rem / 1.5 / 600`, role "compact emphasis", pass (93 of 93); every after reads `Arial / 0.875rem / 1.25 / 600`, on none of the eight roles, fail (VH-217.2's reading). The line-height is the app's, not the instrument's: `.promise-with-help .help-button { line-height: var(--line-height-heading); }` was added by **VH-205's cc12788** ("the lede's "?" drawn at the text's own size") and kept by VH-217's 198182f; cc12788 is an ancestor of 756b425 and not of a3039c3. By #14's carried class this is a landed item's own by its commit's diff; it is the reading wish VH-217.2 holds ("before and after VH-217"), now shown to be **introduced since a3039c3, not pre-existing**. Not a finding by the class; it corrects "introduced 0" for D1 to 93 on this one reading, and goes to the owner with VH-217.2.
+
+**So D1, whole:** of the 121 keys, pre-existing 21, not reached at both ends 6, D5 1 (S-24), **introduced 93** (VH-205's, the format "?"'s type role, wish VH-217.2); every key now paired on one machine, the owner's item 3 met for all 121.

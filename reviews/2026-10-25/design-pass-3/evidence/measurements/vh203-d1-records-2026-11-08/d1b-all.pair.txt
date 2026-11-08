@@ -1,0 +1,18 @@
+{"keys":93,"after":93,"before":93,"byClass":{"introduced":93}}
+S-143: introduced 28
+S-141: introduced 36
+S-144: introduced 1
+S-142: introduced 28
+moved fields 298 in 12 groups
+×36 S-141 | outcome type | "pass" → "fail" (e.g. S-141__en-GB__w1280__light)
+×36 S-141 | type non-pass | "" → "button#format-help-button.button.button--secondary \"…\":fail" (e.g. S-141__en-GB__w1280__light)
+×28 S-142 | asserts row "Shift+Tab: closed, focus on Page language's radio in English, the notice's link " | "pass" → null (e.g. S-142__en-GB__w1280__light)
+×28 S-142 | asserts row "Shift+Tab: closed, focus on the title's "?", the stop before its panel (VH-216.1" | null → "pass" (e.g. S-142__en-GB__w1280__light)
+×28 S-142 | asserts row "Tab: closed, focus on Choose file, the next stop after the title's panel (VH-216" | null → "pass" (e.g. S-142__en-GB__w1280__light)
+×28 S-142 | asserts row "Tab: closed, focus on Video type's checked radio" | "pass" → null (e.g. S-142__en-GB__w1280__light)
+×28 S-142 | outcome type | "pass" → "fail" (e.g. S-142__en-GB__w1280__light)
+×28 S-142 | type non-pass | "" → "button#format-help-button.button.button--secondary \"…\":fail" (e.g. S-142__en-GB__w1280__light)
+×28 S-143 | outcome type | "pass" → "fail" (e.g. S-143__en-GB__w1280__light)
+×28 S-143 | type non-pass | "" → "button#format-help-button.button.button--secondary \"…\":fail" (e.g. S-143__en-GB__w1280__light)
+×1 S-144 | outcome type | "pass" → "fail" (e.g. S-144__en-GB__w320__light)
+×1 S-144 | type non-pass | "" → "button#format-help-button.button.button--secondary \"…\":fail" (e.g. S-144__en-GB__w320__light)

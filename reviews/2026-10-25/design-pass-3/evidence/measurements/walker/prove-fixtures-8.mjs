@@ -39,6 +39,9 @@ const create = async (w) => { if (await mx(w, 'M.ack()')) { await w.click(w.ackn
 const done = (w, timeout = 600000) => until(w, `M.finished() || M.res() === 'failure'`, 'an outcome', timeout)
 const endAt = async (w, t) => { await w.type('#trim-end', t); await w.press('Tab'); await w.waitSettled(); await until(w, 'M.verdict() || M.kindIn("#audio-warnings")', 'the re-check', 60000); await sleep(300) }
 const noAudio = (w) => mx(w, `M.has('warnings.noAudio.heading', '#audio-warnings')`)
+// VH-203 (wish VH-206.1): the kept-part note (since VH-206) read beside the absent-track heading, each its own key, never as synonyms.
+const keptLittle = (w) => mx(w, `M.has('warnings.keptTooLittleAudio.heading', '#audio-warnings')`)
+const heard = async (w) => ({ noAudio: await noAudio(w), keptTooLittleAudio: await keptLittle(w) })
 const duration = (w) => w.evaluate(`(async () => { const s = document.querySelector('#source-report summary'); if (!s.closest('details').open) s.click(); await new Promise((r) => setTimeout(r, 300)); const dt = [...document.querySelectorAll('#source-report dt')].find((d) => d.textContent.trim() === window.__mx.msg('source.rows.duration')); return dt ? dt.nextElementSibling.textContent.trim() : null })()`)
 const endRange = (w) => w.evaluate(`document.getElementById('trim-end-range').valueAsNumber`)
 /**
@@ -86,10 +89,10 @@ await one('N7', 'still-1000s.mp4 and still-1100s.mp4: the 1% boundary (S-94)', a
   return { outcome: a[0].v === 10 && a[1].v === 0 && b[0].v === 11 && b[1].v === 0 ? 'pass' : 'fail', s1000: a, s1100: b }
 })
 await one('N8', 'late sound: a, the sliver; b, the control; c, untrimmed (S-99 to S-102)', async (w) => {
-  await ready(w, 'en-GB', 'late-sound-10s.mp4'); await endAt(w, '0:04'); const a = await noAudio(w)
-  await ready(w, 'en-GB', 'late-sound-3.4s-10s.mp4'); await endAt(w, '0:04'); const b = await noAudio(w)
+  await ready(w, 'en-GB', 'late-sound-10s.mp4'); await endAt(w, '0:04'); const a = await heard(w)
+  await ready(w, 'en-GB', 'late-sound-3.4s-10s.mp4'); await endAt(w, '0:04'); const b = await heard(w)
   await ready(w, 'en-GB', 'late-sound-9.7s-10s.mp4'); const c = await mx(w, `M.text('#audio-warnings').replace(/\\s+/g, ' ').trim().slice(0, 200)`)
-  return { outcome: a === true && b === false ? 'pass' : 'fail', aNoAudio: a, bNoAudio: b, cVerdictNotes: c || null }
+  return { outcome: a.keptTooLittleAudio === true && a.noAudio === false && b.keptTooLittleAudio === false && b.noAudio === false ? 'pass' : 'fail', a, b, cVerdictNotes: c || null }
 })
 await one('N9', 'lecture-30s.mkv, whole: the unchecked caption warning (S-105)', async (w) => {
   await ready(w, 'en-GB', 'lecture-30s.mkv')
@@ -121,15 +124,15 @@ await one('N13', 'qtrle-5s.mov: read and checked (S-140n; its job is S-140n\'s r
 await one('N14', 'late-sound-3.71s-25fps-10s.mp4: the frame-snap case (S-153), to be proved', async (w) => {
   const T = n14Timing(F('late-sound-3.71s-25fps-10s.mp4'))
   // Each on a fresh read: the End field shows one decimal, so 0:04.08 then 0:04.1 would be no change.
-  await ready(w, 'en-GB', 'late-sound-3.71s-25fps-10s.mp4'); await endAt(w, '0:04.08'); const at408 = { askedS: await endRange(w), noAudio: await noAudio(w) }
-  await ready(w, 'en-GB', 'late-sound-3.71s-25fps-10s.mp4'); await endAt(w, '0:04.1'); const at410 = { askedS: await endRange(w), noAudio: await noAudio(w) }
+  await ready(w, 'en-GB', 'late-sound-3.71s-25fps-10s.mp4'); await endAt(w, '0:04.08'); const at408 = { askedS: await endRange(w), ...(await heard(w)) }
+  await ready(w, 'en-GB', 'late-sound-3.71s-25fps-10s.mp4'); await endAt(w, '0:04.1'); const at410 = { askedS: await endRange(w), ...(await heard(w)) }
   const ms = (s) => Math.round(s * 1e4) / 10
   for (const x of [at408, at410]) Object.assign(x, { placedS: T.placed(x.askedS), askedMs: ms(x.askedS - T.decodedStartS), keptMs: ms(T.placed(x.askedS) - T.decodedStartS), keptFromFirstPacketMs: ms(T.placed(x.askedS) - T.firstPacketS) })
   // The timing holds together: the priming is the first packet, the second starts where it ends, and the decoded sound begins there (within 1 ms).
   const measured = T.decodeFromFirstPacket && T.secondPacketS !== null && Math.abs(T.secondPacketS - T.decodedStartS) < 1e-6 && Math.abs(T.onsetS - T.decodedStartS) < 0.001
   // The ranges, from that start: on a frame's edge (4.08 s) under 400 ms, the priming counted or not; asked to 4.10 s under 400 ms, placed on 4.12 s over it, the priming counted or not.
   const ranges = at408.placedS === at408.askedS && at408.keptMs < 400 && at408.keptFromFirstPacketMs < 400 && at410.placedS > at410.askedS && at410.askedMs < 400 && at410.keptMs > 400 && at410.keptFromFirstPacketMs > 400
-  const page = at408.noAudio === true && at410.noAudio === false
+  const page = at408.keptTooLittleAudio === true && at408.noAudio === false && at410.keptTooLittleAudio === false && at410.noAudio === false
   const held = measured && ranges && page
   const timing = { ...T }
   delete timing.placed

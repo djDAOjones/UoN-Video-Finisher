@@ -1,0 +1,41 @@
+# VH-203 Part A2: Claude's reading of part 2 (VH-203 #9, 2026-11-07, saved before any Codex read of it)
+
+**What was walked.** The run revision `7db38f355f3c46c2` (`vh203-run-rev.txt` 4351fc8f): `$W` at `756b425` with the walker's nine files (diff hash b28b608c84617b04), on the Mac Pro, walked by VH-203 #8. Part 2 is `plan-keys-756b425.tsv`'s run-03: 157 keys (`keys-a2.txt` e014de48), which are VH-199's run-03 keys, with no S-155. They were walked by the in-memory route (`vh203-driver.mjs`, `PLANS['vh203-after']`, `--keys`; ruling 1) as one group, `keys-a2g1.txt` 7353adc7, with split 0 by `focus-split-7.mjs`. The 48 transitions were walked by the walker's `transitions.mjs` through `trans-8.zsh` (9788b0ae), with no `--plan` (F2) and the two sets kept apart. `all` is the 12 ids in en-GB, light, at w1280. `cases` is T-46.1 to T-46.3 × en-GB, zh-Hans and ms-MY × light, dark, forced-light and forced-dark (36). The three English light keys sit in both sets.
+
+| Group | Keys | Sum or run dir | Walked (Z) | s (ratio) | Peak load | Outcome | Whole |
+|---|---|---|---|---|---|---|---|
+| a2g1 | 157 | `a2g1.sum.txt` db49f2ee | 18:18–18:42 | 1436 (1.46 on est 984) | 9.72 (5 samples) | 157 ok / 0 failed / 0 not reached | false: S-03 ×5 formatTip evidence alone |
+| a2t-all | 12 | `transitions-2026-11-07T18-44-28-618Z` | 18:44–18:54 | about 600 | 5.98 | 11 pass, 1 fail (T-46.3, D5); rings 8 pass, 4 not read | true |
+| a2t-cases | 36 | `transitions-2026-11-07T18-56-31-710Z` | 18:56–19:12 | about 935 | 9.44 (1 sample) | 24 pass, 12 fail (T-46.3, D5); rings 34 pass, 1 cannot-determine, 1 fail | true |
+| a2t-cases-rw | 2 | `transitions-2026-11-07T19-14-38-787Z` | 19:14–19:16 | about 111 | 7.51 | T-46.3 en-GB forced-light and dark, by the load rule | true |
+| **A2** | **157 + 48** | | | **1436 + about 1,535 (transitions; the plan sized them at 1,250)** | | **157 ok; 35 pass, 13 T-46.3 D5** | |
+
+**Against VH-199** (the MacBook Pro's, cited, never paired; ruling 3):
+- **Run-03:** VH-199 read 157 ok. Here the same 157 read ok and reached, with 0 failed and 0 not reached.
+- **Transitions:** VH-199 read 48 of 48 holding (`design-pass-3-2026-10-27.md:112`).
+  - Here 35 hold: the `all` set's 11, and T-46.1 ×12 and T-46.2 ×12 in `cases`.
+  - T-46.3 ×13 does not hold: 1 in `all`, 12 in `cases`.
+  - The three English light keys read alike in both sets: T-46.1 and T-46.2 pass, and T-46.3 fails on `ready` alone with its ring passing at 716/653.
+
+**Each reading short of pass, classed:**
+- **This Mac's speed (D5):** T-46.3 ×13, every one of them.
+  - **12 records** (en-GB light in both sets; en-GB forced-dark; zh-Hans ×4; ms-MY ×4; en-GB forced-light by its re-walk) fail on `ready` alone. The next file, still-3600s.mp4, has its check settle as "warning" at "This will take about 20 minutes", the proceed/warn border on this Mac, as S-93 does. Every focus assert held (onStopCheck, checkingAtFocus, savingAtFocus, savingAtSettle, noDetour), and each landed on Stop saving with its ring passing. Orchestrator #45 ruled these D5's speed class at ~19:0xZ.
+  - **en-GB dark** is recorded as not reached because of this Mac's speed (#45's word, ~19:4xZ). On the re-walk the 60 s video's save (F4b, 3 s a chunk) finished before still-3600s.mp4's check settled, so the race `scenarios.mjs:3397` assumes went the other way. The record landed false, with focus on "Create the video", and `savingAtSettle` and `ready` were unmet. The first record's ring cannot-determine ("focus did not land on the control") is carried as an unresolved reading for the verdict's account.
+- **The load rule:** T-46.3 en-GB forced-light's first ring fail (631/653 at 3:1, walked 1 to 3 minutes after the 9.44 sample) is replaced by its re-walk's pass (716/653).
+- **S-03 ×5 formatTip evidence, "expected subjects missing"** (a2g1's whole false; ms-MY w1280 dark, font32, forced-dark and forced-light; zh-Hans font32): a known reading, as in A1. It is the closed panel's "?" (VH-205, W11), and its line is decided at the close.
+- **Cannot-determine:** S-15 ×3 focus (ms-MY font32 and forced-light; zh-Hans forced-light), plus targets, contrastExtra and measure. These are the instruments' own unresolved readings, for the verdict's unresolved account, and not NOT-OK.
+- **Not read by design:** the rings of T-46c-save, T-46c-watchdog, T-46d-save and T-46d-watchdog. Their successor is not a control whose ring is read (the reader moves focus, or a dialog opens).
+- **New:** none. No row fails only at the run revision that is not a change's own or a ruled speed reading.
+
+**What moved, and by which change.** These are against `rev-before-rb1`/`-rb2`, at `29c3acfc` on the same build and the same Mac, by `keys-rev-before.why.tsv`:
+- a2g1: S-03 ×5 asserts fail → pass (VH-216.1). S-15 ×1 ms-MY font32 focus fail → cannot-determine (W8, VH-217.5).
+- Nothing moved against pair-rb1 or pair-rb2.
+- No transition is in `keys-rev-before.txt` (0 T-46 lines), so the transitions have nothing to pair.
+
+**Conditions.** AC power throughout. Load was below 8 at each start.
+- **a2g1:** five samples reached 8 or above, with mediaanalysisd at about 200% and suggestd at about 98%. These are macOS's processes, recorded and never stopped. The records within 30 s of those samples are static states with no timing reading, so nothing was re-walked.
+- **a2t-cases:** one sample reached 9.44 (19:01:00Z). The T-46.2 ms-MY ×4 records near it passed, and the two en-GB rings walked after it were re-walked.
+
+Fixtures are as in A1. Nothing was written to samples/.
+
+**For the verdict:** A2's T-46.3 readings go to Codex's blind read and Claude's verdict under D5: the 12 `ready` readings, en-GB dark not reached and its first ring's cannot-determine. So do S-03's formatTip line and S-15's cannot-determine (D2). Codex's blind read of part 2 is skipped by Orchestrator #45's word (ruling 4's may); the must stays the whole after-run's blind read. Part 2 stands with no finding.

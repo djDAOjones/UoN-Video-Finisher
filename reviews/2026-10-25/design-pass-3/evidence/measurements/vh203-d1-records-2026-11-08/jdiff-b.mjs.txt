@@ -1,0 +1,14 @@
+// VH-203 #13, read-only: a probe's result against its source's, leaf by leaf. Leaves whose key reads as a time, a path, a hash, a run name
+// or a load are left out (the -x pattern widens that); arrays are compared by index. Prints each differing leaf (source → now), then a count.
+// Usage: node jdiff-b.mjs <source.json> <now.json> [-x <extra key pattern>]
+import { readFileSync } from 'node:fs'
+const [a, b, x, xp] = process.argv.slice(2)
+const skip = new RegExp('(^|_)(time|times|ms|at|path|paths|dir|sha|sha1|sha256|hash|run|runId|date|started|ended|elapsed|took|load|loads|pid|port|revision|source|label|when|start|end)$|Ms$|At$|Path$' + (x === '-x' && xp ? '|^(?:' + xp + ')$' : ''), 'i')
+const out = []
+const walk = (p, u, v) => {
+  if (u && v && typeof u === 'object' && typeof v === 'object') { for (const k of new Set([...Object.keys(u), ...Object.keys(v)])) if (!skip.test(k)) walk(p ? `${p}.${k}` : k, u[k], v[k]); return }
+  if (JSON.stringify(u) !== JSON.stringify(v)) out.push(`${p}: ${JSON.stringify(u)?.slice(0, 160)} → ${JSON.stringify(v)?.slice(0, 160)}`)
+}
+walk('', JSON.parse(readFileSync(a, 'utf8')), JSON.parse(readFileSync(b, 'utf8')))
+for (const l of out) console.log(l)
+console.log(`differing leaves: ${out.length}`)

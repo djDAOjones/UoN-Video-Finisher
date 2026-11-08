@@ -1,0 +1,25 @@
+// VH-203 #13, read-only: a B group against its source walk's raw records (matrix.mjs's own .json records, captures/ skipped), by exact key.
+// Fields: status; reached; each instrument's outcome; each row's outcome (limiting, asserts, player, formatTip, subresults items, by "what"
+// or "sel"/"el"); the non-pass items of targets, type and focus (by element). A field reads alike when it equals any source record of the key
+// (a resumed or re-walked key's records all count). Prints the moves grouped by ID, field and values, with a count and one key.
+// Usage: node cmp-raw-b.mjs <group folder> <source folder> [<source folder> …]   (run in vh203-walk)
+import { readdirSync, readFileSync, statSync } from 'node:fs'
+import { join } from 'node:path'
+const [g, ...srcs] = process.argv.slice(2)
+const recs = (d) => { const out = []; const walk = (d) => { for (const f of readdirSync(d)) { const p = join(d, f); if (f === 'captures' || f === 'chrome-profile') continue; if (statSync(p).isDirectory()) walk(p); else if (f.endsWith('.json') && f.includes('__') && p.includes('/runs/')) out.push(p) } }; walk(d); return out }
+const lab = (i) => i.what ?? i.sel ?? i.el ?? '?'
+const fields = (r) => { const I = r.instruments ?? {}, o = { status: r.status, reached: r.reached?.outcome }
+  for (const [k, v] of Object.entries(I)) { if (!v?.outcome) continue; o['outcome ' + k] = v.outcome
+    if (['limiting', 'asserts', 'player', 'formatTip', 'subresults'].includes(k)) for (const i of v.items ?? []) o[`${k} row "${String(lab(i)).slice(0, 80)}"`] = i.outcome
+    if (['targets', 'type', 'focus'].includes(k)) o[`${k} non-pass`] = (v.items ?? []).filter((i) => i.outcome && i.outcome !== 'pass').map((i) => `${String(lab(i)).replace(/"[^"]*"/, '"…"')}:${i.outcome}`).sort().join('; ') }
+  return o }
+const old = new Map(); for (const s of srcs) for (const p of recs(s)) { const r = JSON.parse(readFileSync(p, 'utf8')); if (!old.has(r.key)) old.set(r.key, []); old.get(r.key).push(fields(r)) }
+const moves = new Map(), none = []; let n = 0
+for (const p of recs(g)) { const r = JSON.parse(readFileSync(p, 'utf8')), was = old.get(r.key); n++
+  if (!was) { none.push(r.key); continue }
+  const now = fields(r)
+  for (const k of new Set([...Object.keys(now), ...was.flatMap(Object.keys)])) { const vals = [...new Set(was.map((w) => JSON.stringify(w[k] ?? null)))], v = JSON.stringify(now[k] ?? null); if (vals.includes(v)) continue
+    const m = `${r.id} | ${k} | was ${vals.join(' or ').slice(0, 220)} → now ${v.slice(0, 220)}`; if (!moves.has(m)) moves.set(m, { n: 0, key: r.key }); moves.get(m).n++ } }
+console.log(`records ${n}; source keys ${old.size}; moved fields ${[...moves.values()].reduce((a, b) => a + b.n, 0)} in ${moves.size} groups`)
+for (const [m, x] of [...moves].sort()) console.log(`×${x.n} ${m} (e.g. ${x.key})`)
+console.log(`no source record: ${none.length}${none.length ? ' ' + none.join(' ') : ''}`)

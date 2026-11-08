@@ -1,0 +1,128 @@
+[
+ {
+  "key": "v18__en-GB__w1280",
+  "lang": "en-GB",
+  "view": "w1280",
+  "input": {
+   "top": 261,
+   "bottom": 313,
+   "left": 222,
+   "height": 52
+  },
+  "painted": {
+   "top": 265,
+   "bottom": 309,
+   "left": 226,
+   "width": 120,
+   "height": 44
+  },
+  "firstScreen": 900,
+  "insideFirstScreen": true,
+  "scrolled": 0
+ },
+ {
+  "key": "v18__zh-Hans__w1280",
+  "lang": "zh-Hans",
+  "view": "w1280",
+  "input": {
+   "top": 432,
+   "bottom": 484,
+   "left": 222,
+   "height": 52
+  },
+  "painted": {
+   "top": 436,
+   "bottom": 480,
+   "left": 226,
+   "width": 120,
+   "height": 44
+  },
+  "firstScreen": 900,
+  "insideFirstScreen": true,
+  "scrolled": 0
+ },
+ {
+  "key": "v18__ms-MY__w1280",
+  "lang": "ms-MY",
+  "view": "w1280",
+  "input": {
+   "top": 453,
+   "bottom": 505,
+   "left": 222,
+   "height": 52
+  },
+  "painted": {
+   "top": 457,
+   "bottom": 501,
+   "left": 226,
+   "width": 120,
+   "height": 44
+  },
+  "firstScreen": 900,
+  "insideFirstScreen": true,
+  "scrolled": 0
+ },
+ {
+  "key": "v18__en-GB__w320",
+  "lang": "en-GB",
+  "view": "w320",
+  "input": {
+   "top": 423,
+   "bottom": 475,
+   "left": 62,
+   "height": 52
+  },
+  "painted": {
+   "top": 427,
+   "bottom": 471,
+   "left": 66,
+   "width": 120,
+   "height": 44
+  },
+  "firstScreen": 568,
+  "insideFirstScreen": true,
+  "scrolled": 0
+ },
+ {
+  "key": "v18__zh-Hans__w320",
+  "lang": "zh-Hans",
+  "view": "w320",
+  "input": {
+   "top": 634,
+   "bottom": 686,
+   "left": 62,
+   "height": 52
+  },
+  "painted": {
+   "top": 638,
+   "bottom": 682,
+   "left": 66,
+   "width": 120,
+   "height": 44
+  },
+  "firstScreen": 568,
+  "insideFirstScreen": false,
+  "scrolled": 0
+ },
+ {
+  "key": "v18__ms-MY__w320",
+  "lang": "ms-MY",
+  "view": "w320",
+  "input": {
+   "top": 676,
+   "bottom": 728,
+   "left": 62,
+   "height": 52
+  },
+  "painted": {
+   "top": 680,
+   "bottom": 724,
+   "left": 66,
+   "width": 120,
+   "height": 44
+  },
+  "firstScreen": 568,
+  "insideFirstScreen": false,
+  "scrolled": 0
+ }
+]

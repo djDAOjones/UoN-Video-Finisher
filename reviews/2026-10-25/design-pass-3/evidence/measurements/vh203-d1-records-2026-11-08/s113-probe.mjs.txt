@@ -1,0 +1,119 @@
+// VH-203 #17, step b (#45's word 8, 18:5xZ): a bounded read-only probe of S-113 ("Step 4 at the 32 px font") x3 at w320 and 32 px, en-GB,
+// zh-Hans and ms-MY, at the run revision (the walker's own setup, viewport, mode, fileButtonInk and focusArea, unchanged, imported).
+// Read: (1) the file button's text contrast, 1.4.3 and 1.4.6, which a3g3's records leave "cannot-determine" ("changed pixels lie outside
+// the button's content box: not glyphs alone"): the walker's own reading again, then a qualified one on the same three shots the walker
+// takes (text on; the button hidden; the text alone transparent, every other paint pinned): the changed pixels must lie inside the
+// button's painted box and the button's paint must be the same with and without its text, so the changed pixels are the glyphs alone;
+// (2) in the same records, the chooser's ring (#file-input, wish VH-209.1): the walker's focusArea against the painted button, then
+// where the 3:1 pixels lie, side by side of the painted button and of the input's box, with the outline's computed style and every
+// clipping ancestor, to locate the shortfall. Nothing is written to the repository, the walker or samples/.
+//   FIX=… CDP_PORT=… APP_URL=… OUT_ROOT=… RUN_ROOT=… WALKER=… OUTD=… node s113-probe.mjs [--langs en-GB,zh-Hans,ms-MY]
+import { pathToFileURL } from 'node:url'
+import { join } from 'node:path'
+import { appendFileSync, mkdirSync, writeFileSync } from 'node:fs'
+const WALKER = process.env.WALKER, OUTD = process.env.OUTD
+const imp = (f) => import(pathToFileURL(join(WALKER, f)).href)
+const { connectBrowser } = await imp('cdp.mjs')
+const { Walk, sleep } = await imp('walk.mjs')
+const Q = await imp('qualify.mjs')
+const { MX_INIT } = await imp('scenarios.mjs')
+const { SCENARIOS } = await imp('matrix.mjs')
+const args = process.argv.slice(2), i = args.indexOf('--langs')
+const langs = i >= 0 ? args[i + 1].split(',') : ['en-GB', 'zh-Hans', 'ms-MY']
+const OUT = join(OUTD, 's113.jsonl'), PNG = join(OUTD, 'png'); mkdirSync(PNG, { recursive: true })
+const SEL = '#file-input', sc = SCENARIOS['S-113']
+if (!sc?.setup) throw new Error('no S-113 scenario')
+const shot = async (w, clip) => (await w.page.send('Page.captureScreenshot', { format: 'png', clip: { ...clip, scale: 1 }, captureBeyondViewport: false })).data
+const withCss = async (w, css, fn) => {
+  await w.evaluate(`(() => { const s = document.createElement('style'); s.id = '__s113'; s.textContent = ${JSON.stringify(css)}; document.head.append(s); })()`); await sleep(150)
+  try { return await fn() } finally { await w.evaluate(`document.getElementById('__s113')?.remove()`); await sleep(150) }
+}
+const RECT = `(() => { const el = document.querySelector(${JSON.stringify(SEL)}); const b = el.getBoundingClientRect(); return { x: b.left, y: b.top, w: b.width, h: b.height, sx: scrollX, sy: scrollY, vw: innerWidth, vh: innerHeight, dpr: devicePixelRatio }; })()`
+// Changed pixels of A against B, inside and outside a box, the top-2% ratio, the fill under them and how uniform it is.
+const QUALIFY = (P) => `(([A, B], L, K) => {
+  const P = ${JSON.stringify(P)}; const ks = []; let out = 0, l = A.width, r = -1, t = A.height, b = -1; const bg = new Map();
+  for (let p = 0; p < A.width * A.height; p++) { const i = p * 4; const k = K(L(A.data[i], A.data[i + 1], A.data[i + 2]), L(B.data[i], B.data[i + 1], B.data[i + 2]));
+    if (k <= 1.02) continue; const x = p % A.width, y = (p - x) / A.width; l = Math.min(l, x); r = Math.max(r, x); t = Math.min(t, y); b = Math.max(b, y);
+    if (x < P.x || y < P.y || x >= P.x + P.w || y >= P.y + P.h) out++; ks.push([k, i]); const bk = B.data[i] + ',' + B.data[i + 1] + ',' + B.data[i + 2]; bg.set(bk, (bg.get(bk) || 0) + 1); }
+  if (ks.length < 10) return { glyphPx: ks.length };
+  ks.sort((x, y) => y[0] - x[0]); const [ratio, at] = ks[Math.floor(ks.length * 0.02)];
+  let fill = null, n = 0; for (const [k, c] of bg) if (c > n) { n = c; fill = k; }
+  return { glyphPx: ks.length, outsidePainted: out, ratio: Math.round(ratio * 1e4) / 1e4, ink: 'rgb(' + A.data[at] + ',' + A.data[at + 1] + ',' + A.data[at + 2] + ')', fill: 'rgb(' + fill + ')', fillShare: Math.round(n / ks.length * 1e4) / 1e4, backgrounds: bg.size, glyphBox: { x: l, y: t, w: r - l + 1, h: b - t + 1 } };
+})`
+// Where the 3:1 changed pixels lie, by band of a box (inside, and above, below, left and right of it, corners counted once, by row first).
+const BANDS = (boxes) => `(([A, B], L, K) => {
+  const boxes = ${JSON.stringify(boxes)}; const res = {}; for (const n of Object.keys(boxes)) res[n] = { inside: 0, top: 0, bottom: 0, left: 0, right: 0 };
+  let all = 0, l = A.width, r = -1, t = A.height, b = -1;
+  for (let p = 0; p < A.width * A.height; p++) { const i = p * 4; const k = K(L(A.data[i], A.data[i + 1], A.data[i + 2]), L(B.data[i], B.data[i + 1], B.data[i + 2]));
+    if (k < 3) continue; all++; const x = p % A.width, y = (p - x) / A.width; l = Math.min(l, x); r = Math.max(r, x); t = Math.min(t, y); b = Math.max(b, y);
+    for (const [n, q] of Object.entries(boxes)) { const o = res[n]; if (y < q.y) o.top++; else if (y >= q.y + q.h) o.bottom++; else if (x < q.x) o.left++; else if (x >= q.x + q.w) o.right++; else o.inside++; } }
+  return { changed3: all, ringBox: r < 0 ? null : { x: l, y: t, w: r - l + 1, h: b - t + 1 }, w: A.width, h: A.height, bands: res };
+})`
+const browser = await connectBrowser()
+let bad = 0
+for (const lang of langs) {
+  const w = new Walk(browser, `s113/${lang}__w320__font32`)
+  const put = (what, r) => appendFileSync(OUT, JSON.stringify({ key: `S-113__${lang}__w320__font32`, lang, view: 'w320', mode: 'font32', what, ...r }) + '\n')
+  const png = (name, b64) => { const f = `s113-${lang}-${name}.png`; writeFileSync(join(PNG, f), Buffer.from(b64, 'base64')); return f }
+  try {
+    await w.open()
+    await w.page.send('Page.addScriptToEvaluateOnNewDocument', { source: Q.QUAL_INIT })
+    await w.page.send('Page.addScriptToEvaluateOnNewDocument', { source: MX_INIT })
+    await Q.setViewport(w, 'w320'); await Q.setMode(w, 'font32')
+    await sc.setup(w, lang); await sleep(300)
+    const st = await w.evaluate(`(() => { const M = window.__mx; return { reached: !!(${sc.state}), root: parseFloat(getComputedStyle(document.documentElement).fontSize), vw: innerWidth, lang: document.documentElement.lang }; })()`)
+    put('state', st)
+    if (!st.reached || st.root !== 32 || st.vw !== 320) throw new Error('state not reached as declared: ' + JSON.stringify(st))
+    // (1) The walker's own reading, unchanged.
+    const own = await Q.fileButtonInk(w, SEL); put('fileButtonInk (the walker\'s)', own)
+    // (1) The qualified reading on the same three shots.
+    await w.page.send('Input.dispatchMouseEvent', { type: 'mouseMoved', x: 0, y: 0 }); await sleep(150)
+    await w.evaluate(`(() => { const el = document.querySelector(${JSON.stringify(SEL)}); el.scrollIntoView({ block: 'center' }); const a = document.activeElement; if (a && a !== document.body) a.blur(); })()`); await sleep(150)
+    const box = await w.evaluate(RECT), m = 4
+    const clip = { x: Math.max(0, box.x - m) + box.sx, y: Math.max(0, box.y - m) + box.sy, width: box.w + 2 * m, height: box.h + 2 * m }
+    const g = await w.evaluate(`(() => { const b = getComputedStyle(document.querySelector(${JSON.stringify(SEL)}), '::file-selector-button'); const n = (v) => parseFloat(v) || 0;
+      return { fontSize: n(b.fontSize), fontWeight: parseInt(b.fontWeight, 10), padL: n(b.paddingLeft), padR: n(b.paddingRight), bordL: n(b.borderLeftWidth), bordR: n(b.borderRightWidth), color: b.color, background: b.backgroundColor, whiteSpace: b.whiteSpace, overflow: b.overflow, width: b.width, height: b.height,
+        paint: 'background-color:' + b.backgroundColor + ' !important;background-image:' + b.backgroundImage + ' !important;border-color:' + b.borderTopColor + ' ' + b.borderRightColor + ' ' + b.borderBottomColor + ' ' + b.borderLeftColor + ' !important;box-shadow:' + b.boxShadow + ' !important;' }; })()`)
+    const off = await shot(w, clip)
+    const without = await withCss(w, `${SEL}::file-selector-button { visibility: hidden !important; }`, () => shot(w, clip))
+    const noText = await withCss(w, `${SEL}::file-selector-button { forced-color-adjust: none !important; ${g.paint} color: transparent !important; -webkit-text-fill-color: transparent !important; text-shadow: none !important; }`, async () => ({ img: await shot(w, clip), rect: await w.evaluate(RECT) }))
+    const box2 = await w.evaluate(RECT)
+    const painted = await Q.analyse(w, Q.DIFF, off, without), paintedNoText = await Q.analyse(w, Q.DIFF, noText.img, without)
+    const P = painted.box, same = !!P && !!paintedNoText.box && JSON.stringify(P) === JSON.stringify(paintedNoText.box)
+    const steady = ['x', 'y', 'w', 'h'].every((k) => Math.abs(box[k] - box2[k]) < 0.5 && Math.abs(box[k] - noText.rect[k]) < 0.5)
+    const q = P ? await Q.analyse(w, QUALIFY(P), off, noText.img) : { error: 'no painted box' }
+    const content = P ? { x: P.x + Math.round((g.bordL + g.padL) * box.dpr), w: P.w - Math.round((g.bordL + g.padL + g.bordR + g.padR) * box.dpr) } : null
+    const large = g.fontSize >= 24 || (g.fontWeight >= 700 && g.fontSize >= 18.66)
+    const need = { '1.4.3': large ? 3 : 4.5, '1.4.6': large ? 4.5 : 7 }
+    const qualified = !!P && same && steady && q.outsidePainted === 0 && q.glyphPx >= 10
+    const outcome = (c) => (!qualified ? 'cannot-determine' : q.ratio >= need[c] ? 'pass' : 'fail')
+    put('file button text, qualified', { painted: P, paintedSameWithoutText: same, layoutSteady: steady, style: { ...g, paint: undefined }, contentBox: content, large, need, ...q,
+      glyphsBeyondContent: q.glyphBox && content ? { left: Math.max(0, content.x - q.glyphBox.x), right: Math.max(0, q.glyphBox.x + q.glyphBox.w - (content.x + content.w)) } : null,
+      glyphsWithinPaintedBox: q.glyphBox && P ? q.glyphBox.x >= P.x && q.glyphBox.y >= P.y && q.glyphBox.x + q.glyphBox.w <= P.x + P.w && q.glyphBox.y + q.glyphBox.h <= P.y + P.h : null,
+      qualified, outcome: { '1.4.3': outcome('1.4.3'), '1.4.6': outcome('1.4.6') }, images: { on: png('text-on', off), buttonHidden: png('button-hidden', without), textTransparent: png('text-transparent', noText.img) } })
+    // (2) The chooser's ring: the walker's focusArea against the painted button, unchanged.
+    const fa = await Q.focusArea(w, SEL, { ref: 'file-button' })
+    const { off: rOff, on: rOn, ...ring } = fa
+    put('focusArea (the walker\'s)', { ...ring, images: rOff && rOn ? { off: png('ring-off', rOff.toString('base64')), on: png('ring-on', rOn.toString('base64')) } : null })
+    // (2) Located: the 3:1 pixels by band of the painted button and of the input's box, in the walker's clip (margin 12, document coordinates).
+    if (rOff && rOn) {
+      const rb = await w.evaluate(RECT), mm = 12, vx = Math.max(0, rb.x - mm), vy = Math.max(0, rb.y - mm)
+      const ctx = await w.evaluate(`(() => { const el = document.querySelector(${JSON.stringify(SEL)}); const cs = getComputedStyle(el); const anc = []; for (let a = el.parentElement; a; a = a.parentElement) { const s = getComputedStyle(a); if (s.overflowX !== 'visible' || s.overflowY !== 'visible' || s.clipPath !== 'none' || s.contain.includes('paint')) { const b = a.getBoundingClientRect(); anc.push({ el: a.tagName.toLowerCase() + (a.id ? '#' + a.id : '') + (a.className && typeof a.className === 'string' ? '.' + a.className.trim().split(/\\s+/).join('.') : ''), overflow: s.overflowX + '/' + s.overflowY, clipPath: s.clipPath, contain: s.contain, box: { x: b.left, y: b.top, w: b.width, h: b.height } }); } }
+        return { focused: document.activeElement === el, focusVisible: el.matches(':focus-visible'), outline: { style: cs.outlineStyle, width: cs.outlineWidth, offset: cs.outlineOffset, color: cs.outlineColor }, boxShadow: cs.boxShadow, clippers: anc, docWidth: document.documentElement.scrollWidth }; })()`)
+      const pb = ring.paintedPx ? fa.readings ?? null : null
+      const inputBox = { x: Math.round((rb.x - vx) * rb.dpr), y: Math.round((rb.y - vy) * rb.dpr), w: Math.round(rb.w * rb.dpr), h: Math.round(rb.h * rb.dpr) }
+      const offB64 = rOff.toString('base64'), onB64 = rOn.toString('base64')
+      const hidden = await withCss(w, `${SEL}::file-selector-button { visibility: hidden !important; }`, () => shot(w, { x: vx + rb.sx, y: vy + rb.sy, width: Math.min(rb.vw - vx, rb.w + 2 * mm), height: Math.min(rb.vh - vy, rb.h + 2 * mm) }))
+      const pd = await Q.analyse(w, Q.DIFF, onB64, hidden)
+      const bands = await Q.analyse(w, BANDS({ input: inputBox, ...(pd.box ? { paintedButton: pd.box } : {}) }), offB64, onB64)
+      const ow = parseFloat(ctx.outline.width) || 0, oo = parseFloat(ctx.outline.offset) || 0
+      const expect = (b) => Math.round((b.w + 2 * (oo + ow)) * (b.h + 2 * (oo + ow)) - (b.w + 2 * oo) * (b.h + 2 * oo))
+      put('ring located', { ...ctx, inputBox, paintedButtonFocused: pd.box, readings: pb, ...bands, outlineRingAreaExpected: { aroundInput: expect(inputBox), aroundPaintedButton: pd.box ? expect(pd.box) : null }, clipViewport: { vx, vy, vw: rb.vw, vh: rb.vh } })
+    }
+    console.log(`read ${lang}`)
+  } catch (e) { bad++; put('error', { error: String(e.stack ?? e).slice(0, 600) }); console.log(`error ${lang}: ${String(e.message ?? e).slice(0, 200)}`) } finally { await w.close().catch(() => undefined) }
+}
+await Q.closeAnalysis()
+console.log(`${langs.length} conditions, ${bad} errored`)
+browser.close()
+process.exit(bad ? 1 : 0)

@@ -1,0 +1,13 @@
+// VH-203 #2, read-only: a key list split into groups of whole scenarios (a scenario's keys in one group, as parts.mjs's split keeps them), in
+// the list's order, each closed once its estimate (parts.mjs est) reaches the target. Usage: node split-keys.mjs <walker> <keys file> <prefix> <target s>
+import { pathToFileURL } from 'node:url'
+import { join } from 'node:path'
+import { readFileSync, writeFileSync, existsSync } from 'node:fs'
+const [walker, file, prefix, target] = process.argv.slice(2), at = (f) => import(pathToFileURL(join(walker, f)).href)
+const S = await at('scenarios.mjs'), P = await at('parts.mjs'), { recordKey } = await at('runner.mjs')
+const recs = new Map(P.RUNS.flatMap((r) => S.PLANS[r.name]()).map((r) => [recordKey(r), r]))
+const keys = readFileSync(file, 'utf8').split('\n').filter(Boolean), ids = [...new Set(keys.map((k) => recs.get(k).id))]
+const groups = []; let cur = []
+for (const id of ids) { cur.push(...keys.filter((k) => recs.get(k).id === id)); if (P.est(cur.map((k) => recs.get(k))) >= Number(target)) { groups.push(cur); cur = [] } }
+if (cur.length) groups.push(cur)
+groups.forEach((g, i) => { const f = `keys-${prefix}${i + 1}.txt`; if (existsSync(f)) throw new Error('EXISTS ' + f); writeFileSync(f, g.join('\n') + '\n'); console.log(f, g.length, 'est', P.est(g.map((k) => recs.get(k))), [...new Set(g.map((k) => recs.get(k).id))].join(' ')) })

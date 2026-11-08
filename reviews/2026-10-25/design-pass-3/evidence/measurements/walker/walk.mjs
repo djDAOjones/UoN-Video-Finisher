@@ -4,6 +4,7 @@ import { mkdirSync, writeFileSync, appendFileSync } from 'node:fs'
 import { join, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { Buffer } from 'node:buffer'
+import { clearTimeout } from 'node:timers'
 import { connectBrowser } from './cdp.mjs'
 
 const HERE = dirname(fileURLToPath(import.meta.url))
@@ -15,6 +16,14 @@ const URL_BASE = process.env.APP_URL ?? 'http://localhost:5173/'
 const F = (name) => join(FIX, name)
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms))
+// VH-203 (VH-198.1's guard): a navigation's bound, and the grace a poll of waitFor has past its own timeout before the page counts as not answering.
+const GOTO_LOAD_MS = 120000
+const POLL_GRACE_MS = 15000
+/** A promise bounded in time: it rejects with `what` once `ms` pass unsettled. */
+export const bounded = (p, ms, what) => {
+  let timer
+  return Promise.race([p, new Promise((_, no) => { timer = setTimeout(() => no(new Error(`${what} (in ${Math.round(ms / 1000)} s)`)), ms) })]).finally(() => clearTimeout(timer))
+}
 
 // ---------------------------------------------------------------------------
 // In-page helpers, installed before every document.
@@ -294,10 +303,22 @@ class Walk {
     )
     await sleep(150)
   }
-  async goto(path = '') {
-    const loaded = this.page.once('Page.loadEventFired')
-    await this.page.send('Page.navigate', { url: URL_BASE + path })
-    await loaded
+  // VH-203 (wishes VH-199.1 and VH-198.1): a "Leave site?" the page being left raises is accepted and kept in `leaveDialogs` (S-133's
+  // next setup navigates away from a page whose leave warning is set), and a page that stops answering fails its record instead of
+  // holding the run (VH-198's 21 minutes at J4): the load event is bounded (GOTO_LOAD_MS), and so is each poll of waitFor.
+  async goto(path = '', { loadTimeout = GOTO_LOAD_MS } = {}) {
+    const offDialog = this.page.on('Page.javascriptDialogOpening', (d) => {
+      if (d.type !== 'beforeunload') return
+      ;(this.leaveDialogs = this.leaveDialogs ?? []).push({ at: Date.now(), message: d.message, path })
+      this.page.send('Page.handleJavaScriptDialog', { accept: true }).catch(() => undefined)
+    })
+    try {
+      const loaded = this.page.once('Page.loadEventFired')
+      await bounded(this.page.send('Page.navigate', { url: URL_BASE + path }), loadTimeout, 'goto: the navigation did not answer')
+      await bounded(loaded, loadTimeout, 'goto: no load event')
+    } finally {
+      offDialog()
+    }
     await this.waitFor(`!/checking|Loading/i.test((document.getElementById('version-line')||{}).textContent + (document.getElementById('system-check-summary')||{}).textContent)`, { label: 'boot', timeout: 30000 })
     await sleep(300)
     this.log('page loaded ' + URL_BASE + path)
@@ -308,7 +329,7 @@ class Walk {
   async waitFor(expr, { timeout = 90000, interval = 200, label } = {}) {
     const start = Date.now()
     while (Date.now() - start < timeout) {
-      const v = await this.evaluate(expr)
+      const v = await bounded(this.evaluate(expr), timeout - (Date.now() - start) + POLL_GRACE_MS, 'timeout waiting for ' + (label ?? expr.slice(0, 100)) + ': the page did not answer')
       if (v) return v
       await sleep(interval)
     }
@@ -428,14 +449,31 @@ class Walk {
     await p.send('Input.dispatchMouseEvent', { type: 'mouseReleased', x: r.x + dx, y: r.y, button: 'left', clickCount: 1 })
     await sleep(200)
   }
+  /** VH-203 (wish VH-217.5, the owner's answer, plan8-owner-words.md:448–454): a region in document coordinates captured inside the
+   *  viewport only (captureBeyondViewport false, which keeps Page.setFontSizes: a beyond-viewport capture drew a 32 px page at
+   *  16 px), in viewport-high tiles each scrolled into view, stitched in the page on a canvas, the scroll put back. Base64 PNG. */
+  async shotRegion(clip) {
+    const m = await this.evaluate(`({ vh: innerHeight, sx: scrollX, sy: scrollY, dpr: devicePixelRatio })`)
+    const tiles = []
+    try {
+      for (let y = clip.y; y < clip.y + clip.height; y += m.vh) {
+        const h = Math.min(m.vh, clip.y + clip.height - y)
+        await this.evaluate(`window.scrollTo(${m.sx}, ${y})`)
+        await sleep(80)
+        const s = await this.page.send('Page.captureScreenshot', { format: 'png', captureBeyondViewport: false, clip: { x: clip.x, y, width: clip.width, height: h, scale: 1 } })
+        tiles.push({ y: y - clip.y, data: s.data })
+      }
+    } finally {
+      await this.evaluate(`window.scrollTo(${m.sx}, ${m.sy})`)
+    }
+    if (tiles.length === 1) return tiles[0].data
+    return this.evaluate(`(async () => { const T = ${JSON.stringify(tiles)}, d = ${m.dpr}; const c = document.createElement('canvas'); c.width = Math.round(${clip.width} * d); c.height = Math.round(${clip.height} * d); const g = c.getContext('2d');
+      for (const t of T) { const i = new Image(); i.src = 'data:image/png;base64,' + t.data; await i.decode(); g.drawImage(i, 0, Math.round(t.y * d)); } return c.toDataURL('image/png').slice(22); })()`)
+  }
   async screenshot(name) {
     const m = await this.evaluate(`({ w: document.documentElement.clientWidth, h: document.documentElement.scrollHeight })`)
-    const shot = await this.page.send('Page.captureScreenshot', {
-      format: 'png',
-      captureBeyondViewport: true,
-      clip: { x: 0, y: 0, width: m.w, height: Math.min(m.h, 12000), scale: 1 },
-    })
-    writeFileSync(join(this.dir, name + '.png'), Buffer.from(shot.data, 'base64'))
+    const data = await this.shotRegion({ x: 0, y: 0, width: m.w, height: Math.min(m.h, 12000) })
+    writeFileSync(join(this.dir, name + '.png'), Buffer.from(data, 'base64'))
     return m
   }
   /** A screenshot of one element's region, or the region from one element to another. */
@@ -443,8 +481,8 @@ class Walk {
     const r = await this.evaluate(`(() => { const a = document.querySelector(${JSON.stringify(sel)}); if (!a) return null; const b = ${to ? `document.querySelector(${JSON.stringify(to)})` : 'a'} || a; const ra = a.getBoundingClientRect(), rb = b.getBoundingClientRect(); const top = Math.min(ra.top, rb.top) + window.scrollY, bottom = Math.max(ra.bottom, rb.bottom) + window.scrollY; const left = Math.min(ra.left, rb.left) + window.scrollX, right = Math.max(ra.right, rb.right) + window.scrollX; return { x: left, y: top, w: right - left, h: bottom - top }; })()`)
     if (!r) throw new Error('no element ' + sel)
     const clip = { x: Math.max(0, r.x - pad), y: Math.max(0, r.y - pad), width: Math.max(1, r.w + 2 * pad), height: Math.max(1, r.h + 2 * pad), scale: 1 }
-    const shot = await this.page.send('Page.captureScreenshot', { format: 'png', captureBeyondViewport: true, clip })
-    writeFileSync(join(this.dir, name + '.png'), Buffer.from(shot.data, 'base64'))
+    const data = await this.shotRegion(clip)
+    writeFileSync(join(this.dir, name + '.png'), Buffer.from(data, 'base64'))
     this.log(`clipped ${name} (${Math.round(clip.width)}x${Math.round(clip.height)})`)
   }
   async capture(name, { walk = false, measure = false, text = true } = {}) {
@@ -540,6 +578,11 @@ class Walk {
   // --- page-specific moves ---------------------------------------------
   createButton() {
     return '#process-actions button:nth-child(2)'
+  }
+  /** VH-203 (wish VH-214.1): a control is offered when it is shown, as M.create() reads it (scenarios.mjs): not hidden, not disabled
+   *  and drawn (`__audit.visible`: a box, inside no hidden or withdrawn step), never by its own `hidden` and `disabled` alone. */
+  async offered(sel) {
+    return this.evaluate(`(() => { const b = document.querySelector(${JSON.stringify(sel)}); return !!b && !b.hidden && !b.disabled && !!window.__audit && window.__audit.visible(b); })()`)
   }
   cancelButton() {
     return '#process-actions button:nth-child(3)'
@@ -695,7 +738,7 @@ scenarios['desktop-en-staff'] = async (w) => {
   } catch (e) {
     w.log('no time-left line: ' + e.message)
   }
-  const cancelVisible = await w.evaluate(`(() => { const b = document.querySelector(${JSON.stringify(w.cancelButton())}); return b && !b.hidden && !b.disabled; })()`)
+  const cancelVisible = await w.offered(w.cancelButton())
   if (cancelVisible) {
     await w.click(w.cancelButton())
     await sleep(80)
@@ -773,7 +816,7 @@ scenarios['desktop-en-staff'] = async (w) => {
   await w.setFiles(F('truncated-30s.mp4'))
   await w.waitSettled()
   await w.capture('43-truncated-read', { measure: true })
-  const canCreate = await w.evaluate(`(() => { const b = document.querySelector(${JSON.stringify(w.createButton())}); return b && !b.hidden && !b.disabled; })()`)
+  const canCreate = await w.offered(w.createButton())
   if (canCreate) {
     await w.click(w.createButton())
     try {

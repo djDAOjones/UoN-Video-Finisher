@@ -1,0 +1,29 @@
+<!-- markdownlint-disable -->
+<!-- VH-203 #16's brief for Codex astra's integrated check, 2026-11-08, verbatim from vh203-codex-integrated-brief.md (sha1 16efe5ed) below this header. -->
+
+<!-- markdownlint-disable -->
+
+# VH-203 — Codex astra's integrated check of Phase 8 against the after-run
+
+You are checking, read-only, the whole of Phase 8 together: the app's diff from Phase 8's start to its last landing, against the third design pass's after-run evidence, for regressions between its parts and against the owner's bar. Write nothing; your final message is your answer, saved verbatim. Open with one line, your verdict as you would give it (for example "Close after the musts below"). Then numbered points, each tagged **must**, **should** or **note**, each with its evidence (`file:line`, a commit, or a record's path) and the remedy you recommend, and whether it is for the implementer or the owner. Under 2,500 words.
+
+## Paths and what you may read
+- `$W` = your working directory, `/Users/uazjob/UoN-Video-Helper-side/vh203` (branch `side/vh203`, HEAD `756b425`, VH-232's landing). **The diff:** `git diff 452334e..HEAD -- src docs index.html public` (90 commits, `git log --oneline 452334e..HEAD`; Phase 8 started at VH-177's close, `452334e`). The walker's nine modified files in the working tree are the after-run's instrument, not the app.
+- `$M` = `$W/reviews/2026-10-25/design-pass-3/evidence/measurements`: each Phase 8 item's tables and records (`vh2*-*.md` and their records folders), VH-199's before (`matrix-2026-10-27.md`, `matrix-coverage-2026-10-27.json`, `digest-*-2026-10-27.md`), the format "?" captures `vh203-format-help-2026-11-08.md` and its records. The pass: `reviews/2026-10-25/design-pass-3/design-pass-3-2026-10-27.md` (its Disposition and "Unresolved, kept as such") and `fix-plan-2026-10-27.md`.
+- `$S` = `/Users/uazjob/UoN-Video-Helper-side`. The after-run's records are in `$S/vh203-walk/`: each group's `<group>/` folder and `<group>.sum.txt` (A1 `a1g1`–`a1g6`; A2 `a2g1`, `a2t-all`, `a2t-cases`, `a2t-cases-rw`; A3 `a3g1`–`a3g15` with `-split`, `-rw`; A4 `a4g1`–`a4g5`; B `b1`–`b11` with `*.cmp.txt`, `b3.nexttab.txt`, `b11.diff.txt`; D1, the before on `a3039c3`, `d1g1`, `d1g1-split`, `d1g2`, `d1t-all`, `d1t-cases`, `d1w19` with `*.pair.tsv`, `*.pair.txt`, `d1-cd.tsv`). `$S/vh203-run-rev.txt` is the run revision's provenance (W1 to W20). `$S/plan8-owner-words.md` holds the owner's words.
+- **You must not read:** any folder under `side-session-notes/`; in `$S`: `vh203-claude-*`, any file whose name holds `compare`, `vh203-progress.md`, `vh203-handover-*`, every `vh203-*brief*` but this one, `vh203-codex-blind*`, `starts/`, `orchestrator-*/`, `vh203-wip-*/`; in `vh203-walk/`: `*-reading.md`, `*.why.tsv`, `d1-pair.tsv`, `draft/`, `superseded/`.
+
+## The bar and the rules
+- The owner, 2026-10-27 (`plan8-owner-words.md:275`): "ensure everything passes UX / design / Accessibility". Judged by the pass's lenses: the journeys and Nielsen (`project/digests/nielsen.md`), Carbon and the tokens (`project/digests/carbon.md`, `UI-STANDARDS.md`), WCAG 2.2 AAA (`project/digests/wcag-2.2-aaa.md`). A failure is fixed or put to the owner.
+- `project/items/VH-203.md`, the stage rule every fix item kept: before and after with the pass's walker in three languages and four modes, WCAG re-checked; our own CSS on the two token files; no control, checkbox or element added beyond the owner's approvals; the progress bar kept; UI-STANDARDS updated where a rule changes; a `docs/` change drafted as a wish line for the owner (the owner approves every `docs/` edit); the gate green; Codex's check before each commit (`Checked:` lines in `git log 452334e..HEAD`).
+- `project/rules.md`, Always: no media egress; the source never modified; numbers in `src/config/` or a CSS token; silent data loss the worst outcome; one runtime dependency. `docs/01-specification.md` is authoritative.
+- The after-run (VH-203) walked VH-199's 3,219 core records + 48 transitions at one walker revision on the Mac Pro (3,212 ok and reached, 0 failed, 7 not reached), the supplements B, the captures C and a bounded before D1 on `a3039c3`.
+
+## The points to check
+1. **Regressions between the parts.** Where two or more Phase 8 items touch the same element, string, state or flow (for example the title's panel, the format "?" and the page order; the warnings, the completion announcement and the cut-file warning; the feedback dialog; the trim's and the record's words; the Video type switch), does their combination hold in all three languages and four modes? Cite the after-run records that show it, or say what no record shows.
+2. **The journeys and Nielsen:** status visible and announced, errors say what next, no control for power users, consistency between steps; any status sentence made false by a later change.
+3. **Carbon and the tokens:** our own CSS on the two token files, no literal outside `src/config/` or a token, one primary per state, the progress bar kept.
+4. **WCAG 2.2 AAA:** contrast (1.4.6), focus appearance (2.4.13), target size (2.5.5), reflow and text spacing at 320 px and the 32 px font, forced colours, language of parts, status messages (4.1.3). Name each failing or unmeasured criterion and its records.
+5. **The strings:** en-GB, zh-Hans and ms-MY consistent with each other and with the spec; any string a later item made untrue; `docs/` changes in the diff and whether each was the owner's approved edit.
+6. **The rules:** any new element or control, any number outside config or tokens, any egress, any change to the source-file or data-loss guarantees, any dependency change.
+7. **The evidence:** does every Phase 8 change's touched behaviour have an after-run record at HEAD (or a cited item record), and does any after-run reading contradict an item's closing claim?

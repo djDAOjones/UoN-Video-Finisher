@@ -68,6 +68,22 @@ export const P8_INIT = String.raw`
   // drew the card, never to a time window (Codex astra's re-check, 26 October,
   // M-01): the app writes the line in the same task as it draws the card.
   let lastCard = null;
+  let pending = null;
+  const sample1s = (early) => {
+    if (!pending) return; const { v, t0, timer, playBy } = pending; pending = null; clearTimeout(timer);
+    P.events.push({ t: Date.now(), kind: 'finish+1s', player: !!v, paused: v ? v.paused : null, currentTime: v ? v.currentTime : null, afterMs: Date.now() - t0, ...(early ? { early } : {}), ...(playBy ? { playBy } : {}) });
+  };
+  for (const type of ['pointerdown', 'mousedown', 'keydown', 'touchstart', 'change', 'input']) document.addEventListener(type, () => sample1s(type), true);
+  // VH-203 (W5, wish VH-199.1, the successor): a step's play() is read before it runs, not at its 'play' event, when paused is
+  // already false. The caller is recorded: a frame with a page URL is the page's own script; none (an evaluate) is the walker's step.
+  // A page's play() is never sampled early: the second's reading stands, its caller beside it.
+  let playBy = null;
+  const play0 = HTMLMediaElement.prototype.play;
+  HTMLMediaElement.prototype.play = function (...args) {
+    playBy = String(new Error().stack).split('\n').slice(1).some((l) => /(?:https?|file):\/\//.test(l)) ? 'page' : 'walker';
+    if (pending && this === pending.v) { pending.playBy = playBy; if (playBy === 'walker') sample1s('play()'); }
+    return play0.apply(this, args);
+  };
   const tick = (recs) => {
     const line = document.getElementById('status');
     const cardEl = document.querySelector('${CARD}'); const cardNew = !!cardEl && cardEl !== lastCard; lastCard = cardEl;
@@ -79,8 +95,13 @@ export const P8_INIT = String.raw`
     if (awaiting && card && !on) {
       awaiting = false; P.events.push({ t: Date.now(), kind: 'finish', lang: document.documentElement.lang });
       // No autoplay: the player as it stands a second after it appeared.
-      setTimeout(() => { const v = document.querySelector('${PLAYER}'); P.events.push({ t: Date.now(), kind: 'finish+1s', player: !!v, paused: v ? v.paused : null, currentTime: v ? v.currentTime : null }); }, 1000);
+      // VH-203 (wish VH-199.1): the player drawn at the finish, read a second later or at the scenario's
+      // next step if sooner (its first input, a change, a play, or that player leaving the page), so a
+      // step that plays or replaces it within the second is never read as the player's own state.
+      const v0 = document.querySelector('${PLAYER}'); const t0 = Date.now();
+      pending = { v: v0, t0, timer: setTimeout(() => sample1s(null), 1000) };
     }
+    if (pending && pending.v && !pending.v.isConnected) sample1s('detached');
     if (awaiting && !on && !card && document.querySelector('#process-result > .notification')) { awaiting = false; P.events.push({ t: Date.now(), kind: 'ended-otherwise' }); }
     const sv = shown(document.getElementById('save-actions'));
     if (sv && !saving) P.events.push({ t: Date.now(), kind: 'save-start' });
@@ -93,7 +114,7 @@ export const P8_INIT = String.raw`
   };
   P.tick = tick;
   document.addEventListener('DOMContentLoaded', () => { new MutationObserver((recs) => tick(recs)).observe(document.documentElement, { subtree: true, childList: true, characterData: true, attributes: true, attributeFilter: ['hidden', 'class'] }); tick(); });
-  document.addEventListener('play', (e) => { if (e.target && e.target.matches && e.target.matches('video.result-player')) P.plays.push({ t: Date.now(), activation: !!(navigator.userActivation && navigator.userActivation.isActive) }); }, true);
+  document.addEventListener('play', (e) => { if (pending && e.target === pending.v) sample1s('play'); if (e.target && e.target.matches && e.target.matches('video.result-player')) { P.plays.push({ t: Date.now(), activation: !!(navigator.userActivation && navigator.userActivation.isActive), by: playBy || 'no play() call' }); playBy = null; } }, true);
 })();
 `
 
@@ -285,7 +306,8 @@ export function targetVerdict({ rest, available, disclosedBy, hit, sizing }) {
 export function visibleVerdict({ isolated, pseudo, ringAny, ring3, residualAny, residual3, onOffAny }) {
   if (!isolated) return { outcome: 'cannot-determine', why: `the ring cannot be isolated from the controls' other redraw: no author style reaches ${pseudo ? '::' + pseudo : 'this control'}; focused against unfocused differs by ${onOffAny} px, the highlight and any disclosure included` }
   if (ring3 > 0) return { outcome: 'pass' }
-  if (ringAny > 0) return { outcome: 'cannot-determine', why: `a ring of ${ringAny} px, none of it at 3:1 against what it covers: whether it is visible is VH-200's`, unresolved: 'interpretation' }
+  // VH-203 (wishes VH-198.2, VH-199.1): the words name both comparisons a pixel must meet to count (Codex astra's second re-check).
+  if (ringAny > 0) return { outcome: 'cannot-determine', why: `a ring of ${ringAny} px, none of it at 3:1 both against what it covers and, focused, against unfocused (a pixel counts only where both hold): whether it is visible is VH-200's`, unresolved: 'interpretation' }
   if (residualAny > 0) return { outcome: 'cannot-determine', why: `no ring that changes on focus: an outline:none on the control leaves no focused pixel that differs from unfocused; a focus-only change other than a ring remains (${residualAny} px, ${residual3} at 3:1: the user agent's hover-and-focus highlight, or a disclosure); whether that alone is a visible indicator is VH-200's`, unresolved: 'interpretation' }
   return { outcome: 'fail', why: 'nothing changes when the control is focused (2.4.7)' }
 }
@@ -323,7 +345,7 @@ export function appearanceVerdict({ isHost, ringArea3, perimeter, error, pseudo,
   const exceptions = { userAgentOnly, unmodified }
   if (indicator === false) return { outcome: 'fail', exceptions, why: short + ', and the author styles the ring, so neither exception holds' }
   if (userAgentOnly.holds) return { outcome: 'fail', exceptions, uaException: `2.4.13's first exception: the user agent's ring, which the author cannot adjust (${userAgentOnly.evidence})` }
-  if (unmodified.holds) return { outcome: 'fail', exceptions, uaException: '2.4.13\'s second exception: neither the ring nor its background is modified by the author (no author rule on the control or the host\'s backdrop)' }
+  if (unmodified.holds) return { outcome: 'fail', exceptions, uaException: backdropRules.local ? '2.4.13\'s second exception: neither the ring nor its background is modified by the author (no author rule on the control; the ring lies on the held frame and the user agent\'s controls)' : '2.4.13\'s second exception: neither the ring nor its background is modified by the author (no author rule on the control or the host\'s backdrop)' }
   const bgSaid = background === false ? `the host's backdrop is set by the author (${backdropRules.rules.map((x) => x.selector + ' { ' + x.props.join('; ') + ' }').join(', ').slice(0, 160)})` : 'the backdrop\'s rules unread'
   return { outcome: 'cannot-determine', exceptions, why: `${short}; the first exception ${userAgentOnly.holds === false ? 'does not hold' : 'is not established'} (${userAgentOnly.evidence}); the second: the ring is unmodified, but ${bgSaid}: whether that is the indicator's background is VH-200's`, unresolved: 'interpretation' }
 }
@@ -462,6 +484,20 @@ export async function playerRows(w) {
 // The native player by keys (P-06): the route by the focused accessibility
 // node, play/pause and seek proved apart, the rings by pixels on a held frame.
 const MEDIA = (sel) => `document.querySelector(${JSON.stringify(sel)})`
+/** VH-203: where a player control's ring lies: the control's box grown by the ring's reach, against the held frame's displayed rectangle
+ *  inside the video's content box (object-fit contain, scale-down or none: the frame scaled to fit; fill and cover: the whole box). */
+async function ringBackground(w, sel, b, reach) {
+  return w.evaluate(`(() => { const v = ${MEDIA(sel)}; const r = v.getBoundingClientRect(), cs = getComputedStyle(v), n = (x) => parseFloat(x) || 0;
+    const cx = r.left + n(cs.borderLeftWidth) + n(cs.paddingLeft), cy = r.top + n(cs.borderTopWidth) + n(cs.paddingTop);
+    const cw = r.width - n(cs.borderLeftWidth) - n(cs.paddingLeft) - n(cs.paddingRight) - n(cs.borderRightWidth), ch = r.height - n(cs.borderTopWidth) - n(cs.paddingTop) - n(cs.paddingBottom) - n(cs.borderBottomWidth);
+    const fit = cs.objectFit, iw = v.videoWidth, ih = v.videoHeight;
+    let f = { x: cx, y: cy, w: cw, h: ch };
+    if (iw > 0 && ih > 0 && fit !== 'fill' && fit !== 'cover') { let k = Math.min(cw / iw, ch / ih); if (fit === 'none') k = 1; if (fit === 'scale-down') k = Math.min(1, k); f = { x: cx + (cw - iw * k) / 2, y: cy + (ch - ih * k) / 2, w: iw * k, h: ih * k }; }
+    const ring = { x: ${b.x} - ${reach}, y: ${b.y} - ${reach}, w: ${b.w} + 2 * ${reach}, h: ${b.h} + 2 * ${reach} };
+    const onFrame = ring.x >= f.x - 0.5 && ring.y >= f.y - 0.5 && ring.x + ring.w <= f.x + f.w + 0.5 && ring.y + ring.h <= f.y + f.h + 0.5;
+    const R = (q) => ({ x: Math.round(q.x), y: Math.round(q.y), w: Math.round(q.w), h: Math.round(q.h) });
+    return { onFrame, frame: R(f), ring: R(ring), objectFit: fit, said: onFrame ? 'the ring lies wholly on the held frame and the user agent\\'s controls: no author background behind it' : 'the ring reaches the letterbox: the host\\'s own background, its author rules' }; })()`)
+}
 const TABBABLE_BEFORE = (sel) => `(() => { const host = ${MEDIA(sel)}; const card = host.closest('.notification') || host;
   const vis = (el) => el.getClientRects().length > 0 && getComputedStyle(el).visibility !== 'hidden' && !el.closest('[hidden],[inert]');
   const all = [...document.querySelectorAll('a[href], button, input, select, textarea, summary, video[controls], [tabindex]')].filter((el) => el.tabIndex >= 0 && !el.disabled && vis(el) && !(el.type === 'radio' && !el.checked && document.querySelector('input[type=radio][name="' + el.name + '"]:checked')));
@@ -592,8 +628,13 @@ export async function playerKeys(w, { sel = PLAYER, run, key: recKey } = {}) {
     rows.push(row('focus visible (2.4.7)', vis.outcome, { control: label, host: isHost, pseudo: pseudo ?? undefined, ringPx: ring ? { any: n(ring, 'indicatorAny'), at3to1: n(ring, 'indicator3'), drawnAny: n(ring, 'ringAny'), drawnAt3to1: n(ring, 'ring3') } : undefined, residualPx: ring ? { any: n(ring, 'otherAny'), at3to1: n(ring, 'other3') } : undefined, onOffPx: n(d, 'changedAny'), why: vis.why, unresolved: vis.unresolved }))
     // 2.4.13's area: the ring's own pixels at 3:1 against unfocused, never the whole redraw (re-checks, 26 October).
     const ringArea3 = ringIsolated ? n(ring, 'indicator3') : null, redraw3 = n(d, 'changed3'), perimeter = Math.round(4 * (b.w + b.h) - 16)
-    const app = appearanceVerdict({ isHost, ringArea3, perimeter, error: d.error, pseudo, isolated: ringIsolated, ringAny: n(ring, 'ringAny'), indicatorRules, backdropRules })
-    const r = row('focus appearance (2.4.13)', app.outcome, { control: label, host: isHost, box: { w: Math.round(b.w), h: Math.round(b.h) }, areaAt3to1: ringArea3, redrawAt3to1: redraw3, perimeter2px: perimeter, bestRatio: d.best, exceptions: app.exceptions, uaException: app.uaException, why: app.why, unresolved: app.unresolved })
+    // VH-203 (wish VH-200.1, third reading): the background behind this control's own ring, for 2.4.13's second exception. A ring
+    // drawn wholly over the held frame (the frame's displayed rectangle, by object-fit) lies on the media and the user agent's
+    // controls, which no author rule paints; only a ring reaching the letterbox lies on the host's own background, its author rules.
+    const local = isHost ? null : await ringBackground(w, sel, b, m)
+    const bgRules = local?.onFrame ? { rules: [], local: true } : backdropRules
+    const app = appearanceVerdict({ isHost, ringArea3, perimeter, error: d.error, pseudo, isolated: ringIsolated, ringAny: n(ring, 'ringAny'), indicatorRules, backdropRules: bgRules })
+    const r = row('focus appearance (2.4.13)', app.outcome, { control: label, host: isHost, box: { w: Math.round(b.w), h: Math.round(b.h) }, areaAt3to1: ringArea3, redrawAt3to1: redraw3, perimeter2px: perimeter, bestRatio: d.best, ringBackground: local ?? undefined, exceptions: app.exceptions, uaException: app.uaException, why: app.why, unresolved: app.unresolved })
     if (run && recKey) { r.clips = [run.artifact(`${recKey}__p8ring-${i}-off.png`, Buffer.from(off, 'base64')), run.artifact(`${recKey}__p8ring-${i}-on.png`, Buffer.from(on, 'base64')), ...(ref ? [run.artifact(`${recKey}__p8ring-${i}-ringoff.png`, Buffer.from(ref, 'base64'))] : [])] }
     rows.push(r)
     // Back to this stop by keys: place on the card and Tab i+1 times.
@@ -619,6 +660,15 @@ const TIP_READ = `(() => { ${WORDS} const b = document.getElementById('format-he
     gap: tip.hidden ? null : Math.round((tr.top - br.bottom) * 10) / 10, belowButton: tip.hidden ? null : tr.top >= br.bottom - 0.5, insideItem: tip.hidden || !lr ? null : tr.left >= lr.left - 1 && tr.right <= lr.right + 1,
     inPage: tip.hidden ? null : tr.left >= 0 && tr.right <= document.documentElement.clientWidth + 0.5, rail: cs.borderLeftWidth !== cs.borderTopWidth } })()`
 
+/** VH-203: the area round a control that hit-tests as it (its own ::before and ::after included), on a 2 px grid a target's width beyond its box on each side, in the viewport: whether a 44 x 44 square of hits fits, and the hits' bounding size. */
+export const HIT44 = (id, min = 44, step = 2) => `(() => { const el = document.getElementById(${JSON.stringify(id)}); if (!el || !el.getClientRects().length) return null; el.scrollIntoView({ block: 'center', inline: 'nearest' }); const b = el.getBoundingClientRect();
+  const L = Math.max(0, Math.floor(b.left - ${min})), T = Math.max(0, Math.floor(b.top - ${min})), R = Math.min(innerWidth, Math.ceil(b.right + ${min})), B = Math.min(innerHeight, Math.ceil(b.bottom + ${min}));
+  const cols = Math.max(1, Math.floor((R - L) / ${step})), rows = Math.max(1, Math.floor((B - T) / ${step})), hit = new Uint8Array(cols * rows); let hits = 0;
+  for (let j = 0; j < rows; j++) for (let i = 0; i < cols; i++) { const t = document.elementFromPoint(L + i * ${step} + ${step} / 2, T + j * ${step} + ${step} / 2); if (t && (t === el || el.contains(t))) { hit[j * cols + i] = 1; hits++; } }
+  const n = Math.ceil(${min} / ${step}), run = new Uint16Array(cols); let fits = false;
+  for (let j = 0; j < rows && !fits; j++) { let streak = 0; for (let i = 0; i < cols; i++) { run[i] = hit[j * cols + i] ? run[i] + 1 : 0; streak = run[i] >= n ? streak + 1 : 0; if (streak >= n) { fits = true; break; } } }
+  let l = cols, r = -1, t = rows, bt = -1; for (let j = 0; j < rows; j++) for (let i = 0; i < cols; i++) if (hit[j * cols + i]) { l = Math.min(l, i); r = Math.max(r, i); t = Math.min(t, j); bt = Math.max(bt, j); }
+  return { fits, hits, hitW: r >= 0 ? (r - l + 1) * ${step} : 0, hitH: r >= 0 ? (bt - t + 1) * ${step} : 0 }; })()`
 export async function formatTip(w) {
   const r0 = await w.evaluate(TIP_READ)
   if (!r0) return [row('format "?"', 'not-applicable', { why: 'no "About the video format" on the page' })]
@@ -631,7 +681,10 @@ export async function formatTip(w) {
   const close = `(() => { const b = document.getElementById('format-help-button'); if (b.getAttribute('aria-expanded') === 'true') b.click(); })()`
   const focusBtn = `document.getElementById('format-help-button').focus()`
   rows.push(row('named, and its text, in the page\'s words', r0.label === r0.labelExpected && r0.text === r0.textExpected && r0.controls === 'format-help' ? 'pass' : r0.labelExpected === undefined ? 'cannot-determine' : 'fail', { label: r0.label, text: r0.text.slice(0, 80) }))
-  rows.push(row('the "?" at least 44 x 44', r0.button.w >= 44 && r0.button.h >= 44 ? 'pass' : 'fail', r0.button))
+  // VH-203 (wish VH-205.1): the "?"'s target is the area that hit-tests as it, its ::after's included, read by a 44 px square of hits
+  // round its box (2.5.5's own reading, qualify.mjs Q.targets); its 20 px box alone is kept beside it.
+  const hit = await w.evaluate(HIT44('format-help-button'))
+  rows.push(row('the "?" at least 44 x 44', (r0.button.w >= 44 && r0.button.h >= 44) || hit?.fits ? 'pass' : 'fail', { ...r0.button, hit }))
   // Where Tab and Shift+Tab go with it closed: the reference for "closes by focus".
   await w.evaluate(close); await w.evaluate(focusBtn); await key(w, 'Tab'); const tabClosed = await state()
   await w.evaluate(focusBtn); await key(w, 'Tab', { shift: true }); const shiftClosed = await state()
@@ -905,6 +958,8 @@ export async function assertRows(w, sc) {
   if (!sc.asserts?.length) return [row('the scenario\'s own assertions', 'not-applicable', { why: 'the scenario declares none beyond its state' })]
   const rows = []
   for (const a of sc.asserts) {
+    // VH-203: a row read before the focus measurements moved focus (matrix.mjs `readsFocus`) is kept as read.
+    if (sc.early?.has(a)) { rows.push(sc.early.get(a)); continue }
     try {
       if (a.fn) { const r = await a.fn(w); rows.push({ what: a.what, ...(typeof r === 'object' ? r : { outcome: r ? 'pass' : 'fail' }) }); continue }
       // Awaited: an assertion may wait for the page (a player's metadata), and a promise is never truthy by itself.

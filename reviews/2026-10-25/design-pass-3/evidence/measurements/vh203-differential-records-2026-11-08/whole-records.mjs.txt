@@ -1,0 +1,13 @@
+// VH-203 #18, read-only: the transitions' records (T-…), which table-1page.mjs does not read, bundled whole, one line a record: { group, run, file, record }, for --sources.
+// node whole-records.mjs <walk dir> <out.jsonl> <group> [<group> …]
+import { readdirSync, readFileSync, statSync, existsSync, writeFileSync } from 'node:fs'
+import { join } from 'node:path'
+const [W, OUT, ...groups] = process.argv.slice(2)
+if (existsSync(OUT)) throw new Error(`exists: ${OUT}`)
+const out = []
+for (const g of groups) for (const e of readdirSync(join(W, g, 'runs')).sort()) {
+  const p = join(W, g, 'runs', e)
+  if (statSync(p).isDirectory()) for (const f of readdirSync(p).filter((x) => /^T-.+__.+\.json$/.test(x)).sort()) out.push(JSON.stringify({ group: g, run: e, file: f, record: JSON.parse(readFileSync(join(p, f), 'utf8')) }))
+}
+writeFileSync(OUT, out.join('\n') + '\n')
+console.log(`${OUT}: ${out.length} records`)

@@ -1,0 +1,37 @@
+// VH-203 #13, read-only (Orchestrator #45's word on b3, 12:5xZ): for each walked record whose subresults read a next Tab, show that the new
+// target is the next focusable after the focus end in the current order. The order is the record's own ax capture (captures/<key>__ax.json),
+// walked depth-first in the capture's child order: nodes not ignored, focusable, not disabled, the root left out; a radio group is one stop,
+// its checked radio (the first listed for video-kind, checked in index.html). The focus end is the subresult's focus, matched by its name.
+// For a focus end on the body after the click on the lede's text (VH-207's f2: VH207_LEDE '.lede p[data-i18n="lede.privacy"]', in the "?"'s
+// region #about-help, closed in the capture), the order is index.html's at the run's commit (one order at every width, no CSS order or script):
+// the lede's privacy paragraph is followed by step 1's section and its file input, with no focusable between; the expected target is the
+// capture's file input. Prints per ID and view: cells, alike (target = next focusable), not alike (with both names), not checkable (why).
+// Usage: node next-tab-b.mjs <group folder> [...]   (run in vh203-walk)
+import { readdirSync, readFileSync, statSync, existsSync } from 'node:fs'
+import { join, dirname, basename } from 'node:path'
+const files = []
+const walk = (d) => { for (const f of readdirSync(d)) { const p = join(d, f); if (f === 'captures') continue; if (statSync(p).isDirectory()) walk(p); else if (f.endsWith('.json') && f.includes('__') && p.includes('/runs/')) files.push(p) } }
+for (const g of process.argv.slice(2)) walk(g)
+const nameOf = (s) => (String(s ?? '').match(/"([^"]*)"\s*$/) ?? [])[1] ?? null
+const tally = new Map(), bad = []
+const bump = (k, what) => { if (!tally.has(k)) tally.set(k, { cells: 0, alike: 0, not: 0, unc: 0, why: new Set() }); const t = tally.get(k); t.cells++; t[what]++; return t }
+for (const p of files) {
+  const r = JSON.parse(readFileSync(p, 'utf8')), items = (r.instruments?.subresults?.items ?? []).filter((i) => i.nextTab)
+  if (!items.length) continue
+  const axf = join(dirname(p), 'captures', basename(p, '.json') + '__ax.json')
+  for (const it of items) {
+    const k = `${r.id} ${r.view}`, got = nameOf(it.nextTab.el)
+    if (!existsSync(axf)) { bump(k, 'unc').why.add('no ax capture'); continue }
+    const ax = JSON.parse(readFileSync(axf, 'utf8')), kids = new Map()
+    for (const n of ax) if (n.parent != null) { if (!kids.has(n.parent)) kids.set(n.parent, []); kids.get(n.parent).push(n) }
+    const order = [], seen = new Set()
+    const dfs = (n) => { if (!n.ignored && n.focusable && !n.disabled && n.role !== 'RootWebArea') { const grp = n.role === 'radio' ? `radio:${(kids.get(n.parent) ?? []).length}:${n.parent}` : null; if (!grp || !seen.has(grp)) { order.push(n); if (grp) seen.add(grp) } } for (const c of kids.get(n.id) ?? []) dfs(c) }
+    dfs(ax[0])
+    let want = null
+    if (it.focus === 'body') { const fi = order.find((n) => n.role === 'button' && /^1\. /.test(n.name)); want = fi?.name ?? null; if (!want) { bump(k, 'unc').why.add('no file input in the capture'); continue } }
+    else { const end = nameOf(it.focus), i = order.findIndex((n) => n.name === end); if (i < 0) { bump(k, 'unc').why.add(`focus end "${end}" not in the capture's order`); continue } want = order[i + 1]?.name ?? null }
+    if (want === got) bump(k, 'alike'); else { bump(k, 'not'); bad.push(`${r.key}: next Tab "${got}", next focusable "${want}"`) }
+  }
+}
+for (const [k, t] of [...tally].sort()) console.log(`${k}: cells ${t.cells}, alike ${t.alike}, not alike ${t.not}, not checkable ${t.unc}${t.why.size ? ' (' + [...t.why].join('; ') + ')' : ''}`)
+console.log(`not alike: ${bad.length}`); for (const b of bad) console.log('  ' + b)

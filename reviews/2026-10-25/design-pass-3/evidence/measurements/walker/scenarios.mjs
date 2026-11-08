@@ -13,7 +13,7 @@ import { IN_DIALOG, IN_DIALOG_OR_OUT, focusByKeyboard, key } from './qualify.mjs
 // VH-207 (V-46): the ring read where a variant's focus lands, as the focus instrument reads one.
 import { focusArea } from './qualify.mjs'
 import { FAULTS, applyFault, releaseFault, releaseAll, gotoNoWait } from './faults.mjs'
-import { spokenAtCompletion } from './phase8.mjs'
+import { HIT44, spokenAtCompletion } from './phase8.mjs'
 // VH-215 (VH-139.5): the submission card's running time, read from the output.
 import { KEEP_REQUEST, readBurnedCard } from './card-215.mjs'
 
@@ -1219,7 +1219,7 @@ export const ROUTES = {
     steps: [
       { key: 'Tab', until: 'video-kind=', repeat: 20, note: 'Tab to Video type' },
       { key: 'ArrowRight', state: MX(`M.checked('video-kind') === 'submission'`), expect: 'video-kind=submission', note: 'S-07: an arrow chooses Student submission; focus stays on the radio' },
-      { key: 'Tab', until: 'file-input', repeat: 20, note: 'Tab to Choose file' },
+      { key: 'Tab', shift: true, until: 'file-input', repeat: 20, note: 'Shift+Tab back to Choose file, the stop before Video type (VH-216.1)' },
       { ...pick('lecture-60s.mp4'), waitFor: SETTLED, timeout: 120000, expect: 'file-input', state: MX('M.proceed()') },
       { key: 'Tab', until: 'submission-card-assignment', repeat: 60, state: MX(`M.fields(M.SUB).every((f) => f.value === '') && M.el('#title-card-on').disabled && M.el('#title-card-on').checked`), note: 'S-40: Tab to the first of the four fields; the box ticked and locked' },
       { key: 'Tab', untilState: FOCUS_ON(CREATE), repeat: 40, state: MX(`M.el('#closing-internal').checked && M.el('#closing-internal').disabled`), note: 'S-45: Tab on to Create; Internal use only is ticked and locked, so Tab passes it' },
@@ -1317,7 +1317,7 @@ export const ROUTES = {
       { key: 'ArrowRight', state: MX(`M.checked('video-language') !== document.documentElement.lang`), expect: 'video-language=', note: 'S-71: another video language' },
       { key: 'Tab', shift: true, until: 'video-kind=', repeat: 4, note: 'Shift+Tab back to Video type' },
       { key: 'ArrowLeft', state: MX(`M.checked('video-kind') === 'staff'`), expect: 'video-kind=staff', note: 'Back to Staff video, so Create needs no card' },
-      { key: 'Tab', until: 'file-input', repeat: 10, note: 'Tab to Choose file' },
+      { key: 'Tab', shift: true, until: 'file-input', repeat: 10, note: 'Shift+Tab back to Choose file, the stop before Video type (VH-216.1)' },
       { ...pick('notvideo.mp4'), waitFor: MX(`M.kindIn('#source-report') === 'error'`), timeout: 60000, expect: 'file-input', state: MX(`M.previous() && M.el('#step-trim').hidden && !M.el('#step-create').hidden`) },
       { wait: 0, expect: 'file-input', note: 'S-30: unreadable beside the kept result; steps 2-5 withdrawn, the result stays' },
       { ...pick('lecture-360s.mp4'), waitFor: MX('!!M.verdict() && M.create()'), timeout: 120000, expect: 'file-input' },
@@ -1561,7 +1561,43 @@ const vals = (steps) => steps.map((s) => s.v)
 const same = (a, b) => JSON.stringify(a) === JSON.stringify(b)
 /** The page language set by setup, without moving focus (a programmatic change, recorded as setup). */
 const setPageLanguage = async (w, tag) => { await w.evaluate(`(() => { const r = document.querySelector('#language-switcher input[value="${tag}"]'); if (r.checked) return; r.checked = true; r.dispatchEvent(new Event('change', { bubbles: true })); })()`); await sleep(400) }
-const STATUS_SINCE = (t) => `(() => { const want = window.__mx.msg('status.checking'); return window.__p8.status.filter((s) => s.t > ${t} && s.text === want).length })()`
+// VH-203 (wish VH-219.1): each option's closed text read in its select's own text block, inside the user agent's shadow (VH-219's
+// driver, vh219-records-2026-11-01/vh219-driver.mjs.txt), each option shown in turn and the choice put back: clipped where its text
+// runs past the block's right edge or the block scrolls (sideways or down), so wrapping and the spacing sheet are read as drawn,
+// never one canvas line against the lane. A select with no text block is "cannot determine", named.
+const CLOSED_BLOCK = `function () { const b = this.getBoundingClientRect(), g = document.createRange(); g.selectNodeContents(this);
+  const rs = [...g.getClientRects()].filter((r) => r.width > 0), tops = []; for (const r of rs) if (!tops.some((t) => Math.abs(t - r.top) < 3)) tops.push(r.top);
+  return JSON.stringify({ t: this.textContent, sw: this.scrollWidth, cw: this.clientWidth, sh: this.scrollHeight, ch: this.clientHeight, lines: tops.length, r: b.right, tr: rs.length ? Math.max(...rs.map((q) => q.right)) : b.left }); }`
+const closedBlockOf = (node) => { for (const c of [...(node.shadowRoots ?? []), ...(node.children ?? [])]) { if (c.nodeType === 1 && c.nodeName !== 'OPTION' && (c.children ?? []).some((x) => x.nodeType === 3)) return c; const d = c.nodeName === 'OPTION' ? null : closedBlockOf(c); if (d) return d } return null }
+async function closedTexts(w, ids) {
+  const out = [], send = (m, p) => w.page.send(m, p), { root } = await send('DOM.getDocument', { depth: 0 })
+  for (const id of ids) {
+    const { nodeId } = await send('DOM.querySelector', { nodeId: root.nodeId, selector: '#' + id })
+    if (!nodeId) { out.push({ id, error: 'no select' }); continue }
+    const { node } = await send('DOM.describeNode', { nodeId, depth: -1, pierce: true }), block = closedBlockOf(node)
+    if (!block) { out.push({ id, error: 'no closed text block in the user agent\'s shadow' }); continue }
+    const { object } = await send('DOM.resolveNode', { backendNodeId: block.backendNodeId })
+    const at = await w.evaluate(`document.getElementById('${id}').selectedIndex`), n = await w.evaluate(`document.getElementById('${id}').options.length`), options = []
+    try {
+      for (let i = 0; i < n; i++) {
+        const o = await w.evaluate(`(() => { const s = document.getElementById('${id}'); s.selectedIndex = ${i}; s.getBoundingClientRect(); return { value: s.options[${i}].value, text: s.options[${i}].textContent.trim() } })()`)
+        const { result } = await send('Runtime.callFunctionOn', { objectId: object.objectId, functionDeclaration: CLOSED_BLOCK, returnByValue: true })
+        const r = JSON.parse(result.value)
+        options.push({ ...o, lines: r.lines, room: r.cw, shown: r.t.trim() === o.text, clipped: r.tr > r.r + 0.5 || r.sw > r.cw + 1 || r.sh > r.ch + 1 })
+      }
+    } finally {
+      await w.evaluate(`document.getElementById('${id}').selectedIndex = ${at}`)
+      await send('Runtime.releaseObject', { objectId: object.objectId }).catch(() => undefined)
+    }
+    out.push({ id, options })
+  }
+  return out
+}
+const SELECTS_FIT = async (o, w) => { const r = await closedTexts(w, ['closing-type', 'closing-onset']); if (r.some((s) => s.error)) return { outcome: 'cannot-determine', why: r.filter((s) => s.error).map((s) => s.id + ': ' + s.error).join('; '), read: r }; return { outcome: r.every((s) => s.options.every((x) => !x.clipped)) ? 'pass' : 'fail', read: r.map((s) => ({ id: s.id, clipped: s.options.filter((x) => x.clipped).map((x) => x.value), lines: s.options.map((x) => x.lines) })) } }
+// VH-203 (wish VH-199.1): the checks started since t, counted by the status line's writes of "Checking…" (P8_INIT's `writes`, every
+// write even when its text is unchanged), not by its changes (`status`, which skip a write of the same text: the delayed re-check writes
+// "Checking…" over the first press's "Checking…", so VH-199's counter read 0; vh199-compare-run-05.md).
+const STATUS_SINCE = (t) => `(() => { const want = window.__mx.msg('status.checking'); return window.__p8.writes.filter((s) => s.t > ${t} && s.text === want).length })()`
 const focusIs = (sel) => `document.activeElement === document.querySelector(${JSON.stringify(sel)})`
 const activeDesc = (w) => w.evaluate(`(() => { const a = document.activeElement; if (!a || a === document.body) return 'body'; return a.id ? '#' + a.id : a.tagName.toLowerCase() + (a.name ? '[name=' + a.name + ']' : '') + (a.type === 'radio' ? '=' + a.value : '') + (a.matches && a.matches(${JSON.stringify(P8_CARD)}) ? ' (the card)' : ''); })()`)
 const tipState = (w, id) => w.evaluate(`(() => { const t = document.getElementById('${id}'); const b = document.getElementById('${id}-button'); return { open: !!t && !t.hidden, expanded: b && b.getAttribute('aria-expanded') }; })()`)
@@ -1865,6 +1901,18 @@ const VH207_READ = MX(`({ unreadable: M.kindIn('#source-report') === 'error', to
 /** VH-207: a selector for the focused element, so its ring is read as the focus instrument reads one: its id, a radio by name and value, Save, or else a mark on it. */
 const VH207_FOCUSED = `(() => { const a = document.activeElement; if (!a || a === document.body) return null; if (a.id) return '#' + CSS.escape(a.id); if (a.type === 'radio' && a.name) return 'input[name="' + a.name + '"][value="' + a.value + '"]'; if (a.matches(${JSON.stringify(SAVE)})) return ${JSON.stringify(SAVE)}; a.setAttribute('data-vh207-focus', ''); return '[data-vh207-focus]'; })()`
 const VH207_LEDE = '.lede p[data-i18n="lede.privacy"]'
+// VH-216.1 (the owner's "Yes, all three", plan8-owner-words.md:448-454): the page as it now stands (VH-229). The five promises, the
+// format "?" and the privacy line are in the title's panel (#about-help), closed at every load, so a check that needs them opens it
+// first by its own "?", by keys; it stays open until that "?" is pressed again (Escape goes to an open tip first).
+const ABOUT_BTN = '#about-help-button'
+async function openAbout(w) {
+  if (!(await w.evaluate(`document.getElementById('about-help').hidden`))) return
+  await focusByKeyboard(w, ABOUT_BTN); await key(w, 'Enter'); await sleep(200)
+}
+async function closeAbout(w) {
+  if (await w.evaluate(`document.getElementById('about-help').hidden`)) return
+  await focusByKeyboard(w, ABOUT_BTN); await key(w, 'Enter'); await sleep(200)
+}
 /**
  * VH-207: where focus stands once a variant's read has ended, read before any
  * instrument moves it: the element and its moves (2.4.3), what shows of it
@@ -1941,7 +1989,7 @@ const VH207_VARIANTS = {
     place: async (w) => { await focusByKeyboard(w, '#feedback-open'); await key(w, 'Enter'); await sleep(400); return w.evaluate(`({ open: ${DIALOG_OPEN}, onMessage: ${FOCUS_ON('#feedback-message')} })`) },
     reached: (r) => r.placed?.open && r.placed?.onMessage && r.read.unreadable && !r.read.tookTooLong && r.read.trimHidden && r.read.titleHidden && r.read.dialog },
   f2: { key: 'f2', successor: null,
-    place: async (w) => { await focusByKeyboard(w, RADIO_VLANG); const from = await activeDesc(w); await w.click(VH207_LEDE); await sleep(200); return { from, onBody: await w.evaluate('document.activeElement === document.body') } },
+    place: async (w) => { await openAbout(w); await focusByKeyboard(w, RADIO_VLANG); const from = await activeDesc(w); await w.click(VH207_LEDE); await sleep(200); return { from, onBody: await w.evaluate('document.activeElement === document.body') } },
     reached: (r) => /video-language/.test(r.placed?.from ?? '') && r.placed?.onBody && r.read.unreadable && !r.read.tookTooLong && r.read.trimHidden && r.read.titleHidden,
     landed: (r) => r.after.focus.el === 'body' },
 }
@@ -2262,7 +2310,7 @@ Object.assign(SCENARIOS, {
       X('"Plays over" with its two options', `['existing', 'freeze'].every((v) => [...M.el('#closing-onset').options].some((o) => o.value === v && o.textContent.trim() === M.msg('closing.onsets.' + v)))`),
       X('the "?" named "About what the graphics play over"', `M.el('#onset-help-button').getAttribute('aria-label') === M.msg('closing.helpLabel')`),
       { what: 'each label its select\'s accessible name', fn: async (w) => { const names = {}; const { root } = await w.page.send('DOM.getDocument', { depth: 0 }); for (const id of ['closing-type', 'closing-onset']) { const { nodeId } = await w.page.send('DOM.querySelector', { nodeId: root.nodeId, selector: '#' + id }); const { nodes } = await w.page.send('Accessibility.getPartialAXTree', { nodeId, fetchRelatives: false }); names[id] = nodes[0]?.name?.value } const want = await mx(w, `({ type: M.text('label[for="closing-type"]').trim(), onset: M.msg('closing.onsetLabel') })`); return { outcome: names['closing-type'] === want.type && names['closing-onset'] === want.onset ? 'pass' : 'fail', names, want } } },
-      X('every option inside its select\'s room', `['closing-type', 'closing-onset'].every((id) => { const s = M.el('#' + id); const c = document.createElement('canvas').getContext('2d'); c.font = getComputedStyle(s).font; const room = s.clientWidth - parseFloat(getComputedStyle(s).paddingLeft) - parseFloat(getComputedStyle(s).paddingRight); return [...s.options].every((o) => c.measureText(o.textContent.trim()).width <= room + 1); })`),
+      see('every option inside its select\'s room', SELECTS_FIT),
       { what: 'the "?" beside the select (above the 25rem query)', fn: async (w) => { const r = await w.evaluate(`(() => { const b = document.getElementById('onset-help-button').getBoundingClientRect(), s = document.getElementById('closing-onset').getBoundingClientRect(); return { narrow: matchMedia('(max-width: 25rem)').matches, beside: b.top < s.bottom && b.bottom > s.top && b.left >= s.right - 1 }; })()`); return r.narrow ? { outcome: 'not-applicable', why: 'below the 25rem query: S-112\'s' } : { outcome: r.beside ? 'pass' : 'fail', ...r } } },
     ],
     focus: ['#closing-type', '#closing-onset', '#onset-help-button'],
@@ -2284,7 +2332,7 @@ Object.assign(SCENARIOS, {
     asserts: [
       X('at 401 px beside the select; at 400 px and below beside the label', `(() => { const b = M.el('#onset-help-button').getBoundingClientRect(), s = M.el('#closing-onset').getBoundingClientRect(), l = M.el('label[for="closing-onset"]').getBoundingClientRect(); const narrow = matchMedia('(max-width: 25rem)').matches; return narrow ? b.top < l.bottom && b.bottom > l.top && b.bottom <= s.top + 1 : b.top < s.bottom && b.bottom > s.top; })()`),
       X('the Tab order unchanged: the select, then the "?"', `(() => { const s = M.el('#closing-onset'), b = M.el('#onset-help-button'); return !!(s.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING); })()`),
-      X('every option inside its select\'s room', `['closing-type', 'closing-onset'].every((id) => { const s = M.el('#' + id); const c = document.createElement('canvas').getContext('2d'); c.font = getComputedStyle(s).font; const room = s.clientWidth - parseFloat(getComputedStyle(s).paddingLeft) - parseFloat(getComputedStyle(s).paddingRight); return [...s.options].every((o) => c.measureText(o.textContent.trim()).width <= room + 1); })`),
+      see('every option inside its select\'s room', SELECTS_FIT),
       see('it opens under the select; Tab closes it; Escape returns focus to the "?"', (o) => o.open.open && o.tipUnderSelect && !o.afterTab.open && !o.escape.open && o.escape.focus === '#onset-help-button'),
     ],
     focus: ['#onset-help-button', '#closing-onset'],
@@ -2297,7 +2345,7 @@ Object.assign(SCENARIOS, {
     setup: async (w, lang) => { await ready(w, lang); await fade(w) },
     asserts: [
       X('the 25rem query follows the text size: the "?" beside the select only above 800 px', `(() => { const b = M.el('#onset-help-button').getBoundingClientRect(), s = M.el('#closing-onset').getBoundingClientRect(); const beside = b.top < s.bottom && b.bottom > s.top; return beside === !matchMedia('(max-width: 25rem)').matches; })()`),
-      found('the room in each select, and options clipped (wish VH-189.1, beyond 1.4.4 and 1.4.10)', (o, w) => w.evaluate(`['closing-type', 'closing-onset'].map((id) => { const s = document.getElementById(id); const c = document.createElement('canvas').getContext('2d'); c.font = getComputedStyle(s).font; const room = Math.round(s.clientWidth - parseFloat(getComputedStyle(s).paddingLeft) - parseFloat(getComputedStyle(s).paddingRight)); return { id, room, clipped: [...s.options].filter((o) => c.measureText(o.textContent.trim()).width > room + 1).map((o) => o.value) }; })`)),
+      found('the room in each select, and options clipped (wish VH-189.1, beyond 1.4.4 and 1.4.10)', async (o, w) => (await closedTexts(w, ['closing-type', 'closing-onset'])).map((s) => s.error ? s : { id: s.id, room: s.options[0]?.room, clipped: s.options.filter((x) => x.clipped).map((x) => x.value), lines: s.options.map((x) => x.lines) })),
     ],
     focus: ['#closing-onset', '#onset-help-button'],
     fixtures: ['lecture-60s.mp4'],
@@ -2734,10 +2782,15 @@ Object.assign(SCENARIOS, {
     name: '"About the video format" open',
     state: `!M.chosen() && M.vis('#format-help') && M.el('#format-help-button').getAttribute('aria-expanded') === 'true' && ${focusIs('#format-help-button')}`,
     hold: `M.vis('#format-help')`,
-    setup: async (w, lang) => { await fresh(w, lang); await focusByKeyboard(w, '#format-help-button'); await key(w, 'Enter'); await sleep(200) },
+    setup: async (w, lang) => { await fresh(w, lang); await openAbout(w); await focusByKeyboard(w, '#format-help-button'); await key(w, 'Enter'); await sleep(200) },
     asserts: [
       X('the hint word for word', `M.text('#format-help').replace(/\\s+/g, ' ').trim() === M.msg('lede.formatHelp.text')`),
-      X('the "?" 44 x 44 after its promise\'s text; the tip under it, in the item', `(() => { const b = M.el('#format-help-button').getBoundingClientRect(), t = M.el('#format-help').getBoundingClientRect(), li = M.el('#format-help-button').closest('li').getBoundingClientRect(); return b.width >= 44 && b.height >= 44 && t.top >= b.bottom - 0.5 && t.left >= li.left - 1 && t.right <= li.right + 1; })()`),
+      // VH-203 (wish VH-205.1, W11): the "?"'s 44 x 44 by its box or W11's hit test (HIT44, its ::after's area), as S-03's row and phase8's formatTip row; the rest of the row as it was.
+      { what: 'the "?" 44 x 44 after its promise\'s text; the tip under it, in the item', fn: async (w) => {
+        const r = await mx(w, `(() => { const b = M.el('#format-help-button').getBoundingClientRect(), t = M.el('#format-help').getBoundingClientRect(), li = M.el('#format-help-button').closest('li').getBoundingClientRect(); return { w: b.width, h: b.height, placed: t.top >= b.bottom - 0.5 && t.left >= li.left - 1 && t.right <= li.right + 1 }; })()`)
+        const hit = await w.evaluate(HIT44('format-help-button'))
+        return { outcome: ((r.w >= 44 && r.h >= 44) || hit?.fits) && r.placed ? 'pass' : 'fail', ...r, hit }
+      } },
       X('said by its polite region', `M.el('#format-help').closest('[aria-live="polite"]') !== null`),
     ],
     p8: ['formatTip'],
@@ -2749,7 +2802,7 @@ Object.assign(SCENARIOS, {
     state: `!M.chosen() && !M.vis('#format-help') && M.el('#format-help-button').getAttribute('aria-expanded') === 'false'`,
     setup: async (w, lang) => {
       const o = obsOf(w)
-      await fresh(w, lang)
+      await fresh(w, lang); await openAbout(w)
       await focusByKeyboard(w, '#format-help-button'); await key(w, 'Enter'); await key(w, 'Tab'); o.tab = { focus: await activeDesc(w), ...(await tipState(w, 'format-help')) }
       await focusByKeyboard(w, '#format-help-button'); await key(w, 'Enter'); await key(w, 'Tab', { shift: true }); o.shiftTab = { focus: await activeDesc(w), onSwitcher: await w.evaluate(`!!document.activeElement.closest('#language-switcher')`), onNotice: await w.evaluate(`!!document.activeElement.closest('#language-notice')`), ...(await tipState(w, 'format-help')) }
       await focusByKeyboard(w, '#format-help-button'); await key(w, 'Enter'); await key(w, 'Escape'); o.escape = { focus: await activeDesc(w), ...(await tipState(w, 'format-help')) }
@@ -2757,8 +2810,8 @@ Object.assign(SCENARIOS, {
       o.expect = await w.evaluate(`({ kind: (() => { const r = document.querySelector('#video-kind input:checked'); return '#' + (r.id || '') })(), notice: !!document.querySelector('#language-notice a') && document.querySelector('#language-notice a').getClientRects().length > 0 })`)
     },
     asserts: [
-      see('Tab: closed, focus on Video type\'s checked radio', (o) => !o.tab.open && /video-kind/.test(o.tab.focus)),
-      see('Shift+Tab: closed, focus on Page language\'s radio in English, the notice\'s link in Chinese and Malay', (o) => !o.shiftTab.open && (o.expect.notice ? o.shiftTab.onNotice : o.shiftTab.onSwitcher)),
+      see('Tab: closed, focus on Choose file, the next stop after the title\'s panel (VH-216.1)', (o) => !o.tab.open && o.tab.focus === '#file-input'),
+      see('Shift+Tab: closed, focus on the title\'s "?", the stop before its panel (VH-216.1)', (o) => !o.shiftTab.open && o.shiftTab.focus === ABOUT_BTN),
       see('Escape: closed, focus on the "?"', (o) => !o.escape.open && o.escape.focus === '#format-help-button'),
       see('a click on its text keeps it open; a click on the page title closes it', (o) => o.clickText.open && !o.clickTitle.open),
     ],
@@ -2772,7 +2825,7 @@ Object.assign(SCENARIOS, {
     hold: `M.chosen() && !M.vis('#format-help') && !M.vis('#onset-help')`,
     setup: async (w, lang) => {
       const o = obsOf(w); const both = async () => ({ format: (await tipState(w, 'format-help')).open, onset: (await tipState(w, 'onset-help')).open })
-      await ready(w, lang); await fade(w)
+      await ready(w, lang); await fade(w); await openAbout(w)
       await focusByKeyboard(w, '#format-help-button'); await key(w, 'Enter'); o.s1 = await both()
       let n = 0; while (n++ < 120 && !(await w.evaluate(`document.activeElement === document.getElementById('onset-help-button')`))) await key(w, 'Tab')
       o.s2 = await both(); await key(w, 'Enter'); o.s3 = await both()
@@ -2965,17 +3018,26 @@ amend('S-03', {
   p8: ['formatTip'],
   asserts: [
     X('the owner\'s five promises, in order', `(() => { const items = [...document.querySelectorAll('.lede > ul > li')].map((li) => (li.querySelector('span') || li).textContent.replace(/\\s+/g, ' ').trim()); return items.length === 5 && items.every((t, i) => t === M.msg('lede.promises.' + i)); })()`),
-    X('"About the video format" 44 x 44, collapsed, controlling #format-help', `(() => { const b = M.el('#format-help-button'); const r = b.getBoundingClientRect(); return r.width >= 44 && r.height >= 44 && b.getAttribute('aria-expanded') === 'false' && b.getAttribute('aria-controls') === 'format-help'; })()`),
+    // VH-216.1: read with the title's panel opened by its "?" and closed again; the 44 x 44 by its box or by the area that hit-tests as
+    // it, its ::after's included (W11's reading, phase8.mjs's own "?" row), the box kept beside it.
+    { what: '"About the video format" 44 x 44, collapsed, controlling #format-help (the title\'s panel opened first)', fn: async (w) => {
+      await openAbout(w)
+      const r = await mx(w, `(() => { const b = M.el('#format-help-button'); const r = b.getBoundingClientRect(); return { w: r.width, h: r.height, expanded: b.getAttribute('aria-expanded'), controls: b.getAttribute('aria-controls') }; })()`)
+      const hit = await w.evaluate(HIT44('format-help-button'))
+      await closeAbout(w); await w.evaluate(`document.activeElement && document.activeElement.blur()`)
+      return { outcome: ((r.w >= 44 && r.h >= 44) || hit?.fits) && r.expanded === 'false' && r.controls === 'format-help' ? 'pass' : 'fail', ...r, hit }
+    } },
     NOTE_HIDDEN,
     X('no Video language before step 1', `!(M.el('#video-language').compareDocumentPosition(M.el('#step-choose')) & Node.DOCUMENT_POSITION_FOLLOWING) || M.el('#step-title').hidden`),
-    { what: 'Tab from the top: skip link, Page language, (the notice\'s link), About the video format, Video type, Choose file', fn: async (w) => {
+    // VH-216.1: the page's order as it now stands (VH-229), the title's panel closed as at every load.
+    { what: 'Tab from the top: skip link, Page language, (the notice\'s link), the title\'s "?", Choose file, Video type', fn: async (w) => {
       // The sequential-focus starting point put at the top: the body focused, as after a load.
       await w.evaluate(`(() => { window.scrollTo(0, 0); document.body.tabIndex = -1; document.body.focus(); document.body.removeAttribute('tabindex'); })()`)
       const stops = []
-      for (let i = 0; i < 12; i++) { await key(w, 'Tab'); const s = await w.evaluate(`(() => { const a = document.activeElement; return a.closest('#language-switcher') ? 'page language' : a.closest('#language-notice') ? 'notice link' : a.id === 'format-help-button' ? 'format ?' : a.closest('#video-kind') ? 'video type' : a.id === 'file-input' ? 'choose file' : a.matches('a[href^="#"]') ? 'skip link' : (a.id || a.tagName.toLowerCase()); })()`); stops.push(s); if (s === 'choose file') break }
+      for (let i = 0; i < 12; i++) { await key(w, 'Tab'); const s = await w.evaluate(`(() => { const a = document.activeElement; return a.closest('#language-switcher') ? 'page language' : a.closest('#language-notice') ? 'notice link' : a.id === 'about-help-button' ? 'title ?' : a.id === 'format-help-button' ? 'format ?' : a.closest('#video-kind') ? 'video type' : a.id === 'file-input' ? 'choose file' : a.matches('a[href^="#"]') ? 'skip link' : (a.id || a.tagName.toLowerCase()); })()`); stops.push(s); if (s === 'video type') break }
       await w.evaluate(`document.activeElement && document.activeElement.blur()`)
       const notice = await w.evaluate(`!!document.querySelector('#language-notice a') && document.querySelector('#language-notice a').getClientRects().length > 0`)
-      const want = ['skip link', 'page language', ...(notice ? ['notice link'] : []), 'format ?', 'video type', 'choose file']
+      const want = ['skip link', 'page language', ...(notice ? ['notice link'] : []), 'title ?', 'choose file', 'video type']
       return { outcome: same(stops, want) ? 'pass' : 'fail', stops, want }
     } },
     found('app.description, read as it stands for VH-200', (o, w) => w.evaluate(`(document.querySelector('meta[name="description"]') || {}).content || null`)),
@@ -3126,10 +3188,12 @@ const SAVE_TAB = { key: 'Tab', untilState: FOCUS_ON(SAVE), repeat: 16, note: "Ta
 // S-53 → S-126 → S-127 → S-114 → S-58 → S-59 → S-61 → S-62.
 const J1_PICK = ROUTES.J1.steps.findIndex((s) => s.setup && /lecture-360s/.test(s.note ?? ''))
 ROUTES.J1.steps = [
-  { key: 'Tab', until: 'format-help-button', repeat: 20, state: TIP_SHUT('format-help'), note: 'S-03, S-141: from the top, past Page language, Tab to "About the video format"' },
+  // VH-216.1: the page's order as it now stands (VH-229): the format "?" is in the title's panel, opened first by its own "?".
+  { key: 'Tab', until: 'about-help-button', repeat: 20, state: TIP_SHUT('about-help'), note: 'S-03: from the top, past Page language, Tab to the title\'s "?", its panel closed (VH-216.1)' },
+  { key: 'Enter', state: TIP_OPEN('about-help'), expect: 'about-help-button', note: 'VH-216.1: Enter opens the title\'s panel; focus stays on its "?"' },
+  { key: 'Tab', until: 'format-help-button', repeat: 4, state: TIP_SHUT('format-help'), note: 'S-03, S-141: Tab on into the panel, to "About the video format"' },
   { key: 'Enter', state: TIP_OPEN('format-help'), expect: 'format-help-button', note: 'S-141: Enter opens it; focus stays on the "?"' },
-  { key: 'Tab', expect: 'video-kind=', state: TIP_SHUT('format-help'), note: 'S-142: Tab closes it on Video type' },
-  { key: 'Tab', until: 'file-input', repeat: 10, note: 'Tab on to Choose file' },
+  { key: 'Tab', expect: 'file-input', state: TIP_SHUT('format-help'), note: 'S-142: Tab closes it on Choose file, the next stop after the panel (VH-216.1)' },
   ROUTES.J1.steps[J1_PICK],
   ...stepsOf('J1', 'S-12, S-14, S-15', 'S-16: Enter opens Video properties'),
   { key: 'Tab', untilState: FOCUS_ON('#trim-start-range'), repeat: 20, note: "S-92: Tab past step 2's preview controls to the start handle" },
@@ -3537,6 +3601,8 @@ PLANS.pilot3 = () => [
 const VH215_EXPECT = {
   'cut-short-30s.mkv': { made: '0:20', declared: '0:20', maxSeconds: 40, from: "VH-215 #1's probe-4: declared 20; sound 19.925; picture 20 by index, packets and decode" },
   'cut-short-10s.webm': { made: '0:05', declared: '0:05', maxSeconds: 20, from: "VH-215 #4's extents probe (extents-4): declared 5.121 (picture 5.12, sound 5.121); sound 5.113; picture 5.12 by index (last declared packet arrived), packets (128) and decode (128 frames)" },
+  // VH-203 (W20, wish VH-215.2; Orchestrator #44's ruling 5): S-22's file, its correction proved by VH-215's Node tests and browser proof, not walked.
+  'truncated-30s.mp4': { made: '0:21', declared: '0:30', maxSeconds: 40, from: "wish VH-215.2: VH-215's table, section 7: 0:30 drawn on a 0:21 video at VH-215's base, 0:21 after" },
 }
 const VH215_LINE = MX(`(() => { const el = M.el('#submission-card-filled'); const t = el ? el.textContent.replace(/\\s+/g, ' ').trim() : null; const m = t && t.match(/\\d+(?::\\d{2}){1,2}/); return { text: t, clock: m ? m[0] : null, shown: !!el && M.vis('#submission-card-filled') }; })()`)
 async function vh215Job(w, lang, file, closing) {
@@ -3593,7 +3659,15 @@ Object.assign(SCENARIOS, {
   'S-23w': vh215Scenario('VH-215: the cut WebM (VH-158, T90 of a-vp9opus.webm) as Student submission, closing Cut', 'cut-short-10s.webm', 'cut'),
   'S-23wn': vh215Scenario('VH-215: the cut WebM (VH-158, T90 of a-vp9opus.webm) as Student submission, no closing graphics', 'cut-short-10s.webm', 'none'),
 })
+// VH-203 (W20, wish VH-215.2; Orchestrator #44's ruling 5, the IDs S-22s and S-22sn): S-22's file that ends early, truncated-30s.mp4, as
+// Student submission with a closing on (Cut) and off, by VH-215's own scenario; fixOnly, walked in PLANS.vh215's conditions (PLANS.vh203s).
+Object.assign(SCENARIOS, {
+  'S-22s': vh215Scenario("VH-203: S-22's file that ends early (MP4) as Student submission, closing Cut", 'truncated-30s.mp4', 'cut'),
+  'S-22sn': vh215Scenario("VH-203: S-22's file that ends early (MP4) as Student submission, no closing graphics", 'truncated-30s.mp4', 'none'),
+})
 // Added after the loop that wraps every scenario's state and hold (`wrap`, above), so wrapped here as it wraps them.
-for (const id of ['S-23s', 'S-23sn', 'S-23w', 'S-23wn']) { const sc = SCENARIOS[id]; sc.hold = wrap(sc.hold ?? sc.state); sc.state = wrap(sc.state) }
+for (const id of ['S-23s', 'S-23sn', 'S-23w', 'S-23wn', 'S-22s', 'S-22sn']) { const sc = SCENARIOS[id]; sc.hold = wrap(sc.hold ?? sc.state); sc.state = wrap(sc.state) }
 // 96 records: 4 scenarios x 3 languages x 1280 and 320 px x 4 colour modes, 24 jobs (one a language and width).
 PLANS.vh215 = () => ['S-23s', 'S-23sn', 'S-23w', 'S-23wn'].flatMap((id) => LANGS.flatMap((lang) => ['w1280', 'w320'].flatMap((view) => COLOUR_MODES.map((mode) => rec(id, lang, view, mode)))))
+// VH-203 (W20): 48 records, S-22s and S-22sn in PLANS.vh215's conditions.
+PLANS.vh203s = () => ['S-22s', 'S-22sn'].flatMap((id) => LANGS.flatMap((lang) => ['w1280', 'w320'].flatMap((view) => COLOUR_MODES.map((mode) => rec(id, lang, view, mode)))))

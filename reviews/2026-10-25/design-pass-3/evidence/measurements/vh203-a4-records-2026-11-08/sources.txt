@@ -1,0 +1,48 @@
+c9c03f1cfbd5b67b64d1152a33eba5534c955694  a4g1.conditions.txt  ./a4g1/conditions.txt
+6c1e4101ffb99d48c1f470cce100d7d2b6534fdb  a4g1.load.log.txt  ./a4g1.load.log
+9dcb7bea895735425f58c7c0f348ca4eb17d3ce9  a4g1.launcher.log.txt  ./a4g1.launcher.log
+4ec74625b47922c7f2abbff01b5344eeffb07523  a4g1.vh203-after-keys-2026-11-08T07-12-27-089Z-ea7680.manifest.json  ./a4g1/runs/vh203-after-keys-2026-11-08T07-12-27-089Z-ea7680/manifest.json
+63b05673df0f246db068494b6dd40772d33971a8  a4g1.vh203-after-keys-2026-11-08T07-12-27-089Z-ea7680.run.json  ./a4g1/runs/vh203-after-keys-2026-11-08T07-12-27-089Z-ea7680/run.json
+80461e61b2750759ff1705ff8df3d391abcfd8a2  a4g1.vh203-ledger.jsonl  ./a4g1/runs/vh203-ledger.jsonl
+0d08c40fc611fcf88bd74efcca1370bf3f91af3d  a4g1.outcomes.jsonl  written from a4g1/runs
+6bea58b776c58950bd7cabf75829ed6f966fb629  a4g2.conditions.txt  ./a4g2/conditions.txt
+9d132dd71e762f9efee1689cc606b2a71d6c633f  a4g2.load.log.txt  ./a4g2.load.log
+c2039b1b69d245cd6f7f9f7bc83ad734bcc30d4f  a4g2.launcher.log.txt  ./a4g2.launcher.log
+8b0e81babc98c5d171233a11bebee632a8399f8a  a4g2.vh203-after-keys-2026-11-08T07-47-16-851Z-0aec4b.manifest.json  ./a4g2/runs/vh203-after-keys-2026-11-08T07-47-16-851Z-0aec4b/manifest.json
+f5727b11ce4ff13f9cc171d15bcc0097f5388ab2  a4g2.vh203-after-keys-2026-11-08T07-47-16-851Z-0aec4b.run.json  ./a4g2/runs/vh203-after-keys-2026-11-08T07-47-16-851Z-0aec4b/run.json
+f3728f79219dafd6a0249f6f9f97496852959286  a4g2.vh203-ledger.jsonl  ./a4g2/runs/vh203-ledger.jsonl
+6796311ef5d3c88f14f6b98ad99a585ddbb4b9d0  a4g2.outcomes.jsonl  written from a4g2/runs
+eb0525904b0ae123449864081aea45d919fbfc59  a4g3.conditions.txt  ./a4g3/conditions.txt
+cd606e2717114b60d52a30b981d21e8c712627da  a4g3.load.log.txt  ./a4g3.load.log
+2c3ff630a0aaca2ecadf0333a1feaf7cfa10e880  a4g3.launcher.log.txt  ./a4g3.launcher.log
+7d65e98e4e47a35ba324edce73835f38c0d0af51  a4g3.vh203-after-keys-2026-11-08T08-31-30-684Z-5c5a1e.manifest.json  ./a4g3/runs/vh203-after-keys-2026-11-08T08-31-30-684Z-5c5a1e/manifest.json
+73741cb7dea9181d5e2d1286a5ddaf6ddea7cf82  a4g3.vh203-after-keys-2026-11-08T08-31-30-684Z-5c5a1e.run.json  ./a4g3/runs/vh203-after-keys-2026-11-08T08-31-30-684Z-5c5a1e/run.json
+b2d7c3d7763ac79cd038fd61fd3c4c8e5667c8f9  a4g3.vh203-ledger.jsonl  ./a4g3/runs/vh203-ledger.jsonl
+3a2b5dc04392f80664574d923860ef75cc66c7b6  a4g3.outcomes.jsonl  written from a4g3/runs
+aa47923cc8caee18da682e5dbfe32c8c46142dbe  a4g4.conditions.txt  ./a4g4/conditions.txt
+e22dfafd6e1e74c4b9029ebf099b5e9118ff2d2d  a4g4.load.log.txt  ./a4g4.load.log
+8f7b521cf491eedd999b0a7fb17734be81e09704  a4g4.launcher.log.txt  ./a4g4.launcher.log
+dc4fde53b19a235025d77b41b7f332136552ab35  a4g4.vh203-after-keys-2026-11-08T08-53-51-094Z-85bb67.manifest.json  ./a4g4/runs/vh203-after-keys-2026-11-08T08-53-51-094Z-85bb67/manifest.json
+f803eba02194cbfa722db8744c1fa359e80a1058  a4g4.vh203-after-keys-2026-11-08T08-53-51-094Z-85bb67.run.json  ./a4g4/runs/vh203-after-keys-2026-11-08T08-53-51-094Z-85bb67/run.json
+b6daaa64f7b909321b20ea178b2eb49e37ceb6b6  a4g4.vh203-ledger.jsonl  ./a4g4/runs/vh203-ledger.jsonl
+78b5bd0c8143159bb8d5547f9fc17c5a581ad43c  a4g4.outcomes.jsonl  written from a4g4/runs
+e57ecaae5f414b906f0748e997f2d501b02a1f73  a4g5.conditions.txt  ./a4g5/conditions.txt
+e3de08ef834c64f17d2433253e7ec173a981767c  a4g5.load.log.txt  ./a4g5.load.log
+3afe80c7abeacdd0dacbf009310b2dd8237e233d  a4g5.launcher.log.txt  ./a4g5.launcher.log
+8c6b6489f9f737928188b43d27b448c347055de2  a4g5.vh203-after-keys-2026-11-08T09-20-53-760Z-5a7371.manifest.json  ./a4g5/runs/vh203-after-keys-2026-11-08T09-20-53-760Z-5a7371/manifest.json
+b05b4909b4ab18d248ac8a6d0cd654ff2589993c  a4g5.vh203-after-keys-2026-11-08T09-20-53-760Z-5a7371.run.json  ./a4g5/runs/vh203-after-keys-2026-11-08T09-20-53-760Z-5a7371/run.json
+6f79da50b6ad32309362f10c4bb15da9335cbd90  a4g5.vh203-ledger.jsonl  ./a4g5/runs/vh203-ledger.jsonl
+8a8a799a995d2e74cc23e79afb5da705df2c6d90  a4g5.outcomes.jsonl  written from a4g5/runs
+4ebdb2c8b0169b7be6004a647cc605066158262f  a4-other.outcomes.jsonl  ./a4-other.outcomes.jsonl
+d1e41a0aa3cc6164911204280b417146811aa2e9  a4-reading.md.txt  ./table-notes-18/a4-reading.md.txt
+4351fc8fddf3090efabf991d499ece2d0a500727  vh203-run-rev.txt  ./table-notes-18/vh203-run-rev.txt
+4907c197f286f41c872e1d948ceff899ac0b874a  other-outcomes.mjs.txt  ./table-notes-18/other-outcomes.mjs.txt
+42e23673b037d4c3f5f60e582f8ac34f90f8b131  whole-records.mjs.txt  ./whole-records.mjs
+2a9671cd25d39864451d9358ff6f3f698a595782  vh203-driver.mjs.txt  ./vh203-driver.mjs
+92bc92ff1b251eb272037845fa2a793a4edf0c5b  plan-keys-756b425.tsv  ./plan-keys-756b425.tsv
+20be0986f53b61a912127a3436be7db211ae2087  keys-a4.txt  ./keys-a4.txt
+09401cb669e6f92dd64eadaf63b775f4a46731cc  split-keys.mjs.txt  ./split-keys.mjs
+5eb72809cbb8550aed054c45ab490e56524bad01  focus-split-10.mjs.txt  ./focus-split-10.mjs
+62718cf8be3a52095ef63eeccadd022177356f39  keys-rev-before.why.tsv  ./keys-rev-before.why.tsv
+a69215ce9981cf5e44c268a0d3065cd388a4652e  table-bundle.mjs.txt  ./table-bundle.mjs
+f181c957782875d208dfede70cf17a9ca525d6cd  a4.notes.md.txt  ./table-notes-18/a4.notes.md.txt

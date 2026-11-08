@@ -1,0 +1,39 @@
+# VH-203 Part A4: Claude's reading of parts 3b and 4 (VH-203 #11, 2026-11-08, saved before any Codex read of it)
+
+**What was walked.** The run revision `7db38f355f3c46c2` (`vh203-run-rev.txt` 4351fc8f): `$W` at `756b425` with the walker's nine files (diff hash b28b608c84617b04), on the Mac Pro, by the in-memory route (`vh203-driver.mjs`, `PLANS['vh203-after']`, `--keys`; ruling 1). Parts 3b and 4 are `plan-keys-756b425.tsv`'s run-10 to run-12: `keys-a4.txt` (20be0986), 240 keys (108 + 116 + 16). That is VH-199's run-10 to run-12 (232: 103 + 113 + 16) plus S-155 ×8, tallied apart (ruling 2). `split-keys.mjs` at 1440 s gave 5 groups (the plan sized 4). The split rule (`focus-split-10.mjs` 5eb72809) took no key out of any group, so A4 has no split walk. Each group is its kept walk alone.
+
+| Group | Keys | Sum (sha1) | Walked (Z) | s (ratio) | Peak load | ok / failed / not reached |
+|---|---|---|---|---|---|---|
+| a4g1 | 59 | c3809180 | 07:12–07:45 | 2015 (1.36) | 5.29 | 59 / 0 / 0 |
+| a4g2 | 43 | 2f02b291 | 07:47–08:30 | 2607 (1.57) | 4.77 | 42 / 0 / 1 (S-93) |
+| a4g3 | 44 (S-155 ×8 among them) | 16da2261 | 08:31–08:52 | 1290 (0.88) | 4.18 | 44 / 0 / 0 |
+| a4g4 | 62 | 81d62227 | 08:53–09:20 | 1590 (1.08) | 5.66 | 62 / 0 / 0 |
+| a4g5 | 32 (16 route keys) | d261d3fa | 09:20–09:34 | 797 (0.52) | 8.66 (2) | 32 / 0 / 0 |
+| **A4** | **240 (232 core + S-155 ×8)** | | | **8,299 (1.09 on est 7,611)** | | **239 / 0 / 1** |
+
+The core alone: 231 ok and reached, 0 failed, 1 not reached. S-155 ×8 (en-GB w375 and w320, zh-Hans and ms-MY at three widths, light): all 8 ok and reached, tallied apart.
+
+**Against VH-199** (the MacBook Pro's run-10 to run-12, cited, never paired; ruling 3; `matrix-coverage-2026-10-27.json`): 230 ok there, short by S-133 zh-Hans and ms-MY w320 light (not recorded). Here 231 read ok and reached, 0 failed. S-133 ×2 read ok, with no hang. One is not reached, below, with VH-199's record cited (D1).
+
+**Re-walks, by rule:** none was needed.
+- **The split rule:** no key of the 18 focus-bound states was found not first of its setup in any A4 group. No non-first record failed with the state unreached.
+- **The load rule:** samples at 8 or above appeared only in a4g5 (09:21:21Z 8.08, 09:22:21Z 8.66). The records within 30 s are S-113 ×6 (step 4 at the 32 px font) and S-118 ×2 (the failure's end state after a made-again job). These are static states with no job time or motion instrument, and all read ok.
+
+**Each reading short of pass, classed:**
+- **Not reached, this Mac's speed (D5):** S-93 ms-MY w320 light ×1 (a4g2) failed in setup with "timeout waiting for the settled verdict" (379 s). The estimate sits on the proceed/warn border; this is the orchestrator's ruling at 05:3xZ, as A3's S-93 ×4. S-93 zh-Hans w320 light read ok in the same group (setup 76 s).
+- **Player fail, the walker's expected row:** S-132 ×2 ("A failed playback") and S-152 ×2 ("beside the limiting warning", F16), zh-Hans and ms-MY w320 light. By each scenario's design, "an object URL whose metadata loads" and "host named by the card's title" fail. These are the same two items as A3's. Status is ok and the asserts pass.
+- **Cannot-determine:** each group's targets, contrastExtra and measure; focus ×1 (a4g2) and limiting ×2 (a4g5). These are the instruments' own unresolved readings, for the verdict's unresolved account.
+- **New:** none. No row fails only at the run revision.
+
+**What moved, and by which change.** These are against `rev-before-rb1` to `-rb4` and `-rb4r6`, at `29c3acfc` on the same build and Mac. Each move is its change's own by `keys-rev-before.why.tsv`:
+- W5: S-138 ×2, player fail → pass.
+- W7: S-21 ×8, focus cannot-determine → pass.
+- W11 (VH-216.1): J4 ×3, keys fail → pass.
+- W12: S-151 ×2, focus cannot-determine → pass.
+- S-93 ms-MY w320, ok → not reached: the speed class (D5), not a change's.
+
+Against the pair runs (pair-rb1 to rb4, pilot3c), nothing moved except one case: S-93 zh-Hans w320, which failed in setup in pair-rb3, read ok here. That is the same border the other way (D5). No other before or pair run shares an A4 key.
+
+**Conditions.** AC power throughout. Both loads were below 8 at each start. Samples at 8 or above appeared only in a4g5, handled as above. The fixtures are VH-223's or fix-mac-pro's. Nothing was written to samples/.
+
+**For the verdict:** the expected player rows (S-132 ×2, S-152 ×2), the cannot-determine readings and the one not reached (S-93, D5) go to Codex's blind read and Claude's verdict (D2). S-155 ×8 is carried apart. Parts 3b and 4 stand with no finding. Codex's blind read of part 4 was skipped by Orchestrator #45's word (ruling 4's may); the must stays the whole after-run's blind read (D2).

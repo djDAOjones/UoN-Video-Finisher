@@ -1,0 +1,44 @@
+// VH-203 #15, D1's accounting of the cannot-determine keys (#45's word, 15:5xZ; plan §2), read-only, nothing walked: for each key of
+// keys-d1-cd.txt, its standing after record (d1-list.mjs's rank: split, else -rw, else group), every item reading cannot-determine, by
+// instrument and subject; each set then cited from VH-199's MacBook Pro digest of that instrument (digest-<instrument>-2026-10-27.md,
+// its "Not passing" row for the same subject: line, outcome, reason, record count), named as the MacBook Pro's, never paired.
+// A set with no row by its subject is cited at the digest's records tally (its cannot-determine count), marked 'tally'.
+// Usage (in vh203-walk): node d1-cd.mjs <keys file> <out tsv>   prints the counts by instrument, the sets, and any set with no digest row.
+import { readdirSync, readFileSync, writeFileSync, statSync, existsSync } from 'node:fs'
+import { join } from 'node:path'
+const [kf, out] = process.argv.slice(2); if (!kf || !out) throw new Error('usage: d1-cd.mjs <keys> <out.tsv>')
+if (existsSync(out)) throw new Error('EXISTS ' + out)
+const M = '/Users/uazjob/UoN-Video-Helper-side/vh203/reviews/2026-10-25/design-pass-3/evidence/measurements'
+const keys = readFileSync(kf, 'utf8').split('\n').filter(Boolean), want = new Set(keys)
+const rank = (d) => (d.endsWith('-split') ? 3 : d.endsWith('-rw') ? 2 : 1), best = new Map()
+for (const d of readdirSync('.').filter((d) => /^a[1-4]g\d+(-split|-rw)?$/.test(d) && statSync(d).isDirectory())) { const rd = join(d, 'runs'); if (!existsSync(rd)) continue
+  for (const run of readdirSync(rd).filter((x) => statSync(join(rd, x)).isDirectory())) for (const f of readdirSync(join(rd, run)).filter((x) => x.endsWith('.json') && x.includes('__'))) {
+    const j = JSON.parse(readFileSync(join(rd, run, f), 'utf8')), k = j.key ?? f.slice(0, -5); if (!want.has(k)) continue
+    const p = best.get(k); if (!p || rank(d) > p.rank) best.set(k, { rank: rank(d), d, j }) } }
+const digest = new Map(), rowsOf = (ins) => { if (digest.has(ins)) return digest.get(ins); const p = join(M, `digest-${ins}-2026-10-27.md`), r = []
+  if (existsSync(p)) readFileSync(p, 'utf8').split('\n').forEach((l, i) => { const c = l.split(' | '); if (l.startsWith('| ') && c.length >= 5 && /cannot-determine/.test(c[1] ?? '')) r.push({ line: i + 1, subject: c[0].slice(2).trim(), outcome: c[1].trim(), reason: (c[3] ?? '').trim(), n: ((c[4] ?? '').match(/^(\d+):/) ?? [])[1] }) })
+  digest.set(ins, r); return r }
+const forms = (i) => [i.el, i.what, i.sel, i.el && i.what ? `${i.el} — ${i.what}` : null, i.sel && i.what ? `${i.sel} — ${i.what}` : null].filter(Boolean).map(String)
+const cite = (ins, i) => { const r = rowsOf(ins), f = forms(i); let m = r.find((x) => f.includes(x.subject)); if (m) return { m, how: 'exact' }
+  m = r.find((x) => f.some((s) => s.length > 12 && (x.subject.startsWith(s.slice(0, 40)) || s.startsWith(x.subject.slice(0, 40))))); if (m) return { m, how: 'prefix' }
+  m = r.find((x) => f.some((s) => s.split(/[ "]/)[0] && x.subject.split(/[ "]/)[0] === s.split(/[ "]/)[0])); if (m) return { m, how: 'selector' }
+  const p = join(M, `digest-${ins}-2026-10-27.md`); if (!existsSync(p)) return null
+  const L = readFileSync(p, 'utf8').split('\n'), t = L.findIndex((l) => l.startsWith('| records |')); if (t < 0) return null
+  const c = L[t].split(' | '); return { m: { line: t + 1, outcome: 'cannot-determine (records tally)', n: (c[3] ?? '').trim(), reason: 'no row by this subject: cited at the tally grain' }, how: 'tally' } }
+const sets = new Map(), byIns = {}, noRec = []; let items = 0, keysCd = 0
+for (const k of keys) { const b = best.get(k); if (!b) { noRec.push(k); continue } let any = false
+  for (const [ins, v] of Object.entries(b.j.instruments ?? {})) { if (v?.outcome !== 'cannot-determine') continue; any = true; byIns[ins] = (byIns[ins] ?? 0) + 1
+    const its = (v.items ?? []).filter((i) => i.outcome === 'cannot-determine'); if (!its.length) its.push({ what: '(instrument whole: ' + String(v.why ?? v.reason ?? 'no item').slice(0, 60) + ')' })
+    for (const i of its) { items++; const subj = forms(i)[0] ?? '?', sk = `${ins}\t${subj.slice(0, 120)}`; if (!sets.has(sk)) sets.set(sk, { ins, subj, why: String(i.why ?? '').slice(0, 120), keys: new Set(), ids: {}, n: 0, c: cite(ins, i) })
+      const s = sets.get(sk); s.n++; s.keys.add(k); s.ids[b.j.id] = (s.ids[b.j.id] ?? 0) + 1 } }
+  if (any) keysCd++ }
+const rows = [['instrument', 'subject', 'items', 'keys', 'IDs', 'why (after)', 'VH-199 digest line', 'VH-199 outcome', 'VH-199 records', 'VH-199 reason', 'match'].join('\t')]
+const unc = []
+for (const s of [...sets.values()].sort((a, b) => a.ins.localeCompare(b.ins) || b.n - a.n)) { const c = s.c
+  rows.push([s.ins, s.subj.slice(0, 120), s.n, s.keys.size, Object.entries(s.ids).map(([i, n]) => `${i} ${n}`).join(', '), s.why, c ? `digest-${s.ins}-2026-10-27.md:${c.m.line}` : '', c?.m.outcome ?? '', c?.m.n ?? '', (c?.m.reason ?? '').slice(0, 120), c?.how ?? 'none'].join('\t'))
+  if (!c) unc.push(`${s.ins} | ${s.subj.slice(0, 100)} | ${s.n} items, ${s.keys.size} keys`) }
+writeFileSync(out, rows.join('\n') + '\n')
+console.log(JSON.stringify({ keys: keys.length, withRecord: keys.length - noRec.length, keysWithCd: keysCd, items, sets: sets.size, byInstrumentRecords: byIns, cited: sets.size - unc.length, uncited: unc.length }))
+const how = {}; for (const s of sets.values()) { const h = s.c?.how ?? 'none'; how[h] = (how[h] ?? 0) + 1 } console.log('matches: ' + JSON.stringify(how))
+for (const u of unc) console.log('no digest row: ' + u)
+if (noRec.length) console.log('no record: ' + noRec.join(' '))

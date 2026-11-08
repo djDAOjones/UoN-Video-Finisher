@@ -1,0 +1,80 @@
+// VH-203 #12, Part B (starts/vh203-12-start.md; rulings 1, 8 and 11): Part B's in-memory plans beside vh203-driver.mjs (2a9671cd, unchanged),
+// from existing definitions only (no new scenario or ID; the walker unchanged):
+//   PLANS['vh203-b207']  VH-207's 168: S-149 and S-149a to S-149f x en-GB, zh-Hans, ms-MY x w1280, w320 x light, dark, forced-light, forced-dark
+//                        (VH-207's driver's declaration, vh207-records-2026-10-27/vh207-driver.mjs.txt:47; f1 and f2 are S-149f's subresults).
+//   PLANS['vh203-b208']  VH-208's 198: S-135, S-136, S-137, S-138, S-151, S-131, S-152, S-53 in the same 24 conditions, then S-135 and S-136 at
+//                        w320 in 'spacing' in each language (vh208-warnings-2026-10-28.md:29; vh208-driver.mjs.txt:79, its --cells form).
+// Usage (run in vh203-walk; RUN_ROOT=<any> for the read-only forms):
+//   node b-plan.mjs walk|count|keys … --plan <name>          registers the plans, then hands the argv to vh203-driver.mjs unchanged
+//   node b-plan.mjs lists <walker>                           writes Part B's lists (each checked absent first) and prints their counts
+//   node b-plan.mjs split <walker> <plan> <keys> <kept out> <split out>   the split rule (focus-split-10.mjs's, 5eb72809) over the named plan
+//   node b-plan.mjs est <walker> <plan> <keys>               parts.mjs est() of the keys' records
+import { pathToFileURL } from 'node:url'
+import { join, resolve } from 'node:path'
+import { readFileSync, writeFileSync, existsSync } from 'node:fs'
+
+const L = ['en-GB', 'zh-Hans', 'ms-MY'], V = ['w1280', 'w320'], MO = ['light', 'dark', 'forced-light', 'forced-dark']
+const cross = (ids) => ids.flatMap((id) => L.flatMap((lang) => V.flatMap((view) => MO.map((mode) => ({ id, lang, view, mode })))))
+const at = (walker, f) => import(pathToFileURL(join(walker, f)).href)
+export async function registerB(walker) {
+  const S = await at(walker, 'scenarios.mjs')
+  const b207 = cross(['S-149', 'S-149a', 'S-149b', 'S-149c', 'S-149d', 'S-149e', 'S-149f'])
+  const b208 = [...cross(['S-135', 'S-136', 'S-137', 'S-138', 'S-151', 'S-131', 'S-152', 'S-53']), ...['S-135', 'S-136'].flatMap((id) => L.map((lang) => ({ id, lang, view: 'w320', mode: 'spacing' })))]
+  for (const r of [...b207, ...b208]) if (!S.SCENARIOS[r.id]) throw new Error('the walker holds no ' + r.id)
+  S.PLANS['vh203-b207'] = () => b207.map((r) => ({ ...r }))
+  S.PLANS['vh203-b208'] = () => b208.map((r) => ({ ...r }))
+  return S
+}
+const [cmd, ...rest] = process.argv.slice(2)
+const keysOf = (f) => readFileSync(f, 'utf8').split('\n').map((l) => l.trim()).filter(Boolean)
+const out = (f, keys) => { if (existsSync(f)) throw new Error('EXISTS ' + f); writeFileSync(f, keys.length ? keys.join('\n') + '\n' : '') }
+if (cmd === 'lists') {
+  const walker = resolve(rest[0]), S = await registerB(walker), P = await at(walker, 'parts.mjs'), { recordKey } = await at(walker, 'runner.mjs'), { hasSubresults } = await at(walker, 'matrix.mjs')
+  const core = new Set(P.RUNS.flatMap((r) => S.PLANS[r.name]()).map(recordKey))
+  const b207 = S.PLANS['vh203-b207'](), b208 = S.PLANS['vh203-b208']()
+  out('keys-b-vh207.txt', b207.map(recordKey)); out('keys-b-vh208-all.txt', b208.map(recordKey))
+  const in207 = b207.filter((r) => core.has(recordKey(r))).map(recordKey), rest208 = b208.filter((r) => !core.has(recordKey(r))).map(recordKey)
+  out('keys-b-vh207-incore.txt', in207); out('keys-b-vh208.txt', rest208); out('keys-b-vh208-incore.txt', b208.filter((r) => core.has(recordKey(r))).map(recordKey))
+  // Ruling 8: the 214 (VH-223's keys-a.txt 759cf581 + VH-224's keys-b.txt e8ae270c, read-only); S-03, S-81 ms-MY, S-76's zoom proxies by name; any other a W1 to W20 change moves, by revbefore-keys.mjs's
+  // rules (70cf23a1) over the 214; any that reads a VH-231 fixture (cut-short-30s.mkv, cut-short-10s.webm) by fixturesFor.
+  const k214 = new Set([...keysOf('../vh223-walk/keys-a.txt'), ...keysOf('../vh224-walk/keys-b.txt')]), m214 = S.PLANS.matrix().filter((r) => k214.has(recordKey(r))), why = new Map(), add = (r, w) => { const k = recordKey(r); if (!why.has(k)) why.set(k, new Set()); why.get(k).add(w) }
+  const of = (ids, pred = () => true) => m214.filter((r) => ids.includes(r.id) && pred(r))
+  for (const r of [...of(['S-03']), ...of(['S-81'], (r) => r.lang === 'ms-MY'), ...of(['S-76'], (r) => /^zoom\d+proxy$/.test(r.view))]) add(r, 'ruling 8')
+  if (m214.length !== 214) throw new Error('the 214 read ' + m214.length)
+  for (const r of of(['S-107', 'S-55c'], (r) => r.mode === 'fallback')) add(r, 'W1')
+  for (const r of of(['S-92', 'S-93'])) add(r, 'W2'); for (const r of of(['S-133'])) add(r, 'W3'); for (const r of of(['S-127', 'K-player'])) add(r, 'W4 W10')
+  for (const r of of(['S-128', 'S-109', 'S-88', 'S-138', 'S-59'])) add(r, 'W5'); for (const r of of(['S-59'])) add(r, 'W6'); for (const r of of(['S-21', 'S-62'])) add(r, 'W7')
+  for (const r of of(['S-15', 'S-108', 'S-110'], (r) => r.mode === 'font32')) add(r, 'W8 VH-217.5'); for (const r of of(['S-81'])) add(r, 'W9')
+  for (const r of of(['S-03', 'S-141', 'S-142', 'S-143', 'S-144', 'S-144p', 'J1', 'J2', 'J4'])) add(r, r.id.startsWith('J') ? 'VH-216.1' : 'W11 VH-216.1')
+  for (const r of [...of(['S-151']), ...of(['S-137'], (r) => r.view === 'w320')]) add(r, 'W12'); for (const r of of(['S-22', 'S-140', 'S-140n'])) add(r, 'W15')
+  for (const r of of(['S-111', 'S-112', 'S-113'])) add(r, 'W17')
+  for (const r of m214) if (S.fixturesFor([r.id]).some((f) => f === 'cut-short-30s.mkv' || f === 'cut-short-10s.webm')) add(r, 'VH-231 fixture')
+  const groups = new Map(); for (const r of m214) { const k = [r.id, r.variant ?? '', r.lang, r.view, r.mode === 'fallback', hasSubresults(r) ? r.mode : ''].join('|'); if (!groups.has(k)) groups.set(k, []); groups.get(k).push(r) }
+  for (const g of groups.values()) { if (g[0].id === 'S-24') continue; let forced = false, sp = false; for (const r of g) { if (/^forced-/.test(r.mode)) forced = true; else if (forced && r.mode === 'spacing') sp = true } if (sp) for (const r of g) add(r, 'W18') }
+  const r8 = m214.filter((r) => why.has(recordKey(r)))
+  out('keys-b-m214.txt', m214.map(recordKey)); out('keys-b-r8.txt', r8.map(recordKey)); out('keys-b-r8.why.tsv', r8.map((r) => `${recordKey(r)}\t${[...why.get(recordKey(r))].join(' ')}`))
+  const by = (rs) => { const o = {}; for (const r of rs) o[r.id] = (o[r.id] ?? 0) + 1; return JSON.stringify(o) }
+  console.log('vh207', b207.length, 'in core', in207.length, 'est', P.est(b207)); console.log('vh208', b208.length, 'in core', b208.length - rest208.length, 'to walk', rest208.length, 'est', P.est(b208.filter((r) => !core.has(recordKey(r)))))
+  console.log('m214', m214.length, 'r8', r8.length, 'est', P.est(r8), by(r8))
+} else if (cmd === 'split' || cmd === 'est') {
+  const [w, plan, file, keptOut, splitOut] = rest, walker = resolve(w), S = await registerB(walker), P = await at(walker, 'parts.mjs'), { recordKey } = await at(walker, 'runner.mjs'), { keepKeys, hasSubresults } = await at(walker, 'matrix.mjs')
+  const all = S.PLANS[plan](), keys = keysOf(file), kept0 = keepKeys(all, keys)
+  if (kept0.length !== keys.length) throw new Error(`keepKeys kept ${kept0.length} of ${keys.length}`)
+  if (cmd === 'est') { console.log(file, keys.length, 'est', P.est(kept0)) } else {
+    for (const f of [keptOut, splitOut]) if (existsSync(f)) throw new Error('EXISTS ' + f)
+    const FOCUS = new Set(['S-01', 'S-107', 'S-72a', 'S-72b', 'S-92', 'S-93', 'S-94', 'S-95', 'S-96', 'S-112', 'S-115', 'S-117', 'S-120', 'S-128', 'S-141', 'S-143', 'S-149', 'S-150'])
+    const notFirst = (recs) => { const segs = new Map(), seen = new Set(), o = []
+      for (const r of recs) { const base = [r.id, r.variant ?? '', r.lang, r.view, r.mode === 'fallback', hasSubresults(r) ? r.mode : ''].join('|'), sg = segs.get(base) ?? { n: 0, forced: false }, forced = /^forced-/.test(r.mode)
+        if (!forced && sg.forced) { sg.n++; sg.forced = false } if (forced) sg.forced = true; segs.set(base, sg)
+        const k = base + '|' + sg.n; if (seen.has(k)) { if (FOCUS.has(r.id)) o.push(recordKey(r)) } else seen.add(k) } return o }
+    let kept = kept0, split = []
+    for (let i = 0; i < 20; i++) { const nf = new Set(notFirst(kept)); if (!nf.size) break; split.push(...nf); kept = kept.filter((r) => !nf.has(recordKey(r))) }
+    if (notFirst(kept).length) throw new Error('no fixed point')
+    const order = new Map(keys.map((k, i) => [k, i])); split.sort((a, b) => order.get(a) - order.get(b))
+    writeFileSync(keptOut, kept.map(recordKey).join('\n') + '\n'); writeFileSync(splitOut, split.length ? split.join('\n') + '\n' : '')
+    console.log(`${file}: ${keys.length} keys; kept ${kept.length} (est ${P.est(kept)}); split ${split.length} (est ${P.est(all.filter((r) => split.includes(recordKey(r))))})`)
+  }
+} else {
+  const i = process.argv.indexOf('--walker'); await registerB(resolve(process.argv[i + 1]))
+  await import('./vh203-driver.mjs')
+}

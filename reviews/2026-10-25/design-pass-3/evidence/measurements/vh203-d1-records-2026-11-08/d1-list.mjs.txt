@@ -1,0 +1,37 @@
+// VH-203 #14, D1's list (ruling 3; the owner's "Yes, all three", item 3), read-only: from Part A's standing records, each core key whose
+// after has a fail in any instrument or is not reached; and, apart, each whose only short-of-pass is cannot-determine. The core is
+// keys-a1 to keys-a4 less S-155 (ruling 2). A key's standing record is its split's, else its re-walk's (-rw), else its group's.
+// Usage (in vh203-walk): node d1-list.mjs <out prefix>   writes <prefix>-nocd.txt (fail or not reached), <prefix>-cd.txt (that and
+// cannot-determine), <prefix>.why.tsv (key, class, instruments short of pass), and prints the counts.
+import { readdirSync, readFileSync, writeFileSync, statSync, existsSync } from 'node:fs'
+import { join } from 'node:path'
+const out = process.argv[2]; if (!out) throw new Error('out prefix')
+for (const f of [`${out}-nocd.txt`, `${out}-cd.txt`, `${out}.why.tsv`]) if (existsSync(f)) throw new Error('EXISTS ' + f)
+const core = ['keys-a1.txt', 'keys-a2.txt', 'keys-a3.txt', 'keys-a4.txt'].flatMap((f) => readFileSync(f, 'utf8').split('\n').filter(Boolean)).filter((k) => !k.startsWith('S-155__'))
+const rank = (d) => (d.endsWith('-split') ? 3 : d.endsWith('-rw') ? 2 : 1)
+const best = new Map()
+for (const d of readdirSync('.').filter((d) => /^a[1-4]g\d+(-split|-rw)?$/.test(d) && statSync(d).isDirectory())) {
+  const rd = join(d, 'runs'); if (!existsSync(rd)) continue
+  for (const run of readdirSync(rd).filter((x) => statSync(join(rd, x)).isDirectory())) for (const f of readdirSync(join(rd, run)).filter((x) => x.endsWith('.json') && x.includes('__'))) {
+    const j = JSON.parse(readFileSync(join(rd, run, f), 'utf8')); const k = j.key ?? f.slice(0, -5)
+    const p = best.get(k); if (!p || rank(d) > p.rank) best.set(k, { rank: rank(d), d, j })
+  }
+}
+const nocd = [], cd = [], why = [], missing = [], byGroup = {}, byClass = {}
+for (const k of core) {
+  const b = best.get(k); if (!b) { missing.push(k); continue }
+  const j = b.j, ins = Object.entries(j.instruments ?? {}).map(([i, v]) => [i, v?.outcome]).filter(([, o]) => o && o !== 'pass' && o !== 'not-applicable')
+  const notReached = j.status !== 'ok' || j.reached?.outcome !== 'pass'
+  const fails = ins.filter(([, o]) => /fail/.test(o)), cds = ins.filter(([, o]) => o === 'cannot-determine')
+  const cls = notReached ? 'not-reached' : fails.length ? 'fail' : cds.length ? 'cannot-determine' : 'pass'
+  if (cls === 'pass') continue
+  cd.push(k); if (cls !== 'cannot-determine') nocd.push(k)
+  byClass[cls] = (byClass[cls] ?? 0) + 1
+  if (cls !== 'cannot-determine') { const g = b.d.replace(/-(split|rw)$/, ''); byGroup[g] = (byGroup[g] ?? 0) + 1 }
+  why.push([k, cls, b.d, notReached ? `${j.status}/${j.reached?.outcome}` : '', ins.map(([i, o]) => `${i}:${o}`).join(',')].join('\t'))
+}
+writeFileSync(`${out}-nocd.txt`, nocd.join('\n') + '\n'); writeFileSync(`${out}-cd.txt`, cd.join('\n') + '\n'); writeFileSync(`${out}.why.tsv`, why.join('\n') + '\n')
+const ids = (l) => { const t = {}; for (const k of l) { const id = k.split('__')[0]; t[id] = (t[id] ?? 0) + 1 } return Object.entries(t).sort((a, b) => b[1] - a[1]).map(([i, n]) => `${i} ${n}`).join(', ') }
+console.log(JSON.stringify({ core: core.length, withRecord: core.length - missing.length, missing: missing.length, byClass, withCd: cd.length, withoutCd: nocd.length, byGroup }))
+console.log('without cannot-determine, by ID: ' + ids(nocd))
+if (missing.length) console.log('missing: ' + missing.slice(0, 20).join(' '))

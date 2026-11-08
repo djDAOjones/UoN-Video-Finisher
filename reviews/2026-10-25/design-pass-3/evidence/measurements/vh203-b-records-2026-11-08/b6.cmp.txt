@@ -1,0 +1,102 @@
+== after-S-20 vs b6 after-S-20
+0.powerAtStart.powermode: "powermode            2" → ""
+1.powerAtStart.powermode: "powermode            2" → ""
+2.powerAtStart.powermode: "powermode            2" → ""
+2.pre.light.liveRegions.0.text: "页面语言：简体中文。" → "页面语言：中文。"
+2.pre.dark.liveRegions.0.text: "页面语言：简体中文。" → "页面语言：中文。"
+2.pre.forced-light.liveRegions.0.text: "页面语言：简体中文。" → "页面语言：中文。"
+2.pre.forced-dark.liveRegions.0.text: "页面语言：简体中文。" → "页面语言：中文。"
+3.powerAtStart.powermode: "powermode            2" → ""
+3.pre.light.liveRegions.0.text: "页面语言：简体中文。" → "页面语言：中文。"
+3.pre.dark.liveRegions.0.text: "页面语言：简体中文。" → "页面语言：中文。"
+3.pre.forced-light.liveRegions.0.text: "页面语言：简体中文。" → "页面语言：中文。"
+3.pre.forced-dark.liveRegions.0.text: "页面语言：简体中文。" → "页面语言：中文。"
+4.powerAtStart.powermode: "powermode            2" → ""
+5.powerAtStart.powermode: "powermode            2" → ""
+differing leaves: 14
+== after-S-99 vs b6 after-S-99
+0.powerAtStart.powermode: "powermode            2" → ""
+1.powerAtStart.powermode: "powermode            2" → ""
+2.powerAtStart.powermode: "powermode            2" → ""
+2.pre.light.liveRegions.0.text: "页面语言：简体中文。" → "页面语言：中文。"
+2.pre.dark.liveRegions.0.text: "页面语言：简体中文。" → "页面语言：中文。"
+2.pre.forced-light.liveRegions.0.text: "页面语言：简体中文。" → "页面语言：中文。"
+2.pre.forced-dark.liveRegions.0.text: "页面语言：简体中文。" → "页面语言：中文。"
+3.powerAtStart.powermode: "powermode            2" → ""
+3.pre.light.liveRegions.0.text: "页面语言：简体中文。" → "页面语言：中文。"
+3.pre.dark.liveRegions.0.text: "页面语言：简体中文。" → "页面语言：中文。"
+3.pre.forced-light.liveRegions.0.text: "页面语言：简体中文。" → "页面语言：中文。"
+3.pre.forced-dark.liveRegions.0.text: "页面语言：简体中文。" → "页面语言：中文。"
+4.powerAtStart.powermode: "powermode            2" → ""
+5.powerAtStart.powermode: "powermode            2" → ""
+differing leaves: 14
+== after-rerun-sliver-N14 vs b6 after-sliver-N14
+0.powerAtStart.powermode: "powermode            2" → ""
+0.job.light.card.title: "Finished video — 1.7 MB" → "Finished video — 1.6 MB"
+0.job.light.card.text: "Finished video — 1.7 MBMade from late-sound-3.71s-25fps-10s.mp4: 4 seconds of 10 seconds, from 0:00.0 to 0:04.0, high quality, a cut to the blue closing card.I → "Finished video — 1.6 MBMade from late-sound-3.71s-25fps-10s.mp4: 4 seconds of 10 seconds, from 0:00.0 to 0:04.0, high quality, a cut to the blue closing card.I
+0.job.dark.card.title: "Finished video — 1.7 MB" → "Finished video — 1.6 MB"
+0.job.dark.card.text: "Finished video — 1.7 MBMade from late-sound-3.71s-25fps-10s.mp4: 4 seconds of 10 seconds, from 0:00.0 to 0:04.0, high quality, a cut to the blue closing card.I → "Finished video — 1.6 MBMade from late-sound-3.71s-25fps-10s.mp4: 4 seconds of 10 seconds, from 0:00.0 to 0:04.0, high quality, a cut to the blue closing card.I
+0.job.forced-light.card.title: "Finished video — 1.7 MB" → "Finished video — 1.6 MB"
+0.job.forced-light.card.text: "Finished video — 1.7 MBMade from late-sound-3.71s-25fps-10s.mp4: 4 seconds of 10 seconds, from 0:00.0 to 0:04.0, high quality, a cut to the blue closing card.I → "Finished video — 1.6 MBMade from late-sound-3.71s-25fps-10s.mp4: 4 seconds of 10 seconds, from 0:00.0 to 0:04.0, high quality, a cut to the blue closing card.I
+0.job.forced-dark.card.title: "Finished video — 1.7 MB" → "Finished video — 1.6 MB"
+0.job.forced-dark.card.text: "Finished video — 1.7 MBMade from late-sound-3.71s-25fps-10s.mp4: 4 seconds of 10 seconds, from 0:00.0 to 0:04.0, high quality, a cut to the blue closing card.I → "Finished video — 1.6 MBMade from late-sound-3.71s-25fps-10s.mp4: 4 seconds of 10 seconds, from 0:00.0 to 0:04.0, high quality, a cut to the blue closing card.I
+0.output.file: "/private/tmp/claude-501/-Users-joe-Library-CloudStorage-OneDrive-TheUniversityofNottingham--Joe-Bell-UoN-Files-2-Projects-2026-08-24-UoN-Video-Helper/b6f15dad- → "/Users/uazjob/UoN-Video-Helper-side/vh203-walk/b6/results/after-files/sliver-N14__en-GB__w1280__late-sound-3.71s-25fps-10s_branded_.mp4"
+1.powerAtStart.powermode: "powermode            2" → ""
+1.job.light.card.title: "Finished video — 1.7 MB" → "Finished video — 1.6 MB"
+1.job.light.card.text: "Finished video — 1.7 MBMade from late-sound-3.71s-25fps-10s.mp4: 4 seconds of 10 seconds, from 0:00.0 to 0:04.0, high quality, a cut to the blue closing card.I → "Finished video — 1.6 MBMade from late-sound-3.71s-25fps-10s.mp4: 4 seconds of 10 seconds, from 0:00.0 to 0:04.0, high quality, a cut to the blue closing card.I
+1.job.dark.card.title: "Finished video — 1.7 MB" → "Finished video — 1.6 MB"
+1.job.dark.card.text: "Finished video — 1.7 MBMade from late-sound-3.71s-25fps-10s.mp4: 4 seconds of 10 seconds, from 0:00.0 to 0:04.0, high quality, a cut to the blue closing card.I → "Finished video — 1.6 MBMade from late-sound-3.71s-25fps-10s.mp4: 4 seconds of 10 seconds, from 0:00.0 to 0:04.0, high quality, a cut to the blue closing card.I
+1.job.forced-light.card.title: "Finished video — 1.7 MB" → "Finished video — 1.6 MB"
+1.job.forced-light.card.text: "Finished video — 1.7 MBMade from late-sound-3.71s-25fps-10s.mp4: 4 seconds of 10 seconds, from 0:00.0 to 0:04.0, high quality, a cut to the blue closing card.I → "Finished video — 1.6 MBMade from late-sound-3.71s-25fps-10s.mp4: 4 seconds of 10 seconds, from 0:00.0 to 0:04.0, high quality, a cut to the blue closing card.I
+1.job.forced-dark.card.title: "Finished video — 1.7 MB" → "Finished video — 1.6 MB"
+1.job.forced-dark.card.text: "Finished video — 1.7 MBMade from late-sound-3.71s-25fps-10s.mp4: 4 seconds of 10 seconds, from 0:00.0 to 0:04.0, high quality, a cut to the blue closing card.I → "Finished video — 1.6 MBMade from late-sound-3.71s-25fps-10s.mp4: 4 seconds of 10 seconds, from 0:00.0 to 0:04.0, high quality, a cut to the blue closing card.I
+1.output.file: "/private/tmp/claude-501/-Users-joe-Library-CloudStorage-OneDrive-TheUniversityofNottingham--Joe-Bell-UoN-Files-2-Projects-2026-08-24-UoN-Video-Helper/b6f15dad- → "/Users/uazjob/UoN-Video-Helper-side/vh203-walk/b6/results/after-files/sliver-N14__en-GB__w320__late-sound-3.71s-25fps-10s_branded_.mp4"
+2.powerAtStart.powermode: "powermode            2" → ""
+2.pre.light.liveRegions.0.text: "页面语言：简体中文。" → "页面语言：中文。"
+2.pre.dark.liveRegions.0.text: "页面语言：简体中文。" → "页面语言：中文。"
+2.pre.forced-light.liveRegions.0.text: "页面语言：简体中文。" → "页面语言：中文。"
+2.pre.forced-dark.liveRegions.0.text: "页面语言：简体中文。" → "页面语言：中文。"
+2.job.light.card.title: "完成的视频 — 1.7 MB" → "完成的视频 — 1.6 MB"
+2.job.light.card.text: "完成的视频 — 1.7 MB由 late-sound-3.71s-25fps-10s.mp4 构成：保留了 10秒钟 中的 4秒钟，从 0:00.0 到 0:04.0、高质量、镜头切换到蓝色结束卡。视频尚未保存。它会一直显示在这里，直到您开始制作另一个视频或关闭此标签页。保存视频" → "完成的视频 — 1.6 MB由 late-sound-3.71s-25fps-10s.mp4 构成：保留了 10秒钟 中的 4秒钟，从 0:00.0 到 0:04.0、高质量、镜头切换到蓝色结束卡。视频尚未保存。它会一直显示在这里，直到您开始制作另一个视频或关闭此标签页。保存视频"
+2.job.dark.card.title: "完成的视频 — 1.7 MB" → "完成的视频 — 1.6 MB"
+2.job.dark.card.text: "完成的视频 — 1.7 MB由 late-sound-3.71s-25fps-10s.mp4 构成：保留了 10秒钟 中的 4秒钟，从 0:00.0 到 0:04.0、高质量、镜头切换到蓝色结束卡。视频尚未保存。它会一直显示在这里，直到您开始制作另一个视频或关闭此标签页。保存视频" → "完成的视频 — 1.6 MB由 late-sound-3.71s-25fps-10s.mp4 构成：保留了 10秒钟 中的 4秒钟，从 0:00.0 到 0:04.0、高质量、镜头切换到蓝色结束卡。视频尚未保存。它会一直显示在这里，直到您开始制作另一个视频或关闭此标签页。保存视频"
+2.job.forced-light.card.title: "完成的视频 — 1.7 MB" → "完成的视频 — 1.6 MB"
+2.job.forced-light.card.text: "完成的视频 — 1.7 MB由 late-sound-3.71s-25fps-10s.mp4 构成：保留了 10秒钟 中的 4秒钟，从 0:00.0 到 0:04.0、高质量、镜头切换到蓝色结束卡。视频尚未保存。它会一直显示在这里，直到您开始制作另一个视频或关闭此标签页。保存视频" → "完成的视频 — 1.6 MB由 late-sound-3.71s-25fps-10s.mp4 构成：保留了 10秒钟 中的 4秒钟，从 0:00.0 到 0:04.0、高质量、镜头切换到蓝色结束卡。视频尚未保存。它会一直显示在这里，直到您开始制作另一个视频或关闭此标签页。保存视频"
+2.job.forced-dark.card.title: "完成的视频 — 1.7 MB" → "完成的视频 — 1.6 MB"
+2.job.forced-dark.card.text: "完成的视频 — 1.7 MB由 late-sound-3.71s-25fps-10s.mp4 构成：保留了 10秒钟 中的 4秒钟，从 0:00.0 到 0:04.0、高质量、镜头切换到蓝色结束卡。视频尚未保存。它会一直显示在这里，直到您开始制作另一个视频或关闭此标签页。保存视频" → "完成的视频 — 1.6 MB由 late-sound-3.71s-25fps-10s.mp4 构成：保留了 10秒钟 中的 4秒钟，从 0:00.0 到 0:04.0、高质量、镜头切换到蓝色结束卡。视频尚未保存。它会一直显示在这里，直到您开始制作另一个视频或关闭此标签页。保存视频"
+2.output.file: "/private/tmp/claude-501/-Users-joe-Library-CloudStorage-OneDrive-TheUniversityofNottingham--Joe-Bell-UoN-Files-2-Projects-2026-08-24-UoN-Video-Helper/b6f15dad- → "/Users/uazjob/UoN-Video-Helper-side/vh203-walk/b6/results/after-files/sliver-N14__zh-Hans__w1280__late-sound-3.71s-25fps-10s_.mp4"
+3.powerAtStart.powermode: "powermode            2" → ""
+3.pre.light.liveRegions.0.text: "页面语言：简体中文。" → "页面语言：中文。"
+3.pre.dark.liveRegions.0.text: "页面语言：简体中文。" → "页面语言：中文。"
+3.pre.forced-light.liveRegions.0.text: "页面语言：简体中文。" → "页面语言：中文。"
+3.pre.forced-dark.liveRegions.0.text: "页面语言：简体中文。" → "页面语言：中文。"
+3.job.light.card.title: "完成的视频 — 1.7 MB" → "完成的视频 — 1.6 MB"
+3.job.light.card.text: "完成的视频 — 1.7 MB由 late-sound-3.71s-25fps-10s.mp4 构成：保留了 10秒钟 中的 4秒钟，从 0:00.0 到 0:04.0、高质量、镜头切换到蓝色结束卡。视频尚未保存。它会一直显示在这里，直到您开始制作另一个视频或关闭此标签页。保存视频" → "完成的视频 — 1.6 MB由 late-sound-3.71s-25fps-10s.mp4 构成：保留了 10秒钟 中的 4秒钟，从 0:00.0 到 0:04.0、高质量、镜头切换到蓝色结束卡。视频尚未保存。它会一直显示在这里，直到您开始制作另一个视频或关闭此标签页。保存视频"
+3.job.dark.card.title: "完成的视频 — 1.7 MB" → "完成的视频 — 1.6 MB"
+3.job.dark.card.text: "完成的视频 — 1.7 MB由 late-sound-3.71s-25fps-10s.mp4 构成：保留了 10秒钟 中的 4秒钟，从 0:00.0 到 0:04.0、高质量、镜头切换到蓝色结束卡。视频尚未保存。它会一直显示在这里，直到您开始制作另一个视频或关闭此标签页。保存视频" → "完成的视频 — 1.6 MB由 late-sound-3.71s-25fps-10s.mp4 构成：保留了 10秒钟 中的 4秒钟，从 0:00.0 到 0:04.0、高质量、镜头切换到蓝色结束卡。视频尚未保存。它会一直显示在这里，直到您开始制作另一个视频或关闭此标签页。保存视频"
+3.job.forced-light.card.title: "完成的视频 — 1.7 MB" → "完成的视频 — 1.6 MB"
+3.job.forced-light.card.text: "完成的视频 — 1.7 MB由 late-sound-3.71s-25fps-10s.mp4 构成：保留了 10秒钟 中的 4秒钟，从 0:00.0 到 0:04.0、高质量、镜头切换到蓝色结束卡。视频尚未保存。它会一直显示在这里，直到您开始制作另一个视频或关闭此标签页。保存视频" → "完成的视频 — 1.6 MB由 late-sound-3.71s-25fps-10s.mp4 构成：保留了 10秒钟 中的 4秒钟，从 0:00.0 到 0:04.0、高质量、镜头切换到蓝色结束卡。视频尚未保存。它会一直显示在这里，直到您开始制作另一个视频或关闭此标签页。保存视频"
+3.job.forced-dark.card.title: "完成的视频 — 1.7 MB" → "完成的视频 — 1.6 MB"
+3.job.forced-dark.card.text: "完成的视频 — 1.7 MB由 late-sound-3.71s-25fps-10s.mp4 构成：保留了 10秒钟 中的 4秒钟，从 0:00.0 到 0:04.0、高质量、镜头切换到蓝色结束卡。视频尚未保存。它会一直显示在这里，直到您开始制作另一个视频或关闭此标签页。保存视频" → "完成的视频 — 1.6 MB由 late-sound-3.71s-25fps-10s.mp4 构成：保留了 10秒钟 中的 4秒钟，从 0:00.0 到 0:04.0、高质量、镜头切换到蓝色结束卡。视频尚未保存。它会一直显示在这里，直到您开始制作另一个视频或关闭此标签页。保存视频"
+3.output.file: "/private/tmp/claude-501/-Users-joe-Library-CloudStorage-OneDrive-TheUniversityofNottingham--Joe-Bell-UoN-Files-2-Projects-2026-08-24-UoN-Video-Helper/b6f15dad- → "/Users/uazjob/UoN-Video-Helper-side/vh203-walk/b6/results/after-files/sliver-N14__zh-Hans__w320__late-sound-3.71s-25fps-10s_.mp4"
+4.powerAtStart.powermode: "powermode            2" → ""
+4.job.light.card.title: "Video siap — 1.7 MB" → "Video siap — 1.6 MB"
+4.job.light.card.text: "Video siap — 1.7 MBDibuat daripada late-sound-3.71s-25fps-10s.mp4: 4 saat daripada 10 saat, dari 0:00.0 hingga 0:04.0, kualiti tinggi, potongan kepada kad penu → "Video siap — 1.6 MBDibuat daripada late-sound-3.71s-25fps-10s.mp4: 4 saat daripada 10 saat, dari 0:00.0 hingga 0:04.0, kualiti tinggi, potongan kepada kad penu
+4.job.dark.card.title: "Video siap — 1.7 MB" → "Video siap — 1.6 MB"
+4.job.dark.card.text: "Video siap — 1.7 MBDibuat daripada late-sound-3.71s-25fps-10s.mp4: 4 saat daripada 10 saat, dari 0:00.0 hingga 0:04.0, kualiti tinggi, potongan kepada kad penu → "Video siap — 1.6 MBDibuat daripada late-sound-3.71s-25fps-10s.mp4: 4 saat daripada 10 saat, dari 0:00.0 hingga 0:04.0, kualiti tinggi, potongan kepada kad penu
+4.job.forced-light.card.title: "Video siap — 1.7 MB" → "Video siap — 1.6 MB"
+4.job.forced-light.card.text: "Video siap — 1.7 MBDibuat daripada late-sound-3.71s-25fps-10s.mp4: 4 saat daripada 10 saat, dari 0:00.0 hingga 0:04.0, kualiti tinggi, potongan kepada kad penu → "Video siap — 1.6 MBDibuat daripada late-sound-3.71s-25fps-10s.mp4: 4 saat daripada 10 saat, dari 0:00.0 hingga 0:04.0, kualiti tinggi, potongan kepada kad penu
+4.job.forced-dark.card.title: "Video siap — 1.7 MB" → "Video siap — 1.6 MB"
+4.job.forced-dark.card.text: "Video siap — 1.7 MBDibuat daripada late-sound-3.71s-25fps-10s.mp4: 4 saat daripada 10 saat, dari 0:00.0 hingga 0:04.0, kualiti tinggi, potongan kepada kad penu → "Video siap — 1.6 MBDibuat daripada late-sound-3.71s-25fps-10s.mp4: 4 saat daripada 10 saat, dari 0:00.0 hingga 0:04.0, kualiti tinggi, potongan kepada kad penu
+4.output.file: "/private/tmp/claude-501/-Users-joe-Library-CloudStorage-OneDrive-TheUniversityofNottingham--Joe-Bell-UoN-Files-2-Projects-2026-08-24-UoN-Video-Helper/b6f15dad- → "/Users/uazjob/UoN-Video-Helper-side/vh203-walk/b6/results/after-files/sliver-N14__ms-MY__w1280__late-sound-3.71s-25fps-10s_berjenama_.mp4"
+5.powerAtStart.powermode: "powermode            2" → ""
+5.job.light.card.title: "Video siap — 1.7 MB" → "Video siap — 1.6 MB"
+5.job.light.card.text: "Video siap — 1.7 MBDibuat daripada late-sound-3.71s-25fps-10s.mp4: 4 saat daripada 10 saat, dari 0:00.0 hingga 0:04.0, kualiti tinggi, potongan kepada kad penu → "Video siap — 1.6 MBDibuat daripada late-sound-3.71s-25fps-10s.mp4: 4 saat daripada 10 saat, dari 0:00.0 hingga 0:04.0, kualiti tinggi, potongan kepada kad penu
+5.job.dark.card.title: "Video siap — 1.7 MB" → "Video siap — 1.6 MB"
+5.job.dark.card.text: "Video siap — 1.7 MBDibuat daripada late-sound-3.71s-25fps-10s.mp4: 4 saat daripada 10 saat, dari 0:00.0 hingga 0:04.0, kualiti tinggi, potongan kepada kad penu → "Video siap — 1.6 MBDibuat daripada late-sound-3.71s-25fps-10s.mp4: 4 saat daripada 10 saat, dari 0:00.0 hingga 0:04.0, kualiti tinggi, potongan kepada kad penu
+5.job.forced-light.card.title: "Video siap — 1.7 MB" → "Video siap — 1.6 MB"
+5.job.forced-light.card.text: "Video siap — 1.7 MBDibuat daripada late-sound-3.71s-25fps-10s.mp4: 4 saat daripada 10 saat, dari 0:00.0 hingga 0:04.0, kualiti tinggi, potongan kepada kad penu → "Video siap — 1.6 MBDibuat daripada late-sound-3.71s-25fps-10s.mp4: 4 saat daripada 10 saat, dari 0:00.0 hingga 0:04.0, kualiti tinggi, potongan kepada kad penu
+5.job.forced-dark.card.title: "Video siap — 1.7 MB" → "Video siap — 1.6 MB"
+5.job.forced-dark.card.text: "Video siap — 1.7 MBDibuat daripada late-sound-3.71s-25fps-10s.mp4: 4 saat daripada 10 saat, dari 0:00.0 hingga 0:04.0, kualiti tinggi, potongan kepada kad penu → "Video siap — 1.6 MBDibuat daripada late-sound-3.71s-25fps-10s.mp4: 4 saat daripada 10 saat, dari 0:00.0 hingga 0:04.0, kualiti tinggi, potongan kepada kad penu
+5.output.file: "/private/tmp/claude-501/-Users-joe-Library-CloudStorage-OneDrive-TheUniversityofNottingham--Joe-Bell-UoN-Files-2-Projects-2026-08-24-UoN-Video-Helper/b6f15dad- → "/Users/uazjob/UoN-Video-Helper-side/vh203-walk/b6/results/after-files/sliver-N14__ms-MY__w320__late-sound-3.71s-25fps-10s_berjenama_.mp4"
+differing leaves: 68

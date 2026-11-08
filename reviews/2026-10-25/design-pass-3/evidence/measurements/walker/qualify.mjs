@@ -157,10 +157,14 @@ export const QUAL_INIT = String.raw`
         return undefined;
       })() : undefined;
       if (L < 0 || T < 0 || R > window.innerWidth || B > window.innerHeight) { out.push({ el: desc(el).slice(0, 80), outcome: 'cannot-determine', why: 'larger than the viewport or clipped', w: R - L, h: B - T, inline }); continue; }
-      const cols = Math.max(1, Math.floor((R - L) / step)), rows = Math.max(1, Math.floor((B - T) / step));
+      // VH-203 (wish VH-205.1): a target drawn round the control by its own positioned ::before or ::after (the lede's "?") hit-tests
+      // as the control, outside the control's box: the grid then reaches a target's width beyond the box on each side, in the viewport.
+      const pseudo = !thumb && ['::before', '::after'].some((p) => { const c = getComputedStyle(el, p); return c.content !== 'none' && c.content !== 'normal' && (c.position === 'absolute' || c.position === 'fixed'); });
+      const gL = pseudo ? Math.max(0, L - min) : L, gT = pseudo ? Math.max(0, T - min) : T, gR = pseudo ? Math.min(window.innerWidth, R + min) : R, gB = pseudo ? Math.min(window.innerHeight, B + min) : B;
+      const cols = Math.max(1, Math.floor((gR - gL) / step)), rows = Math.max(1, Math.floor((gB - gT) / step));
       const hit = new Uint8Array(cols * rows); let hits = 0;
       for (let j = 0; j < rows; j++) for (let i = 0; i < cols; i++) {
-        const t = document.elementFromPoint(L + i * step + step / 2, T + j * step + step / 2);
+        const t = document.elementFromPoint(gL + i * step + step / 2, gT + j * step + step / 2);
         const ok = !!t && (t === el || el.contains(t) || parts.some((q) => q !== el && (q === t || q.contains(t))) || (own && own.contains(t) && own.contains(el)));
         if (ok) { hit[j * cols + i] = 1; hits++; }
       }
@@ -170,7 +174,7 @@ export const QUAL_INIT = String.raw`
       let hw = 0, hh = 0; { let l = cols, r = -1, t = rows, b = -1; for (let j = 0; j < rows; j++) for (let i = 0; i < cols; i++) if (hit[j * cols + i]) { l = Math.min(l, i); r = Math.max(r, i); t = Math.min(t, j); b = Math.max(b, j); } if (r >= 0) { hw = (r - l + 1) * step; hh = (b - t + 1) * step; } }
       // A disc 44 px across has a 44 x 44 bounding box but no 44 px square inside it: two readings, kept for VH-173.
       const disc = thumb && !fits && hw >= min && hh >= min;
-      out.push({ el: desc(el).slice(0, 80), outcome: hits === 0 || disc ? 'cannot-determine' : fits ? 'pass' : 'fail', why: hits === 0 ? 'nothing hit: covered or not hit-testable' : disc ? 'a disc: its hit box is ' + hw + ' x ' + hh + ', no 44 px square fits inside; the reading is VH-173\'s' : undefined, unresolved: disc ? 'interpretation' : undefined, hitW: hw, hitH: hh, hitArea: hits * step * step, inline, disabled: !!el.disabled, thumb: thumb || undefined });
+      out.push({ el: desc(el).slice(0, 80), outcome: hits === 0 || disc ? 'cannot-determine' : fits ? 'pass' : 'fail', why: hits === 0 ? 'nothing hit: covered or not hit-testable' : disc ? 'a disc: its hit box is ' + hw + ' x ' + hh + ', no 44 px square fits inside; the reading is VH-173\'s' : undefined, unresolved: disc ? 'interpretation' : undefined, pseudoTarget: pseudo || undefined, hitW: hw, hitH: hh, hitArea: hits * step * step, inline, disabled: !!el.disabled, thumb: thumb || undefined });
     }
     window.scrollTo(0, 0);
     return out;
@@ -732,16 +736,43 @@ async function withStyle(w, css, fn) {
   try { return await fn() } finally { await w.evaluate(`document.getElementById(${JSON.stringify(id)})?.remove()`); await sleep(120) }
 }
 
+// VH-203 (wishes VH-199.1, VH-200.1, VH-208.1), four readings: a disabled control declared as a focus target takes no focus, so it reads
+// not applicable (S-21's #trim-clear, S-62 w375's Save); a native radio's ring is held to its disc's 2 px perimeter, 4π(r − 1), not its
+// box's (the 32 px #preset-choice: 284 of the box's 304, the disc's ~239); a wrapped inline element's ring to its line fragments'
+// perimeters, summed, not their enclosing box's (S-81's statement link); and a control taller than the viewport is read whole, its
+// clip in viewport-high tiles scrolled into view one by one, unfocused then focused at the same scroll, never cut by the viewport
+// (the finished card: S-151, S-137 at 320 px). Width beyond the viewport stays "the clip is cut by the viewport".
 export async function focusArea(w, sel, { margin = 12, focus, ref } = {}) {
-  const box = await w.evaluate(`(() => { const el = document.querySelector(${JSON.stringify(sel)}); if (!el) return null; el.scrollIntoView({ block: 'center', inline: 'nearest' }); const r = ${ref === 'thumb' ? 'window.__qual.thumbBox(el)' : '(() => { const b = el.getBoundingClientRect(); return { x: b.left, y: b.top, w: b.width, h: b.height }; })()'}; return { ...r, sx: scrollX, sy: scrollY, vw: innerWidth, vh: innerHeight, dpr: devicePixelRatio }; })()`)
+  const box = await w.evaluate(`(() => { const el = document.querySelector(${JSON.stringify(sel)}); if (!el) return null; el.scrollIntoView({ block: 'center', inline: 'nearest' }); const r = ${ref === 'thumb' ? 'window.__qual.thumbBox(el)' : '(() => { const b = el.getBoundingClientRect(); return { x: b.left, y: b.top, w: b.width, h: b.height }; })()'}; const cs = getComputedStyle(el);
+    const radio = el.matches('input[type=radio]') && cs.appearance !== 'none' && cs.webkitAppearance !== 'none';
+    const frags = cs.display === 'inline' ? [...el.getClientRects()].filter((q) => q.width > 0 && q.height > 0).map((q) => ({ w: q.width, h: q.height })) : [];
+    return { ...r, sx: scrollX, sy: scrollY, vw: innerWidth, vh: innerHeight, dpr: devicePixelRatio, disabled: el.matches(':disabled'), radio, frags }; })()`)
   if (!box) return { sel, outcome: 'cannot-determine', why: 'no element' }
+  if (box.disabled) return { sel, outcome: 'not-applicable', why: 'disabled: a disabled control takes no focus, so its focus ring is not applicable (declared as a focus target)' }
   if (box.w === 0 || box.h === 0) return { sel, outcome: 'cannot-determine', why: 'not rendered' }
   // The clip is in document coordinates: the viewport rectangle plus the scroll (VH-171's pilot caught the clip landing above a scrolled control).
   const vx = Math.max(0, box.x - margin), vy = Math.max(0, box.y - margin)
   const clip = { x: vx + box.sx, y: vy + box.sy, width: Math.min(box.vw - vx, box.w + 2 * margin), height: Math.min(box.vh - vy, box.h + 2 * margin) }
+  // Taller than the viewport, as wide as it allows: the tiles, each a viewport high, in document coordinates.
+  const tall = !ref && box.h + 2 * margin > box.vh && box.w + 2 * margin <= box.vw
+  const top = Math.max(0, box.y + box.sy - margin), bottom = box.y + box.sy + box.h + margin
+  const tiles = tall ? Array.from({ length: Math.ceil((bottom - top) / box.vh) }, (_, i) => ({ x: clip.x, y: top + i * box.vh, width: clip.width, height: Math.min(box.vh, bottom - top - i * box.vh) })) : null
+  const tileShots = async () => {
+    const out = []
+    for (const t of tiles) {
+      await w.evaluate(`window.scrollTo(${box.sx}, ${t.y})`)
+      await sleep(120)
+      const sy = await w.evaluate('scrollY')
+      if (t.y < sy - 0.5 || t.y + t.height > sy + box.vh + 0.5) return { error: `a tile at ${Math.round(t.y)} px cannot be scrolled into view (scrollY ${Math.round(sy)})` }
+      out.push(await shot(w, t))
+    }
+    return { shots: out }
+  }
   await w.evaluate(`(() => { const a = document.activeElement; if (a && a !== document.body) a.blur(); })()`)
   await sleep(150)
-  const off = await shot(w, clip)
+  const offTiles = tall ? await tileShots() : null
+  if (offTiles?.error) return { sel, outcome: 'cannot-determine', why: offTiles.error, unresolved: 'measurement' }
+  const off = tall ? offTiles.shots[0] : await shot(w, clip)
   // The sub-component's painted box: the clip drawn without it, against the clip with it.
   let painted = null
   if (ref) {
@@ -753,13 +784,19 @@ export async function focusArea(w, sel, { margin = 12, focus, ref } = {}) {
   if (focus) await focus(); else await focusByKeyboard(w, sel)
   const state = await w.evaluate(`(() => { const el = document.querySelector(${JSON.stringify(sel)}); const a = document.activeElement; return { focused: !!a && (a === el || el.contains(a)), visible: !!a && a.matches(':focus-visible') }; })()`)
   await sleep(150)
-  const on = await shot(w, clip)
+  const onTiles = tall ? await tileShots() : null
+  if (onTiles?.error) return { sel, outcome: 'cannot-determine', why: onTiles.error, unresolved: 'measurement' }
+  const on = tall ? onTiles.shots[0] : await shot(w, clip)
   if (!state.focused) return { sel, outcome: 'cannot-determine', why: 'focus did not land on the control' }
-  const r = await analyse(w, DIFF, off, on)
+  let r
+  if (tall) {
+    r = { changed3: 0, changedAny: 0, best: 0 }
+    for (let i = 0; i < tiles.length; i++) { const d = await analyse(w, DIFF, offTiles.shots[i], onTiles.shots[i]); if (d.error) { r = d; break } r.changed3 += d.changed3; r.changedAny += d.changedAny; r.best = Math.max(r.best, d.best ?? 0) }
+  } else r = await analyse(w, DIFF, off, on)
   if (r.error) return { sel, outcome: 'cannot-determine', why: r.error }
   const px = box.dpr * box.dpr
   const area3 = Math.round(r.changed3 / px)
-  const clipped = clip.width < box.w + 2 * margin || clip.height < box.h + 2 * margin
+  const clipped = !tall && (clip.width < box.w + 2 * margin || clip.height < box.h + 2 * margin)
   // A 2 px perimeter's area, exactly: wh − (w − 4)(h − 4) = 4(w + h) − 16 for a box,
   // π(r² − (r − 2)²) = 4π(r − 1) for a disc (the pilot's 4(w + h) overstated it by 16).
   let perimeter, readings
@@ -767,12 +804,18 @@ export async function focusArea(w, sel, { margin = 12, focus, ref } = {}) {
     readings = { box: Math.round(4 * Math.PI * (box.w / 2 - 1)), painted: Math.round(4 * Math.PI * (Math.max(painted.w, painted.h) / 2 - 1)) }
     perimeter = readings.box
   } else if (ref === 'file-button') perimeter = Math.round(4 * (painted.w + painted.h) - 16)
-  else perimeter = Math.round(4 * (box.w + box.h) - 16)
+  else if (box.radio) {
+    readings = { box: Math.round(4 * (box.w + box.h) - 16), disc: Math.round(4 * Math.PI * (Math.min(box.w, box.h) / 2 - 1)) }
+    perimeter = readings.disc
+  } else if (box.frags.length > 1) {
+    readings = { box: Math.round(4 * (box.w + box.h) - 16), fragments: box.frags.length, fragmentPx: box.frags.map((q) => [Math.round(q.w), Math.round(q.h)]) }
+    perimeter = Math.round(box.frags.reduce((s, q) => s + 4 * (q.w + q.h) - 16, 0))
+  } else perimeter = Math.round(4 * (box.w + box.h) - 16)
   let outcome = area3 >= perimeter ? 'pass' : clipped ? 'cannot-determine' : 'fail'
   let why = outcome === 'cannot-determine' ? 'the clip is cut by the viewport' : undefined
   let unresolved = outcome === 'cannot-determine' ? 'measurement' : undefined
-  if (readings && outcome === 'fail' && area3 >= readings.painted) { outcome = 'cannot-determine'; unresolved = 'interpretation'; why = 'passes against the painted disc, fails against the 44 px circular reference: the reading is VH-173\'s' }
-  return { sel, outcome, why, unresolved, ref, focusVisible: state.visible, controlPx: [Math.round(box.w), Math.round(box.h)], paintedPx: painted ? [painted.w, painted.h] : undefined, areaAt3to1: area3, perimeter2px: perimeter, readings, changedAny: Math.round(r.changedAny / px), bestRatio: r.best, off: Buffer.from(off, 'base64'), on: Buffer.from(on, 'base64') }
+  if (readings?.painted !== undefined && outcome === 'fail' && area3 >= readings.painted) { outcome = 'cannot-determine'; unresolved = 'interpretation'; why = 'passes against the painted disc, fails against the 44 px circular reference: the reading is VH-173\'s' }
+  return { sel, outcome, why, unresolved, ref, focusVisible: state.visible, controlPx: [Math.round(box.w), Math.round(box.h)], paintedPx: painted ? [painted.w, painted.h] : undefined, areaAt3to1: area3, perimeter2px: perimeter, readings, tiles: tall ? tiles.length : undefined, changedAny: Math.round(r.changedAny / px), bestRatio: r.best, off: Buffer.from(off, 'base64'), on: Buffer.from(on, 'base64') }
 }
 
 /** The file chooser's button text by pixels (VH-171): computed style read 1:1 under forced colours. */
@@ -951,8 +994,8 @@ export async function typeRoles(w, { spacing = false } = {}) {
 /** A whole-page capture, as walk.mjs's screenshot, returned rather than written (M-08: the run writes it). */
 export async function pageShot(w) {
   const m = await w.evaluate(`({ w: document.documentElement.clientWidth, h: document.documentElement.scrollHeight })`)
-  const s = await w.page.send('Page.captureScreenshot', { format: 'png', captureBeyondViewport: true, clip: { x: 0, y: 0, width: m.w, height: Math.min(m.h, 12000), scale: 1 } })
-  return Buffer.from(s.data, 'base64')
+  // VH-203 (wish VH-217.5): inside the viewport, tiled and stitched (Walk.shotRegion), so the 32 px font holds in the image.
+  return Buffer.from(await w.shotRegion({ x: 0, y: 0, width: m.w, height: Math.min(m.h, 12000) }), 'base64')
 }
 
 /** Motion under reduced motion, watched while `drive()` runs (M-05). */
@@ -1018,14 +1061,18 @@ export async function setMode(w, mode) {
 /** The brand faces withheld: font requests failed before load; reload after.
  *  By resource type, never by URL: Vite serves a font's `?url` import as a
  *  module script whose URL ends in the font's name, and blocking that stopped
- *  the app's boot (VH-171, pilot 2). Only requests Chrome loads as a font fail. */
+ *  the app's boot (VH-171, pilot 2). Only requests Chrome loads as a font fail.
+ *  VH-203 (wish VH-199.1): the route answers only a paused request whose own
+ *  resourceType is Font; the dispatcher (faults.mjs `route`) offers it every
+ *  request any route paused, so a fault's worker or closing request paused
+ *  beside it was failed as a font (S-107's and S-55c's `fallback` records). */
 export async function withholdFonts(w, on) {
   await w.page.send('Network.enable')
   await w.page.send('Network.setCacheDisabled', { cacheDisabled: on })
   w.fontsFailed = w.fontsFailed ?? []
   if (!on) return unroute(w, 'fonts')
   await route(w, 'fonts', {
-    urlPattern: '*', resourceType: 'Font', requestStage: 'Request', match: () => true,
+    urlPattern: '*', resourceType: 'Font', requestStage: 'Request', match: (p) => p.resourceType === 'Font',
     handle: async (p) => { w.fontsFailed.push(p.request.url.replace(/^.*\//, '')); await w.page.send('Fetch.failRequest', { requestId: p.requestId, errorReason: 'BlockedByClient' }) },
   })
 }

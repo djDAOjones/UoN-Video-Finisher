@@ -1,3 +1,5 @@
+// VH-203 (wish VH-206.1): the kept-part note (warnings.keptTooLittleAudio.heading, since VH-206) read beside the absent-track
+// heading, each its own key; the sliver passes on the note, the control on neither.
 // VH-185: a sliver of late sound in the part kept. A 10 s file whose sound
 // starts at 4 s (its AAC priming at 3.979 s), kept 0:00–0:04: before Create
 // the existing "This video has no audio" warning shows, in each language,
@@ -34,7 +36,7 @@ const mx = (w, expr) => w.evaluate(`(() => { const M = window.__mx; return ${exp
 const READ = `(() => { const M = window.__mx;
   const doc = document.documentElement;
   const box = document.getElementById('audio-warnings');
-  return { noAudio: !!box && M.vis(box) && M.has('warnings.noAudio.heading', '#audio-warnings'), endsEarly: !!box && M.vis(box) && M.has('warnings.endsEarly.heading', '#audio-warnings'), warnings: box && M.vis(box) ? box.innerText.trim().slice(0, 300) : null, verdict: M.verdict(), trimEnd: document.getElementById('trim-end').value,
+  return { noAudio: !!box && M.vis(box) && M.has('warnings.noAudio.heading', '#audio-warnings'), keptTooLittleAudio: !!box && M.vis(box) && M.has('warnings.keptTooLittleAudio.heading', '#audio-warnings'), endsEarly: !!box && M.vis(box) && M.has('warnings.endsEarly.heading', '#audio-warnings'), warnings: box && M.vis(box) ? box.innerText.trim().slice(0, 300) : null, verdict: M.verdict(), trimEnd: document.getElementById('trim-end').value,
     overflowX: doc.scrollWidth > doc.clientWidth, checking: M.checking() };
 })()`
 
@@ -83,7 +85,9 @@ for (const lang of langs) for (const view of views) for (const mode of modes) {
     await keep04(w)
     const r = { lang, view, mode, ...(await w.evaluate(READ)) }
     if (clips && view === 'w1280' && lang === 'en-GB') await w.screenshot(`sliver-${mode}`)
-    r.ok = r.noAudio && !r.endsEarly && r.trimEnd.startsWith('0:04') && !r.overflowX && !!r.verdict
+    // VH-203 (wish VH-206.1): since VH-206 the sliver's warning is the kept-part note, its own key, read beside the absent-track
+    // heading and told from it: the note shown, the absent-track heading not.
+    r.ok = r.keptTooLittleAudio && !r.noAudio && !r.endsEarly && r.trimEnd.startsWith('0:04') && !r.overflowX && !!r.verdict
     return r
   })
 }
@@ -95,7 +99,7 @@ if (jobs) for (const lang of langs) for (const [name, file, expectNoAudio] of [[
     await keep04(w)
     const before = await w.evaluate(READ)
     const end = await job(w)
-    return { lang, file, before, end, ok: before.noAudio === expectNoAudio && !before.endsEarly && end.finished && !end.endsEarly }
+    return { lang, file, before, end, ok: before.keptTooLittleAudio === expectNoAudio && !before.noAudio && !before.endsEarly && end.finished && !end.endsEarly }
   })
 }
 await closeAnalysis()

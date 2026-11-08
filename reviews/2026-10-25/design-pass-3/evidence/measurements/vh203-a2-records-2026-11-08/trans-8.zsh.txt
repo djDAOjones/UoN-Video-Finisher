@@ -1,0 +1,20 @@
+#!/bin/zsh
+# VH-203 #8: Part A2's transitions (the plan's section 4, ruling 1): vh203-group.zsh (3d70f205) with its job line the walker's own
+# transitions.mjs, unchanged, by ids, --langs and --modes, no --plan (F2); the `all` set and the `cases` set each walk as their own chain,
+# kept apart. Queue for the walk lock by $S/walk-queue-wait-seq.zsh (its line's pid is this script's), go.sh once, the void check (void.zsh).
+# Usage: zsh trans-8.zsh <folder name> <label> "<ids|all>" <langs> <modes> [<app root>] [<walker dir>]
+S=/Users/uazjob/UoN-Video-Helper-side; D=$S/vh203-walk
+n=$1; label=$2; ids=$3; langs=$4; modes=$5; A=${6:-$S/vh203}; WK=${7:-$A/reviews/2026-10-25/design-pass-3/evidence/measurements/walker}
+cd "$D" || exit 5
+[ -n "$ids" ] && [ -n "$langs" ] && [ -n "$modes" ] || { echo "usage: trans-8.zsh <name> <label> <ids|all> <langs> <modes>"; exit 11; }
+for f in "$n" "$n.launcher.log" "$n.load.log" "$n.go.out"; do [ -e "$f" ] && { echo "EXISTS $f"; exit 2; }; done
+job='node "$WALKER/transitions.mjs" '$ids' --langs '$langs' --modes '$modes
+echo "$n queued $(date -u +%T) transitions $ids langs $langs modes $modes app $A" >> seq.log
+QPID=$$ zsh $S/walk-queue-wait-seq.zsh "VH-203 #8 $label $n" || exit 12
+echo "$n turn $(date -u +%T)" >> seq.log
+[ -x "$A/node_modules/.bin/vite" ] || { echo "$n stopped: no vite in $A $(date -u +%T)" >> seq.log; echo "no vite"; exit 13; }
+zsh go.sh "$n" "$label $n" "$WK" "$A" "$job" > "$n.go.out" 2>&1; rc=$?
+v=$(zsh void.zsh "$n")
+echo "$n exit $rc $(date -u +%T) void-check: ${v:-stands}" >> seq.log
+echo "group $n rc $rc void ${v:-none} $(date -u +%T)"
+exit $rc

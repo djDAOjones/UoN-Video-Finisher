@@ -1,0 +1,139 @@
+Paths below use `$M` and `$S` as defined in the brief; `walk/` means `$S/vh203-walk/`.
+
+1. **Verdict: complete key coverage, incomplete measurement coverage.**
+
+   I reconciled the standing records, preferring split records, then re-walks, then originals: **3,219 core keys, none missing; 3,212 reached and seven not reached; nine S-155 records separately counted.** The records carry revision `7db38f355f3c46c2`. The 48 transitions retain their separate `all` and `cases` identities.
+
+   The driver preserves the declared run plans rather than substituting `PLANS.matrix`; I found no removed core condition. However, “walked whole” must not mean every required measurement was obtained: S-03’s declared formatTip subjects are missing, and seven scenarios never reach their intended states. Sources: `walk/keys199.txt`, `keys-a1.txt`–`keys-a4.txt`, `vh203-driver.mjs`, the standing `a*g*/runs/` records, `$M/matrix-coverage-2026-10-27.json`.
+
+   B accounts for the requested supplements: VH-215’s 96, W20’s 48, VH-207’s 168, VH-208’s 111 outside the core, 53 affected batch keys, and VH-231’s 90 make **566 matrix records**. The sliver, first-screen, rings, note and naming probes are additional. “566 ok” describes execution, not all instruments passing: B4 contains 18 induced-player failures; B5 contains two focus failures. Sources: `walk/b-plan.mjs`, `b1`–`b11`, and the fix plan’s “The order, and why”.
+
+2. **Verdict: the non-passes are substantially attributable, but the supplied type count is wrong.**
+
+   The complete key enumerations are in the three permitted D1 pair TSVs and `d1-cd.tsv`. My classifications are:
+
+   - **S-03 / formatTip:** 36 core records—A1g1 ×23, A2g1 ×5, **A3g14 ×8**—plus B5 ×12 have declared subjects missing. The closed title panel explains the omission; it does not turn those measurements into passes.
+   - **S-81 / focus:** nine core failures, six in A1 and three in A3, reproduce in D1. B5’s two zoom400proxy failures arise under W9’s fragment-perimeter measurement. These are existing insufficient-area readings exposed by the revised instrument, not evidence that W9 damaged the UI. Example: `a1g3/.../S-81__ms-MY__w320__light.json`, 985 qualifying pixels against 1,236.
+   - **S-132 and S-152 / player:** six core records each; S-152 also has 18 in B4. The deliberately induced MediaError 4 causes metadata and accessible-name checks to fail; the name becomes “Unable to play media.” D1 reproduces this. Their recovery/save assertions must be judged separately.
+   - **S-141–S-144 / type:** **93, not 61**: S-141 ×36, S-142 ×28, S-143 ×28, S-144 ×1. The additional 32 are in the split walks. The format button’s `0.875rem / 1.25 / 600` matches none of the eight roles. VH-205 introduced the line-height override; VH-217.2 already records the issue. Sources: D1 pair files; `git show cc12788 -- src/styles/app.css`; `project/wish-list.md:78`.
+   - **S-93 / setup:** five keys time out waiting for the settled verdict: en-GB at both widths, zh-Hans w1280, ms-MY at both widths. Both builds fail here. This Mac’s calibration enters the warning band rather than the expected ready state.
+   - **S-24 ms-MY w1280 / reachability:** the after reaches the very-long-job condition, approximately one hour, rather than the requested long-job condition. D1 reaches the requested condition. This is a calibration-band difference, not demonstrated product regression.
+   - **S-140 en-GB w1280 / reachability:** absent protected sample; neither side supplies the requested measurement.
+   - **T-46.3 ×13:** the ready assertion fails because the settled verdict is warning. The en-GB dark case additionally outlasts the save and misses its intended successor/ring reading; the re-walk preserves that failure.
+   - **Cannot-determine:** the 50 subject sets contain 10,463 item readings across 2,607 records within D1’s 2,675-key accounting set. All have historical citations, but citations establish precedent, not resolution. They cover range targets/paint/rings, mixed-script measure, clipped controls, chooser glyph isolation, native-player focus/change exposure, language-changed completion comparisons, missing elements and journey-key uncertainty. Sources: `walk/d1-cd.tsv`, `d1-cd.txt`.
+
+3. **Verdict: D1 does not establish every failing after by a successful same-machine before.**
+
+   Its actual partition is **21 pre-existing failures, six both-not-reached, one changed reachability result, and 93 before-not-reached**. The latter are the type-failing format-help records.
+
+   `document.getElementById('about-help').hidden` fails because the run revision assumes VH-229’s later DOM. The older app has no such element. That is a **historical-route incompatibility**, not an app failure. Source: `walker/scenarios.mjs:1909`; `walk/d1g1.pair.tsv`, `d1g1-split.pair.tsv`, `d1g2.pair.tsv`.
+
+   Source attribution nevertheless explains the type change: VH-205’s stylesheet diff. S-24 and T-46.3 are explained by measured calibration/timing states. I found **no unexplained introduced product failure**, but the account must not call the 93 failed setups paired evidence of stability.
+
+4. **Verdict: the material moves have identifiable causes; several are measurement corrections rather than product improvements.**
+
+   The same-build pairs support the intended distinctions: W1 restores fallback reachability; W2 corrects check counting; W3 bounds navigation; W5 separates passive player state from later walker playback; W6 preserves focus assertions; W7 exempts disabled focus targets; W8/W9 change ring reference geometry; W10 reads the player ring’s local background; W11 measures the expanded target; W12 captures whole tall-card rings; W17 reads rendered select text; W18 isolates palette-dependent setups. Panel access and font-preserving captures explain further changes. Sources: `walk/rev-before-rb*/runs/`, `pair-rb*/runs/`, `pair-w5*/runs/`, and the nine-file walker diff.
+
+   In B:
+
+   - **B3’s next Tab:** the 120 checkable results agree with the current accessibility-tree order. Moving Video type after the file input explains the changed successor through VH-216; VH-229 explains panel-dependent paths. The other 48 subresults are not checkable by that particular tree comparison; `b3.nexttab.txt` says so.
+   - **B4 targets/type:** palette/setup corrections explain the changed readings; they are not fresh product fixes. Whole-card focus changes belong to W12; S-138’s passive-player changes to W5.
+   - **B4 completion words:** “before you save it” → “before you use it” is VH-212, `7750acb`.
+   - **B6 Chinese page-language announcement:** 简体中文 → 中文 is VH-227, `267cb91`.
+   - **B7/B8r placement:** VH-216/VH-229’s structure and VH-225’s title wrapping explain the final position. Distinguish the input box from its painted button. At w320, the Chinese painted button ends at **682**, Malay at **724**, against a 568 px viewport: **114 and 156 px below it**. Four of six cases fit. Sources: B7 `results.json`; B8r `rings-179-v18-…/summary.json`.
+
+   I identified no additional unexplained material product move. This does not establish equality of every incidental timing, hash or pixel coordinate.
+
+5. **Verdict: W19 proves the silent-output contract and argues against a later regression; it does not explain the encoder’s exact byte difference.**
+
+   B6 saves an eight-second, 200-frame, 1280×720 H.264 file with **one video track and no audio track**. D1w19 at `5893d9d` reproduces **1,583,347 bytes** in all six cells, matching the current build on this Mac.
+
+   Therefore the historical 1,682,811-byte result is not evidence that a later landed change altered this output. The remaining difference belongs to the cross-machine/fixture/encoding environment comparison. These records do **not** isolate which environmental factor caused it, prove byte identity, or establish perceptual quality. Sources: `walk/b6/results/after-sliver-N14.json`, `d1w19/results/after-5893d9d-sliver-N14.json`, both comparison files.
+
+6. **Verdict: the visible presentation is coherent; complete visual approval remains unsupported for the clipped portions.**
+
+   I inspected all six contact sheets and the three target-outline images. The compact square, focus ring and filled open state remain distinguishable across languages, palettes and font sizes. The open help has a restrained border and clear separation.
+
+   The raw readings support **44 ×44 px**, 484/484 sampled hits in all 192 states, and keyboard focus in all 48 conditions. This does not mean the visible square itself is 44 px.
+
+   The invisible target overlaps approximately **2.15 px of English and Malay ink**, four and three sampled ink pixels respectively; Chinese has no ink overlap. The words are not another control, so this is not demonstrated competing-target interference.
+
+   At w320/32 px, English’s “?” wraps onto its own line in all 16 state/palette captures. It remains understandable, though less tightly associated with “format.” That aesthetic judgement belongs in the owner’s review.
+
+   **52 images end at the viewport edge**, including every w320/32 px image and four Malay open-tip images at 16 px. Vertical continuation is not itself an overflow defect, but these pictures cannot prove the unseen remainder looks right. Source: `$M/vh203-format-help-2026-11-08.md:24–40`, its JSONL and images.
+
+7. **Verdict: the replacement strategy is defensible; timing limitations must remain explicit.**
+
+   Fresh setups prevent a previous instrument’s focus movement, expired pending state or palette state from contaminating the next record. The split scripts preserve key identity and conditions; they do not substitute easier scenarios. S-107 and S-01’s first records remain available, and their fresh-setup results explain the replacements. S-14’s re-walk preserves passing execution.
+
+   The T-46.3 re-walk is particularly useful: the dark save-window failure remains under lower load. It has not been silently replaced by a pass.
+
+   Static-state retention near elevated load is reasonable. A 30-second load log cannot prove instantaneous load throughout a record, and a re-walk is not automatically load-free—A3g2-rw itself contains 8.08 and 8.09 samples. I found no demonstrated product defect hidden by replacement. Sources: `focus-split-7.mjs`, `-9.mjs`, `-10.mjs`; original/re-walk `runs/`; corresponding `.load.log` files.
+
+8. **Verdict: VH-214.2 persists in the exposed announcement.**
+
+   S-140n says:
+
+   > A preview is not available for this file. You can still set the times.
+
+   Across the inspected after-run mutation captures, I found that message or its equivalent in **64 captures**: S-140n ×1, S-149 ×36, and S-28/S-29/S-32 ×9 each. This includes repeated core/supplement conditions.
+
+   Chinese: “此文件没有预览功能。您仍然可以设置时间。”
+
+   Malay: “Pratonton tidak tersedia untuk fail ini. Anda masih boleh menetapkan masa.”
+
+   The mutation records identify `region: "#page-announcer"`. These are exposure readings, not evidence of actual speech. In refusal states with trimming withdrawn, the final sentence describes an unavailable action. Sources: `walk/a3g6/runs/.../captures/S-140n__en-GB__w1280__light__mutations.json`, corresponding refusal captures, `project/wish-list.md:67`.
+
+9. **Verdict: S-03 must be reported as an unfulfilled declared measurement, with its cause distinguished from VH-205.**
+
+   The account should say: **“S-03 reaches its closed-panel state, but formatTip’s declared subjects are not measured because the format button is inside that panel. The instrument returns not-applicable; evidence completeness remains false.”**
+
+   VH-205 explains the small visible box and expanded target. VH-229 explains why the button is hidden. VH-216.1 authorises opening the panel where needed; the standing S-03 route does not thereby acquire the missing readings.
+
+   Count **36 core plus 12 B5 records**, including A3g14’s eight. Open-panel S-141–S-144 and Part C provide supporting evidence, not retroactive S-03 measurements. Sources: S-03 JSON `expects.formatTip` versus `instruments.formatTip`; `walker/scenarios.mjs:3018`.
+
+10. **Verdict: Phase 8 cannot yet receive an unconditional UX/design/AAA pass.**
+
+   Before VH-203 closes, fix or obtain an explicit disposition for:
+
+   - The statement-link focus-area failures, including the two supplement failures.
+   - The format button’s nonconforming type role, VH-217.2.
+   - The contradictory refusal announcement, VH-214.2.
+   - V-18’s two remaining first-screen failures.
+   - The owner’s visual judgement of the format button and the incomplete clipped-image evidence.
+
+   Preserve as unresolved: the seven unreached core states; D1’s 93 incompatible before routes; S-03’s missing subjects; T-46.3’s intended-state/timing limits; the 50 cannot-determine sets; and person-only checks for speech, native media/select interactions, real zoom/phones/contrast themes and native-language reading.
+
+   VH-209.1 is not resolved merely because S-113’s `focus` instrument passes: its inspected focus subjects are the closing select and onset help button, **not the chooser**. Sources: `a3g3/.../S-113__en-GB__w320__font32.json`; `project/wish-list.md:81`.
+
+   Applied digest rules: Nielsen’s truthful visible status and recovery guidance; Carbon’s defined type roles and tokens; WCAG target size, focus appearance, contrast and keyboard operation. Historical precedent does not convert an unresolved reading into compliance.
+
+11. **Verdict: pass with points for “every changed measurement explained”; this is not permission to close.**
+
+   The material changes I could compare have credible product, instrument, setup or environment attribution. Carry these points into the account:
+
+   - Correct **61 type failures to 93**.
+   - Include A3g14’s eight missing S-03 formatTip measurements.
+   - State that D1’s 93 failed historical setups provide no paired measurement.
+   - Describe calibration-band changes as observed conditions, not product regressions or successful intended-state checks.
+   - Preserve the sliver’s exact environmental cause, clipped visual evidence and cannot-determine sets as unresolved.
+
+   An assertion that every failure was demonstrated pre-existing or introduced **by successful same-machine pairing** would fail.
+
+**Overall**
+
+The after-run is extensive and useful, with complete core-key accounting and no unexplained product regression identified. It is not an all-pass result. Known failures, incomplete measurements and owner decisions still prevent VH-203’s unconditional close.
+
+**For the owner**
+
+- Accept or request changes to the format button’s appearance, overlap and narrow-screen wrap.
+- Decide the remaining V-18 first-screen outcome.
+- Approve any required wording remedy for VH-214.2.
+- Decide any proposed standards exception; otherwise the identified failures require fixes.
+- Authorise any additional walker scope needed to complete missing measurements or historical routes.
+
+**New defects**
+
+- **Accounting error:** 61 understates the type failures by 32. Evidence: `walk/d1g1-split.pair.tsv`; total across the three pair files is 93.
+- **Coverage-account omission:** A3g14 has eight additional S-03 records with declared formatTip subjects absent. Evidence: `walk/a3g14/runs/.../S-03__*.json`.
+- No newly established product defect beyond the existing recorded issues.

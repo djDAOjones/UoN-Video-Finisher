@@ -75,7 +75,10 @@ async function watchWorkers(browser, w) {
 // The finished video's warnings and what was spoken, as the page draws them.
 const READ = `(() => { const M = window.__mx; const doc = document.documentElement;
   const result = document.getElementById('process-result');
-  const box = result && result.querySelector('section.notification[data-kind="warning"]');
+  // VH-203 (wish VH-208.2): the warnings inside the finished card since VH-208 (section.result-warnings), read beside the old
+  // layout's notification after the card; which layout was read is kept.
+  const inCard = result && result.querySelector('section.result-warnings'); const old = result && result.querySelector('section.notification[data-kind="warning"]');
+  const box = inCard || old; const layout = inCard ? 'in the card (section.result-warnings)' : old ? 'after the card (section.notification[data-kind="warning"])' : null;
   const items = box ? [...box.querySelectorAll('li, .notification-item')].filter((el) => !el.querySelector('li')) : [];
   const titles = items.map((el) => (el.querySelector('strong, .notification-item-title, h3, h4, p') || el).textContent.trim());
   const text = box ? box.textContent.replace(/\\s+/g, ' ') : '';
@@ -83,7 +86,7 @@ const READ = `(() => { const M = window.__mx; const doc = document.documentEleme
   const r = box ? box.getBoundingClientRect() : null;
   const live = (window.__audit.live || []).map((x) => x.text || x).join(' | ');
   const words = (el) => { const range = document.createRange(); range.selectNodeContents(el); return [...range.getClientRects()].every((q) => q.right <= innerWidth + 0.5 && q.left >= -0.5) };
-  return { box: !!box, boxText: text, boxTitle: box ? (box.querySelector('.notification-title') || {}).textContent : null, titles, hasHeading: text.includes(heading), hasDetail: text.includes(detail),
+  return { box: !!box, layout, boxText: text, boxTitle: box ? (box.querySelector(inCard ? "h2, h3, h4, .notification-title" : ".notification-title") || {}).textContent : null, titles, hasHeading: text.includes(heading), hasDetail: text.includes(detail),
     heavyFirst: titles.length > 0 && titles[0] === heading, headingIndex: titles.indexOf(heading), metadataIndex: titles.indexOf(M.msg('warnings.metadataLost.heading')),
     spoken: live.includes(heading), left: r && Math.round(r.left), right: r && Math.round(r.right), innerWidth, inside: box ? words(box) : true,
     overflowX: doc.scrollWidth > doc.clientWidth, lang: doc.lang } })()`
@@ -144,7 +147,8 @@ for (const path of bites) {
     await w.setFiles(path)
     await w.waitSettled({ timeout: 900000 })
     await w.waitFor(`(() => { const M = window.__mx; return M.verdict() || M.kindIn("#source-block") || M.kindIn("#source-report") === "error" })()`, { label: 'a verdict', timeout: 900000 })
-    const canCreate = await w.evaluate(`(() => { const b = document.querySelector(${JSON.stringify(w.createButton())}); return !!b && !b.hidden && !b.disabled })()`)
+    // VH-203 (wish VH-214.1): Create offered when it is shown (Walk.offered), not by its own hidden and disabled.
+    const canCreate = await w.offered(w.createButton())
     // A file the page will not make: the reason is the page's own words (Codex astra's must 2).
     if (!canCreate) {
       const reason = await w.evaluate(`(() => { const t = (s) => { const e = document.querySelector(s); return e && !e.hidden ? e.textContent.replace(/\\s+/g, ' ').trim() : '' }; return [t('#source-block'), t('#source-report'), t('#preflight-report')].filter(Boolean).join(' / ').slice(0, 300) })()`)
@@ -154,7 +158,8 @@ for (const path of bites) {
     let p
     try { p = await planned(w, seen, 1800000) } catch (e) {
       // A job that ends before planning has no bite: say why, in the page's words.
-      const said = await mx(w, `({ noAudio: M.matches(document.body.textContent, 'warnings.noAudio.heading'), result: (document.querySelector('#process-result .notification-title') || {}).textContent || null })`)
+      // VH-203 (wish VH-206.1): the kept-part note's heading read beside the absent-track heading, each its own key.
+      const said = await mx(w, `({ noAudio: M.matches(document.body.textContent, 'warnings.noAudio.heading'), keptTooLittleAudio: M.matches(document.body.textContent, 'warnings.keptTooLittleAudio.heading'), result: (document.querySelector('#process-result .notification-title') || {}).textContent || null })`)
       // A finished video whose worker never planned levelling had no sound to level.
       const silent = said.result !== null && !String(e.message).startsWith('no "chain planned"')
       return { file: basename(path), created: true, planned: null, silent, reason: silent ? 'no audio: a silent job, no plan and no bite' : String(e.message), said, ok: silent, why: silent ? [] : [String(e.message)] }

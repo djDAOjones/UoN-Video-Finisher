@@ -1,0 +1,109 @@
+**Do not commit this as VH-203’s close yet.** The candidate has unresolved close requirements, missing evidence and conflicting evidence hashes. I changed nothing and used no network.
+
+The tracked diff and status match the frozen candidate exactly. All **1,433 untracked files match their frozen SHA-1s**. I independently ran `node tools/check.mjs`: **0 structural/budget failures, 1 known missing-sample warning**. The supplied gate log records a green gate; that does not resolve the findings below.
+
+1. **Ledger edits — structurally sound, but the close is premature.**
+
+   The heading, shortened Decision, Rationale placement, backlog removal, trajectory syntax and Disposition row follow their file conventions. The VH-202 checkpoint was moved **byte for byte** from the base decision file; the archive index correctly increases to 136 entries. The owner’s quoted answers and their cited sources agree with the permitted owner record.
+
+   However, `project/items/VH-203.md:27` says “Open question: None” while listing seven pending owner points. “Closes”, “none blocking” and the corresponding backlog/trajectory/Disposition changes cannot stand until the close criterion is satisfied.
+
+   The Rationale also contains the inaccurate “0 failed by status” and misattributes “pass with points” to the plan check; see point 4.
+
+2. **Wish list — accounting largely correct; some retirements lack the bundled verification claimed.**
+
+   These are the dispositions of all 19 removed lines:
+
+   | Removed wish | Assessment |
+   |---|---|
+   | VH-198.1 | Guard implemented through W3. |
+   | VH-198.2 | W4 corrects the comparison wording. |
+   | VH-199.1 | W1–W7 implement its instrument changes. |
+   | VH-200.1 | W8–W10 implement the three measurements; unresolved player readings remain unresolved. |
+   | VH-205.1 | W11 measures the pseudo-element target. |
+   | VH-201.2 | Matrix portions are represented; S-113’s replacement probe, W19’s raw results and V-18’s raw results are missing from this bundle. Retirement is not fully verifiable here. |
+   | VH-206.1 | W14 distinguishes kept-part and absent-track headings. |
+   | VH-208.1 | W12 adds the whole-card ring measurement. |
+   | VH-208.2 | W13 reads both warning layouts. |
+   | VH-208.3 | S-91’s walked assertions are represented. |
+   | VH-214.1 | W15 checks whether controls are actually offered. |
+   | VH-212.1 | W16 updates the proof wording. |
+   | VH-215.2 | W20 supplies the 48 submission-card records. |
+   | VH-215.4 | Part B supplies the 96 requested records. |
+   | VH-219.1 | W17 reads closed option text rather than canvas width. |
+   | VH-210.1 | W18 separates setups after forced colours. |
+   | VH-220.1 | No additional split is needed for the six light-only core keys. |
+   | VH-216.1 | Explicitly answered by “Yes, all three”; implemented. |
+   | VH-217.5 | Explicitly answered by “Yes, all three”; implemented. |
+
+   Each removed ID has a reasoned trace in the decision. The distinction between **19 lines naming VH-203** and **19 removed lines** is legitimate: two named lines remain, while VH-198.1 and VH-198.2 also retire.
+
+   All four reworded wishes retain their previous substantive text and append findings; they are **not narrowed**. VH-203.1 and VH-203.2 have the correct form, and I found no earlier issuance in the project record or commit messages.
+
+   **Rule 5 gap:** Part C’s pending visual decision/scrolled captures have no surviving wish or backlog line once VH-203 is removed. Complete that work here, obtain its explicit disposition, or give the retained obligation a line. Merely offering the captures does not discharge it.
+
+3. **Acceptance criteria — the final close criterion is not met.**
+
+   - **Stage rule:** the commit-trailer audit confirms `Verify:` throughout the named range and the two reported missing `Checked:` lines, VH-205 and VH-227. The audit table should also include **VH-218, `a7c55e8`**, which has both trailers.
+   - **Fix links:** the Disposition table connects the fixes to their findings and verification; the new after-run row’s links resolve.
+   - **After-run:** the bundled outcome rows reconcile to **3,219 unique core keys**, plus nine S-155 records. Attribution is documented, including the corrected D1 comparison and W19’s remaining environmental uncertainty. Missing probe evidence prevents complete verification of the account.
+   - **Format “?”:** 192 states and six sheets are supplied, but **52 captures truncate content**. Integrated point 5 requested scrolled captures; these remain only offered.
+   - **Bar:** the evidence expressly contains failures and unresolved measurements. It does not establish “everything passes”.
+   - **Integrated check:** points 1, 4, 5 and 6 remain unresolved owner matters. Point 2 is reported answered, but its supporting probe is absent. Point 3 has an explicit reasoned disposition and appropriately bounded wording. Point 7 has a criterion-level account preserving unresolved results. Points 8–10 and 12–14 have recorded dispositions. Point 11 remains an unauthorised exception.
+
+   **Orchestrator #45’s “None blocks the close” does not meet the item’s final criterion.** That criterion says “applied, refused or **decided by the owner**”, not merely sent to him. The owner’s gateless delegation covers choices settled by the sessions’ recommendations; the integrated check expressly requires fixes or owner decisions, and this review does not agree that those requirements are discharged.
+
+   The media-query explanation is technically reasonable, but recording it as a decision does not supply the owner approval required by integrated point 11. Obtain that approval or reconcile the implementation with the written rule. Cover both **25rem and 19.99rem**, and explicitly dispose of the **1000** rounding literal against the rule’s actual wording.
+
+4. **Overstatement — corrections required.**
+
+   - **“0 failed by status” is false.** The standing outcome records contain **3,212 `status: "ok"` and seven `status: "failed"`**. All seven are classified as not reached. Say that; distinguish execution status from a product defect.
+   - The decision and draft describe the **plan check** as “pass with points”. Its verbatim answer contains no such verdict. That phrase belongs to the after-run blind read, whose conclusion explicitly says **“this is not permission to close.”**
+   - S-113’s **14.3079:1 / 1,391 glyph pixels** is asserted in the account but cannot be independently confirmed from the supplied candidate: the replacement probe and result are absent. “Pass across the core” is consequently too strong here.
+   - The transitions are correctly **not called green**. The 50 cannot-determine sets remain unresolved; W19’s size remains “moved, not tied, not proved”; D1’s corrected 93 are identified as introduced; the seven not-reached cases are disclosed.
+   - “The moved records whole” and the tables’ claims to contain probes whole are unsupported by the packaging described next.
+
+5. **Evidence files — blocking packaging defects.**
+
+   The review copies have identifiable provenance/title information or verbatim `.md.txt` presentation. I found no absolute Markdown links in those copies. Their frozen hashes establish candidate identity, not equality with unavailable original answer files.
+
+   **The records do not all match `sources.txt`:**
+
+   | Records folder | Hash entries not matching the named bundled file |
+   |---|---:|
+   | A1 | 0 |
+   | A2 | 0 |
+   | A3 | **350** |
+   | A4 | 0 |
+   | B | **22** |
+   | D1 | **92** |
+   | Differential | **98** |
+   | **Total** | **562** |
+
+   These are repeated destination names for different run manifests and run files. For example, D1’s `sources.txt:11` names a different hash for `d1g1-split.vh203-after-keys.manifest.json` from the file actually bundled. The listed missing hashes are not elsewhere in their respective folders.
+
+   The cause is visible in the copied `table-1page.mjs.txt:59`: removing the run timestamp produces identical filenames for successive runs, overwriting earlier copies. Preserve unique run identities and rebuild the source mapping; do not merely replace the listed hashes with the surviving copy’s hash.
+
+   **Additional omissions:** the S-113 probe `61b4c672` and result `f91628b7`, Part B’s five raw probe results, and cited comparisons such as `b3.nexttab.txt` and `b6.cmp.txt` are absent. B6–B10 have conditions/load/launcher logs, but those logs do not contain the measurements. Restore the evidence needed to substantiate the close.
+
+   The gate and link checker passed because these are evidence-integrity problems, not necessarily broken Markdown links. The frozen untracked payload is **53,110,073 bytes**; the differential’s `detail/` is **34,253,240 bytes**. Size is an orchestrator consideration, not itself a defect; update the approximate size description if retained.
+
+6. **Walker diff — scope and revision check out.**
+
+   The nine changed files correspond to W1–W20 and the two approved edits, including the documented W5 successor. I found no additional product change or dependency change.
+
+   Independently recomputing the revision by `instrumentRevision()`’s algorithm gives **`7db38f355f3c46c2`**.
+
+7. **Commit draft — correct form, not ready to fill and commit.**
+
+   The `VH-203:` subject/body/trailer structure follows `git show 756b425`; owner quotations and sources are accurate. The 17 retired plus two answered accounting is correct.
+
+   Correct the premature close claims, status count, plan-verdict attribution and evidence-completeness claims above. `Verify:` and `Checked:` are acceptable placeholders in a draft only. After repairs, gate and re-check the revised candidate; this verdict must not be quoted as approval to close.
+
+8. **Other blockers and verification scope.**
+
+   No additional blocker beyond those identified above. The existing missing `samples/CULT2011.mp4` warning is not a new defect. This is an item close, not Phase 8’s close, so rule 11’s phase reconciliation is not triggered.
+
+   Applied digest rules: **Nielsen** truthful status and recovery guidance; **Carbon** defined type roles and token discipline; **WCAG 2.2 AAA** criterion-specific contrast, targets and focus appearance, preserving unresolved evidence and requiring explicit exceptions.
+
+**Verdict: Do not commit — resolve the owner-dependent close requirements, repair the evidence bundle, correct the claims, then gate and re-check.**

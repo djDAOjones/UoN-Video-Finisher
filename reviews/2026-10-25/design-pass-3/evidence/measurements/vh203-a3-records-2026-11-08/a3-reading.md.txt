@@ -1,0 +1,57 @@
+# VH-203 Part A3: Claude's reading of part 3 (VH-203 #9 and #10, 2026-11-07 to 08, saved before any Codex read of it)
+
+**What was walked.** The run revision `7db38f355f3c46c2` (`vh203-run-rev.txt` 4351fc8f): `$W` at `756b425` with the walker's nine files (diff hash b28b608c84617b04), on the Mac Pro, by the in-memory route (`vh203-driver.mjs`, `PLANS['vh203-after']`, `--keys`; ruling 1). Part 3 is `plan-keys-756b425.tsv`'s run-04 to run-09: `keys-a3.txt` (0bd33415), 2,131 keys = VH-199's run-04 to run-09 (2,131), no S-155. `split-keys.mjs` at 1440 s gave 15 groups. The split rule (`focus-split-7.mjs`, then `-9` with S-107 and `-10` with S-01) took 167 keys out of 9 groups, each walked one key a setup by `split-7.zsh`. A group's sum is its kept walk and its split.
+
+| Group | Keys (kept + split) | Sums (sha1) | Kept walked (Z) | s (ratio) | Peak load | ok / failed / not reached |
+|---|---|---|---|---|---|---|
+| a3g1 | 148 + 19 | 92baa841, rw 672b4f1c, split 6a75426e | 19:46–20:16 | 1848 (1.06) | 8.18 (1) | 167 / 0 / 0 |
+| a3g2 | 141 + 25 | 1406bb25, rw 561ef9f2, split 66a551f9 | 20:31–21:08 | 2257 (1.63) | 10.11 (5) | 166 / 0 / 0 |
+| a3g3 | 173 + 19 | 2e4d7907, split 0c19ddc6 | 21:23–22:07 | 2640 (1.69) | 5.84 | 192 / 0 / 0 |
+| a3g4 | 76 + 19 | 655846b2, split 4caf8431 | 22:15–22:28 | 785 (0.57) | 7.49 | 94 / 0 / 1 (S-140) |
+| a3g5 | 164 + 19 | ada75031, rw 11ad1f2f, split c8b6d1a3 | 23:04–23:48 | 2639 (1.88) | 9.04 (2) | 183 / 0 / 0 |
+| a3g6 | 115 | d38c1ee3 | 23:56–00:19 | 1413 (0.96) | 7.37 | 115 / 0 / 0 |
+| a3g7 | 142 | 2572baee | 00:20–01:08 | 2885 (1.69) | 6.85 | 142 / 0 / 0 |
+| a3g8 | 102 + 19 | 43f723e6, split 46f04fad | 01:09–02:04 | 3267 (2.35) | 7.86 | 117 / 0 / 4 (S-93) |
+| a3g9 | 196 + 9 | 714b8d80, split f92dc922 | 02:10–02:53 | 2614 (1.81) | 8.58 (1) | 205 / 0 / 0 |
+| a3g10 | 123 + 19 | 0c38c66f, split 7d55fbc3 | 02:58–03:44 | 2754 (1.80) | 7.03 | 142 / 0 / 0 |
+| a3g11 | 90 | 39203035 | 03:54–04:15 | 1274 (0.85) | 6.02 | 90 / 0 / 0 |
+| a3g12 | 167 | 6de08ce5 | 04:16–04:51 | 2114 (1.42) | 10.27 (4) | 166 / 0 / 1 (S-24) |
+| a3g13 | 138 + 19 | a6cbe3fe, split 2c1b45d2 | 04:53–05:36 | 2566 (1.68) | 5.50 | 157 / 0 / 0 |
+| a3g14 | 117 | 7350a9cb | 05:42–06:07 | 1480 (0.98) | 5.78 | 117 / 0 / 0 |
+| a3g15 | 72 | d70ec0d1 | 06:08–06:30 | 1354 (1.69) | 6.13 | 72 / 0 / 0 |
+| **A3** | **1,964 + 167 = 2,131** | | | **31,890 (1.46 on est 21,807)** | | **2,125 / 0 / 6** |
+
+**Against VH-199** (the MacBook Pro's run-04 to run-09, cited, never paired; ruling 3; `matrix-coverage-2026-10-27.json`): 2,121 ok there, short by S-107 fallback ×3 and S-55c fallback ×3 (failed), and S-133 ×4 (not recorded). Here 2,125 read ok and reached, 0 failed. S-107 fb ×3 and S-55c fb ×3 read ok by W1's own fix, and S-133 ×4 read ok. Six are not reached, below, each with VH-199's record cited (D1).
+
+**Re-walks, by rule** (each the orchestrator's word, in the progress notes):
+- **The split rule:** S-107 ×16 (a3g1) and S-01 w320 spacing ×3 (a3g5) failed only when not first of their setup, with the state lost inside the worker ping's 5 s (`choose.starting`, the browser note shown). Their first-of-setup records read ok. Re-walked one key a setup, all read ok and replaced the first records. S-107 joined the rule (`focus-split-9.mjs` 1bc0298d), then S-01 (`focus-split-10.mjs` 5eb72809).
+- **The load rule:** S-14 ×17 ("Checking", a running state near samples at 8 or above in a3g2) were re-walked as a3g2-rw. They read alike under two loads and stand. Every other record near a sample at 8 or above was a static state with no job time or motion instrument: S-135, S-07, S-64, S-143, S-141, S-53-W, S-76, S-58-LW and S-63-W.
+
+**Each reading short of pass, classed:**
+- **Not reached, the sample absent:** S-140 en-GB w1280 light ×1 (a3g4). It reads from `samples/`, which is absent from `$W` (run-rev line 44, W15's key, VH-214.1).
+- **Not reached, this Mac's speed (D5):** S-93 ×4 (a3g8) failed in setup with "timeout waiting for the settled verdict" (384–387 s), the estimate on the proceed/warn border; this is the orchestrator's ruling at 05:3xZ. S-24 ms-MY w1280 light ×1 (a3g12) reads veryLongJob: a warning reading "about 1 hour" with longJob absent (ruling 7; VH-223.1 and VH-224.1 stay open).
+- **Type fail, "on none of the eight roles", the format "?":** S-143 ×12, S-141 ×20, S-144 ×1 and S-142 ×28. A known reading, VH-217.2, as at pair-rb2 and pair-rb3.
+- **Player fail, the walker's expected row:** S-132 ×4 ("A failed playback") and S-152 ×4 ("beside the limiting warning", F16). By each scenario's design, "an object URL whose metadata loads" and "host named by the card's title" fail. Status is ok and the asserts pass.
+- **Focus fail:** S-81 w320 spacing ×3 (a3g15), the wrapped link's ring, W9's own (wish VH-200.1). It is for the verdict, as A1's S-81 ×6.
+- **Cannot-determine:** focus S-92 ×12, S-137 and S-142 where noted, limiting and player in some groups, and each group's targets, contrastExtra and measure. These are the instruments' own unresolved readings, for the verdict's unresolved account.
+- **New:** none. No row fails only at the run revision.
+
+**What moved, and by which change.** These are against `rev-before-rb1` to `-rb4`, at `29c3acfc` on the same build and Mac. Each move is its change's own by `keys-rev-before.why.tsv`:
+- W1: S-107 fb ×3 and S-55c fb ×3, failed → ok.
+- W2: S-92 ×12, asserts → pass.
+- W5: player fail → pass for S-128 ×12, S-59 ×1, S-138 ×3, S-88 ×5 and S-109 ×21.
+- W6: S-59 ×8, asserts → pass.
+- W7: S-62 ×3, focus → pass.
+- W8 (VH-217.5): S-110 ×3 and S-108 ×3, font32 focus fail → pass.
+- W9: S-81 ×3, focus pass → fail.
+- W11 (VH-216.1): S-143 ×12, S-141 ×20 and S-144 ×1 failed → ok; S-142 ×31 asserts, focus and formatTip → pass; S-03 ×8 asserts → pass.
+- W12: S-137 ×8 and S-151 ×4, focus → pass.
+- Type "-" or pass → fail on the format "?" is VH-217.2's.
+
+Against the pair runs (pair-rb1 to rb4, their re-walks and splits, pair-w5, pilot3c), nothing moved except two cases:
+- S-128 ×12 player → pass (W5, ruled ~07:1xZ).
+- S-93 en-GB w1280 ok → not reached (D5).
+
+**Conditions.** AC power throughout. Both loads were below 8 at each start. Samples at 8 or above appeared in a3g1, a3g2, a3g5, a3g9 and a3g12, and in a3g2-split and a3g4-split; they were handled as above. macOS's mediaanalysisd and suggestd were recorded, never stopped. The fixtures are VH-223's or fix-mac-pro's, except cut-short-30s.mkv and lecture-30s.mkv, which are fix.sha1.txt's (the P0 difference, proved first). Nothing was written to samples/.
+
+**For the verdict:** VH-217.2's type readings (61), the expected player rows (S-132 ×4, S-152 ×4), S-81 ×3 (W9) and the six not reached go to Codex's blind read and Claude's verdict (D2). Part 3 stands with no finding.

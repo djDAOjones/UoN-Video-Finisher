@@ -1,0 +1,24 @@
+// VH-203 #18, read-only: table-1page.mjs reads only records named S-<number>, so every other record (the identity scenarios S-ID1 to S-ID3, the journeys J1 to J4, the keys K-…) is left out of its page and outcomes files.
+// This writes those records' outcomes in table-1page.mjs's own row form, one file, for --sources.
+// node sid-outcomes.mjs <walk dir> <out.jsonl> <group> [<group> …]
+import { readdirSync, readFileSync, statSync, existsSync, writeFileSync } from 'node:fs'
+import { join } from 'node:path'
+const [W, OUT, ...groups] = process.argv.slice(2)
+if (existsSync(OUT)) throw new Error(`exists: ${OUT}`)
+const inst = (c) => Object.fromEntries(Object.entries(c.instruments ?? {}).filter(([k]) => k !== 'asserts').map(([k, v]) => [k, v?.outcome]))
+const out = []
+for (const g of groups) {
+  const runs = join(W, g, 'runs')
+  if (!existsSync(runs)) continue
+  for (const e of readdirSync(runs).sort()) {
+    const p = join(runs, e)
+    if (!statSync(p).isDirectory()) continue
+    for (const f of readdirSync(p).filter((x) => /^(?!S-\d)[A-Za-z][^_]*__.+\.json$/.test(x)).sort()) {
+      const j = JSON.parse(readFileSync(join(p, f), 'utf8')), [id, lang, view, mode] = f.replace('.json', '').split('__')
+      out.push(JSON.stringify({ group: g, run: e, id, lang, view, mode, status: j.status, reached: j.reached?.outcome, why: j.reached?.why ?? j.reached?.problems ?? null, outcomes: inst(j), rows: (j.instruments?.asserts?.items ?? []).map((i) => ({ what: i.what, outcome: i.outcome })) }))
+    }
+  }
+}
+writeFileSync(OUT, out.join('\n') + '\n')
+const reached = out.filter((l) => JSON.parse(l).reached === 'pass').length
+console.log(`${OUT}: ${out.length} records, ${reached} reached`)

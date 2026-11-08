@@ -1,0 +1,68 @@
+**The repairs resolve the previous close blockers.** VH-203 can close once this re-check’s brief and answer are placed and the final gate passes. I changed nothing and used no network.
+
+The candidate matches `vh203-frozen-r1`: tracked diff `9f632df7e1897a7d…`, identical status, empty staging, and all **2,096 untracked files** matching their frozen hashes.
+
+1. **Owner’s answer and ledger — answered.**
+
+   The owner’s verbatim answer is **“Yes, all six”**, recorded in `plan8-owner-words.md:456–464`, dated 2026-11-08 ~23:03Z, against `vh203-walk/owner-points.md`. That page matches its recorded `ae630dd1` hash and explicitly says this answer permits VH-203 to close with the recommended dispositions.
+
+   The item’s Now/Open question, decision heading and Decision/Rationale, trajectory and Disposition row consistently record that outcome. “None” now means no unanswered decision blocking **this item**, not that the follow-up work is finished.
+
+   VH-233–VH-236 preserve the recommendations’ scope, sit in Phase 8 before VH-195, and block it. They are the next unused IDs. The Items list reproduces VH-232’s Raised list exactly with those four inserted; Supersedes names that entry and Deferred names the four items. The Raised clause and fields are consistent with that precedent; the checker accepts them.
+
+   The five reworded wishes retain their substantive obligations. The fix-linked wishes remain open until their items land. VH-203.3 preserves Part C’s obligation; VH-203.4 has the correct form and sequence. The exception explicitly covers **both `25rem` and `19.99rem`** against the rule’s wording; `1000` remains a defect with the owner-approved disposition recorded in VH-203.4.
+
+2. **Previous close check — all eight points accounted for.**
+
+   | Previous point | Re-check |
+   |---|---|
+   | 1. Premature ledger close | **Answered.** The owner has now decided the close-dependent matters. |
+   | 2. Wish retirements and Part C | **Repaired.** S-113, W19 and V-18 evidence is bundled, supporting VH-201.2’s retirement. VH-203.3/VH-234 close the rule 5 gap. |
+   | 3. Acceptance criteria/integrated check | **Answered.** Integrated points 1, 4, 5, 6 and 11 have explicit owner dispositions. Scrolled captures and approval of the look remain work for VH-234, not work claimed complete here. VH-218’s audit row is present. |
+   | 4. Overstatements | **Repaired.** Execution status is now 3,212 ok and seven failed/not reached; “pass with points” is attributed to the blind after-run read, not the plan check. S-113’s supporting evidence is present. |
+   | 5. Packaging | **Repaired.** The conflicting hashes, missing probes/results and cited comparisons have been addressed; size is correctly restated. |
+   | 6. Walker scope/revision | **Unchanged from the reviewed candidate.** No further walker or product change appears in these repairs. |
+   | 7. Commit draft | **Repaired**, subject to filling the final trailers after the permitted additions and gate. |
+   | 8. Other blockers | **None found.** The standing missing-sample warning remains unchanged. |
+
+   The final close criterion is now met by the owner’s decisions. This remains an accounted-for after-run with known failures and unresolved measurements; it is not an all-pass certification.
+
+3. **Remade bundles — verified.**
+
+   I independently ran `check-bundles-20.mjs`: **1,856 records, zero differences** across all seven bundles. That includes record hashes, copied sources, uniqueness, listed page sources and saved-media hashes/byte counts.
+
+   I additionally checked the generated records against their sources: **654 detail records and 65 outcome files**, with no differences. The **12 saved videos** match their manifests.
+
+   The bundler diff preserves the measurement/comparison reading. It changes packaging, retains run identities, rejects conflicting writes and adds the stated sources/results. The seven page diffs contain only the reported bundler wording, added sources, and D1’s `s113p` row, notes bullet and “Differs” lines.
+
+   All **1,209 set-aside files** match the original freeze and set-aside manifest. All **1,870 placed files** match the placement manifest. The cited historical `d1-pair.tsv` hash is preserved in the explicitly named superseded copy; `trans-8.zsh` is present at `9788b0ae`. I found no missing cited-source hash in the checks performed.
+
+   Listing the videos by verified SHA-1 and byte count is sufficient here: the measurement results are bundled, and no new claim depends on independently replaying those videos. It does not make the repository a self-contained video archive.
+
+   **Part C’s missing `sources.txt` does not block.** It is a separate capture package, unchanged against the original freeze, with its own provenance and named probe/result hashes. The seven-bundle manifest convention does not require retrofitting it.
+
+4. **New or changed overstatement — no further blocker.**
+
+   The S-113 result now substantiates **14.3079:1**, 1,391 glyph pixels and the bounded contrast conclusion. The transitions remain explicitly not green; the 50 cannot-determine sets, W19’s untied size change, D1’s 93 introduced readings and seven not-reached records remain disclosed.
+
+   References to captures being “sent in VH-234” and VH-214.2 being “fixed by VH-236” describe the assigned future work in context. They must not be read as evidence those actions have already occurred.
+
+   The stated **61,919,077 bytes in 2,094 files** excludes the close-check pair. Including that pair, the frozen untracked payload is **61,939,818 bytes in 2,096 files**. Differential `detail/` remains **34,253,240 bytes**.
+
+5. **Evidence copies and gate compatibility — satisfactory.**
+
+   The close-check brief and answer are byte-equal to the permitted originals. The other review copies retain their provenance/title presentation or verbatim `.md.txt` form; I found no absolute Markdown links in those copies.
+
+   The supplied gate tail records **86 test files passed, 1,721 tests passed and one standing skip**, zero Markdown issues and zero broken links. I independently ran `node tools/check.mjs`: **zero structural/budget failures**, with the existing VH-122 missing-sample warning. I did not rerun the full gate.
+
+6. **Commit draft — suitable after finalisation.**
+
+   `vh203-commit-msg-4.txt` agrees with the repaired diff and record. Its owner quotations, wish accounting, follow-up scope and qualifications are supported.
+
+   After placing this re-check pair, fill `Verify:` from the gate on that final tree and `Checked:` from **this re-check’s verdict**, replacing the draft’s “close check’s verdict” placeholder. Do not reuse the earlier rejection as the new verdict.
+
+7. **Other blockers — none.**
+
+   This closes VH-203, not Phase 8; VH-195 remains blocked by VH-233–VH-236. Applied digest rules: Nielsen’s truthful status and recovery guidance; Carbon’s defined type roles and token discipline; WCAG’s criterion-specific contrast, targets and focus appearance, with unresolved evidence preserved.
+
+**Verdict: Commit after this re-check’s brief and answer are placed and the final gate passes — the previous close blockers are resolved.**

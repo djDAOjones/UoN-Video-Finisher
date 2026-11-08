@@ -1,0 +1,23 @@
+// VH-203 #17: d1-pair.tsv amended with the 93 "before by its own route" (#45's word, 18:5xZ), read-only over its inputs. The table as it
+// stood (83e7d02c) is kept whole as superseded/d1-pair-83e7d02c.tsv; the new d1-pair.tsv is it with three columns added: the before by its
+// own route (folder, then d1-pair.mjs's summary), its class, and the instrument difference named. Rows outside the 93 keep the columns empty.
+// Usage (in vh203-walk): node d1b-amend.mjs <d1b pair tsv>
+import { readFileSync, writeFileSync, existsSync, copyFileSync, mkdirSync } from 'node:fs'
+import { createHash } from 'node:crypto'
+const [pf] = process.argv.slice(2)
+const old = readFileSync('d1-pair.tsv'), sha = createHash('sha1').update(old).digest('hex')
+if (sha.slice(0, 8) !== '83e7d02c') throw new Error('d1-pair.tsv is not 83e7d02c: ' + sha)
+mkdirSync('superseded', { recursive: true })
+const keep = 'superseded/d1-pair-83e7d02c.tsv'; if (existsSync(keep)) throw new Error('EXISTS ' + keep); copyFileSync('d1-pair.tsv', keep)
+const by = new Map(readFileSync(pf, 'utf8').trim().split('\n').slice(1).map((l) => l.split('\t')).map((c) => [c[0], c]))
+const CLASS = (c) => c[5] === 'introduced' ? "introduced: VH-205's own by cc12788's diff (the \"?\"'s line-height 1.5 → --line-height-heading 1.25; wish VH-217.2)" : c[5] === 'pre-existing' ? 'pre-existing' : c[5]
+const INSTR = "before: a3039c3's walker, instrument revision 2e7b0c044ce11f2b (VH-199's), its own route (Page language first; no #about-help); after: run revision 7db38f355f3c46c2 (W1 to W20, the title's panel first, VH-216.1)"
+const lines = String(old).trim().split('\n'), out = [lines[0] + '\tbefore by its own route\tclass by its own route\tinstrument difference']
+let n = 0, cls = {}
+for (const l of lines.slice(1)) { const k = l.split('\t')[0], c = by.get(k)
+  if (!c) { out.push(l + '\t\t\t'); continue }
+  n++; const k2 = CLASS(c); cls[c[5]] = (cls[c[5]] ?? 0) + 1
+  out.push(l + `\t${c[3]}: ${c[4]}\t${k2}\t${INSTR}`) }
+if (n !== by.size) throw new Error(`rows ${n} of ${by.size}`)
+writeFileSync('d1-pair.tsv', out.join('\n') + '\n')
+console.log(JSON.stringify({ rows: lines.length - 1, amended: n, byClass: cls, kept: keep }))

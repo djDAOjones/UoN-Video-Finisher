@@ -1,0 +1,8 @@
+{"before":36,"after":36,"alike":25,"moved":11,"onlyBefore":0,"onlyAfter":0,"outcomes":{"before":{"pass":35,"fail":1},"after":{"pass":24,"fail":12}}}
+×10 T-46.3 | falseAsserts | "" → "ready" (en-GB forced-light; en-GB light; ms-MY dark; ms-MY forced-dark; ms-MY forced-light; ms-MY light; +4)
+×1 T-46.3 | falseAsserts | "" → "ready,savingAtSettle" (en-GB dark)
+×1 T-46.3 | landed | true → false (en-GB dark)
+×11 T-46.3 | outcome | "pass" → "fail" (en-GB dark; en-GB forced-light; en-GB light; ms-MY dark; ms-MY forced-dark; ms-MY forced-light; +5)
+×1 T-46.3 | ring | "pass" → {"outcome":"not-read","why":"focus did not land on the successor"} (en-GB dark)
+×10 T-46.3 | unmet | "" → "ready" (en-GB forced-light; en-GB light; ms-MY dark; ms-MY forced-dark; ms-MY forced-light; ms-MY light; +4)
+×1 T-46.3 | unmet | "" → "ready; savingAtSettle" (en-GB dark)

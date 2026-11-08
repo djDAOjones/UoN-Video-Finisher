@@ -1,0 +1,4815 @@
+{
+ "runId": "2026-11-08T13-14-32-882Z-9b4022",
+ "name": "vh203-b208-keys",
+ "created": "2026-11-08T13:14:33.183Z",
+ "provenance": {
+  "source": {
+   "commit": "756b425d333f822ed3458f1e7448962db7381308",
+   "dirty": false,
+   "diffSha256": "e3b0c44298fc1c14"
+  },
+  "instruments": {
+   "revision": "7db38f355f3c46c2",
+   "files": [
+    {
+     "file": "again-190.mjs",
+     "sha256": "c87210f9f463f16c"
+    },
+    {
+     "file": "card-215.mjs",
+     "sha256": "fd4820886c9217c8"
+    },
+    {
+     "file": "cdp.mjs",
+     "sha256": "236e93be01a46929"
+    },
+    {
+     "file": "design-walk.mjs",
+     "sha256": "50c2b05bda2e7e61"
+    },
+    {
+     "file": "digest.mjs",
+     "sha256": "b58bfc4e16da02cd"
+    },
+    {
+     "file": "faults.mjs",
+     "sha256": "7b10cc52772035fe"
+    },
+    {
+     "file": "fixtures-8.sh",
+     "sha256": "63fa545bc29e59f5"
+    },
+    {
+     "file": "fixtures.sh",
+     "sha256": "58a1c94dcaab0dfa"
+    },
+    {
+     "file": "footer-182.mjs",
+     "sha256": "ac479fc4c96f246e"
+    },
+    {
+     "file": "heavy-193.mjs",
+     "sha256": "aeced5cedc2ce8bf"
+    },
+    {
+     "file": "inventory.mjs",
+     "sha256": "c2c16ea752c5e01e"
+    },
+    {
+     "file": "labels-189.mjs",
+     "sha256": "b4e39a730b577c3f"
+    },
+    {
+     "file": "lang-191.mjs",
+     "sha256": "ea6bec378b7c6779"
+    },
+    {
+     "file": "matrix.mjs",
+     "sha256": "2b9c7050c01fc6d3"
+    },
+    {
+     "file": "name-181.mjs",
+     "sha256": "7c2a15e25096c1d5"
+    },
+    {
+     "file": "note-180.mjs",
+     "sha256": "961d9427eeac771f"
+    },
+    {
+     "file": "page-183.mjs",
+     "sha256": "e1936c38cc88e158"
+    },
+    {
+     "file": "parts.mjs",
+     "sha256": "41ac1539a3d83b55"
+    },
+    {
+     "file": "phase8.mjs",
+     "sha256": "ca8f9fdf9d14bc62"
+    },
+    {
+     "file": "player-192.mjs",
+     "sha256": "9e586e52bf2ff91d"
+    },
+    {
+     "file": "preset-188.mjs",
+     "sha256": "9008b6c98979053b"
+    },
+    {
+     "file": "prove-172.mjs",
+     "sha256": "03e07056cf331744"
+    },
+    {
+     "file": "prove-8.mjs",
+     "sha256": "8cb19103bec54162"
+    },
+    {
+     "file": "prove-fixtures-8.mjs",
+     "sha256": "74f7ac7bb90d612e"
+    },
+    {
+     "file": "prove-m04.mjs",
+     "sha256": "d5d8cef75177d065"
+    },
+    {
+     "file": "prove-resume.mjs",
+     "sha256": "2e282c03e4ec4436"
+    },
+    {
+     "file": "prove.mjs",
+     "sha256": "190906965e7f3df0"
+    },
+    {
+     "file": "qualify.mjs",
+     "sha256": "573bb29c96ac22e8"
+    },
+    {
+     "file": "report-172.mjs",
+     "sha256": "a60f519698952657"
+    },
+    {
+     "file": "rings-179.mjs",
+     "sha256": "19578e809609f224"
+    },
+    {
+     "file": "runner.mjs",
+     "sha256": "e0b95b012f1e78fc"
+    },
+    {
+     "file": "scenarios.mjs",
+     "sha256": "0a945099a05d5430"
+    },
+    {
+     "file": "sliver-185.mjs",
+     "sha256": "e1174dde2f8cc24c"
+    },
+    {
+     "file": "tip-184.mjs",
+     "sha256": "589f75dc5976fff3"
+    },
+    {
+     "file": "tip-196.mjs",
+     "sha256": "050fc920ff41b6ec"
+    },
+    {
+     "file": "tokens.mjs",
+     "sha256": "59bff4a79c7984ff"
+    },
+    {
+     "file": "top-187.mjs",
+     "sha256": "1d8f24021effb424"
+    },
+    {
+     "file": "transitions.mjs",
+     "sha256": "fbc3a958e9f17bd0"
+    },
+    {
+     "file": "walk.mjs",
+     "sha256": "60ba3ac97bcdc598"
+    },
+    {
+     "file": "wcag-checks.mjs",
+     "sha256": "2496aa09cfcbadda"
+    },
+    {
+     "file": "words-186.mjs",
+     "sha256": "fcd79b36b6d9f22d"
+    }
+   ]
+  },
+  "appRoot": "/Users/uazjob/UoN-Video-Helper-side/vh203",
+  "fixtures": [
+   {
+    "file": "clicks-20s.mp4",
+    "path": "/Users/uazjob/UoN-Video-Helper-side/vh203-walk/fix/clicks-20s.mp4",
+    "bytes": 6615807,
+    "sha256": "622d52cb801564d1"
+   },
+   {
+    "file": "lecture-30s.mp4",
+    "path": "/Users/uazjob/UoN-Video-Helper-side/vh203-walk/fix/lecture-30s.mp4",
+    "bytes": 10097658,
+    "sha256": "325dc896a75f4ca3"
+   },
+   {
+    "file": "lecture-60s.mp4",
+    "path": "/Users/uazjob/UoN-Video-Helper-side/vh203-walk/fix/lecture-60s.mp4",
+    "bytes": 20234026,
+    "sha256": "469caedc4b760ecd"
+   }
+  ]
+ },
+ "declared": [
+  {
+   "id": "S-135",
+   "lang": "zh-Hans",
+   "view": "w320",
+   "mode": "dark",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the bite read from the worker's \"chain planned\" line is over 3 LU"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-135",
+   "lang": "zh-Hans",
+   "view": "w320",
+   "mode": "forced-light",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the bite read from the worker's \"chain planned\" line is over 3 LU"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-135",
+   "lang": "zh-Hans",
+   "view": "w320",
+   "mode": "forced-dark",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the bite read from the worker's \"chain planned\" line is over 3 LU"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-135",
+   "lang": "ms-MY",
+   "view": "w320",
+   "mode": "dark",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the bite read from the worker's \"chain planned\" line is over 3 LU"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-135",
+   "lang": "ms-MY",
+   "view": "w320",
+   "mode": "forced-light",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the bite read from the worker's \"chain planned\" line is over 3 LU"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-135",
+   "lang": "ms-MY",
+   "view": "w320",
+   "mode": "forced-dark",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the bite read from the worker's \"chain planned\" line is over 3 LU"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-136",
+   "lang": "en-GB",
+   "view": "w1280",
+   "mode": "dark",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "heavy limiting first, the metadata second, and no notification nested in the card"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-136",
+   "lang": "en-GB",
+   "view": "w1280",
+   "mode": "forced-light",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "heavy limiting first, the metadata second, and no notification nested in the card"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-136",
+   "lang": "en-GB",
+   "view": "w1280",
+   "mode": "forced-dark",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "heavy limiting first, the metadata second, and no notification nested in the card"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-136",
+   "lang": "en-GB",
+   "view": "w320",
+   "mode": "dark",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "heavy limiting first, the metadata second, and no notification nested in the card"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-136",
+   "lang": "en-GB",
+   "view": "w320",
+   "mode": "forced-light",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "heavy limiting first, the metadata second, and no notification nested in the card"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-136",
+   "lang": "en-GB",
+   "view": "w320",
+   "mode": "forced-dark",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "heavy limiting first, the metadata second, and no notification nested in the card"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-136",
+   "lang": "zh-Hans",
+   "view": "w1280",
+   "mode": "dark",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "heavy limiting first, the metadata second, and no notification nested in the card"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-136",
+   "lang": "zh-Hans",
+   "view": "w1280",
+   "mode": "forced-light",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "heavy limiting first, the metadata second, and no notification nested in the card"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-136",
+   "lang": "zh-Hans",
+   "view": "w1280",
+   "mode": "forced-dark",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "heavy limiting first, the metadata second, and no notification nested in the card"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-136",
+   "lang": "zh-Hans",
+   "view": "w320",
+   "mode": "dark",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "heavy limiting first, the metadata second, and no notification nested in the card"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-136",
+   "lang": "zh-Hans",
+   "view": "w320",
+   "mode": "forced-light",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "heavy limiting first, the metadata second, and no notification nested in the card"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-136",
+   "lang": "zh-Hans",
+   "view": "w320",
+   "mode": "forced-dark",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "heavy limiting first, the metadata second, and no notification nested in the card"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-136",
+   "lang": "ms-MY",
+   "view": "w1280",
+   "mode": "dark",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "heavy limiting first, the metadata second, and no notification nested in the card"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-136",
+   "lang": "ms-MY",
+   "view": "w1280",
+   "mode": "forced-light",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "heavy limiting first, the metadata second, and no notification nested in the card"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-136",
+   "lang": "ms-MY",
+   "view": "w1280",
+   "mode": "forced-dark",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "heavy limiting first, the metadata second, and no notification nested in the card"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-136",
+   "lang": "ms-MY",
+   "view": "w320",
+   "mode": "dark",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "heavy limiting first, the metadata second, and no notification nested in the card"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-136",
+   "lang": "ms-MY",
+   "view": "w320",
+   "mode": "forced-light",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "heavy limiting first, the metadata second, and no notification nested in the card"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-136",
+   "lang": "ms-MY",
+   "view": "w320",
+   "mode": "forced-dark",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "heavy limiting first, the metadata second, and no notification nested in the card"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-137",
+   "lang": "zh-Hans",
+   "view": "w320",
+   "mode": "dark",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "word for word beside \"Saved.\"",
+      "then in the new language"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-137",
+   "lang": "zh-Hans",
+   "view": "w320",
+   "mode": "forced-light",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "word for word beside \"Saved.\"",
+      "then in the new language"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-137",
+   "lang": "zh-Hans",
+   "view": "w320",
+   "mode": "forced-dark",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "word for word beside \"Saved.\"",
+      "then in the new language"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-137",
+   "lang": "ms-MY",
+   "view": "w320",
+   "mode": "dark",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "word for word beside \"Saved.\"",
+      "then in the new language"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-137",
+   "lang": "ms-MY",
+   "view": "w320",
+   "mode": "forced-light",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "word for word beside \"Saved.\"",
+      "then in the new language"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-137",
+   "lang": "ms-MY",
+   "view": "w320",
+   "mode": "forced-dark",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "word for word beside \"Saved.\"",
+      "then in the new language"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-138",
+   "lang": "en-GB",
+   "view": "w1280",
+   "mode": "dark",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#file-input"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "both, heavy first, through the download, Keep it and \"Previous video\""
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-138",
+   "lang": "en-GB",
+   "view": "w1280",
+   "mode": "forced-light",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#file-input"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "both, heavy first, through the download, Keep it and \"Previous video\""
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-138",
+   "lang": "en-GB",
+   "view": "w1280",
+   "mode": "forced-dark",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#file-input"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "both, heavy first, through the download, Keep it and \"Previous video\""
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-138",
+   "lang": "en-GB",
+   "view": "w320",
+   "mode": "dark",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#file-input"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "both, heavy first, through the download, Keep it and \"Previous video\""
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-138",
+   "lang": "en-GB",
+   "view": "w320",
+   "mode": "forced-light",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#file-input"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "both, heavy first, through the download, Keep it and \"Previous video\""
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-138",
+   "lang": "en-GB",
+   "view": "w320",
+   "mode": "forced-dark",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#file-input"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "both, heavy first, through the download, Keep it and \"Previous video\""
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-138",
+   "lang": "zh-Hans",
+   "view": "w1280",
+   "mode": "dark",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#file-input"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "both, heavy first, through the download, Keep it and \"Previous video\""
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-138",
+   "lang": "zh-Hans",
+   "view": "w1280",
+   "mode": "forced-light",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#file-input"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "both, heavy first, through the download, Keep it and \"Previous video\""
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-138",
+   "lang": "zh-Hans",
+   "view": "w1280",
+   "mode": "forced-dark",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#file-input"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "both, heavy first, through the download, Keep it and \"Previous video\""
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-138",
+   "lang": "zh-Hans",
+   "view": "w320",
+   "mode": "dark",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#file-input"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "both, heavy first, through the download, Keep it and \"Previous video\""
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-138",
+   "lang": "zh-Hans",
+   "view": "w320",
+   "mode": "forced-light",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#file-input"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "both, heavy first, through the download, Keep it and \"Previous video\""
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-138",
+   "lang": "zh-Hans",
+   "view": "w320",
+   "mode": "forced-dark",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#file-input"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "both, heavy first, through the download, Keep it and \"Previous video\""
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-138",
+   "lang": "ms-MY",
+   "view": "w1280",
+   "mode": "dark",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#file-input"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "both, heavy first, through the download, Keep it and \"Previous video\""
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-138",
+   "lang": "ms-MY",
+   "view": "w1280",
+   "mode": "forced-light",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#file-input"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "both, heavy first, through the download, Keep it and \"Previous video\""
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-138",
+   "lang": "ms-MY",
+   "view": "w1280",
+   "mode": "forced-dark",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#file-input"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "both, heavy first, through the download, Keep it and \"Previous video\""
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-138",
+   "lang": "ms-MY",
+   "view": "w320",
+   "mode": "dark",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#file-input"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "both, heavy first, through the download, Keep it and \"Previous video\""
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-138",
+   "lang": "ms-MY",
+   "view": "w320",
+   "mode": "forced-light",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#file-input"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "both, heavy first, through the download, Keep it and \"Previous video\""
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-138",
+   "lang": "ms-MY",
+   "view": "w320",
+   "mode": "forced-dark",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#file-input"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "both, heavy first, through the download, Keep it and \"Previous video\""
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-151",
+   "lang": "en-GB",
+   "view": "w1280",
+   "mode": "dark",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "unticked while the job ran (it shows only then)",
+      "#status at the completion's own write (the mutation that drew the card): \"Your video is ready.\" then both titles, heavy first; earlier writes not counted"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-151",
+   "lang": "en-GB",
+   "view": "w1280",
+   "mode": "forced-light",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "unticked while the job ran (it shows only then)",
+      "#status at the completion's own write (the mutation that drew the card): \"Your video is ready.\" then both titles, heavy first; earlier writes not counted"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-151",
+   "lang": "en-GB",
+   "view": "w1280",
+   "mode": "forced-dark",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "unticked while the job ran (it shows only then)",
+      "#status at the completion's own write (the mutation that drew the card): \"Your video is ready.\" then both titles, heavy first; earlier writes not counted"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-151",
+   "lang": "en-GB",
+   "view": "w320",
+   "mode": "dark",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "unticked while the job ran (it shows only then)",
+      "#status at the completion's own write (the mutation that drew the card): \"Your video is ready.\" then both titles, heavy first; earlier writes not counted"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-151",
+   "lang": "en-GB",
+   "view": "w320",
+   "mode": "forced-light",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "unticked while the job ran (it shows only then)",
+      "#status at the completion's own write (the mutation that drew the card): \"Your video is ready.\" then both titles, heavy first; earlier writes not counted"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-151",
+   "lang": "en-GB",
+   "view": "w320",
+   "mode": "forced-dark",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "unticked while the job ran (it shows only then)",
+      "#status at the completion's own write (the mutation that drew the card): \"Your video is ready.\" then both titles, heavy first; earlier writes not counted"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-151",
+   "lang": "zh-Hans",
+   "view": "w1280",
+   "mode": "dark",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "unticked while the job ran (it shows only then)",
+      "#status at the completion's own write (the mutation that drew the card): \"Your video is ready.\" then both titles, heavy first; earlier writes not counted"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-151",
+   "lang": "zh-Hans",
+   "view": "w1280",
+   "mode": "forced-light",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "unticked while the job ran (it shows only then)",
+      "#status at the completion's own write (the mutation that drew the card): \"Your video is ready.\" then both titles, heavy first; earlier writes not counted"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-151",
+   "lang": "zh-Hans",
+   "view": "w1280",
+   "mode": "forced-dark",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "unticked while the job ran (it shows only then)",
+      "#status at the completion's own write (the mutation that drew the card): \"Your video is ready.\" then both titles, heavy first; earlier writes not counted"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-151",
+   "lang": "zh-Hans",
+   "view": "w320",
+   "mode": "dark",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "unticked while the job ran (it shows only then)",
+      "#status at the completion's own write (the mutation that drew the card): \"Your video is ready.\" then both titles, heavy first; earlier writes not counted"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-151",
+   "lang": "zh-Hans",
+   "view": "w320",
+   "mode": "forced-light",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "unticked while the job ran (it shows only then)",
+      "#status at the completion's own write (the mutation that drew the card): \"Your video is ready.\" then both titles, heavy first; earlier writes not counted"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-151",
+   "lang": "zh-Hans",
+   "view": "w320",
+   "mode": "forced-dark",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "unticked while the job ran (it shows only then)",
+      "#status at the completion's own write (the mutation that drew the card): \"Your video is ready.\" then both titles, heavy first; earlier writes not counted"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-151",
+   "lang": "ms-MY",
+   "view": "w1280",
+   "mode": "dark",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "unticked while the job ran (it shows only then)",
+      "#status at the completion's own write (the mutation that drew the card): \"Your video is ready.\" then both titles, heavy first; earlier writes not counted"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-151",
+   "lang": "ms-MY",
+   "view": "w1280",
+   "mode": "forced-light",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "unticked while the job ran (it shows only then)",
+      "#status at the completion's own write (the mutation that drew the card): \"Your video is ready.\" then both titles, heavy first; earlier writes not counted"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-151",
+   "lang": "ms-MY",
+   "view": "w1280",
+   "mode": "forced-dark",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "unticked while the job ran (it shows only then)",
+      "#status at the completion's own write (the mutation that drew the card): \"Your video is ready.\" then both titles, heavy first; earlier writes not counted"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-151",
+   "lang": "ms-MY",
+   "view": "w320",
+   "mode": "dark",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "unticked while the job ran (it shows only then)",
+      "#status at the completion's own write (the mutation that drew the card): \"Your video is ready.\" then both titles, heavy first; earlier writes not counted"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-151",
+   "lang": "ms-MY",
+   "view": "w320",
+   "mode": "forced-light",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "unticked while the job ran (it shows only then)",
+      "#status at the completion's own write (the mutation that drew the card): \"Your video is ready.\" then both titles, heavy first; earlier writes not counted"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-151",
+   "lang": "ms-MY",
+   "view": "w320",
+   "mode": "forced-dark",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "unticked while the job ran (it shows only then)",
+      "#status at the completion's own write (the mutation that drew the card): \"Your video is ready.\" then both titles, heavy first; earlier writes not counted"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-131",
+   "lang": "en-GB",
+   "view": "w1280",
+   "mode": "dark",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "it plays while the save streams, with focus in it",
+      "saved: paused, its source dropped, its URL revoked, out of the card; focus on the card",
+      "Save reads \"Saved\", disabled"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-131",
+   "lang": "en-GB",
+   "view": "w1280",
+   "mode": "forced-light",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "it plays while the save streams, with focus in it",
+      "saved: paused, its source dropped, its URL revoked, out of the card; focus on the card",
+      "Save reads \"Saved\", disabled"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-131",
+   "lang": "en-GB",
+   "view": "w1280",
+   "mode": "forced-dark",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "it plays while the save streams, with focus in it",
+      "saved: paused, its source dropped, its URL revoked, out of the card; focus on the card",
+      "Save reads \"Saved\", disabled"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-131",
+   "lang": "en-GB",
+   "view": "w320",
+   "mode": "dark",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "it plays while the save streams, with focus in it",
+      "saved: paused, its source dropped, its URL revoked, out of the card; focus on the card",
+      "Save reads \"Saved\", disabled"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-131",
+   "lang": "en-GB",
+   "view": "w320",
+   "mode": "forced-light",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "it plays while the save streams, with focus in it",
+      "saved: paused, its source dropped, its URL revoked, out of the card; focus on the card",
+      "Save reads \"Saved\", disabled"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-131",
+   "lang": "en-GB",
+   "view": "w320",
+   "mode": "forced-dark",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "it plays while the save streams, with focus in it",
+      "saved: paused, its source dropped, its URL revoked, out of the card; focus on the card",
+      "Save reads \"Saved\", disabled"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-131",
+   "lang": "zh-Hans",
+   "view": "w1280",
+   "mode": "dark",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "it plays while the save streams, with focus in it",
+      "saved: paused, its source dropped, its URL revoked, out of the card; focus on the card",
+      "Save reads \"Saved\", disabled"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-131",
+   "lang": "zh-Hans",
+   "view": "w1280",
+   "mode": "forced-light",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "it plays while the save streams, with focus in it",
+      "saved: paused, its source dropped, its URL revoked, out of the card; focus on the card",
+      "Save reads \"Saved\", disabled"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-131",
+   "lang": "zh-Hans",
+   "view": "w1280",
+   "mode": "forced-dark",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "it plays while the save streams, with focus in it",
+      "saved: paused, its source dropped, its URL revoked, out of the card; focus on the card",
+      "Save reads \"Saved\", disabled"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-131",
+   "lang": "zh-Hans",
+   "view": "w320",
+   "mode": "dark",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "it plays while the save streams, with focus in it",
+      "saved: paused, its source dropped, its URL revoked, out of the card; focus on the card",
+      "Save reads \"Saved\", disabled"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-131",
+   "lang": "zh-Hans",
+   "view": "w320",
+   "mode": "forced-light",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "it plays while the save streams, with focus in it",
+      "saved: paused, its source dropped, its URL revoked, out of the card; focus on the card",
+      "Save reads \"Saved\", disabled"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-131",
+   "lang": "zh-Hans",
+   "view": "w320",
+   "mode": "forced-dark",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "it plays while the save streams, with focus in it",
+      "saved: paused, its source dropped, its URL revoked, out of the card; focus on the card",
+      "Save reads \"Saved\", disabled"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-131",
+   "lang": "ms-MY",
+   "view": "w1280",
+   "mode": "dark",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "it plays while the save streams, with focus in it",
+      "saved: paused, its source dropped, its URL revoked, out of the card; focus on the card",
+      "Save reads \"Saved\", disabled"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-131",
+   "lang": "ms-MY",
+   "view": "w1280",
+   "mode": "forced-light",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "it plays while the save streams, with focus in it",
+      "saved: paused, its source dropped, its URL revoked, out of the card; focus on the card",
+      "Save reads \"Saved\", disabled"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-131",
+   "lang": "ms-MY",
+   "view": "w1280",
+   "mode": "forced-dark",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "it plays while the save streams, with focus in it",
+      "saved: paused, its source dropped, its URL revoked, out of the card; focus on the card",
+      "Save reads \"Saved\", disabled"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-131",
+   "lang": "ms-MY",
+   "view": "w320",
+   "mode": "dark",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "it plays while the save streams, with focus in it",
+      "saved: paused, its source dropped, its URL revoked, out of the card; focus on the card",
+      "Save reads \"Saved\", disabled"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-131",
+   "lang": "ms-MY",
+   "view": "w320",
+   "mode": "forced-light",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "it plays while the save streams, with focus in it",
+      "saved: paused, its source dropped, its URL revoked, out of the card; focus on the card",
+      "Save reads \"Saved\", disabled"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-131",
+   "lang": "ms-MY",
+   "view": "w320",
+   "mode": "forced-dark",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "it plays while the save streams, with focus in it",
+      "saved: paused, its source dropped, its URL revoked, out of the card; focus on the card",
+      "Save reads \"Saved\", disabled"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-152",
+   "lang": "en-GB",
+   "view": "w1280",
+   "mode": "dark",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts",
+    "subresults"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the player's MediaError recorded; the warning first and word for word"
+     ]
+    },
+    "subresults": {
+     "subjects": [
+      "the failed player stood when Save was pressed: its MediaError recorded, Save enabled",
+      "Save completes as S-62: \"Saved.\", Save disabled, not saving, no lifetime line",
+      "the saved file written: one save more, its bytes over zero",
+      "the heavy-limiting warning stands word for word beside \"Saved.\"",
+      "its heading still in the result's warnings"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-152",
+   "lang": "en-GB",
+   "view": "w1280",
+   "mode": "forced-light",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts",
+    "subresults"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the player's MediaError recorded; the warning first and word for word"
+     ]
+    },
+    "subresults": {
+     "subjects": [
+      "the failed player stood when Save was pressed: its MediaError recorded, Save enabled",
+      "Save completes as S-62: \"Saved.\", Save disabled, not saving, no lifetime line",
+      "the saved file written: one save more, its bytes over zero",
+      "the heavy-limiting warning stands word for word beside \"Saved.\"",
+      "its heading still in the result's warnings"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-152",
+   "lang": "en-GB",
+   "view": "w1280",
+   "mode": "forced-dark",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts",
+    "subresults"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the player's MediaError recorded; the warning first and word for word"
+     ]
+    },
+    "subresults": {
+     "subjects": [
+      "the failed player stood when Save was pressed: its MediaError recorded, Save enabled",
+      "Save completes as S-62: \"Saved.\", Save disabled, not saving, no lifetime line",
+      "the saved file written: one save more, its bytes over zero",
+      "the heavy-limiting warning stands word for word beside \"Saved.\"",
+      "its heading still in the result's warnings"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-152",
+   "lang": "en-GB",
+   "view": "w320",
+   "mode": "dark",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts",
+    "subresults"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the player's MediaError recorded; the warning first and word for word"
+     ]
+    },
+    "subresults": {
+     "subjects": [
+      "the failed player stood when Save was pressed: its MediaError recorded, Save enabled",
+      "Save completes as S-62: \"Saved.\", Save disabled, not saving, no lifetime line",
+      "the saved file written: one save more, its bytes over zero",
+      "the heavy-limiting warning stands word for word beside \"Saved.\"",
+      "its heading still in the result's warnings"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-152",
+   "lang": "en-GB",
+   "view": "w320",
+   "mode": "forced-light",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts",
+    "subresults"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the player's MediaError recorded; the warning first and word for word"
+     ]
+    },
+    "subresults": {
+     "subjects": [
+      "the failed player stood when Save was pressed: its MediaError recorded, Save enabled",
+      "Save completes as S-62: \"Saved.\", Save disabled, not saving, no lifetime line",
+      "the saved file written: one save more, its bytes over zero",
+      "the heavy-limiting warning stands word for word beside \"Saved.\"",
+      "its heading still in the result's warnings"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-152",
+   "lang": "en-GB",
+   "view": "w320",
+   "mode": "forced-dark",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts",
+    "subresults"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the player's MediaError recorded; the warning first and word for word"
+     ]
+    },
+    "subresults": {
+     "subjects": [
+      "the failed player stood when Save was pressed: its MediaError recorded, Save enabled",
+      "Save completes as S-62: \"Saved.\", Save disabled, not saving, no lifetime line",
+      "the saved file written: one save more, its bytes over zero",
+      "the heavy-limiting warning stands word for word beside \"Saved.\"",
+      "its heading still in the result's warnings"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-152",
+   "lang": "zh-Hans",
+   "view": "w1280",
+   "mode": "dark",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts",
+    "subresults"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the player's MediaError recorded; the warning first and word for word"
+     ]
+    },
+    "subresults": {
+     "subjects": [
+      "the failed player stood when Save was pressed: its MediaError recorded, Save enabled",
+      "Save completes as S-62: \"Saved.\", Save disabled, not saving, no lifetime line",
+      "the saved file written: one save more, its bytes over zero",
+      "the heavy-limiting warning stands word for word beside \"Saved.\"",
+      "its heading still in the result's warnings"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-152",
+   "lang": "zh-Hans",
+   "view": "w1280",
+   "mode": "forced-light",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts",
+    "subresults"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the player's MediaError recorded; the warning first and word for word"
+     ]
+    },
+    "subresults": {
+     "subjects": [
+      "the failed player stood when Save was pressed: its MediaError recorded, Save enabled",
+      "Save completes as S-62: \"Saved.\", Save disabled, not saving, no lifetime line",
+      "the saved file written: one save more, its bytes over zero",
+      "the heavy-limiting warning stands word for word beside \"Saved.\"",
+      "its heading still in the result's warnings"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-152",
+   "lang": "zh-Hans",
+   "view": "w1280",
+   "mode": "forced-dark",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts",
+    "subresults"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the player's MediaError recorded; the warning first and word for word"
+     ]
+    },
+    "subresults": {
+     "subjects": [
+      "the failed player stood when Save was pressed: its MediaError recorded, Save enabled",
+      "Save completes as S-62: \"Saved.\", Save disabled, not saving, no lifetime line",
+      "the saved file written: one save more, its bytes over zero",
+      "the heavy-limiting warning stands word for word beside \"Saved.\"",
+      "its heading still in the result's warnings"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-152",
+   "lang": "zh-Hans",
+   "view": "w320",
+   "mode": "dark",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts",
+    "subresults"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the player's MediaError recorded; the warning first and word for word"
+     ]
+    },
+    "subresults": {
+     "subjects": [
+      "the failed player stood when Save was pressed: its MediaError recorded, Save enabled",
+      "Save completes as S-62: \"Saved.\", Save disabled, not saving, no lifetime line",
+      "the saved file written: one save more, its bytes over zero",
+      "the heavy-limiting warning stands word for word beside \"Saved.\"",
+      "its heading still in the result's warnings"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-152",
+   "lang": "zh-Hans",
+   "view": "w320",
+   "mode": "forced-light",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts",
+    "subresults"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the player's MediaError recorded; the warning first and word for word"
+     ]
+    },
+    "subresults": {
+     "subjects": [
+      "the failed player stood when Save was pressed: its MediaError recorded, Save enabled",
+      "Save completes as S-62: \"Saved.\", Save disabled, not saving, no lifetime line",
+      "the saved file written: one save more, its bytes over zero",
+      "the heavy-limiting warning stands word for word beside \"Saved.\"",
+      "its heading still in the result's warnings"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-152",
+   "lang": "zh-Hans",
+   "view": "w320",
+   "mode": "forced-dark",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts",
+    "subresults"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the player's MediaError recorded; the warning first and word for word"
+     ]
+    },
+    "subresults": {
+     "subjects": [
+      "the failed player stood when Save was pressed: its MediaError recorded, Save enabled",
+      "Save completes as S-62: \"Saved.\", Save disabled, not saving, no lifetime line",
+      "the saved file written: one save more, its bytes over zero",
+      "the heavy-limiting warning stands word for word beside \"Saved.\"",
+      "its heading still in the result's warnings"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-152",
+   "lang": "ms-MY",
+   "view": "w1280",
+   "mode": "dark",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts",
+    "subresults"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the player's MediaError recorded; the warning first and word for word"
+     ]
+    },
+    "subresults": {
+     "subjects": [
+      "the failed player stood when Save was pressed: its MediaError recorded, Save enabled",
+      "Save completes as S-62: \"Saved.\", Save disabled, not saving, no lifetime line",
+      "the saved file written: one save more, its bytes over zero",
+      "the heavy-limiting warning stands word for word beside \"Saved.\"",
+      "its heading still in the result's warnings"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-152",
+   "lang": "ms-MY",
+   "view": "w1280",
+   "mode": "forced-light",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts",
+    "subresults"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the player's MediaError recorded; the warning first and word for word"
+     ]
+    },
+    "subresults": {
+     "subjects": [
+      "the failed player stood when Save was pressed: its MediaError recorded, Save enabled",
+      "Save completes as S-62: \"Saved.\", Save disabled, not saving, no lifetime line",
+      "the saved file written: one save more, its bytes over zero",
+      "the heavy-limiting warning stands word for word beside \"Saved.\"",
+      "its heading still in the result's warnings"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-152",
+   "lang": "ms-MY",
+   "view": "w1280",
+   "mode": "forced-dark",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts",
+    "subresults"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the player's MediaError recorded; the warning first and word for word"
+     ]
+    },
+    "subresults": {
+     "subjects": [
+      "the failed player stood when Save was pressed: its MediaError recorded, Save enabled",
+      "Save completes as S-62: \"Saved.\", Save disabled, not saving, no lifetime line",
+      "the saved file written: one save more, its bytes over zero",
+      "the heavy-limiting warning stands word for word beside \"Saved.\"",
+      "its heading still in the result's warnings"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-152",
+   "lang": "ms-MY",
+   "view": "w320",
+   "mode": "dark",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts",
+    "subresults"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the player's MediaError recorded; the warning first and word for word"
+     ]
+    },
+    "subresults": {
+     "subjects": [
+      "the failed player stood when Save was pressed: its MediaError recorded, Save enabled",
+      "Save completes as S-62: \"Saved.\", Save disabled, not saving, no lifetime line",
+      "the saved file written: one save more, its bytes over zero",
+      "the heavy-limiting warning stands word for word beside \"Saved.\"",
+      "its heading still in the result's warnings"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-152",
+   "lang": "ms-MY",
+   "view": "w320",
+   "mode": "forced-light",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts",
+    "subresults"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the player's MediaError recorded; the warning first and word for word"
+     ]
+    },
+    "subresults": {
+     "subjects": [
+      "the failed player stood when Save was pressed: its MediaError recorded, Save enabled",
+      "Save completes as S-62: \"Saved.\", Save disabled, not saving, no lifetime line",
+      "the saved file written: one save more, its bytes over zero",
+      "the heavy-limiting warning stands word for word beside \"Saved.\"",
+      "its heading still in the result's warnings"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-152",
+   "lang": "ms-MY",
+   "view": "w320",
+   "mode": "forced-dark",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts",
+    "subresults"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the player's MediaError recorded; the warning first and word for word"
+     ]
+    },
+    "subresults": {
+     "subjects": [
+      "the failed player stood when Save was pressed: its MediaError recorded, Save enabled",
+      "Save completes as S-62: \"Saved.\", Save disabled, not saving, no lifetime line",
+      "the saved file written: one save more, its bytes over zero",
+      "the heavy-limiting warning stands word for word beside \"Saved.\"",
+      "its heading still in the result's warnings"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-53",
+   "lang": "zh-Hans",
+   "view": "w320",
+   "mode": "dark",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#process-actions > button:nth-child(2)"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "Create reads \"Create the video again\", secondary (VH-190)",
+      "the record's output in its short form, without the purpose (VH-188)",
+      "the card holds its player (VH-192)",
+      "no \"Worth knowing about the finished video\" on a level lecture"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-53",
+   "lang": "zh-Hans",
+   "view": "w320",
+   "mode": "forced-light",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#process-actions > button:nth-child(2)"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "Create reads \"Create the video again\", secondary (VH-190)",
+      "the record's output in its short form, without the purpose (VH-188)",
+      "the card holds its player (VH-192)",
+      "no \"Worth knowing about the finished video\" on a level lecture"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-53",
+   "lang": "zh-Hans",
+   "view": "w320",
+   "mode": "forced-dark",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#process-actions > button:nth-child(2)"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "Create reads \"Create the video again\", secondary (VH-190)",
+      "the record's output in its short form, without the purpose (VH-188)",
+      "the card holds its player (VH-192)",
+      "no \"Worth knowing about the finished video\" on a level lecture"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-53",
+   "lang": "ms-MY",
+   "view": "w320",
+   "mode": "dark",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#process-actions > button:nth-child(2)"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "Create reads \"Create the video again\", secondary (VH-190)",
+      "the record's output in its short form, without the purpose (VH-188)",
+      "the card holds its player (VH-192)",
+      "no \"Worth knowing about the finished video\" on a level lecture"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-53",
+   "lang": "ms-MY",
+   "view": "w320",
+   "mode": "forced-light",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#process-actions > button:nth-child(2)"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "Create reads \"Create the video again\", secondary (VH-190)",
+      "the record's output in its short form, without the purpose (VH-188)",
+      "the card holds its player (VH-192)",
+      "no \"Worth knowing about the finished video\" on a level lecture"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-53",
+   "lang": "ms-MY",
+   "view": "w320",
+   "mode": "forced-dark",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#process-actions > button:nth-child(2)"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "Create reads \"Create the video again\", secondary (VH-190)",
+      "the record's output in its short form, without the purpose (VH-188)",
+      "the card holds its player (VH-192)",
+      "no \"Worth knowing about the finished video\" on a level lecture"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-136",
+   "lang": "en-GB",
+   "view": "w320",
+   "mode": "spacing",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "heavy limiting first, the metadata second, and no notification nested in the card"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-136",
+   "lang": "zh-Hans",
+   "view": "w320",
+   "mode": "spacing",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "heavy limiting first, the metadata second, and no notification nested in the card"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-136",
+   "lang": "ms-MY",
+   "view": "w320",
+   "mode": "spacing",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "heavy limiting first, the metadata second, and no notification nested in the card"
+     ]
+    }
+   }
+  }
+ ]
+}

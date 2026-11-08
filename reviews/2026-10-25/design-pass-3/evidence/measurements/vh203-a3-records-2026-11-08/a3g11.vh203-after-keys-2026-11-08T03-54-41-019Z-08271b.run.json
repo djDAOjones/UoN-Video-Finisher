@@ -1,0 +1,4037 @@
+{
+ "runId": "2026-11-08T03-54-41-019Z-08271b",
+ "name": "vh203-after-keys",
+ "created": "2026-11-08T03:54:41.335Z",
+ "provenance": {
+  "source": {
+   "commit": "756b425d333f822ed3458f1e7448962db7381308",
+   "dirty": false,
+   "diffSha256": "e3b0c44298fc1c14"
+  },
+  "instruments": {
+   "revision": "7db38f355f3c46c2",
+   "files": [
+    {
+     "file": "again-190.mjs",
+     "sha256": "c87210f9f463f16c"
+    },
+    {
+     "file": "card-215.mjs",
+     "sha256": "fd4820886c9217c8"
+    },
+    {
+     "file": "cdp.mjs",
+     "sha256": "236e93be01a46929"
+    },
+    {
+     "file": "design-walk.mjs",
+     "sha256": "50c2b05bda2e7e61"
+    },
+    {
+     "file": "digest.mjs",
+     "sha256": "b58bfc4e16da02cd"
+    },
+    {
+     "file": "faults.mjs",
+     "sha256": "7b10cc52772035fe"
+    },
+    {
+     "file": "fixtures-8.sh",
+     "sha256": "63fa545bc29e59f5"
+    },
+    {
+     "file": "fixtures.sh",
+     "sha256": "58a1c94dcaab0dfa"
+    },
+    {
+     "file": "footer-182.mjs",
+     "sha256": "ac479fc4c96f246e"
+    },
+    {
+     "file": "heavy-193.mjs",
+     "sha256": "aeced5cedc2ce8bf"
+    },
+    {
+     "file": "inventory.mjs",
+     "sha256": "c2c16ea752c5e01e"
+    },
+    {
+     "file": "labels-189.mjs",
+     "sha256": "b4e39a730b577c3f"
+    },
+    {
+     "file": "lang-191.mjs",
+     "sha256": "ea6bec378b7c6779"
+    },
+    {
+     "file": "matrix.mjs",
+     "sha256": "2b9c7050c01fc6d3"
+    },
+    {
+     "file": "name-181.mjs",
+     "sha256": "7c2a15e25096c1d5"
+    },
+    {
+     "file": "note-180.mjs",
+     "sha256": "961d9427eeac771f"
+    },
+    {
+     "file": "page-183.mjs",
+     "sha256": "e1936c38cc88e158"
+    },
+    {
+     "file": "parts.mjs",
+     "sha256": "41ac1539a3d83b55"
+    },
+    {
+     "file": "phase8.mjs",
+     "sha256": "ca8f9fdf9d14bc62"
+    },
+    {
+     "file": "player-192.mjs",
+     "sha256": "9e586e52bf2ff91d"
+    },
+    {
+     "file": "preset-188.mjs",
+     "sha256": "9008b6c98979053b"
+    },
+    {
+     "file": "prove-172.mjs",
+     "sha256": "03e07056cf331744"
+    },
+    {
+     "file": "prove-8.mjs",
+     "sha256": "8cb19103bec54162"
+    },
+    {
+     "file": "prove-fixtures-8.mjs",
+     "sha256": "74f7ac7bb90d612e"
+    },
+    {
+     "file": "prove-m04.mjs",
+     "sha256": "d5d8cef75177d065"
+    },
+    {
+     "file": "prove-resume.mjs",
+     "sha256": "2e282c03e4ec4436"
+    },
+    {
+     "file": "prove.mjs",
+     "sha256": "190906965e7f3df0"
+    },
+    {
+     "file": "qualify.mjs",
+     "sha256": "573bb29c96ac22e8"
+    },
+    {
+     "file": "report-172.mjs",
+     "sha256": "a60f519698952657"
+    },
+    {
+     "file": "rings-179.mjs",
+     "sha256": "19578e809609f224"
+    },
+    {
+     "file": "runner.mjs",
+     "sha256": "e0b95b012f1e78fc"
+    },
+    {
+     "file": "scenarios.mjs",
+     "sha256": "0a945099a05d5430"
+    },
+    {
+     "file": "sliver-185.mjs",
+     "sha256": "e1174dde2f8cc24c"
+    },
+    {
+     "file": "tip-184.mjs",
+     "sha256": "589f75dc5976fff3"
+    },
+    {
+     "file": "tip-196.mjs",
+     "sha256": "050fc920ff41b6ec"
+    },
+    {
+     "file": "tokens.mjs",
+     "sha256": "59bff4a79c7984ff"
+    },
+    {
+     "file": "top-187.mjs",
+     "sha256": "1d8f24021effb424"
+    },
+    {
+     "file": "transitions.mjs",
+     "sha256": "fbc3a958e9f17bd0"
+    },
+    {
+     "file": "walk.mjs",
+     "sha256": "60ba3ac97bcdc598"
+    },
+    {
+     "file": "wcag-checks.mjs",
+     "sha256": "2496aa09cfcbadda"
+    },
+    {
+     "file": "words-186.mjs",
+     "sha256": "fcd79b36b6d9f22d"
+    }
+   ]
+  },
+  "appRoot": "/Users/uazjob/UoN-Video-Helper-side/vh203",
+  "fixtures": [
+   {
+    "file": "clicks-20s.mp4",
+    "path": "/Users/uazjob/UoN-Video-Helper-side/vh203-walk/fix/clicks-20s.mp4",
+    "bytes": 6615807,
+    "sha256": "622d52cb801564d1"
+   },
+   {
+    "file": "lecture-30s.mp4",
+    "path": "/Users/uazjob/UoN-Video-Helper-side/vh203-walk/fix/lecture-30s.mp4",
+    "bytes": 10097658,
+    "sha256": "325dc896a75f4ca3"
+   },
+   {
+    "file": "lecture-60s.mp4",
+    "path": "/Users/uazjob/UoN-Video-Helper-side/vh203-walk/fix/lecture-60s.mp4",
+    "bytes": 20234026,
+    "sha256": "469caedc4b760ecd"
+   },
+   {
+    "file": "short-2s.mp4",
+    "path": "/Users/uazjob/UoN-Video-Helper-side/vh203-walk/fix/short-2s.mp4",
+    "bytes": 645509,
+    "sha256": "ab40c5673740ffd4"
+   },
+   {
+    "file": "silent-10s.mp4",
+    "path": "/Users/uazjob/UoN-Video-Helper-side/vh203-walk/fix/silent-10s.mp4",
+    "bytes": 3179620,
+    "sha256": "84af9e8cf3313bb8"
+   }
+  ]
+ },
+ "declared": [
+  {
+   "id": "S-124",
+   "lang": "en-GB",
+   "view": "w1280",
+   "mode": "light",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "saving: locked, \"Locked while your video is being saved.\"",
+      "free after the save stops and after a cancel (after the failure: the record's state)"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-124",
+   "lang": "zh-Hans",
+   "view": "w1280",
+   "mode": "light",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "saving: locked, \"Locked while your video is being saved.\"",
+      "free after the save stops and after a cancel (after the failure: the record's state)"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-124",
+   "lang": "ms-MY",
+   "view": "w1280",
+   "mode": "light",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "saving: locked, \"Locked while your video is being saved.\"",
+      "free after the save stops and after a cancel (after the failure: the record's state)"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-124",
+   "lang": "en-GB",
+   "view": "w320",
+   "mode": "light",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "saving: locked, \"Locked while your video is being saved.\"",
+      "free after the save stops and after a cancel (after the failure: the record's state)"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-126",
+   "lang": "en-GB",
+   "view": "w1280",
+   "mode": "light",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#process-actions > button:nth-child(2)"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the new video, not the original: 6.04 s against step 2's 2 s on short-2s",
+      "paused, and the card holds focus if it was handed on"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-126",
+   "lang": "en-GB",
+   "view": "w375",
+   "mode": "light",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 375,
+    "h": 812,
+    "dpr": 3
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#process-actions > button:nth-child(2)"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the new video, not the original: 6.04 s against step 2's 2 s on short-2s",
+      "paused, and the card holds focus if it was handed on"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-126",
+   "lang": "en-GB",
+   "view": "w320",
+   "mode": "light",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#process-actions > button:nth-child(2)"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the new video, not the original: 6.04 s against step 2's 2 s on short-2s",
+      "paused, and the card holds focus if it was handed on"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-126",
+   "lang": "zh-Hans",
+   "view": "w1280",
+   "mode": "light",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#process-actions > button:nth-child(2)"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the new video, not the original: 6.04 s against step 2's 2 s on short-2s",
+      "paused, and the card holds focus if it was handed on"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-126",
+   "lang": "zh-Hans",
+   "view": "w375",
+   "mode": "light",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 375,
+    "h": 812,
+    "dpr": 3
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#process-actions > button:nth-child(2)"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the new video, not the original: 6.04 s against step 2's 2 s on short-2s",
+      "paused, and the card holds focus if it was handed on"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-126",
+   "lang": "zh-Hans",
+   "view": "w320",
+   "mode": "light",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#process-actions > button:nth-child(2)"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the new video, not the original: 6.04 s against step 2's 2 s on short-2s",
+      "paused, and the card holds focus if it was handed on"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-126",
+   "lang": "ms-MY",
+   "view": "w1280",
+   "mode": "light",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#process-actions > button:nth-child(2)"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the new video, not the original: 6.04 s against step 2's 2 s on short-2s",
+      "paused, and the card holds focus if it was handed on"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-126",
+   "lang": "ms-MY",
+   "view": "w375",
+   "mode": "light",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 375,
+    "h": 812,
+    "dpr": 3
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#process-actions > button:nth-child(2)"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the new video, not the original: 6.04 s against step 2's 2 s on short-2s",
+      "paused, and the card holds focus if it was handed on"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-126",
+   "lang": "ms-MY",
+   "view": "w320",
+   "mode": "light",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#process-actions > button:nth-child(2)"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the new video, not the original: 6.04 s against step 2's 2 s on short-2s",
+      "paused, and the card holds focus if it was handed on"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-126",
+   "lang": "en-GB",
+   "view": "w320",
+   "mode": "spacing",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#process-actions > button:nth-child(2)"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the new video, not the original: 6.04 s against step 2's 2 s on short-2s",
+      "paused, and the card holds focus if it was handed on"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-126",
+   "lang": "zh-Hans",
+   "view": "w320",
+   "mode": "spacing",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#process-actions > button:nth-child(2)"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the new video, not the original: 6.04 s against step 2's 2 s on short-2s",
+      "paused, and the card holds focus if it was handed on"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-126",
+   "lang": "ms-MY",
+   "view": "w320",
+   "mode": "spacing",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#process-actions > button:nth-child(2)"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the new video, not the original: 6.04 s against step 2's 2 s on short-2s",
+      "paused, and the card holds focus if it was handed on"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-126",
+   "lang": "en-GB",
+   "view": "w1280",
+   "mode": "dark",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#process-actions > button:nth-child(2)"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the new video, not the original: 6.04 s against step 2's 2 s on short-2s",
+      "paused, and the card holds focus if it was handed on"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-126",
+   "lang": "en-GB",
+   "view": "w1280",
+   "mode": "forced-light",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#process-actions > button:nth-child(2)"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the new video, not the original: 6.04 s against step 2's 2 s on short-2s",
+      "paused, and the card holds focus if it was handed on"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-126",
+   "lang": "en-GB",
+   "view": "w1280",
+   "mode": "forced-dark",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#process-actions > button:nth-child(2)"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the new video, not the original: 6.04 s against step 2's 2 s on short-2s",
+      "paused, and the card holds focus if it was handed on"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-126",
+   "lang": "zh-Hans",
+   "view": "w1280",
+   "mode": "dark",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#process-actions > button:nth-child(2)"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the new video, not the original: 6.04 s against step 2's 2 s on short-2s",
+      "paused, and the card holds focus if it was handed on"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-126",
+   "lang": "zh-Hans",
+   "view": "w1280",
+   "mode": "forced-light",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#process-actions > button:nth-child(2)"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the new video, not the original: 6.04 s against step 2's 2 s on short-2s",
+      "paused, and the card holds focus if it was handed on"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-126",
+   "lang": "zh-Hans",
+   "view": "w1280",
+   "mode": "forced-dark",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#process-actions > button:nth-child(2)"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the new video, not the original: 6.04 s against step 2's 2 s on short-2s",
+      "paused, and the card holds focus if it was handed on"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-126",
+   "lang": "ms-MY",
+   "view": "w1280",
+   "mode": "dark",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#process-actions > button:nth-child(2)"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the new video, not the original: 6.04 s against step 2's 2 s on short-2s",
+      "paused, and the card holds focus if it was handed on"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-126",
+   "lang": "ms-MY",
+   "view": "w1280",
+   "mode": "forced-light",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#process-actions > button:nth-child(2)"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the new video, not the original: 6.04 s against step 2's 2 s on short-2s",
+      "paused, and the card holds focus if it was handed on"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-126",
+   "lang": "ms-MY",
+   "view": "w1280",
+   "mode": "forced-dark",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#process-actions > button:nth-child(2)"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the new video, not the original: 6.04 s against step 2's 2 s on short-2s",
+      "paused, and the card holds focus if it was handed on"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-126",
+   "lang": "en-GB",
+   "view": "w320",
+   "mode": "dark",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#process-actions > button:nth-child(2)"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the new video, not the original: 6.04 s against step 2's 2 s on short-2s",
+      "paused, and the card holds focus if it was handed on"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-126",
+   "lang": "en-GB",
+   "view": "w320",
+   "mode": "forced-light",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#process-actions > button:nth-child(2)"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the new video, not the original: 6.04 s against step 2's 2 s on short-2s",
+      "paused, and the card holds focus if it was handed on"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-126",
+   "lang": "en-GB",
+   "view": "w320",
+   "mode": "forced-dark",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#process-actions > button:nth-child(2)"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the new video, not the original: 6.04 s against step 2's 2 s on short-2s",
+      "paused, and the card holds focus if it was handed on"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-126",
+   "lang": "en-GB",
+   "view": "w1280",
+   "mode": "font32",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#process-actions > button:nth-child(2)"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the new video, not the original: 6.04 s against step 2's 2 s on short-2s",
+      "paused, and the card holds focus if it was handed on"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-126",
+   "lang": "en-GB",
+   "view": "w1280",
+   "mode": "fallback",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#process-actions > button:nth-child(2)"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the new video, not the original: 6.04 s against step 2's 2 s on short-2s",
+      "paused, and the card holds focus if it was handed on"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-126",
+   "lang": "zh-Hans",
+   "view": "w1280",
+   "mode": "font32",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#process-actions > button:nth-child(2)"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the new video, not the original: 6.04 s against step 2's 2 s on short-2s",
+      "paused, and the card holds focus if it was handed on"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-126",
+   "lang": "zh-Hans",
+   "view": "w1280",
+   "mode": "fallback",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#process-actions > button:nth-child(2)"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the new video, not the original: 6.04 s against step 2's 2 s on short-2s",
+      "paused, and the card holds focus if it was handed on"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-126",
+   "lang": "ms-MY",
+   "view": "w1280",
+   "mode": "font32",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#process-actions > button:nth-child(2)"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the new video, not the original: 6.04 s against step 2's 2 s on short-2s",
+      "paused, and the card holds focus if it was handed on"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-126",
+   "lang": "ms-MY",
+   "view": "w1280",
+   "mode": "fallback",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#process-actions > button:nth-child(2)"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the new video, not the original: 6.04 s against step 2's 2 s on short-2s",
+      "paused, and the card holds focus if it was handed on"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-126",
+   "lang": "en-GB",
+   "view": "w1280",
+   "mode": "reduced-motion",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts",
+    "motion"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#process-actions > button:nth-child(2)"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the new video, not the original: 6.04 s against step 2's 2 s on short-2s",
+      "paused, and the card holds focus if it was handed on"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-129",
+   "lang": "en-GB",
+   "view": "w1280",
+   "mode": "light",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#file-input",
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the same URL"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-129",
+   "lang": "en-GB",
+   "view": "w375",
+   "mode": "light",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 375,
+    "h": 812,
+    "dpr": 3
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#file-input",
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the same URL"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-129",
+   "lang": "en-GB",
+   "view": "w320",
+   "mode": "light",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#file-input",
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the same URL"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-129",
+   "lang": "zh-Hans",
+   "view": "w1280",
+   "mode": "light",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#file-input",
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the same URL"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-129",
+   "lang": "zh-Hans",
+   "view": "w375",
+   "mode": "light",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 375,
+    "h": 812,
+    "dpr": 3
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#file-input",
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the same URL"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-129",
+   "lang": "zh-Hans",
+   "view": "w320",
+   "mode": "light",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#file-input",
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the same URL"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-129",
+   "lang": "ms-MY",
+   "view": "w1280",
+   "mode": "light",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#file-input",
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the same URL"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-129",
+   "lang": "ms-MY",
+   "view": "w375",
+   "mode": "light",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 375,
+    "h": 812,
+    "dpr": 3
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#file-input",
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the same URL"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-129",
+   "lang": "ms-MY",
+   "view": "w320",
+   "mode": "light",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#file-input",
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the same URL"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-129",
+   "lang": "en-GB",
+   "view": "w320",
+   "mode": "spacing",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#file-input",
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the same URL"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-129",
+   "lang": "zh-Hans",
+   "view": "w320",
+   "mode": "spacing",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#file-input",
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the same URL"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-129",
+   "lang": "ms-MY",
+   "view": "w320",
+   "mode": "spacing",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#file-input",
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the same URL"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-129",
+   "lang": "en-GB",
+   "view": "w1280",
+   "mode": "dark",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#file-input",
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the same URL"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-129",
+   "lang": "en-GB",
+   "view": "w1280",
+   "mode": "forced-light",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#file-input",
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the same URL"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-129",
+   "lang": "en-GB",
+   "view": "w1280",
+   "mode": "forced-dark",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#file-input",
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the same URL"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-129",
+   "lang": "zh-Hans",
+   "view": "w1280",
+   "mode": "dark",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#file-input",
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the same URL"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-129",
+   "lang": "zh-Hans",
+   "view": "w1280",
+   "mode": "forced-light",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#file-input",
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the same URL"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-129",
+   "lang": "zh-Hans",
+   "view": "w1280",
+   "mode": "forced-dark",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#file-input",
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the same URL"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-129",
+   "lang": "ms-MY",
+   "view": "w1280",
+   "mode": "dark",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#file-input",
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the same URL"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-129",
+   "lang": "ms-MY",
+   "view": "w1280",
+   "mode": "forced-light",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#file-input",
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the same URL"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-129",
+   "lang": "ms-MY",
+   "view": "w1280",
+   "mode": "forced-dark",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#file-input",
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the same URL"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-129",
+   "lang": "en-GB",
+   "view": "w320",
+   "mode": "dark",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#file-input",
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the same URL"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-129",
+   "lang": "en-GB",
+   "view": "w320",
+   "mode": "forced-light",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#file-input",
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the same URL"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-129",
+   "lang": "en-GB",
+   "view": "w320",
+   "mode": "forced-dark",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#file-input",
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the same URL"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-129",
+   "lang": "en-GB",
+   "view": "w1280",
+   "mode": "font32",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#file-input",
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the same URL"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-129",
+   "lang": "en-GB",
+   "view": "w1280",
+   "mode": "fallback",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#file-input",
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the same URL"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-129",
+   "lang": "zh-Hans",
+   "view": "w1280",
+   "mode": "font32",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#file-input",
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the same URL"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-129",
+   "lang": "zh-Hans",
+   "view": "w1280",
+   "mode": "fallback",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#file-input",
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the same URL"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-129",
+   "lang": "ms-MY",
+   "view": "w1280",
+   "mode": "font32",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#file-input",
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the same URL"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-129",
+   "lang": "ms-MY",
+   "view": "w1280",
+   "mode": "fallback",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#file-input",
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the same URL"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-129",
+   "lang": "en-GB",
+   "view": "w1280",
+   "mode": "reduced-motion",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts",
+    "motion"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#file-input",
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the same URL"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-138",
+   "lang": "en-GB",
+   "view": "w1280",
+   "mode": "light",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#file-input"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "both, heavy first, through the download, Keep it and \"Previous video\""
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-138",
+   "lang": "zh-Hans",
+   "view": "w1280",
+   "mode": "light",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#file-input"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "both, heavy first, through the download, Keep it and \"Previous video\""
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-138",
+   "lang": "ms-MY",
+   "view": "w1280",
+   "mode": "light",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#file-input"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "both, heavy first, through the download, Keep it and \"Previous video\""
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-138",
+   "lang": "en-GB",
+   "view": "w320",
+   "mode": "light",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#file-input"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "both, heavy first, through the download, Keep it and \"Previous video\""
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-144p",
+   "lang": "en-GB",
+   "view": "w1280",
+   "mode": "light",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#file-input"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the file button never lower than VH-196's after-reading (top-187.mjs, rings-179.mjs v18)",
+      "the first screen: whether the file button is in it (V-18)"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-144p",
+   "lang": "en-GB",
+   "view": "w800",
+   "mode": "light",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 800,
+    "h": 600,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#file-input"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the file button never lower than VH-196's after-reading (top-187.mjs, rings-179.mjs v18)",
+      "the first screen: whether the file button is in it (V-18)"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-144p",
+   "lang": "en-GB",
+   "view": "w375",
+   "mode": "light",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 375,
+    "h": 812,
+    "dpr": 3
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#file-input"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the file button never lower than VH-196's after-reading (top-187.mjs, rings-179.mjs v18)",
+      "the first screen: whether the file button is in it (V-18)"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-144p",
+   "lang": "en-GB",
+   "view": "w320",
+   "mode": "light",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#file-input"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the file button never lower than VH-196's after-reading (top-187.mjs, rings-179.mjs v18)",
+      "the first screen: whether the file button is in it (V-18)"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-144p",
+   "lang": "zh-Hans",
+   "view": "w1280",
+   "mode": "light",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#file-input"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the file button never lower than VH-196's after-reading (top-187.mjs, rings-179.mjs v18)",
+      "the first screen: whether the file button is in it (V-18)"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-144p",
+   "lang": "zh-Hans",
+   "view": "w800",
+   "mode": "light",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 800,
+    "h": 600,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#file-input"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the file button never lower than VH-196's after-reading (top-187.mjs, rings-179.mjs v18)",
+      "the first screen: whether the file button is in it (V-18)"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-144p",
+   "lang": "zh-Hans",
+   "view": "w375",
+   "mode": "light",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 375,
+    "h": 812,
+    "dpr": 3
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#file-input"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the file button never lower than VH-196's after-reading (top-187.mjs, rings-179.mjs v18)",
+      "the first screen: whether the file button is in it (V-18)"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-144p",
+   "lang": "zh-Hans",
+   "view": "w320",
+   "mode": "light",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#file-input"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the file button never lower than VH-196's after-reading (top-187.mjs, rings-179.mjs v18)",
+      "the first screen: whether the file button is in it (V-18)"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-144p",
+   "lang": "ms-MY",
+   "view": "w1280",
+   "mode": "light",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 900,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#file-input"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the file button never lower than VH-196's after-reading (top-187.mjs, rings-179.mjs v18)",
+      "the first screen: whether the file button is in it (V-18)"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-144p",
+   "lang": "ms-MY",
+   "view": "w800",
+   "mode": "light",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 800,
+    "h": 600,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#file-input"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the file button never lower than VH-196's after-reading (top-187.mjs, rings-179.mjs v18)",
+      "the first screen: whether the file button is in it (V-18)"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-144p",
+   "lang": "ms-MY",
+   "view": "w375",
+   "mode": "light",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 375,
+    "h": 812,
+    "dpr": 3
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#file-input"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the file button never lower than VH-196's after-reading (top-187.mjs, rings-179.mjs v18)",
+      "the first screen: whether the file button is in it (V-18)"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-144p",
+   "lang": "ms-MY",
+   "view": "w320",
+   "mode": "light",
+   "part": "3",
+   "why": "new",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 568,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#file-input"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the file button never lower than VH-196's after-reading (top-187.mjs, rings-179.mjs v18)",
+      "the first screen: whether the file button is in it (V-18)"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-126",
+   "lang": "en-GB",
+   "view": "landscape",
+   "mode": "light",
+   "part": "3",
+   "why": "finite",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 812,
+    "h": 375,
+    "dpr": 3
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#process-actions > button:nth-child(2)"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the new video, not the original: 6.04 s against step 2's 2 s on short-2s",
+      "paused, and the card holds focus if it was handed on"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-126",
+   "lang": "en-GB",
+   "view": "short",
+   "mode": "light",
+   "part": "3",
+   "why": "finite",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 1280,
+    "h": 480,
+    "dpr": 1
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#process-actions > button:nth-child(2)"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the new video, not the original: 6.04 s against step 2's 2 s on short-2s",
+      "paused, and the card holds focus if it was handed on"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-126",
+   "lang": "en-GB",
+   "view": "zoom200proxy",
+   "mode": "light",
+   "part": "3",
+   "why": "finite",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 640,
+    "h": 450,
+    "dpr": 2
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#process-actions > button:nth-child(2)"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the new video, not the original: 6.04 s against step 2's 2 s on short-2s",
+      "paused, and the card holds focus if it was handed on"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-126",
+   "lang": "en-GB",
+   "view": "zoom400proxy",
+   "mode": "light",
+   "part": "3",
+   "why": "finite",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 225,
+    "dpr": 4
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#process-actions > button:nth-child(2)"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the new video, not the original: 6.04 s against step 2's 2 s on short-2s",
+      "paused, and the card holds focus if it was handed on"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-126",
+   "lang": "zh-Hans",
+   "view": "zoom200proxy",
+   "mode": "light",
+   "part": "3",
+   "why": "finite",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 640,
+    "h": 450,
+    "dpr": 2
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#process-actions > button:nth-child(2)"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the new video, not the original: 6.04 s against step 2's 2 s on short-2s",
+      "paused, and the card holds focus if it was handed on"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-126",
+   "lang": "zh-Hans",
+   "view": "zoom400proxy",
+   "mode": "light",
+   "part": "3",
+   "why": "finite",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 225,
+    "dpr": 4
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#process-actions > button:nth-child(2)"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the new video, not the original: 6.04 s against step 2's 2 s on short-2s",
+      "paused, and the card holds focus if it was handed on"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-126",
+   "lang": "ms-MY",
+   "view": "zoom200proxy",
+   "mode": "light",
+   "part": "3",
+   "why": "finite",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 640,
+    "h": 450,
+    "dpr": 2
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#process-actions > button:nth-child(2)"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the new video, not the original: 6.04 s against step 2's 2 s on short-2s",
+      "paused, and the card holds focus if it was handed on"
+     ]
+    }
+   }
+  },
+  {
+   "id": "S-126",
+   "lang": "ms-MY",
+   "view": "zoom400proxy",
+   "mode": "light",
+   "part": "3",
+   "why": "finite",
+   "requires": [
+    "overflow",
+    "ax",
+    "targets",
+    "contrastText",
+    "contrastExtra",
+    "measure",
+    "type",
+    "focus",
+    "player",
+    "formatTip",
+    "footer",
+    "limiting",
+    "videoLanguage",
+    "asserts"
+   ],
+   "viewport": {
+    "w": 320,
+    "h": 225,
+    "dpr": 4
+   },
+   "expects": {
+    "focus": {
+     "subjects": [
+      "#process-result > .notification[data-kind=\"success\"] .actions > button.button",
+      "#process-actions > button:nth-child(2)"
+     ]
+    },
+    "asserts": {
+     "subjects": [
+      "the new video, not the original: 6.04 s against step 2's 2 s on short-2s",
+      "paused, and the card holds focus if it was handed on"
+     ]
+    }
+   }
+  }
+ ]
+}

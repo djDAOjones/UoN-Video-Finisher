@@ -1,0 +1,23 @@
+2e15286f5cf1838c680ece07f634a1554a7d42cb  a2g1.conditions.txt  ./a2g1/conditions.txt
+c72bdfdcbcef2bf6b7568b34b621ae12a9c31af8  a2g1.load.log.txt  ./a2g1.load.log
+0f0c444354cd0570564ab150d0aa6a90174b9ce7  a2g1.launcher.log.txt  ./a2g1.launcher.log
+2da6216a3b0f805c870be2db8aa0ef0abc335791  a2g1.vh203-after-keys-2026-11-07T18-18-11-805Z-a34df2.manifest.json  ./a2g1/runs/vh203-after-keys-2026-11-07T18-18-11-805Z-a34df2/manifest.json
+611aa19a8924571b41a82e286cf3af27f62b9de4  a2g1.vh203-after-keys-2026-11-07T18-18-11-805Z-a34df2.run.json  ./a2g1/runs/vh203-after-keys-2026-11-07T18-18-11-805Z-a34df2/run.json
+a71628d2b8a34fc7d5d25c4b9a2fcf1bc854949c  a2g1.vh203-ledger.jsonl  ./a2g1/runs/vh203-ledger.jsonl
+579294c6bf6bb32842639111b3bccd8c58b2dee1  a2g1.outcomes.jsonl  written from a2g1/runs
+2d2b8b63fdba5deed7c830659cd4310c3fb73e57  a2t-records.jsonl  ./a2t-records.jsonl
+e5ec5447c8336c8671cfa07891eab8e0cfc7f845  a2-reading.md.txt  ./table-notes-18/a2-reading.md.txt
+4351fc8fddf3090efabf991d499ece2d0a500727  vh203-run-rev.txt  ./table-notes-18/vh203-run-rev.txt
+42e23673b037d4c3f5f60e582f8ac34f90f8b131  whole-records.mjs.txt  ./table-notes-18/whole-records.mjs.txt
+4907c197f286f41c872e1d948ceff899ac0b874a  other-outcomes.mjs.txt  ./other-outcomes.mjs
+92bc92ff1b251eb272037845fa2a793a4edf0c5b  plan-keys-756b425.tsv  ./plan-keys-756b425.tsv
+e014de486aa81d57f24b9f579fd8282861eb85a6  keys-a2.txt  ./keys-a2.txt
+2a9671cd25d39864451d9358ff6f3f698a595782  vh203-driver.mjs.txt  ./vh203-driver.mjs
+7353adc7dcee9db606224c72404c03a313efeb8f  keys-a2g1.txt  ./keys-a2g1.txt
+ce1152741828f27987fb3951def3b68df8d5a53c  focus-split-7.mjs.txt  ./focus-split-7.mjs
+9788b0ae4dcd1fead1f976ab5f387c2a65c0936a  trans-8.zsh.txt  ./table-notes-20/a2/trans-8.zsh
+db49f2ee719d9fd2c4b80f08eae44065092184b3  a2g1.sum.txt  ./a2g1.sum.txt
+62718cf8be3a52095ef63eeccadd022177356f39  keys-rev-before.why.tsv  ./keys-rev-before.why.tsv
+46976ca2f11038bc865d495f09b2cbda2c8eecc9  keys-rev-before.txt  ./keys-rev-before.txt
+a69215ce9981cf5e44c268a0d3065cd388a4652e  table-bundle.mjs.txt  ./table-bundle.mjs
+777a2b3b7f46406a19d5bf2833245da6990e663b  a2.notes.md.txt  ./table-notes-18/a2.notes.md.txt

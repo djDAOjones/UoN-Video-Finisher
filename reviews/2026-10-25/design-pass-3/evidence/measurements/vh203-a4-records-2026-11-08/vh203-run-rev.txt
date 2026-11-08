@@ -1,0 +1,56 @@
+VH-203: the run revision (P0's end), written by VH-203 #7 on 2026-11-07 at about 07:40Z, on the owner's Mac Pro.
+
+Revision 7db38f355f3c46c2 (instrumentRevision() of `$W`'s walker, `$W` = $S/vh203, side/vh203, HEAD 756b425 = origin/main, 9 walker files modified,
+nothing staged, diff hash b28b608c84617b04, +341 -77). The before's walker in `$R` is 29c3acfc, unchanged. Built as W1 to W20 with VH-216.1 and VH-217.5
+(ruling 10), then the successors named below. Saved in $S/vh203-wip-6 (manifest e51dd895).
+
+The nine files (walker/, full sha1):
+efe2f3c7d74537118277653fc0aa4df92020633e  heavy-193.mjs
+d2e476795f9a7b8fa97ad7f314a4992fce29bdd8  matrix.mjs
+025297358cca77429a79fe902d3ae4649abea978  phase8.mjs
+13956d7bcc28d0852226d6f5e4703b531cebb49a  prove-8.mjs
+8fa435e8a0368ae37987f0570496ba3d97fada0c  prove-fixtures-8.mjs
+fb92b4bd8c03eb863b275cf3b5f67560b13fcbdf  qualify.mjs
+5de462ba97e8ff1acd491ddd0c3384fd3de3d99b  scenarios.mjs
+d1326ab0504d4cce41cd1d08b553d3f38066793e  sliver-185.mjs
+cceeb2767a6151fdca6e5d9cbfb85f0bbddf31ba  walk.mjs
+
+W19 and W20's provenance (ruling 5, reuse first; progress notes lines 29-30):
+- W19: VH-206's own probe, reused unchanged: `$M/vh206-records-2026-10-27/no-audio-206-probe-after.mjs.txt`, sha1 5e55c7d8ff91d7646f6c8a2888f1d61d621bcc6c
+  (the same in `$W` and `$R`): N14's sliver kept to 0:04.0, ffprobe of the saved file's tracks, its absent-track and priming-only controls. It runs in Part B at
+  this revision. S-153t is not needed so far (no new variant made).
+- W20: in scenarios.mjs (5de462ba): VH215_EXPECT['truncated-30s.mp4'] (made 0:21, declared 0:30, from wish VH-215.2), and S-22s (closing Cut) and S-22sn
+  (no closing graphics) by vh215Scenario, fixOnly, wrapped as S-23s; PLANS.vh203s = the two IDs x three languages x w1280 and w320 x the colour modes,
+  48 records (PLANS.vh215's conditions). The IDs were checked absent first in the walker, project/ and reviews/.
+
+The rulings within the revision (Orchestrator #44):
+- ~00:57Z: S-03's 44 x 44 row by W11's hit test, with HIT44 exported from phase8.mjs, is W11's scope; W3's `import { clearTimeout } from 'node:timers'`
+  in walk.mjs is within W3 (a built-in, no dependency, the eslint config unchanged).
+- ~01:4xZ: S-141's row at scenarios.mjs:2788 is within W11 (VH-205.1's criterion, wish-list :57): only the row's 44 x 44 measure goes to W11's hit test
+  (HIT44), the rest of the row and its words unchanged (revision 9eb0a7b6 -> b88e8072).
+- ~04:2xZ: W5's successor (W5 as built missed its own criterion, VH-199.1, wish-list :58): phase8.mjs's P8_INIT wraps HTMLMediaElement.prototype.play,
+  so finish+1s is sampled before the next step's play() is called, with the caller recorded (playBy walker or page); a page-called play() is a defect
+  line. prove-8.mjs gains W5's case 4a (revision b88e8072 -> 7db38f35). Proved by proofs-6 (0aa88f11): no row moved outside finish+1s; W5's case
+  old 88/91 (the 3 not proved W5's alone), new 91/91.
+
+Readings carried into Part A (no change made):
+- S-03 x15 formatTip evidence: formatTip reads "not-applicable", the "?" "not reachable in this state": the format "?" sits in the title's closed panel,
+  which S-03 does not open, while S-03's expects name formatTip's subjects. Alike at the base (rb1's S-03 x36).
+- The 16 focus-bound states: S-72a, S-72b, S-92, S-93, S-94, S-95, S-96, S-112, S-115, S-117, S-120, S-128, S-141, S-143, S-149, S-150
+  (`vh203-walk/pair-rb2-causes.md` ff4d9a04, finding 1). The split rule (ruling 1, ~04:2xZ; proved by pair-rb2-split 806e324f, 48 of 48 reached, and
+  pair-w5-split 2c3bb4f4, 3 of 3): in Part A's lists, every key of one of these scenarios that is not first of its setup is walked as its own setup,
+  one key per setup, by `vh203-walk/split-7.zsh` (19a6d03b: one chain, one queue line, one lock; the driver run once per key; matrix.mjs unchanged).
+  No coverage reduction. Its per-key sum: `vh203-walk/splitsum-7.mjs` (23122197).
+- S-140 (en-GB w1280 light) and any key that reads a sample absent from `$W/samples/`: recorded as "not reached: the sample is absent from the side
+  worktree (samples/ protected)", per `vh203-walk/missing-samples.md` (f7b113c6, VH-203 #7's scan dated in it: no new key); nothing is written to any samples/ path (rules.md :23, brief section 3).
+  W15 is read on its own rows (VH-214.1, wish-list :66); S-140's VH-199 record is cited (D1).
+- S-93 x4 (ms-MY and zh-Hans, w1280 and w320; and en-GB w320 alike): ruled as D5 rules S-24, this Mac's speed class: the estimate on still-3600s.mp4
+  reads about 20 minutes, on the proceed/warn border (thresholds.ts:84), so the verdict is long-job and the settled wait times out. Recorded as not
+  reached because of this Mac's speed; no variant, fixture or threshold change, no owner point.
+
+The revision's readings at P0's end:
+- proofs-6 (0aa88f11): prove 93/93, prove-8 91/91, prove-172 8/8, prove-m04 8/8, prove-resume 12/12, prove-fixtures-8 8/9 (N11 known), faults 29/29,
+  parts exit 1 (F2, ruling 1).
+- pilot3c (f8a1cb72: 77 keys at this revision, 74 S- ok and reached, 3 route keys recorded; type 7 alone (S-141, VH-217.2), asserts 0; whole false by S-03 x15 formatTip evidence alone; against pilot3b nothing moved).
+- The pairs at this revision: pair-rb4 (65955bc1), pair-w5 (5c3845fb), pair-rb2-split (806e324f), pair-w5-split (2c3bb4f4); at b88e8072, pair-rb1
+  to pair-rb3 with their re-walks, whose finish+1s rows pair-w5 and pair-w5-split replace (ruling 3).

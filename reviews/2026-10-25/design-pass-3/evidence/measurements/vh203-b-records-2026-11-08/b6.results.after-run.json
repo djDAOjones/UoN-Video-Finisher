@@ -1,0 +1,360 @@
+{
+ "label": "after",
+ "source": "7db38f35",
+ "started": "2026-11-08T14:03:58.792Z",
+ "appUrl": "http://localhost:5181/",
+ "cdpPort": "9251",
+ "chrome": "Chrome/157.0.8103.39",
+ "node": "v24.22.2",
+ "walker": "/Users/uazjob/UoN-Video-Helper-side/vh203/reviews/2026-10-25/design-pass-3/evidence/measurements/walker",
+ "walkerSha": "fa309ac001970f8a",
+ "appSrcSha": "55c11f5aa76d305f",
+ "appRoot": "/Users/uazjob/UoN-Video-Helper-side/vh203",
+ "fixtures": {
+  "late-sound-3.71s-25fps-10s.mp4": "a438b8eeef5f43f3",
+  "silent-10s.mp4": "84af9e8cf3313bb8",
+  "late-sound-10s.mp4": "c1893acaa6aa45f3"
+ },
+ "cells": [
+  "sliver-N14",
+  "S-20",
+  "S-99"
+ ],
+ "langs": [
+  "en-GB",
+  "zh-Hans",
+  "ms-MY"
+ ],
+ "views": [
+  "w1280",
+  "w320"
+ ],
+ "modes": [
+  "light",
+  "dark",
+  "forced-light",
+  "forced-dark"
+ ],
+ "argv": [
+  "--cells",
+  "sliver-N14,S-20,S-99"
+ ],
+ "power": [
+  {
+   "t": "2026-11-08T14:03:59.157Z",
+   "ac": true,
+   "batt": "Now drawing from 'AC Power'",
+   "powermode": "",
+   "uptime": "14:03  up 110 days, 23:37, 2 users, load averages: 1.92 2.98 3.36",
+   "load1": 1.92,
+   "load": [
+    1.92,
+    2.98,
+    3.36
+   ]
+  },
+  {
+   "cell": "sliver-N14",
+   "lang": "en-GB",
+   "view": "w1280",
+   "t": "2026-11-08T14:03:59.202Z",
+   "ac": true,
+   "batt": "Now drawing from 'AC Power'",
+   "powermode": "",
+   "uptime": "14:03  up 110 days, 23:37, 2 users, load averages: 1.92 2.98 3.36",
+   "load1": 1.92,
+   "load": [
+    1.92,
+    2.98,
+    3.36
+   ]
+  },
+  {
+   "cell": "sliver-N14",
+   "lang": "en-GB",
+   "view": "w320",
+   "t": "2026-11-08T14:04:12.011Z",
+   "ac": true,
+   "batt": "Now drawing from 'AC Power'",
+   "powermode": "",
+   "uptime": "14:04  up 110 days, 23:37, 2 users, load averages: 2.45 3.05 3.38",
+   "load1": 2.45,
+   "load": [
+    2.45,
+    3.05,
+    3.38
+   ]
+  },
+  {
+   "cell": "sliver-N14",
+   "lang": "zh-Hans",
+   "view": "w1280",
+   "t": "2026-11-08T14:04:24.122Z",
+   "ac": true,
+   "batt": "Now drawing from 'AC Power'",
+   "powermode": "",
+   "uptime": "14:04  up 110 days, 23:37, 2 users, load averages: 2.23 2.99 3.36",
+   "load1": 2.23,
+   "load": [
+    2.23,
+    2.99,
+    3.36
+   ]
+  },
+  {
+   "cell": "sliver-N14",
+   "lang": "zh-Hans",
+   "view": "w320",
+   "t": "2026-11-08T14:04:36.907Z",
+   "ac": true,
+   "batt": "Now drawing from 'AC Power'",
+   "powermode": "",
+   "uptime": "14:04  up 110 days, 23:37, 2 users, load averages: 1.80 2.86 3.30",
+   "load1": 1.8,
+   "load": [
+    1.8,
+    2.86,
+    3.3
+   ]
+  },
+  {
+   "cell": "sliver-N14",
+   "lang": "ms-MY",
+   "view": "w1280",
+   "t": "2026-11-08T14:04:49.503Z",
+   "ac": true,
+   "batt": "Now drawing from 'AC Power'",
+   "powermode": "",
+   "uptime": "14:04  up 110 days, 23:38, 2 users, load averages: 1.62 2.76 3.26",
+   "load1": 1.62,
+   "load": [
+    1.62,
+    2.76,
+    3.26
+   ]
+  },
+  {
+   "cell": "sliver-N14",
+   "lang": "ms-MY",
+   "view": "w320",
+   "t": "2026-11-08T14:05:02.103Z",
+   "ac": true,
+   "batt": "Now drawing from 'AC Power'",
+   "powermode": "",
+   "uptime": "14:05  up 110 days, 23:38, 2 users, load averages: 1.60 2.72 3.24",
+   "load1": 1.6,
+   "load": [
+    1.6,
+    2.72,
+    3.24
+   ]
+  },
+  {
+   "cell": "S-20",
+   "lang": "en-GB",
+   "view": "w1280",
+   "t": "2026-11-08T14:05:14.902Z",
+   "ac": true,
+   "batt": "Now drawing from 'AC Power'",
+   "powermode": "",
+   "uptime": "14:05  up 110 days, 23:38, 2 users, load averages: 1.70 2.69 3.22",
+   "load1": 1.7,
+   "load": [
+    1.7,
+    2.69,
+    3.22
+   ]
+  },
+  {
+   "cell": "S-20",
+   "lang": "en-GB",
+   "view": "w320",
+   "t": "2026-11-08T14:05:20.287Z",
+   "ac": true,
+   "batt": "Now drawing from 'AC Power'",
+   "powermode": "",
+   "uptime": "14:05  up 110 days, 23:38, 2 users, load averages: 1.88 2.71 3.22",
+   "load1": 1.88,
+   "load": [
+    1.88,
+    2.71,
+    3.22
+   ]
+  },
+  {
+   "cell": "S-20",
+   "lang": "zh-Hans",
+   "view": "w1280",
+   "t": "2026-11-08T14:05:25.674Z",
+   "ac": true,
+   "batt": "Now drawing from 'AC Power'",
+   "powermode": "",
+   "uptime": "14:05  up 110 days, 23:38, 2 users, load averages: 2.29 2.78 3.24",
+   "load1": 2.29,
+   "load": [
+    2.29,
+    2.78,
+    3.24
+   ]
+  },
+  {
+   "cell": "S-20",
+   "lang": "zh-Hans",
+   "view": "w320",
+   "t": "2026-11-08T14:05:31.513Z",
+   "ac": true,
+   "batt": "Now drawing from 'AC Power'",
+   "powermode": "",
+   "uptime": "14:05  up 110 days, 23:38, 2 users, load averages: 2.27 2.77 3.24",
+   "load1": 2.27,
+   "load": [
+    2.27,
+    2.77,
+    3.24
+   ]
+  },
+  {
+   "cell": "S-20",
+   "lang": "ms-MY",
+   "view": "w1280",
+   "t": "2026-11-08T14:05:37.357Z",
+   "ac": true,
+   "batt": "Now drawing from 'AC Power'",
+   "powermode": "",
+   "uptime": "14:05  up 110 days, 23:38, 2 users, load averages: 2.09 2.72 3.22",
+   "load1": 2.09,
+   "load": [
+    2.09,
+    2.72,
+    3.22
+   ]
+  },
+  {
+   "cell": "S-20",
+   "lang": "ms-MY",
+   "view": "w320",
+   "t": "2026-11-08T14:05:43.176Z",
+   "ac": true,
+   "batt": "Now drawing from 'AC Power'",
+   "powermode": "",
+   "uptime": "14:05  up 110 days, 23:38, 2 users, load averages: 2.16 2.72 3.22",
+   "load1": 2.16,
+   "load": [
+    2.16,
+    2.72,
+    3.22
+   ]
+  },
+  {
+   "cell": "S-99",
+   "lang": "en-GB",
+   "view": "w1280",
+   "t": "2026-11-08T14:05:49.019Z",
+   "ac": true,
+   "batt": "Now drawing from 'AC Power'",
+   "powermode": "",
+   "uptime": "14:05  up 110 days, 23:39, 2 users, load averages: 2.39 2.76 3.23",
+   "load1": 2.39,
+   "load": [
+    2.39,
+    2.76,
+    3.23
+   ]
+  },
+  {
+   "cell": "S-99",
+   "lang": "en-GB",
+   "view": "w320",
+   "t": "2026-11-08T14:05:55.962Z",
+   "ac": true,
+   "batt": "Now drawing from 'AC Power'",
+   "powermode": "",
+   "uptime": "14:05  up 110 days, 23:39, 2 users, load averages: 2.32 2.74 3.21",
+   "load1": 2.32,
+   "load": [
+    2.32,
+    2.74,
+    3.21
+   ]
+  },
+  {
+   "cell": "S-99",
+   "lang": "zh-Hans",
+   "view": "w1280",
+   "t": "2026-11-08T14:06:02.913Z",
+   "ac": true,
+   "batt": "Now drawing from 'AC Power'",
+   "powermode": "",
+   "uptime": "14:06  up 110 days, 23:39, 2 users, load averages: 2.13 2.69 3.19",
+   "load1": 2.13,
+   "load": [
+    2.13,
+    2.69,
+    3.19
+   ]
+  },
+  {
+   "cell": "S-99",
+   "lang": "zh-Hans",
+   "view": "w320",
+   "t": "2026-11-08T14:06:10.304Z",
+   "ac": true,
+   "batt": "Now drawing from 'AC Power'",
+   "powermode": "",
+   "uptime": "14:06  up 110 days, 23:39, 2 users, load averages: 2.26 2.70 3.19",
+   "load1": 2.26,
+   "load": [
+    2.26,
+    2.7,
+    3.19
+   ]
+  },
+  {
+   "cell": "S-99",
+   "lang": "ms-MY",
+   "view": "w1280",
+   "t": "2026-11-08T14:06:17.492Z",
+   "ac": true,
+   "batt": "Now drawing from 'AC Power'",
+   "powermode": "",
+   "uptime": "14:06  up 110 days, 23:39, 2 users, load averages: 2.56 2.75 3.21",
+   "load1": 2.56,
+   "load": [
+    2.56,
+    2.75,
+    3.21
+   ]
+  },
+  {
+   "cell": "S-99",
+   "lang": "ms-MY",
+   "view": "w320",
+   "t": "2026-11-08T14:06:24.873Z",
+   "ac": true,
+   "batt": "Now drawing from 'AC Power'",
+   "powermode": "",
+   "uptime": "14:06  up 110 days, 23:39, 2 users, load averages: 2.35 2.71 3.19",
+   "load1": 2.35,
+   "load": [
+    2.35,
+    2.71,
+    3.19
+   ]
+  },
+  {
+   "t": "2026-11-08T14:06:32.265Z",
+   "ac": true,
+   "batt": "Now drawing from 'AC Power'",
+   "powermode": "",
+   "uptime": "14:06  up 110 days, 23:39, 2 users, load averages: 2.66 2.76 3.20",
+   "load1": 2.66,
+   "load": [
+    2.66,
+    2.76,
+    3.2
+   ]
+  }
+ ],
+ "flags": [],
+ "ended": "2026-11-08T14:06:32.265Z"
+}

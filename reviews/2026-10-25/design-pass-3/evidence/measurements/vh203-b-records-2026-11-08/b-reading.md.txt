@@ -1,0 +1,60 @@
+# VH-203 Part B: Claude's reading of the supplements (VH-203 #14, 2026-11-08, saved before any Codex read of it)
+
+**What was walked.** The run revision `7db38f355f3c46c2` (`vh203-run-rev.txt` 4351fc8f): `$W` at `756b425` with the walker's nine files (diff hash b28b608c84617b04), on the Mac Pro. Matrix groups went by the in-memory route (`vh203-driver.mjs` 2a9671cd, Part B's plans from existing definitions by `b-plan.mjs` ca124474, `--keys`; ruling 1). Probes ran unchanged from their source items (`b-probe.zsh`). Part B is the supplements outside the core: W20 and VH-215 (b1, b2), VH-207's 168 (b3, b3-split), VH-208's 111 not in the core (b4; its 87 in the core are cited from Part A), ruling 8's 53 of the 214 (b5), W19 (b6), V-18 and VH-179 to VH-181 (b7 to b10), and VH-231's re-read (b11, ruling 6). The split rule took S-149's 12 out of VH-207's list (b3-split). No other group needed one.
+
+| Group | Source | Keys or cells | Sum (sha1) | Walked (Z) | s (ratio) | Peak load | ok / failed / not reached |
+|---|---|---|---|---|---|---|---|
+| b1 | PLANS.vh215 (VH-215) | 96 | cd446f29 | 10:23–10:47 | 1437 (2.78 on 517) | 4.61 | 96 / 0 / 0 |
+| b2 | PLANS.vh203s (W20) | 48 | 5c7cae28 | 10:48–11:01 | 728 (2.82 on 258) | 4.41 | 48 / 0 / 0 |
+| b3 | VH-207, kept | 156 | 395d5902 | 11:42–13:03 | 4880 (5.01 on 974) | 5.98 | 156 / 0 / 0 |
+| b3-split | VH-207, S-149's split | 12 | 67a068ad | 13:09–13:14 | 293 (1.48 on 198) | 2.34 | 12 / 0 / 0 |
+| b4 | VH-208, outside the core | 111 | 9911f9f0 | 13:14–13:39 | 1505 (0.80 on 1877) | 4.80 | 111 / 0 / 0 |
+| b5 | ruling 8 | 53 | 03d78b0a | 13:41–14:02 | 1242 (2.05 on 607) | 6.35 | 53 / 0 / 0 |
+| b6 | W19, VH-206's probe | 3 cells × 3 languages × 2 widths | cmp 3f917fab | 14:03–14:06 | 156 | 2.81 | 18 groups ok |
+| b7 | V-18, `top-187.mjs` | 6 | cmp in notes | 14:09 | 16 | 1.77 | 6 / 0 / 0 |
+| b8r | VH-179, `rings-179.mjs` v18, colours, held | 3 readings | jdiff in notes | 14:11–14:12 | 116 | 4.96 | 3 ok |
+| b9 | VH-180, `note-180.mjs` | 1 reading | jdiff 0 leaves | 14:13–14:14 | 28 | 2.44 | ok |
+| b10 | VH-181, `name-181.mjs` | 1 reading | jdiff 0 leaves | 14:14 | 23 | 1.70 | ok |
+| b11 | VH-231, its driver (ruling 6) | 90 | probe f2959300 | 14:15–14:34 | 1145 | 4.95 | 90 / 0 / 0 |
+| **B** | | **566 matrix records + 5 probes** | | | | | **566 / 0 / 0** |
+
+b8's first job (rings-179.mjs with no reading named) walked nothing and is set aside in `superseded/b13-b8-usage/`.
+
+**Against each group's own source readings** (never against VH-199's matrix):
+- **b1:** VH-215's 96 of 96 (`vh215-card-length-2026-10-29.md`): alike. The burned card's running time is the length made in every cell.
+- **b2:** W20's source (run-rev lines 22–24, VH-215.2): alike. 0:21 made against 0:30 declared, as VH215_EXPECT gives it.
+- **b3 and b3-split:** VH-207's after (`vh207-focus-2026-10-27.md` §2 and its records): where focus ends and every ring are alike in all 168. S-149 w1280 ×12 reads alike with Part A's (a3g2 and a3g2-split). The next Tab moved in 120 cells (below). For the table: the focus file's §2 row has f1's two widths swapped, a slip in VH-207's page whose records agree with b3; no edit and no line.
+- **b4:** VH-208's after cells (`vh208-records-2026-10-28/after-*`) by `cmp-b208.mjs` (b34fca0b; `b4.cmp.txt` ce5a6b99): alike in every limiting and asserts row, every player row but S-138's, and S-131's and S-53's but targets and type.
+- **b5:** VH-223's and VH-224's raw records by exact key, by `cmp-raw-b.mjs` (9847c600; `b5.cmp.txt` bc6ff6d1). S-76's four, S-48 ×12 and S-56 ×6 are alike in every field.
+- **b6:** VH-206's after records by `jdiff-b.mjs` (4b987bca; `b6.cmp.txt` 3f917fab). Every verdict, warning, spoken line, panel and assertion is alike. The saved file's tracks are 1 video track, h264, 8 s, no audio, ×6.
+- **b7 and b8r:** V-18's and VH-179's readings (`readings-2026-10-27/`). Colours and held are 0 leaves apart. v18 and b7 moved only in the file input's place.
+- **b9 and b10:** VH-180's and VH-181's readings: 0 differing leaves.
+- **b11:** VH-231's a1, by its own summariser (`sum-b1.mjs`): its 15 readings by ID and language are alike, and `b11.diff.txt` is empty.
+
+**Re-walks, by rule:** none was needed.
+- **The split rule:** b-plan.mjs's split took S-149's 12 out ahead of the walk. No non-first record failed with the state unreached in any group.
+- **The load rule:** no sample reached 8 in any B group. The peak was 6.35 (b5).
+
+**What moved, and by which change.** Each move is classed by #45's words (notes lines 399, 406 and 411) or a W1 to W20 change's own:
+- **W12:** S-151 ×18 and S-137 ×3, focus cannot-determine → pass (b4). The card's ring is now read whole by scrolling the clip.
+- **W5:** S-138 ×9, "paused a second after the card appeared" fail → pass, with the player outcome (b4).
+- **W11 (VH-216.1):** S-03 ×12, asserts fail → pass, the old-order rows replaced by the title's "?" (b5).
+- **W9:** S-81 ms-MY, focus fail → pass ×9 and pass → fail ×2 (b5). The ×2 are zoom400proxy, with the link in 2 fragments: area 986 against the fragments' perimeter 1236. This is W9's own, for the verdict.
+- **The next Tab, ×120 (b3):** "moved by VH-216's order (af912d3), against VH-207's pre-VH-216 readings". (a) to (d) now Tab to the Video type "Staff video" radio ×96. (f2) now Tabs to `#file-input` ×24. `next-tab-b.mjs` (106292c0; `b3.nexttab.txt` 7908b0a8) shows each new target to be the next focusable after the focus end in each record's own capture: 120 of 120 alike, 0 not.
+- **VH-229's (92eaf65), b4:** targets fail → cannot-determine ×111, and type fail → pass ×108. VH-208's one targets and type fail was the format "?", now inside the closed `#about-help`. Its target is measured open in Part A's formatTip records (W11) and in Part C's captures. What targets reads now is the trim thumbs' cannot-determine, VH-173's known reading.
+- **VH-212's (7750acb), b4:** the completion clause ×87, "before you save it" → "before you use it", in all three languages.
+- **VH-227's (267cb91), b6:** the zh-Hans page-language line "简体中文" → "中文" ×24.
+- **VH-216's (af912d3) and VH-229's (92eaf65), b7 and b8r:** the file input's place ×6, every one higher and none lower. The browser note is hidden in all six. For the table: zh-Hans's 26 px at 320 × 568 is read as VH-225's title words (72b103e), outside B's source.
+- **The sliver's finished size, b6:** "— 1.7 MB" → "— 1.6 MB" ×24 (1,682,811 → 1,583,347 bytes), with a planned video bitrate of 2,648,219 → 2,650,319. **Moved, not tied to a commit; read as this Mac's encoder against VH-206's MacBook Pro records, not proved.** It asserts nothing. It is paired with one bounded probe at VH-206's own after revision under D1 (hand-over 13's step 3).
+- **Not a product move:** b6's powermode "2" → "". This Mac prints no powermode line (macpro-40).
+
+**Each reading short of pass, classed:**
+- **Cannot-determine:** each group's targets, contrastExtra and measure (counted per group in the notes; b3's 26 are zh-Hans at w1280, the known class), and b4's limiting ×24. These are the instruments' own unresolved readings, for the verdict's unresolved account.
+- **Player fail, by design:** S-152's F15b rows ×18 (b4), as VH-208 §5.
+- **Known:** b5's job1 exit 1, from matrix.mjs's coverage "whole false" by S-03's formatTip "expected subjects missing" ×12. Its line is decided at the close.
+- **Fixtures:** cut-short-30s.mkv and cut-short-10s.webm read "NOT fix-mac-pro", the known P0 difference (fix-proof-vh215). Every other fixture is VH-223's or fix-mac-pro's.
+- **New:** none. No row fails only at the run revision.
+
+**Conditions.** AC power throughout. Both loads were below 8 at each start, and no sample reached 8. Nothing was written to samples/. Every job was a harness-tracked background job through the walk queue, with its deadline job stopped by its task id.
+
+**For the verdict:** the cannot-determine readings, S-152's by-design player rows, S-81's zoom400proxy ×2 (W9's) and S-03's formatTip line go to Codex's blind read and Claude's verdict (D2). So does the sliver's size, with D1's probe beside it. Part B stands with no finding open. Codex's blind read of Part B was skipped by Orchestrator #45's word (ruling 4's may); the must is still the blind read of the whole after-run (D2).

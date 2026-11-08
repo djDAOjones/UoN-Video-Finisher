@@ -1,0 +1,20 @@
+#!/bin/zsh
+# VH-203 #12: vh203-group.zsh (bb2b2b16) for a probe that is not a matrix key: usage zsh b-probe.zsh <folder> <label> "<job line>" (walk.sh runs it in vh203-walk).
+# VH-203 #2: one walk group as its own chain (VH-224's group.zsh, copied here, the original untouched, generalised): queue for the walk lock by
+# $S/walk-queue-wait-seq.zsh (its line's pid is this script's, so it lives as long as the chain), then go.sh once (vh203-walk's copy), then
+# the void check (void.zsh). A void group is moved aside and re-run by a new chain, by hand.
+# Usage: zsh vh203-group.zsh <folder name> <label> <keys file> [<plan>] [<app root>] [<walker dir>]
+#   defaults: plan vh203-after (the driver's in-memory RUNS plan), app root $S/vh203, walker the app root's own.
+S=/Users/uazjob/UoN-Video-Helper-side; D=$S/vh203-walk
+n=$1; label=$2; job=$3; A=$S/vh203; WK=$A/reviews/2026-10-25/design-pass-3/evidence/measurements/walker
+cd "$D" || exit 5
+for f in "$n" "$n.launcher.log" "$n.load.log" "$n.go.out"; do [ -e "$f" ] && { echo "EXISTS $f"; exit 2; }; done
+echo "$n queued $(date -u +%T) probe: $job" >> seq.log
+QPID=$$ zsh $S/walk-queue-wait-seq.zsh "VH-203 #17 $label $n" || exit 12
+echo "$n turn $(date -u +%T)" >> seq.log
+[ -x "$A/node_modules/.bin/vite" ] || { echo "$n stopped: no vite in $A $(date -u +%T)" >> seq.log; echo "no vite"; exit 13; }
+zsh go.sh "$n" "$label $n" "$WK" "$A" "$job" > "$n.go.out" 2>&1; rc=$?
+v=$(zsh void.zsh "$n")
+echo "$n exit $rc $(date -u +%T) void-check: ${v:-stands}" >> seq.log
+echo "group $n rc $rc void ${v:-none} $(date -u +%T)"
+exit $rc

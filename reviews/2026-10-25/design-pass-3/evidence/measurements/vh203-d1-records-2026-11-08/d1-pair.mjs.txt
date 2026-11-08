@@ -1,0 +1,56 @@
+// VH-203 #15, D1's pairing (ruling 3; plan §2), read-only: each D1 key's before (a3039c3, the run revision's walker: d1g1, d1g1-split,
+// d1g2) beside its after (Part A's standing record, by d1-list.mjs's rank: split, else -rw, else group), on this Mac. Per key: status and
+// reached, the instruments short of pass, and every field that moved (cmp-raw-b.mjs's fields: each instrument's outcome, each row's
+// outcome, the non-pass items of targets, type and focus), before → after. A machine class per key, for the reading to name:
+//   pre-existing  the after's failing instruments (or its not reached) fail alike before;
+//   introduced    an instrument failing after passes before (or the after is not reached where the before is reached);
+//   differs       both short of pass, by different instruments or items;
+//   before not reached / both not reached   the before's setup or state not reached (its reason printed: the route, or this Mac's speed);
+//   no before     no before record.
+// Usage (in vh203-walk): node d1-pair.mjs <keys file> <out tsv> <before folder> [<before folder> …]
+import { readdirSync, readFileSync, writeFileSync, statSync, existsSync } from 'node:fs'
+import { join } from 'node:path'
+const [kf, out, ...bdirs] = process.argv.slice(2)
+if (!kf || !out || !bdirs.length) throw new Error('usage: d1-pair.mjs <keys> <out.tsv> <before folder> …')
+if (existsSync(out)) throw new Error('EXISTS ' + out)
+const keys = readFileSync(kf, 'utf8').split('\n').filter(Boolean), want = new Set(keys)
+const rank = (d) => (d.endsWith('-split') ? 3 : d.endsWith('-rw') ? 2 : 1)
+const recs = (d) => { const o = []; const rd = join(d, 'runs'); if (!existsSync(rd)) return o
+  for (const run of readdirSync(rd).filter((x) => statSync(join(rd, x)).isDirectory())) for (const f of readdirSync(join(rd, run)).filter((x) => x.endsWith('.json') && x.includes('__'))) o.push(join(rd, run, f))
+  return o }
+const best = (dirs) => { const m = new Map(); for (const d of dirs) for (const p of recs(d)) { const j = JSON.parse(readFileSync(p, 'utf8')), k = j.key ?? p.split('/').pop().slice(0, -5)
+  if (!want.has(k)) continue; const q = m.get(k); if (!q || rank(d) > q.rank) m.set(k, { rank: rank(d), d, j }) } return m }
+const after = best(readdirSync('.').filter((d) => /^a[1-4]g\d+(-split|-rw)?$/.test(d) && statSync(d).isDirectory()))
+const before = best(bdirs)
+const lab = (i) => i.what ?? i.sel ?? i.el ?? '?'
+const fields = (r) => { const I = r.instruments ?? {}, o = { status: r.status, reached: r.reached?.outcome }
+  for (const [k, v] of Object.entries(I)) { if (!v?.outcome) continue; o['outcome ' + k] = v.outcome
+    if (['limiting', 'asserts', 'player', 'formatTip', 'subresults'].includes(k)) for (const i of v.items ?? []) o[`${k} row "${String(lab(i)).slice(0, 80)}"`] = i.outcome
+    if (['targets', 'type', 'focus'].includes(k)) o[`${k} non-pass`] = (v.items ?? []).filter((i) => i.outcome && i.outcome !== 'pass').map((i) => `${String(lab(i)).replace(/"[^"]*"/, '"…"')}:${i.outcome}`).sort().join('; ') }
+  return o }
+const short = (j) => Object.entries(j.instruments ?? {}).map(([i, v]) => [i, v?.outcome]).filter(([, o]) => o && o !== 'pass' && o !== 'not-applicable')
+const sum = (j) => { const nr = j.status !== 'ok' || j.reached?.outcome !== 'pass'; return `${j.status}/${j.reached?.outcome}` + (short(j).length ? ' ' + short(j).map(([i, o]) => `${i}:${o}`).join(',') : '') + (nr ? ' [' + why(j).slice(0, 110) + ']' : '') }
+const why = (j) => String(j.error ?? (j.faults ?? [])[0]?.why ?? (j.faults ?? [])[0]?.kind ?? j.reached?.problems?.[0] ?? '').replace(/\s+/g, ' ')
+const failing = (j) => new Set(short(j).filter(([, o]) => /fail/.test(o)).map(([i]) => i))
+const nrw = new Map(), rows = [['key', 'after folder', 'after', 'before folder', 'before', 'class', 'moved (before → after)'].join('\t')], cls = {}, byId = {}, moves = new Map()
+for (const k of keys) { const a = after.get(k), b = before.get(k); let c
+  if (!a) c = 'no after'; else if (!b) c = 'no before'; else {
+    const aj = a.j, bj = b.j, anr = aj.status !== 'ok' || aj.reached?.outcome !== 'pass', bnr = bj.status !== 'ok' || bj.reached?.outcome !== 'pass'
+    const af = failing(aj), bf = failing(bj)
+    if (anr) c = bnr ? 'both not reached' : 'introduced'
+    else if (bnr) c = 'before not reached'
+    else if ([...af].some((i) => !bf.has(i))) c = [...af].some((i) => bj.instruments?.[i]?.outcome === 'pass') ? 'introduced' : 'differs'
+    else c = 'pre-existing'
+    const fa = fields(aj), fb = fields(bj)
+    for (const f of new Set([...Object.keys(fa), ...Object.keys(fb)])) { const x = JSON.stringify(fb[f] ?? null), y = JSON.stringify(fa[f] ?? null); if (x === y) continue
+      const m = `${aj.id} | ${f} | ${x.slice(0, 200)} → ${y.slice(0, 200)}`; if (!moves.has(m)) moves.set(m, { n: 0, key: k }); moves.get(m).n++ } }
+  cls[c] = (cls[c] ?? 0) + 1; const id = k.split('__')[0]; byId[id] ??= {}; byId[id][c] = (byId[id][c] ?? 0) + 1
+  const mv = a && b ? (() => { const fa = fields(a.j), fb = fields(b.j); return [...new Set([...Object.keys(fa), ...Object.keys(fb)])].filter((f) => JSON.stringify(fa[f] ?? null) !== JSON.stringify(fb[f] ?? null)).map((f) => `${f}: ${JSON.stringify(fb[f] ?? null).slice(0, 60)} → ${JSON.stringify(fa[f] ?? null).slice(0, 60)}`).join(' | ') })() : ''
+  if (b && (b.j.status !== 'ok' || b.j.reached?.outcome !== 'pass')) { const r = `${b.j.id} before ${b.j.status}/${b.j.reached?.outcome}: ${why(b.j).slice(0, 160)}`; nrw.set(r, (nrw.get(r) ?? 0) + 1) }
+  rows.push([k, a?.d ?? '', a ? sum(a.j) : '', b?.d ?? '', b ? sum(b.j) : '', c, mv].join('\t')) }
+writeFileSync(out, rows.join('\n') + '\n')
+console.log(JSON.stringify({ keys: keys.length, after: after.size, before: before.size, byClass: cls }))
+for (const [id, t] of Object.entries(byId)) console.log(`${id}: ${Object.entries(t).map(([c, n]) => `${c} ${n}`).join(', ')}`)
+for (const [r, n] of nrw) console.log(`not reached ×${n} ${r}`)
+console.log(`moved fields ${[...moves.values()].reduce((s, x) => s + x.n, 0)} in ${moves.size} groups`)
+for (const [m, x] of [...moves].sort()) console.log(`×${x.n} ${m} (e.g. ${x.key})`)

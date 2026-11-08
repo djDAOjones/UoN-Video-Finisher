@@ -1637,3 +1637,20 @@ INTAKE.2 stays a wish line: only a person listening can judge the Teams output. 
 **Items:** VH-206, VH-207, VH-208, VH-209, VH-210
 
 **Deferred:** VH-206, VH-207, VH-208, VH-209, VH-210
+
+## 2026-10-27 — VH-202 — Checkpoint: the fix plan, Codex astra's blind fix items compared, its critique applied, one ask to the owner; VH-202 stays open
+
+**Decision:** VH-202 stays open, blocked on the owner's answer to its ask, which a short close step quotes. The plan, the compare, the critique and the ask are done. VH-206's words and VH-209 wait for him; nothing contested is built first, and the approved items need only his approval of the plan.
+
+**Rationale:**
+
+- **The ask** is the fix plan's last section (`reviews/2026-10-25/design-pass-3/fix-plan-2026-10-27.md`, "The owner's ask"): nine points, each with a recommendation. They are the plan and its order; V-51's words in three languages, marked as the owner's to approve as V-45's were; the 400 ms rule (kept); V-50's rank and whether to take it (taken, rank 3, as VH-209); F15b (not a finding); V-18 (the acceptance stands); the statement's limitation (VH-192.1, VH-137's words); the spec correction for V-51 (wish VH-202.1); and no control. The disagreements with Codex carry both positions: VH-201.1's five questions, V-51's words and V-50's place.
+- **Codex astra, on the owner's word** ("please also do everything in partnership with codex as a comparison. codex astra should be used liberally but you decide"):
+  - Claude's plan was saved first (`claude-fixplan-2026-10-27.md`). Codex then drafted fix items blind, from the report, the source, the schema and VH-203's stage rule (`codex-astra-fixitems-brief-2026-10-27.md`, `codex-astra-fixitems-2026-10-27.md`).
+  - Compared in `fixplan-compare-2026-10-27.md`: the same items, order and remedies. Five Codex points were taken: a typed reason for V-51; V-46's capture before `clearTrim`'s lock; VH-150's test and the walker's `warnBox` moved for V-52; more scenarios; and 1.4.12. One was refused: an owner question in VH-208's file.
+  - Its critique of the plan, `codex-astra-fixplan-critique-2026-10-27.md` from `codex-astra-fixplan-critique-brief-2026-10-27.md`, said "Approve after the musts below". All five musts were applied and none refused. P-01: VH-207 captures at the choosing too, where the trim's lock and the result's re-render act first. P-02: each before not in VH-199's records is measured on the item's own base, and the 32 px font in the dark and forced modes is qualified first. P-03: the walker's warning checks move with V-51 and V-52. P-04: the plan's approval, not V-51's words, is what the other items wait for. P-05: Codex's V-18 position, provisional until HEAD is measured, is stated as its own.
+- **Digest rules applied:** nielsen 1, 2, 5, 6 and 9 ("errors say what next"); wcag-2.2-aaa 2.4.3, 2.4.13 and "every exception recorded"; carbon "one primary per state"; house conventions "Fail loudly on data loss". No product code changed.
+
+**Supersedes:** none
+
+**Deferred:** VH-206, VH-207, VH-208, VH-209, VH-210, VH-203

@@ -1,0 +1,32 @@
+// VH-203 #7, read-only but for its two output files: the split rule for a Part A group (ruling 1, ~04:2xZ; carried by the orchestrator ~07:4xZ).
+// A key of one of the 16 focus-bound states (pair-rb2-causes.md, finding 1) that is not first of its setup in the group's walk is taken out of
+// the group's key file and listed for split-7.zsh's loop, one key per setup. The setups are matrix.mjs's own (240-247: id, variant, language,
+// view, fallback, a subresults mode, and W18's segment after a forced record), over the group's records in the plan's order (keepKeys); taking
+// a key out can change W18's segments, so it repeats until no focus-bound key is left that is not first.
+// Usage: RUN_ROOT=<any> node focus-split-7.mjs <walker> <group keys file> <kept keys out> <split keys out>   (run in vh203-walk)
+import { pathToFileURL } from 'node:url'
+import { join } from 'node:path'
+import { readFileSync, writeFileSync, existsSync } from 'node:fs'
+const [walker, file, keptOut, splitOut] = process.argv.slice(2), at = (f) => import(pathToFileURL(join(walker, f)).href)
+for (const f of [keptOut, splitOut]) if (existsSync(f)) throw new Error('EXISTS ' + f)
+const S = await at('scenarios.mjs'), P = await at('parts.mjs'), { recordKey } = await at('runner.mjs'), { keepKeys, hasSubresults } = await at('matrix.mjs')
+const FOCUS = new Set(['S-72a', 'S-72b', 'S-92', 'S-93', 'S-94', 'S-95', 'S-96', 'S-112', 'S-115', 'S-117', 'S-120', 'S-128', 'S-141', 'S-143', 'S-149', 'S-150'])
+const all = P.RUNS.flatMap((r) => S.PLANS[r.name]()), keys = readFileSync(file, 'utf8').split('\n').map((l) => l.trim()).filter(Boolean)
+const notFirst = (recs) => {
+  const segs = new Map(), seen = new Set(), out = []
+  for (const r of recs) {
+    const base = [r.id, r.variant ?? '', r.lang, r.view, r.mode === 'fallback', hasSubresults(r) ? r.mode : ''].join('|'), sg = segs.get(base) ?? { n: 0, forced: false }, forced = /^forced-/.test(r.mode)
+    if (!forced && sg.forced) { sg.n++; sg.forced = false }
+    if (forced) sg.forced = true
+    segs.set(base, sg)
+    const k = base + '|' + sg.n; if (seen.has(k)) { if (FOCUS.has(r.id)) out.push(recordKey(r)) } else seen.add(k)
+  }
+  return out
+}
+let kept = keepKeys(all, keys), split = []
+if (kept.length !== keys.length) throw new Error(`keepKeys kept ${kept.length} of ${keys.length}`)
+for (let i = 0; i < 20; i++) { const nf = new Set(notFirst(kept)); if (!nf.size) break; split.push(...nf); kept = kept.filter((r) => !nf.has(recordKey(r))) }
+if (notFirst(kept).length) throw new Error('no fixed point')
+const order = new Map(keys.map((k, i) => [k, i])); split.sort((a, b) => order.get(a) - order.get(b))
+writeFileSync(keptOut, kept.map(recordKey).join('\n') + '\n'); writeFileSync(splitOut, split.length ? split.join('\n') + '\n' : '')
+console.log(`${file}: ${keys.length} keys; kept ${kept.length} to ${keptOut}; split ${split.length} to ${splitOut}${split.length ? ': ' + split.join(' ') : ''}`)

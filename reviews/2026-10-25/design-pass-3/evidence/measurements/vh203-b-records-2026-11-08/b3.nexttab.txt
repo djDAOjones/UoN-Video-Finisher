@@ -1,0 +1,13 @@
+S-149a w1280: cells 12, alike 12, not alike 0, not checkable 0
+S-149a w320: cells 12, alike 12, not alike 0, not checkable 0
+S-149b w1280: cells 12, alike 12, not alike 0, not checkable 0
+S-149b w320: cells 12, alike 12, not alike 0, not checkable 0
+S-149c w1280: cells 12, alike 12, not alike 0, not checkable 0
+S-149c w320: cells 12, alike 12, not alike 0, not checkable 0
+S-149d w1280: cells 12, alike 12, not alike 0, not checkable 0
+S-149d w320: cells 12, alike 12, not alike 0, not checkable 0
+S-149e w1280: cells 12, alike 0, not alike 0, not checkable 12 (focus end "Save the video" not in the capture's order; focus end "Simpan video itu" not in the capture's order; focus end "保存视频" not in the capture's order)
+S-149e w320: cells 12, alike 0, not alike 0, not checkable 12 (focus end "Save the video" not in the capture's order; focus end "Simpan video itu" not in the capture's order; focus end "保存视频" not in the capture's order)
+S-149f w1280: cells 24, alike 12, not alike 0, not checkable 12 (focus end "Your message" not in the capture's order; focus end "Mesej anda" not in the capture's order; focus end "您的留言" not in the capture's order)
+S-149f w320: cells 24, alike 12, not alike 0, not checkable 12 (focus end "Your message" not in the capture's order; focus end "Mesej anda" not in the capture's order; focus end "您的留言" not in the capture's order)
+not alike: 0

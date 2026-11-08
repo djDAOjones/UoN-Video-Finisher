@@ -1,0 +1,11 @@
+records 53; source keys 214; moved fields 82 in 9 groups
+×12 S-03 | asserts row ""About the video format" 44 x 44, collapsed, controlling #format-help (the title" | was null → now "pass" (e.g. S-03__ms-MY__landscape__light)
+×12 S-03 | asserts row ""About the video format" 44 x 44, collapsed, controlling #format-help" | was "fail" → now null (e.g. S-03__ms-MY__landscape__light)
+×12 S-03 | asserts row "Tab from the top: skip link, Page language, (the notice's link), About the video" | was "fail" → now null (e.g. S-03__ms-MY__landscape__light)
+×12 S-03 | asserts row "Tab from the top: skip link, Page language, (the notice's link), the title's "?"" | was null → now "pass" (e.g. S-03__ms-MY__landscape__light)
+×12 S-03 | outcome asserts | was "fail" → now "pass" (e.g. S-03__ms-MY__landscape__light)
+×2 S-81 | focus non-pass | was "" → now "#accessibility-statement a:fail" (e.g. S-81__ms-MY__zoom400proxy__light)
+×9 S-81 | focus non-pass | was "#accessibility-statement a:fail" → now "" (e.g. S-81__ms-MY__landscape__light)
+×9 S-81 | outcome focus | was "fail" → now "pass" (e.g. S-81__ms-MY__landscape__light)
+×2 S-81 | outcome focus | was "pass" → now "fail" (e.g. S-81__ms-MY__zoom400proxy__light)
+no source record: 0

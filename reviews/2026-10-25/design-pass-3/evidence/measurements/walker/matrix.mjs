@@ -92,9 +92,15 @@ async function persistExposure(w, run, key, { ax = false } = {}) {
   return out
 }
 
+// VH-203 (wish VH-199.1): an assertion that reads where focus is (its page expression names document.activeElement, or it declares
+// `readsFocus`) is read as the state was reached, before the focus measurements move focus and blur it (below), never after (S-59's
+// "focus on the card", VH-199's nine light cells); the asserts instrument keeps its place and order, these rows taken from here.
+export const readsFocus = (a) => a.readsFocus === true || (typeof a.expr === 'string' && /document\.activeElement/.test(a.expr))
 async function instruments(w, sc, rec, run) {
   const key = recordKey(rec)
   const out = {}
+  const focusFirst = (sc.asserts ?? []).filter(readsFocus)
+  const early = focusFirst.length ? new Map((await assertRows(w, { asserts: focusFirst })).map((r, i) => [focusFirst[i], { ...r, readBeforeFocusMoved: true }])) : undefined
   // Document width, offenders, text clipped by an ancestor and text spilling from a set height (M-04).
   out.overflow = await w.evaluate('window.__qual.overflow()')
   const ax = await axTree(w)
@@ -147,7 +153,7 @@ async function instruments(w, sc, rec, run) {
   }
   // VH-198: Phase 8's instruments, after the others, so their keys and clicks
   // never move what those measured; each puts back what it changed.
-  Object.assign(out, await phase8Instruments(w, sc, { run, recKey: key, aggregate }))
+  Object.assign(out, await phase8Instruments(w, early ? { ...sc, early } : sc, { run, recKey: key, aggregate }))
   return out
 }
 
@@ -225,8 +231,17 @@ async function main() {
   console.log(`run ${run.runId}: ${declared.length} records declared${resuming ? `, ${skip.size} kept from before (attempt ${run.attempt})` : ''}, ${browser.version.Browser}`)
   // Group by scenario, variant, language, view and fonts: one setup, then each mode.
   // A record with subresults changes its page after it is measured, so it has a setup of its own (M-04).
-  const groups = new Map()
-  for (const r of declared.filter((d) => !skip.has(recordKey(d)))) { const k = [r.id, r.variant ?? '', r.lang, r.view, r.mode === 'fallback', hasSubresults(r) ? r.mode : ''].join('|'); if (!groups.has(k)) groups.set(k, []); groups.get(k).push(r) }
+  // VH-203 (wish VH-210.1): the forced palette never carries into the next mode: a record in no forced mode that follows a forced
+  // one in its setup's declared order starts a setup of its own, on a fresh page (VH-210's footer group: the plain spacing cells
+  // after forced-dark-font32 read a stale forced palette, and walked alone every ring passed).
+  const groups = new Map(), segs = new Map()
+  for (const r of declared.filter((d) => !skip.has(recordKey(d)))) {
+    const base = [r.id, r.variant ?? '', r.lang, r.view, r.mode === 'fallback', hasSubresults(r) ? r.mode : ''].join('|'), sg = segs.get(base) ?? { n: 0, forced: false }, forced = /^forced-/.test(r.mode)
+    if (!forced && sg.forced) { sg.n++; sg.forced = false }
+    if (forced) sg.forced = true
+    segs.set(base, sg)
+    const k = base + '|' + sg.n; if (!groups.has(k)) groups.set(k, []); groups.get(k).push(r)
+  }
   for (const recs of groups.values()) {
     const { id, lang, view, variant } = recs[0]
     const route = ROUTES[id]

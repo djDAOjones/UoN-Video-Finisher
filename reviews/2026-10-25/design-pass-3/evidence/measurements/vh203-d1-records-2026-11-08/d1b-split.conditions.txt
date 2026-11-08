@@ -1,0 +1,12 @@
+start 2026-11-08T19:26:48Z
+Now drawing from 'AC Power'
+19:26  up 111 days, 5 hrs, 2 users, load averages: 1.96 3.11 3.13
+ports: 0 Claude CLOSED entries ignored (ruling 2)
+commit a3039c3b489325122639105d3b95d6ff8048cc95 (git -C $R archive a3039c3 | tar -x, 2026-11-08, VH-203 #14, D1's before)
+porcelain lines 0
+diff hash da39a3ee5e6b4b0d (an export of the commit: no working tree)
+instrument revision 2e7b0c044ce11f2b
+job1 exit 0 2026-11-08T19:31:23Z
+end 2026-11-08T19:31:23Z
+Now drawing from 'AC Power'
+19:31  up 111 days,  5:04, 2 users, load averages: 3.29 3.22 3.18

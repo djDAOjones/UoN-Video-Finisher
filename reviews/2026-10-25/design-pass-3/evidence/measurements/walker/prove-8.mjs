@@ -50,8 +50,9 @@ const card = ({ labelled = true, reach = true, saved = false } = {}) => `<button
   <p>${saved ? '' : CARD_WORDS['result.lifetime']}</p><div class="actions"><button class="button" type="button">Save the video</button></div></section></div>
   <p id="save-status">${saved ? CARD_WORDS['status.saved'] : ''}</p>`
 // The finished card's warnings and the status line, driven through two jobs by P8_INIT's own observer.
-// The heavy detail is the whole en-GB string (src/i18n/en-GB.ts, heavyLimiting), three sentences, so W2's "whole" is proved on it (VH-208).
-const WARN_WORDS = { ...CARD_WORDS, 'status.ready': 'Your video is ready.', 'warnings.heavyLimiting.heading': 'The loudest moments were held down hard', 'warnings.heavyLimiting.detail': 'To reach the usual level, the tool had to hold down the loudest moments of this recording hard. That can make a voice sound flat or squashed, so play the new video before you save it. Next time, try adjusting how you record the sound.', 'warnings.metadataLost.heading': 'The file’s title, author, and date could not be copied across' }
+// The heavy detail is the whole en-GB string as served since VH-212 (src/i18n/en-GB.ts, heavyLimiting: "…before you use it."), three
+// sentences, so W2's "whole" is proved on it (VH-208; VH-203, wish VH-212.1).
+const WARN_WORDS = { ...CARD_WORDS, 'status.ready': 'Your video is ready.', 'warnings.heavyLimiting.heading': 'The loudest moments were held down hard', 'warnings.heavyLimiting.detail': 'To reach the usual level, the tool had to hold down the loudest moments of this recording hard. That can make a voice sound flat or squashed, so play the new video before you use it. Next time, try adjusting how you record the sound.', 'warnings.metadataLost.heading': 'The file’s title, author, and date could not be copied across' }
 const WARN_PAGE = page(`<progress id="process-progress" hidden></progress><p id="status" role="status"></p><div id="process-result"></div>`, '', WARN_WORDS)
 const TIP_GOOD_SCRIPT = `const b = document.getElementById('format-help-button'), t = document.getElementById('format-help'); const set = (o) => { t.hidden = !o; b.setAttribute('aria-expanded', String(o)); };
   b.addEventListener('click', () => set(t.hidden)); document.addEventListener('focusin', (e) => { if (!b.contains(e.target) && !t.contains(e.target)) set(false); });
@@ -157,6 +158,23 @@ async function drive(w, jobs, layout = 'beside') {
       : `<section class="notification" data-kind="success"><p class="notification-title">Finished video — 1 MB</p></section>${j.warnings ? `<div><section class="notification" data-kind="warning"><ul>${block(j.warnings)}</ul></section></div>` : ''}`)}; })()`); await sleep(150)
   }
 }
+// 4a. W5 (VH-203, wish VH-199.1; the successor): the finish's player read a second after its card, or before the next step's
+// play() if sooner, with the caller recorded; a play() by the page's own script is never sampled early, so the second's reading stands.
+const FINISH_PAGE = (pagePlays) => page(`<progress id="process-progress" hidden></progress><p id="status" role="status"></p><div id="process-result"></div><script>window.__draw = () => { document.getElementById('process-progress').hidden = true; document.getElementById('process-result').innerHTML = '<section class="notification" data-kind="success"><p class="notification-title">Finished video</p><video class="result-player" muted preload="auto" src="${VIDEO}"></video></section>';${pagePlays ? " setTimeout(() => { const v = document.querySelector('video.result-player'); v.muted = true; v.play().catch(() => {}); }, 500);" : ''} };</script>`)
+await tryOne('finish+1s', async () => {
+  for (const [fixture, how, wanted] of [['finish-walker-play-500ms-good', 'walker', 'pass'], ['finish-page-play-500ms-bad', 'page', 'fail'], ['finish-no-play-good', 'none', 'pass']]) {
+    const w = await open(fixture, { html: FINISH_PAGE(how === 'page') })
+    try {
+      await w.evaluate(`document.getElementById('process-progress').hidden = false`); await sleep(200)
+      await w.evaluate('window.__draw()'); await sleep(500)
+      if (how === 'walker') await w.evaluate(`(async () => { const v = document.querySelector('video.result-player'); v.muted = true; await v.play().catch(() => {}); })()`)
+      await sleep(1200)
+      const r = rowOf(await playerRows(w), 'paused a second after the card appeared')
+      prove('player: paused a second after the card appeared (W5)', fixture, r.outcome, wanted, r)
+      prove("player: the finish's play() caller recorded (W5)", fixture, r.playBy ?? 'none', how, r)
+    } finally { await w.close() }
+  }
+})
 await tryOne('limiting', async () => {
   const H = WARN_WORDS['warnings.heavyLimiting.heading'], MLOST = WARN_WORDS['warnings.metadataLost.heading'], D = WARN_WORDS['warnings.heavyLimiting.detail']
   const DETAIL = "the heavy warning's detail whole after its title"

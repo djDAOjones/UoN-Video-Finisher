@@ -1,0 +1,41 @@
+#!/bin/zsh
+# VH-203 #7: pair-rb2-split, by Orchestrator #44's word (starts/vh203-7-start.md): a driver-side loop outside the walker, one chain holding
+# one queue line and one lock. The driver (vh203-driver.mjs, unchanged) runs once per key, so that each key is its own setup (matrix.mjs
+# groups one run's records into setups, 240-247); matrix.mjs and the walker are unchanged. The chain mode is vh203-group.zsh's, with the
+# loop as go.sh's one job line in place of the driver's.
+# Usage: zsh split-7.zsh chain <folder name> <label> <keys file>   (run in vh203-walk; queue, go.sh once, the void check)
+#        zsh split-7.zsh loop <keys file> <label> <folder name>    (the job line; walk.sh runs it in vh203-walk with WALKER, OUTD … set)
+S=/Users/uazjob/UoN-Video-Helper-side; D=$S/vh203-walk
+mode=$1; shift
+if [ "$mode" = chain ]; then
+  n=$1; label=$2; kf=$3; A=$S/vh203; WK=$A/reviews/2026-10-25/design-pass-3/evidence/measurements/walker
+  cd "$D" || exit 5
+  [ -s "$kf" ] || { echo "no key list $kf"; exit 11; }
+  for f in "$n" "$n.launcher.log" "$n.load.log" "$n.go.out"; do [ -e "$f" ] && { echo "EXISTS $f"; exit 2; }; done
+  job="zsh $D/split-7.zsh loop $D/$kf $label $n"
+  echo "$n queued $(date -u +%T) keys $kf $(shasum -a 1 "$kf" | cut -c1-8) one driver run per key, app $A" >> seq.log
+  QPID=$$ zsh $S/walk-queue-wait-seq.zsh "VH-203 #17 $label $n" || exit 12
+  echo "$n turn $(date -u +%T)" >> seq.log
+  [ -x "$A/node_modules/.bin/vite" ] || { echo "$n stopped: no vite in $A $(date -u +%T)" >> seq.log; echo "no vite"; exit 13; }
+  zsh go.sh "$n" "$label $n" "$WK" "$A" "$job" > "$n.go.out" 2>&1; rc=$?
+  v=$(zsh void.zsh "$n")
+  echo "$n exit $rc $(date -u +%T) void-check: ${v:-stands}" >> seq.log
+  echo "group $n rc $rc void ${v:-none} $(date -u +%T)"
+  exit $rc
+fi
+if [ "$mode" = loop ]; then
+  kf=$1; label=$2; n=$3
+  for k in WALKER OUTD RUN_ROOT; do [ -n "${(P)k}" ] || { echo "set $k"; exit 10; }; done
+  K="$OUTD/keys"; mkdir -p "$K" "$OUTD/logs"; keys=(${(f)"$(<$kf)"}); i=0; worst=0
+  for key in $keys; do
+    [ -n "$key" ] || continue
+    i=$((i+1)); t=$(printf %02d $i); f="$K/$t-$key.txt"; print -r -- "$key" > "$f"
+    echo "key $t $key start $(date -u +%FT%TZ) load $(uptime | sed -E 's/.*load averages?: ([0-9.]+).*/\1/')" >> "$OUTD/split.log"
+    node vh203-driver.mjs walk --walker "$WALKER" --label "$label" --name "$n" --keys "$f" < /dev/null > "$OUTD/logs/key$t.log" 2>&1; rc=$?
+    echo "key $t $key exit $rc $(date -u +%FT%TZ)" >> "$OUTD/split.log"
+    [ $rc -gt $worst ] && worst=$rc
+  done
+  echo "keys $i worst exit $worst $(date -u +%FT%TZ)" >> "$OUTD/split.log"
+  exit $worst
+fi
+echo "usage: zsh split-7.zsh chain <folder> <label> <keys file> | loop <keys file> <label> <folder>"; exit 2

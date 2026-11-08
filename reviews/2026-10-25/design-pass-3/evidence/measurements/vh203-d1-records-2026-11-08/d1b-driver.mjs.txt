@@ -1,0 +1,52 @@
+// VH-203 #17: D1's 93 befores "before by its own route" (#45's word, 18:5xZ, hand-over 16). a3039c3's walker (the export's own,
+// VH-199's instrument) has no `--keys` (VH-223 added it later): its matrix.mjs reads argv[3..] as scenario ids. So this driver, read-only
+// over the walker, registers in memory one plan, PLANS['vh203-d1b'], holding exactly the key list's records out of that walker's own RUNS
+// (each run's own declaration, press lists and all), and runs that walker's matrix.mjs on it unchanged: a driver in vh203-walk/ running
+// matrix.mjs unchanged on a plan in memory (the brief's section 3), no walker change. Modelled on vh203-driver.mjs (2a9671cd).
+//   APP_URL=… CDP_PORT=… FIX=… OUT_ROOT=… RUN_ROOT=… OUTD=… node d1b-driver.mjs walk --walker <dir> --label <l> --name <group> --keys <file>
+//   node d1b-driver.mjs count --walker <dir> --keys <file>   (read-only: every key found, the records, setups and est)
+import { pathToFileURL, fileURLToPath } from 'node:url'
+import { join, resolve } from 'node:path'
+import { appendFileSync, mkdirSync, readFileSync } from 'node:fs'
+import { execFileSync } from 'node:child_process'
+import { createHash } from 'node:crypto'
+
+const args = (() => { const a = process.argv.slice(2), o = { _: [] }; for (let i = 0; i < a.length; i++) { if (a[i].startsWith('--')) { const k = a[i].slice(2); if (a[i + 1] === undefined || a[i + 1].startsWith('--')) o[k] = true; else o[k] = a[++i] } else o._.push(a[i]) } return o })()
+const PLAN = 'vh203-d1b'
+
+function power() {
+  const sh = (cmd, a) => execFileSync(cmd, a, { encoding: 'utf8' })
+  const batt = sh('pmset', ['-g', 'batt']), pm = sh('pmset', ['-g']), up = sh('uptime', []).trim()
+  const ac = /AC Power/.test(batt), level = Number((batt.match(/(\d+)%/) ?? [])[1]), mode = Number((pm.match(/^\s*powermode\s+(\d+)/m) ?? [])[1])
+  const la = up.match(/load averages?: ([\d.]+),? ([\d.]+),? ([\d.]+)/) ?? []
+  return { at: new Date().toISOString(), source: ac ? 'AC' : 'battery', level, powermode: mode, load: Number(la[1]), load5: Number(la[2]), load15: Number(la[3]), ok: ac || (level > 50 && !(/lowpowermode\s+1/.test(pm) || mode === 1)) }
+}
+
+async function register(walker, file) {
+  const at = (f) => import(pathToFileURL(join(walker, f)).href)
+  const S = await at('scenarios.mjs'), P = await at('parts.mjs'), { recordKey } = await at('runner.mjs')
+  const keys = readFileSync(file, 'utf8').split('\n').map((l) => l.trim()).filter(Boolean), want = new Set(keys)
+  const all = P.RUNS.flatMap((r) => S.PLANS[r.name]()), recs = all.filter((x) => want.has(recordKey(x)))
+  const found = new Set(recs.map(recordKey)), missing = keys.filter((k) => !found.has(k))
+  if (missing.length || recs.length !== keys.length) throw new Error(`keys not in this walker's RUNS: ${missing.length} (${missing.slice(0, 5).join(', ')}); records ${recs.length} of ${keys.length}`)
+  S.PLANS[PLAN] = () => P.RUNS.flatMap((r) => S.PLANS[r.name]()).filter((x) => want.has(recordKey(x)))
+  return { keys, recs, P, recordKey }
+}
+
+const keyFile = () => { if (typeof args.keys !== 'string') throw new Error('--keys <file> is required'); return resolve(args.keys) }
+if (args._[0] === 'count') {
+  const walker = resolve(args.walker), { keys, recs, P } = await register(walker, keyFile())
+  const ids = {}; for (const r of recs) ids[r.id] = (ids[r.id] ?? 0) + 1
+  const setups = new Set(recs.map((r) => [r.id, r.variant ?? '', r.lang, r.view, r.mode === 'fallback'].join('|')))
+  console.log('keys', keys.length, 'records', recs.length, 'setups', setups.size, 'est', P.est(recs), 'ids', JSON.stringify(ids))
+} else if (args._[0] === 'walk') {
+  for (const k of ['APP_URL', 'CDP_PORT', 'FIX', 'OUT_ROOT', 'RUN_ROOT', 'OUTD']) if (!process.env[k]) throw new Error('set ' + k)
+  const walker = resolve(args.walker), file = keyFile(), bytes = readFileSync(file)
+  const { keys } = await register(walker, file), p = power()
+  mkdirSync(process.env.RUN_ROOT, { recursive: true })
+  appendFileSync(join(process.env.RUN_ROOT, 'vh203-ledger.jsonl'), JSON.stringify({ label: args.label ?? 'before', name: args.name, plan: PLAN, power: p, walker, keys: { file, count: keys.length, sha1: createHash('sha1').update(bytes).digest('hex') }, args }) + '\n')
+  if (!p.ok) { console.log('POWER-STOP'); process.exit(3) }
+  const matrixUrl = pathToFileURL(join(walker, 'matrix.mjs')).href
+  process.argv = [process.argv[0], fileURLToPath(matrixUrl), PLAN]
+  await import(matrixUrl)
+} else { console.log('usage: node d1b-driver.mjs walk|count --walker <dir> --keys <file> [--label l --name n]'); process.exit(2) }

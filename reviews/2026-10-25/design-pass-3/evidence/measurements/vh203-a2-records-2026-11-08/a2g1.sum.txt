@@ -1,0 +1,4 @@
+a2g1: 157 keys; start 2026-11-07T18:18:09Z; end 2026-11-07T18:42:08Z; job1 exit 1 2026-11-07T18:42:08Z; GO 18:18:09 load 5.47 5-min 4.93 AC Power % powermode ; peak load 9.72; samples at 8 or above 5 of 48
+{"records":157,"missing":0,"extra":0,"status":{"ok":157},"reached":{"pass":157},"revision":["7db38f355f3c46c2"],"commit":["756b425d333f clean"],"problemsByKey":{}}
+fixtures: 3 same as VH-223; hfr-120fps-10s.mp4: not in VH-223's manifests; sha1 = fix-mac-pro 154f949f; hfr-45fps-10s.mp4: not in VH-223's manifests; sha1 = fix-mac-pro 96399871
+not ok: 0 (route keys in the list: 0, outside check-group's S- count)

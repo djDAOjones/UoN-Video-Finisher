@@ -1,0 +1,34 @@
+# VH-203 Part A1: Claude's reading of part 1 (VH-203 #8, 2026-11-07, saved before any Codex read of it)
+
+**What was walked.** The run revision `7db38f355f3c46c2` (`vh203-run-rev.txt` 4351fc8f): `$W` at `756b425` with the walker's nine files (diff hash b28b608c84617b04), on the Mac Pro, by the in-memory route (`vh203-driver.mjs`, `PLANS['vh203-after']`, `--keys`; ruling 1). Part 1 is `plan-keys-756b425.tsv`'s run-01 (370) and run-02 (330): 700 keys = VH-199's run-01 (369) and run-02 (330), 699 core keys, plus S-155 ×1 (en-GB w1280 light), tallied apart (ruling 2). The split rule (`focus-split-7.mjs`) gives split 0 in all six groups.
+
+| Group | Keys | Sum (sha1) | Walked (Z) | s (ratio) | Peak load | ok / failed / not reached | Whole |
+|---|---|---|---|---|---|---|---|
+| a1g1 | 162 | 7e563e4a | 07:43–08:34 | 3086 (1.57) | 8.17 (1 sample) | 162 / 0 / 0 | false: S-03 ×23 formatTip evidence alone |
+| a1g2 | 141 | 42348d88 | 15:22–16:09 | 2845 (1.96) | 4.98 | 141 / 0 / 0 | true |
+| a1g3 | 123 | e8064229 | 16:11–16:39 | 1704 (1.14) | 5.72 | 123 / 0 / 0 (S-155 ×1 among them) | true |
+| a1g4 | 81 | 802fba6a | 16:41–17:20 | 2308 (1.56) | 6.73 | 81 / 0 / 0 | true |
+| a1g5 | 169 | da9e2a5f | 17:22–18:02 | 2397 (1.65) | 7.17 | 169 / 0 / 0 | true |
+| a1g6 | 24 | ffc40234 | 18:03–18:15 | 748 (0.96) | 7.53 | 24 / 0 / 0 | true |
+| **A1** | **700** | | | **13,088 (1.52 on est 8,619)** | | **700 / 0 / 0** | |
+
+**Against VH-199** (the MacBook Pro's run-01 and run-02, cited, never paired; ruling 3): 699 ok there; here the core's 699 read ok and reached, 0 failed, 0 not reached. S-155 ×1, apart: ok, reached pass. The 8 route keys among the 700 (J1 ×4, J2, J3, J4, K-dialog) sit outside check-group's S- count and read ok.
+
+**Each reading short of pass, classed** (no record reads NOT-OK by status):
+- **S-03 ×23 formatTip evidence, "expected subjects missing"** (a1g1's whole false): a known reading. The run revision's cause note says the "?" in the title's closed panel is not reachable (VH-205's "?", W11). Its line is decided at the close.
+- **S-81 ×6 focus fail** (`#accessibility-statement a`: en-GB spacing, w320, zoom400proxy; ms-MY w320; zh-Hans w320, w375): a known reading, W9's own (wish VH-200.1). It is the wrapped link's ring against its 2-fragment perimeter: Chrome draws one ring per fragment, so the changed area at 3:1 falls short of the perimeters. Orchestrator #44 ruled it at pair-rb1 (~03:24Z) as for the verdict (D2), with no defect line.
+- **Cannot-determine:** S-15 ×12 focus (a1g3) and J1 ×4 keys (a1g6), plus each group's targets, contrastExtra and measure cannot-determine. These are the instruments' own unresolved readings, for the verdict's unresolved account, and not NOT-OK.
+- **This Mac's speed:** none. S-24 ×12 (a1g4) reached here as longJob ("This will take about 1 hour", on the long/very-long border), state true, ok. So none is recorded under D5. VH-223 and VH-224 read veryLongJob on this Mac, and VH-223.1 and VH-224.1 stay open (ruling 7).
+- **New:** none. No row fails only at the run revision.
+
+**What moved, and by which change.** These are against `rev-before-rb1`/`-rb2`, at `29c3acfc` on the same build and the same Mac. Each move is its change's own by `keys-rev-before.why.tsv`, and nothing moved against pair-rb1 to pair-rb4, their re-walks, the splits or pair-w5:
+- a1g1: S-03 ×23 asserts → pass (VH-216.1, S-03's order rows); S-21 ×1 focus → pass (W7).
+- a1g3: S-81 ×11 focus fail → pass and ×6 pass → fail (W9); S-88 ×1 player fail → pass (W5, finish+1s); S-15 ×2 font32 focus fail → cannot-determine (W8, VH-217.5).
+- a1g5: S-59 ×1 asserts fail → pass (W6); S-62 ×9 focus cannot-determine → pass (W7).
+- a1g6: J1 ×4 failed → ok, with keys fail → cannot-determine (VH-216.1, J1's route); J4 ×1 keys fail → pass (VH-216.1).
+- a1g2 and a1g4: nothing moved (a1g4 shares no key with rev-before; S-24 was left out of it, ruling 7).
+- Against pilot3c, S-15 ×5 and S-76 ×4 read pressed "-" → pass. That is the two plans' press lists, not a row.
+
+**Conditions.** AC power throughout. Load was below 8 at each start. One sample reached 8 or above (a1g1, 08:14:56Z); the records within 30 s of it carry no timing reading, so nothing was re-walked. Fixtures are VH-223's or fix-mac-pro's, except cut-short-30s.mkv, which is fix.sha1.txt's (2978611a, the P0 difference, proved first 7/7). Nothing was written to samples/.
+
+**For the verdict:** S-03's formatTip line and S-81 ×6 (W9, 2.4.13's area at the 2-fragment perimeter) go to Codex's blind read and Claude's verdict (D2). Part 1 stands with no finding.

@@ -1,0 +1,265 @@
+1. **The keys**
+
+   **Recommendation: freeze an explicit coverage ledger before scheduling work.** Use VH-199’s **3,219 expected scenario/route records plus 48 transitions**, not its 3,207 successfully recorded cells, and not today’s `PLANS.matrix`. The twelve missing records remain obligations. Keep transition set identity: the three English light cases occur in both the `all` and `cases` sets intentionally. Sources: `reviews/2026-10-25/design-pass-3/evidence/measurements/matrix-2026-10-27.md:18`, `walker/parts.mjs:161`.
+
+   In the citations below, `M/` means `reviews/2026-10-25/design-pass-3/evidence/measurements/`; `W/` means its `walker/` directory; `P/` means `reviews/2026-10-25/design-pass-3/`.
+
+   | Core part | Records | Separate transitions |
+   |---|---:|---:|
+   | 1 | 699 | — |
+   | 2 | 157 | 48 |
+   | 3 | 2,131 | — |
+   | 3b | 216 | — |
+   | 4 | 16 | — |
+   | **Total** | **3,219** | **48** |
+
+   These are the historical declared parts, including part 3b’s additions beyond the original sizing estimate. Sources: `M/matrix-2026-10-27.md:33`, `W/parts.mjs:139`.
+
+   **HEAD will not start the named parts or runs successfully.** I ran `node parts.mjs check`: it reports 3,276 records including transitions, part 1’s hash `e8f29040b422bfb5` instead of `7a700694a512de97`, and run-split hash `66480cf82cc32734` instead of `05493ee20ebbfc06`. HEAD declares 700/157/2,131/224/16 scenario/route records. S-155 contributes the extra nine keys. Filtering S-155 restores part 1’s historical hash. Both `matrix.mjs part…|run…` and `transitions.mjs --plan …` call the failing check before walking. Sources: `W/scenarios.mjs:241`, `W/parts.mjs:179`, `W/matrix.mjs:214`, `W/transitions.mjs:69`.
+
+   **Do not repair the frozen hashes as an incidental change.** Instead:
+
+   - Reconstruct the historical declarations from the repository revision, reconcile their keys against VH-199’s coverage, and retain their unioned `pressed` lists.
+   - Register copies as explicitly named external-driver plans, outside the walker, then invoke the existing runner. This follows VH-207’s already-used in-memory plan mechanism.
+   - Use `--keys` where the selected plan actually contains the keys. Today’s `PLANS.matrix` has 1,895 records and does **not** contain all the core keys; using it alone would lose substantial coverage.
+   - Run transitions using the existing non-`--plan` interface: twelve English/light transitions, then the three cases × three languages × four palettes. Preserve `all`/`cases` identity in the external ledger.
+
+   Sources: `W/parts.mjs:108`, `W/matrix.mjs:179`, `W/matrix.mjs:219`, `W/transitions.mjs:50`, `M/vh207-records-2026-10-27/vh207-driver.mjs.txt:58`.
+
+   **Add a separately counted supplement**, deduplicating only genuinely identical records, including variant and required measurements:
+
+   - VH-207: S-149 and S-149a–f, three languages × two widths × four palettes: **168 cells**, with f1/f2 retained as distinct subresults. The core’s S-149 records do not replace the variants.
+   - VH-208: its **198-cell** plan—S-135, S-136, S-137, S-138, S-151, S-131, S-152 and S-53 in 24 conditions each, plus six spacing cells—and S-91’s changed assertion.
+   - VH-206: N14 kept to 0:04.0, output tracks actually inspected; the absent-track, priming-only, sufficient-audio and block-boundary controls.
+   - VH-215: `PLANS.vh215`, **96 cells**, plus S-22 as Student submission with closing on and off, reading the card time against the output.
+   - V-18: six painted-button readings on the final page, title panel initially closed; opened-panel readings kept separately.
+   - S-113: retain all core keys, explicitly identify the six w401/w320 `font32` keys for V-50, V-48 and file-button contrast.
+   - Final-build verification of later fixes, especially VH-231’s cut-file warning/retained-result transitions and VH-232’s status-reveal/keyboard hand-offs, using their existing declared drivers and variants rather than inventing replacements.
+
+   Sources: `project/items/VH-207.md:16`, `M/vh208-warnings-2026-10-28.md:29`, `project/items/VH-206.md:21`, `project/wish-list.md:70`, `project/wish-list.md:72`, `P/fix-plan-2026-10-27.md:58`, `M/vh231-records-2026-11-05/vh231-driver.mjs:117`, `M/vh232-feedback-status-2026-11-06.md:70`.
+
+   **The 214 VH-223/224 cells are out as an automatic wholesale repeat.** They were outside VH-199’s matrix, and VH-203’s Notes explicitly keep the B checks separate. They remain evidence in the integrated audit. Bring back individual keys where this instrument revision changes their reading—for example the twelve S-03 and nine S-81 batch keys—or where a later product change requires a regression check. Do not call that subset “the 214 re-walked”. Sources: `project/items/VH-203.md:48`, `M/matrix-2026-10-27.md:75`, `M/vh223-matrix-a-2026-11-05.md:97`, `M/vh224-matrix-b-2026-11-05.md:101`.
+
+   **Account for all nineteen wish lines explicitly:**
+
+   | Wish | Recommendation and disposition |
+   |---|---|
+   | VH-205.1 | **Walker + walked:** actual expanded targets; S-03 and S-141–144, including open-panel conditions. |
+   | VH-199.1 | **Walker + walked:** six fallback gaps, S-92 ×31, S-93 ×6, S-133 ×6, all finish+1s-bearing records, S-59, disabled S-21/S-62 targets. |
+   | VH-200.1 | **Walker + walked:** radio discs, S-81 fragments, S-127 actual ring backgrounds. |
+   | VH-201.2 | **Walked:** audible sliver/tracks, standing-result read failure, S-113 and V-18. |
+   | VH-206.1 | **Walker:** update the three old-heading readers when re-proving/reusing them; retain separate absent/kept-part meanings. |
+   | VH-208.1 | **Walked measurement:** whole-card ring for S-151’s 24 and S-137’s eight named cells; do not promote clipped readings to passes. |
+   | VH-208.2 | **Walker:** heavy probe reads the new warning region as well as the old layout. |
+   | VH-208.3 | **Walked:** S-91; assertion already changed. |
+   | VH-214.1 | **Walker:** shown/operable Create and Cancel tests in the pass-3 readers used here; old bundles remain historical evidence. |
+   | VH-214.2 | **Walked:** blocked-file announcer versus withdrawn trim controls; report a defect, do not repair its words here. |
+   | VH-212.1 | **Walker:** proof wording/comment brought to the served “before you use it” text. |
+   | VH-215.2 | **Walked:** S-22 submission, closing on/off, output duration. |
+   | VH-215.4 | **Walked:** all 96 `vh215` cells; attribute the Chinese label change. |
+   | VH-216.1 | **Owner, then walker + walked:** current page order and panel access; full question below. |
+   | VH-217.5 | **Owner:** screenshot method change; viewport-clipped external capture remains an available alternative. |
+   | VH-209.1 | **Neither a walker authorisation nor a new scenario:** it is an outstanding chooser-ring reading incidentally mentioning VH-203. Locate it in existing S-113 320/font32 cells and report it against this existing wish. |
+   | VH-219.1 | **Walker + walked:** rendered closed-select text, S-111/112/113; wrapping and spacing included. |
+   | VH-210.1 | **Walker + proof:** forced-to-plain palette reset, plus affected final-page measurements. |
+   | VH-220.1 | **Driver scheduling + walked:** S-115 one setup per mode; no matrix-runner edit needed. |
+
+   Sources, respectively: `project/wish-list.md:57`, `:58`, `:59`, `:60`, `:61`, `:62`, `:63`, `:64`, `:66`, `:67`, `:68`, `:70`, `:72`, `:73`, `:79`, `:81`, `:84`, `:88`, `:103`.
+
+   “Unresolved, kept as such” also requires an outcome for the ready-state Create position, relation gaps, type-role census, segment widths, forced-colour letterbox, warning placement, 21 px language carry-over and Latin-line count. Extract these from the final records or use explicitly declared external readings. Screen-reader speech, native interactions and real zoom remain person checks; they are not additional automated passes. Sources: `P/design-pass-3-2026-10-27.md:164`, `:171`, `:191`.
+
+2. **The before for each key**
+
+   **Recommendation: distinguish historical evidence, instrument qualification and genuine same-machine comparisons.** They answer different questions.
+
+   | Key class | Before and reason |
+   |---|---|
+   | VH-199 core keys with recorded readings | Historical before: **MacBook Pro**, `a3039c3`, instrument `2e7b0c044ce11f2b`; cite repository digests/contract/run readings outside the Mac Pro walked table. |
+   | Twelve missing records; bad check counters; 823 finish+1s rows | **No valid historical reading for the named measurement.** Preserve that status even if the new reading passes. |
+   | Keys affected by a VH-203 instrument correction | Walk **the same final app build, `756b425`**, on this Mac before and after the instrument change: HEAD instrument `29c3acfcad7eb29c` versus the frozen new revision, R. |
+   | Added final-state checks with no prior equivalent | “No comparable before”; measure against their declared expected behaviour. Do not manufacture stability. |
+   | A later fix’s regression comparison | Its own accepted after-build is the baseline. Existing Mac Pro records can support it where conditions and measurements match; MacBook Pro records remain cited support. Reconstruct a Mac Pro baseline when a numeric paired comparison is needed. |
+
+   Sources: `M/matrix-2026-10-27.md:5`, `:47`, `:58`; `P/fix-plan-2026-10-27.md:185`; `project/decisions.md:123`.
+
+   **The owner’s re-walk answer does not, by itself, order a second complete historical matrix.** It prohibits mixing machines in a table. It does require every newly presented before/after pair to have both sides on this Mac. A historical citation is not a walked “Before” column.
+
+   **However, the repository’s summaries cannot establish every original record-level numeric delta.** To meet “every changed measurement explained” literally, I recommend reconstructing the core before on this Mac if the report intends a complete row-by-row comparison: app `a3039c3`, its original walker revision `2e7b0c044ce11f2b`, historical declarations, and the same Mac Pro fixture bytes subsequently used for the after. Label this **“reconstructed Mac Pro baseline”**, never “VH-199’s run”. Qualification pairs on `756b425` then isolate the named instrument corrections. The old failures remain failures/gaps, not something to fix in the historical walker. Sources: `project/items/VH-203.md:17`, `M/matrix-2026-10-27.md:5`, `M/matrix-2026-10-27.md:62`.
+
+   If the plan chooses no reconstructed before, its promise must be narrower: explain every **available historical comparison**, every instrument correction and every newly measured outcome; disclose unavailable comparisons. It cannot claim the Phase 7 model’s exhaustive record-by-record reconciliation merely from aggregate digests. An unresolved shortfall against the item’s unchanged criterion goes to the owner. Sources: `reviews/2026-10-22/design-pass-2/evidence/measurements/after-run-2026-10-24.md:52`, `project/items/VH-203.md:21`.
+
+   For every compared row, record one attribution: product change with commit/item; instrument correction with matched proof; fixture/environment difference; new measurement; or unresolved. Do not use “run to run” as an unexplained catch-all, particularly for timings. Sources: `M/matrix-2026-10-27.md:68`, `P/design-pass-3-2026-10-27.md:182`.
+
+3. **The walker changes**
+
+   **Recommendation: one bounded instrument change, qualified before any counted after-run group.** The HEAD checks show the following still need attention:
+
+   | Change | HEAD evidence | Proof required on one app build |
+   |---|---|---|
+   | Font route matches only Font events | `match: () => true` remains, despite the registration’s resource type. `W/qualify.mjs:1027` | S-107/S-55c fallback, all three languages; prove worker/closing faults remain active while fonts alone fail. |
+   | Count actual check writes/starts | `STATUS_SINCE` still counts the suppressed status history. `W/scenarios.mjs:1564` | S-92/S-93, one completed check versus planted duplicate/no-check cases. |
+   | Bound unresponsive navigation and handle beforeunload | `goto` still awaits load without that protection. `W/walk.mjs:297` | S-133 ×6 plus a deliberately unresponsive page; timeout must fail and preserve the record, not hang or pass. |
+   | Correct the player-ring explanation | Old single-comparison wording remains. `W/phase8.mjs:288` | A pixel passing one contrast comparison but failing the other; counts/verdict unchanged, explanation corrected. |
+   | Sample finish+1s before subsequent scenario action | Delayed callback still queries the then-current player. `W/phase8.mjs:82` | S-128, S-109, S-88, S-138, S-59 and a passive control; preserve a genuine one-second observation before play/detach. |
+   | Preserve state-dependent focus assertions | Focus instrumentation and blur precede Phase 8 assertions. `W/matrix.mjs:117`, `:126`, `:150` | S-59 with correct and deliberately misplaced focus; no false pass obtained by restoring focus first. |
+   | Disabled focus targets are inapplicable | `focusArea` has no disabled branch before trying focus. `W/qualify.mjs:735` | S-21 and disabled S-62 Save, plus an enabled twin that still must focus. |
+   | Count pseudo-element target extent | Target search bounds use element/label rects; format row uses the button box. `W/qualify.mjs:144`, `W/phase8.mjs:634` | A 20 px button with a real 44 px hit square passes; a genuinely small or obstructed target fails. |
+   | Radio disc and wrapped-link perimeter | Generic box perimeter remains. `W/qualify.mjs:763` | 32 px checked radio and S-81 multi-line link; retain pixel evidence and failing twins. |
+   | Player ring’s actual background | Current exception inference still uses host/backdrop rules. `W/phase8.mjs:321` | S-127 controls on held frames; prove modified and unmodified local backgrounds separately. |
+   | Old kept-audio readers | `W/prove-fixtures-8.mjs:41`, `W/sliver-185.mjs:37`, `W/heavy-193.mjs:157` | N14, priming-only and absent-track controls; distinguish the two headings rather than treating them as synonyms. |
+   | Whole-card focus capture | Viewport clipping still limits the ring. `W/qualify.mjs:741` | Named S-151/S-137 cells, tiled/scroll clips or a separately labelled taller-viewport measurement; retain the original viewport’s result. |
+   | Heavy probe warning region | Old notification selector remains. `W/heavy-193.mjs:78` | Old and new layouts, missing region and wrong warning order. |
+   | Shown Create/Cancel | Own `hidden`/`disabled` tests remain. `W/walk.mjs:698`, `:776`, `W/heavy-193.mjs:147` | Refused file with hidden ancestor must not offer Create; genuine ready/running controls still do. |
+   | Heavy-limiting proof words | “before you save it” remains. `W/prove-8.mjs:54` | Current full sentence passes; heading-only completion still fails. |
+   | Current page order/panel access | Old S-03, S-142 and J1 expectations remain. `W/scenarios.mjs:2968`, `:2760`, `:3129` | Closed-page order and opened-panel paths separately, including f2 after reload. Owner decision required. |
+   | Font-preserving screenshots | Beyond-viewport captures remain. `W/qualify.mjs:954`, `W/walk.mjs:435`, `:446` | Root font and rendered geometry before/after capture at 16/32 px, with tall-page coverage accounted for. Owner decision required. |
+   | Rendered select text | Canvas one-line measures remain. `W/scenarios.mjs:2265`, `:2287`, `:2300` | S-111/112/113, wrapping and spacing; an actually clipped closed value must fail. |
+   | Forced-palette reset | Mode features are reset, but the named cross-mode failure remains unqualified. `W/qualify.mjs:1000` | Forced-dark-font32 → spacing/light/fallback, compared with each mode on a fresh page; inspect actual computed colours, not only media flags. |
+
+   **Already made; do not implement again:** S-99/S-101/S-153’s kept-part predicates, VH-208’s `warnBox`/completion and S-91 assertions, VH-214’s bounded QuickTime scenarios, combined colour/font32 modes, `--keys`, and `PLANS.vh215`. S-133 already has a local beforeunload handler during its own transition; that does not protect its next setup’s `goto`. Sources: `W/scenarios.mjs:2120`, `:2142`, `:2919`, `:3060`, `:1639`, `:2597`, `:3599`; `W/qualify.mjs:999`; `W/matrix.mjs:179`.
+
+   Re-prove R as a whole: `prove.mjs`, `prove-172.mjs`, `prove-8.mjs`, `prove-resume.mjs`, `prove-m04.mjs`, `prove-fixtures-8.mjs`, the 11-record app proof and **77-record pilot3**, plus each changed reader’s paired probes and exact-key selection checks. Keep planted failures, missing-subject failures and provenance/resume refusals. Sources: `M/instruments-2026-10-25.md:219`, `W/scenarios.mjs:3494`, `:3509`.
+
+   The Mac’s changed fixture hashes are not automatically failures or automatically equivalent. Pin the actual bytes, inspect their streams/timing, prove every fixture-dependent branch, and retain N11’s source-only exception if it still reads a duration. In particular re-prove N14’s audible boundary and cut-file/card durations. Sources: `M/vh223-matrix-a-2026-11-05.md:94`, `M/instruments-2026-10-25.md:669`.
+
+   **Owner question for VH-216.1:** “May VH-203 update the named checks and routes for the current title panel: test the closed-page Tab order, open the panel through its button before reading format help, correct S-142/J1/J2/J4, and reopen it for VH-207 f2 after reload? I recommend yes, retaining the five-promises assertion and proving the old/new readings on `756b425`.”
+
+   VH-217.5 is also explicitly the owner’s. Resetting frozen part hashes, broad timeout increases, new faults/scenarios, or changing S-24’s fixture are **not** implied by these repairs.
+
+4. **The parts and groups**
+
+   **Recommendation: keep the five historical parts as accounting units, but split execution into shorter, externally declared groups.** Do not use HEAD’s moved run names as historical identities.
+
+   I evaluated `est` on the historical-size sets, excluding S-155:
+
+   | Part | Estimate | Mac Pro execution budget, ×1.5–2 | Suggested groups |
+   |---|---:|---:|---|
+   | 1: 699 | 8,610 s | **3.6–4.8 h** | 5–7 |
+   | 2: 157 + 48 transitions | 984 + 1,250 s | **0.9–1.2 h** | 2–3, transitions separately |
+   | 3: 2,131 | 22,525 s | **9.4–12.5 h** | 12–18 |
+   | 3b: 216 | 6,645 s | **2.8–3.7 h** | 4–6 |
+   | 4: 16 | 885 s | **0.4–0.5 h** | 1–2 |
+   | **Core after only** | **11.3 h** | **17–23 h** | **24–36** |
+
+   These are planning allowances, not measured promises. A reconstructed full before adds another comparable core budget. Proofs, supplements, retries and review are additional. Sources: `W/parts.mjs:86`, `:212`.
+
+   The calibration supports grouping by setup cost: VH-223 a1 took 91 seconds for 15 static cells, while a5 took 3,607 seconds for 15 processing cells; VH-224 b1 took 177 seconds for 28 cells, b4 1,862 seconds for 13. Their `est` values are respectively 141, 2,358, 248 and 1,202 seconds. Thus “half the laptop’s speed” is not a uniform per-cell multiplier. Sources: `M/vh223-matrix-a-2026-11-05.md:70`, `M/vh224-matrix-b-2026-11-05.md:78`, `W/parts.mjs:89`.
+
+   Target roughly **30–60 minutes per job**: often 40–100 static records or 10–25 expensive records. Keep a scenario’s language/view setup and its safe mode sequence together where possible; split expensive scenarios at explicit setup boundaries. Recalculate after the pilot. Order: qualification and matched instrument probes; historical baseline if chosen; parts 1, 2, 3, 3b, 4; supplements interleaved only where their declarations are frozen; captures; final reconciliation.
+
+   Use VH-224’s driver for environment validation, key-list hashing, provenance ledger and delegation to the real runner. Extend the **external scheduling wrapper** for named plans and the stated load rule; its existing power function reads only one load value and is not sufficient to enforce both one- and five-minute thresholds. Sources: `/Users/uazjob/UoN-Video-Helper-side/vh224-walk/vh224-driver.mjs:14`, `:22`.
+
+   Each group is one background job, first-come queue, one lock, sequential execution. Gates take that lock too. At a worker hand-back, finish/reconcile the current group and supply: accepted-key index, superseded attempts, remaining keys, R and source hashes, fixture manifest, load events, unresolved readings, saved blind review and next queued group. Hand back after qualification, each part, and bounded subdivisions of part 3. No intermediate commit.
+
+   **Load re-walks:** identify timing-dependent readings taken under samples ≥8, including processing-state reachability, readiness, finish+1s and timed hand-offs. Re-walk those keys at low load, preserving both attempts. If timestamps cannot delimit the affected interval, re-walk the group’s timing-dependent subset. Static geometry need not be discarded merely because another interval was busy. Sources: `M/vh223-matrix-a-2026-11-05.md:112`, `M/vh224-matrix-b-2026-11-05.md:120`.
+
+   **Known constraints:**
+
+   - S-24’s 20–60 minute state can become veryLongJob on this Mac. Keep attempted original keys honestly not reached; do not substitute S-169 under S-24’s name or shorten the fixture silently. Wishes VH-223.1/VH-224.1 remain outstanding until equivalent coverage is authorised and demonstrated. `project/wish-list.md:100`, `:104`.
+   - S-115 needs a separate setup per mode wherever expanded beyond light. The core’s light-only recipe already avoids the problem. `project/wish-list.md:103`.
+   - Until the palette repair is proved, fresh setups per mode avoid contamination but do not prove the shared-mode reset itself. `project/wish-list.md:88`.
+   - VH-232’s focus/scroll-sensitive variants also require their own setup-per-mode discipline. `M/vh232-feedback-status-2026-11-06.md:70`.
+
+5. **The format “?” captures**
+
+   **Recommendation: deliver 192 labelled images**, covering two representative widths, w1280 and w320:
+
+   **4 states × 3 languages × 4 palettes × 2 font sizes × 2 widths = 192.**
+
+   This exceeds the criterion’s width-unspecified minimum of 96 images and shows the phone-width wrapping where appearance is most vulnerable. States are rest, hovered, keyboard-focused and open; fonts are default and 32 px. Sources: `project/items/VH-203.md:18`, `M/vh217-records-2026-10-30/vh217-states2.mjs.txt:20`.
+
+   Open the title panel using its actual button before placing the format control into each state. “At rest” means the **format tip** is closed, while the containing title panel is open. Keep a separate closed-page context capture if useful; it is not one of the four format states. Sources: `project/items/VH-229.md:12`, `:21`.
+
+   Use VH-217’s viewport-contained clip method, with the root font checked before and after **every** capture. Include the fourth promise, punctuation, button, focus ring and full open tip; use additional labelled tiles if necessary. Do not enlarge the viewport and present the resulting reflow as the original viewport. Unfixed `pageShot` is unsuitable for asserting 32 px appearance. Sources: `M/vh217-records-2026-10-30/vh217-states2.mjs.txt:1`, `:98`; `W/qualify.mjs:954`.
+
+   Alongside each condition retain the painted gap, `::after` hit square, actual hit-test results and overlap with the last character’s ink. VH-217’s reported overlap is historical, not a final-page measurement. The owner should see both appearance and the clickable overlap with “format.”; do not silently “correct” the authorised overlap. Sources: `M/vh217-records-2026-10-30/vh217-states2.mjs.txt:33`, `:42`; `project/items/VH-211.md:10`.
+
+6. **Codex’s two checks**
+
+   **Recommendation: separate the blind evidence judgement from the integrated source review.**
+
+   **Blind after-run read:** run after each bounded evidence batch is reconciled, before Claude’s verdict for that batch is supplied or placed where the reviewer will read it. Give Codex:
+
+   - Exact source, R, driver/fixture identities and machine/load conditions.
+   - Expected keys, accepted records, retries, missing/unreachable keys and raw non-passing evidence.
+   - Historical support clearly labelled by machine and unavailable evidence explicitly identified.
+   - Item criteria, contract, approved exceptions and applicable UX/Carbon/WCAG rules.
+   - A request to judge reachability, measurement validity, changed readings and attribution independently.
+
+   Save the response verbatim, then compare it with Claude’s reading and retain disagreements. A manifest’s “whole” is structural coverage, not a UX or accessibility verdict. Sources: `project/items/VH-199.md:10`, `:14`; `M/contract-2026-10-27.md:9`.
+
+   **Integrated check:** run after the entire after-run, captures, contract and dispositions are assembled, against **`452334e..756b425` plus the final VH-203 candidate evidence/instrument diff**. The brief must supply the complete Phase 8 item/commit map, final coverage and comparison account, stage-rule audit, both readings and their reconciliation, owner decisions, remaining limitations and gate results.
+
+   Its scope is interactions across the whole phase: four journeys and recovery, status and focus, warning/card/save lifetimes, language changes, title-panel order, all states/palettes/enlargement, tokens and Carbon conventions, WCAG AAA and documented exceptions, and whether later work undid earlier fixes. Audit approved exceptions such as VH-229’s added control rather than mechanically rejecting them. Save its verdict and every re-check verbatim; dispose of every point before close. Sources: `project/items/VH-203.md:9`, `:19`, `:20`; `project/items/VH-229.md:23`; `reviews/2026-10-22/design-pass-2/codex-astra-integrated-check-2026-10-24.md:6`.
+
+7. **The report**
+
+   **Recommendation: use one-page tables as evidence summaries, backed by a separate authoritative manifest and accepted-record ledger.**
+
+   For actual paired measurements, both columns are Mac Pro walks with explicit build, instrument and fixture identities. For after-only groups, use the established `no-before:after-group` convention and explain prominently that:
+
+   - Before `?` means **not walked**.
+   - “After-only” is not “unchanged”.
+   - The generator’s “Nothing moved” means no paired comparison existed.
+   - Retry counts are records, not unique accepted keys.
+
+   Sources: `/Users/uazjob/UoN-Video-Helper-side/table-1page.mjs:75`, `:130`; `M/vh224-matrix-b-2026-11-05.md:95`, `:97`.
+
+   The generator only loads filenames matching `S-\d+…`; it omits journeys, keyboard routes, transitions and even `S-ID…` records. It also principally compares outcomes rather than every numeric measurement. Therefore add explicit route/transition/other-key tables and a numeric-row comparison ledger. Copy whole non-passing after-only records deliberately: without a before, the script’s moved-cell mechanism does not retain them automatically. Sources: `/Users/uazjob/UoN-Video-Helper-side/table-1page.mjs:39`, `:60`, `:83`, `:87`; `M/vh224-matrix-b-2026-11-05.md:99`.
+
+   The after-run page should follow Phase 7’s useful structure:
+
+   - Provenance and what ran.
+   - Expected/attempted/reached/structurally whole/judged coverage, by part and class.
+   - Stage-rule audit.
+   - Historical and same-machine comparisons, clearly separated.
+   - Every changed measurement’s attribution.
+   - Original Phase 8 contract and later fixes re-verified.
+   - Regressions, unresolved checks and person-only checks.
+   - Owner capture index and response.
+   - Blind read, comparison, integrated verdict and point dispositions.
+
+   Sources: `reviews/2026-10-22/design-pass-2/evidence/measurements/after-run-2026-10-24.md:7`, `:32`, `:50`, `:84`, `:113`.
+
+   Update the original report’s **Disposition** rows to link final verification, including the owner’s old-issues row. Put the nineteen-wish outcome matrix in the after-run page and record paid-off versus still-open status in the ledger at close. Retire a wish only when its actual obligation is discharged; an attempted but unreachable cell is not paid off. Sources: `project/items/VH-203.md:16`, `project/items/VH-224.md:20`, `P/design-pass-3-2026-10-27.md:131`.
+
+8. **Risks and stops**
+
+   **Recommendation: stop on changed meaning or scope, not merely on a failed reading.**
+
+   - **Coverage reduction:** dropping the twelve old gaps, part 3b, required press lists, transition-set duplicates, fixOnly supplements, or unmeasured required comparisons needs the owner. A failed attempt stays in the denominator. `M/matrix-2026-10-27.md:33`, `W/parts.mjs:18`.
+   - **Extra walker change:** resetting part hashes, changing timeouts globally, altering scenario predicates to fit this machine, changing fixtures to reach S-24, or silently rewriting old bundles exceeds the named changes. `project/wish-list.md:58`, `:73`, `:79`.
+   - **New scenario/fault/ID:** existing external definitions can be reused with provenance; missing definitions are not permission to invent them. S-173 depends on F22 supplied by VH-222’s driver, for example. `W/scenarios.mjs:465`.
+   - **Defect found:** report and hand to the orchestrator; do not build it under the after-run. The blocked-file preview announcement and the outstanding chooser ring are named candidates, not permission for repairs. `project/wish-list.md:67`, `:81`.
+   - **Instrument drift:** any subsequent walker edit invalidates the one-revision claim for earlier after groups; re-prove and re-walk affected completed coverage under the final revision. `P/plan-2026-10-25.md:196`.
+   - **False confidence:** hidden format help, late focus assertions, stale palettes, clipped tall-card rings, screenshot font resets, old warning selectors and canvas-only select widths can manufacture failures or passes. Qualification must establish both directions.
+   - **Hardware/fixture reachability:** S-24’s band, N11’s duration, N14’s block boundary, cut-file frame alignment, processing timeouts and browser-native control differences require explicit outcomes. A larger timeout or replacement fixture is not an innocent scheduling adjustment. `W/scenarios.mjs:2933`, `M/vh223-matrix-a-2026-11-05.md:94`.
+   - **Accessibility limits:** emulation is not real Windows themes or real Chrome zoom; AX exposure is not speech; automatic measurements cannot approve the visual owner request or native-language reading. `P/design-pass-3-2026-10-27.md:191`.
+   - **Close:** final worker alone commits; gate on the queued, settled Mac, then `node tools/check.mjs`, digest rules named, every review point disposed of. VH-203 completion does not itself close Phase 8: VH-195 follows. `project/profile.md:26`, `project/backlog.md:42`, `P/fix-plan-2026-10-27.md:56`.
+
+**Musts**
+
+- Preserve and reconcile **3,219 + 48**, plus a separately declared supplement.
+- Use external plans to avoid the broken named-part launcher; do not substitute `PLANS.matrix`.
+- Freeze and re-prove one after-run revision, with Mac Pro fixture proofs.
+- Keep machine-specific evidence separate and make the before/comparison strategy explicit.
+- Account for all nineteen wishes, every unresolved measurement and later fix.
+- Respect setup-sensitive modes, palette reset and the queued load rule.
+- Deliver the format captures to the owner.
+- Save Codex’s blind reading before Claude’s verdict, then complete the integrated check.
+- Make no product fix or new ID here; close only after the gate, checker and review dispositions are complete.
+
+**Mays**
+
+- Use 192 captures at two widths; the width-unspecified minimum is 96.
+- Group by measured setup cost rather than preserving the historical twelve-job split.
+- Reuse identical Mac Pro fixture bytes and existing qualified external drivers.
+- Retain completed VH-223/224 evidence, re-walking only affected keys rather than all 214.
+- Use tiled ring/capture evidence where it preserves the original viewport faithfully.
+
+**For the owner**
+
+- **VH-216.1:** approve the concrete current-order/panel-access walker edit described above? **Recommend yes**, proved on one unchanged build.
+- **VH-217.5:** approve font-preserving changes to the three named screenshot paths? **Recommend yes**, with before/after font and image proofs. If refused, use VH-217’s external viewport-clipped method and label the walker’s 32 px page shots unsuitable.
+- **Historical comparison, only if the plan declines reconstruction:** accept a comparison limited to repository-retained historical evidence, with unavailable numeric deltas explicitly unresolved? **Recommend reconstructing the necessary Mac Pro baseline instead**, so the unchanged acceptance criterion is demonstrably met.
+- **S-24, if reaching the original keys requires a new fixture/scenario:** approve equivalent coverage on this Mac after the orchestrator supplies the concrete proposal? **Recommend a separately identified, qualified variant**, never relabelling it as the original S-24 reading or counting the unreachable originals as passes.

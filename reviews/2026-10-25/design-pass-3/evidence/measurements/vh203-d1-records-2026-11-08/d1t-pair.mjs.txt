@@ -1,0 +1,20 @@
+// VH-203 #15, D1's transitions pairing (A2's two sets at a3039c3 beside A2's own), read-only: by key, the outcome, reached, landed, the
+// ring's outcome, the unmet asserts and the asserts read false, before → after; then the moves grouped by ID, field and values.
+// Usage (in vh203-walk): node d1t-pair.mjs <before folder> <after folder> [<after re-walk folder> …]   (a later after folder wins by key)
+import { readdirSync, readFileSync, statSync, existsSync } from 'node:fs'
+import { join } from 'node:path'
+const [bd, ...ads] = process.argv.slice(2); if (!bd || !ads.length) throw new Error('usage: d1t-pair.mjs <before> <after> …')
+const load = (d) => { const m = new Map(), rd = join(d, 'runs'); if (!existsSync(rd)) return m
+  for (const r of readdirSync(rd).filter((x) => statSync(join(rd, x)).isDirectory())) for (const f of readdirSync(join(rd, r)).filter((x) => /^T-.*__.*\.json$/.test(x))) { const j = JSON.parse(readFileSync(join(rd, r, f), 'utf8')); m.set(j.key, j) } return m }
+const B = load(bd), A = new Map(); for (const d of ads) for (const [k, j] of load(d)) A.set(k, j)
+const f = (j) => ({ outcome: j.outcome, reached: j.reached?.outcome, landed: j.landed, ring: j.ringReading?.outcome ?? j.ring ?? null, unmet: (j.unmet ?? []).map((u) => (typeof u === 'string' ? u : u.what ?? u.name ?? JSON.stringify(u))).sort().join('; '), falseAsserts: Object.entries(j.asserted ?? {}).filter(([, v]) => v === false).map(([k]) => k).sort().join(','), fault: String((j.faults ?? [])[0]?.why ?? (j.faults ?? [])[0] ?? '').slice(0, 100) })
+const moves = new Map(), t = { alike: 0, moved: 0, onlyBefore: 0, onlyAfter: 0 }, out = { before: {}, after: {} }
+for (const k of new Set([...B.keys(), ...A.keys()])) { const b = B.get(k), a = A.get(k)
+  if (b) out.before[b.outcome] = (out.before[b.outcome] ?? 0) + 1; if (a) out.after[a.outcome] = (out.after[a.outcome] ?? 0) + 1
+  if (!a) { t.onlyBefore++; continue } if (!b) { t.onlyAfter++; continue }
+  const fb = f(b), fa = f(a); let mv = false
+  for (const x of Object.keys(fa)) { const p = JSON.stringify(fb[x] ?? null), q = JSON.stringify(fa[x] ?? null); if (p === q) continue; mv = true
+    const m = `${a.id} | ${x} | ${p} → ${q}`; if (!moves.has(m)) moves.set(m, { n: 0, keys: [] }); const e = moves.get(m); e.n++; e.keys.push(k.split('__').slice(1).join(' ')) }
+  t[mv ? 'moved' : 'alike']++ }
+console.log(JSON.stringify({ before: B.size, after: A.size, ...t, outcomes: out }))
+for (const [m, e] of [...moves].sort()) console.log(`×${e.n} ${m} (${e.keys.slice(0, 6).join('; ')}${e.keys.length > 6 ? '; +' + (e.keys.length - 6) : ''})`)
