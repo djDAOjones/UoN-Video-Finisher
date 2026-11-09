@@ -1,0 +1,52 @@
+<!-- markdownlint-disable -->
+# VH-233's before and after: the statement links' ring whole when they wrap
+
+VH-233's stage-rule measure, one page by `table-1page.mjs`. The records are in [`vh233-records-2026-11-09/`](vh233-records-2026-11-09/): each cell's outcomes and rows, the probes, states and logs whole, and in `detail/` the whole record of each moved or named failing cell.
+
+## Provenance
+
+| | Before | After |
+| --- | --- | --- |
+| Commit | `73d16f085fc2` | `73d16f085fc2` |
+| Diff hash | `da39a3ee5e6b4b0d` (1 lines of status) | `b590b5f26928b1a9` (3 lines of status) |
+| Instrument revision | `7db38f355f3c46c2` | `7db38f355f3c46c2` |
+
+- `vh233-driver.mjs` sha1 `9d0a654cb95ae1fa03cb80848c8926d076bc3b98`
+- `vh233-probe.mjs` sha1 `042b7cb942732207ea2c8fa658f49a588174c7ee`
+- `vh233-probe-read.mjs` sha1 `14b4349f5525efc7256eaf6012e73622b6f9aacb`
+- `walk.sh` sha1 `55adc4b1b753e76086f1a9927ef0096d6521dcd1`
+- `go.sh` sha1 `1266a1ff9da5351e1d648576cb328631f2202be8`
+- `group.zsh` sha1 `091a06d2de32316725b9fc8beb9bcb17b1af7b13`
+- `keys-63.txt` sha1 `cf95edca250b2394688b2aa01425d1fae0e624a5`
+- `b1.base.txt` sha1 `e6b07a58e6ef653d7412b0f9069969383136a23c`
+- `a1.base.txt` sha1 `33c4abafff8d8725ac81d30eb6acb1bc2f0dabc3`
+- `probe-b1.jsonl` sha1 `012cbf2570adce0ae0147361e66b6b202fa8959c`
+- `probe-a1.jsonl` sha1 `69a14000c56e9de0be1c21e672a06f32131813b3`
+- `probe-b1-a1.md.txt` sha1 `a8ce5b95663aff9c7d94ffe999e96d7fce247319`
+
+## Runs, power and load
+
+| Group | UTC | Cells, reached | Power | Load median, peak | Samples at 8 or above |
+| --- | --- | --- | --- | --- | --- |
+| b1 | 00:47:47–00:59:13 | 63, 63 | AC Power, mode ? | 4.44, 6.05 | 0 of 23 |
+| a1 | 01:03:13–01:14:39 | 63, 63 | AC Power, mode ? | 3.68, 5.28 | 0 of 23 |
+
+## Before → after
+
+Scenario cells: 63 before (63 reached), 63 after (63 reached); **40 unmoved**. Not on the other side: 0 after-only, 0 before-only.
+
+| What moved | Cells |
+| --- | --- |
+| focus: fail → pass | 23; S-81 |
+
+## Notes
+
+- **The before on the base:** `b1.base.txt`, written as b1 was queued: head `73d16f0`, "app as base: true" by `git diff --quiet 73d16f0 -- src index.html public package.json package-lock.json vite.config.ts`, the one untracked file the item file. The after on the change alone: `src/styles/app.css` (+12, the commented `.statement-body a:focus-visible { outline-offset: 0; }`) and `test/stylesheet.test.ts` (+20); "app as base: false". The same each side: walker revision `7db38f355f3c46c2`, `go.sh` 1266a1ff, `walk.sh` 55adc4b1, the driver 9d0a654c (plan `vh233` in memory, 63 keys from `keys-63.txt`), the probe 042b7cb9. Power: AC, no powermode line on this Mac (the table's "mode ?").
+- **The walker's focus instrument** reads `#accessibility-statement a`, its first match, the contact address. It moved fail → pass in 23 cells: VH-203's 11 (w320 light and spacing in the three languages, zoom400proxy in the three, w1280 spacing en-GB, w375 light zh-Hans) and 12 of the 18 neighbours (w320 dark, forced light and forced dark in the three languages; w375 dark, forced light and forced dark in zh-Hans). Every other instrument reads as before in all 63 cells (overflow, ax, targets, contrastText, contrastExtra, measure, type, player, formatTip, footer, limiting, videoLanguage), and after the change no instrument fails in any cell.
+- **Both links, by the item's probe** (`vh233-probe.mjs`, read only, outside the walker; each link by its own paragraph, `#statement-contact a` and `#statement-enforcement a`, with the walker's own `focusArea`; readings per cell in `probe-b1-a1.md.txt`, the raw lines in `probe-b1.jsonl` and `probe-a1.jsonl`): before, the contact link passes 2.4.13 in 40 of 63 and the Equality Advisory and Support Service link in 12 of 63, the smallest margin −2,744 px²; after, both pass 63 of 63, the smallest margin +52 px², up to 6 line fragments. 2.4.13's area is the walker's: pixels that change by 3:1 or more between the unfocused and the focused capture, against a 2 CSS px perimeter of the unfocused link by its line fragments. 1.4.11: the ring's best ratio 8.73 at the lowest, both sides. 2.4.7: `:focus-visible` true in 126 of 126 readings. Centred as `focusArea` reads it, the ring is inside the viewport and every fragment's centre hit-tests to its link in 126 of 126 (2.4.11, 2.4.12).
+- **The ring's geometry:** offset 2 px → 0 px, width 2 px and style solid both sides; its colour the same in all 126 readings (white on the blue band; the theme's `Highlight` in forced light and forced dark). Unfocused, each link's fragments, colour, underline, absent outline and paragraph are identical before and after in 126 of 126; focused, the fragments (the line breaks) are identical. No word, element, attribute or DOM order changed (1.3.2); the overflow, measure, type and targets instruments unmoved at w320, w375, font32, zoom200proxy, zoom400proxy and in spacing (1.4.4, 1.4.10, 1.4.12, 2.5.8).
+- **The Tab arrival** (the probe's reading before `focusArea`: the summary focused by keyboard, then Tab, Tab, Shift+Tab, read where the browser leaves it, no centring): focus lands on the contact link, the service link and back in all 63 cells both sides. In 7 cells, alike before and after (zh-Hans w320 light, dark, forced light, forced dark and spacing; ms-MY w1280 font32; ms-MY zoom200proxy light), Chrome scrolls the service link's box flush with the viewport's bottom edge, so the ring's lower stroke lies outside the view; in 6 of them the visible ring is short of 2.4.13's area until the page is scrolled (ms-MY w1280 font32: margin +62 px² against about 1,612 px² outside the view; zh-Hans w320 spacing, 80 px² outside against +162, is not). It is Chrome's scroll into view, which any focused control near the bottom edge can show, pre-existing and not introduced; its remedy, a scroll margin for the ring on an existing token, belongs to the app as a whole, not to this item's rule (the orchestrator's ruling): wish VH-233.1. This item's criterion is read centred, as the walker reads it.
+- **VH-210.2** (S-81's forced cells at w1280): the walker's focus reads pass in forced light and forced dark at w1280 in en-GB, zh-Hans and ms-MY, before and after; not moved by this change, so not paid off here, and the line stays open.
+- **Not paired:** VH-203's records (a1g3, a3g15, b5; D1's g1 at `a3039c3`), the finding's source, cited only. The design probes on the base, t1 (16 cells, 00:18–00:20Z) and t2 (63 cells, 00:34–00:40Z), ran the probe's earlier form (5c9c0872, no Tab reading) with candidate stylesheets injected in memory: design evidence only (t2: offset 0 passes both links 126 of 126).
+- **Re-reads:** none further. The rule matches only the statement's two links, which only S-81 reads; this table is the re-read of S-81's focus subject at `7db38f355f3c46c2`, every other instrument unmoved. The earlier S-81 readings (VH-199's `digest-focus-2026-10-27.md`, VH-210's `vh210-rings-*`, VH-223's and VH-224's matrices, VH-203's after-run) stand as records of the base.
+- **Not walked:** other browsers; forced colours are Chrome's emulation; the probe's captures stay in the walk folder.

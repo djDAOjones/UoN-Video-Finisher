@@ -1,0 +1,19 @@
+1. **Freeze: exact match.** HEAD and branch are as specified. Tracked diff SHA-1 is `0ac0c878eca530a447309844d495060afbdca5d6`; status, empty staged diff and all **88 untracked hashes** match `vh233-frozen-r1/`. Against the original freeze: only the item’s hash changed and the three listed close-review files were added; nothing was removed.
+
+2. **Musts 1 and 2: met.** The item now distinguishes unchanged outcomes from changed motion detail. The commit draft correctly locates the motion correction in both decision and item, and the visual qualification in the decision.
+
+3. **Must 3: withdrawn.** I read `vh216-3-brief.md:173`. It explicitly requires “each Codex answer verbatim as `.md.txt`, with nothing added”. Keeping the blind answer unchanged is correct. My earlier normalization requirement misapplied the close brief’s wording.
+
+4. **Gate 3: settled and green on the recorded candidate.** Its START identifies `73d16f0`, 23 status lines and diff `0ac0c878eca530a4`, on AC Power. Samples are **2.83, 3.69, 4.53**; exit **0**, 02:05:32–02:07:02Z. Logs confirm 86 passing test files, 1,723 passed tests and the standing skip, lint/link checks clear, and no structural failures. My fresh `node tools/check.mjs` also reports zero structural or budget failures and only VH-122’s known warning.
+
+5. **Close compare: faithful in substance.** It accurately records the previous verdict, corrections and rule-based rejection of must 3. I cannot independently certify its session timing, forbidden progress-note claims or main-checkout census within this review’s permitted reads; those claims are unnecessary to resolve the musts.
+
+6. **No additional commit blocker found.** The digest rules remain correctly recorded: WCAG 2.4.13, 2.4.7 and 1.4.11; Carbon “Tokens, not literals”.
+
+**Musts:** None additional.
+
+**Shoulds:** None.
+
+**Notes:** Run the already-planned final gate after saving this brief and answer; fill `Verify:` from that run and `Checked:` from this verdict. This approves the close on this base, not the later rebased landing. I changed no files and used no network.
+
+Commit

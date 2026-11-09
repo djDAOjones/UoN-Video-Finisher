@@ -562,6 +562,26 @@ describe('a window below the layout\u2019s minimum (VH-209, V-50)', () => {
   })
 })
 
+describe('a wrapped statement link’s ring (VH-233)', () => {
+  const ring = /(?:^|\})\s*\.statement-body a:focus-visible\s*\{([^}]*)\}/.exec(rules)?.[1] ?? ''
+  const forced = /@media \(forced-colors: active\)\s*\{([\s\S]*?)\n\}/.exec(rules)?.[1] ?? ''
+
+  it('draws the statement links’ ring at their text box, the offset its one change', () => {
+    // At the global offset a wrapped link's rings, line above and line below,
+    // met across the gap and were drawn as one contour, short of 2.4.13's area
+    // (VH-203.1): on the base, the contact address in 23 of 63 cells, the
+    // second link in 51.
+    expect(ring.trim()).toMatch(/^outline-offset:\s*0;$/)
+    expect(rules.match(/\.statement-body a\b/g)).toHaveLength(1)
+  })
+
+  it('leaves the global ring and the forced-colours ring as they were', () => {
+    expect(rules).toMatch(/(?:^|\})\s*:focus-visible\s*\{\s*outline:\s*var\(--focus-width\) solid var\(--focus\);\s*outline-offset:\s*var\(--focus-offset\);\s*\}/)
+    expect(forced).toMatch(/(?:^|\})\s*:focus-visible\s*\{\s*outline-color:\s*Highlight;\s*\}/)
+    expect(forced).not.toContain('.statement-body')
+  })
+})
+
 describe('the System check’s mark column (VH-230)', () => {
   const tokenFile = readFileSync(new URL('../src/styles/tokens.carbon.css', import.meta.url), 'utf8')
   const rowRule = /(?:^|\})\s*\.system-check \.check\s*\{([^}]*)\}/m.exec(rules)?.[1] ?? ''

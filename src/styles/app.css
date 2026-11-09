@@ -983,6 +983,18 @@ details[open] > .disclosure-summary::before {
   margin-top: var(--spacing-03);
 }
 
+/*
+ * A statement link that wraps keeps a whole ring on every line (VH-233,
+ * 2.4.13). At the global offset the rings of a link's consecutive lines meet
+ * across the gap between them and are drawn as one contour, the edges
+ * between the lines lost; at the text box they stay apart. Only the offset
+ * changes: the width, style and colour stay the global ring's, and forced
+ * colours' Highlight.
+ */
+.statement-body a:focus-visible {
+  outline-offset: 0;
+}
+
 .disclosure-summary:focus-visible {
   outline: var(--focus-width) solid var(--focus);
   outline-offset: var(--focus-offset);

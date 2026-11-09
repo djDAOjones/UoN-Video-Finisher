@@ -1,0 +1,74 @@
+2eb2838b073a04446214f20129d9948b40649316  b1.conditions.txt  ./b1/conditions.txt
+b4cc319241770fd59e64db721c58b65b5c732ad9  b1.load.log.txt  ./b1.load.log
+803d99ceb8e4769fab442ac38dbbdb27a0d80797  b1.launcher.log.txt  ./b1.launcher.log
+dab5a9a1d4b4bf0ca39bdb0b57b2083ebfb6de1d  b1.vh233-keys.manifest.json  ./b1/runs/vh233-keys-2026-11-09T00-47-48-988Z-769a0d/manifest.json
+94657d84961eec0b554e0e64a915ce102314bf69  b1.vh233-keys.run.json  ./b1/runs/vh233-keys-2026-11-09T00-47-48-988Z-769a0d/run.json
+f9e6ffb252f49b858852e45459148f5335c3e9aa  b1.vh233-ledger.jsonl  ./b1/runs/vh233-ledger.jsonl
+6b1183281de2d633c9779bcf57926c443588cbe8  b1.outcomes.jsonl  written from b1/runs
+ff7b2cf98f95122ebbf3ac54fa4d05e7da01bfeb  a1.conditions.txt  ./a1/conditions.txt
+fefde03381c3bafe0ec5de9751170b60acc9e857  a1.load.log.txt  ./a1.load.log
+03b0755262fdf7837730580846e2d16935a4a324  a1.launcher.log.txt  ./a1.launcher.log
+22e7c798737a6f46b454781e81cd5e9f7bf71aa8  a1.vh233-keys.manifest.json  ./a1/runs/vh233-keys-2026-11-09T01-03-15-645Z-8ac1a2/manifest.json
+374f97e880a188a2bc08ec89efdb9666a4fcaf44  a1.vh233-keys.run.json  ./a1/runs/vh233-keys-2026-11-09T01-03-15-645Z-8ac1a2/run.json
+79d3a4e9601c6f34db4c3532d45aea875cf15a46  a1.vh233-ledger.jsonl  ./a1/runs/vh233-ledger.jsonl
+35888c84f27dad704ab008af34eb38b8d1cbe667  a1.outcomes.jsonl  written from a1/runs
+9d0a654cb95ae1fa03cb80848c8926d076bc3b98  vh233-driver.mjs  ./vh233-driver.mjs
+042b7cb942732207ea2c8fa658f49a588174c7ee  vh233-probe.mjs  ./vh233-probe.mjs
+14b4349f5525efc7256eaf6012e73622b6f9aacb  vh233-probe-read.mjs  ./vh233-probe-read.mjs
+55adc4b1b753e76086f1a9927ef0096d6521dcd1  walk.sh  ./walk.sh
+1266a1ff9da5351e1d648576cb328631f2202be8  go.sh  ./go.sh
+091a06d2de32316725b9fc8beb9bcb17b1af7b13  group.zsh  ./group.zsh
+cf95edca250b2394688b2aa01425d1fae0e624a5  keys-63.txt  ./keys-63.txt
+e6b07a58e6ef653d7412b0f9069969383136a23c  b1.base.txt  ./b1.base.txt
+33c4abafff8d8725ac81d30eb6acb1bc2f0dabc3  a1.base.txt  ./a1.base.txt
+012cbf2570adce0ae0147361e66b6b202fa8959c  probe-b1.jsonl  ./probe-b1.jsonl
+69a14000c56e9de0be1c21e672a06f32131813b3  probe-a1.jsonl  ./probe-a1.jsonl
+a8ce5b95663aff9c7d94ffe999e96d7fce247319  probe-b1-a1.md.txt  ./probe-b1-a1.md.txt
+fe9203451770e75559ee150bfb7ee9d6a2cba498  table-1page.mjs  .//table-1page.mjs
+0efe0adb2b0294fcdcd529d663cd8cdf9ce3cf52  vh233-table-notes.md.txt  ./vh233-table-notes.md.txt
+9f61c7863eb95ff56977ff8e82eccc74199995d1  detail/b1.S-81__en-GB__w1280__spacing.json  written from b1/runs
+0c26c9aeeb7c19f4117abb61853e303c80078fc5  detail/a1.S-81__en-GB__w1280__spacing.json  written from a1/runs
+62df31744227fe10d7f0be8fb8fb0602441b2602  detail/b1.S-81__en-GB__w320__dark.json  written from b1/runs
+69b38bfd2825404ace8484114ad55620541c52b5  detail/a1.S-81__en-GB__w320__dark.json  written from a1/runs
+c1d2a0f8be2174583565d2ac3489ffd0cda67f68  detail/b1.S-81__en-GB__w320__forced-dark.json  written from b1/runs
+fdcfdc6b6c2d18aa9c9429e3459467659e1b7e28  detail/a1.S-81__en-GB__w320__forced-dark.json  written from a1/runs
+42c45e93cc758de9a5274f478ed79f6bf71b6f11  detail/b1.S-81__en-GB__w320__forced-light.json  written from b1/runs
+50038253ef15c797198eec61fc201eef6605ec8f  detail/a1.S-81__en-GB__w320__forced-light.json  written from a1/runs
+b6acf11b0f644abb2637dfe21565e79b0a51cbce  detail/b1.S-81__en-GB__w320__light.json  written from b1/runs
+936c047403b7a182c885d568ccf3dbdaae40be2d  detail/a1.S-81__en-GB__w320__light.json  written from a1/runs
+9d032aed7704e6735f4a3584ae8a2cbd131a44f5  detail/b1.S-81__en-GB__w320__spacing.json  written from b1/runs
+d55e591ab4ec9ec5b4a416063a577e8d96f3bd98  detail/a1.S-81__en-GB__w320__spacing.json  written from a1/runs
+3aadddd3639dfd07e669a1946d274ac6455f9a22  detail/b1.S-81__en-GB__zoom400proxy__light.json  written from b1/runs
+044106d1d9a2b295a20502553ae65c5e8bec5da0  detail/a1.S-81__en-GB__zoom400proxy__light.json  written from a1/runs
+2ee26aec63b39bb0de7ce0df798891a0620799d3  detail/b1.S-81__ms-MY__w320__dark.json  written from b1/runs
+e7639c92c97ca9cbe568d7f761d29bcc59add79d  detail/a1.S-81__ms-MY__w320__dark.json  written from a1/runs
+4c621364535e556c9892b090a9423fadf3b7e896  detail/b1.S-81__ms-MY__w320__forced-dark.json  written from b1/runs
+26cbd21701ab61b61632780a6016d854d5c615e4  detail/a1.S-81__ms-MY__w320__forced-dark.json  written from a1/runs
+07a3d3d1ead53c9a5d245ccfeee9c37c2958ee17  detail/b1.S-81__ms-MY__w320__forced-light.json  written from b1/runs
+40ff4bbbb5969635344c5538d2798607028b1dba  detail/a1.S-81__ms-MY__w320__forced-light.json  written from a1/runs
+daedf80900c470b6c436b13c82b2ee576f3344f1  detail/b1.S-81__ms-MY__w320__light.json  written from b1/runs
+d36465031a3495b5d984beac627091b62282ed9f  detail/a1.S-81__ms-MY__w320__light.json  written from a1/runs
+01c915548af15f3a47cc4a977d3a15f9c866c39a  detail/b1.S-81__ms-MY__w320__spacing.json  written from b1/runs
+7854ca38ebcca87a7742923a5eee4cee99d7c790  detail/a1.S-81__ms-MY__w320__spacing.json  written from a1/runs
+20f8275140fc3361bf88b4df714c624fba66330d  detail/b1.S-81__ms-MY__zoom400proxy__light.json  written from b1/runs
+a259a065a4ed7ec1d86bef658f461d84dadd35c6  detail/a1.S-81__ms-MY__zoom400proxy__light.json  written from a1/runs
+69a6d8caa0dfeae6dd938eda0680422f6417ee20  detail/b1.S-81__zh-Hans__w320__dark.json  written from b1/runs
+8f8d40a7d7112cd128a95d9c3c29178b4f57ee4a  detail/a1.S-81__zh-Hans__w320__dark.json  written from a1/runs
+12838ef254450fe627c51461ab523b2a705133a2  detail/b1.S-81__zh-Hans__w320__forced-dark.json  written from b1/runs
+ee92994c362144dd1bcea36661b9f64cceb0d7d1  detail/a1.S-81__zh-Hans__w320__forced-dark.json  written from a1/runs
+88ccff31dec0466e4f55e09fe4c13a06fbeb5b28  detail/b1.S-81__zh-Hans__w320__forced-light.json  written from b1/runs
+c681bcd0507c07de2cb75242dd6fd08b18bbc1fd  detail/a1.S-81__zh-Hans__w320__forced-light.json  written from a1/runs
+af21e1d777a31b39fecf20580427c86b7ca757b1  detail/b1.S-81__zh-Hans__w320__light.json  written from b1/runs
+ba749f245c5eb7635ebe8811d5200c070a720690  detail/a1.S-81__zh-Hans__w320__light.json  written from a1/runs
+73594bb96e2e1e099b507615edaeb7584bf6109e  detail/b1.S-81__zh-Hans__w320__spacing.json  written from b1/runs
+3a4f633e785dc222dafdb322fe1edb7d883d780a  detail/a1.S-81__zh-Hans__w320__spacing.json  written from a1/runs
+522e99f33fee95039ed0f3d67f9f5f20fb7808aa  detail/b1.S-81__zh-Hans__w375__dark.json  written from b1/runs
+6125bfd4cc32156f4bd807fde21e1a65ef09a554  detail/a1.S-81__zh-Hans__w375__dark.json  written from a1/runs
+2e58de533ecab6166b6045171251c63e9a619a89  detail/b1.S-81__zh-Hans__w375__forced-dark.json  written from b1/runs
+2a358d8bf20e5d480d4dd26bc28f7c8d5f9a0d40  detail/a1.S-81__zh-Hans__w375__forced-dark.json  written from a1/runs
+522cb7a5e1281503cf5a8a870de6de97b6b7721f  detail/b1.S-81__zh-Hans__w375__forced-light.json  written from b1/runs
+63a25334298a50a8b906ba5c06b3b225a9ec5514  detail/a1.S-81__zh-Hans__w375__forced-light.json  written from a1/runs
+9bca3251feb3be0d5fce486d2dbed6587460cacb  detail/b1.S-81__zh-Hans__w375__light.json  written from b1/runs
+cf4a15cdbdc09cdfbb143c935bf37ab6fc122b95  detail/a1.S-81__zh-Hans__w375__light.json  written from a1/runs
+c794430b910807ae8a8e7ab902663efa94e1a318  detail/b1.S-81__zh-Hans__zoom400proxy__light.json  written from b1/runs
+451f1218815b92ec949614de3a1cba663336aa31  detail/a1.S-81__zh-Hans__zoom400proxy__light.json  written from a1/runs

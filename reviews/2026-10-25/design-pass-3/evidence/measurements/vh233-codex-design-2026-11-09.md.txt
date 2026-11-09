@@ -1,0 +1,38 @@
+1. **The shortfall is consistent with adjoining outlines merging, not viewport clipping.** In `vh203-walk/a1g3/runs/vh203-after-keys-2026-11-07T16-11-20-720Z-87b5eb/`, the two en-GB JSON records report:
+
+   - `S-81__en-GB__w1280__light.json`: fragments **89×17 and 194×17**, qualifying area **1361**, reference **1236**.
+   - `S-81__en-GB__w320__light.json`: identical fragment sizes, qualifying area **1025**, reference **1236**.
+
+   Their `captures/*__focus-1-accessibility-statement-a-on.png` show the distinction: at w1280 the fragments are horizontally separated; at w320 they overlap horizontally and the outline becomes a joined contour. The combined fragment height is 41, implying a **7 px vertical gap** between 17 px fragments. The global **2 px offset plus 2 px stroke** extends 4 px from each fragment: adjacent paint meets across that gap. Internal horizontal edges disappear where the fragments overlap.
+
+   Both records have best contrast **13.34:1**; almost all changed pixels qualify (**1361/1363**, **1025/1031**). This is missing painted area, not primarily insufficient colour contrast. The captures retain the external edges; neither record reports viewport clipping. Fragment sizes alone omit the relative positions that determine merging.
+
+2. **My smallest candidate is one scoped offset override**, beside `.statement-body` in `src/styles/app.css`:
+
+   ```css
+   #accessibility-statement a:focus-visible {
+     outline-offset: calc(var(--focus-offset) - var(--focus-width));
+   }
+   ```
+
+   With `tokens.carbon.css:97–101`, this computes to **zero offset**, retaining the existing **2 px outline**. It brings each outline towards its fragment and should separate the adjoining paint without changing layout. This is a design candidate requiring the specified Chrome walk, not an experimentally established fix.
+
+   The unfocused link’s colour, underline, wrapping, dimensions and target remain unchanged. The focused link retains its underline and colour too. No padding, display, line-height or wrapping rule changes. Although `test/stylesheet.test.ts` explicitly exempts structural zero, the expression also respects this brief’s stricter token-only wording.
+
+   Crucially, this sets **only offset**: the global outline and forced-colours `Highlight` override remain effective. Dark and `.on-brand-blue` retain their existing white `--focus` (`tokens.brand.css:173,202`). The statement’s captured white-on-blue appearance remains. This preserves the colour mechanism supporting 2.4.7 and 1.4.11; their rendered visibility and adjacent-colour contrast must still be checked, particularly around glyphs and underlines.
+
+   I reject inline-block as the first remedy because it changes sentence wrapping and the measured component; padding/margins alter layout; box-shadow is unreliable in forced colours; and increasing outline width can enlarge the same merged contour and encroach on neighbouring text.
+
+3. **The walker measures only the first link.** `scenarios.mjs:1031` supplies summary and `#accessibility-statement a`; `matrix.mjs:124–130` calls `focusArea` once per selector; `qualify.mjs:746` uses `querySelector`.
+
+   The external driver should resolve the second link uniquely—e.g. `#statement-enforcement a`, after verifying its identity—and use the same keyboard-focus and paired-pixel measurement. Record both links’ identities, complete fragment coordinates, computed outline properties, focused/visible state, qualifying area, reference area, clipping/occlusion and off/on captures at all 63 cells. Read layout before instrumentation scrolls it; distinguish that visibility from the centred measurement.
+
+   Fragments are a sensible reference for wrapped inline text: the enclosing rectangle includes unrelated whitespace and changes substantially with placement (**1865** versus **963** here). However, the walker specifically sums **inside-strip areas**, `4(w+h)−16` per fragment (`qualify.mjs:800–813`). That is an operational approximation, not a complete normative interpretation of “2 CSS pixel thick perimeter”. Preserve the agreed acceptance measure; do not obtain a pass by switching to the smaller enclosing-box reference.
+
+4. **The 45 keys plus 18 neighbours are appropriate for this offset-only change**, provided both links are measured throughout. They cover the identified failures, enlarged font, spacing, fallback and four colour modes. Also inspect actual Tab and Shift+Tab arrival without preparatory centring, including neighbouring text, underline separation and both links’ complete rings. These are supplementary observations within the cells, not grounds for a broader matrix. If the remedy grows into padding, display or line-height changes, this coverage assessment must be revisited.
+
+5. **The principal risk is that zero offset still merges or touches text in some second-link/font configuration.** Then this candidate has failed; do not infer success from the contact address alone. The item requires every walked link to pass, unchanged other instruments, the stylesheet pin, fresh paired evidence on `73d16f0`, and both gates. None has been performed in this design reading.
+
+   No owner decision is presently needed: the proposal fits the approved CSS-only scope. Apply the WCAG digest’s focus appearance/visibility rules and Carbon’s “Tokens, not literals”. Any required new token, wording, element or broader selector remains the item’s explicit stop.
+
+Design verdict: Proceed with the scoped offset-only candidate, subject to both-link measurement and visual verification.

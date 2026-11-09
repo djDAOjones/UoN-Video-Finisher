@@ -1,0 +1,39 @@
+The CSS and measured result support this close. The remaining issues are record wording, portable references and the already-required final gate. I changed no files and used no network.
+
+**Musts**
+
+1. **Correct the item’s remaining “unmoved” claim.** `project/items/VH-233.md`, Now → Open question, still says “every other instrument unmoved”. Say “every other instrument’s outcome unchanged, with the motion-detail changes recorded below”. The raw en-GB and zh-Hans `w1280/reduced-motion` records confirm seven → six rows and six → five exemptions, passing both sides. The corrected Notes and decision already explain this accurately.
+
+2. **Correct the draft commit’s adoption claim.** `vh233-commit-msg.txt:11` says both the motion detail and tight-to-ink qualification “are in the decision and the item”. The item records the motion detail; the visual qualification is in the decision. Adjust that sentence to reflect their actual locations.
+
+3. **Resolve the three absolute link targets in the archived blind answer.** `vh233-codex-blind-2026-11-09.md.txt:9,26,28` contains absolute Markdown links to the table, CSS and test. They are inert in `.txt`, but the requested “no absolute link” check is not literally satisfied. Use repository-relative targets with a provenance header explicitly declaring link-only normalization; do not silently present the altered copy as byte-verbatim.
+
+4. **Run the settled-machine gate on the final candidate**, including these corrections and the close brief/answer, then `node tools/check.mjs`. Gate 2 exited zero but sampled **8.24 and 8.54**. Fill `Verify:` from the replacement run and preserve this verdict in `Checked:`. Reconcile the final candidate against the freeze, identifying every review-driven difference.
+
+**Shoulds**
+
+None additional. The decision adequately records the tight-to-ink qualification; no product change follows from it.
+
+**Checks and notes**
+
+1. **Freeze — exact match.** HEAD is `73d16f085fc2bda8a76c79263b67d3034262aa78`. Tracked binary diff SHA-1 is `0ac0c878eca530a447309844d495060afbdca5d6`. Tracked diff, status and empty staged diff match byte-for-byte; all **85 untracked paths and hashes** match.
+
+2. **Item — substantially met, subject to the musts.** Its structure satisfies `_schema.md`. The scoped declaration, existing-token/structural-zero treatment, unchanged markup and unfocused presentation, test placement, paired provenance, 63-cell coverage, WCAG review and Disposition link are supported. Both links pass the agreed **centred** measure in all cells; the Tab-arrival limitation is explicitly retained. The re-reads are named and the reason no further walk follows is stated. The final settled gate remains outstanding; “Next step: None” describes the intended completed close, not the present verification state.
+
+3. **Ledger — sound.**
+   - Backlog: only VH-233’s line removed.
+   - Trajectory: correct form and Phase 8 placement. My checker run reports **277/300 words**, **0 structural or budget failures**, and the known missing `samples/CULT2011.mp4` warning.
+   - Wishes: VH-203.1’s measured shortfall is paid off. VH-233.1 has the correct ID, source/date form and seven-cell/six-shortfall qualification. VH-210.2 rightly remains: its cited conditions already pass before this fix.
+   - Decision: concise heading/Decision, full rationale, verified owner quotations and sources, motion correction and visual qualification. `Supersedes: none` is appropriate; `Deferred: none` is consistent with the ledger’s item-ID convention because the follow-up is a wish.
+   - Archive: the moved VH-202 entry is **5,782 bytes, identical byte-for-byte**; the archive is append-only. Counts and index agree: **45 live, 137 archived**.
+   - Disposition: relative links and wording match the evidence, including the separate arrival limitation.
+
+4. **Commit draft — supported apart from must 2 and pending fields.** Scope, measurements, quotations, wish disposition and digest rules agree with the record. The Claude co-author attribution is consistent with the recorded implementation role. `Verify:` and `Checked:` must not remain placeholders.
+
+5. **Review copies — provenance supported, with limits.** Recorded hash prefixes match the design/brief/verdict copies directly or after removing their added markdownlint header; answer byte counts match the compares. The original side-folder review files are outside this review’s allowed reads, so I cannot independently certify every copy against those originals. Answers correctly use `.md.txt`. The frozen inventory contains **eight review copies**, not nine; together with the item, table and 75 records, that correctly totals 85 files.
+
+   Historical claims such as Claude’s “outside the glyphs” and the table’s “every other instrument reads as before” remain in saved evidence, but the comparison and close decision explicitly qualify them. They should not be treated as the final unqualified finding.
+
+6. **No further product blocker found.** This verdict concerns this base and branch close only. The later rebase, fresh archive run and rebased-diff check remain landing work; no push is approved here.
+
+Commit after the musts below

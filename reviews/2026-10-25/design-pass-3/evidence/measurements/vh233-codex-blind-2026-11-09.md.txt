@@ -1,0 +1,137 @@
+**Verdict: Commit after the musts below.**
+
+The CSS remedy is sound for the agreed scope. Both links pass the centred focus-area measurement in all 63 cells. I found an evidence wording error, but no reason to replace the CSS rule.
+
+The reviewed `src`/`test` diff still hashes to `b590b5f26928b1a9ce43083a4f00770c69176a06`. I wrote no files.
+
+**Musts**
+
+1. Correct “every other instrument reads as before” in the [evidence table’s notes](/Users/uazjob/UoN-Video-Helper-side/vh233/reviews/2026-10-25/design-pass-3/evidence/measurements/vh233-statement-ring-2026-11-09.md). Outcomes remain unchanged, but the **motion readings** change:
+   - `S-81__en-GB__w1280__reduced-motion` and the corresponding zh-Hans cell: seven rows become six; six exemptions become five. The contact link’s exempt, zero-duration `outline-offset` transition disappears because its offset no longer changes on focus.
+   - Motion remains **pass**. Observation durations also vary slightly.
+   
+   These are supported, harmless consequences of the remedy, not reduced coverage. Name them explicitly. Evidence: those cells’ JSON records under `vh233-walk/b1/runs/` and `a1/runs/`.
+
+2. Complete the separately scheduled close verification before committing. The supplied test, TypeScript and test-file eslint results do not establish the whole `npm run check` gate. My `node tools/check.mjs` invocation encountered the concurrently changing ledger and failed its trajectory budget: **306 words against 300**, with five warnings. Resolve or disposition those on the settled ledger and rerun both required checks. This is a close prerequisite, not a CSS finding.
+
+**Shoulds**
+
+Record the visual qualification that zero offset is **tight to the ink**, rather than claiming complete separation from it. It touches some antialiased glyph edges and adjacent punctuation. I found no materially obscured word, lost underline or collision with a neighbouring line. No CSS change is requested for this observation.
+
+**1. Acceptance criteria**
+
+| Criterion in `VH-233.md` | Reading |
+|---|---|
+| Wrapped rings meet the walker’s 2.4.13 measure; visibility and contrast retained | **Met.** Contact: 40/63 → 63/63. Service: 12/63 → 63/63. Minimum margin: −2,744 → +52 CSS px². |
+| CSS only, existing tokens, statement scope; global and forced-colour rings unchanged | **Met.** One declaration at [app.css:994](/Users/uazjob/UoN-Video-Helper-side/vh233/src/styles/app.css:994). Structural zero is already expressly exempted. |
+| No words, elements, attributes, order or `docs/` changes; unfocused presentation preserved | **Met for the candidate.** The tracked product diff contains only the CSS addition. All 126 paired unfocused geometry/style records agree. |
+| Test pin beside existing statement expectations | **Met.** Two tests after VH-209 at [stylesheet.test.ts:565](/Users/uazjob/UoN-Video-Helper-side/vh233/test/stylesheet.test.ts:565). |
+| Same Mac, base before, unchanged walker, driver outside it | **Met by provenance.** `b1.base.txt`, conditions and script hashes support this. |
+| All 45 original cells plus 18 neighbours; original 11 failures repaired | **Met.** Exactly 63 distinct, reached cells each side; no unmatched keys. All original failures pass. |
+| Every other instrument accounted for | **Needs must 1.** Outcomes agree; the motion detail needs recording. |
+| Required WCAG and token review | **Met with the qualifications below.** |
+| Documents, gate, digest naming, review and Disposition link | No standards-document change is needed. **Gate and final close records remain for the later check.** This response supplies the blind candidate review. |
+| Re-reads named, or none with an explanation | The table names the earlier S-81 records and explains why this walk supplies the relevant re-read. That explanation belongs in the final item record too. |
+| Bounded to this item; no wider remedy | **Met.** One scoped declaration; no new token or markup. The agreed Tab-arrival issue remains separate. |
+
+**2. Cause and rule**
+
+The failure is lost perimeter, not insufficient ring colour contrast. At the old offset, a 2 px outline extends 4 px beyond each fragment. Consecutive fragments commonly have a **7 px gap**: the outlines meet, and Chrome paints a joined contour with interior horizontal edges missing.
+
+For example, VH-203’s raw b5 Malay zoom400proxy record reads **986/1,236 px²**. The before captures show the joined contour; the candidate captures show separate outlines.
+
+`outline-offset: 0` reduces each outline’s outward extent to 2 px, retaining those interior edges without changing line layout. It is the smallest sound remedy demonstrated here. The design trials reinforce that choice: cloning decorations did not repair the failures; increasing width with `--focus-room` still left service-link failures.
+
+The selector matches **any focused-visible anchor descended from any `.statement-body`**, not just these two IDs. Today those are the contact and service links. A future link within that class also receives the rule automatically, including one nested deeper in the markup.
+
+Its specificity, `(0,2,1)`, beats global `:focus-visible`, `(0,1,0)`, **for offset only**:
+
+- Dark and blue-band contexts retain their existing focus colour.
+- Forced colours retain `Highlight`; the new rule declares no colour.
+- Ordinary mouse focus that does not match `:focus-visible` is unaffected. Browser focus-visible heuristics still govern.
+- An unwrapped link gets the same 2 px solid outline moved inward by 2 px. There is no unwrapped specimen in these 126 readings, so that conclusion is from the CSS, not a separately walked case.
+
+**3. Tokens**
+
+The unitless `0` is syntactically a literal, but it is an **allowed structural zero under this project’s rules**. `UI-STANDARDS.md` explicitly names zero among the structural exemptions; the existing “tokens, not literals” test documents the same exemption. The sheet already uses zero for margins, padding, gaps and borders.
+
+Width remains `var(--focus-width)`, resolving to 2 px. Style remains the existing `solid` keyword. Colour remains `var(--focus)` in ordinary modes and the existing system-colour override in forced colours. Thus “everything remains token-derived in every mode” would be imprecise: forced-colour `Highlight` is the intentional existing exception.
+
+Carbon’s **“Tokens, not literals”** rule is satisfied.
+
+**4. Nothing else moves**
+
+Across all 126 paired probe readings, I found no differences in the unfocused links’:
+
+- fragment positions and dimensions;
+- colour or underline declaration;
+- absent outline;
+- paragraph font size, line height or width.
+
+Focused fragments also agree. The non-focus instrument outcomes and assertion rows agree in all 63 cells. Full-object differences additionally include AX artifact hashes/byte counts and the motion details identified above.
+
+I inspected all 126 candidate focused captures. The tighter outline sometimes touches glyph fringes and punctuation: examples include the contact address’s descending ink at en-GB/w1280/light and the following full stop at en-GB/w375/forced-light. Therefore **“no overlap with any ink” is too strong**. Nevertheless, the characters remain readable, the underline remains distinguishable, and I found no neighbouring-line obscuration.
+
+**5. Evidence and instrument**
+
+The central table readings are supported: 63 reached each side, 40 unchanged matrix outcomes, 23 focus fail→pass changes, and both links passing after. Bundled files match their recorded hashes. The cited VH-203 records support the historical finding and are not substituted for this before.
+
+`b1.base.txt` records the expected base HEAD, an empty tracked diff and a successful app-path comparison. `a1.base.txt` records the expected candidate hash. Driver, probe, scripts and walker revision agree across the paired runs.
+
+| Group | Role | Load median / peak | Samples ≥8 |
+|---|---|---:|---:|
+| b1 | Paired before | 4.44 / 6.05 | 0/23 |
+| a1 | Paired after | 3.68 / 5.28 | 0/23 |
+| t1 | Design only | 4.47 / 6.16 | 0/5 |
+| t2 | Design only | 3.49 / 4.32 | 0/13 |
+
+All record AC power; no power-mode value is reported. These are the sampled one-minute loads. Separately, t2’s opening conditions show a **15-minute load of 9.26**; that does not contradict the table’s sampled-load figures. The ring conclusion rests on geometry and pixel contrast, not execution speed.
+
+The probe is suitable for the stated purpose:
+
+- It uses the matrix’s viewport, font handling, S-81 setup and mode functions.
+- It calls the unchanged walker’s `focusArea`.
+- `focusByKeyboard` establishes keyboard modality with a real key event, then calls `.focus()`. It is not itself sequential Tab navigation.
+- The separate Tab/Tab/Shift+Tab exercise supplies that navigation evidence.
+- Fragment-centre hit tests and viewport bounds are useful corroboration; centre hits alone would not prove every pixel unobscured.
+
+The seven Tab-arrival cells are correctly identified, on both sides:
+
+- zh-Hans/w320: light, dark, forced-light, forced-dark and spacing;
+- ms-MY/w1280/font32;
+- ms-MY/zoom200proxy/light.
+
+The service link ends flush with the viewport bottom. Six lose enough visible ring area to fall short; zh-Hans spacing retains sufficient margin. The stated approximately 1,612 px² loss for Malay font32 is consistent with its geometry. The table faithfully applies the settled centred-reading ruling and preserves VH-233.1.
+
+Coverage is not reduced.
+
+**6. WCAG and Carbon judgement**
+
+These judgements apply to both links in the walked conditions.
+
+| Criterion | Judgement |
+|---|---|
+| 1.3.2 Meaningful Sequence | Preserved: no DOM or visual-order change. |
+| 1.4.4 Resize Text | Preserved in the font32 and zoom-proxy readings. |
+| 1.4.10 Reflow | Preserved: 320 px/proxy readings retain their passing overflow results and fragment layout. |
+| 1.4.11 Non-text Contrast | Met in the sampled palettes. The lowest reported best ring ratio is 8.73:1; captures corroborate a continuous contrasting ring. |
+| 1.4.12 Text Spacing | Preserved in the spacing cells, including narrow neighbours. |
+| 2.4.7 Focus Visible | Met: focus-visible true and visible indicators in all 126 centred readings. |
+| 2.4.11 / 2.4.12 Focus Not Obscured | No author-created obstruction found. The separate viewport-edge arrival limitation remains explicitly recorded. |
+| 2.4.13 Focus Appearance | Met by the agreed centred measure in all 126 readings. The counted area comprises pixels changing by **at least 3:1**, not merely pixels of the nominal ring colour. Minimum surplus is 52 CSS px². |
+| 2.5.8 Target Size | The inline-text exception applies; this rule changes neither target geometry nor hit behaviour. |
+| Carbon: Tokens, not literals | Met, using the established structural-zero exemption. |
+
+Forced colours are Chrome emulation; zoom cases are proxies. These results should retain those labels.
+
+**7. Tests**
+
+The pin holds the requested source contract: the scoped rule exists, its sole declaration is zero offset, the global ring retains its original declarations, and the forced-colours ring retains `Highlight` without a statement-specific override.
+
+It does not prove computed cascade, rendered area, ink separation, mouse behaviour or future-link behaviour. The browser evidence supplies the relevant rendered checks.
+
+The regex approach is deliberately source-sensitive: equivalent selector formatting can fail it, while an overriding rule expressed through another selector could escape it. That is a limitation worth understanding, not a reason to expand this small change’s test suite.
+
+**Notes**
+
+No additional product change is required by this review. Keep VH-210.2 open: the cited w1280 forced cells already pass before this fix. Keep the Tab-arrival issue under the agreed separate disposition. The later ledger check should name the applied digest rules: WCAG **2.4.13, 2.4.7 and 1.4.11**, and Carbon **“Tokens, not literals.”**

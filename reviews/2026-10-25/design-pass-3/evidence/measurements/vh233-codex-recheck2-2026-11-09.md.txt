@@ -1,0 +1,19 @@
+1. **Freeze: exact match.** HEAD is `9e74a4b339d6a855de711392771929f3e0d3fdaa`, on `side/vh233`, directly atop `1f7fc66`. HEAD, empty status and rebased diff match the frozen files byte-for-byte. Diff SHA-1: `7ee52be6b152faf3e3d4ef9d472988180c705f14`.
+
+2. **Conflict resolutions: correct.** VH-235’s code, evidence, decision and Disposition text are preserved. VH-233’s decision is unchanged and newest; its single trajectory line follows VH-235 at Phase 8’s end. Both backlog items are removed. VH-235.1 precedes VH-233.1; VH-203.4 and VH-203.1 are retired as intended.
+
+3. **Archive: nothing lost.** The existing archive is preserved as an exact byte prefix, retaining VH-202’s already-landed move. The fresh PLAN-8 move is **3,741 bytes, byte-identical**. Counts and index agree: **45 live, 138 archived**. Boundary blank lines changed as entries moved; no entry text changed.
+
+4. **App: exactly the walked change.** Both app diffs have SHA-1 `b590b5f26928b1a9ce43083a4f00770c69176a06`. Only `src/styles/app.css` and `test/stylesheet.test.ts` differ from the landing base; the walker is unchanged. VH-235’s feedback-opening guard and worker logging constant do not interact with the statement selector or its pin. No re-walk is due under the accepted landing arrangement; measurements remain attributed to `73d16f0`.
+
+5. **Gate 5: settled and green on this HEAD.** Logs identify `9e74a4b`, zero dirty lines, AC Power, **02:14:01–02:15:32Z**, exit **0**, loads **4.75, 4.59, 5.37**. Results: **88 test files, 1,741 passed, one standing skip**, lint and links clear. My fresh `node tools/check.mjs` also reports **zero structural or budget failures**, with only the known VH-122 sample warning.
+
+6. **No additional landing blocker found.** Digest rules remain correctly applied: WCAG **2.4.13, 2.4.7, 1.4.11** and Carbon **“Tokens, not literals.”**
+
+**Musts:** None additional.
+
+**Shoulds:** None.
+
+**Notes:** The promised commit-message renewal remains necessary: current HEAD still carries gate 4 and the pre-rebase archive account. The landing paragraph should explain the preserved walk provenance and fresh PLAN-8 move, with gate 5 in `Verify:` and this verdict in `Checked:`. Preserved evidence has three trailing-whitespace findings; these are not landing blockers. I changed no files and used no network.
+
+Commit
