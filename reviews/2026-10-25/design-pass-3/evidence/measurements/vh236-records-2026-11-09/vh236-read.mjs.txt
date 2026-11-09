@@ -1,0 +1,44 @@
+// VH-236 #2: the reader, read-only, adapted from vh203-walk/v2142-read.mjs (0a8eb7de; a model, not the instrument).
+// Usage: node vh236-read.mjs <group folder>…   (each with runs/<run>/<key>.json and runs/<run>/captures/<key>__mutations.json)
+// Per key: the walker's status; #page-announcer's text sequence from the __mutations live-text entries (exposure, not speech),
+// each text as F (both sentences), S (the first sentence alone, exact), "" or other; the final text; the first sentence's
+// bytes kept; the second sentence present or absent at the end; whether #step-trim is offered at the end (its last hidden
+// change); step 1's refusal (#source-status's last text holds the pre-flight's block); the order of the refusal's first
+// write and the block's line. Never a whole-record grep: order 1's history holds F legitimately.
+import fs from 'node:fs'; import path from 'node:path';
+const W = {
+  'en-GB': ['A preview is not available for this file.', 'A preview is not available for this file. You can still set the times.'],
+  'zh-Hans': ['此文件没有预览功能。', '此文件没有预览功能。您仍然可以设置时间。'],
+  'ms-MY': ['Pratonton tidak tersedia untuk fail ini.', 'Pratonton tidak tersedia untuk fail ini. Anda masih boleh menetapkan masa.'],
+};
+const SECOND = /You can still set the times|您仍然可以设置时间|Anda masih boleh menetapkan masa/;
+const REFUSE = /This cannot run here|无法在此处运行|tidak boleh dijalankan di sini/i;
+const rows = [];
+for (const g of process.argv.slice(2)) {
+  const runs = path.join(g, 'runs'); if (!fs.existsSync(runs)) continue;
+  for (const r of fs.readdirSync(runs).sort()) {
+    const rd = path.join(runs, r); if (!fs.statSync(rd).isDirectory()) continue;
+    for (const f of fs.readdirSync(rd).filter((f) => /^S-.*\.json$/.test(f)).sort()) {
+      const key = f.replace(/\.json$/, ''); const j = JSON.parse(fs.readFileSync(path.join(rd, f), 'utf8'));
+      const [S, F] = W[j.lang] ?? ['', ''];
+      const mf = path.join(rd, 'captures', `${key}__mutations.json`);
+      const m = fs.existsSync(mf) ? JSON.parse(fs.readFileSync(mf, 'utf8')) : null;
+      const es = m?.entries ?? [];
+      const ann = es.filter((e) => e.kind === 'live-text' && e.region === '#page-announcer');
+      const tok = (x) => (x === '' ? '""' : x === F ? 'F' : x === S ? 'S' : SECOND.test(x) ? 'F?' : 'other');
+      const seq = ['""', ...ann.map((e) => tok(e.text))].filter((x, i, a) => i === 0 || x !== a[i - 1]).join('→');
+      const fin = ann.length ? ann[ann.length - 1].text : '';
+      const trimAttr = es.filter((e) => e.kind === 'attr' && /^section#step-trim/.test(e.el ?? '') && e.attr === 'hidden');
+      const trim = trimAttr.length ? (trimAttr[trimAttr.length - 1].to === null ? 'offered' : 'withdrawn') : 'no change logged';
+      const src = es.filter((e) => e.kind === 'live-text' && e.region === '#source-status');
+      const blockAt = src.find((e) => REFUSE.test(e.text))?.t ?? null;
+      const npAt = ann.find((e) => e.text === F || e.text === S)?.t ?? null;
+      const order = blockAt === null || npAt === null ? '-' : npAt < blockAt ? 'error before block' : 'block before error';
+      rows.push({ group: path.basename(g), key, status: j.status, seq, final: tok(fin), firstKept: fin.startsWith(S) && S !== '' ? 'yes' : 'no', second: SECOND.test(fin) ? 'present' : 'absent', trim, refusal: REFUSE.test(j.reached?.seen?.sourceStatus ?? '') ? 'yes' : 'no', order, mutations: m ? 'read' : 'none' });
+    }
+  }
+}
+for (const x of rows) console.log([x.group, x.key, x.status, x.seq, 'final ' + x.final, 'first ' + x.firstKept, 'second ' + x.second, 'trim ' + x.trim, 'refusal ' + x.refusal, x.order, 'mutations ' + x.mutations].join(' | '));
+const by = {}; for (const x of rows) { const id = x.key.split('__')[0]; const s = `${x.seq} final ${x.final} second ${x.second} trim ${x.trim} refusal ${x.refusal}`; by[id] ??= {}; by[id][s] = (by[id][s] ?? 0) + 1; }
+console.log('--- by scenario'); for (const [id, v] of Object.entries(by).sort()) for (const [s, n] of Object.entries(v)) console.log(id, n, s);
+console.log('keys', rows.length, 'status', JSON.stringify(rows.reduce((a, x) => ((a[x.status] = (a[x.status] ?? 0) + 1), a), {})));

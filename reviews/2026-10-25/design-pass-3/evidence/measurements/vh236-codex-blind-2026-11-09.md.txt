@@ -1,0 +1,54 @@
+**Pass with points — the scoped fix is sound. Correct the evidence summary and the unsupported speech claim before close; the close gate and ledger obligations remain outstanding.**
+
+I reviewed read-only. The tracked diff hash is `9f9a386eb587d581`; the helper and test hashes match `addfbd21` and `25addcbc`. No files were changed.
+
+1. **Acceptance: the sentence — met.**  
+   `said()` selects both sentences when trimming is offered and the first when withdrawn. `trimWithdrawn()` shortens an existing full refusal after the block. Production reads the actual trim step’s `hidden` state; the storage exception preserves that step. Evidence: [helper:79](/Users/uazjob/UoN-Video-Helper-side/vh236/src/ui/preview-refusal.ts:79), [page wiring:325](/Users/uazjob/UoN-Video-Helper-side/vh236/src/main.ts:325), [block:1685](/Users/uazjob/UoN-Video-Helper-side/vh236/src/main.ts:1685).
+
+2. **Acceptance: S-29 — met under the supplied ruling.**  
+   Its setup first refuses `prores-1080p.mov`, then selects `notvideo.mp4`. The candidate’s English 1280-pixel mutation record shows F at 833 ms, the block and S at 910 ms, and the unreadable-file status at 1490 ms without another page-announcer write. All nine S-29 records agree. The read-failure code is unchanged. Evidence: [scenario:489](/Users/uazjob/UoN-Video-Helper-side/vh236/reviews/2026-10-25/design-pass-3/evidence/measurements/walker/scenarios.mjs:489), [raw mutation record](/Users/uazjob/UoN-Video-Helper-side/vh236-walk/r1/runs/vh236-keys-2026-11-09T01-50-55-930Z-ab7321/captures/S-29__en-GB__w1280__light__mutations.json), [read failure:1575](/Users/uazjob/UoN-Video-Helper-side/vh236/src/main.ts:1575).
+
+3. **Acceptance: both orders and live-region contents — met, with the stated evidence boundary.**  
+   Let F mean both sentences and S the first alone. Tests drive the production helper and assert:
+   - Error before withdrawing block: `""→F→S`, retaining the same node.
+   - Withdrawing block before error: `""→S`.
+   - Storage block in either order, or no block: `""→F`.
+
+   Chrome records establish the first order and the offered control; they do not establish speech. Evidence: [order tests:105](/Users/uazjob/UoN-Video-Helper-side/vh236/src/ui/preview-refusal.test.ts:105), [walk notes:44](/Users/uazjob/UoN-Video-Helper-side/vh236/reviews/2026-10-25/design-pass-3/evidence/measurements/vh236-refusal-words-2026-11-09.md:44).
+
+4. **Acceptance: removing words only — met.**  
+   The remaining string is the existing first sentence; deletion removes the second sentence and its preceding gap. No translation table, key, `index.html`, stylesheet or `docs/` line changes. The original `announce` function and its other callers remain unchanged. Evidence: the reviewed base diff and [helper:70](/Users/uazjob/UoN-Video-Helper-side/vh236/src/ui/preview-refusal.ts:70).
+
+5. **Acceptance: tests — met in coverage; execution results are supplied evidence.**  
+   The stand-ins import `createPreviewRefusal` itself. The screen-text test retains its prohibition on overwriting the source-status line and adds production wiring, call-count and placement checks. It is strengthened. The reported 1,774 passing tests, standing skip, typecheck and lint results are recorded; I did not rerun that suite. I independently executed the production first-sentence function in Node against all three pinned translations: all passed. Evidence: [helper tests:17](/Users/uazjob/UoN-Video-Helper-side/vh236/src/ui/preview-refusal.test.ts:17), [screen-text test:256](/Users/uazjob/UoN-Video-Helper-side/vh236/test/screen-text.test.ts:256), [test results:49](/Users/uazjob/UoN-Video-Helper-side/vh236/reviews/2026-10-25/design-pass-3/evidence/measurements/vh236-refusal-words-2026-11-09.md:49).
+
+6. **Acceptance: VH-203’s stage rule — measurement met; complete close not shown.**  
+   The records support the approved base `1f7fc66`, candidate hashes, common walker revision, matching keys and load limits. The local WCAG review addresses 3.1.5, 3.3.1, 3.3.3 and 4.1.3 within DOM exposure. However, the table summary needs correction in point 13. The full gate, subsequent `node tools/check.mjs`, final digest attribution and Disposition evidence link remain close work. The item still names the superseded base `73d16f0` at line 15; reconcile it with the supplied ruling and actual provenance. Evidence: [item:15](/Users/uazjob/UoN-Video-Helper-side/vh236/project/items/VH-236.md:15), [table provenance](/Users/uazjob/UoN-Video-Helper-side/vh236/reviews/2026-10-25/design-pass-3/evidence/measurements/vh236-refusal-words-2026-11-09.md:6).
+
+7. **Acceptance: post-landing re-reads — not shown, appropriately pending.**  
+   The candidate has not landed. VH-214’s groups and the checks reading `trim.noPreview` still need their promised naming and re-read disposition at close. Evidence: [item:21](/Users/uazjob/UoN-Video-Helper-side/vh236/project/items/VH-236.md:21).
+
+8. **Acceptance: sizing — met as implementation scope; actual work budget not shown.**  
+   The remedy stays within one narrowly scoped helper, its two production hooks and tests. It adds no user-facing words, elements or changes to another caller. Nothing in the candidate requires expanding the approved item. Evidence: [item:22](/Users/uazjob/UoN-Video-Helper-side/vh236/project/items/VH-236.md:22) and the reviewed diff.
+
+9. **Judgment 1: removal and preservation — correct within scope.**  
+   I found no in-scope event order that leaves this file’s full refusal standing after a withdrawing preflight block, or shortens it during an offered/storage-block state. The two explicitly deferred cross-file cases remain outside that conclusion. Evidence: points 1–3 and [deferred cases:48](/Users/uazjob/UoN-Video-Helper-side/vh236/reviews/2026-10-25/design-pass-3/evidence/measurements/vh236-refusal-words-2026-11-09.md:48).
+
+10. **Judgment 2: in-place deletion and guards — functionally sound; comment needs correction.**  
+    The guards require the remembered node to remain the sole child, retain the full original string, belong to a currently shown refusal note, and have trimming withdrawn. Language clearing and another announcement invalidate node ownership; a second block finds already-shortened data. A new selection hides the refusal note. Evidence: [guards:86](/Users/uazjob/UoN-Video-Helper-side/vh236/src/ui/preview-refusal.ts:86), [reset:1868](/Users/uazjob/UoN-Video-Helper-side/vh236/src/main.ts:1868), [guard tests:159](/Users/uazjob/UoN-Video-Helper-side/vh236/src/ui/preview-refusal.test.ts:159).
+
+    **Point to correct:** [helper:20](/Users/uazjob/UoN-Video-Helper-side/vh236/src/ui/preview-refusal.ts:20) says the first sentence “is not announced twice.” The evidence proves no fresh node is inserted; it does not prove no repeat speech. `deleteData` changes text, and the walker explicitly observes that change. Keep the comment to the demonstrated DOM behaviour and leave speech unverified.
+
+11. **Judgment 3: segmentation and translation pins — sufficient for the current strings.**  
+    Each test pins the entire message as `first + removed`, the exact first sentence and exactly two sentence segments. A later translation or segmentation change cannot silently pass those assertions. My Node check passed all three. Chrome’s recorded S matches each expected first sentence, with one precision limit: the walker normalises whitespace before recording, so its output alone is not a raw-byte proof. Source inspection and the exact Node pins supply that additional evidence. Evidence: [pins:99](/Users/uazjob/UoN-Video-Helper-side/vh236/src/ui/preview-refusal.test.ts:99), [walker normalisation:57](/Users/uazjob/UoN-Video-Helper-side/vh236/reviews/2026-10-25/design-pass-3/evidence/measurements/walker/qualify.mjs:57).
+
+12. **Judgment 4: production-helper testing and retained protection — yes.**  
+    These tests exercise the actual helper, rather than a copied implementation. The source-status protection survives, and the wiring assertions tie the helper to the actual page state. The S-29 stand-in additionally calls `trimWithdrawn()` after resetting the refusal flag, whereas production’s read-failure path does not; that assertion tests a harmless guard, not production wiring. The real S-29 walk supplies the integration evidence. Evidence: [stand-in:69](/Users/uazjob/UoN-Video-Helper-side/vh236/src/ui/preview-refusal.test.ts:69), [S-29 test:145](/Users/uazjob/UoN-Video-Helper-side/vh236/src/ui/preview-refusal.test.ts:145).
+
+13. **Judgment 5: walks confirmed; summary wording not fair as written.**  
+    I independently checked the raw records: identical 52-key sets, all `ok`, no capped mutation logs; 43 refusals change `""→F` to `""→F→S`, and nine S-32 controls remain `""→F`. Rerunning the supplied reader reproduces both saved outputs exactly. The 29 load samples per side give peaks 6.11 and 5.45, none reaching 8.
+
+    **Point to correct:** “52 unmoved” and “Nothing moved, row by row” describe the generator’s outcome comparisons, not the live-region text. The notes correctly report the change, but do not make that unqualified headline accurate. Say: **“All 52 outcome classifications unchanged; refusal text changed in 43 cells; nine controls unchanged.”** Evidence: [summary:36](/Users/uazjob/UoN-Video-Helper-side/vh236/reviews/2026-10-25/design-pass-3/evidence/measurements/vh236-refusal-words-2026-11-09.md:36), [comparison logic:81](/Users/uazjob/UoN-Video-Helper-side/vh236/reviews/2026-10-25/design-pass-3/evidence/measurements/vh236-records-2026-11-09/table-1page.mjs:81).
+
+14. **Judgment 6: other defects or scope changes — none found in the candidate.**  
+    The close must still create the actual VH-236.1 wish-list line: it is named in the evidence notes but is absent from the current wish list and backlog. That is pending ledger work, not a reason to build either deferred remedy here. The applicable review rules are Nielsen 1 and 9, WCAG 4.1.3’s programmatic status exposure, and the house rule against weakening tests. No broader accessibility or speech certification follows from this review.

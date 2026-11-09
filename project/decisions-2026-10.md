@@ -1694,3 +1694,13 @@ INTAKE.2 stays a wish line: only a person listening can judge the Teams output. 
 **Items:** VH-182, VH-183, VH-184, VH-185, VH-186, VH-187, VH-188, VH-189, VH-190, VH-191, VH-192, VH-193, VH-194, VH-196, VH-197, VH-198, VH-205, VH-199, VH-200, VH-201, VH-202, VH-211, VH-206, VH-207, VH-208, VH-212, VH-213, VH-214, VH-215, VH-216, VH-217, VH-209, VH-218, VH-219, VH-210, VH-220, VH-221, VH-222, VH-223, VH-224, VH-203, VH-195, VH-204
 
 **Deferred:** VH-212, VH-213, VH-214, VH-215, VH-216, VH-217, VH-218, VH-219, VH-220, VH-221, VH-222, VH-223, VH-224, VH-203
+
+## 2026-10-27 — VH-206 — The spec's budget raised from 8,100 to 8,200 words for three approved rows, on the owner's word
+
+**Decision:** `project/rules.md`'s By task budget for `docs/01-specification.md` rises from 8,100 to 8,200 words, for the approved rows in VH-206, VH-213 and VH-216 only. VH-206's §5.4 row takes 21 (the spec 8,121), leaving 79 for VH-213's widening of that row and VH-216's §9.1 line; every other `docs/` edit still needs the owner's word.
+
+**Rationale:** The owner, in his own turn in Orchestrator #15's chat, about 16:43Z on 2026-10-27, verbatim: "Yes: raise docs/01-specification.md's budget from 8,100 to 8,200 words, for the approved rows in VH-206, VH-213 and VH-216. Record it as a decision." He was answering #15's question "Raise the spec's word budget from 8,100 to 8,200 for Phase 8's approved spec rows?", and had been shown that the spec was exactly 8,100 words at `446f702` by `tools/ledger.mjs`'s count (whitespace words after comments and fences), so §5.4's approved row, which adds words (33 as first drafted, about 4 at the shortest), could not fit within VH-202's "within 8,100 words"; that VH-213 widens the same row and VH-216 changes §9.1; and that the other route was trims elsewhere in `docs/`, each his to approve. VH-206's first worker had stopped there, as its brief required. Recorded in VH-206's commit because VH-206 needs it first. The raise changes only that budget cell; `project/profile.md` and the rest of `project/rules.md` are unchanged, and the approval of each row stays as its own item records it. Of the VH-202 close decision, this supersedes point 8's "within the spec's 8,100 words" limit only; the rest of it stands.
+
+**Supersedes:** 2026-10-27 — VH-202 — Closes: the owner's answer "as reccomended" on all nine points; the owner's addition and scope open VH-211, the format "?" and old issues A and B to plan
+
+**Deferred:** VH-213, VH-216

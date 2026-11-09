@@ -24,6 +24,16 @@
      moves the oldest entries verbatim to project/decisions-YYYY-MM.md,
      beside this file, listed in project/archive-index.md. -->
 
+## 2026-11-09 — VH-236 — Closes: "You can still set the times." dropped where step 1 refuses
+
+**Decision:** VH-236 closes as a fix: where step 1 refuses a file and withdraws the trim, the refused preview's announcement keeps its first sentence and drops the second, in three languages, removing words only.
+
+**Rationale:** The Decision in full, shortened in the line for the slice's budget: VH-236 closes as a fix on the owner's "Yes, all six" (2026-11-08 ~23:03Z, to VH-203's points), point 6, "The false "You can still set the times" (VH-214.2): a fix item that drops that sentence when step 1 refuses, removing words only", with "ensure everything passes UX / design / Accessibility" (2026-10-27); Orchestrator #46's rulings: the approval covers removing "You can still set the times." in en-GB, zh-Hans and ms-MY, the first sentence kept byte for byte, nothing else, and S-29 (a refusal, then an unreadable file) is covered with no read-failure code. `src/ui/preview-refusal.ts` says the refusal on the preview's `error` in a fresh text node of `#page-announcer`, both sentences while `#step-trim` is offered and the first alone once withdrawn, and after step 1's block deletes the second sentence in place from the node it wrote while that node is the announcer's only child; the first sentence is the first `Intl.Segmenter` sentence of `trim.noPreview`, so no key, table, sheet, `index.html` or `docs/` line changes. Walked on the Mac Pro at walker `7db38f355f3c46c2`, base `1f7fc66`, 52 cells a side, all reached: S-28, S-149, S-140n and S-29's 43 read the full text before and full then first after; S-32's 9, where trimming is offered, unmoved (All 52 outcome classifications unchanged; the refusal text changed in 43 cells, the item's change, the first sentence kept byte for byte; the nine S-32 controls unchanged; the table's generated "52 unmoved" counts the outcome classifications); the block-first order, the storage block and the guards tested on stand-ins in three languages. DOM and live-region exposure only; no speech reading is claimed. Claude's verdict pass; Codex astra's blind check "Pass with points — the scoped fix is sound. Correct the evidence summary and the unsupported speech claim before close; the close gate and ledger obligations remain outstanding.". Digest rules applied: nielsen 1 and 9, wcag-2.2-aaa 4.1.3. Two further cases found in the design are wish VH-236.1, not built, by the orchestrator's word. Table: `reviews/2026-10-25/design-pass-3/evidence/measurements/vh236-refusal-words-2026-11-09.md`, made by `table-bundle.mjs` (VH-203's bundler) on Orchestrator #46's ruling, each of its 124 records equal to its sources line; its first generation, by `table-1page.mjs`, whose records kept only the last of each group's 25 runs' `manifest.json` and `run.json`, set aside whole outside the repository.
+
+**Supersedes:** none
+
+**Deferred:** none
+
 ## 2026-11-09 — VH-233 — Closes: the statement links' focus ring whole when they wrap, CSS only
 
 **Decision:** VH-233 closes as a fix: the accessibility statement's links take their focus ring at the text box, so a wrapped link keeps one ring per line and meets 2.4.13; CSS only, no new token; walked on the Mac Pro, all cells reached.
@@ -504,13 +514,3 @@ Each walk records its machine. Two questions remain for the owner:
 **Supersedes:** none
 
 **Deferred:** VH-203, VH-207
-
-## 2026-10-27 — VH-206 — The spec's budget raised from 8,100 to 8,200 words for three approved rows, on the owner's word
-
-**Decision:** `project/rules.md`'s By task budget for `docs/01-specification.md` rises from 8,100 to 8,200 words, for the approved rows in VH-206, VH-213 and VH-216 only. VH-206's §5.4 row takes 21 (the spec 8,121), leaving 79 for VH-213's widening of that row and VH-216's §9.1 line; every other `docs/` edit still needs the owner's word.
-
-**Rationale:** The owner, in his own turn in Orchestrator #15's chat, about 16:43Z on 2026-10-27, verbatim: "Yes: raise docs/01-specification.md's budget from 8,100 to 8,200 words, for the approved rows in VH-206, VH-213 and VH-216. Record it as a decision." He was answering #15's question "Raise the spec's word budget from 8,100 to 8,200 for Phase 8's approved spec rows?", and had been shown that the spec was exactly 8,100 words at `446f702` by `tools/ledger.mjs`'s count (whitespace words after comments and fences), so §5.4's approved row, which adds words (33 as first drafted, about 4 at the shortest), could not fit within VH-202's "within 8,100 words"; that VH-213 widens the same row and VH-216 changes §9.1; and that the other route was trims elsewhere in `docs/`, each his to approve. VH-206's first worker had stopped there, as its brief required. Recorded in VH-206's commit because VH-206 needs it first. The raise changes only that budget cell; `project/profile.md` and the rest of `project/rules.md` are unchanged, and the approval of each row stays as its own item records it. Of the VH-202 close decision, this supersedes point 8's "within the spec's 8,100 words" limit only; the rest of it stands.
-
-**Supersedes:** 2026-10-27 — VH-202 — Closes: the owner's answer "as reccomended" on all nine points; the owner's addition and scope open VH-211, the format "?" and old issues A and B to plan
-
-**Deferred:** VH-213, VH-216

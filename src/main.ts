@@ -176,6 +176,7 @@ import type { SourceReport } from './media/inspect'
 import { lossesSpoken, spoken, warningsSpoken } from './ui/announce'
 import { focusHeldBy as handOnFocus, type HandOn } from './ui/focus-hand-on'
 import { focusInside, outlineReach, revealStatus } from './ui/reveal-status'
+import { createPreviewRefusal } from './ui/preview-refusal'
 import { createFeedbackOpening, settleCopy } from './ui/feedback-opening'
 import { browserNote, summariseChecks, type CheckState } from './ui/system-check'
 import { headingFontUrl, installBrandAssets } from './ui/brand-assets'
@@ -315,6 +316,20 @@ function announce(message: () => string): void {
 }
 
 onLanguageChange(() => pageAnnouncer.replaceChildren())
+
+/**
+ * A refused preview, said through the announcer true to the steps on the
+ * page (VH-236): "You can still set the times." only while the trim step is
+ * there. Its note shown is this file's refusal; every new file hides it.
+ */
+const previewRefusal = createPreviewRefusal<CharacterData>({
+  announcer: pageAnnouncer,
+  textNode: (text) => document.createTextNode(text),
+  trimOffered: () => !laterSteps[0]!.hidden,
+  refused: () => !trimPreviewNote.hidden,
+  words: () => t().trim.noPreview,
+  locale,
+})
 
 show(errorsIntro, () => {
   errorsIntro.textContent = t().failure.captured
@@ -1675,6 +1690,9 @@ async function runPreflight(file: File, current: () => boolean): Promise<void> {
         revealLaterSteps(shown)
         // The block panel says it; the line only speaks it (pre-work defect 1).
         setSourceStatus('', () => preflightAnnouncement(summary, context).spokenOnly)
+        // A refused preview said before the block no longer offers the times
+        // the withdrawn trim held: its second sentence goes (VH-236).
+        previewRefusal.trimWithdrawn()
         if (recoverable) {
           // Too little storage: the way out is above, and step 5 says so
           // rather than standing empty, with a Check again for the "free
@@ -2099,7 +2117,9 @@ trimPreview.addEventListener('error', () => {
   const field = document.activeElement === trimSetEnd ? trimEndField : trimStartField
   const fromPreview = focusHeldBy([trimSetStart, trimSetEnd])
   trimPreviewNote.hidden = false
-  announce(() => t().trim.noPreview)
+  // Both sentences while the trim is offered; the first alone once step 1
+  // has withdrawn it (VH-236).
+  previewRefusal.said()
   applyControlLock()
   fromPreview(field)
 })

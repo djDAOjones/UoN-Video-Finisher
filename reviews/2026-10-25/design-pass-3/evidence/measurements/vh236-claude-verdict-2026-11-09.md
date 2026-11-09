@@ -1,0 +1,14 @@
+<!-- markdownlint-disable -->
+
+# VH-236 — Claude's verdict (VH-236 #2, saved before Codex's blind answer is opened)
+
+**Verdict: pass.** The candidate (base `1f7fc66`, tracked diff hash `9f9a386eb587d581`; `src/ui/preview-refusal.ts` `addfbd21` and its test `25addcbc` untracked) meets the item's criteria, with one point on the table's wording.
+
+1. **The sentence.** Where step 1 refuses a file and withdraws the trim, the announcer ends on the first sentence alone, byte-equal in en-GB, zh-Hans and ms-MY, the second sentence absent: walked in 34 of the 22's family (S-28 ×9, S-149 ×24, S-140n ×1), `""→F` before, `""→F→S` after (`b1-read.txt` → `r1-read.txt`). Where trimming is offered (S-32 ×9) both sentences stay, unmoved. The storage block the setup steps resolve keeps both (tested both orders; not walked).
+2. **S-29.** Case (a), by the orchestrator's ruling: the refusal there is the prores file's, before the read failure, which writes `#source-status` only. 9 of 9 walked `""→F→S`; no read-failure code.
+3. **Both orders.** Order 1 (error, then block), the only one the walks reach: `"" → F → S`, the second sentence deleted in place from the same text node (`deleteData`), not said afresh; the walker's `characterData` observer logs it as a `live-text` change. Order 2 (block, then error): `"" → S`, a fresh node, tested on stand-ins. Guards tested: language change, another sentence since, an earlier file's words, a second block, no refusal.
+4. **Removing words only.** No table, key, sheet, `index.html`, `docs/` or CSS change; the first sentence is the first `Intl.Segmenter` sentence segment of `trim.noPreview`, pinned per table in Node (`F === S + removed`, two segments) and read in Chrome by the walk. No word added anywhere.
+5. **Tests.** `test/screen-text.test.ts`'s refused-preview test strengthened (the handler calls `previewRefusal.said()` once, after the note is shown, never `announce(` or step 1's line; the page object binds `pageAnnouncer`, `#step-trim`, the note, `t().trim.noPreview` and `locale`), plus a wiring test for `trimWithdrawn()` after the block's line; 34 stand-in tests. `npm run test` 1,774 passed, 1 skipped (standing EBU 7–8), base 1,739; tsc 0; eslint 0.
+6. **Stage rule.** All 52 cells reached each side, same revision, driver, keys and scripts; no load sample at 8 or above. WCAG 4.1.3, 3.3.1, 3.3.3, 3.1.5 read from DOM and live-region exposure only; no speech claim. Digest rules: nielsen 1 and 9, wcag-2.2-aaa 4.1.3.
+7. **Point on the table.** Its generated summary says "52 unmoved … Nothing moved, row by row": that counts the walker's outcomes and assertion rows, which do not read `#page-announcer`'s text. The move (43 refusals `F` → `S`) is the reader's reading, stated in the notes. Not a defect in the change; a wording the reader of the page should know. Remaking the placed table is the orchestrator's call.
+8. **Not built:** wish VH-236.1, both cases, by the orchestrator's word.

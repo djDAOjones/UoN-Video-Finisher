@@ -1,0 +1,11 @@
+land
+
+1. **Ledger preserved.** Compared `a28086f`’s `project/` against HEAD: VH-233’s decision, item, trajectory and wish remain unchanged. Decisions are newest first, VH-236 above VH-233. The VH-206 budget entry moved verbatim into October’s archive: 139 archived, 45 live. Only the completed VH-236 backlog line and resolved VH-214.2 wish were retired.
+
+2. **App diff identical.** Binary comparison against the pre-rebase diff passes; both SHA-1 hashes are `8711b1e05e914c6693d5a63217649a230d8789eb`. VH-233’s CSS change concerns statement-link focus outlines; it does not affect the refusal logic or walker. The recorded walk evidence stands without a re-walk, with its existing DOM/exposure-only qualification.
+
+3. **Reworded note true.** Both unbuilt cases remain explicitly recorded as VH-236.1 in `project/wish-list.md`, and the decision retains that number. Rule 5 remains satisfied; removing the number from the item’s closing sentence loses no deferred work.
+
+4. **Gate green.** The supplied landing log records 89 passing test files, 1,776 passing tests, the single standing EBU cases 7/8 skip, and successful remaining checks. No tests were deleted or newly skipped. I independently ran `node tools/check.mjs`: exit 0, no structural/budget failures, only the existing VH-122 missing-sample warning. I did not rerun the full gate.
+
+5. **No landing blocker found.** HEAD is `ea5077a626d8`, directly parented by the specified landing SHA; the frozen binary diff matches exactly and the checkout is clean. The applicable digest rules remain Nielsen 1/9 and WCAG 4.1.3. No files changed during this review.

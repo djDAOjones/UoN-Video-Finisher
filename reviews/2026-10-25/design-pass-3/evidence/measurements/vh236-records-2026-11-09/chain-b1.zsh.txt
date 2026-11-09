@@ -1,0 +1,6 @@
+#!/bin/zsh
+# VH-236 #2: the before b1 on the base 1f7fc66, one chain: the queue, then go.sh with the group run and the S-149 per-key loop.
+S=/Users/uazjob/UoN-Video-Helper-side; W=$S/vh236; MW="$W/reviews/2026-10-25/design-pass-3/evidence/measurements"
+echo "chain pid $$ $(date -u +%FT%TZ)"
+zsh $S/walk-queue-wait-seq.zsh "VH-236 #2 before b1" && zsh $S/vh236-walk/go.sh b1 "before b1" "$MW/walker" "$W" 'node vh236-driver.mjs walk --walker "$WALKER" --label before --name b1 --keys keys-group.txt < /dev/null > "$OUTD/logs/group.log" 2>&1; echo "group exit $?" >> "$OUTD/logs/group.log"; zsh vh236-split.zsh loop keys-s149.txt before b1'
+echo "chain exit $? $(date -u +%FT%TZ)"

@@ -254,8 +254,31 @@ describe('a sentence for a screen reader alone (VH-149)', () => {
   })
 
   it('says a refused preview without emptying "Video read." and its "No sound."', () => {
-    expect(previewError).toContain('announce(() => t().trim.noPreview)')
+    // VH-236: through the refusal's own helper, into the page's announcer,
+    // with the refusal's words and the steps' state, its note shown first.
+    expect(previewError).toContain('if (!previewUrl) return')
+    expect(previewError).toMatch(/trimPreviewNote\.hidden = false\n(?:\s*\/\/[^\n]*\n)*\s*previewRefusal\.said\(\)\n/)
+    expect(previewError.match(/previewRefusal\.said\(\)/g)).toHaveLength(1)
+    expect(previewError).not.toMatch(/announce\(|pageAnnouncer/)
     expect(previewError).not.toMatch(/setSourceStatus|setSourceReadStatus|sourceStatusLine/)
+    const page = /const previewRefusal = createPreviewRefusal<CharacterData>\(\{([\s\S]*?)\n\}\)/.exec(mainSource)?.[1] ?? ''
+    expect(page).toContain('announcer: pageAnnouncer,')
+    expect(page).toContain('textNode: (text) => document.createTextNode(text),')
+    expect(page).toContain('trimOffered: () => !laterSteps[0]!.hidden,')
+    expect(page).toContain('refused: () => !trimPreviewNote.hidden,')
+    expect(page).toContain('words: () => t().trim.noPreview,')
+    expect(page).toContain('locale,')
+    expect(mainSource).toContain("const laterSteps = ['#step-trim',")
+  })
+
+  it("takes the refused preview's second sentence back where step 1's block withdraws the trim (VH-236)", () => {
+    // After the steps are withdrawn and the block's line set, before either
+    // exception's way out; only here, nowhere else in the page.
+    expect(mainSource).toMatch(
+      /revealLaterSteps\(shown\)\n(?:\s*\/\/[^\n]*\n)*\s*setSourceStatus\('', \(\) => preflightAnnouncement\(summary, context\)\.spokenOnly\)\n(?:\s*\/\/[^\n]*\n)*\s*previewRefusal\.trimWithdrawn\(\)\n\s*if \(recoverable\) \{/,
+    )
+    expect(mainSource.match(/previewRefusal\.trimWithdrawn\(\)/g)).toHaveLength(1)
+    expect(mainSource.match(/previewRefusal\.said\(\)/g)).toHaveLength(1)
   })
 })
 

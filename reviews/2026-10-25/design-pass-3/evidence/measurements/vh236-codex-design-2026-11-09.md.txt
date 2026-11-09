@@ -1,0 +1,128 @@
+VH-236 can stay within the owner’s approval. S-29 inherits the message from its earlier refusal; it does not need a change to the read-failure path. The design must handle both event orders and shorten an already-present message.
+
+No files were written. This is a design reading, not a gate or speech verification.
+
+1. **Paths that withdraw `#step-trim`.**
+
+   All runtime hiding goes through `revealLaterSteps`, which sets the trim step’s `hidden` property from `shown.setup` ([src/main.ts:967](/Users/uazjob/UoN-Video-Helper-side/vh236/src/main.ts:967)).
+
+   - **Nonrecoverable preflight block:** `shown.setup` is false. This is the approved “step 1 refuses a file” case ([src/main.ts:1653](/Users/uazjob/UoN-Video-Helper-side/vh236/src/main.ts:1653)).
+   - **Inspection returns `failed`:** calls `clearTrim('unreadable')`. This is a step-1 read refusal, but its scope is governed by the specific S-29 ruling ([src/main.ts:1559](/Users/uazjob/UoN-Video-Helper-side/vh236/src/main.ts:1559)).
+   - **Inspection throws or times out:** the catch follows the same unreadable withdrawal path ([src/main.ts:1573](/Users/uazjob/UoN-Video-Helper-side/vh236/src/main.ts:1573), [src/main.ts:1841](/Users/uazjob/UoN-Video-Helper-side/vh236/src/main.ts:1841)).
+
+   Initial markup also hides trimming, but that is not a refusal ([index.html:185](/Users/uazjob/UoN-Video-Helper-side/vh236/index.html:185)). `clearTrim('reading')` disables and resets trimming without withdrawing the steps. A recoverable storage block retains them; recovery means every blocking reason is insufficient storage ([src/ui/preflight-panel.ts:35](/Users/uazjob/UoN-Video-Helper-side/vh236/src/ui/preflight-panel.ts:35)). Keeping a previous result changes Create’s visibility, not trimming’s.
+
+2. **S-29’s sentence is inherited.**
+
+   S-29 first selects `prores-1080p.mov`, waits for its refusal, then selects `notvideo.mp4` ([scenarios.mjs:489](/Users/uazjob/UoN-Video-Helper-side/vh236/reviews/2026-10-25/design-pass-3/evidence/measurements/walker/scenarios.mjs:489)).
+
+   In its [en-GB, 1280 px mutation record:1](/Users/uazjob/UoN-Video-Helper-side/vh203-walk/a1g1/runs/vh203-after-keys-2026-11-07T07-43-22-545Z-a48800/captures/S-29__en-GB__w1280__light__mutations.json:1), the sequence is:
+
+   | Time | Region | Write |
+   |---|---|---|
+   | 802 | `#source-status` | Video read. No audio. |
+   | 832 | `#page-announcer` | Full two-sentence preview message |
+   | 914 | `#source-status` | Device-check refusal |
+   | 1491 | `#source-status` | Reading the video… |
+   | 1494 | `#source-status` | Unreadable-file failure |
+
+   There is no later page-announcer write. All nine S-29 records have this ordering, including the [375 px run:1](/Users/uazjob/UoN-Video-Helper-side/vh203-walk/a4g4/runs/vh203-after-keys-2026-11-08T08-53-51-094Z-85bb67/captures/S-29__en-GB__w375__light__mutations.json:1).
+
+   Code agrees: the read failure writes its own source status, clears the preview URL, and hides trimming. The preview error handler returns when that URL is absent ([src/main.ts:1829](/Users/uazjob/UoN-Video-Helper-side/vh236/src/main.ts:1829), [src/main.ts:2095](/Users/uazjob/UoN-Video-Helper-side/vh236/src/main.ts:2095)). Shortening at the earlier preflight refusal fixes S-29 within the ruling.
+
+3. **Observed orders and S-149’s width.**
+
+   All **22 refusal records** have the preview announcement before the block: S-28 ×9, S-149 ×12, S-140n ×1. Examples:
+
+   - S-28: 821 → 902 ([record:1](/Users/uazjob/UoN-Video-Helper-side/vh203-walk/a1g4/runs/vh203-after-keys-2026-11-07T16-41-52-591Z-d06ee6/captures/S-28__en-GB__w1280__light__mutations.json:1)).
+   - S-149: 10418 → 18538 ([record:1](/Users/uazjob/UoN-Video-Helper-side/vh203-walk/a3g2/runs/vh203-after-keys-2026-11-07T20-31-21-620Z-a82ae2/captures/S-149__en-GB__w1280__light__mutations.json:1)).
+   - S-140n: 835 → 919 ([record:1](/Users/uazjob/UoN-Video-Helper-side/vh203-walk/a3g6/runs/vh203-after-keys-2026-11-07T23-56-13-561Z-234e10/captures/S-140n__en-GB__w1280__light__mutations.json:1)).
+
+   S-149 inherits `AT_1280`: three languages, four colour modes, only 1280 px ([scenarios.mjs:1530](/Users/uazjob/UoN-Video-Helper-side/vh236/reviews/2026-10-25/design-pass-3/evidence/measurements/walker/scenarios.mjs:1530), [scenarios.mjs:2921](/Users/uazjob/UoN-Video-Helper-side/vh236/reviews/2026-10-25/design-pass-3/evidence/measurements/walker/scenarios.mjs:2921)). The reader does not impose that width; it scans Part A and deduplicates complete keys ([v2142-read.mjs:6](/Users/uazjob/UoN-Video-Helper-side/vh203-walk/v2142-read.mjs:6)). Its twelve records are not evidence for 320 px.
+
+4. **Use the message-key route.**
+
+   Add a narrowly named key such as `trim.noPreviewRefused`, containing exactly:
+
+   - `A preview is not available for this file.`
+   - `此文件没有预览功能。`
+   - `Pratonton tidak tersedia untuk fail ini.`
+
+   Keep `trim.noPreview` unchanged in all three languages. Its static binding serves the visible trim note ([index.html:193](/Users/uazjob/UoN-Video-Helper-side/vh236/index.html:193)); changing that key would change the offered case.
+
+   A new key avoids runtime sentence parsing and makes the three approved strings directly reviewable. Prove literal equality and that each is the exact prefix of its existing full message. The existing strings are at [en-GB.ts:222](/Users/uazjob/UoN-Video-Helper-side/vh236/src/i18n/en-GB.ts:222), [zh-Hans.ts:164](/Users/uazjob/UoN-Video-Helper-side/vh236/src/i18n/zh-Hans.ts:164), and [ms-MY.ts:170](/Users/uazjob/UoN-Video-Helper-side/vh236/src/i18n/ms-MY.ts:170).
+
+   Add the new row to the filled sheet; preserve its existing `trim.noPreview` row byte for byte ([filled sheet:89](/Users/uazjob/UoN-Video-Helper-side/vh236/reviews/2026-10-18/VH-105-strings-filled.csv:89)). Translation regeneration equality is already tested ([tables.test.ts:222](/Users/uazjob/UoN-Video-Helper-side/vh236/src/i18n/tables.test.ts:222)). Add a precise location entry in `sheet.ts`: the default `trim` location says “Step 2, Trim”, whereas this key is for the page announcer following refusal ([sheet.ts:90](/Users/uazjob/UoN-Video-Helper-side/vh236/src/i18n/sheet.ts:90), [sheet.ts:540](/Users/uazjob/UoN-Video-Helper-side/vh236/src/i18n/sheet.ts:540)).
+
+5. **Choose text in the preview-specific code; reconcile it at the nonrecoverable block.**
+
+   Keep general `announce` behaviour intact. It deliberately creates a fresh text node, including for repeated messages ([src/main.ts:304](/Users/uazjob/UoN-Video-Helper-side/vh236/src/main.ts:304)).
+
+   Use a small tested preview-specific helper that owns the text node it writes. At error time, choose according to whether the current file has been refused with setup withdrawn. At the block branch, alongside `revealLaterSteps(shown)`, shorten an owned full preview message still present for that selection. Do not attach this correction indiscriminately to `revealLaterSteps` or `clearTrim`.
+
+   Let **F** mean the full two-sentence message and **S** its exact first sentence. Starting with an empty announcer:
+
+   | Order | Expected page-announcer text sequence |
+   |---|---|
+   | Error, then nonrecoverable block | `"" → F → S` |
+   | Nonrecoverable block, then error | `"" → S` |
+   | Error, then recoverable storage block | `"" → F`; no block-time write |
+   | Recoverable storage block, then error | `"" → F` |
+   | Offered case, S-32 | `"" → F` |
+   | S-29’s refusal, then unreadable replacement | `"" → F → S`; read failure leaves S |
+
+   For the `F → S` correction, delete only the suffix from the existing owned text node, including the inter-sentence space where present. Do not replace the node through `announce`.
+
+   **Re-saying** introduces a fresh announcement of the first sentence. **Emptying** removes the approved first sentence too. **Deferring** changes the timing and requires settlement handling for nonblocking outcomes. **An in-place suffix deletion** is the closest fit to “removing words only.”
+
+   “Quiet” here means no deliberate fresh-node re-announcement. A live-region text mutation can still be spoken by assistive technology; this design cannot promise silence. Leave live-region attributes unchanged.
+
+6. **Guards and edge cases.**
+
+   The helper should retain the written node, its full/short strings, and ownership by the file selection. Before shortening, require that the node is still the region’s sole child and still contains the exact full text.
+
+   - **Language changes between error and verdict:** the existing language callback empties the region ([src/main.ts:316](/Users/uazjob/UoN-Video-Helper-side/vh236/src/main.ts:316)). The detached-node guard makes the later verdict a no-op. Do not reconstruct a message in either language.
+   - **Another sentence has intervened:** leave it untouched. In particular, `showError` uses the same region ([src/main.ts:1084](/Users/uazjob/UoN-Video-Helper-side/vh236/src/main.ts:1084)).
+   - **Earlier file’s full message:** reset preview ownership when selection changes, without clearing the shared region. Do not claim that text as the new file’s announcement. Selection invalidation already starts at [src/main.ts:1463](/Users/uazjob/UoN-Video-Helper-side/vh236/src/main.ts:1463).
+   - **Repeated withdrawal:** no second mutation once shortened.
+   - **Late error after refusal:** write S directly, retaining the existing `previewUrl` guard.
+   - **Stale preflight reply:** retain the existing `current()` guard ([src/main.ts:1621](/Users/uazjob/UoN-Video-Helper-side/vh236/src/main.ts:1621)).
+
+7. **Tests must exercise the helper actually used by production.**
+
+   Follow the narrow stand-in approach of [reveal-status.ts:20](/Users/uazjob/UoN-Video-Helper-side/vh236/src/ui/reveal-status.ts:20) and its mutation spies ([reveal-status.test.ts:43](/Users/uazjob/UoN-Video-Helper-side/vh236/src/ui/reveal-status.test.ts:43)).
+
+   For all three languages, force and assert every sequence in point 5. Record both resulting text and operations: fresh-node writes versus in-place suffix deletion. Add tests for language clearing, another announcement, an earlier selection’s node, repeated withdrawal, no preview URL, and exact first-sentence bytes. Assert storage/offered cases retain F and perform no withdrawal correction.
+
+   At [screen-text.test.ts:256](/Users/uazjob/UoN-Video-Helper-side/vh236/test/screen-text.test.ts:256), replace the obsolete assertion requiring the unconditional `announce(() => t().trim.noPreview)` with an exact assertion that the handler calls the tested preview-specific helper with both messages and the refusal state. Keep the negative assertion forbidding writes to `source-status`. Add wiring assertions for the nonrecoverable-block correction and selection reset. Behavioural tests must also assert source status remains untouched; a source-text assertion alone is insufficient.
+
+8. **Additional finding: offered preview failure followed by an unreadable replacement.**
+
+   Start in S-32, where F is correctly exposed. Then choose an unreadable file. Selection reset leaves the page announcer alone; the unreadable result withdraws trimming. F consequently survives while trimming is hidden.
+
+   This follows from [scenarios.mjs:511](/Users/uazjob/UoN-Video-Helper-side/vh236/reviews/2026-10-25/design-pass-3/evidence/measurements/walker/scenarios.mjs:511), [src/main.ts:1473](/Users/uazjob/UoN-Video-Helper-side/vh236/src/main.ts:1473), and [src/main.ts:1841](/Users/uazjob/UoN-Video-Helper-side/vh236/src/main.ts:1841). It is a code-derived finding, not a newly walked result.
+
+   Unlike S-29, its earlier file was offered, not refused. Record it for the owner; they have not approved broad read-failure cleanup. Do not build that extension here.
+
+9. **The walk reader must report final state and history separately.**
+
+   For each complete scenario/language/width/mode key, read:
+
+   - Exact final `#page-announcer` text and equality to S or F.
+   - Presence of the language’s second sentence in that final text.
+   - Every ordered page-announcer mutation, retaining timestamps and entry indices.
+   - Source-status writes interleaved with that sequence, to locate refusal and replacement reading.
+   - Trim-step `hidden` transitions and its final offered state.
+   - Any intervening language clear or unrelated announcement.
+
+   Read these from the key’s `__mutations.json` plus its settled state/AX evidence. Do not grep the whole record for the second sentence: a correct error-first result legitimately contains F in its history before shortening it. Do not normalize whitespace for the byte-equality proof. The JSON records are one-line files, so cite line 1 plus entry indices.
+
+   Pair the new base and candidate walks at the required walker revision, 52 cells each; keep VH-203 as finding evidence only ([VH-236.md:15](/Users/uazjob/UoN-Video-Helper-side/vh236/project/items/VH-236.md:15)). Report exposure, not speech.
+
+10. **Stops and standards.**
+
+   The design above requires no new displayed wording beyond the approved first-sentence key, no element, no `docs/` edit, and no change to another announcer caller. Stop for the owner’s answer if implementation requires any of those, broad unreadable-file cleanup, or changing S-32/storage wording. Do not claim that an in-place rewrite is inaudible without a person’s speech reading.
+
+   Apply Nielsen 1 and 9 ([nielsen.md:17](/Users/uazjob/UoN-Video-Helper-side/vh236/project/digests/nielsen.md:17)), the system-status requirement ([UI-STANDARDS.md:123](/Users/uazjob/UoN-Video-Helper-side/vh236/UI-STANDARDS.md:123)), and the item’s required WCAG rechecks—3.1.5, 3.3.1, 3.3.3 and 4.1.3 ([VH-236.md:16](/Users/uazjob/UoN-Video-Helper-side/vh236/project/items/VH-236.md:16)). Final candidate review and the prescribed gates remain required.
+
+Build as designed below
