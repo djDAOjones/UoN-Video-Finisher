@@ -290,6 +290,14 @@ describe('the fourth promise’s "?" (VH-205)', () => {
     expect(target).toMatch(/position:\s*absolute;/)
     expect(block('.promise-with-help .toggletip')).toMatch(/margin-top:\s*var\(--spacing-04\);/)
   })
+
+  it('sets the "?" on its type role, compact emphasis, with no line height or font of its own (VH-234)', () => {
+    // A heading's line height here took it off its role (VH-166); the square is its height.
+    const button = block('.promise-with-help .help-button')
+    expect(button).not.toMatch(/line-height:/)
+    expect(button).not.toMatch(/(?:^|[;\s])font(?:-[a-z]+)?:/)
+    expect(roleOf('.help-button')).toContain('line-height: var(--line-height-body);')
+  })
 })
 
 describe('the "?": its gap and its open state (VH-217)', () => {

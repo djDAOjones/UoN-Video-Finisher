@@ -1,0 +1,15 @@
+#!/bin/zsh
+# VH-234 #1: one side's job line (walk.sh runs it in vh234-walk with WALKER, OUTD, RUN_ROOT … set), the same both sides:
+#   (1) S-141 to S-144's 102 keys as VH-203 walked them: its grouped keys by one driver run per VH-203 group (a3g2 12, a3g4 21, a3g9 31),
+#       its split keys one driver run per key (a3g2-split 19, a3g4-split 19), by keys-loop.zsh; matrix.mjs and the walker unchanged;
+#   (2) route (1): Part C's format-help-c.mjs, byte for byte, and its sheets, into $OUTD.
+#   zsh side-job.zsh <label: before|after> <SIDE_AT: the commit or diff hash walked>
+L=$1; AT=$2; P=$OUTD/parts.txt
+for g in a3g2 a3g4 a3g9; do
+  node vh234-driver.mjs walk --walker "$WALKER" --label "$L" --name "$L-$g" --keys keys-$g.txt < /dev/null > "$OUTD/logs/grouped-$g.log" 2>&1
+  echo "grouped $g exit $? $(date -u +%FT%TZ)" >> $P
+done
+zsh keys-loop.zsh keys-split-38.txt "$L" "$L-split"; echo "split 38 exit $? $(date -u +%FT%TZ)" >> $P
+node format-help-c.mjs --out $OUTD/format-help.jsonl > "$OUTD/logs/route1.log" 2>&1; echo "route1 capture exit $? $(date -u +%FT%TZ)" >> $P
+SIDE=$L SIDE_AT=$AT node format-sheets-c.mjs --states $OUTD/out/states --jsonl $OUTD/format-help.jsonl --records $OUTD/route1-records >> "$OUTD/logs/route1.log" 2>&1; echo "route1 sheets exit $? $(date -u +%FT%TZ)" >> $P
+grep -c . $P >/dev/null; ! grep -qv ' exit 0 ' $P

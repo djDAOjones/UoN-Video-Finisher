@@ -1,0 +1,58 @@
+1. **VH-205 was fixing the oversized promise row.** Its decision specifies a 20 px visible square, a separate 44 px target, and a 24 px promise line; its recorded 32 px-root result was a 40 px square in a 48 px line (`project/decisions-2026-10.md:1514–1516`). Commit `cc12788` introduced the heading line height alongside those geometry changes.
+
+   The record does **not** explain that declaration individually. My inference is that it tightened the glyph’s line box while shrinking the control: 14 × 1.25 = 17.5 px fits inside the 20 px square. That is not evidence that 1.25 is necessary: explicit dimensions and flex centring already govern the square (`src/styles/app.css:1187–1199`).
+
+2. **Delete `line-height: var(--line-height-heading)` from the scoped rule.** `.help-button` already receives compact emphasis’s size, weight and body line height in the shared role rule (`src/styles/app.css:1864–1873`). Removing the higher-specificity override restores 14/21/600 at a 16 px root and 28/42/600 at 32 px.
+
+   Replacing it with `var(--line-height-body)` would produce the same computed result today, without a new token or literal. However, it duplicates one part of the role at higher specificity and could mask a later role change. Deletion honours “eight, each one rule” (`UI-STANDARDS.md:51–59`) and the item’s requirement that the role’s own rule supply it (`project/items/VH-234.md:9`).
+
+3. **The CSS predicts preserved geometry; measurements must confirm it.** The taller internal line box is the deliberate change, and optical centring must not be inferred solely from flex declarations.
+
+   | Invariant | Proof at both roots |
+   |---|---|
+   | Centred square | Measure 20 × 20 / 40 × 40 border boxes, computed flex alignment, and glyph position in screenshots. Inspect for clipping with 21 / 42 px line boxes. |
+   | 44 px target | Read `::after` dimensions and centre; repeat the 2 px hit-test grid, with no offscreen samples counted as successful. |
+   | Gap and open fill | Compare last-character box/ink-to-square distances and wrapping; compare computed background, foreground and border in each palette/state. |
+   | Promise row | Measure actual line layout and closed list-item height: 24 / 48 px for an unwrapped line, unchanged wrapping otherwise. |
+   | Tip position | Compare document-coordinate bounds and clearance below the target, including narrow open states. |
+   | Other help buttons | Compare their computed type, boxes and states; their selectors must receive no changed declaration. |
+
+   Geometry rules are at `src/styles/app.css:1187–1213`; open fills at `:1146–1159`. Part C already probes targets, gaps, colours and tip clearance (`vh203-walk/format-help-c.mjs:48–65`). Its `rows` reading uses span rectangles (`:55`), so supplement it with actual row measurements.
+
+4. **The walker matches computed styles, not token names or selector membership.** It gathers visible text-bearing elements and populated controls, takes the first declared font family, normalises font size by the computed root, reads numeric weight, and calculates line-height/font-size. Matching tolerances are `<0.01` for rem size and `<0.02` for line-height ratio. Spacing mode omits the line-height comparison; rendered-font information is supplementary (`walker/qualify.mjs:939–992`).
+
+   The remedy should eliminate this mismatch in all 102 cells, including retaining the nine spacing passes. That is a prediction, not an observed pass: the aggregate examines other visible text too, so require 102 reached records and inspect every type result (`walker/matrix.mjs:118`).
+
+5. **Pin removal of the override and retention of the shared role.** Inside the existing VH-205 describe block (`test/stylesheet.test.ts:272–293`), add a regression assertion that the scoped button rule contains neither `line-height` nor a `font` shorthand capable of resetting it. Assert through the existing role helper that `.help-button` receives `line-height: var(--line-height-body)`.
+
+   Keep the geometry assertions and the unchanged “one type set” tests (`:352–375`). The latter establish the shared role but did not detect this higher-specificity override. Browser measurements, rather than stylesheet-string assertions, prove centring and row height.
+
+6. **Preserve execution history as well as keys.** Here, `walker/` and record filenames refer to `reviews/2026-10-25/design-pass-3/evidence/measurements/`; script filenames refer to the permitted `vh203-walk/` folder.
+
+   Walk these exact partitions on both sides:
+
+   - 19 S-143 keys individually: `vh203-a3-records-2026-11-08/a3g2-split.outcomes.jsonl:1–19`.
+   - 19 S-141 keys individually: `a3g4-split.outcomes.jsonl:1–19`.
+   - Preserve grouped execution for 12 S-143 keys (`a3g2.outcomes.jsonl:24–35`), 20 S-141 plus one S-144 (`a3g4.outcomes.jsonl:7–27`), and 31 S-142 (`a3g9.outcomes.jsonl:70–100`).
+
+   Retain declared mode order and setup boundaries. One combined 102-key run—or making all keys independent—changes the experiment: the matrix reuses setups and segments forced-colour transitions (`walker/matrix.mjs:232–265`). Follow the external per-key driver loop (`split-7.zsh:26–38`), without changing the walker. Pair by exact key; reject missing, duplicate or unreached records. Use base `73d16f0` before source changes and revision `7db38f355f3c46c2` throughout.
+
+   **Comparison captures:** freeze the Part C script except paths/labels. Preserve browser configuration, viewport, font treatment, waits, panel opening, pointer moves, keyboard focus, scroll sequence, clip calculation and outline timing (`format-help-c.mjs:67–114`). Keep `captureBeyondViewport:false`; do not “improve” its scrolling on only one side. Record script hashes and environment.
+
+   Compare all 195 pairs, including outlines. Decode PNGs in the existing Chrome using canvas; compare dimensions and RGBA pixels, report changed bounds/counts, and provide side-by-side/difference images. Compare clip origins and dimensions too: independently cropped images can conceal movement. Do not resize or align away differences. No dependency is needed; the sheet script already uses Chrome (`format-sheets-c.mjs:51–64`).
+
+   **Scrolled evidence:** separately recreate each required state, then capture sequential viewport-limited tiles from the promise’s top through the tip’s bottom, retaining the existing 24 px context. Use a documented fixed overlap—say 64 CSS px—and record actual scroll offsets, including bottom clamping. Label language, width, palette, root font, state, tile number and offset; retain individual shots alongside sheets.
+
+   After every scroll, re-read panel visibility, `aria-expanded`, `:hover`, `:focus-visible`, root font and viewport. Reposition the pointer for hovered shots; park it for others. Preserve keyboard focus without letting refocusing silently undo the scroll. If a hovered button leaves the viewport, do not mislabel the resulting tile as hovered: retain an overlapping button shot and explicitly label the continuation’s actual state. Check root font again after capture.
+
+   Include all 52 specified states, every additional changed state among the 192, and any newly clipped state. Part C identifies the original set at `vh203-format-help-2026-11-08.md:21–39`.
+
+7. **Apply the existing accessibility contract.** Retain the item’s checks for 1.3.2, 1.4.4, 1.4.10, 1.4.11, 1.4.12, 2.4.7, 2.4.13, 2.5.5 and 2.5.8 (`project/items/VH-234.md:30`). Include text contrast, 1.4.3/1.4.6, when checking the glyph/open fill. Restoring a role is not itself proof of WCAG compliance.
+
+   Name Carbon productive typography and tokens (`project/digests/carbon.md:20–38`), the eight-role rule, Nielsen consistency (`project/digests/nielsen.md:23–24`), and WCAG contrast, target and focus rules (`project/digests/wcag-2.2-aaa.md:18–31`). House minimal-change discipline also applies (`project/digests/house-conventions.md:79–87`).
+
+   A necessary word, element, new token or literal stops this remedy’s scope. Failed checks or missing owner approval block closure (`project/items/VH-234.md:22–37`).
+
+8. **Tighten the criteria:** replace “every reached cell” with “all 102 keys reached and compared”; specify the 38/64 execution partition; qualify 24 px as the default-root unwrapped line; require actual row measurements; specify pixel comparison plus clip-coordinate comparison; and define tile overlap and truthful post-scroll state labels. Treat unexplained regressions as blockers, not merely changes to list. Keep owner approval mandatory.
+
+Recommended remedy: delete the scoped heading line-height declaration so the format “?” receives compact emphasis wholly from its existing shared role, then verify geometry and obtain the owner’s approval of the scrolled shots.

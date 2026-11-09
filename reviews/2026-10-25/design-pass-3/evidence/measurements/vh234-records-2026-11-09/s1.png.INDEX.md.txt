@@ -1,0 +1,18 @@
+# VH-234: the format "?" scrolled, after the change (f1db7eff73f12f1e, revision 7db38f355f3c46c2), Mac Pro, 2026-11-09, group s1 03:10-03:12Z
+
+56 states (Part C's 52 clipped at the viewport's edge, and the 4 zh-Hans w320 16 px focused the image compare moved, by the scrollbar thumb's shade only), 80 viewport tiles with 64 px overlap, every state covered whole and re-read as named after each scroll. Each sheet: one language, root and state; rows light, dark, forced light, forced dark; tiles left to right in scroll order. The tiles are in tiles/.
+
+- scroll-sheet-en-GB-w320-32px-focused.png
+- scroll-sheet-en-GB-w320-32px-hovered.png
+- scroll-sheet-en-GB-w320-32px-open.png
+- scroll-sheet-en-GB-w320-32px-rest.png
+- scroll-sheet-ms-MY-w320-16px-open.png
+- scroll-sheet-ms-MY-w320-32px-focused.png
+- scroll-sheet-ms-MY-w320-32px-hovered.png
+- scroll-sheet-ms-MY-w320-32px-open.png
+- scroll-sheet-ms-MY-w320-32px-rest.png
+- scroll-sheet-zh-Hans-w320-16px-focused.png
+- scroll-sheet-zh-Hans-w320-32px-focused.png
+- scroll-sheet-zh-Hans-w320-32px-hovered.png
+- scroll-sheet-zh-Hans-w320-32px-open.png
+- scroll-sheet-zh-Hans-w320-32px-rest.png

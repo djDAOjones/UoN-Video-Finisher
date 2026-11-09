@@ -1,0 +1,53 @@
+// VH-234 #1, route (2)'s contact sheets, for the owner, from VH-203's format-sheets-c.mjs (88d1d6e4), its HTML grid shot by the walker's own
+// Chrome over CDP (captureBeyondViewport false, the page sized to its content). One sheet per language, width, root font and state: a row a
+// colour mode, its tiles left to right in scroll order, each labelled (language, width, mode, font, state, tile k of n, its y range, the state
+// as re-read after its scroll). It copies the tiles into <records>/tiles. No new dependency; nothing written to the walker.
+//   CDP_PORT=… WALKER=… node scroll-sheets.mjs --states <OUT_ROOT/states> --jsonl <format-scroll-s's jsonl> --records <folder> --at <what was walked>
+import { pathToFileURL } from 'node:url'
+import { join } from 'node:path'
+import { mkdirSync, readFileSync, writeFileSync, copyFileSync } from 'node:fs'
+const { connectBrowser } = await import(pathToFileURL(join(process.env.WALKER, 'cdp.mjs')).href)
+const args = process.argv.slice(2), opt = (n) => { const i = args.indexOf(n); if (i < 0) throw new Error(n); return args[i + 1] }
+const STATES = opt('--states'), REC = opt('--records'), AT = opt('--at'), TILES = join(REC, 'tiles'); mkdirSync(TILES, { recursive: true })
+const rows = readFileSync(opt('--jsonl'), 'utf8').trim().split('\n').map((l) => JSON.parse(l)).filter((r) => r.state.endsWith('-scrolled'))
+const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;')
+const font = (m) => (m.endsWith('font32') ? 32 : 16), pal = (m) => m.replace(/-?font32$/, '') || 'light'
+const groups = new Map()
+for (const r of rows) { const st = r.state.replace(/-scrolled$/, ''), k = `${r.lang}|${r.view}|${font(r.mode)}|${st}`; if (!groups.has(k)) groups.set(k, []); groups.get(k).push(r)
+  for (const t of r.tiles) copyFileSync(join(STATES, `${r.lang}__${r.view}__${r.mode}`, t.file), join(TILES, t.file)) }
+const browser = await connectBrowser(), made = []
+for (const [k, rs] of groups) {
+  const [lang, view, px, st] = k.split('|'), name = `scroll-sheet-${lang}-${view}-${px}px-${st}`
+  const body = rs.map((r) => `<tr><th scope="row">${esc(pal(r.mode))}<br>${px} px<br>${r.coveredWhole ? 'covered whole' : 'NOT covered whole'}</th><td>` + r.tiles.map((t) => `<figure><figcaption>${esc(lang)} · ${view} · ${esc(pal(r.mode))} · ${px} px · ${st} · tile ${t.k} of ${t.n} · y ${t.ya}–${t.yb} · read after scroll: ${esc(t.label)}</figcaption><img src="tiles/${esc(t.file)}" alt=""></figure>`).join('') + '</td></tr>').join('\n')
+  writeFileSync(join(REC, name + '.html'), `<!doctype html>
+<html lang="en-GB"><head><meta charset="utf-8"><title>Format help scrolled, ${lang}, ${view}, ${px} px, ${st}</title>
+<style>
+body { margin: 16px; background: #ffffff; color: #000000; font: 14px/1.35 -apple-system, "Helvetica Neue", Arial, sans-serif; }
+h1 { font-size: 18px; margin: 0 0 4px; } p.n { margin: 0 0 12px; font-size: 13px; max-width: 70em; }
+table { border-collapse: collapse; } th, td { border: 1px solid #8a8a8a; padding: 6px; vertical-align: top; text-align: left; }
+tbody th { background: #f2f2f2; white-space: nowrap; font-size: 13px; } td { white-space: nowrap; }
+figure { display: inline-block; vertical-align: top; margin: 0 8px 0 0; } figcaption { font-size: 12px; color: #222222; width: 320px; white-space: normal; margin: 0 0 4px; }
+img { display: block; border: 1px dashed #b0b0b0; }
+</style></head><body>
+<h1>VH-234: the format "?" scrolled, ${esc(lang)} at ${view}, ${px} px root, ${esc(st)}</h1>
+<p class="n">The whole promise and, when open, its tip, 24 px round, in viewport tiles with 64 px of overlap, left to right in scroll order. Each tile is a clip inside the viewport (captureBeyondViewport false); after each scroll the state was read again. Run revision 7db38f355f3c46c2 at ${esc(AT)}, on the Mac Pro, ${new Date().toISOString().slice(0, 10)}.</p>
+<table><tbody>
+${body}
+</tbody></table></body></html>
+`)
+  const page = await browser.newPage()
+  try {
+    await page.send('Page.enable'); await page.send('Runtime.enable')
+    await page.send('Emulation.setDeviceMetricsOverride', { width: 1200, height: 800, deviceScaleFactor: 1, mobile: false })
+    const loaded = page.once('Page.loadEventFired'); await page.send('Page.navigate', { url: pathToFileURL(join(REC, name + '.html')).href }); await loaded
+    const n = rs.reduce((a, r) => a + r.tiles.length, 0)
+    const ok = await page.evaluate(`Promise.all([...document.images].map((i) => i.complete ? i.naturalWidth > 0 : new Promise((r) => { i.onload = () => r(true); i.onerror = () => r(false) }))).then((a) => a.filter(Boolean).length)`)
+    if (ok !== n) throw new Error(`${name}: ${ok} of ${n} images loaded`)
+    const size = await page.evaluate(`({ w: Math.ceil(document.documentElement.scrollWidth), h: Math.ceil(document.documentElement.scrollHeight) })`)
+    await page.send('Emulation.setDeviceMetricsOverride', { width: size.w, height: size.h, deviceScaleFactor: 1, mobile: false }); await new Promise((r) => setTimeout(r, 300))
+    const s2 = await page.evaluate(`({ w: Math.ceil(document.documentElement.scrollWidth), h: Math.ceil(document.documentElement.scrollHeight) })`)
+    const png = await page.send('Page.captureScreenshot', { format: 'png', captureBeyondViewport: false, clip: { x: 0, y: 0, width: s2.w, height: s2.h, scale: 1 } })
+    writeFileSync(join(REC, name + '.png'), Buffer.from(png.data, 'base64')); made.push(`${name}.png ${s2.w}x${s2.h} ${n} tiles`); console.log(`sheet ${name}.png ${s2.w}x${s2.h}, ${n} tiles`)
+  } finally { await page.close() }
+}
+browser.close(); console.log(`sheets ${made.length}`); process.exit(made.length === groups.size ? 0 : 1)

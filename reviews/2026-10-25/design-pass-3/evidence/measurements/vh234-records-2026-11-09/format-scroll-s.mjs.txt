@@ -1,0 +1,160 @@
+// VH-234 #1, route (2), the scrolled shots, after only: a second copy of VH-203's format-help-c.mjs (1485d64e), its READ, moves, root font,
+// in-viewport clips and captureBeyondViewport false unchanged, so each state is reached and read as Part C reached and read it. Added:
+// --targets <file> ("lang view mode state" a line): only conditions holding a target are walked, and after Part C's read of a targeted state
+// the region (the promise's li, its open tip included, 24 px round, clamped to the document) is shot in viewport tiles: one tile when it
+// fits (centred), else tiles from its top with 64 px of overlap, the last aligned to its end. After each scroll the state is re-read
+// (aria-expanded, :hover, :focus-visible, the root font, the title's panel), the pointer moved to the "?"'s centre for hovered when the "?"
+// is in view (a tile without it is labelled a continuation, :hover not held); the union of the tiles' ranges must cover the region.
+//   (VH-203 #14's header follows)
+// VH-203 #14, Part C (plan section 5; ruling 11's 192): the format "?" in four states, from VH-217's vh217-states2.mjs.txt (sha1 9b2eac6c,
+// $M/vh217-records-2026-10-30/), its READ, its moves and its in-viewport clips (captureBeyondViewport false, the root font read before and
+// after each clip) unchanged. Changed for VH-203: the title's panel (#about-help, closed at every load, VH-229) is opened first by its own
+// button, the walker's own click, and read open in every record; only the format "?"; only the four states rest (tip closed, panel open),
+// hovered, focused (keyboard) and open (by the pointer, ring-free); clips at every view given; and at w1280 in light, after rest, one more
+// clip with the 44 px target's box (the ::after's computed size, centred on the button) outlined over the words before it. Nothing is
+// written to the repository or the walker.
+// FIX=… CDP_PORT=… APP_URL=… OUT_ROOT=… RUN_ROOT=… WALKER=… node format-help-c.mjs --out <jsonl> [--langs --views --modes]
+import { pathToFileURL } from 'node:url'
+import { join } from 'node:path'
+import { appendFileSync, writeFileSync } from 'node:fs'
+const WALKER = process.env.WALKER
+const imp = (f) => import(pathToFileURL(join(WALKER, f)).href)
+const { connectBrowser } = await imp('cdp.mjs')
+const { Walk, sleep } = await imp('walk.mjs')
+const { QUAL_INIT, closeAnalysis, setViewport, setMode, key } = await imp('qualify.mjs')
+const { MX_INIT, fresh } = await imp('scenarios.mjs')
+const args = process.argv.slice(2)
+const opt = (n, d) => { const i = args.indexOf(n); return i >= 0 ? args[i + 1].split(',') : d }
+const OUT = opt('--out', [null])[0]; if (!OUT) throw new Error('--out')
+const TF = opt('--targets', [null])[0]; if (!TF) throw new Error('--targets')
+const TARGETS = new Set((await import('node:fs')).readFileSync(TF, 'utf8').split('\n').map((l) => l.trim().split(/\s+/).join(' ')).filter(Boolean))
+const OVER = 64
+const langs = opt('--langs', ['en-GB', 'zh-Hans', 'ms-MY']), views = opt('--views', ['w1280', 'w320'])
+const modes = opt('--modes', ['light', 'dark', 'forced-light', 'forced-dark', 'font32', 'dark-font32', 'forced-light-font32', 'forced-dark-font32'])
+// VH-217's READ, unchanged but for aboutOpen (the title's panel) added to its result.
+const READ = (id) => String.raw`(() => {
+  const b = document.getElementById(${JSON.stringify(id)}); if (!b) return { missing: true };
+  const shown = b.getClientRects().length > 0;
+  if (!shown) return { hiddenButton: true, aboutOpen: !document.getElementById('about-help').hidden };
+  b.scrollIntoView({ block: 'center', inline: 'nearest' });
+  const num = (c) => { const m = (c.match(/[\d.]+/g) || []).map(Number); return { r: m[0], g: m[1], b: m[2], a: m.length > 3 ? m[3] : 1 } };
+  const lum = (c) => { const f = (v) => { v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4) }; return 0.2126 * f(c.r) + 0.7152 * f(c.g) + 0.0722 * f(c.b) };
+  const ratio = (x, y) => { const a = lum(x), c = lum(y); return Math.round(((Math.max(a, c) + 0.05) / (Math.min(a, c) + 0.05)) * 100) / 100 };
+  const under = (e) => { for (let p = e; p; p = p.parentElement) { const c = num(getComputedStyle(p).backgroundColor); if (c.a > 0) return c } return { r: 255, g: 255, b: 255, a: 1 } };
+  const cs = getComputedStyle(b), fill = under(b), page = under(b.parentElement), glyph = num(cs.color), outline = num(cs.outlineColor), border = num(cs.borderTopColor);
+  const r = b.getBoundingClientRect(), cx = r.left + r.width / 2, cy = r.top + r.height / 2, T = 44;
+  const after = getComputedStyle(b, '::after');
+  let hit = 0, all = 0, off = 0; const others = {};
+  for (let y = cy - T / 2 + 1; y < cy + T / 2; y += 2) for (let x = cx - T / 2 + 1; x < cx + T / 2; x += 2) {
+    all++; if (x < 0 || y < 0 || x >= innerWidth || y >= innerHeight) { off++; continue }
+    const e = document.elementFromPoint(x, y);
+    if (e === b || (e && b.contains(e))) hit++; else { const k = e ? (e.id ? '#' + e.id : e.tagName.toLowerCase() + (e.className && typeof e.className === 'string' ? '.' + e.className.split(/\s+/)[0] : '')) : 'null'; others[k] = (others[k] || 0) + 1 }
+  }
+  let words = null;
+  const span = b.closest('.promise-with-help')?.querySelector('span');
+  if (span) {
+    const walker = document.createTreeWalker(span, NodeFilter.SHOW_TEXT); let last = null, n;
+    while ((n = walker.nextNode())) if (n.textContent.trim()) last = n;
+    const text = last.textContent.replace(/\s+$/, ''); const range = document.createRange(); range.setStart(last, text.length - 1); range.setEnd(last, text.length);
+    const box = range.getBoundingClientRect(); const ctx = document.createElement('canvas').getContext('2d'); const sc = getComputedStyle(span);
+    ctx.font = sc.fontStyle + ' ' + sc.fontWeight + ' ' + sc.fontSize + ' ' + sc.fontFamily; const m = ctx.measureText(text.slice(-1));
+    const inkRight = box.left + m.actualBoundingBoxRight, sameLine = r.top < box.bottom && r.bottom > box.top, midY = (box.top + box.bottom) / 2;
+    let underTarget = 0; for (let x = Math.floor(box.left); x < Math.ceil(inkRight); x++) { const e = document.elementFromPoint(x + 0.5, midY); if (e === b || (e && b.contains(e))) underTarget++ }
+    const tl = cx - T / 2;
+    words = { lastChar: text.slice(-1), sameLine, boxRight: Math.round(box.right * 100) / 100, inkRight: Math.round(inkRight * 100) / 100, verticalGap: sameLine ? null : Math.round((r.top - box.bottom) * 100) / 100, gapInkToSquare: sameLine ? Math.round((r.left - inkRight) * 100) / 100 : null, gapBoxToSquare: sameLine ? Math.round((r.left - box.right) * 100) / 100 : null, targetOverInk: sameLine ? Math.round(Math.max(0, inkRight - tl) * 100) / 100 : null, inkPxHittingTarget: underTarget };
+  }
+  const li = b.closest('li'); const rows = li ? [...li.parentElement.children].map((c) => { const s = c.querySelector('span') || c; return Math.round(s.getBoundingClientRect().height) }) : null;
+  const tipId = b.getAttribute('aria-controls'); const tip = tipId ? document.getElementById(tipId) : null; const tr = tip && !tip.hidden ? tip.getBoundingClientRect() : null;
+  const doc = document.documentElement;
+  return { box: { w: Math.round(r.width * 100) / 100, h: Math.round(r.height * 100) / 100, left: Math.round(r.left * 100) / 100, right: Math.round(r.right * 100) / 100 },
+    colours: { background: cs.backgroundColor, color: cs.color, border: cs.borderTopColor, borderStyle: cs.borderTopStyle, outline: cs.outlineColor, outlineStyle: cs.outlineStyle, outlineWidth: cs.outlineWidth, outlineOffset: cs.outlineOffset, adjust: cs.forcedColorAdjust },
+    contrast: { glyphOnFill: ratio(glyph, fill), fillOnPage: ratio(fill, page), borderOnPage: ratio(border, page), ringOnPage: cs.outlineStyle === 'none' ? null : ratio(outline, page), ringOnFill: cs.outlineStyle === 'none' ? null : ratio(outline, fill) },
+    matches: { hover: b.matches(':hover'), active: b.matches(':active'), focus: b.matches(':focus'), focusVisible: b.matches(':focus-visible'), disabled: b.matches(':disabled') }, expanded: b.getAttribute('aria-expanded'),
+    target: { grid: all, hit, offPage: off, others, afterW: after.width, afterH: after.height, content: after.content }, words, rows,
+    tip: tr ? { top: Math.round(tr.top), left: Math.round(tr.left), right: Math.round(tr.right), bottomOfTarget: Math.round(cy + T / 2), belowTarget: tr.top >= cy + T / 2 } : null,
+    overflow: { scrollWidth: doc.scrollWidth, clientWidth: doc.clientWidth }, root: parseFloat(getComputedStyle(doc).fontSize), forced: matchMedia('(forced-colors: active)').matches, dark: matchMedia('(prefers-color-scheme: dark)').matches, vw: innerWidth,
+    aboutOpen: !document.getElementById('about-help').hidden, lang: document.documentElement.lang };
+})()`
+const centre = (w, id) => w.evaluate(`(() => { const b = document.getElementById(${JSON.stringify(id)}); b.scrollIntoView({ block: 'center', inline: 'nearest' }); const r = b.getBoundingClientRect(); return { x: r.left + r.width / 2, y: r.top + r.height / 2 } })()`)
+const mouse = (w, type, x, y, extra = {}) => w.page.send('Input.dispatchMouseEvent', { type, x, y, ...(type === 'mouseMoved' ? {} : { button: 'left', clickCount: 1 }), ...extra })
+const away = (w) => mouse(w, 'mouseMoved', 1, 1)
+const closeTip = (w, id) => w.evaluate(`(() => { const b = document.getElementById(${JSON.stringify(id)}); if (b.getAttribute('aria-expanded') === 'true') b.click(); document.activeElement?.blur?.(); })()`)
+const kbFocus = async (w, id) => { await w.evaluate(`document.getElementById(${JSON.stringify(id)}).focus()`); await key(w, 'Tab', { shift: true }); await key(w, 'Tab'); return w.evaluate(`document.activeElement === document.getElementById(${JSON.stringify(id)}) && document.activeElement.matches(':focus-visible')`) }
+const OUTLINE = (id, on) => on ? `(() => { const b = document.getElementById(${JSON.stringify(id)}); const r = b.getBoundingClientRect(), a = getComputedStyle(b, '::after'); const tw = parseFloat(a.width) || 44, th = parseFloat(a.height) || 44; const o = document.createElement('div'); o.id = 'vh203-target-outline'; Object.assign(o.style, { position: 'fixed', left: (r.left + r.width / 2 - tw / 2) + 'px', top: (r.top + r.height / 2 - th / 2) + 'px', width: tw + 'px', height: th + 'px', boxSizing: 'border-box', border: '1px solid #e0007a', pointerEvents: 'none', zIndex: '2147483647', forcedColorAdjust: 'none' }); document.body.append(o); return { tw, th, left: Math.round((r.left + r.width / 2 - tw / 2) * 100) / 100, top: Math.round((r.top + r.height / 2 - th / 2) * 100) / 100 } })()` : `document.getElementById('vh203-target-outline')?.remove()`
+const ID = 'format-help-button'
+const browser = await connectBrowser()
+let n = 0, bad = 0, images = 0
+for (const lang of langs) for (const view of views) for (const mode of modes) {
+  if (![...TARGETS].some((t) => t.startsWith(`${lang} ${view} ${mode} `))) continue
+  const w = new Walk(browser, `states/${lang}__${view}__${mode}`)
+  const put = (state, r) => { n++; appendFileSync(OUT, JSON.stringify({ lang, view, mode, which: 'format', state, ...r }) + '\n') }
+  const want = mode.endsWith('font32') ? 32 : 16
+  const font = async (at) => { const px = await w.evaluate(`parseFloat(getComputedStyle(document.documentElement).fontSize)`); if (px !== want) throw new Error(`root ${px} px, wanted ${want}, ${at}`) }
+  const shot = async (state) => {
+    await font(`before the clip of ${state}`)
+    const r = await w.evaluate(`(() => { const b = document.getElementById(${JSON.stringify(ID)}); const a = b.closest('.promise-with-help') || b; const s = a.getBoundingClientRect(); const x0 = Math.max(0, s.left - 24), y0 = Math.max(0, s.top - 24), x1 = Math.min(innerWidth, s.right + 24), y1 = Math.min(innerHeight, s.bottom + 24); return { x: x0 + scrollX, y: y0 + scrollY, width: x1 - x0, height: y1 - y0, cut: s.top - 24 < 0 || s.bottom + 24 > innerHeight || s.left - 24 < 0 || s.right + 24 > innerWidth } })()`)
+    const { cut, ...clip } = r
+    const png = await w.page.send('Page.captureScreenshot', { format: 'png', captureBeyondViewport: false, clip: { ...clip, scale: 1 } })
+    const file = `format-${lang}-${view}-${mode}-${state}.png`
+    writeFileSync(join(w.dir, file), Buffer.from(png.data, 'base64')); images++
+    await font(`after the clip of ${state}`)
+    return { file, clip: { x: Math.round(clip.x), y: Math.round(clip.y), width: Math.round(clip.width), height: Math.round(clip.height), cutByViewport: cut } }
+  }
+  const STATE = `(() => { const b = document.getElementById(${JSON.stringify(ID)}); const r = b.getBoundingClientRect(); return { scrollX, scrollY, expanded: b.getAttribute('aria-expanded'), hover: b.matches(':hover'), focusVisible: b.matches(':focus-visible'), root: parseFloat(getComputedStyle(document.documentElement).fontSize), aboutOpen: !document.getElementById('about-help').hidden, buttonInView: r.bottom > 0 && r.top < innerHeight && r.right > 0 && r.left < innerWidth } })()`
+  const named = (state, s) => s.root === want && s.aboutOpen && ({ rest: s.expanded === 'false' && !s.hover && !s.focusVisible, hovered: s.expanded === 'false' && s.hover && !s.focusVisible, focused: s.expanded === 'false' && s.focusVisible && !s.hover, open: s.expanded === 'true' && !s.hover && !s.focusVisible })[state]
+  const tiles = async (state) => {
+    const reg = await w.evaluate(`(() => { const b = document.getElementById(${JSON.stringify(ID)}); const li = b.closest('.promise-with-help') || b; const s = li.getBoundingClientRect(), de = document.documentElement; return { top: Math.max(0, Math.floor(s.top + scrollY - 24)), bottom: Math.min(de.scrollHeight, Math.ceil(s.bottom + scrollY + 24)), x0: Math.max(0, Math.floor(s.left - 24)), x1: Math.min(innerWidth, Math.ceil(s.right + 24)), vh: innerHeight, max: Math.max(0, de.scrollHeight - innerHeight) } })()`)
+    const H = reg.bottom - reg.top, clampY = (y) => Math.max(0, Math.min(reg.max, y)), pos = []
+    if (H <= reg.vh) pos.push(clampY(reg.top - Math.floor((reg.vh - H) / 2)))
+    else for (let y = reg.top; ; y += reg.vh - OVER) { if (y + reg.vh >= reg.bottom) { pos.push(clampY(reg.bottom - reg.vh)); break } pos.push(clampY(y)) }
+    const out = []
+    for (let k = 0; k < pos.length; k++) {
+      await w.evaluate(`window.scrollTo(0, ${pos[k]})`); await sleep(150)
+      if (state === 'hovered') { const c = await w.evaluate(`(() => { const r = document.getElementById(${JSON.stringify(ID)}).getBoundingClientRect(); const x = r.left + r.width / 2, y = r.top + r.height / 2; return { x, y, in: x >= 0 && y >= 0 && x < innerWidth && y < innerHeight } })()`); if (c.in) await mouse(w, 'mouseMoved', c.x, c.y); else await away(w); await sleep(150) }
+      await font(`before tile ${k + 1} of ${state}`)
+      const s = await w.evaluate(STATE)
+      const ya = Math.max(reg.top, s.scrollY), yb = Math.min(reg.bottom, s.scrollY + reg.vh)
+      const png = await w.page.send('Page.captureScreenshot', { format: 'png', captureBeyondViewport: false, clip: { x: reg.x0 + s.scrollX, y: ya, width: reg.x1 - reg.x0, height: yb - ya, scale: 1 } })
+      const file = `scroll-${lang}-${view}-${mode}-${state}-${k + 1}of${pos.length}.png`
+      writeFileSync(join(w.dir, file), Buffer.from(png.data, 'base64')); images++
+      await font(`after tile ${k + 1} of ${state}`)
+      const s2 = await w.evaluate(STATE)
+      const asNamed = named(state, s2) && named(state, s)
+      out.push({ k: k + 1, n: pos.length, file, ya, yb, ...s2, asNamed, label: asNamed ? state : state === 'hovered' && !s2.buttonInView ? 'hovered, continuation: the "?" out of view, :hover not held' : `NOT ${state}` })
+    }
+    const spans = out.map((t) => [t.ya, t.yb]).sort((a, b) => a[0] - b[0]); let reach = reg.top, whole = true
+    for (const [a, b] of spans) { if (a > reach) { whole = false; break } reach = Math.max(reach, b) }
+    if (reach < reg.bottom) whole = false
+    put(`${state}-scrolled`, { region: reg, tiles: out, coveredWhole: whole, allAsNamed: out.every((t) => t.asNamed || (state === 'hovered' && !t.buttonInView)) })
+  }
+  try {
+    await w.open()
+    await w.page.send('Page.addScriptToEvaluateOnNewDocument', { source: QUAL_INIT })
+    await w.page.send('Page.addScriptToEvaluateOnNewDocument', { source: MX_INIT })
+    await setViewport(w, view); await setMode(w, mode)
+    await fresh(w, lang); await sleep(300)
+    // The title's panel, opened by its own button (VH-229): the walker's own click, then the pointer away and nothing focused.
+    await w.click('#about-help-button'); await sleep(250)
+    const opened = await w.evaluate(`!document.getElementById('about-help').hidden && document.getElementById('about-help-button').getAttribute('aria-expanded') === 'true'`)
+    if (!opened) throw new Error('the title panel did not open by its button')
+    await away(w); await w.evaluate(`document.activeElement?.blur?.()`); await sleep(150)
+    const read = async (state) => { const r = await w.evaluate(READ(ID)); if (r.root !== want) throw new Error(`root ${r.root} px, wanted ${want}, ${state}`); if (!r.aboutOpen) throw new Error(`the title panel closed, ${state}`); const s = await shot(state); put(state, { ...r, image: s.file, clip: s.clip }); return r }
+    await away(w); await closeTip(w, ID); await sleep(120); await read('rest'); if (TARGETS.has(`${lang} ${view} ${mode} rest`)) await tiles('rest')
+    if (view === 'w1280' && mode === 'light') {
+      const o = await w.evaluate(OUTLINE(ID, true)); await sleep(60)
+      const s = await shot('rest-target'); await w.evaluate(OUTLINE(ID, false))
+      const r = await w.evaluate(READ(ID)); put('rest-target', { outline: o, words: r.words, target: r.target, box: r.box, aboutOpen: r.aboutOpen, expanded: r.expanded, root: r.root, image: s.file, clip: s.clip })
+    }
+    let c = await centre(w, ID)
+    await mouse(w, 'mouseMoved', c.x, c.y); await sleep(150); await read('hovered'); if (TARGETS.has(`${lang} ${view} ${mode} hovered`)) await tiles('hovered'); await away(w); await sleep(100)
+    const fv = await kbFocus(w, ID); await sleep(100); put('focused-reached', { reached: fv }); await read('focused'); if (TARGETS.has(`${lang} ${view} ${mode} focused`)) await tiles('focused')
+    await w.evaluate(`document.activeElement?.blur?.()`); await closeTip(w, ID)
+    c = await centre(w, ID); await mouse(w, 'mouseMoved', c.x, c.y); await mouse(w, 'mousePressed', c.x, c.y); await mouse(w, 'mouseReleased', c.x, c.y); await sleep(200); await away(w); await sleep(120); await read('open'); if (TARGETS.has(`${lang} ${view} ${mode} open`)) await tiles('open')
+    await closeTip(w, ID); await away(w)
+    console.log(`read ${lang} ${view} ${mode}`)
+  } catch (e) { bad++; put('error', { error: String(e.stack ?? e).slice(0, 400) }); console.log(`error ${lang} ${view} ${mode}: ${String(e.message ?? e).slice(0, 200)}`) } finally { await w.close().catch(() => undefined) }
+}
+await closeAnalysis()
+console.log(`${n} readings, ${images} images, ${bad} conditions errored`)
+browser.close()
+process.exit(bad ? 1 : 0)

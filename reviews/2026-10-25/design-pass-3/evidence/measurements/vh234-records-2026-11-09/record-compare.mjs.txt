@@ -1,0 +1,18 @@
+// VH-234 #2: route (1)'s readings before and after, by (lang, view, mode, which, state): each field that differs, with both values; read-only.
+//   node record-compare.mjs <before format-help.jsonl> <after format-help.jsonl> > <out.jsonl>   (a summary on stderr)
+import { readFileSync } from 'node:fs'
+const rd = (p) => readFileSync(p, 'utf8').trim().split('\n').filter(Boolean).map((l) => JSON.parse(l))
+const id = (r) => [r.lang, r.view, r.mode, r.which, r.state].join(' ')
+const [b, a] = [rd(process.argv[2]), rd(process.argv[3])]
+const A = new Map(a.map((r) => [id(r), r])), seen = new Set(), count = {}
+const flat = (o, p = '', out = {}) => { if (o && typeof o === 'object' && !Array.isArray(o)) { for (const [k, v] of Object.entries(o)) flat(v, p ? `${p}.${k}` : k, out) } else out[p] = JSON.stringify(o); return out }
+let same = 0, moved = 0
+for (const r of b) {
+  const k = id(r); seen.add(k); const s = A.get(k)
+  if (!s) { console.log(JSON.stringify({ key: k, missingAfter: true })); continue }
+  const fb = flat(r), fa = flat(s), diff = {}
+  for (const f of new Set([...Object.keys(fb), ...Object.keys(fa)])) if (fb[f] !== fa[f]) { diff[f] = [fb[f], fa[f]]; count[f] = (count[f] || 0) + 1 }
+  if (Object.keys(diff).length) { moved++; console.log(JSON.stringify({ key: k, diff })) } else same++
+}
+for (const k of A.keys()) if (!seen.has(k)) console.log(JSON.stringify({ key: k, missingBefore: true }))
+console.error(JSON.stringify({ before: b.length, after: a.length, same, moved, fields: count }))

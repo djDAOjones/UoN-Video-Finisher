@@ -1,0 +1,18 @@
+#!/bin/zsh
+# VH-234 #2: BASE a28086f (the orchestrator's ruling 1), the queue WHO "VH-234 #2".
+# VH-234 #1: one group, one chain: the queue (one line), then go.sh once (it waits for AC, both loads below 8 and the lock; walk.sh takes it).
+#   zsh group.zsh <name> <before|after> "<job line>"   -> <name>.go.out, <name>.chain.out lines; CHAIN-END last
+# A "before" group refuses unless the worktree's app paths equal the base (the brief's check), recorded in <name>.base-check.txt.
+S=/Users/uazjob/UoN-Video-Helper-side; D=$S/vh234-walk; W=$S/vh234; BASE=a28086f4af5935b09bb33e3d999644542a993741
+WK="$W/reviews/2026-10-25/design-pass-3/evidence/measurements/walker"
+n=$1; side=$2; job=$3; cd $D || exit 5
+for f in "$n" "$n.launcher.log" "$n.load.log" "$n.go.out"; do [ -e "$f" ] && { echo "EXISTS $f"; echo "CHAIN-END rc 2"; exit 2; }; done
+if [ "$side" = before ]; then
+  if git -C "$W" diff --quiet "$BASE" -- src index.html public package.json package-lock.json vite.config.ts; then echo "base-check true $(date -u +%FT%TZ) HEAD $(git -C $W rev-parse HEAD)" > "$n.base-check.txt"; else echo "base-check FALSE"; echo "CHAIN-END rc 11"; exit 11; fi
+else
+  { echo "after $(date -u +%FT%TZ) HEAD $(git -C $W rev-parse HEAD)"; git -C "$W" diff --stat "$BASE" -- src test; echo "app diff hash $(git -C "$W" diff --binary "$BASE" -- src index.html public package.json package-lock.json vite.config.ts | shasum -a 1 | cut -c1-16)"; } > "$n.base-check.txt"
+fi
+QPID=$$ zsh $S/walk-queue-wait-seq.zsh "VH-234 #2 $n ($side)" || { echo "CHAIN-END rc 12"; exit 12; }
+zsh go.sh "$n" "VH-234 $side group $n" "$WK" "$W" "$job" > "$n.go.out" 2>&1; rc=$?
+echo "group $n rc $rc $(date -u +%T)"; tail -3 "$n.go.out"
+echo "CHAIN-END rc $rc $(date -u +%T)"; exit $rc

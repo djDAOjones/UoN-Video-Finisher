@@ -1,0 +1,10 @@
+// VH-234 #2: the 102 cells before and after, by key: each instrument whose outcome differs; read-only.
+import { readdirSync, readFileSync } from 'node:fs'
+import { join } from 'node:path'
+const load = (dir) => { const m = new Map(); for (const r of readdirSync(dir)) { let fs; try { fs = readdirSync(join(dir, r)) } catch { continue }
+  for (const f of fs.filter((f) => /^S-14\d__.*\.json$/.test(f))) { const j = JSON.parse(readFileSync(join(dir, r, f), 'utf8')); m.set(j.key, j) } } return m }
+const [b, a] = [load(process.argv[2]), load(process.argv[3])], moved = {}
+for (const [k, jb] of b) { const ja = a.get(k); if (!ja) { console.log('missing after', k); continue }
+  for (const i of new Set([...Object.keys(jb.instruments), ...Object.keys(ja.instruments)])) { const o = [jb.instruments[i]?.outcome, ja.instruments[i]?.outcome]; if (o[0] !== o[1]) { const t = `${i} ${o[0]}->${o[1]}`; moved[t] = (moved[t] || 0) + 1 } }
+  if (JSON.stringify(jb.reached) !== JSON.stringify(ja.reached)) console.log('reached differs', k) }
+console.log(JSON.stringify({ before: b.size, after: a.size, moved }))

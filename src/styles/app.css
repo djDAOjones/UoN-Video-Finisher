@@ -1207,7 +1207,6 @@ details[open] > .disclosure-summary::before {
   min-height: 0;
   margin-left: var(--spacing-02);
   padding: 0;
-  line-height: var(--line-height-heading);
   vertical-align: middle;
 }
 

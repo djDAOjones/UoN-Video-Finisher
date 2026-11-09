@@ -1,0 +1,66 @@
+// VH-234 #1: the image compare of route (1)'s before and after, outside the walker, no dependency: a PNG reader (8-bit, non-interlaced,
+// colour types 0, 2, 4 and 6, filters 0 to 4, by node:zlib) and a pixel compare of each pair named alike in the two folders.
+//   node png-compare.mjs <before images dir> <after images dir> <out.jsonl>
+// One line per image: same bytes, or else its size each side, the changed pixels, their bounding box and the largest channel difference.
+import { readFileSync, readdirSync, writeFileSync } from 'node:fs'
+import { join } from 'node:path'
+import { inflateSync } from 'node:zlib'
+import { createHash } from 'node:crypto'
+
+export function readPng(buf) {
+  if (buf.readUInt32BE(0) !== 0x89504e47) throw new Error('not a PNG')
+  let p = 8, w = 0, h = 0, depth = 0, type = 0, interlace = 0; const idat = []
+  while (p < buf.length) {
+    const len = buf.readUInt32BE(p), kind = buf.toString('ascii', p + 4, p + 8), data = buf.subarray(p + 8, p + 8 + len)
+    if (kind === 'IHDR') { w = data.readUInt32BE(0); h = data.readUInt32BE(4); depth = data[8]; type = data[9]; interlace = data[12] }
+    else if (kind === 'IDAT') idat.push(data)
+    else if (kind === 'IEND') break
+    p += 12 + len
+  }
+  if (depth !== 8 || interlace !== 0) throw new Error(`unsupported PNG: depth ${depth}, interlace ${interlace}`)
+  const ch = { 0: 1, 2: 3, 4: 2, 6: 4 }[type]; if (!ch) throw new Error(`unsupported colour type ${type}`)
+  const raw = inflateSync(Buffer.concat(idat)), stride = w * ch, out = Buffer.alloc(w * h * 4)
+  let prev = Buffer.alloc(stride)
+  for (let y = 0; y < h; y++) {
+    const f = raw[y * (stride + 1)], line = Buffer.from(raw.subarray(y * (stride + 1) + 1, (y + 1) * (stride + 1)))
+    for (let i = 0; i < stride; i++) {
+      const a = i >= ch ? line[i - ch] : 0, b = prev[i], c = i >= ch ? prev[i - ch] : 0
+      let v = line[i]
+      if (f === 1) v += a; else if (f === 2) v += b; else if (f === 3) v += (a + b) >> 1
+      else if (f === 4) { const pp = a + b - c, pa = Math.abs(pp - a), pb = Math.abs(pp - b), pc = Math.abs(pp - c); v += pa <= pb && pa <= pc ? a : pb <= pc ? b : c }
+      line[i] = v & 255
+    }
+    for (let x = 0; x < w; x++) {
+      const s = x * ch, o = (y * w + x) * 4
+      if (ch === 1) { out[o] = out[o + 1] = out[o + 2] = line[s]; out[o + 3] = 255 }
+      else if (ch === 2) { out[o] = out[o + 1] = out[o + 2] = line[s]; out[o + 3] = line[s + 1] }
+      else { out[o] = line[s]; out[o + 1] = line[s + 1]; out[o + 2] = line[s + 2]; out[o + 3] = ch === 4 ? line[s + 3] : 255 }
+    }
+    prev = line
+  }
+  return { w, h, px: out }
+}
+
+if (process.argv[1] && import.meta.url.endsWith(process.argv[1].split('/').pop())) {
+  const [A, B, OUT] = process.argv.slice(2)
+  if (!A || !B || !OUT) { console.log('usage: node png-compare.mjs <before dir> <after dir> <out.jsonl>'); process.exit(2) }
+  const sha = (b) => createHash('sha1').update(b).digest('hex')
+  const names = [...new Set([...readdirSync(A), ...readdirSync(B)])].filter((n) => n.endsWith('.png')).sort()
+  const lines = []; let same = 0, moved = 0, missing = 0
+  for (const n of names) {
+    let a, b
+    try { a = readFileSync(join(A, n)); b = readFileSync(join(B, n)) } catch { missing++; lines.push({ image: n, missing: true }); continue }
+    if (sha(a) === sha(b)) { same++; lines.push({ image: n, sameBytes: true, sha1: sha(a) }); continue }
+    const x = readPng(a), y = readPng(b)
+    if (x.w !== y.w || x.h !== y.h) { moved++; lines.push({ image: n, sameBytes: false, size: { before: [x.w, x.h], after: [y.w, y.h] }, sizeChanged: true }); continue }
+    let n0 = 0, maxd = 0, x0 = 1e9, y0 = 1e9, x1 = -1, y1 = -1
+    for (let i = 0; i < x.px.length; i += 4) {
+      const d = Math.max(Math.abs(x.px[i] - y.px[i]), Math.abs(x.px[i + 1] - y.px[i + 1]), Math.abs(x.px[i + 2] - y.px[i + 2]), Math.abs(x.px[i + 3] - y.px[i + 3]))
+      if (d) { n0++; if (d > maxd) maxd = d; const p = i / 4, px = p % x.w, py = (p - px) / x.w; if (px < x0) x0 = px; if (py < y0) y0 = py; if (px > x1) x1 = px; if (py > y1) y1 = py }
+    }
+    if (n0) moved++; else same++
+    lines.push({ image: n, sameBytes: false, size: [x.w, x.h], changedPixels: n0, maxChannelDiff: maxd, box: n0 ? { x0, y0, x1, y1 } : null })
+  }
+  writeFileSync(OUT, lines.map((l) => JSON.stringify(l)).join('\n') + '\n')
+  console.log(`${names.length} images: ${same} the same pixels, ${moved} moved, ${missing} missing on one side`)
+}

@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en-GB"><head><meta charset="utf-8"><title>Format help scrolled, en-GB, w320, 32 px, focused</title>
+<style>
+body { margin: 16px; background: #ffffff; color: #000000; font: 14px/1.35 -apple-system, "Helvetica Neue", Arial, sans-serif; }
+h1 { font-size: 18px; margin: 0 0 4px; } p.n { margin: 0 0 12px; font-size: 13px; max-width: 70em; }
+table { border-collapse: collapse; } th, td { border: 1px solid #8a8a8a; padding: 6px; vertical-align: top; text-align: left; }
+tbody th { background: #f2f2f2; white-space: nowrap; font-size: 13px; } td { white-space: nowrap; }
+figure { display: inline-block; vertical-align: top; margin: 0 8px 0 0; } figcaption { font-size: 12px; color: #222222; width: 320px; white-space: normal; margin: 0 0 4px; }
+img { display: block; border: 1px dashed #b0b0b0; }
+</style></head><body>
+<h1>VH-234: the format "?" scrolled, en-GB at w320, 32 px root, focused</h1>
+<p class="n">The whole promise and, when open, its tip, 24 px round, in viewport tiles with 64 px of overlap, left to right in scroll order. Each tile is a clip inside the viewport (captureBeyondViewport false); after each scroll the state was read again. Run revision 7db38f355f3c46c2 at f1db7eff73f12f1e, on the Mac Pro, 2026-11-09.</p>
+<table><tbody>
+<tr><th scope="row">light<br>32 px<br>covered whole</th><td><figure><figcaption>en-GB · w320 · light · 32 px · focused · tile 1 of 1 · y 1221–1413 · read after scroll: focused</figcaption><img src="tiles/scroll-en-GB-w320-font32-focused-1of1.png" alt=""></figure></td></tr>
+<tr><th scope="row">dark<br>32 px<br>covered whole</th><td><figure><figcaption>en-GB · w320 · dark · 32 px · focused · tile 1 of 1 · y 1221–1413 · read after scroll: focused</figcaption><img src="tiles/scroll-en-GB-w320-dark-font32-focused-1of1.png" alt=""></figure></td></tr>
+<tr><th scope="row">forced-light<br>32 px<br>covered whole</th><td><figure><figcaption>en-GB · w320 · forced-light · 32 px · focused · tile 1 of 1 · y 1221–1413 · read after scroll: focused</figcaption><img src="tiles/scroll-en-GB-w320-forced-light-font32-focused-1of1.png" alt=""></figure></td></tr>
+<tr><th scope="row">forced-dark<br>32 px<br>covered whole</th><td><figure><figcaption>en-GB · w320 · forced-dark · 32 px · focused · tile 1 of 1 · y 1221–1413 · read after scroll: focused</figcaption><img src="tiles/scroll-en-GB-w320-forced-dark-font32-focused-1of1.png" alt=""></figure></td></tr>
+</tbody></table></body></html>

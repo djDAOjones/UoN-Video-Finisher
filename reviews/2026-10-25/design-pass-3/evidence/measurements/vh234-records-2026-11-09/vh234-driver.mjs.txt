@@ -1,0 +1,76 @@
+// VH-234 #1's copy of VH-203 #2's vh203-driver.mjs (2a9671cd), the original untouched: changed only in this line, the plan's name in memory
+// ('vh234-plan', the same records: every record of parts.mjs's RUNS) and the ledger's file name (vh234-ledger.jsonl).
+// VH-203 #2's driver: VH-224's vh224-driver.mjs (copied here as vh224-driver.mjs, the original untouched), extended by the rulings on the
+// plan compare (Orchestrator #44, vh203-rulings-1.md, ruling 1): `parts.mjs check` refuses its own parts at the base (F2: S-155 x9 in
+// part 1, the two frozen hashes not renewed), so the matrix walks by exact key lists through a plan this driver registers in memory,
+// `PLANS['vh203-after']`: every record of parts.mjs's RUNS, in RUNS order, press lists and all as each run declares them (PLANS['run-NN']()),
+// the walker unchanged. `matrix.mjs vh203-after --keys <file>` (VH-223's interface) then runs as declared; a run's assertParts is never
+// reached, the plan being neither a part nor a run. `--plan <name>` walks another declared plan by keys instead (PLANS.vh215, PLANS.matrix …).
+// It records power and both loads (the 1- and 5-minute, Codex's point; go.sh enforces both) and the key list in a ledger line, and refuses off power.
+//   APP_URL=… CDP_PORT=… FIX=… OUT_ROOT=… RUN_ROOT=… OUTD=… node vh203-driver.mjs walk --walker <dir> --label <l> --name <group> --keys <file> [--plan <name>]
+//   RUN_ROOT=<any> node vh203-driver.mjs count --walker <dir> --keys <file> [--plan <name>]   (read-only: the records the list keeps, by id and mode)
+//   RUN_ROOT=<any> node vh203-driver.mjs keys --walker <dir> --out <file> [--plan <name>]    (read-only: every key of the plan, with its run, tab-separated)
+import { pathToFileURL, fileURLToPath } from 'node:url'
+import { join, resolve } from 'node:path'
+import { appendFileSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
+import { execFileSync } from 'node:child_process'
+import { createHash } from 'node:crypto'
+
+const args = (() => { const a = process.argv.slice(2), o = { _: [] }; for (let i = 0; i < a.length; i++) { if (a[i].startsWith('--')) { const k = a[i].slice(2); if (a[i + 1] === undefined || a[i + 1].startsWith('--')) o[k] = true; else o[k] = a[++i] } else o._.push(a[i]) } return o })()
+const PLAN = 'vh234-plan'
+
+function power() {
+  const sh = (cmd, a) => execFileSync(cmd, a, { encoding: 'utf8' })
+  const batt = sh('pmset', ['-g', 'batt']), pm = sh('pmset', ['-g']), up = sh('uptime', []).trim()
+  const ac = /AC Power/.test(batt), level = Number((batt.match(/(\d+)%/) ?? [])[1]), mode = Number((pm.match(/^\s*powermode\s+(\d+)/m) ?? [])[1])
+  const la = up.match(/load averages?: ([\d.]+),? ([\d.]+),? ([\d.]+)/) ?? []
+  return { at: new Date().toISOString(), source: ac ? 'AC' : 'battery', level, powermode: mode, load: Number(la[1]), load5: Number(la[2]), load15: Number(la[3]), ok: ac || (level > 50 && !(/lowpowermode\s+1/.test(pm) || mode === 1)) }
+}
+const keyFile = () => { if (typeof args.keys !== 'string') throw new Error('--keys <file> is required'); return resolve(args.keys) }
+
+// The plan in memory: RUNS' records in order (each run's own declaration), or another declared plan by name.
+async function register(walker) {
+  const at = (f) => import(pathToFileURL(join(walker, f)).href)
+  const S = await at('scenarios.mjs'), P = await at('parts.mjs'), { recordKey } = await at('runner.mjs')
+  const name = typeof args.plan === 'string' ? args.plan : PLAN
+  if (name === PLAN) {
+    const runOfKey = new Map()
+    const recs = P.RUNS.flatMap((r) => S.PLANS[r.name]().map((x) => { runOfKey.set(recordKey(x), r.name); return x }))
+    S.PLANS[PLAN] = () => P.RUNS.flatMap((r) => S.PLANS[r.name]())
+    return { name, records: recs, runOf: (k) => runOfKey.get(k), recordKey, S }
+  }
+  if (!S.PLANS[name]) throw new Error('no plan ' + name)
+  return { name, records: S.PLANS[name](), runOf: () => name, recordKey, S }
+}
+
+async function walk() {
+  for (const k of ['APP_URL', 'CDP_PORT', 'FIX', 'OUT_ROOT', 'RUN_ROOT', 'OUTD']) if (!process.env[k]) throw new Error('set ' + k)
+  const walker = resolve(args.walker), label = args.label ?? 'after', file = keyFile(), bytes = readFileSync(file)
+  const keys = String(bytes).split('\n').map((l) => l.trim()).filter(Boolean)
+  const { name } = await register(walker)
+  const matrixUrl = pathToFileURL(join(walker, 'matrix.mjs')).href, p = power()
+  mkdirSync(process.env.RUN_ROOT, { recursive: true })
+  appendFileSync(join(process.env.RUN_ROOT, 'vh234-ledger.jsonl'), JSON.stringify({ label, name: args.name, plan: name, power: p, walker, keys: { file, count: keys.length, sha1: createHash('sha1').update(bytes).digest('hex') }, args }) + '\n')
+  if (!p.ok) { console.log('POWER-STOP'); process.exit(3) }
+  process.argv = [process.argv[0], fileURLToPath(matrixUrl), name, '--keys', file]
+  await import(matrixUrl)
+}
+
+async function count() {
+  const walker = resolve(args.walker), { records, recordKey } = await register(walker), { keepKeys } = await import(pathToFileURL(join(walker, 'matrix.mjs')).href)
+  const keys = readFileSync(keyFile(), 'utf8').split('\n').map((l) => l.trim()).filter(Boolean)
+  const kept = keepKeys(records, keys), by = {}, ids = {}
+  for (const r of kept) { for (const t of [r.view, r.mode]) by[t] = (by[t] ?? 0) + 1; const i = r.variant ? `${r.id}~${r.variant}` : r.id; ids[i] = (ids[i] ?? 0) + 1 }
+  console.log('records', kept.length, JSON.stringify(by)); console.log('ids', JSON.stringify(ids)); void recordKey
+}
+
+async function keysOut() {
+  const walker = resolve(args.walker), { name, records, runOf, recordKey } = await register(walker)
+  if (typeof args.out !== 'string') throw new Error('--out <file> is required')
+  writeFileSync(resolve(args.out), records.map((r) => `${recordKey(r)}\t${runOf(recordKey(r))}`).join('\n') + '\n')
+  console.log(name, records.length, 'keys to', args.out)
+}
+if (args._[0] === 'walk') await walk()
+else if (args._[0] === 'count') await count()
+else if (args._[0] === 'keys') await keysOut()
+else { console.log('usage: node vh203-driver.mjs walk|count|keys --walker <dir> [--label l --name n] --keys <file> | --out <file> [--plan <name>]'); process.exit(2) }

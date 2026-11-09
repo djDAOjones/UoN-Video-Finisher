@@ -1,0 +1,17 @@
+**Commit.** I found no blocking defect. I wrote nothing to any file.
+
+1. **Owner’s words and closure:** faithfully recorded, with the owner’s turn at `:467` distinguished from the orchestrator’s ruling at `:468`. No current claim treats the words as look approval. The [item’s Now and Notes](/Users/uazjob/UoN-Video-Helper-side/vh234/project/items/VH-234.md:42) and [close decision](/Users/uazjob/UoN-Video-Helper-side/vh234/project/decisions.md:27) explicitly retain that approval as pending. The later ruling changes the original acceptance sequence: land first, review on devices, raise any requested fix before VH-195. Removing VH-234’s backlog line, adding its trajectory entry and carrying the outstanding answer on [VH-195’s line](/Users/uazjob/UoN-Video-Helper-side/vh234/project/backlog.md:41) satisfy rules 5 and 6. I found no substantive deferral without a line.
+
+2. **Earlier should and note:** applied faithfully. The compare now records **03:14:17Z** and **03:20:44Z**; the decision says **“no conclusion rests on a timing comparison”**, acknowledging varying motion durations. Freeze-to-freeze comparison confirms no product, table or measurement-record changes. Existing untracked changes are confined to the item and verdict compare; the three close-evidence files are added.
+
+3. **Close evidence:** the `.md.txt` answer is **byte-identical** to its external original. The copied brief’s SHA-1 is `c12cb57e74d20dd6dbb8e05ea3847fb09f3bb7e5`, matching the recorded brief identifier. I did not read the prohibited external brief for a separate byte comparison. The close compare follows the other compares’ heading convention. No absolute Markdown link occurs in the candidate’s `.md` files.
+
+4. **Remaining close findings:** still supported by the unchanged candidate and evidence: 102 reached keys each side, 93 type failures corrected, all 102 passing after; unchanged non-type outcomes; 243 identical Part C readings; 56 scrolled states, 80 tiles and 14 sheets. The technical criteria remain met; look approval remains honestly open. The archive move is verbatim, the disposition links are present, and the decision names Carbon’s tokens/type-set rules and WCAG 2.5.5 and 2.4.13, alongside the other re-read criteria.
+
+5. **Gate and freeze:** [gate 2](/Users/uazjob/UoN-Video-Helper-side/vh234-walk/gate-2.out) records exit **0**, **88 passing test files**, **1,742 passing tests**, and peak sampled load **7.15**. No test was deleted or newly skipped; the one EBU skip is inherited. My fresh `node tools/check.mjs` returned **0 failures, 1 warning**, the known missing sample. HEAD is the specified base; tracked diff and status match freeze r1 byte-for-byte; **all 935 untracked hashes match**.
+
+**Musts:** None.
+
+**Shoulds:** None new. The earlier optional test-pattern robustness point remains non-blocking and explicitly disposed in the compare.
+
+**Notes:** This verdict authorizes the technical candidate’s commit; it does not supply the owner’s look approval. The approximate worker-effort budget remains unverified, as in the earlier close check.

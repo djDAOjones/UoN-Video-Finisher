@@ -1,0 +1,17 @@
+Land.
+
+1. **VH-236 preserved.** Comparing `142d77f` with `HEAD`, its decision, trajectory line, wish VH-236.1, item and Disposition content remain intact. Decisions are newest first; trajectory correctly places VH-236 before VH-234. VH-206’s “Closes: a kept part with too little audio…” entry moved verbatim into the October archive: 45 live, 140 archived. Other entry text is unchanged; only separator newlines change at archive boundaries.
+
+2. **The walked app diff is unchanged.** Both `git diff 142d77f HEAD -- src test` and `git diff a28086f ab681d6 -- src test` hash to `f1db7eff73f12f1e08c5b9e9a6e7a1e49b7ef534`. I also read VH-236’s intervening application changes: they concern preview-refusal announcements, not the format help’s styling or instrumentation. The existing walk evidence stands; no re-walk is needed. The frozen binary diff matches, and both candidates have the same 946 changed paths.
+
+3. **VH-234’s substance is preserved.** Its decision and trajectory line are identical to the earlier candidate; its item file is unchanged. The seven differing candidate blobs contain the expected ledger integration and archive move. The VH-195 blocker, both wish retirements and VH-234’s Disposition row retain their meaning. The owner’s look approval remains pending, consistent with `plan8-owner-words.md:466–468`. The decision retains the applied Carbon type/token rules and WCAG 2.5.5/2.4.13 checks.
+
+4. **Verification is green.** I read [gate-4.out](/Users/uazjob/UoN-Video-Helper-side/vh234-walk/gate-4.out): exit 0, 89 test files, 1,777 passed, one standing EBU skip, lint and links clean, zero memory structural failures. The test diff adds one test and removes or skips none. My fresh `node tools/check.mjs` run returned zero structural/budget failures and the existing VH-122 missing-sample warning. I did not rerun the full gate.
+
+5. **No technical landing blocker found.** `HEAD` and its parent match the supplied SHAs; the checkout is clean. This verdict covers the reviewed rebased candidate.
+
+**Musts:** None newly found. Complete the stated review-pair addition, final gate and commit-body renewal before landing; those future changes are not yet verified here.
+
+**Shoulds:** None newly found.
+
+**Notes:** Describe 5.13 as the *periodically sampled* peak: the gate’s closing uptime line reports 6.09, still below 8. Landing does not approve the look or unblock VH-195. No files were written.

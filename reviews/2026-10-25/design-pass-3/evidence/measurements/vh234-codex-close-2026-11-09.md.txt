@@ -1,0 +1,28 @@
+**Commit**, leaving aside only the owner’s pending answer. I found no further blocking defect. I wrote nothing to any file.
+
+1. **Acceptance criteria:** met for the technical candidate; the owner’s look is honestly open in [VH-234.md](/Users/uazjob/UoN-Video-Helper-side/vh234/project/items/VH-234.md:46).
+   - The product diff remains exactly one CSS declaration removed and one test added inside VH-205’s describe. No token, literal, word, element, dependency or `docs/` change.
+   - Independently reading the raw records: **102 distinct keys reached on each side; 93 type failures become passes; all 102 pass after.** Only `type` outcomes change.
+   - The execution partition is preserved: 38 singleton runs and groups of 12, 21 and 31 each side. Part C’s script is byte-identical to VH-203’s; its 243 before/after readings are byte-identical.
+   - Geometry, target, gap, fill, row height, tip placement and the specified accessibility checks are supported by the recorded evidence. The other help buttons’ rules are unchanged.
+   - The scrolled evidence supplies 56 states, 80 tiles and 14 sheets. Approval is not claimed. The approximate worker-effort budget is not independently established by these records.
+
+2. **Ledger:** structurally sound as a prepared close awaiting that answer. The backlog entry is removed; exactly one trajectory line is added; the newest decision has the short Decision and full account in its Rationale. Owner quotations match the specified source lines. The VH-206 archive move is **verbatim**, with the index increasing from 138 to 139 entries. Both wish lines are retired; the Disposition row links the item and table; the required Carbon and WCAG digest rules are named. I found no unrecorded substantive deferral. The decision names S-141–S-144 and Part C as the checks satisfied by a1, supporting its “none further” re-read disposition. See [the close decision](/Users/uazjob/UoN-Video-Helper-side/vh234/project/decisions.md:27).
+
+3. **Blind musts 1 and 2:** faithfully applied. Against the set-aside bundle:
+   - Existing measurement records are unchanged.
+   - Only the notes and source manifest change.
+   - Two sources are added: `record-diff.mjs.txt` and `records-b1-a1.txt`.
+   - All **921 source-manifest hashes** match their bundled files; available original source files also match.
+   
+   The table now correctly distinguishes outcomes from raw records, names all five other instruments’ differences, explains the median convention, reports seven scrollbar columns, and distinguishes text-span height from laid-out row height. My raw-record counts and load calculations agree with these corrections. See [the corrected notes](/Users/uazjob/UoN-Video-Helper-side/vh234/reviews/2026-10-25/design-pass-3/evidence/measurements/vh234-format-type-2026-11-09.md:61).
+
+4. **Evidence copies:** naming, headings and added headers follow the precedent. Both Codex answers are **byte-identical to their original answers**, saved as `.md.txt`. No absolute Markdown link occurs in the candidate’s linted evidence files. I did not read the prohibited external Claude originals, so their copy provenance rests on the permitted evidence, rather than an independent original-to-copy comparison.
+
+5. **Gate and freeze:** green and matching. [Gate 1](/Users/uazjob/UoN-Video-Helper-side/vh234-walk/gate-1.out) records exit 0 under the lock, 88 passing test files and 1,742 passing tests, with peak sampled load 5.13. There is **one inherited EBU skip**, not a newly skipped or deleted test. My fresh `node tools/check.mjs` returned zero failures and the same missing-sample warning. HEAD is the specified base; tracked diff and status match the freeze byte-for-byte; **all 932 frozen untracked hashes match**.
+
+**Musts:** None beyond the explicitly reserved owner answer and its promised recording/re-check before commit.
+
+**Shoulds:** Correct the compare’s approximate “opened … at 03:3xZ” chronology: the corrected table and compare have modification times around 03:21Z. This does not undermine the measurements, but the stated time is inconsistent. The earlier optional test-pattern robustness point remains non-blocking.
+
+**Notes:** The ledger’s “no timing reading is compared” is less precise than the corrected table: motion observation durations do differ. Read it as “no conclusion rests on a timing comparison.” The decision already acknowledges those raw-record differences.

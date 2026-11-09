@@ -1,0 +1,117 @@
+**Commit after the musts below.**
+
+The CSS remedy is sound. I found no product regression. The evidence needs correction before it can support the claimed “nothing else moved”.
+
+I reviewed the specified `src`/`test` candidate; its diff still hashes to `f1db7eff73f12f1e08c5b9e9a6e7a1e49b7ef534`. I wrote nothing. The ledger changed during this review; its close remains outside this verdict, as requested.
+
+**Musts**
+
+1. **Correct the table’s claim that no other instrument or row moved, and that no instrument reads the estimate.** [Table, line 64](/Users/uazjob/UoN-Video-Helper-side/vh234/reviews/2026-10-25/design-pass-3/evidence/measurements/vh234-format-type-2026-11-09.md:64) overstates what `cell-compare.mjs` checks: that script compares instrument **outcomes**, not their complete records.
+
+   My comparison of the 102 raw records found these additional differences:
+
+   | Instrument | Cells | Difference |
+   |---|---:|---|
+   | `contrastText` | 7 | Estimate text/element descriptions change between 20 and 30 seconds; contrast results do not. |
+   | `measure` | 7 | The same estimate changes in element and line text; measured results do not. |
+   | `motion` | 3 | S-143 en-GB w1280 reduced-motion has 1→7 rows and 0→6 exemptions: six instantaneous transitions. S-141 and S-142 have different observation durations. All remain passing. |
+   | `ax` | 36 | Saved-tree hashes differ. Comparing those trees shows node identifiers/references and estimate names changing. |
+   | `focus` | 3 | Focused captures differ by 1, 1 and 2 pixels respectively, maximum channel difference 3. Focus measurements remain identical. |
+
+   The three focus records are `S-142__en-GB__w1280__forced-light`, `S-143__en-GB__w1280__forced-dark`, and `S-143__ms-MY__w1280__forced-dark`, under `b1/runs/` and `a1/runs/`. These are separate from Part C’s 195 images.
+
+   Record these qualifications and distinguish unchanged outcomes from unchanged records. No CSS change or wholesale re-walk is indicated by these differences.
+
+2. **Make the smaller numerical descriptions accurate.**
+
+   - The load column uses the **upper middle sample**, not the conventional even-sample median. Label that convention, or use medians **4.30, 4.325 and 3.49** for b1, a1 and s1.
+   - The scrollbar difference occupies **up to 7 pixel columns**, not 6: for example, x=271 through 277 inclusive. The scrollbar-only conclusion is sound.
+   - “The four rows” is inaccurate. There are five promises, and the probe’s `rows` array measures the fourth promise’s **span**, not its laid-out list-item height. Explain the actual row-height evidence below.
+
+   Evidence: [table lines 43–47 and 65](/Users/uazjob/UoN-Video-Helper-side/vh234/reviews/2026-10-25/design-pass-3/evidence/measurements/vh234-format-type-2026-11-09.md:43), the three load logs, `png-b1-a1.jsonl`, and `format-help-c.mjs`.
+
+3. **Complete the explicitly outstanding close conditions:** owner approval of the look, the full gate and structural check, and the later ledger/link/re-read review. The supplied test, TypeScript and ESLint results do not alone establish `npm run check`. Preserve this verdict and re-check the evidence corrections before commit.
+
+**Acceptance criteria**
+
+| Criterion | Finding |
+|---|---|
+| Existing compact-emphasis role | **Met.** All 102 keys reached; 93 `type` failures become passes; nine spacing cases remain passes. |
+| CSS only; no word, element, attribute, token or literal | **Met.** One declaration removed; only the requested test added. |
+| Square, centring, target, gap, open fill, row height and tip placement | **Met**, with the evidence-description correction above. |
+| About and onset help unchanged | **Met.** Neither matches the scoped promise selector; their source and common rules are unchanged. |
+| Test inside VH-205; unchanged “one type set” | **Met in the candidate.** Green according to the supplied test result; I did not rerun that suite. |
+| Scrolled images and labelled sheets | **Met.** 56 states, 80 tiles, 14 sheets. Owner approval remains outstanding. |
+| Before/after walker, revision and grouping | **Met.** Details below. |
+| WCAG and token/document constraints | **Met for the reviewed format control and recorded conditions.** |
+| Gate, close digest names, disposition link and subsequent re-reads | **Close-stage obligations**, reserved for the later check. |
+| Blind candidate check | This review supplies it; evidence corrections require the prescribed follow-up. |
+| One-worker sizing; no broader remedy | **No scope expansion found.** Actual effort against the approximate budget is not established by these records. |
+
+**The rule**
+
+Deleting the declaration is the smallest sound remedy. [The scoped rule](/Users/uazjob/UoN-Video-Helper-side/vh234/src/styles/app.css:1199) continues to control geometry, while [compact emphasis](/Users/uazjob/UoN-Video-Helper-side/vh234/src/styles/app.css:1875) supplies **0.875rem / 1.5 / 600**: 14/21/600 at a 16 px root, 28/42/600 at 32 px.
+
+The earlier `.button` supporting role also declares body line height, but compact emphasis wins the cascade and supplies the final triplet. No open-state rule, forced-colours rule or relevant media query overrides its font or line height. Text-spacing emulation deliberately overrides spacing; the walker consequently excludes line height from role matching in those nine cases.
+
+The glyph remains centred by the fixed square and flex alignment. Increasing the anonymous text line box’s leading does not move its centred ink. The 20 px and 40 px squares and the Part C pixels support that reading.
+
+The **laid-out fourth promise** remains 24 px high at the default root and 48 px at the doubled root. This is recoverable from every w1280 closed-state capture: its unclipped height is respectively 72 or 96 px, including the script’s 24 px padding above and below. By contrast, `rows: [24,24,24,17,24]` measures the fourth text span’s 17 px rectangle; it is not a 17 px promise row.
+
+**Nothing else moves**
+
+All **243 route (1) records are byte-identical** before and after. That covers the recorded boxes, target hits, gaps, colours, contrasts, tip placement, overflow and clip geometry.
+
+I independently decoded and compared the 195 image pairs:
+
+- **179 pixel-identical**.
+- **16 differing only at the overlay scrollbar**, maximum channel difference 28.
+- No change to the format glyph, words or tip in those images.
+
+Thus the table’s substantive Part C interpretation is correct. Its broader statement about every instrument record is not; the musts identify the exceptions.
+
+**Evidence and coverage**
+
+The before’s base check records the app paths equal to `a28086f` before launch. The before conditions record the empty diff hash; the after records the specified candidate. Editing the test during b1 does not change the served app.
+
+The records confirm:
+
+- Walker revision `7db38f355f3c46c2` throughout.
+- S-141 ×39, S-142 ×31, S-143 ×31, S-144 ×1 on each side.
+- Three grouped runs of **12, 21 and 31**, plus **38 singleton runs** per side.
+- Those keys and groups match VH-203’s historical outcomes exactly; its 93 failures and nine passes are cited as history, not substituted for b1.
+- Part C’s capture script is byte-identical to VH-203’s.
+- All **919 bundled source hashes** match their recorded files.
+
+Power is AC throughout, with no reported power-mode value. Peaks and threshold counts are correctly reported: b1 **7.80, 0/42**; a1 **8.08, 1/42**; s1 **3.94, 0/4**. The a1 sample is at 02:48:35. The typography/layout conclusion does not depend on a performance-duration comparison. Motion observation durations nevertheless exist and vary, so the wording should acknowledge them.
+
+The seven differing `reached` records do differ only in the estimate sentence. The explanation is reasonable; “no instrument reads it” is false because `contrastText` and `measure` include it.
+
+For scrolling, I matched the original **52 clipped states** to `targets-52.txt`, and all **56 requested states** to s1. Every tile reports the named state, correct root font and open title panel. All regions are covered whole; the script uses viewport-limited captures with `captureBeyondViewport: false`. The four additions are zh-Hans w320, 16 px, focused in all four modes. Coverage is not reduced.
+
+**WCAG and Carbon**
+
+For the format “?” in the recorded conditions:
+
+| Rule | Judgment |
+|---|---|
+| 1.3.2 Meaningful Sequence | Pass: DOM order and contextual placement unchanged; keyboard behaviour remains passing. |
+| 1.4.4 Resize Text | Pass in the doubled-root tests; 40 px square and 48 px promise row preserved. |
+| 1.4.10 Reflow | Pass in the recorded narrow/proxy views; overflow passes in all 102 cells. Browser zoom proxies remain proxies. |
+| 1.4.11 Non-text Contrast | Pass: identifying border/fill and focus readings retain sufficient contrast. |
+| 1.4.12 Text Spacing | Pass in the spacing cases; no new loss or overflow. |
+| 2.4.7 Focus Visible | Pass in all 102 focus records. |
+| 2.4.13 Focus Appearance | Pass: smallest recorded area margin is **64 px²** above the required perimeter area. |
+| 2.5.5 / 2.5.8 Target Size | Pass: the 44×44 pseudo-element target remains; route readings hit **484/484** sampled points throughout. |
+
+Carbon’s **“Tokens, not literals”** and the project’s **eight-role type set** are satisfied. The change restores an existing role without adding a token or collapsing the token systems.
+
+**Shoulds**
+
+The new [test](/Users/uazjob/UoN-Video-Helper-side/vh234/test/stylesheet.test.ts:294) correctly catches the original defect and a scoped `font` shorthand, and sits in the required describe. The existing VH-166 test supplies the size/weight/role checks unchanged.
+
+Its source matching is mildly brittle: `line-height :` or `font :` with whitespace before the colon could evade the negative expressions, and the helper reads the first matching block. Consider whitespace-tolerant property matching when maintaining this test. This is not a blocker for the current declaration deletion; the browser evidence supplies the computed-cascade and layout verification that this source test cannot.
+
+**Notes**
+
+No further product change is recommended. Keep the owner’s look approval distinct from these technical findings, and correct the evidence without claiming that all raw records or all matrix images were identical.
