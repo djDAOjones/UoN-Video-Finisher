@@ -39,7 +39,6 @@ The public release on Xerte (PLAN-6) is VH-204's cut.
 
 - [ ] VH-233 — The accessibility statement link's focus ring whole at 2.4.13 when it wraps, CSS only on the existing tokens — since 2026-11-08 — (from: VH-203, 2026-11-08)
 - [ ] VH-234 — The format "?"'s text back on an existing type role, CSS only, no word or element; its look: the scrolled shots of the 52 clipped captures sent to the owner, who approves the look or names a change — since 2026-11-08 — (from: VH-203, 2026-11-08)
-- [ ] VH-235 — The problem report's Copy result shown only in the opening that started it — since 2026-11-08 — (from: VH-203, 2026-11-08)
 - [ ] VH-236 — "You can still set the times" dropped when step 1 refuses a file, removing words only — since 2026-11-08 — (from: VH-203, 2026-11-08)
 - [ ] VH-195 — Phase 8 closes — since 2026-10-24 — blocked: VH-233 to VH-236
 - [ ] VH-204 — The release cut for Xerte — since 2026-10-25 — blocked: VH-195

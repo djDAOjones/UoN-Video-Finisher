@@ -272,7 +272,11 @@ describe('revealStatus', () => {
   })
 
   // Copy's result is written when the clipboard answers, which may be after
-  // the dialogue has changed. Each outcome is recorded here (VH-232.2).
+  // the dialogue has changed. VH-232 recorded each outcome here (VH-232.2).
+  // Since VH-235, main.ts writes a result only into the opening that pressed
+  // Copy (`feedback-opening.ts`, tested there), so after Close, Escape or a
+  // reopen no late text reaches the reveal: the titles below are VH-232's
+  // record, and each case is the reveal given such a text, as VH-232 left it.
   describe("Copy's delayed result", () => {
     it('after Close: written to a closed dialogue, nothing scrolls', () => {
       const { dialog, status, calls } = scene()
@@ -290,10 +294,12 @@ describe('revealStatus', () => {
     })
 
     it('after a close and reopen: the late text lands in the new opening and is revealed there, as focus allows', () => {
-      // Recorded outcome: the opening empties the status (nothing moves; the
-      // browser keeps the dialogue's scroll), and a result that answers later
-      // is written into the new opening and revealed there by the same call
-      // main.ts makes, focus on the message field the opening gave it.
+      // Recorded outcome (VH-232): the opening empties the status (nothing
+      // moves; the browser keeps the dialogue's scroll), and a result that
+      // answered later was written into the new opening and revealed there by
+      // the call main.ts made, focus on the message field the opening gave it.
+      // Since VH-235 main.ts drops that result: this is the reveal given a text
+      // in a reopened dialogue.
       const { dialog, status, seen } = scene({ scrollHeight: 702, at: 480, end: 600 })
       const message = control(dialog, 120, 220)
       dialog.open = false

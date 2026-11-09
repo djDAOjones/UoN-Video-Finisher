@@ -1,0 +1,38 @@
+195329684d1304867adc00ef110999d31299065d  b1.conditions.txt  ./b1/conditions.txt
+82da6df70cd784d2ee9e90506a1ab9a33f14cc61  b1.load.log.txt  ./b1.load.log
+f32c1b7c3f03d2b4b297db8be5f83cbd15d12a69  b1.launcher.log.txt  ./b1.launcher.log
+5f756ec41efbc6ef483e775ead244c67cbeaa31b  b1.vh235-keys.manifest.json  ./b1/runs/vh235-keys-2026-11-09T00-20-41-335Z-3b112c/manifest.json
+9708cd2776f2da19a234eebc111d2839653ded2a  b1.vh235-keys.run.json  ./b1/runs/vh235-keys-2026-11-09T00-20-41-335Z-3b112c/run.json
+9607920a1f5afdd23585b2a8fbe9217246c27ee9  b1.outcomes.jsonl  written from b1/runs
+40ab83480d4c437dd1f3063c6d632e97c11061b5  a1.conditions.txt  ./a1/conditions.txt
+80a3f5d6a5072380e2da55b4bc1dab5d8c1599db  a1.load.log.txt  ./a1.load.log
+1bc961de8692e1907f608c62d8c04bebe46858c1  a1.launcher.log.txt  ./a1.launcher.log
+98a7840ecbd74c0616ab2d166edffc966179173b  a1.vh235-keys.manifest.json  ./a1/runs/vh235-keys-2026-11-09T00-40-49-482Z-74c60c/manifest.json
+de60611b76ff192bdb03a4acee0cc5063bd16ae7  a1.vh235-keys.run.json  ./a1/runs/vh235-keys-2026-11-09T00-40-49-482Z-74c60c/run.json
+9f7ed406d168f9ca7ac4851816f6eac9164f18af  a1.outcomes.jsonl  written from a1/runs
+82739f5dee90f8a61e51357c28a35a184087135d  b2.conditions.txt  ./b2/conditions.txt
+dec100f8aabceaf42a6536f18c2f63cf8c5de6f9  b2.load.log.txt  ./b2.load.log
+717ec263ab0acd8ecda3aa5098f53949e48923e9  b2.launcher.log.txt  ./b2.launcher.log
+59662750f3d504719a13028e6440fb41a3630b52  b2.vh235-keys.manifest.json  ./b2/runs/vh235-keys-2026-11-09T00-59-21-682Z-d34c28/manifest.json
+f2f150469328e2192f9f4d21b242f669e0c3cbc1  b2.vh235-keys.run.json  ./b2/runs/vh235-keys-2026-11-09T00-59-21-682Z-d34c28/run.json
+29e61ac588d8a4e275674dc3a229775018fd7d0f  b2.outcomes.jsonl  written from b2/runs
+94ee4c070d33ba5a827e0f0e37f660c160b9a90b  a2.conditions.txt  ./a2/conditions.txt
+8f8fdae85f8b9ce2f4f0984c494429dd0ad7f9c8  a2.load.log.txt  ./a2.load.log
+2e5831a59f5dc7f97627c7ce28484a8be2601811  a2.launcher.log.txt  ./a2.launcher.log
+0b902b20bce2049b52a7cfece2af8aa8443168fb  a2.vh235-keys.manifest.json  ./a2/runs/vh235-keys-2026-11-09T01-01-26-909Z-31f3da/manifest.json
+106c0572b65f6c8cba1e5c5825cb00d38233a6fc  a2.vh235-keys.run.json  ./a2/runs/vh235-keys-2026-11-09T01-01-26-909Z-31f3da/run.json
+18f813dd1cad517031c80329cbccfa39856e520d  a2.outcomes.jsonl  written from a2/runs
+e41045a4be15f8e9345ca4f7200e3851accecb97  keys.mjs  ./keys.mjs
+cb4be7e3c4345d32c5a63ce9d8ca4c8786d80464  mx.mjs  ./mx.mjs
+21b85ae6f35a0e0782269f3189e62d80d2b9c783  late.mjs  ./late.mjs
+09bd4df7a7870e255f73b413b555153728f7f40f  late-sum.mjs  ./late-sum.mjs
+b942d85c4c3da304b544e2bb40fa71f0ec8779b8  late-b1-a1.txt  ./late-b1-a1.txt
+5d30ead4c9b01c47ca105d799e305c3f383b9b5e  late-b1.jsonl  ./late-b1.jsonl
+88cd37f34769bc15b4d4c41e7fac59113b7ade5f  late-a1.jsonl  ./late-a1.jsonl
+d0959104a60bc26011569d76937b25d3f956c969  go.sh  ./go.sh
+5d3fff583a582b19a4bf6ce73ee85bca977d5bfe  walk.sh  ./walk.sh
+ea8f563e40d4893b9457e5b4dd349be9feaef2c9  mx78.mjs  ./mx78.mjs
+673450072024e4b25d4d22c1bbbac58c9a001062  raw78.mjs  ./raw78.mjs
+a37917feaf891bfb1c845abd220b71cb829b6d77  raw78-sum.txt  ./raw78-sum.txt
+fe9203451770e75559ee150bfb7ee9d6a2cba498  table-1page.mjs  .//table-1page.mjs
+9cb6d5fc0bde7d5c6a926f7a305750900596848f  vh235-table-notes-r1.md.txt  .//vh235-table-notes-r1.md.txt

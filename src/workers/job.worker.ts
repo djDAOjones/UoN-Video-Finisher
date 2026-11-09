@@ -25,6 +25,7 @@ import {
   type AudioWarning,
 } from '../audio/warnings'
 import type { BrandingChoice } from '../config/branding'
+import { MADE_LENGTH_LOG_ROUNDING_SCALE } from '../config/thresholds'
 import { analyseOutputAudio, analyseSourceAudio } from '../media/audio-plan'
 import {
   canEncodeAudio,
@@ -281,7 +282,9 @@ async function handleProcess(
     if (submissionCard && !cardTellsMade(submissionCard.text.runningTime, result.madeSeconds)) {
       log.warn('worker', 'the card would misstate the length made', {
         madeSeconds:
-          result.madeSeconds === null ? null : Math.round(result.madeSeconds * 1000) / 1000,
+          result.madeSeconds === null
+            ? null
+            : Math.round(result.madeSeconds * MADE_LENGTH_LOG_ROUNDING_SCALE) / MADE_LENGTH_LOG_ROUNDING_SCALE,
       })
       throw new JobFailureError('unknown', 'The submission card differs from the length made')
     }

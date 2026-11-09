@@ -1,0 +1,114 @@
+**Verdict: Commit after the musts below.**
+
+The implementation is sound. The blocking finding is in the evidence: **all 12 S-78k cells have readings outside the expected changes**, triggering the agreed low-load re-walk rule. No product-code repair is indicated by my reading.
+
+I wrote no files. The source diff still matches `867c8580445d3bd9`, and all three new source-file hashes match the brief. Closeout ledger files changed during this review; the structural-check result below is a snapshot of that ongoing work.
+
+**Musts**
+
+1. **Re-walk S-78k’s 12 cells on both sides at low load, and report the differences.** Every before record says approximately one minute; after, en-GB/w1280 says 30 seconds and the other eleven say 20 seconds, in their respective languages. These changes appear in `reached.seen.status` and `reachedAfter.seen.status`; several text widths and line measurements change too.
+
+   Example: `S-78k__en-GB__w375__light.json` changes “about 1 minute” to “about 20 seconds”, with the measured line width changing **202 → 220 px**. Evidence: [before records](/Users/uazjob/UoN-Video-Helper-side/vh235-walk/b1/runs/vh235-keys-2026-11-09T00-20-41-335Z-3b112c) and [after records](/Users/uazjob/UoN-Video-Helper-side/vh235-walk/a1/runs/vh235-keys-2026-11-09T00-40-49-482Z-74c60c).
+
+   The table compares instrument **outcomes** and assertion outcomes, which remain equal. It does not establish that every reading is unchanged. Correct “nothing moved” and “no cell moved outside the expected moves” in the [table, lines 33–41](/Users/uazjob/UoN-Video-Helper-side/vh235/reviews/2026-10-25/design-pass-3/evidence/measurements/vh235-copy-opening-2026-11-09.md:33). Preserve b1 under the settled ruling; add the required re-walk evidence.
+
+2. **Make the evidence wording precise.**
+   
+   - Conventional load medians are **23.35 before, 3.42 after**. The reported 24.68 and 3.49 are the upper-middle samples selected by `nums[Math.floor(nums.length / 2)]`. Correct them or explicitly label that convention.
+   - Replace “a result announced only…” with a claim about **programmatic live-region exposure**. These records do not establish speech, nor prove that a closed-dialog result was unheard. The table already acknowledges that no speech reading was made. [Table, lines 28–29 and 44–47](/Users/uazjob/UoN-Video-Helper-side/vh235/reviews/2026-10-25/design-pass-3/evidence/measurements/vh235-copy-opening-2026-11-09.md:28).
+
+3. **Finish and verify the close against the final record.** `npm run check` remains required on a settled machine, followed by `node tools/check.mjs`. My structural-check invocation encountered:
+   
+   - trajectory slice: **308 words against 300**;
+   - missing/invalid `Supersedes` in the new VH-235 decision;
+   - unresolved `Deferred` target `VH-235.1`;
+   - warnings concerning retirement traces, wish-ID reuse, decision budget and the existing missing sample.
+
+   These were observed while another writer was updating the ledger; they are not necessarily its final state. Resolve the failures and review the warnings before close. Keep the disposition link, retirement traces, digest rules, final verdict and required commit verification lines consistent with the repaired evidence.
+
+**Acceptance criteria**
+
+| Criterion in VH-235.md | Reading |
+|---|---|
+| Result belongs to the opening that started it; failure still logged | **Met.** Combined token/open guard and unconditional failure warning. Source and all 18 late records agree. |
+| Same-opening result and focus-moved case preserved | **Met.** Both unit outcomes, S-80a/b and the six focus-moved route cases support it. |
+| Empty opening, reveal, live region, focus and scope unchanged | **Met.** See details below. |
+| Small guard/helper; no new production numeric literal outside config | **Met.** The helper implements exactly the settled design. |
+| Required tests; reveal tests retained; feedback tests intact | **Met**, with optional coverage improvements below. |
+| VH-203.4 constant, both uses, test, excluded conversion | **Met in source.** Follow-up must remain valid in the completed ledger. |
+| Qualified late route outside unchanged walker | **Met.** Installation, held invocation and qualification are recorded. |
+| Before/after matrix and late-route coverage | **Counts and coverage met; evidence acceptance incomplete** pending Must 1. |
+| WCAG re-check | Supported to the code/DOM/AX extent described below; speech unverified. |
+| UI-STANDARDS and `docs/` unchanged | **Met.** |
+| Gate and structural check | **Not yet satisfied by this review snapshot.** |
+| Blind check and repair/re-check before commit | This verdict supplies the check; the musts need follow-up review. |
+| Disposition linkage | Initially absent; edited during review. Verify the final row names VH-235 and its evidence. |
+| Re-reads after landing | Future obligation, not completed here. Name S-80a/b and the other Copy-pressing checks when assigned by the orchestrator. |
+| Sized scope; no words/elements/rearrangement/other caller | **Met.** |
+
+**The guard and handler**
+
+[feedback-opening.ts:37](/Users/uazjob/UoN-Video-Helper-side/vh235/src/ui/feedback-opening.ts:37) and [main.ts:3732](/Users/uazjob/UoN-Video-Helper-side/vh235/src/main.ts:3732) satisfy each requested boundary:
+
+- **Close and native Escape:** `dialog.open` becomes false, so settlement writes nothing.
+- **Between `close()` and the queued `close` event:** already blocked by `open`; no event listener is needed.
+- **Close/reopen, including before an old close event:** `begin()` replaces the symbol synchronously. Old captures fail; the later close event has no invalidation handler that could damage the new opening.
+- **Capture before the first opening:** `mine !== null` rejects it, including after a later `begin()`.
+- **Two Copies in one opening:** both remain eligible and write in settlement order. This deliberately preserves existing behaviour.
+- **`showModal()` throws:** `begin()` is not reached. No fictitious opening is created. The preceding status/error clearing and thrown exception remain as before.
+- **Language changes:** an accepted status retains its translation thunk. Repainting while open uses the existing reveal; repainting while closed updates text without scrolling. The next opening replaces it with empty status. A dropped result never registers a thunk, so language changes cannot resurrect it. Any previously accepted status remains governed by the existing repaint behaviour.
+
+[settleCopy:70](/Users/uazjob/UoN-Video-Helper-side/vh235/src/ui/feedback-opening.ts:70) preserves the original try/catch:
+
+- A synchronous clipboard-call throw is caught.
+- A throw from the success write enters the failure branch.
+- Failure logging happens **before** the guard and failure write, even for stale results.
+- The predicate is checked at settlement; it is checked again in the failure branch if the success write threw.
+- Ordinary clipboard rejection is handled. A throw from `warn` or the failure writer can still reject the discarded promise, just as in the base handler; this change does not introduce that behaviour.
+- `feedbackText(message, feedbackLines)` executes synchronously when `settleCopy` invokes `copy()`, before its first suspension. The current details are read at the same event-handler stage as before, not at settlement.
+
+**Nothing else moves**
+
+[main.ts:3674](/Users/uazjob/UoN-Video-Helper-side/vh235/src/main.ts:3674) still writes through `textContent` and calls the unchanged VH-232 reveal. Each opening still calls `setFeedbackStatus('')`.
+
+[index.html:907](/Users/uazjob/UoN-Video-Helper-side/vh235/index.html:907) retains the same `p.status`, `role="status"` and `aria-live="polite"`. No node replacement, new focus call or independent scrolling was introduced. No user-facing string, element, CSS or `docs/` line changes. Outside the feedback block, `main.ts` changes only its import.
+
+**Evidence**
+
+The late-route claims hold against the raw JSONL, not merely its summary:
+
+- **Before:** all 18 late cases write success/failure text into the closed or reopened dialog. Close/Escape cases reopen empty.
+- **After:** all 18 retain empty status through settlement; Close/Escape cases reopen empty. Each failure has exactly one recorded warning; successes have none.
+- **Six focus-moved cases:** unchanged. Focus remains on `#feedback-message`; at 320 px the scroll readings are **83→252**, **59→237**, **107→276**, respectively.
+- **Qualification:** all twelve cells per side are present. Real F5 granted/denied outcomes match stand-in text in full and warning counts. The recorded warning strings also match, though their structured reason objects are flattened to `Object`.
+- The stand-in is installed after setup and before Copy. Every stand-in case records one invocation, an unsettled promise and empty text before settlement. Each case has a fresh page/context.
+- The late comparison has only the expected 18 text changes and six reopened-dialog height changes. No unexpected late-route field changes.
+- Source-list hashes match the bundled files; copied records/drivers match their external originals.
+
+The snapshots alone are not a mutation trace proving zero intermediate writes. Here the snapshots, controlled settlement and inspected production guard jointly support “nothing written”; do not describe the late JSONL as a mutation-observer record.
+
+All **45 matrix keys per side** are present and reached: S-80a/b/78k twelve each, S-76 nine. Outcomes and assertion rows are unchanged, including existing `cannot-determine` outcomes. **Raw readings are not all unchanged**, as Must 1 explains.
+
+Power/load records support AC throughout, no reported powermode, **14/16 ≥8 before**, peak **36.91**, and **0/14 ≥8 after**, peak **4.92**. After starts at **3.19/4.44** for the one-/five-minute averages. The late-result conclusion is not a latency measurement. However, S-78k’s changed estimate is derived from timed preflight work; the blanket suggestion that timing has no bearing on any compared reading is too broad.
+
+No prescribed scenario, language, width or mode was omitted. The late route has the required **24 cases plus 12 qualification cases**. VH-232 is cited, not paired.
+
+**WCAG and Nielsen**
+
+- **2.1.1:** no keyboard-operability regression in source; native buttons and Escape remain. The route actually uses Escape, but Copy/Close/reopen activation there is by pointer—not a full keyboard-only walkthrough.
+- **2.4.3:** no focus-taking change; recorded focus remains consistent. This supports preservation, not a fresh exhaustive proof of every focus sequence.
+- **3.2.1 / 3.2.2:** no new focus/input-triggered context change. Suppressing stale status is appropriate, though changing status text alone should not automatically be called a WCAG “change of context”.
+- **4.1.3:** the existing programmatic status mechanism is preserved for accepted outcomes, with stale outcomes excluded upstream.
+- **Nielsen, “status visible and announced”:** relevant same-opening feedback and VH-232’s reveal are preserved. AX exposure is supported; actual spoken announcement remains a person’s reading.
+
+**Tests, shoulds and notes**
+
+The 15 helper tests cover both same-opening outcomes, all six late outcomes, overlapping Copies, settlement before Close, fresh versus stale Copies after reopening, pre-opening capture, synchronous clipboard failure, success-writer failure and delayed predicate evaluation. The two constant tests pin value, arithmetic and worker use. `feedback.test.ts` is unchanged.
+
+**Shoulds:** add focused regressions for warning-before-guard ordering and language repaint after accepted/dropped results. Explicit integration coverage for `begin()` after successful `showModal()` would also protect the wiring. These are coverage improvements, not evidence of incorrect implementation.
+
+The reveal-test titles remain historical descriptions, explicitly qualified by the new comments at [reveal-status.test.ts:274](/Users/uazjob/UoN-Video-Helper-side/vh235/src/ui/reveal-status.test.ts:274). Read with those comments, they no longer claim current Copy behaviour. The comment-only edit is sufficient under the item’s constraint; no assertion was weakened or skipped.
+
+`MADE_LENGTH_LOG_ROUNDING_SCALE` is correctly placed and documented at [thresholds.ts:108](/Users/uazjob/UoN-Video-Helper-side/vh235/src/config/thresholds.ts:108), imported by the worker and used for both operands. Value, null handling and arithmetic order are unchanged. The named house rule is met for this item’s expression. The separate `wallSeconds / 1000` remains outside this item by the settled scope: it needs the valid follow-up record, **not another code change here**.
+
+I did not rerun Vitest, TypeScript or ESLint; their supplied results remain reported evidence. I did run the structural checker, with the in-progress failures stated above.

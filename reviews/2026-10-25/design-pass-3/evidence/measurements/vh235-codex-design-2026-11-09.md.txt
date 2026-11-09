@@ -1,0 +1,42 @@
+1. **Guard — use an opening token plus `dialog.open`.** Capture the token before starting `writeText`; immediately before either status write require `dialog.open && captured === current`. Replace the token synchronously on each successful opening, before any Copy can start. Use `Symbol()`, with `null` before the first opening: no numeric literals or counter configuration.
+
+   `open` alone fails after reopening; token equality alone permits writes while closed. Together they cover Close, native Escape, and settlement between synchronous closure and the queued `close` event. No invalidation listener is needed; an unconditional queued `close` listener could wrongly invalidate a newer opening.
+
+   The source has one opening function, two callers, and one explicit close handler; the form neither uses `method="dialog"` nor closes on submission. Evidence: `src/main.ts:3729`, `:3786`, `:3807`, `:3823`; `index.html:870`.
+
+2. **Location — a narrowly scoped, tested helper.** Choose `src/ui/feedback-opening.ts`, exporting `createFeedbackOpening(dialog: { readonly open: boolean })`, returning `begin(): void` and `capture(): () => boolean`. Its closure owns the token; `begin` replaces it; `capture` returns the combined predicate. Instantiate once in the feedback block, call `begin` immediately after successful `showModal()`, capture after message validation and before the asynchronous operation. Guard only the two result writes.
+
+   This gives the required lifecycle tests production logic to exercise, without creating a general asynchronous-operation framework. Test held promises for all six late outcomes and both same-opening outcomes; include closure before the `close` event, reopen before that event, and overlapping Copies. Assert rejected results cannot call the status writer; separately pin main’s integration if using source-level tests. Keep `feedback.test.ts` intact.
+
+   Evidence: `project/items/VH-235.md:11–12`; `src/main.ts:3810`; `project/digests/house-conventions.md:79`, `:121`. Imports belong at the top, despite the behavioural edit staying inside the feedback block (`project/rules.md:20`).
+
+3. **Failure logging — retain it unconditionally.** Log before checking the predicate in the failure branch. Closing a dialog makes its result irrelevant to that opening; it does not undo a clipboard failure or remove its diagnostic value. Preserve the existing reason conversion, without adding report text to the log. This is explicit acceptance, not a design option: `project/items/VH-235.md:9`; existing implementation `src/main.ts:3815`.
+
+4. **Reveal tests — keep assertions; correct their claimed scope.** These tests directly provide text to `revealStatus`; they do not exercise Copy’s production lifecycle. After the fix, the introduction at `src/ui/reveal-status.test.ts:274`, titles at `:277`, `:284`, `:292`, `:308`, and recorded-outcome comment at `:293` misleadingly describe current application behaviour.
+
+   Least edit: retain “Copy’s delayed result” and all test bodies/assertions, but explain that these are reveal-only stand-ins with already-written text, formerly reachable through late Copy; VH-235 now prevents that write upstream. Rename cases accordingly: “given text in a closed dialogue…” and “given text after reopening…”. Remove the claim that main still makes that late call. Same-opening focus tests at `:323` and `:337` remain valid. Add the actual lifecycle regression tests beside the new guard.
+
+5. **Worker constant — use `MADE_LENGTH_LOG_ROUNDING_SCALE` in `src/config/diagnostics.ts`, value `1000`.** Document that it preserves the existing millisecond precision of logged seconds. Replace both operands in the rounding expression, preserving its null branch and arithmetic order. Test the exported value, then inspect the worker source to pin its import and both uses specifically in the release-guard `madeSeconds` expression; merely finding the identifier somewhere is insufficient. Evidence: `src/workers/job.worker.ts:278–286`; `project/items/VH-235.md:13`.
+
+   **The separate `/ 1000` remains unchanged in this item.** The owner’s identified literal is the release-guard rounding scale, not `wallSeconds` (`project/wish-list.md:91`). However, the broad house rule does reach the conversion literal (`project/rules.md:18`). The item expressly excludes it, so record that scope decision and a concrete follow-up instead of declaring it compliant or silently expanding VH-235. Evidence: `src/workers/job.worker.ts:574`; `project/items/VH-235.md:13`.
+
+6. **Walk — sound, provided the instrument proves its own reach.** Keep the existing 45 cells per side and the separate 24-route matrix. S-76 checks empty opening; S-78k checks retained state after reopening; S-80a/b exercise ordinary successful/failed Copy. Evidence: `reviews/2026-10-25/design-pass-3/evidence/measurements/walker/scenarios.mjs:963`, `:984`, `:1013`, `:1020`; `project/items/VH-235.md:16–18`.
+
+   Install the deferred `writeText` stand-in through CDP before clicking, after any navigation/setup that would erase it. Confirm invocation and pending state before dismissal; use actual Close and native Escape. Settle only after recording the intended state.
+
+   Read raw `textContent` even while closed—not visibility-filtered text. Record status mutations through settlement, `open`, scroll position, active element, and live-region attributes. Before: prove late text is written, including into the reopened dialog. After: prove no result mutation, reveal scroll, or focus change occurs. Compare against the immediately pre-settlement state, since closing itself can move focus.
+
+   Qualify with held, resolved and rejected controls, observed base failures, successful same-opening controls, clean restoration between cases, and recorded build/walker identities. No walker file changes. DOM/ARIA readings do not prove spoken announcement; that remains a person’s check (`project/items/VH-235.md:20`).
+
+7. **Other behaviour — preserve it explicitly.** Guard the call to `setFeedbackStatus`, not its registered paint callback. This prevents stale results registering future language repaints while preserving translation of accepted statuses, including repaint while closed without scrolling. Each opening still installs the empty status. Same-opening results still use the existing reveal and current focus; repeated Copies remain eligible within one opening, settling in their existing order. Do not introduce “latest Copy wins”.
+
+   Keep the native live region, focus handling, worker-log gathering and email statuses unchanged. Evidence: `src/main.ts:3671`, `:3730`, `:3744`, `:3794`, `:3802`; `src/ui/reveal-status.ts:109`; `index.html:907`.
+
+Required plan amendments:
+
+- Specify the token-plus-open helper and lifecycle/integration tests.
+- Clarify reveal-test descriptions without weakening assertions.
+- Record the excluded conversion literal as follow-up work.
+- Specify route qualification and mutation evidence.
+
+**Build as designed below** — the design specified in points 1–7.

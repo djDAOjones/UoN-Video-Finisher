@@ -1,0 +1,16 @@
+00:20:35 load 5.62 6.41 5.75 AC Power  pm
+00:21:05 load 5.16 6.23 5.70 AC Power  pm
+00:21:35 load 9.22 7.06 6.02 AC Power  pm
+00:22:06 load 14.42 8.52 6.58 AC Power  pm
+00:22:36 load 22.02 10.95 7.53 AC Power  pm
+00:23:06 load 27.78 13.26 8.48 AC Power  pm
+00:23:36 load 28.20 14.72 9.17 AC Power  pm
+00:24:06 load 34.83 17.58 10.40 AC Power  pm
+00:24:37 load 34.68 19.29 11.27 AC Power  pm
+00:25:07 load 34.43 20.74 12.07 AC Power  pm
+00:25:37 load 35.51 22.29 12.94 AC Power  pm
+00:26:07 load 36.91 23.86 13.83 AC Power  pm
+00:26:37 load 24.68 22.17 13.56 AC Power  pm
+00:27:07 load 16.23 20.35 13.20 AC Power  pm
+00:27:37 load 10.60 18.59 12.81 AC Power  pm
+00:28:07 load 8.77 17.36 12.56 AC Power  pm

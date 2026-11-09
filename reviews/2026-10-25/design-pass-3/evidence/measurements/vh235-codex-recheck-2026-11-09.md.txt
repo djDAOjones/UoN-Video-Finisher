@@ -1,0 +1,45 @@
+**Verdict: Commit.**
+
+The repairs satisfy my earlier musts within this re-check’s scope. The close gate and insertion of this verdict remain the orchestrator’s scheduled close steps. I wrote no files.
+
+**Musts**
+
+None new.
+
+**Shoulds**
+
+None new. The two declined coverage suggestions remain optional; nothing added changes my earlier assessment.
+
+**Notes and evidence**
+
+1. **Must 1 — repaired.** `b2` and `a2` exist as described, with all 12 requested keys present and reached, at walker revision `7db38f355f3c46c2`. Their recorded intervals match the brief. Both ran on AC, with no powermode reported; peak one-minute loads were **4.49** and **5.04**, with no sample at or above 8.
+
+   The run provenance records an empty source diff for both before groups and the same candidate source fingerprint for both after groups. This supports the stated source separation despite the different whole-checkout hashes. Evidence: [b2 run provenance](/Users/uazjob/UoN-Video-Helper-side/vh235/reviews/2026-10-25/design-pass-3/evidence/measurements/vh235-records-2026-11-09/b2.vh235-keys.run.json) and [a2 run provenance](/Users/uazjob/UoN-Video-Helper-side/vh235/reviews/2026-10-25/design-pass-3/evidence/measurements/vh235-records-2026-11-09/a2.vh235-keys.run.json).
+
+   I reran the read-only reader: **`raw78-sum.txt` reproduces byte for byte**. Its comparison shows:
+   
+   - `b1` → `b2`: estimate text changes in all 12.
+   - `a1` → `a2`: estimate text stays equal; recorded hashes and byte counts vary.
+   - `b2` → `a2`: estimate text is equal in 11; zh-Hans/w375 changes from 30 to 20 seconds. Other differences are the recorded AX/page/mutation hashes and byte counts.
+
+   The [remade table’s notes](/Users/uazjob/UoN-Video-Helper-side/vh235/reviews/2026-10-25/design-pass-3/evidence/measurements/vh235-copy-opening-2026-11-09.md:45) now describe that distinction and explicitly read S-78k from `b2` → `a2`. They state the settled “alike” ruling faithfully without claiming identical raw records.
+
+2. **Must 2 — repaired.** Each requested qualification is present: upper-middle median convention, AX exposure without speech claims, no new change of context, pointer activation versus keyboard Escape, snapshots versus mutation traces, and outcomes/rows versus raw readings.
+
+   I independently calculated the conventional medians: **23.35, 3.42, 3.975 and 3.915**, matching the notes. The late reader’s output also reproduces byte for byte: 18 expected late-result changes, 18 unchanged cells, no unexpected field changes. The retained qualification, focus, scrolling and warning claims agree with the records and inspected handler. I found no additional unsupported substantive claim in the new notes.
+
+   All bundled source-list hashes verify. Existing files shared with the set-aside records remain byte-identical except the expanded `sources.txt`.
+
+3. **Must 3 — repaired; close execution remains pending as instructed.** My invocation of `node tools/check.mjs` reports **0 failures, 1 warning**, solely VH-122’s missing `samples/CULT2011.mp4`.
+
+   The warning explanation is accurate. [check.mjs’s history reader](/Users/uazjob/UoN-Video-Helper-side/vh235/tools/check.mjs:25) includes item files currently on disk; [reusedWishIds](/Users/uazjob/UoN-Video-Helper-side/vh235/tools/ledger.mjs:230) treats a matching token there as prior use. Thus the new item’s own explicit follow-up ID could trigger the warning. I found no earlier allocation in the searched commit messages or wish-list history. Neither checker file was changed.
+
+   The item, decision, trajectory, wish retirement/replacement, Disposition row and table agree. The trajectory’s 81 cells describe the original 45+36 coverage; the table separately accounts for the 12-cell re-walk. The archived VH-202 entry is preserved verbatim. `{RECHECK}` is the explicitly pending insertion, not a completed verdict.
+
+4. **Added test — tests the named order.** The [new test](/Users/uazjob/UoN-Video-Helper-side/vh235/src/ui/feedback-opening.test.ts:192) rejects the held promise, records both callbacks, returns false from the guard, and asserts exactly `['warn', 'here']`. Asking the guard first would produce a different sequence and fail; omitting the warning or writing a result would fail too.
+
+   I attempted the permitted Vitest command, but Vite could not create its temporary configuration file under the read-only sandbox. This run therefore supplies source inspection, **not a fresh test pass**.
+
+5. **Anything added since — no new blocking finding or scope expansion.** The tracked source and whole-diff hashes match the brief. The added test’s hash is `d746a64d`. No new user-facing string, control, element or `docs/` change appears.
+
+At close, retain the named digest rules, insert this verdict, run the prescribed gate and final structural check, and record their results in the commit.

@@ -1,0 +1,42 @@
+late route: b1 → a1
+b1/late.jsonl sha1 5d30ead4c9b01c47ca105d799e305c3f383b9b5e, 36 cells, 36 reached
+a1/late.jsonl sha1 88cd37f34769bc15b4d4c41e7fac59113b7ade5f, 36 cells, 36 reached
+
+Qualification (same opening, w1280 light): the stand-in against the real clipboard under F5, full text and warns
+  b1 en-GB resolved: EQUAL (text "Copied. Paste it into an email to UI-Learning-Content@nottingham.ac.uk."; warns real 0 stand-in 0)
+  b1 en-GB rejected: EQUAL (text "Could not copy. Open “What will be sent with it”, select the details, and copy them with your message."; warns real 1 stand-in 1)
+  b1 zh-Hans resolved: EQUAL (text "已复制。请将其粘贴到发送至UI-Learning-Content@nottingham.ac.uk的电子邮件中。"; warns real 0 stand-in 0)
+  b1 zh-Hans rejected: EQUAL (text "无法复制。请打开“将随邮件发送的内容”，选择详细信息，然后将其复制到您的邮件中。"; warns real 1 stand-in 1)
+  b1 ms-MY resolved: EQUAL (text "Disalin. Tampalkannya ke dalam e-mel ke UI-Learning-Content@nottingham.ac.uk."; warns real 0 stand-in 0)
+  b1 ms-MY rejected: EQUAL (text "Tidak dapat menyalin. Buka “Apa yang akan dihantar bersamanya”, pilih butirannya dan salin butiran tersebut bersama mesej anda."; warns real 1 stand-in 1)
+  a1 en-GB resolved: EQUAL (text "Copied. Paste it into an email to UI-Learning-Content@nottingham.ac.uk."; warns real 0 stand-in 0)
+  a1 en-GB rejected: EQUAL (text "Could not copy. Open “What will be sent with it”, select the details, and copy them with your message."; warns real 1 stand-in 1)
+  a1 zh-Hans resolved: EQUAL (text "已复制。请将其粘贴到发送至UI-Learning-Content@nottingham.ac.uk的电子邮件中。"; warns real 0 stand-in 0)
+  a1 zh-Hans rejected: EQUAL (text "无法复制。请打开“将随邮件发送的内容”，选择详细信息，然后将其复制到您的邮件中。"; warns real 1 stand-in 1)
+  a1 ms-MY resolved: EQUAL (text "Disalin. Tampalkannya ke dalam e-mel ke UI-Learning-Content@nottingham.ac.uk."; warns real 0 stand-in 0)
+  a1 ms-MY rejected: EQUAL (text "Tidak dapat menyalin. Buka “Apa yang akan dihantar bersamanya”, pilih butirannya dan salin butiran tersebut bersama mesej anda."; warns real 1 stand-in 1)
+
+Checks on a1's 18 late cells: after-settle text equal to before-settle text (nothing written); next opening empty (Close, Escape); warns 1 on failure, 0 on success
+  18 of 18 hold
+
+Cell by cell, every field that moved (started excepted)
+  late-en-GB-w1280-close-resolved: afterSettle.text "Copied. Paste it into an email to UI-Learning-Content@nottingham.ac.uk." → ""
+  late-zh-Hans-w1280-close-resolved: afterSettle.text "已复制。请将其粘贴到发送至UI-Learning-Content@nottingham.ac.uk的电子邮件中。" → ""
+  late-ms-MY-w1280-close-resolved: afterSettle.text "Disalin. Tampalkannya ke dalam e-mel ke UI-Learning-Content@nottingham.ac.uk." → ""
+  late-en-GB-w1280-close-rejected: afterSettle.text "Could not copy. Open “What will be sent with it”, select the details, and copy them with your message." → ""
+  late-zh-Hans-w1280-close-rejected: afterSettle.text "无法复制。请打开“将随邮件发送的内容”，选择详细信息，然后将其复制到您的邮件中。" → ""
+  late-ms-MY-w1280-close-rejected: afterSettle.text "Tidak dapat menyalin. Buka “Apa yang akan dihantar bersamanya”, pilih butirannya dan salin butiran tersebut bersama mesej anda." → ""
+  late-en-GB-w1280-escape-resolved: afterSettle.text "Copied. Paste it into an email to UI-Learning-Content@nottingham.ac.uk." → ""
+  late-zh-Hans-w1280-escape-resolved: afterSettle.text "已复制。请将其粘贴到发送至UI-Learning-Content@nottingham.ac.uk的电子邮件中。" → ""
+  late-ms-MY-w1280-escape-resolved: afterSettle.text "Disalin. Tampalkannya ke dalam e-mel ke UI-Learning-Content@nottingham.ac.uk." → ""
+  late-en-GB-w1280-escape-rejected: afterSettle.text "Could not copy. Open “What will be sent with it”, select the details, and copy them with your message." → ""
+  late-zh-Hans-w1280-escape-rejected: afterSettle.text "无法复制。请打开“将随邮件发送的内容”，选择详细信息，然后将其复制到您的邮件中。" → ""
+  late-ms-MY-w1280-escape-rejected: afterSettle.text "Tidak dapat menyalin. Buka “Apa yang akan dihantar bersamanya”, pilih butirannya dan salin butiran tersebut bersama mesej anda." → ""
+  late-en-GB-w1280-reopen-resolved: afterSettle.text "Copied. Paste it into an email to UI-Learning-Content@nottingham.ac.uk." → ""; afterSettle.scrollHeight 581 → 560; afterSettle.clientHeight 581 → 560
+  late-zh-Hans-w1280-reopen-resolved: afterSettle.text "已复制。请将其粘贴到发送至UI-Learning-Content@nottingham.ac.uk的电子邮件中。" → ""; afterSettle.scrollHeight 557 → 536; afterSettle.clientHeight 557 → 536
+  late-ms-MY-w1280-reopen-resolved: afterSettle.text "Disalin. Tampalkannya ke dalam e-mel ke UI-Learning-Content@nottingham.ac.uk." → ""; afterSettle.scrollHeight 581 → 560; afterSettle.clientHeight 581 → 560
+  late-en-GB-w1280-reopen-rejected: afterSettle.text "Could not copy. Open “What will be sent with it”, select the details, and copy them with your message." → ""; afterSettle.scrollHeight 581 → 560; afterSettle.clientHeight 581 → 560
+  late-zh-Hans-w1280-reopen-rejected: afterSettle.text "无法复制。请打开“将随邮件发送的内容”，选择详细信息，然后将其复制到您的邮件中。" → ""; afterSettle.scrollHeight 557 → 536; afterSettle.clientHeight 557 → 536
+  late-ms-MY-w1280-reopen-rejected: afterSettle.text "Tidak dapat menyalin. Buka “Apa yang akan dihantar bersamanya”, pilih butirannya dan salin butiran tersebut bersama mesej anda." → ""; afterSettle.scrollHeight 581 → 560; afterSettle.clientHeight 581 → 560
+
+Summary: 36 cells; 18 unmoved; 18 moved by the expected fields only; 0 with a move not expected

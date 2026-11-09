@@ -57,6 +57,7 @@
 - VH-222 — VH-155.2's, VH-156.1's and VH-158.1's 41 rows that a warning, a failure or a record reaches, read in Chrome on the Mac Pro in three languages and four modes at 1280, 375 and 320 px over three tables: 39 read, one retired with its source, one unreachable (wish VH-222.1); two defects raised as VH-231 (landed, re-read: never "the whole video") and VH-232; S-173 and S-174 for the `Here` refusals at 375 px; no product diff (2026-11-06) — see decisions
 - VH-232 — the feedback dialog's status brought whole into view when it is set, by the least scroll of the dialog alone, the focused control and its ring kept in view; no word or element changed; 365 cells a side walked on the Mac Pro, the matrix's FLAWED 68 to 0 (2026-11-06) — see decisions
 - VH-203 — pass 3's after-run: VH-199's 3,219 records and 48 transitions walked again at one walker revision on the Mac Pro, with the added list, a same-build differential, the format "?" captures and a before at `a3039c3` for every key not passing (93 introduced by VH-205); Claude and Codex astra read pass with points; seven points for the owner, decided by "Yes, all six": fix items VH-233 to VH-236, one exception, VH-175.4 kept; 17 wish lines retired, two answered (2026-11-08) — see decisions
+- VH-235 — the problem report's Copy result written only into the opening that started it, nothing after Close, Escape or a reopen, the failure still logged, no word or element changed; the worker's `1000` in `src/config/`; 81 cells a side on the Mac Pro, all reached (2026-11-09) — see decisions
 
 ## V3 adoption
 

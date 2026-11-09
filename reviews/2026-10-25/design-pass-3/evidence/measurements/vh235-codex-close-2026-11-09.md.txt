@@ -1,0 +1,40 @@
+**Verdict: Commit after the musts below.**
+
+The repository candidate is sound. The two musts concern the commit message draft only. I wrote no files.
+
+**Musts**
+
+1. **Correct the estimate comparison in [the draft, line 7](/Users/uazjob/UoN-Video-Helper-side/vh235-commit-msg.txt:7).** Its parenthetical “b1 to b2, a1 to a2” implies that the displayed estimate changes in both identical-source comparisons. It changes in all twelve b1→b2 cells, but remains equal in all twelve a1→a2 cells; hashes and byte counts vary there. The table and earlier recheck distinguish these correctly. Suggested replacement:
+
+   > The displayed estimate varies between identical-source runs b1→b2; it remains equal in a1→a2, whose recorded hashes and byte counts vary. The b2→a2 comparison is ruled alike by Orchestrator #46.
+
+   I reproduced `raw78-sum.txt` byte for byte.
+
+2. **Shorten the subject and make it imperative.** [House conventions, line 200](/Users/uazjob/UoN-Video-Helper-side/vh235/project/digests/house-conventions.md:200) explicitly requires a “Short imperative subject”. The draft’s first line is a paragraph. For example:
+
+   > VH-235: bind Copy results to their dialog opening
+
+   The body already contains the remaining details.
+
+**Shoulds**
+
+None new.
+
+**Notes — answers to the five questions**
+
+1. **Freeze and checkout: equal.** The freeze contains the complete repository candidate: eleven tracked modifications and all 54 untracked files. The binary diff, status and untracked list match exactly; every copied file matches, and every SHA-1 verifies. HEAD is `73d16f085fc2bda8a76c79263b67d3034262aa78`, branch `side/vh235`, index empty. The gate log’s tracked-diff fingerprint, `40f5d09298201f66`, also matches. The external gate records and commit draft remain separate supporting material, as described in the brief.
+
+2. **Contract rules 4–10: satisfied by the repository close.**
+   - The newest decision has the dated VH-235 heading, Decision, owner-grounded Rationale, `Supersedes: none` and `Deferred: none`. This implements the existing direction; it does not replace it.
+   - VH-235.1 exists as a concrete [wish line](/Users/uazjob/UoN-Video-Helper-side/vh235/project/wish-list.md:90). Its exclusion from this implementation is explicit.
+   - VH-235 is removed from the open backlog, with exactly one new [trajectory line](/Users/uazjob/UoN-Video-Helper-side/vh235/project/trajectory.md:60). VH-232.2 and VH-203.4 are removed from the wish list with retirement traces in the decision, item and draft.
+   - The item’s Now and Notes agree with completion; post-landing re-reads remain explicitly assigned to the orchestrator. The Disposition row links the item and evidence.
+   - VH-202’s archived entry is preserved verbatim; the archive index correctly increases to 137 entries.
+   - The named digest rules are Nielsen status visibility, WCAG 4.1.3 with the other inspected criteria, and the house configuration rule.
+   - My `node tools/check.mjs` run reports **0 failures, 1 warning**, VH-122’s missing sample. No new test skip, deleted test or dependency change appears.
+
+3. **Claims: supported, apart from Must 1.** The guard, unconditional failure logging, unchanged same-opening behaviour, constant extraction and eighteen added tests follow from the source. All 114 matrix records agree with their bundled outcome summaries. The late reader reproduces exactly: eighteen expected changes, eighteen unchanged cells, zero unexpected changes. The 81-per-side count correctly describes the original 45+36 coverage; the twelve-per-side re-walk is additional. Accessibility claims correctly stop at programmatic exposure, without claiming speech or a keyboard-only walk.
+
+4. **Scope: clean.** No user-facing string, element, control, CSS or `docs/` line changes. Product changes are confined to the named seven source/test files. The other changes are the requested ledger, archive, Disposition and evidence files.
+
+5. **No other blocker found.** [Gate evidence](/Users/uazjob/UoN-Video-Helper-side/vh235-walk/gate1.out) records exit 0: **88 test files passed, 1,739 tests passed, one existing skip**. The lock and load logs support the stated gate conditions. I did not rerun the full gate. Fill the three acknowledged draft placeholders after the scheduled final gate; commit and push remain the harness’s steps.

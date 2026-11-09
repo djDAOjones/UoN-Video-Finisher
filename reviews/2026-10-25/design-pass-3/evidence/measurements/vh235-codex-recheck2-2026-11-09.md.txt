@@ -1,0 +1,18 @@
+**Verdict: Commit.**
+
+**Musts:** None.
+
+**Shoulds:** None new.
+
+**Notes**
+
+1. **Both musts are repaired.** [Draft line 7](/Users/uazjob/UoN-Video-Helper-side/vh235-commit-msg.txt:7) correctly distinguishes the estimate changing in all twelve b1→b2 cells, staying equal in all twelve a1→a2 cells, and staying equal in eleven b2→a2 cells under the recorded “alike” ruling. This agrees with `raw78-sum.txt` and [the table’s explanation](/Users/uazjob/UoN-Video-Helper-side/vh235/reviews/2026-10-25/design-pass-3/evidence/measurements/vh235-copy-opening-2026-11-09.md:49). The subject is now a compact imperative covering both changes; I accept it against the house rule. Nothing added changes the prior finding that the remaining draft claims are supported.
+
+2. **The freezes differ only as described:** two new files and one appended section, plus their corresponding inventory/checksum changes. The tracked diff is byte-identical, SHA-1 prefix `40f5d09298201f66`; untracked files increase from 54 to 56. Both checksum manifests verify. The checkout matches the new freeze.
+   - The saved close answer is byte-for-byte identical to the external answer.
+   - The saved brief describes the original close check and its original freeze consistently. I did not compare it with the prohibited external brief.
+   - The compare preserves its earlier content and appends an accurate account of the close findings and repairs. Its claims about Claude’s timing remain attributed history; I did not inspect the prohibited progress notes.
+
+3. **No additional blocker found.** `node tools/check.mjs` reports **0 structural or budget failures, 1 existing warning** for VH-122’s absent sample. The scheduled final gate and filling `{CLOSE}`, `{VERIFY}` and `{CHECKED}` remain the agreed closing steps; I did not run that gate.
+
+I wrote no files.

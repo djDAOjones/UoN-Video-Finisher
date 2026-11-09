@@ -1654,3 +1654,31 @@ INTAKE.2 stays a wish line: only a person listening can judge the Teams output. 
 **Supersedes:** none
 
 **Deferred:** VH-206, VH-207, VH-208, VH-209, VH-210, VH-203
+
+## 2026-10-27 — VH-202 — Closes: the owner's answer "as reccomended" on all nine points; the owner's addition and scope open VH-211, the format "?" and old issues A and B to plan
+
+**Decision:** VH-202 closes. The owner answered its ask as recommended, so VH-206 to VH-210 go ahead in the plan's order: VH-206 with the approved words and spec §5.4's row (point 8), VH-209 taken at rank 3. The owner's addition and scope ask that old issues be solved, not accepted: V-18's acceptance (point 6) is amended, and VH-211 plans the format "?"'s two changes and groups A and B into fix items before VH-203. VH-203's after-run captures the "?" for the owner, and its integrated check takes "ensure everything passes UX / design / Accessibility" as its bar.
+
+**Rationale:**
+
+- **The answer.** On 2026-10-27, in the "Backlog review" chat (`local_59428ffc-7efd-4ae6-b7ef-bd83074f4596`), the owner answered VH-202's ask, verbatim: "as reccomended, and convery me the 9 point ask here". That chat had asked: "Send "as recommended" for all nine points to Orchestrator #13?", showing the build order, point 2's en-GB words with Codex's alternative marked not recommended, and the other recommendations in short. As the owner asked, it then showed the nine points in full, at about 14:40Z. Orchestrator #13 read that chat's transcript: the words and what was shown match, and the nine points match the ask committed in `f0b4dae`.
+- **Each point, as recommended:** (1) the plan approved; (2) Claude's V-51 words, in three languages, as the ask's table gives them; (3) the 400 ms rule kept; (4) V-50 taken at rank 3, as VH-209; (5) F15b not a finding, with VH-208 recording its state; (6) V-18's Phase 7 acceptance stands, and VH-203 measures the button and reports to the owner; (7) the statement's limitation left to VH-137, with no new item; (8) the spec correction, wish VH-202.1, approved within the spec's 8,100-word budget; (9) no controls.
+- **The owner's addition,** the same day, in the same chat, verbatim: "I accept everything, but even old issues should be solved for. we also need to make sure that question mark about file formats looks good".
+  - "I accept everything" confirms the nine points.
+  - "even old issues should be solved for" asks for fixes, not acceptances. It amends point 6, and supersedes PLAN-7's decision of 2026-10-23 in its V-18 acceptance alone: V-18, accepted in Phase 7 as VH-175.4, is to be solved, its remedy still to plan; VH-203 still measures the button. Which other old issues were meant, the scope below settles.
+  - "that question mark about file formats looks good" is VH-205's "?" beside the lede's fourth promise: it is to look right, not only measure right. VH-203's after-run now captures it in its states, in the three languages, the colour modes and at the 32 px font, for the owner; a change the owner asks for becomes a fix item before VH-203 closes.
+- **The scope, a third message.** Typed by the owner in the Backlog review chat at 14:51:20Z, the same day (Orchestrator #13 checked that chat's transcript), verbatim: "yes to the question mark, and A and B. ensure everything passes UX / design / Accessibility". What was shown, as that chat relayed it:
+  - **the "?"** (VH-205), from three screenshots of the preview at `cc12788`, two changes: the gap, 16 px today, to about 8 px (the 44 px `::after` target may then overlap the end of "format."); and an open state, filled dark while `aria-expanded="true"`, like the chosen "Staff video" segment, which the onset "?" takes too, since it shares `.help-button`. Neither touches the target or the words;
+  - **group A, page defects:** V-18 (VH-175.4), its 320 × 568 remedy to the owner before it is built; VH-189.1, VH-186.1, VH-139.5, VH-185.1 and VH-193.3; F15b, its words to the owner first;
+  - **group B, checks in Chrome:** VH-150.3, VH-153.1, VH-155.2, VH-156.1, VH-158.1, and VH-172.1's 214 unread matrix cells;
+  - **not taken:** C, native readers, screen-reader and listening checks; D, the statement, which is VH-137's, and the stale spec and doc lines VH-194.1, VH-162.1 and VH-116.1; E, tooling.
+
+  VH-211 holds this scope, `[ ]`, to plan into fix items before VH-203 with `verbs/plan.md`, Claude first and Codex blind, compared and critiqued; the plan step is the next worker's, and this close plans nothing. "ensure everything passes UX / design / Accessibility" becomes the bar for VH-203's integrated check: that reading is the Backlog review chat's, recorded as such.
+- **What goes ahead.** VH-206 takes the approved words verbatim and is unblocked. Point 8 is routed to it, as Orchestrator #13 settled: its Documents criterion now makes spec §5.4's "No audio track" correction for the kept-part case. The owner's approval is narrow: point 8, this one row, within the spec's 8,100 words; no wider `docs/` permission follows. Wish VH-202.1 stays open until that correction is made and verified, then retires. VH-209 is unblocked; VH-207, VH-208 and VH-210 go ahead on the approved plan. The plan's items and order are unchanged, so PLAN-8 takes no note.
+- **The record.** Wish VH-201.1 retires: the answer settles its five questions. VH-201.2 stays open for VH-203's after-run. The report's Disposition rows name the items, and the Now lines of VH-202, VH-203 and VH-206 to VH-210 are rewritten.
+- **Codex astra,** on the owner's word: the close carries no new judgement, so Codex's check of the close diff before the commit is the comparison.
+- **Digest rules:** none applied; no product code and nothing under `docs/` changed here.
+
+**Supersedes:** 2026-10-23 — PLAN-7 — The owner decides the four wish lines: one name for step 4, a forced-colour hover, V-18 accepted, the statement edited once
+
+**Deferred:** VH-206, VH-207, VH-208, VH-209, VH-210, VH-211, VH-203

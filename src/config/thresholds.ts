@@ -99,6 +99,14 @@ export const ESTIMATE_BANDS = {
 export const ENDS_EARLY_MARGIN_SECONDS = 1
 
 /**
+ * The release guard's warn line (VH-215) logs the made length rounded to the
+ * millisecond: seconds times this, rounded, then divided by it. A log
+ * precision, not a threshold; moved here from the worker by the owner's
+ * answer 5 to VH-203's points ("Yes, all six", 2026-11-08; VH-203.4).
+ */
+export const MADE_LENGTH_LOG_ROUNDING_SCALE = 1000
+
+/**
  * What a Matroska or WebM file's bytes are read for, to tell one cut short
  * (VH-158), in bytes.
  *

@@ -176,6 +176,7 @@ import type { SourceReport } from './media/inspect'
 import { lossesSpoken, spoken, warningsSpoken } from './ui/announce'
 import { focusHeldBy as handOnFocus, type HandOn } from './ui/focus-hand-on'
 import { focusInside, outlineReach, revealStatus } from './ui/reveal-status'
+import { createFeedbackOpening, settleCopy } from './ui/feedback-opening'
 import { browserNote, summariseChecks, type CheckState } from './ui/system-check'
 import { headingFontUrl, installBrandAssets } from './ui/brand-assets'
 import {
@@ -3660,6 +3661,8 @@ const feedbackIntro = required<HTMLElement>('#feedback-intro')
 show(feedbackIntro, () => {
   feedbackIntro.textContent = t().feedback.intro({ address: FEEDBACK_ADDRESS })
 })
+/** Each opening of the dialog, so Copy's result is written only into the one that pressed it (VH-235). */
+const feedbackOpening = createFeedbackOpening(feedbackDialog)
 
 /**
  * What the dialog's status line says, as a thunk, so a change of language says it again.
@@ -3730,6 +3733,7 @@ function openFeedback(): void {
   setFeedbackStatus('')
   showFeedbackError(false)
   feedbackDialog.showModal()
+  feedbackOpening.begin()
   // The main thread's lines at once, so the dialog is never empty and Send
   // never waits; the worker's are added when it answers. A hung worker may
   // never answer, and a hung job is the thing most worth reporting.
@@ -3807,17 +3811,16 @@ feedbackForm.addEventListener('submit', (event) => {
 required<HTMLButtonElement>('#feedback-copy').addEventListener('click', () => {
   const message = feedbackMessageOrError()
   if (message === null) return
-  void (async () => {
-    try {
-      await navigator.clipboard.writeText(feedbackText(message, feedbackLines))
-      setFeedbackStatus(() => t().feedback.copied({ address: FEEDBACK_ADDRESS }))
-    } catch (cause) {
+  // The clipboard answers when it answers: after Close, Escape or a reopen
+  // the result is written nowhere, and a failure is logged either way (VH-235).
+  void settleCopy(() => navigator.clipboard.writeText(feedbackText(message, feedbackLines)), feedbackOpening.capture(), {
+    copied: () => setFeedbackStatus(() => t().feedback.copied({ address: FEEDBACK_ADDRESS })),
+    couldNotCopy: () => setFeedbackStatus(() => t().feedback.couldNotCopy),
+    warn: (cause) =>
       log.warn('feedback', 'could not copy', {
         reason: cause instanceof Error ? cause.message : String(cause),
-      })
-      setFeedbackStatus(() => t().feedback.couldNotCopy)
-    }
-  })()
+      }),
+  })
 })
 
 required<HTMLButtonElement>('#feedback-close').addEventListener('click', () => {
