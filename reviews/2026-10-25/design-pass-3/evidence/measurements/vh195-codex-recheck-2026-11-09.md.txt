@@ -1,0 +1,31 @@
+**Ready with conditions** — carry the recorded conditions through the closing diff; no commit before the orchestrator relays the owner’s VH-237 look answer verbatim with its source line (`project/items/VH-237.md:35`; `$S/vh195-readiness-compare.md`, “Agreed”).
+
+Here `$S` is the named side folder, `R` is `reviews/2026-10-25/design-pass-3/`, and `M` is `R/evidence/measurements/`. Musts follow; no edits made.
+
+1. **The move.** Nothing shows a lost or altered save. The progress record reports the successful fast-forward, byte-equal unstaged patch, unchanged checklist/native-reader hashes and identical two-line status immediately afterwards. Subsequent changes are explicitly recorded: checklist scope/look and native-list SHA. The commit-range diff confirms VH-237 touched neither close file (`$S/vh195-progress.md`, “VH-195 #3”, “The move…” and “Scripts again…”; `git diff 8bbb6e9 0aaed0e --` those files).
+
+2. **The 53 IDs.** Correct: **52 shipped plus VH-195**, comprising VH-203’s 54 minus VH-204/VH-226 plus VH-237. VH-237 has its trajectory line, `VH-237:` commit `0aaed0e`, and no backlog line; its absent Items line is intentional (`project/trajectory.md:64`; `project/decisions.md`, “2026-11-09 — VH-237 — Raised and closes…”; `$S/vh195-rerun3/s1-reconcile.out`, final line).
+
+   Rewrite **VH-185’s** obsolete implementation step, **VH-237’s** already-completed landing step, **VH-195’s** Now at close, and **VH-204’s** paid blocker/Now. VH-234 already says the truth; cite its existing owner quotation without adding another (`project/items/VH-237.md:33–35`; `project/items/VH-234.md:45–47,65`; `$S/vh195-rerun3/s1-reconcile.out`, respective rows).
+
+   Five exact-heading PLAN-8 supersessions, each naming the same 53 IDs, satisfy the membership logic **once VH-195 ships**. Move VH-204 first into Phase 6 and VH-226 there with its blocker retained. This is a prospective code-level conclusion, not a claim that an unwritten closing diff passed checks (`tools/ledger.mjs:448–465`; `$S/vh195-rerun3/s1-lists.out`, “PLAN-8 lists, standing or replaced”).
+
+3. **VH-195.3.** The coverage claim is true: `a1` contains 102 scenario outcomes and 243 Part-C readings, with the 192-state placement analysis. Its base-check identifies the changed app hash; this is **after-change, pre-landing evidence**, not a post-landing walk (`M/vh237-records-2026-11-09/{a1.base-check.txt,a1.outcomes.jsonl,a1.format-help.jsonl,criteria-a1.txt}`).
+
+   The line should say:
+
+   > VH-195.3 — Deferred re-reads after VH-237’s landing: the 24 tables and five items listed at `project/items/VH-237.md:51`, including VH-234’s post-landing re-reads (`project/items/VH-234.md:38`); no further walk made. VH-237’s a1 re-read S-141 to S-144’s 102 keys and Part C after the change, before landing — (from: VH-195, 2026-11-09).
+
+   That captures VH-234’s obligation too; it does **not** declare all historical table rereads completed (`project/items/VH-237.md:26,51`).
+
+4. **The compare.** No adoption or refusal is contradicted by the addition. Gathering repaired expectations in task O is sufficient; D/E/J/N need not each be rewritten merely because fixes now fulfil them. Either cited phase decision can answer recall question 2 (`$S/vh195-readiness-compare.md`, “Codex’s points not adopted”; `R/person-checklist-2026-10-27.md`, tasks D–O).
+
+   **VH-195.4 and VH-195.5 are needed and sufficient to capture these two deferrals**, not to claim their tests passed. No existing open line covers either: VH-235.1 concerns a numeric literal; VH-203.2 concerns table tooling; VH-224.1 concerns S-24 batch keys. Name .4’s Copy reread scope and .5’s thirteen undemonstrated ready-during-save transitions, retaining the distinction that focus assertions passed (`project/items/VH-235.md`, Now; `project/wish-list.md`, Open; `M/after-run-2026-11-08.md:34`). Carry both into the decision and owner handoff, .5 also into the Disposition after-run row.
+
+5. **Other landing changes.** VH-237 added or retired **no wish lines**; the wish-list commit-range diff is empty. Its ledger landing updated VH-234, VH-195’s blocker and trajectory, and archived an older decision (`git show --stat 0aaed0e -- project/`; VH-237 decision).
+
+   The Disposition already names VH-237’s placement fix; finalise its look outcome only from the owner’s answer. The backlog correctly names VH-233–VH-237 and VH-237’s look hold (`R/design-pass-3-2026-10-27.md:763`; `project/backlog.md:40`). Task M now includes alignment, equal spacing and width. The native list correctly names `0aaed0e`; counts remain 65 Chinese/63 Malay because VH-237 changed no words (`R/person-checklist-2026-10-27.md`, M; `R/native-readers-2026-11-09.md:3`; rerun outputs s4-native/s4-write).
+
+6. **Recall.** Answer 1: VH-233, VH-236, VH-234, VH-237 — **2/2** (`project/trajectory.md:61–64`). Answer 4: VH-195, Phase 8 — **2/2** (`project/backlog.md:38–44`). Retain **local 8/8** with the unchanged answers 2/3; run the required post-edit gate, checker and separate precommit check before closing (`verbs/recall.md`; `verbs/close.md:5`).
+
+No additional shoulds.

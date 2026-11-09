@@ -1,15 +1,16 @@
-# Checking UoN Video Helper by hand
+# Checking UoN Video Finisher by hand
 
 For Disability Support Services colleagues, 27 October 2026 (VH-200),
 revised from the list of 23 October (VH-173, VH-177) for what the page's
-latest round of changes did. The tool trims a teaching video, adds the
+latest round of changes did, and revised in place on 9 November 2026
+(VH-195) for the changes made since, VH-205 to VH-237. The tool trims a teaching video, adds the
 University's title card and closing, levels the sound, and saves a new
 file. Our automated checks cannot hear a screen reader or hold a real
 phone, so we need you. Do the tasks that fit the tools you use; a task you
-could not finish is still worth reporting. Tasks I to N are new: if time is
-short, do those first.
+could not finish is still worth reporting. Tasks I to O are new, O the newest:
+if time is short, do those first.
 
-**The page:** <https://djdaojones.github.io/UoN-Video-Helper/>, built for
+**The page:** <https://djdaojones.github.io/UoN-Video-Finisher/>, built for
 Chrome on a computer. In another browser, a sentence above step 1 says the
 browser "has not passed all the checks"; tell us whether that was clear.
 The page may change while we fix what this list finds. **Report a
@@ -30,17 +31,34 @@ machine, since your video never leaves it.
 - `hfr-120fps-10s.mp4`: 10 seconds at 120 frames a second.
 - For task F, a 30-second recording made on your phone.
 
-**Where things are.** **Page language** is at the top. Above the steps, **Video
-type** chooses **Staff video** or **Student submission**. The page has six
+**Where things are.** **Page language** is at the top. The **?** beside the
+page's title, **About this tool**, shows five short promises and a line on
+privacy. Below step 1, **Video type** chooses **Staff video** or **Student submission**. The page has six
 steps: **1. Choose a video**, **2. Trim**, **3. Title card**, **4. Closing
 graphics**, **5. File size / quality** and **6. Create**; steps 2 to 6
 appear once a video is read. At the foot are the **System check**, the
 **Accessibility statement** and **Help and feedback**.
 
-**What is new since the last list:**
+**What is new since 27 October** (task O checks it):
 
-- Above step 1, five short promises, with a **?** beside "Saves in a
-  reliable format." that explains the format.
+- The page is now called **UoN Video Finisher**, at the address above.
+- The five promises and the privacy line sit behind the **?** beside the
+  title, and **Video type** sits below step 1, so **Choose File** comes
+  sooner.
+- The finished video's warnings sit in its card, before the player.
+- A warning when the part you kept, or the whole video, has too little
+  sound to level: the new video will have no sound.
+- The warning about the loudest moments ends "so play the new video before
+  you use it".
+- In **Page language**, Chinese is named 中文.
+- At a large default font on a phone, the page keeps to its column, and
+  the System check's words and step 4's choices wrap whole.
+
+**What was new on 27 October:**
+
+- Five short promises, with a **?** beside "Saves in a reliable format."
+  that explains the format; since 31 October they sit behind the title's
+  **?**.
 - **Video language** has moved from the top of the page into step 3.
 - Step 4's words: **Plays over**, with **The last second of video** or **A
   held last frame**; and **No closing graphics** under **Animation type**.
@@ -118,7 +136,7 @@ the button's edge changes; tell us whether you would notice it. Then:
   link's words. We know the Creators link's outline can run over them in
   a contrast theme; tell us whether it gets in your way.
 
-**E. Larger text,** in English, 简体中文 and Bahasa Malaysia: Chrome's own
+**E. Larger text,** in English, 中文 and Bahasa Malaysia: Chrome's own
 zoom (Ctrl and +, or Cmd and + on a Mac) at 200% and at 400%; a
 320-pixel-wide window; your text-spacing tool; and a very large font in
 Chrome's settings (Appearance, Font size, Very large; or 32 under Customise
@@ -153,12 +171,14 @@ know **Choose File** may not answer, because the browser draws it; try
 by voice, and tell us what you said and what worked.
 
 **H. Your own language** (campus colleagues who read Chinese or Malay
-natively; a separate check, and we send the full list of new words with
-it). On the 简体中文 or Bahasa Malaysia page, read: step 4's name (结尾图形,
+natively; a separate check. The full list of the words Phase 8 added or
+changed, with the English beside each, is `native-readers-2026-11-09.md`,
+beside this list). On the 中文 or Bahasa Malaysia page, read: step 4's name (结尾图形,
 "Grafik penutup"); the note under a video with an unusual frame rate, such
 as `hfr-120fps-10s.mp4`; in Chinese, the closing card's two names (结束卡
-and 结束卡片), to choose one; the words above step 1, which on a laptop
-still push **Choose File** below the first screen; and the new words: the
+and 结束卡片), to choose one; the page's new name (UoN 视频成片工具,
+"Penyiap Video UoN") and the title's **?** (关于本工具, "Perihal alat
+ini"); and the new words: the
 five promises and the format **?**'s text, **Video language**'s line in
 step 3, step 4's **Plays over** and its choices, step 5's two names,
 **Help and feedback** with its questions and links, **Report a problem**,
@@ -256,7 +276,7 @@ wording, beside **Page language**, also works.
 - **From the foot.** Press **Report a problem**, type a message and press
   **Open email app**. *Expected:* the dialog says your message goes to
   <UI-Learning-Content@nottingham.ac.uk> from your own email app; your email
-  app opens with it to that address, its subject starting "UoN Video Helper
+  app opens with it to that address, its subject starting "UoN Video Finisher
   problem report". Check it; you need not send it. Back on the page, Escape
   returns focus to **Report a problem**.
 - **From Errors captured** (with us: it shows only when something inside
@@ -266,7 +286,9 @@ wording, beside **Page language**, also works.
 
 **M. The two ? buttons:** one beside "Saves in a reliable format." at the
 top, and one beside **Plays over** in step 4 (choose **Fade** under
-**Animation type** first).
+**Animation type** first). Since 31 October the five promises sit behind
+the **?** beside the page's title, **About this tool**: press it first to
+reach the format's **?**.
 
 - **By keys.** Tab to each; press Enter, then try Space. *Expected:* its
   text appears just below it, and your screen reader reads it. Escape
@@ -283,7 +305,9 @@ top, and one beside **Plays over** in step 4 (choose **Fade** under
   text, and the tip does not open by surprise; tell us if it does. When
   the tip opens, it sits wholly clear of the **?**, covering none of it.
 - **The look.** *Expected:* the five promises evenly spaced, the line with
-  the **?** no taller than the others, in light and in dark (your
+  the **?** no taller than the others, the **?** sitting level with the
+  words beside it, and its opened text as far from the line above as from
+  the promise below and no wider than the words, in light and in dark (your
   computer's dark mode), and in task D's theme and task E's width and
   font.
 - **Text spacing.** Turn on your text-spacing bookmarklet or extension, set
@@ -317,6 +341,40 @@ top, and one beside **Plays over** in step 4 (choose **Fade** under
   Then choose `silent-10s.mp4`, which really has no sound, and compare the
   words.
 
+**O. Since 27 October** (VH-205 to VH-237). Do the parts that fit your
+tools.
+
+- **The name and the title's ?.** *Expected:* the browser tab and the
+  heading read **UoN Video Finisher**. Tab to the **?** beside the title
+  and press Enter: the five promises and the privacy line appear, and your
+  screen reader reads them; Escape closes them and leaves you on the **?**.
+- **Video type below step 1.** *Expected:* **Video type** follows **1.
+  Choose a video**, in reading order and on screen; tell us whether
+  **Choose File** was easy to reach.
+- **Too little sound.** Choose `late-sound-3.4s-10s.mp4` and set the end
+  to 3.5 seconds, so the part you keep holds a tenth of a second of sound.
+  *Expected:* before **Create**, a warning says the part you kept has too
+  little audio to level and the new video will have no audio, and how to
+  keep more.
+- **The finished video's warnings.** In task N, *Expected:* the warning
+  sits in the finished video's card, before the player and **Save**, and
+  ends "so play the new video before you use it"; your screen reader reads
+  it with the card.
+- **Report a problem.** Open it, type a message and press its copy button.
+  *Expected:* the result shows inside the dialog, in view, and is read
+  out; close and reopen the dialog: the old result is gone.
+- **A large default font on a phone** (task E's 32 px at 320 pixels, or a
+  real phone). *Expected:* no sideways scrolling; the System check's words
+  break only between words; step 4's closed choices show their whole
+  words; the accessibility statement's links, when they wrap, show a whole
+  focus ring.
+- **The trim's handles and track in every look.** In light, in dark
+  (your computer's dark mode) and in task D's theme, look at the **Start**
+  and **End** handles and the track between them, not only their focus
+  outline. *Expected:* each handle and the track stand out clearly from
+  what is around them; tell us any you could hardly see (VH-223.2).
+- **Page language.** *Expected:* Chinese is listed as 中文.
+
 ## Report form
 
 Email <UI-Learning-Content@nottingham.ac.uk>, one block per task. **Report
@@ -330,7 +388,7 @@ Browser and version:
 Assistive tool and version (or none):
 Page language:
 Zoom, text size, window width or colours (if changed):
-Task (A to N, and which part):
+Task (A to O, and which part):
 What happened:
 What you expected:
 Did you need help? With what:
@@ -367,6 +425,7 @@ a fix's own check stays VH-203's.
 | L. Help and reporting | The address the "Feedback and contact" line names, reached by Report a problem | — | Whether staff and students find their route | The feedback state and the dialog's focus return, from both buttons | — |
 | M. The two "?" | — | — | — | Keyboard, text-spacing and contrast-theme parts for both toggletips | VH-205's 1.4.12 and forced colours, "missing"; its line rhythm, which no scenario checks; its 44 px target over the third and fifth promises, and its tip clear of the "?"; both "?" by touch |
 | N. Notices about the sound | — | — | Whether the advice is understood and acted on | — | D-06 (rank 2), D-05 (rank 1), for VH-202's plan |
+| O. Since 27 October | The title's **?** and the new warnings toward the screen-reader and keyboard lines; the large-font checks toward the 400% test | The large-font checks on a real phone | Whether the too-little-sound and loudest-moments warnings are understood and acted on | Keyboard and screen-reader states for the title's **?**, the moved switch and the dialog's copy result | VH-175.4, VH-209.1, VH-219.3, VH-223.2, VH-233.1, VH-236.1 |
 
 Checks for the owner's own machine, not for the testers: a headed Chrome
 and Safari's Cancel click (VH-178); the trim handles in Firefox, read only

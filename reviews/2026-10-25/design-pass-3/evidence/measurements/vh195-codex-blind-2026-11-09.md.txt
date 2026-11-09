@@ -1,0 +1,55 @@
+1. **Verdict: Ready with conditions** — prepare the close, but do not commit before the owner’s VH-234 look answer and the final checks (`project/backlog.md`, Phase 8; `$S/plan8-owner-words.md:466–468`).
+
+Here `$S` is the specified side folder; `R` is `reviews/2026-10-25/design-pass-3/`; `M` is `R/evidence/measurements/`. This verdict concerns `8bbb6e9`. The checklist acquired an uncommitted edit during review; I made none.
+
+2. **The five criteria** (`project/items/VH-195.md`, Acceptance criteria):
+
+- **Reconciled:** record the 51 shipped items, VH-195 itself and both moves; restate the standing lists; finalise `R/design-pass-3-2026-10-27.md`, Disposition. Replace future-tense after-run references with outcomes and retained limitations, including V-18 and VH-234’s pending look.
+- **Record current:** document approval provenance, budgets, justified wish retirements and statement recommendations in VH-137’s Notes. Preserve unresolved corrections. Details below.
+- **Checklist:** deliver a dated revision reflecting the fixes, with its VH-137/VH-113/VH-M4/criterion-10 mapping retained. Delivery is not completion of those checks (`R/person-checklist-2026-10-27.md`, “For the owner”).
+- **Native readers:** deliver the complete Chinese/Malay change list, explicitly drafts pending live review (`R/native-readers-2026-11-09.md`, introduction).
+- **Phase closed:** write the decision, CLOSED mark, trajectory and labelled recall; name VH-204 next with its reason. Run both checks after settled edits and obtain the separate Codex precommit check. The owner’s look answer remains the external blocker (`verbs/close.md`, Phase close; owner words `:226`, `:248`, `:468`).
+
+3. **Reconcile.** The 54 IDs reconcile as **51 shipped + VH-195 + two moves**. All 51 have trajectory lines, `ID:` commits and no backlog line; VH-205 has no item file. VH-204’s existing commit does not establish shipment (`$S/vh195-s1-reconcile.out`, individual ID rows).
+
+Rewrite VH-185’s obsolete implementation instruction and VH-234’s obsolete landing instruction; retain VH-234’s owner question. Update VH-195’s Now at close and VH-204’s paid blocker/Now. Historical next-item references need not become new work (`project/items/{VH-185,VH-234,VH-195,VH-204}.md`, Now).
+
+The final list is **52 IDs**, exactly the newest 54 minus VH-204/VH-226. Five restatement entries must supersede the five exact standing headings identified at `$S/vh195-s1-lists.out:30–36`, following `project/decisions.md`, the three 2026-11-04 PLAN-7 restatements. Move VH-204 first into Phase 6; retain VH-226’s VH-204 blocker. These satisfy closed-phase membership checks once VH-195 ships; merely moving the lines without restating lists fails (`tools/ledger.mjs:448–465`).
+
+4. **(a) and (b).** Two wish lines are supported:
+
+- **(a): one actual byte-mismatch table:** `M/vh218-records-r2-2026-10-31/conditions.txt`, with two different source hashes. Name `vh218-check-rows-r2-2026-10-31.md`; VH-218’s closing Notes cite **r3**, retaining earlier tables. VH-220 r1’s duplicate entries have identical hashes: the output’s “2” flagged folders does **not** mean two byte-mismatch tables (`$S/vh195-a-tables.out`, CHECK/TWICE rows; `project/items/VH-218.md`, Notes).
+- **(b): 49 missing conditions:** S-140’s 24, S-140n’s 23, and both replay conditions. List the complete condition set in one Mac Pro reread wish. The covered S-28/S-149/S-140n conditions and legitimate trimming-offered S-31/S-32 cases must not be described as missing (`$S/vh195-b-rereads.out`, final deduplicated section).
+
+No placed record needs rewriting.
+
+5. **Wish lines.** Retire **VH-225.1** with a trace: its three exact keys appear in `M/vh234-records-2026-11-09/keys-102.txt`, and VH-234’s after outcomes reach them. This supplies the missing readings, without claiming the earlier failure’s cause was traced.
+
+Do not retire the other open lines wholesale. In particular:
+
+- VH-172.1 and VH-173.1 stay by explicit direction (`$S/plan8-owner-words.md:209`).
+- VH-210.2 expressly stays despite later passes (`project/decisions.md`, 2026-11-09 VH-233 close).
+- VH-223.1/VH-224.1 retain their unreached batch keys; the core after-run does not replace those batches (`M/after-run-2026-11-08.md`, Coverage).
+- Human/native checks, VH-193.2’s tests, instrument/driver debts and kept defects remain (`project/wish-list.md`, Open).
+- VH-225.6 needs a trace explaining the revised handoff and the still-historical Phase-7 checklist, not an assertion both originals were corrected.
+
+Beyond (a)/(b), **VH-235’s explicitly post-landing Copy rereads lack an open line**. Supply evidence discharging them or capture the deferral; its own prelanding walk does not silently cancel that instruction (`project/items/VH-235.md`, Acceptance criteria and Now). Also explicitly dispose of any carried-forward ready-during-save verification gap (`M/after-run-2026-11-08.md`, Coverage).
+
+6. **Spec/UI-STANDARDS.** No approved sheet row is unapplied: all 33 were present at their landing; S25’s absence verbatim at HEAD reflects later approved changes. The nine residual commit/file changes have approval provenance through VH-162, VH-206, VH-213, VH-216, VH-229, VH-225 and VH-231’s records; string-search misses alone do not establish missing approval (`$S/vh195-s2-spec.out`; those items’ Notes). Record VH-206/VH-213’s exact-word limitation as ruled.
+
+Budgets pass: spec **8,153/8,200**, UI-STANDARDS **2,393/2,400** (`node tools/check.mjs`). The spec’s expanded “this list” remains inaccurate at `docs/01-specification.md:770`, already VH-194.1. U1/U2 are applied; subsequent fixes enforce existing rules rather than require new ones (`$S/vh195-s2-uistd.out`). Name the house-conventions **Two layers** rule and WCAG evidence limits at close.
+
+7. **Statement/checklist/readers.** VH-137’s Notes must describe automated coverage as **pass with points**, seven core non-reaches and thirteen transition failures; retain human-test and machine-translation limitations. Recommend correcting both-player media wording and the chooser’s browser-language limitation on **any** mismatched page (`project/wish-list.md:50,54`; `M/after-run-2026-11-08.md`, Coverage).
+
+Revise checklist tasks D/E/H/J/M/N for repaired rings, overflow, selects, focus, title-panel access and audio notices; update name, URL and report subject; add remaining person checks, including thumb/track contrast (`R/person-checklist-2026-10-27.md`, tasks; wish VH-223.2).
+
+Readers need **65 Chinese and 63 Malay current rows**, with English context; six removed keys per language are not current review rows. Explain VH-236’s conditional sentence removal although its key bytes did not change (`$S/vh195-s4-native.out`; VH-236 close). Neither delivery nor automated evidence establishes criterion 10/full conformance (`docs/01-specification.md:860–869`).
+
+8. **Recall: local, 8/8; scores 2,2,2,2** (`verbs/recall.md`):
+
+- Last four: VH-235, VH-233, VH-236, VH-234 (`project/trajectory.md:60–63`).
+- Decision: VH-234 restores compact emphasis because its scoped line-height overrode the role (2026-11-09 VH-234 close).
+- Deferred: human/native checks and kept defects (`project/wish-list.md`, Open).
+- Current next: **VH-195, Phase 8**. After close: **VH-204, Phase 6**, because the owner requested a fresh release before their Xerte upload (owner words `:189`).
+
+9. **For the owner.** Send the revised checklist, native-reader list, qualified phase outcome, retained-wishes summary and VH-204 handoff; explicitly obtain the pending look answer. Then compare this readiness verdict and submit the actual closing diff for Codex’s precommit check (owner words `:248`, `:466–468`).

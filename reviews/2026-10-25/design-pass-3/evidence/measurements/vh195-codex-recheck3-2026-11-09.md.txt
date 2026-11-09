@@ -1,0 +1,9 @@
+Ready to commit
+
+1. HEAD, tracked diff, status and all 11 untracked hashes match r2. The r1→r2 delta contains only the approval recording and recheck2 pair; both copies are byte-equal to their originals (`../vh195-frozen-r2/untracked-sha1.txt:8–9`).
+2. “Approve the look” matches `../plan8-owner-words.md:479`. Correctly recorded in `project/items/VH-237.md:35,52`, `project/items/VH-195.md:21,36`, `project/decisions.md:31` and the Disposition at `reviews/2026-10-25/design-pass-3/design-pass-3-2026-10-27.md:763`. No current look hold remains; earlier pending statements are history.
+3. Gate 5 passed: 1,778 tests passed, the unchanged standing skip, zero structural or budget failures (`../vh195-gate-5.log:27–28,142`). Chain exit 0; sampled load 5.19–7.28 (`../vh195-chain-gate-5.log:3–5`; `../vh195-gate-5.load.log:1–3`).
+4. No blocker within this recheck, with both promised retirement traces in the commit body (`verbs/close.md:15–20`).
+
+**Musts:** none.  
+**Shoulds:** none.

@@ -62,6 +62,8 @@
 - VH-236 — "You can still set the times." dropped where step 1 refuses a file and withdraws the trim, deleted in place, the first sentence kept byte for byte in three languages, removing words only, S-29 covered; 52 cells a side on the Mac Pro, all reached, the 43 refusals full to first sentence, S-32 unmoved (2026-11-09) — see decisions
 - VH-234 — the format "?" back on its type role, compact emphasis, by deleting its own `line-height`, CSS only, no word or element; 102 cells a side on the Mac Pro, `type` passing in all, no other outcome moved; its look in 56 scrolled states sent to the owner (2026-11-09) — see decisions
 - VH-237 — the format "?" on its promise's capitals and its opened box evenly between the promises and within the measure, CSS only on existing tokens, no word or element; 102 cells a side on the Mac Pro, all reached, no outcome moved; its look in 144 scrolled states sent to the owner, pending (2026-11-09) — see decisions
+- VH-195 — Phase 8 closed: its 53 items reconciled against PLAN-8, its five lists restated whole, VH-204 and VH-226 moved to Phase 6, the Disposition table final, six notes for VH-137's review, the person checklist and the native readers' list, five wish lines, two retired (2026-11-09) — see decisions
+- RECALL — 8/8 (2026-11-09) — scores: 2,2,2,2 — local — see decisions
 
 ## V3 adoption
 

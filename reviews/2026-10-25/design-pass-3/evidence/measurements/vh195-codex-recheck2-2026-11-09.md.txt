@@ -1,0 +1,13 @@
+Ready to commit after the hold
+
+1. HEAD matches `0aaed0e`; tracked diff, status and all nine untracked hashes equal `../vh195-frozen-r1/`. Comparing freezes confirms only the requested repairs, rationale sentence and two close-check copies were added; both copies are byte-equal to their supplied originals (`../vh195-frozen-r1/untracked-sha1.txt:4–5`).
+
+2. Repairs pass: `Owner:` is present (`project/items/VH-195.md:21`); the spec claim says “wrapping ignored” (`project/decisions.md:31`); checklist E and H now say `中文`, with no other checklist changes since the previous freeze (`reviews/2026-10-25/design-pass-3/person-checklist-2026-10-27.md:139`, `:176`).
+
+3. Supplied gate evidence passes: 1,778 tests passed, one unchanged standing skip; checker reports zero structural or budget failures and the known missing-sample warning (`../vh195-gate-2.log:27–28`, `:141–142`). Chain records AC power, correct HEAD and exit 0; sampled load is 3.41–4.20 (`../vh195-chain-gate-2.log:3–5`; `../vh195-gate-2.load.log:1–3`).
+
+4. No additional blocker found within this recheck. The owner-look hold remains explicit (`project/items/VH-237.md:35`; `project/items/VH-195.md:21`). Future commit-body traces remain to be verified (`verbs/close.md:15–20`).
+
+**Musts:** Honour the VH-237 owner-look hold; retain `VH-225.1 — retired — …` and `VH-225.6 — retired — …` in the commit body.
+
+**Shoulds:** none.

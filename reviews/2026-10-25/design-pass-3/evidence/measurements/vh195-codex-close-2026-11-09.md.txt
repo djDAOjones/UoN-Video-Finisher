@@ -1,0 +1,19 @@
+Ready after the musts below
+
+Paths below are repository-relative; `R` means `reviews/2026-10-25/design-pass-3/`.
+
+1. **Two small record repairs.** `project/items/VH-195.md:21` lacks the `Owner:` prefix required by `verbs/close.md:25`. Also narrow “byte for byte” in `project/decisions.md:31`: all 33 approved sheet rows match **with wrapping ignored**, not literally byte-for-byte—for example, sheet S26 at `reviews/2026-10-24/phase-8-wording-sheet-2026-10-24.md:458` and commit `2bcb191`.
+
+2. **Frozen state and reconciliation pass.** HEAD and branch match; the 13-file diff, status and seven untracked hashes equal the frozen copies, including after review. The five lists contain identical 53-ID sets; all 52 predecessors have Phase 8 trajectory lines, `ID:` commits and no backlog line. Moves, blockers, Nows and final Disposition agree with the recorded instructions (`project/decisions.md:27`, `:37`; `project/backlog.md:31`; `R/design-pass-3-2026-10-27.md:746`).
+
+3. **Evidence and deferrals hold.** Auditing 49 manifests and 12,516 source lines found the recorded VH-218 r2 mismatch only, allowing matching `.txt` copies. VH-225.1’s three keys are reached in the named runs; VH-225.6’s retirement correctly distinguishes the revised checklist from the historical one. Five new wishes capture distinct outstanding work; the six kept lines are untouched. VH-137’s six notes preserve the human-testing and conformance limits (`project/wish-list.md:87`; `project/decisions.md:31`; `project/items/VH-137.md:59`).
+
+4. **Checklist and readers are substantially complete.** Independently confirmed 65 Chinese rows, 63 Malay rows and six removed keys, including current translated values. The conditional sentence removal and task mapping are present. Task H still calls Chinese `简体中文`, whereas task O correctly says `中文` (`R/native-readers-2026-11-09.md:9`, `:81`, `:151`; `R/person-checklist-2026-10-27.md:176`, `:344`, `:404`). The close names house-conventions’ **Two layers** rule and WCAG evidence limits (`project/decisions.md:31`).
+
+5. **Recall: 8/8 stands, scores 2,2,2,2.** From the resulting record: last four listed shipments are VH-236, VH-234, VH-237, VH-195; VH-237’s decision explains the placement repair; outstanding work lives in the wishes and blocked backlog; next is VH-204 in Phase 6, because the owner requested a fresh release before Xerte upload. The stored local recall explicitly records its earlier, pre-edit answers (`project/trajectory.md:62`; `project/decisions.md:31`, `:87`; `project/backlog.md:33`).
+
+6. **Checks and hold.** Six archived entries are verbatim; the checker returns **0 failures, 1 known missing-sample warning** (`project/decisions-2026-10.md:1728`; `R/evidence/measurements/after-run-2026-11-08.md:58`). I could not verify the claimed green gate: no current-tree result appears in the permitted evidence, and rerunning it writes temporary bundles (`scripts/check-build.mjs:31`). Delivery to the owner and future commit-body traces also remain unverified. The hold is explicit and unchanged: obtain VH-237’s look answer before committing (`project/items/VH-237.md:35`; `project/items/VH-195.md:21`).
+
+**Musts:** Repair point 1; substantiate a green gate after final edits, retain both retirement traces in the commit body, and honour the owner-look hold.
+
+**Shoulds:** Change task H’s `简体中文` to the current label `中文`.
