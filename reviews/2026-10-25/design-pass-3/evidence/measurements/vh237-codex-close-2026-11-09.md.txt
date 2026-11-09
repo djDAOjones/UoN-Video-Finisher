@@ -1,0 +1,42 @@
+**Commit after the musts below.**
+
+I found no product defect. The repaired table notes are faithful, the recorded gate is green, and the checkout equals the freeze. The new decision compresses three evidence findings inaccurately. I wrote nothing to any file.
+
+**Musts**
+
+Correct these statements in [VH-237’s decision Rationale](/Users/uazjob/UoN-Video-Helper-side/vh237/project/decisions.md:32):
+
+- **“p0, 0 of 192 failing”**: p0 validated **16** states. b1 and a1 each validated **192**. I reran the validators: **0/16, 0/192 and 0/192 failures**, respectively. Name the runs separately.
+- **“measure 24, the box one line longer”**: 24 measure records changed, but only **10** gained a line, **4 → 5**. Seven stayed **4 → 4**, and seven stayed **6 → 6**. Say the paragraph narrowed and rewrapped in 24 cells, gaining a line in 10. This comes from the paired b1/a1 `measure.items[].lines` records.
+- **“ax 65, no role or name added or lost”** needs the table’s qualification: **InlineTextBox role/name entries changed in 24 cells; no other role/name multiset changed**. I reran `ax-diff.mjs`: 65 differing records, 24 with only inline-text differences, `other: {}`.
+
+These are ledger corrections, not reasons for another browser walk. The corrected candidate will need its close checks and freeze refreshed.
+
+**Answers to the five questions**
+
+1. **Criteria:** (1)–(6) are met. Placement errors remain within tolerance; all 192 rows retain whole line heights; all 48 open states meet the spacing, clearance and width requirements. The 102 paired cells have no changed instrument outcomes. Scope and test pins are correct. Criterion (7)’s delivery is recorded as complete and the owner’s approval is **honestly open**. The stage-rule evidence and gate are present; the ledger corrections above remain before close. The named post-landing re-reads are not represented as already completed.
+
+2. **Ledger:** structurally correct, subject to those three factual repairs.
+   - VH-237 has no open backlog line; VH-195 names VH-237 and **“the owner’s look answer for VH-237”**.
+   - Exactly one trajectory line was added.
+   - The newest decision uses “Raised and closes”, a short Decision with the fuller account in Rationale, no Items field, and Supersedes none.
+   - Owner quotations match the specified source lines. Pending approval is not presented as approval.
+   - The VH-207 archive move is **byte-for-byte verbatim**; the index correctly advances to 141 entries.
+   - VH-234 stays closed, with its Now and quoted Notes updated to hand the requested change to VH-237.
+   - The Disposition row links the item and table. I found no additional untracked deferral.
+   - Rule 8 names the relevant digests. Carbon’s Spacing reading distinguishes optical alignment within the line from the retained scale steps between elements; that is consistent with the permitted token arithmetic.
+   - Chrome’s measured metrics, approximately 55 MB of records, and the blind result are recorded. The three statements above are the unsupported overstatements I found.
+
+3. **Blind must 1:** faithfully applied. The repaired notes give **13.2 → 15 px in 92 cells** and **25.3 → 29 px in nine**. They correctly distinguish three differing motion records from two changed transition counts, and matching b1/b2 observations from identical records. The second generation remains outside the repository. Comparing generations showed the notes repair, added AX summary and associated manifests; no measurement replacement. The source check now reports **1,180 records, 1,176 copied sources, four generated records, zero differences**.
+
+4. **Evidence files:** naming, headings and headers follow the precedent. All eight design/verdict/brief/answer/compare copies checked against their external originals are byte-identical. Codex answers retain `.md.txt`; no absolute Markdown link occurs in the candidate’s linted evidence files.
+
+5. **Gate and freeze:** yes, for the reviewed content. The recorded gate exited 0 with **89 files, 1,778 passed, one unchanged standing EBU skip**. The diff adds one test and deletes or skips none. Load peaked at 4.74 on AC. I independently reran `node tools/check.mjs`: **zero structural or budget failures**, the standing sample-path warning only. Final checks confirmed exact tracked diff and status equality, all **1,191 untracked-file hashes**, and no inventory difference from the freeze. I did not rerun the full gate.
+
+**Shoulds**
+
+None additional. The earlier comment and regex shoulds have explicit dispositions; I do not reopen them.
+
+**Notes**
+
+The favourable technical judgement remains limited to the measured Chrome/Arial layout and prescribed probes. The owner’s visual answer remains theirs, explicitly carried by VH-195; it does not hold this commit under the supplied direction.

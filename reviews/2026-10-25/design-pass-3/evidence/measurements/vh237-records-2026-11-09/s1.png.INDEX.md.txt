@@ -1,0 +1,60 @@
+# VH-237: the format "?" and its opened box, before | after
+
+Before: 8bbb6e9 (the base). After: 41d3c199e42ad5b2 (the after). Walker revision 7db38f355f3c46c2, Chrome 157 on the Mac Pro.
+
+The owner's two shots of the live site at 8bbb6e9, the source of this item:
+
+- `/Users/uazjob/UoN-Video-Helper-side/orchestrator-46/owner-shots/owner-live-closed-2026-11-09.png`, sha1 `234bdb5a32254b8a543bc754d239435bed82b64b`
+- `/Users/uazjob/UoN-Video-Helper-side/orchestrator-46/owner-shots/owner-live-open-2026-11-09.png`, sha1 `5ba4cef1bfb6fa15e3858f9eadf9348bb5905a27`
+
+## The sheets
+
+One per language and width: a row per colour mode and root font, light at 16 px first; columns rest, focused and open, each before | after. Full-size tiles are in `tiles/before/` and `tiles/after/`.
+
+- [sheet-en-GB-w1280.png](sheet-en-GB-w1280.png), sha1 `325727bb4c4462b40cdfaf8423c5df22602d0bdf`; [its HTML](sheet-en-GB-w1280.html); [full-size tiles](tiles/)
+- [sheet-en-GB-w320.png](sheet-en-GB-w320.png), sha1 `8f6781c5064bc67be687d9925839ea1dcf5bf688`; [its HTML](sheet-en-GB-w320.html); [full-size tiles](tiles/)
+- [sheet-ms-MY-w1280.png](sheet-ms-MY-w1280.png), sha1 `7f80c763a2c689ef179bf46fd7c8e66c13624fdf`; [its HTML](sheet-ms-MY-w1280.html); [full-size tiles](tiles/)
+- [sheet-ms-MY-w320.png](sheet-ms-MY-w320.png), sha1 `1fbf4e157821a93b42c4889ead4341c2a2401353`; [its HTML](sheet-ms-MY-w320.html); [full-size tiles](tiles/)
+- [sheet-zh-Hans-w1280.png](sheet-zh-Hans-w1280.png), sha1 `fa8bb065c0890c4515215f3c326357d5a831a894`; [its HTML](sheet-zh-Hans-w1280.html); [full-size tiles](tiles/)
+- [sheet-zh-Hans-w320.png](sheet-zh-Hans-w320.png), sha1 `11188a709fba7bc8880eaa20db3a1d4d00ca3bd8`; [its HTML](sheet-zh-Hans-w320.html); [full-size tiles](tiles/)
+
+## In plain words, light at 16 px
+
+The "?": its square's centre against the centre of the capitals of its line (Arial's "H"), at rest. The opened box: the space above it (from the "?"'s line) and below it (to the next promise's line), then the same to the ink (the lowest ink above, the next capitals below); its right edge against the text measure (the privacy paragraph's right edge).
+
+### en-GB, w1280
+
+- The "?" was 1.56 px low against the capitals' centre; now 0.27 px high.
+- Opened, the space above the box was 12.00 px and below 0.00 px (line to box); now 12.00 px and 12.00 px. To the ink: was 13.16 px and 5.55 px; now 15.00 px and 17.55 px.
+- The box's right edge was 24.00 px past the privacy paragraph's right edge (24.00 px past the measure); now on the privacy paragraph's right edge (on the measure). Its left edge on the words: was 0.00 px off, now 0.00 px off.
+
+### en-GB, w320
+
+- The "?" was 1.56 px low against the capitals' centre; now 0.27 px high.
+- Opened, the space above the box was 12.00 px and below 0.00 px (line to box); now 12.00 px and 12.00 px. To the ink: was 13.16 px and 5.55 px; now 15.00 px and 17.55 px.
+- The box's right edge was on the privacy paragraph's right edge (176.00 px inside the measure); now on the privacy paragraph's right edge (176.00 px inside the measure). Its left edge on the words: was 0.00 px off, now 0.00 px off.
+
+### zh-Hans, w1280
+
+- The "?" was 1.56 px low against the capitals' centre; now 0.27 px high.
+- Opened, the space above the box was 12.00 px and below 0.00 px (line to box); now 12.00 px and 12.00 px. To the ink: was 13.16 px and 5.55 px; now 15.00 px and 17.55 px.
+- The box's right edge was 24.00 px past the privacy paragraph's right edge (24.00 px past the measure); now on the privacy paragraph's right edge (on the measure). Its left edge on the words: was 0.00 px off, now 0.00 px off.
+
+### zh-Hans, w320
+
+- The "?" was 1.56 px low against the capitals' centre; now 0.27 px high.
+- Opened, the space above the box was 12.00 px and below 0.00 px (line to box); now 12.00 px and 12.00 px. To the ink: was 13.16 px and 5.55 px; now 15.00 px and 17.55 px.
+- The box's right edge was on the privacy paragraph's right edge (176.00 px inside the measure); now on the privacy paragraph's right edge (176.00 px inside the measure). Its left edge on the words: was 0.00 px off, now 0.00 px off.
+
+### ms-MY, w1280
+
+- The "?" was 1.56 px low against the capitals' centre; now 0.27 px high.
+- Opened, the space above the box was 12.00 px and below 0.00 px (line to box); now 12.00 px and 12.00 px. To the ink: was 13.16 px and 5.55 px; now 15.00 px and 17.55 px.
+- The box's right edge was 24.00 px past the privacy paragraph's right edge (24.00 px past the measure); now on the privacy paragraph's right edge (on the measure). Its left edge on the words: was 0.00 px off, now 0.00 px off.
+
+### ms-MY, w320
+
+- The "?" was 1.56 px low against the capitals' centre; now 0.27 px high.
+- Opened, the space above the box was 12.00 px and below 0.00 px (line to box); now 12.00 px and 12.00 px. To the ink: was 13.16 px and 5.55 px; now 15.00 px and 17.55 px.
+- The box's right edge was on the privacy paragraph's right edge (176.00 px inside the measure); now on the privacy paragraph's right edge (176.00 px inside the measure). Its left edge on the words: was 0.00 px off, now 0.00 px off.
+

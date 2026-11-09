@@ -1,0 +1,18 @@
+**Commit**, leaving aside only the owner’s answer.
+
+1. **All three musts are faithfully repaired.** I rechecked the saved records:
+   - Probe validators: **0/16 failures for p0; 0/192 for b1; 0/192 for a1**.
+   - `measure`: **24** changed records; **10** gained a line (4 → 5), seven stayed 4 → 4, seven stayed 6 → 6.
+   - `ax`: **65** differing records; **24** with InlineTextBox role/name changes only; no other role/name multiset changed.
+
+   [The decision’s Rationale](/Users/uazjob/UoN-Video-Helper-side/vh237/project/decisions.md:32) now states these accurately. The [commit draft](/Users/uazjob/UoN-Video-Helper-side/vh237-commit-msg.txt) is consistent, placeholders aside.
+
+2. **Yes: only the stated changes since the first freeze.** Substituting the three repaired passages makes the patches identical apart from Git’s resulting blob hash. All **1,191** original untracked files retain their hashes; only the close brief and verbatim answer were added.
+
+3. **The recorded gate is green, and the checkout equals the new freeze.** [Gate 2](/Users/uazjob/UoN-Video-Helper-side/vh237-walk/gate-2.out) records exit 0, **1,778 passed**, one standing EBU skip, zero markdownlint issues and broken links. No test was deleted or newly skipped; the candidate adds one test. I independently reran `node tools/check.mjs`: **zero structural or budget failures**, the standing sample-path warning only. Tracked diff, status, all **1,193** untracked hashes and inventory match the new freeze.
+
+**Musts:** None.
+
+**Shoulds:** None additional.
+
+**Notes:** I inspected the recorded full gate rather than rerunning it. The owner’s look remains honestly pending in the decision and VH-195’s backlog line. I wrote nothing to any file.

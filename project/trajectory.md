@@ -61,6 +61,7 @@
 - VH-233 — the accessibility statement's links keep a whole focus ring when they wrap, `outline-offset: 0` on their `:focus-visible`, CSS only; 63 cells a side on the Mac Pro, both links passing in all; wish VH-233.1 (2026-11-09) — see decisions
 - VH-236 — "You can still set the times." dropped where step 1 refuses a file and withdraws the trim, deleted in place, the first sentence kept byte for byte in three languages, removing words only, S-29 covered; 52 cells a side on the Mac Pro, all reached, the 43 refusals full to first sentence, S-32 unmoved (2026-11-09) — see decisions
 - VH-234 — the format "?" back on its type role, compact emphasis, by deleting its own `line-height`, CSS only, no word or element; 102 cells a side on the Mac Pro, `type` passing in all, no other outcome moved; its look in 56 scrolled states sent to the owner (2026-11-09) — see decisions
+- VH-237 — the format "?" on its promise's capitals and its opened box evenly between the promises and within the measure, CSS only on existing tokens, no word or element; 102 cells a side on the Mac Pro, all reached, no outcome moved; its look in 144 scrolled states sent to the owner, pending (2026-11-09) — see decisions
 
 ## V3 adoption
 

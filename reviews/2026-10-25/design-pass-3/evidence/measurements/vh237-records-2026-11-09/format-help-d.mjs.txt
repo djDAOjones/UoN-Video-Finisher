@@ -1,0 +1,189 @@
+// VH-237 #1: a copy of VH-234's format-help-c.mjs (1485d64e), changed only by the added readings (the PROBE below, its result recorded as `geo` beside
+// each READ, the probes removed before each clip) and this line. Route (1'), the comparison, both sides. After Codex's design (2026-11-09): the
+// unchanged-layout check also compares each promise's and the privacy paragraph's per-line text rectangles (wrapping), and the fonts' status is recorded.
+// VH-203 #14, Part C (plan section 5; ruling 11's 192): the format "?" in four states, from VH-217's vh217-states2.mjs.txt (sha1 9b2eac6c,
+// $M/vh217-records-2026-10-30/), its READ, its moves and its in-viewport clips (captureBeyondViewport false, the root font read before and
+// after each clip) unchanged. Changed for VH-203: the title's panel (#about-help, closed at every load, VH-229) is opened first by its own
+// button, the walker's own click, and read open in every record; only the format "?"; only the four states rest (tip closed, panel open),
+// hovered, focused (keyboard) and open (by the pointer, ring-free); clips at every view given; and at w1280 in light, after rest, one more
+// clip with the 44 px target's box (the ::after's computed size, centred on the button) outlined over the words before it. Nothing is
+// written to the repository or the walker.
+//   FIX=… CDP_PORT=… APP_URL=… OUT_ROOT=… RUN_ROOT=… WALKER=… node format-help-c.mjs --out <jsonl> [--langs --views --modes]
+import { pathToFileURL } from 'node:url'
+import { join } from 'node:path'
+import { appendFileSync, writeFileSync } from 'node:fs'
+const WALKER = process.env.WALKER
+const imp = (f) => import(pathToFileURL(join(WALKER, f)).href)
+const { connectBrowser } = await imp('cdp.mjs')
+const { Walk, sleep } = await imp('walk.mjs')
+const { QUAL_INIT, closeAnalysis, setViewport, setMode, key } = await imp('qualify.mjs')
+const { MX_INIT, fresh } = await imp('scenarios.mjs')
+const args = process.argv.slice(2)
+const opt = (n, d) => { const i = args.indexOf(n); return i >= 0 ? args[i + 1].split(',') : d }
+const OUT = opt('--out', [null])[0]; if (!OUT) throw new Error('--out')
+const langs = opt('--langs', ['en-GB', 'zh-Hans', 'ms-MY']), views = opt('--views', ['w1280', 'w320'])
+const modes = opt('--modes', ['light', 'dark', 'forced-light', 'forced-dark', 'font32', 'dark-font32', 'forced-light-font32', 'forced-dark-font32'])
+// VH-217's READ, unchanged but for aboutOpen (the title's panel) added to its result.
+const READ = (id) => String.raw`(() => {
+  const b = document.getElementById(${JSON.stringify(id)}); if (!b) return { missing: true };
+  const shown = b.getClientRects().length > 0;
+  if (!shown) return { hiddenButton: true, aboutOpen: !document.getElementById('about-help').hidden };
+  b.scrollIntoView({ block: 'center', inline: 'nearest' });
+  const num = (c) => { const m = (c.match(/[\d.]+/g) || []).map(Number); return { r: m[0], g: m[1], b: m[2], a: m.length > 3 ? m[3] : 1 } };
+  const lum = (c) => { const f = (v) => { v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4) }; return 0.2126 * f(c.r) + 0.7152 * f(c.g) + 0.0722 * f(c.b) };
+  const ratio = (x, y) => { const a = lum(x), c = lum(y); return Math.round(((Math.max(a, c) + 0.05) / (Math.min(a, c) + 0.05)) * 100) / 100 };
+  const under = (e) => { for (let p = e; p; p = p.parentElement) { const c = num(getComputedStyle(p).backgroundColor); if (c.a > 0) return c } return { r: 255, g: 255, b: 255, a: 1 } };
+  const cs = getComputedStyle(b), fill = under(b), page = under(b.parentElement), glyph = num(cs.color), outline = num(cs.outlineColor), border = num(cs.borderTopColor);
+  const r = b.getBoundingClientRect(), cx = r.left + r.width / 2, cy = r.top + r.height / 2, T = 44;
+  const after = getComputedStyle(b, '::after');
+  let hit = 0, all = 0, off = 0; const others = {};
+  for (let y = cy - T / 2 + 1; y < cy + T / 2; y += 2) for (let x = cx - T / 2 + 1; x < cx + T / 2; x += 2) {
+    all++; if (x < 0 || y < 0 || x >= innerWidth || y >= innerHeight) { off++; continue }
+    const e = document.elementFromPoint(x, y);
+    if (e === b || (e && b.contains(e))) hit++; else { const k = e ? (e.id ? '#' + e.id : e.tagName.toLowerCase() + (e.className && typeof e.className === 'string' ? '.' + e.className.split(/\s+/)[0] : '')) : 'null'; others[k] = (others[k] || 0) + 1 }
+  }
+  let words = null;
+  const span = b.closest('.promise-with-help')?.querySelector('span');
+  if (span) {
+    const walker = document.createTreeWalker(span, NodeFilter.SHOW_TEXT); let last = null, n;
+    while ((n = walker.nextNode())) if (n.textContent.trim()) last = n;
+    const text = last.textContent.replace(/\s+$/, ''); const range = document.createRange(); range.setStart(last, text.length - 1); range.setEnd(last, text.length);
+    const box = range.getBoundingClientRect(); const ctx = document.createElement('canvas').getContext('2d'); const sc = getComputedStyle(span);
+    ctx.font = sc.fontStyle + ' ' + sc.fontWeight + ' ' + sc.fontSize + ' ' + sc.fontFamily; const m = ctx.measureText(text.slice(-1));
+    const inkRight = box.left + m.actualBoundingBoxRight, sameLine = r.top < box.bottom && r.bottom > box.top, midY = (box.top + box.bottom) / 2;
+    let underTarget = 0; for (let x = Math.floor(box.left); x < Math.ceil(inkRight); x++) { const e = document.elementFromPoint(x + 0.5, midY); if (e === b || (e && b.contains(e))) underTarget++ }
+    const tl = cx - T / 2;
+    words = { lastChar: text.slice(-1), sameLine, boxRight: Math.round(box.right * 100) / 100, inkRight: Math.round(inkRight * 100) / 100, verticalGap: sameLine ? null : Math.round((r.top - box.bottom) * 100) / 100, gapInkToSquare: sameLine ? Math.round((r.left - inkRight) * 100) / 100 : null, gapBoxToSquare: sameLine ? Math.round((r.left - box.right) * 100) / 100 : null, targetOverInk: sameLine ? Math.round(Math.max(0, inkRight - tl) * 100) / 100 : null, inkPxHittingTarget: underTarget };
+  }
+  const li = b.closest('li'); const rows = li ? [...li.parentElement.children].map((c) => { const s = c.querySelector('span') || c; return Math.round(s.getBoundingClientRect().height) }) : null;
+  const tipId = b.getAttribute('aria-controls'); const tip = tipId ? document.getElementById(tipId) : null; const tr = tip && !tip.hidden ? tip.getBoundingClientRect() : null;
+  const doc = document.documentElement;
+  return { box: { w: Math.round(r.width * 100) / 100, h: Math.round(r.height * 100) / 100, left: Math.round(r.left * 100) / 100, right: Math.round(r.right * 100) / 100 },
+    colours: { background: cs.backgroundColor, color: cs.color, border: cs.borderTopColor, borderStyle: cs.borderTopStyle, outline: cs.outlineColor, outlineStyle: cs.outlineStyle, outlineWidth: cs.outlineWidth, outlineOffset: cs.outlineOffset, adjust: cs.forcedColorAdjust },
+    contrast: { glyphOnFill: ratio(glyph, fill), fillOnPage: ratio(fill, page), borderOnPage: ratio(border, page), ringOnPage: cs.outlineStyle === 'none' ? null : ratio(outline, page), ringOnFill: cs.outlineStyle === 'none' ? null : ratio(outline, fill) },
+    matches: { hover: b.matches(':hover'), active: b.matches(':active'), focus: b.matches(':focus'), focusVisible: b.matches(':focus-visible'), disabled: b.matches(':disabled') }, expanded: b.getAttribute('aria-expanded'),
+    target: { grid: all, hit, offPage: off, others, afterW: after.width, afterH: after.height, content: after.content }, words, rows,
+    tip: tr ? { top: Math.round(tr.top), left: Math.round(tr.left), right: Math.round(tr.right), bottomOfTarget: Math.round(cy + T / 2), belowTarget: tr.top >= cy + T / 2 } : null,
+    overflow: { scrollWidth: doc.scrollWidth, clientWidth: doc.clientWidth }, root: parseFloat(getComputedStyle(doc).fontSize), forced: matchMedia('(forced-colors: active)').matches, dark: matchMedia('(prefers-color-scheme: dark)').matches, vw: innerWidth,
+    aboutOpen: !document.getElementById('about-help').hidden, lang: document.documentElement.lang };
+})()`
+// VH-237 #1: the added readings, by the design's method (d): transient zero-size inline-block probes (vertical-align baseline, top, bottom)
+// added here and removed before any capture, never the app; every other box read equal with and without them; the CSS ex and cap read as
+// computed lengths on the probe first in the fourth li; the ink by canvas measureText in the computed fonts. No line box from a Range rect.
+const PROBE = String.raw`(() => {
+  const R = (v) => (v == null || Number.isNaN(v) ? null : Math.round(v * 100) / 100);
+  const b = document.getElementById('format-help-button'); if (!b || !b.getClientRects().length) return { missing: true };
+  const li = b.closest('li'), ul = li.parentElement, span = li.querySelector('span'), li5 = li.nextElementSibling, li1 = ul.firstElementChild;
+  const tip = document.getElementById('format-help'), tp = tip.querySelector('p'), priv = ul.nextElementSibling, main = document.querySelector('.main'), ab = document.getElementById('about-help-button');
+  const rect = (e) => { const x = e.getBoundingClientRect(); return { left: R(x.left), top: R(x.top), right: R(x.right), bottom: R(x.bottom) } };
+  const lines = (e) => { const t = document.createTreeWalker(e, NodeFilter.SHOW_TEXT), m = new Map(); let n; while ((n = t.nextNode())) { if (!n.textContent.trim()) continue; const r = document.createRange(); r.selectNodeContents(n); for (const x of r.getClientRects()) { const k = R(x.top) + '|' + R(x.bottom), o = m.get(k); m.set(k, o ? [Math.min(o[0], R(x.left)), Math.max(o[1], R(x.right))] : [R(x.left), R(x.right)]) } } return [...m].sort() };
+  const watched = () => JSON.stringify([b, li, span, li1, ...ul.children, priv, ab, ...(tip.hidden ? [] : [tip, tp])].map(rect).concat([{ sx: scrollX, sy: scrollY, sw: document.documentElement.scrollWidth }], [...ul.children].map(lines), [lines(priv)]));
+  const before = watched();
+  const mk = (va) => { const p = document.createElement('span'); p.setAttribute('data-vh237-probe', va); p.style.cssText = 'display:inline-block;width:0;height:0;margin:0;padding:0;border:0;vertical-align:' + va + ';scroll-margin-top:1ex;scroll-margin-bottom:1cap'; return p };
+  const set = () => ['baseline', 'top', 'bottom'].map(mk);
+  const frag = (ps) => { const f = document.createDocumentFragment(); ps.forEach((p) => f.append(p)); return f };
+  const texts = (e) => { const t = document.createTreeWalker(e, NodeFilter.SHOW_TEXT), a = []; let n; while ((n = t.nextNode())) if (n.textContent.trim()) a.push(n); return a };
+  const atEnd = (e, ps) => { const a = texts(e), n = a[a.length - 1], r = document.createRange(); r.setStart(n, n.textContent.replace(/\s+$/, '').length); r.collapse(true); r.insertNode(frag(ps)) };
+  const atStart = (e, ps) => { const n = texts(e)[0], r = document.createRange(); r.setStart(n, n.textContent.length - n.textContent.replace(/^\s+/, '').length); r.collapse(true); r.insertNode(frag(ps)) };
+  const p4 = mk('top'); li.insertBefore(p4, span);
+  const pw = set(); atEnd(span, pw);
+  const pq = set(); b.after(frag(pq));
+  const p5 = [mk('top'), mk('baseline'), mk('bottom')]; atStart(li5, p5);
+  const p1 = set(); atEnd(li1, p1);
+  const read3 = (ps) => { const g = (va) => ps.find((p) => p.getAttribute('data-vh237-probe') === va).getBoundingClientRect(); return { top: R(g('top').top), baseline: R(g('baseline').bottom), bottom: R(g('bottom').bottom) } };
+  const during = watched();
+  const cs4 = getComputedStyle(p4), ex = parseFloat(cs4.scrollMarginTop), cap = parseFloat(cs4.scrollMarginBottom);
+  const geo = { li4Top: R(p4.getBoundingClientRect().top), words: read3(pw), q: read3(pq), li5: read3(p5), li1: read3(p1), cssEx: R(ex), cssCap: R(cap) };
+  [p4, ...pw, ...pq, ...p5, ...p1].forEach((p) => p.remove()); [span, li5, li1].forEach((e) => e.normalize());
+  const after = watched();
+  const ctx = document.createElement('canvas').getContext('2d');
+  const fontOf = (e) => { const c = getComputedStyle(e); return c.fontStyle + ' ' + c.fontWeight + ' ' + c.fontSize + ' ' + c.fontFamily };
+  ctx.font = fontOf(li); const mH = ctx.measureText('H'), mx = ctx.measureText('x'), run = ctx.measureText(span.textContent.trim()), run5 = ctx.measureText(li5.textContent.trim());
+  const lc = getComputedStyle(li), lh = parseFloat(lc.lineHeight);
+  const ink = { font: ctx.font, contentAscent: R(mH.fontBoundingBoxAscent), contentDescent: R(mH.fontBoundingBoxDescent), capInk: R(mH.actualBoundingBoxAscent), xInk: R(mx.actualBoundingBoxAscent), runInkAscent: R(run.actualBoundingBoxAscent), runInkDescent: R(run.actualBoundingBoxDescent), li5RunInkAscent: R(run5.actualBoundingBoxAscent) };
+  ctx.font = fontOf(b); const mq = ctx.measureText('?');
+  const qt = texts(b)[0], qr = document.createRange(), qi = qt.textContent.indexOf('?'); qr.setStart(qt, qi); qr.setEnd(qt, qi + 1); const qbox = qr.getBoundingClientRect();
+  const br = b.getBoundingClientRect(), sq = { top: R(br.top), bottom: R(br.bottom), centre: R((br.top + br.bottom) / 2), glyphBaseline: R(qbox.top + mq.fontBoundingBoxAscent), glyphInkTop: R(qbox.top + mq.fontBoundingBoxAscent - mq.actualBoundingBoxAscent) };
+  const sameLine = Math.abs(geo.words.baseline - geo.q.baseline) < 0.01 && Math.abs(geo.words.top - geo.q.top) < 0.01;
+  const capCentre = geo.q.baseline - ink.capInk / 2, lineCentre = (geo.q.top + geo.q.bottom) / 2;
+  const place = { sameLine, capCentre: R(capCentre), cssCapCentre: R(geo.q.baseline - cap / 2), xHeightCentre: R(geo.q.baseline - ex / 2), lineCentre: R(lineCentre),
+    offCapCentre: R(sq.centre - capCentre), offCssCapCentre: R(sq.centre - (geo.q.baseline - cap / 2)), offXHeightCentre: R(sq.centre - (geo.q.baseline - ex / 2)), offLineCentre: R(sq.centre - lineCentre),
+    glyphBaselineOffWords: R(sq.glyphBaseline - geo.q.baseline), aboveCapTop: R((geo.q.baseline - ink.capInk) - sq.top), belowBaseline: R(sq.bottom - geo.q.baseline) };
+  const rowsPx = geo.q.bottom - geo.li4Top, liBox = li.getBoundingClientRect();
+  const rows = { lineHeight: R(lh), inlineRowsPx: R(rowsPx), inlineLines: R(rowsPx / lh), whole: Math.abs(rowsPx / lh - Math.round(rowsPx / lh)) * lh < 0.01, liHeight: R(liBox.height), promiseHeights: [...ul.children].map((c) => R(c.getBoundingClientRect().height)) };
+  const fl = (geo.li1.bottom - geo.li1.top), expBase = (lh - (ink.contentAscent + ink.contentDescent)) / 2 + ink.contentAscent;
+  const check = { li1LineBox: R(fl), li1LineBoxOff: R(fl - lh), li1BaselineFromTop: R(geo.li1.baseline - geo.li1.top), li1BaselineExpected: R(expBase), li1BaselineOff: R(geo.li1.baseline - geo.li1.top - expBase),
+    qLineBoxOff: R(geo.q.bottom - geo.q.top - lh), wordsVsQ: sameLine ? 0 : null, middleRule: R(sq.centre - (geo.q.baseline - ex / 2)), boxesEqualDuring: during === before, boxesEqualAfter: after === before };
+  const mc = getComputedStyle(main), mr = main.getBoundingClientRect(), mLeft = mr.left + parseFloat(mc.paddingLeft), mRight = mr.right - parseFloat(mc.paddingRight);
+  const measure = parseFloat(getComputedStyle(priv).maxWidth), pr = rect(priv), sr = span.getClientRects()[0];
+  let open = null;
+  if (!tip.hidden) {
+    const t = rect(tip), lowestInk = sameLine ? Math.max(sq.bottom, geo.q.baseline + Math.max(0, ink.runInkDescent)) : sq.bottom, nextCapTop = geo.li5.baseline - ink.capInk, nextRunTop = geo.li5.baseline - ink.li5RunInkAscent;
+    const tcs = getComputedStyle(tip);
+    open = { box: t, width: R(t.right - t.left), pLeft: R(tp.getBoundingClientRect().left), wordsLeft: R(sr.left), leftOffWords: R(t.left - sr.left),
+      lineAbove: R(t.top - geo.q.bottom), lineBelow: R(geo.li5.top - t.bottom), lineDiff: R((t.top - geo.q.bottom) - (geo.li5.top - t.bottom)),
+      inkAbove: R(t.top - lowestInk), inkBelow: R(nextCapTop - t.bottom), inkDiff: R((t.top - lowestInk) - (nextCapTop - t.bottom)), inkBelowRun: R(nextRunTop - t.bottom),
+      nextLineTop: geo.li5.top, nextCapTop: R(nextCapTop), rightOffPrivacy: R(t.right - pr.right), rightOffMeasure: R(t.right - (mLeft + measure)), rightOffColumn: R(t.right - mRight),
+      marginTop: tcs.marginTop, marginBottom: tcs.marginBottom, maxWidth: tcs.maxWidth };
+  }
+  const ac = getComputedStyle(ab);
+  return { fonts: document.fonts.status, lang: document.documentElement.lang, geo, ink, square: sq, place, rows, check, open, column: { mainContentLeft: R(mLeft), mainContentRight: R(mRight), mainContentWidth: R(mRight - mLeft), measure: R(measure), measureRight: R(mLeft + measure), privacy: pr },
+    doc: { scrollWidth: document.documentElement.scrollWidth, clientWidth: document.documentElement.clientWidth, overflow: document.documentElement.scrollWidth > document.documentElement.clientWidth },
+    aboutButton: { box: rect(ab), verticalAlign: ac.verticalAlign, margin: [ac.marginTop, ac.marginRight, ac.marginBottom, ac.marginLeft].join(' '), width: ac.width, height: ac.height },
+    formatButton: (() => { const c = getComputedStyle(b); return { verticalAlign: c.verticalAlign, margin: [c.marginTop, c.marginRight, c.marginBottom, c.marginLeft].join(' ') } })() };
+})()`
+const centre = (w, id) => w.evaluate(`(() => { const b = document.getElementById(${JSON.stringify(id)}); b.scrollIntoView({ block: 'center', inline: 'nearest' }); const r = b.getBoundingClientRect(); return { x: r.left + r.width / 2, y: r.top + r.height / 2 } })()`)
+const mouse = (w, type, x, y, extra = {}) => w.page.send('Input.dispatchMouseEvent', { type, x, y, ...(type === 'mouseMoved' ? {} : { button: 'left', clickCount: 1 }), ...extra })
+const away = (w) => mouse(w, 'mouseMoved', 1, 1)
+const closeTip = (w, id) => w.evaluate(`(() => { const b = document.getElementById(${JSON.stringify(id)}); if (b.getAttribute('aria-expanded') === 'true') b.click(); document.activeElement?.blur?.(); })()`)
+const kbFocus = async (w, id) => { await w.evaluate(`document.getElementById(${JSON.stringify(id)}).focus()`); await key(w, 'Tab', { shift: true }); await key(w, 'Tab'); return w.evaluate(`document.activeElement === document.getElementById(${JSON.stringify(id)}) && document.activeElement.matches(':focus-visible')`) }
+const OUTLINE = (id, on) => on ? `(() => { const b = document.getElementById(${JSON.stringify(id)}); const r = b.getBoundingClientRect(), a = getComputedStyle(b, '::after'); const tw = parseFloat(a.width) || 44, th = parseFloat(a.height) || 44; const o = document.createElement('div'); o.id = 'vh203-target-outline'; Object.assign(o.style, { position: 'fixed', left: (r.left + r.width / 2 - tw / 2) + 'px', top: (r.top + r.height / 2 - th / 2) + 'px', width: tw + 'px', height: th + 'px', boxSizing: 'border-box', border: '1px solid #e0007a', pointerEvents: 'none', zIndex: '2147483647', forcedColorAdjust: 'none' }); document.body.append(o); return { tw, th, left: Math.round((r.left + r.width / 2 - tw / 2) * 100) / 100, top: Math.round((r.top + r.height / 2 - th / 2) * 100) / 100 } })()` : `document.getElementById('vh203-target-outline')?.remove()`
+const ID = 'format-help-button'
+const browser = await connectBrowser()
+let n = 0, bad = 0, images = 0
+for (const lang of langs) for (const view of views) for (const mode of modes) {
+  const w = new Walk(browser, `states/${lang}__${view}__${mode}`)
+  const put = (state, r) => { n++; appendFileSync(OUT, JSON.stringify({ lang, view, mode, which: 'format', state, ...r }) + '\n') }
+  const want = mode.endsWith('font32') ? 32 : 16
+  const font = async (at) => { const px = await w.evaluate(`parseFloat(getComputedStyle(document.documentElement).fontSize)`); if (px !== want) throw new Error(`root ${px} px, wanted ${want}, ${at}`) }
+  const shot = async (state) => {
+    await font(`before the clip of ${state}`)
+    const r = await w.evaluate(`(() => { const b = document.getElementById(${JSON.stringify(ID)}); const a = b.closest('.promise-with-help') || b; const s = a.getBoundingClientRect(); const x0 = Math.max(0, s.left - 24), y0 = Math.max(0, s.top - 24), x1 = Math.min(innerWidth, s.right + 24), y1 = Math.min(innerHeight, s.bottom + 24); return { x: x0 + scrollX, y: y0 + scrollY, width: x1 - x0, height: y1 - y0, cut: s.top - 24 < 0 || s.bottom + 24 > innerHeight || s.left - 24 < 0 || s.right + 24 > innerWidth } })()`)
+    const { cut, ...clip } = r
+    const png = await w.page.send('Page.captureScreenshot', { format: 'png', captureBeyondViewport: false, clip: { ...clip, scale: 1 } })
+    const file = `format-${lang}-${view}-${mode}-${state}.png`
+    writeFileSync(join(w.dir, file), Buffer.from(png.data, 'base64')); images++
+    await font(`after the clip of ${state}`)
+    return { file, clip: { x: Math.round(clip.x), y: Math.round(clip.y), width: Math.round(clip.width), height: Math.round(clip.height), cutByViewport: cut } }
+  }
+  try {
+    await w.open()
+    await w.page.send('Page.addScriptToEvaluateOnNewDocument', { source: QUAL_INIT })
+    await w.page.send('Page.addScriptToEvaluateOnNewDocument', { source: MX_INIT })
+    await setViewport(w, view); await setMode(w, mode)
+    await fresh(w, lang); await sleep(300)
+    // The title's panel, opened by its own button (VH-229): the walker's own click, then the pointer away and nothing focused.
+    await w.click('#about-help-button'); await sleep(250)
+    const opened = await w.evaluate(`!document.getElementById('about-help').hidden && document.getElementById('about-help-button').getAttribute('aria-expanded') === 'true'`)
+    if (!opened) throw new Error('the title panel did not open by its button')
+    await away(w); await w.evaluate(`document.activeElement?.blur?.()`); await sleep(150)
+    const read = async (state) => { const r = await w.evaluate(READ(ID)); if (r.root !== want) throw new Error(`root ${r.root} px, wanted ${want}, ${state}`); if (!r.aboutOpen) throw new Error(`the title panel closed, ${state}`); const geo = await w.evaluate(PROBE); const s = await shot(state); put(state, { ...r, geo, image: s.file, clip: s.clip }); return r }
+    await away(w); await closeTip(w, ID); await sleep(120); await read('rest')
+    if (view === 'w1280' && mode === 'light') {
+      const o = await w.evaluate(OUTLINE(ID, true)); await sleep(60)
+      const s = await shot('rest-target'); await w.evaluate(OUTLINE(ID, false))
+      const r = await w.evaluate(READ(ID)); put('rest-target', { outline: o, words: r.words, target: r.target, box: r.box, aboutOpen: r.aboutOpen, expanded: r.expanded, root: r.root, image: s.file, clip: s.clip })
+    }
+    let c = await centre(w, ID)
+    await mouse(w, 'mouseMoved', c.x, c.y); await sleep(150); await read('hovered'); await away(w); await sleep(100)
+    const fv = await kbFocus(w, ID); await sleep(100); put('focused-reached', { reached: fv }); await read('focused')
+    await w.evaluate(`document.activeElement?.blur?.()`); await closeTip(w, ID)
+    c = await centre(w, ID); await mouse(w, 'mouseMoved', c.x, c.y); await mouse(w, 'mousePressed', c.x, c.y); await mouse(w, 'mouseReleased', c.x, c.y); await sleep(200); await away(w); await sleep(120); await read('open')
+    await closeTip(w, ID); await away(w)
+    console.log(`read ${lang} ${view} ${mode}`)
+  } catch (e) { bad++; put('error', { error: String(e.stack ?? e).slice(0, 400) }); console.log(`error ${lang} ${view} ${mode}: ${String(e.message ?? e).slice(0, 200)}`) } finally { await w.close().catch(() => undefined) }
+}
+await closeAnalysis()
+console.log(`${n} readings, ${images} images, ${bad} conditions errored`)
+browser.close()
+process.exit(bad ? 1 : 0)

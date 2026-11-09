@@ -1,0 +1,61 @@
+states 192, sameLine 176, wrapped 16, open 48
+max |offCapCentre| sameLine: 16 px 1.56, 32 px 3.15; max |lineDiff| open: 16 px 12, 32 px 24; max |leftOffWords| 0
+rightOffPrivacy w1280 24..48 (24); w320 0..0 (24)
+wrapped states (16):
+  en-GB w320 font32 32 rest: offCapCentre 3.15, offLineCentre 2.7, aboveCapTop 5.39
+  en-GB w320 font32 32 hovered: offCapCentre 3.15, offLineCentre 2.7, aboveCapTop 5.39
+  en-GB w320 font32 32 focused: offCapCentre 3.15, offLineCentre 2.7, aboveCapTop 5.39
+  en-GB w320 font32 32 open: offCapCentre 3.15, offLineCentre 2.7, aboveCapTop 5.39
+  en-GB w320 dark-font32 32 rest: offCapCentre 3.15, offLineCentre 2.7, aboveCapTop 5.39
+  en-GB w320 dark-font32 32 hovered: offCapCentre 3.15, offLineCentre 2.7, aboveCapTop 5.39
+  en-GB w320 dark-font32 32 focused: offCapCentre 3.15, offLineCentre 2.7, aboveCapTop 5.39
+  en-GB w320 dark-font32 32 open: offCapCentre 3.15, offLineCentre 2.7, aboveCapTop 5.39
+  en-GB w320 forced-light-font32 32 rest: offCapCentre 3.15, offLineCentre 2.7, aboveCapTop 5.39
+  en-GB w320 forced-light-font32 32 hovered: offCapCentre 3.15, offLineCentre 2.7, aboveCapTop 5.39
+  en-GB w320 forced-light-font32 32 focused: offCapCentre 3.15, offLineCentre 2.7, aboveCapTop 5.39
+  en-GB w320 forced-light-font32 32 open: offCapCentre 3.15, offLineCentre 2.7, aboveCapTop 5.39
+  en-GB w320 forced-dark-font32 32 rest: offCapCentre 3.15, offLineCentre 2.7, aboveCapTop 5.39
+  en-GB w320 forced-dark-font32 32 hovered: offCapCentre 3.15, offLineCentre 2.7, aboveCapTop 5.39
+  en-GB w320 forced-dark-font32 32 focused: offCapCentre 3.15, offLineCentre 2.7, aboveCapTop 5.39
+  en-GB w320 forced-dark-font32 32 open: offCapCentre 3.15, offLineCentre 2.7, aboveCapTop 5.39
+failing 248
+  en-GB w1280 light 16 rest: offCapCentre 1.56
+  en-GB w1280 light 16 hovered: offCapCentre 1.56
+  en-GB w1280 light 16 focused: offCapCentre 1.56
+  en-GB w1280 light 16 open: offCapCentre 1.56
+  en-GB w1280 light 16 open: lineDiff 12
+  en-GB w1280 light 16 open: rightOffPrivacy 24
+  en-GB w1280 dark 16 rest: offCapCentre 1.56
+  en-GB w1280 dark 16 hovered: offCapCentre 1.56
+  en-GB w1280 dark 16 focused: offCapCentre 1.56
+  en-GB w1280 dark 16 open: offCapCentre 1.56
+  en-GB w1280 dark 16 open: lineDiff 12
+  en-GB w1280 dark 16 open: rightOffPrivacy 24
+  en-GB w1280 forced-light 16 rest: offCapCentre 1.56
+  en-GB w1280 forced-light 16 hovered: offCapCentre 1.56
+  en-GB w1280 forced-light 16 focused: offCapCentre 1.56
+  en-GB w1280 forced-light 16 open: offCapCentre 1.56
+  en-GB w1280 forced-light 16 open: lineDiff 12
+  en-GB w1280 forced-light 16 open: rightOffPrivacy 24
+  en-GB w1280 forced-dark 16 rest: offCapCentre 1.56
+  en-GB w1280 forced-dark 16 hovered: offCapCentre 1.56
+  en-GB w1280 forced-dark 16 focused: offCapCentre 1.56
+  en-GB w1280 forced-dark 16 open: offCapCentre 1.56
+  en-GB w1280 forced-dark 16 open: lineDiff 12
+  en-GB w1280 forced-dark 16 open: rightOffPrivacy 24
+  en-GB w1280 font32 32 rest: offCapCentre 3.15
+  en-GB w1280 font32 32 hovered: offCapCentre 3.15
+  en-GB w1280 font32 32 focused: offCapCentre 3.15
+  en-GB w1280 font32 32 open: offCapCentre 3.15
+  en-GB w1280 font32 32 open: lineDiff 24
+  en-GB w1280 font32 32 open: rightOffPrivacy 48
+  en-GB w1280 dark-font32 32 rest: offCapCentre 3.15
+  en-GB w1280 dark-font32 32 hovered: offCapCentre 3.15
+  en-GB w1280 dark-font32 32 focused: offCapCentre 3.15
+  en-GB w1280 dark-font32 32 open: offCapCentre 3.15
+  en-GB w1280 dark-font32 32 open: lineDiff 24
+  en-GB w1280 dark-font32 32 open: rightOffPrivacy 48
+  en-GB w1280 forced-light-font32 32 rest: offCapCentre 3.15
+  en-GB w1280 forced-light-font32 32 hovered: offCapCentre 3.15
+  en-GB w1280 forced-light-font32 32 focused: offCapCentre 3.15
+  en-GB w1280 forced-light-font32 32 open: offCapCentre 3.15

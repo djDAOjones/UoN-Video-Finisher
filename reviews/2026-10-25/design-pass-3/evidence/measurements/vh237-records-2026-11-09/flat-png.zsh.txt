@@ -1,0 +1,28 @@
+#!/bin/zsh
+# VH-237 #3: the table's flat copies, as VH-234's notes' last line: made after the walks from the groups' own files, in each group's png/
+# (route (1')'s images and sheets, the scroll tiles, s1's sheets and INDEX.md) and runs/format-help-states.jsonl; HTML and Markdown kept with .txt added.
+# Ruling 4: each scroll tile copied once, from its own group's scroll-out (b1 before, a1 after); s1's tiles are byte-equal copies of those, checked here, not copied again.
+set -e; setopt null_glob
+WK=/Users/uazjob/UoN-Video-Helper-side/vh237-walk; cd $WK
+for g in p0 b1 a1 s1; do test ! -e $g/png || { echo "exists: $g/png"; exit 3; }; done
+for g in b1 a1; do test ! -e $g/runs/format-help-states.jsonl || { echo "exists: $g/runs/format-help-states.jsonl"; exit 3; }; done
+L=$WK/flat-png.list; : > $L
+c() { test ! -e "$2" || { echo "collision: $2"; exit 4; }; cp -p "$1" "$2"; cmp -s "$1" "$2" || { echo "copy differs: $1"; exit 5; }; echo "$(shasum -a 1 "$2" | cut -d' ' -f1)  $2  from $1" >> $L; }
+mkdir p0/png; for f in p0/out/states/*/format-*.png; do c $f p0/png/${f:t}; done
+for g in b1 a1; do
+  mkdir $g/png
+  for f in $g/route1-records/sheet-*.png; do c $f $g/png/${f:t}; done
+  for f in $g/route1-records/sheet-*.html; do c $f $g/png/${f:t}.txt; done
+  for f in $g/route1-records/images/*.png; do c $f $g/png/${f:t}; done
+  for f in $g/scroll-out/states/*/scroll-*.png; do c $f $g/png/${f:t}; done
+  c $g/format-help.jsonl $g/runs/format-help-states.jsonl
+done
+for side in before:b1 after:a1; do s=${side%%:*}; g=${side##*:}; n=0
+  for f in s1/scroll-records/tiles/$s/*.png; do cmp -s $f $g/png/${f:t} || { echo "s1 tile not in $g/png: $f"; exit 6; }; n=$((n+1)); done
+  echo "s1 $s tiles $n, each byte-equal to $g/png's copy"; done
+mkdir s1/png
+for f in s1/scroll-records/sheet-*.png s1/scroll-records/sheets.json; do c $f s1/png/${f:t}; done
+for f in s1/scroll-records/sheet-*.html; do c $f s1/png/${f:t}.txt; done
+c s1/scroll-records/INDEX.md s1/png/INDEX.md.txt; c s1/INDEX-first.md.txt s1/png/INDEX-first.md.txt
+for g in p0 b1 a1 s1; do echo "$g/png $(ls $g/png | wc -l | tr -d ' ') files, $(du -sh $g/png | cut -f1)"; done
+echo "list $(wc -l < $L | tr -d ' ') copies, $(shasum -a 1 $L | cut -c1-8)"

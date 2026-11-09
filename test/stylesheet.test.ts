@@ -298,6 +298,20 @@ describe('the fourth promise’s "?" (VH-205)', () => {
     expect(button).not.toMatch(/(?:^|[;\s])font(?:-[a-z]+)?:/)
     expect(roleOf('.help-button')).toContain('line-height: var(--line-height-body);')
   })
+
+  it('sets the "?" on its promise’s capitals and the open tip evenly between the promises, within the measure (VH-237)', () => {
+    // `middle` centred the square on the x-height, so it read low; the tip had
+    // its step above only, and ran on past the measure by the list's indent.
+    const button = block('.promise-with-help .help-button')
+    expect(button).toMatch(/vertical-align:\s*top;/)
+    expect(button).not.toMatch(/vertical-align:\s*middle;/)
+    expect(button).toMatch(/margin-top:\s*calc\(var\(--spacing-01\) - var\(--border-width\)\);/)
+    expect(button).toMatch(/margin-left:\s*var\(--spacing-02\);/)
+    const tip = block('.promise-with-help .toggletip')
+    expect(tip).toMatch(/margin-top:\s*var\(--spacing-04\);/)
+    expect(tip).toMatch(/margin-bottom:\s*var\(--spacing-04\);/)
+    expect(tip).toMatch(/max-width:\s*calc\(var\(--measure\) - var\(--spacing-06\)\);/)
+  })
 })
 
 describe('the "?": its gap and its open state (VH-217)', () => {

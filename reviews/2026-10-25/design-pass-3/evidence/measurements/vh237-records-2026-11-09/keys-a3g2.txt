@@ -1,0 +1,12 @@
+S-143__en-GB__w1280__fallback
+S-143__en-GB__w1280__light
+S-143__en-GB__w320__light
+S-143__en-GB__w375__light
+S-143__ms-MY__w1280__fallback
+S-143__ms-MY__w1280__light
+S-143__ms-MY__w320__light
+S-143__ms-MY__w375__light
+S-143__zh-Hans__w1280__fallback
+S-143__zh-Hans__w1280__light
+S-143__zh-Hans__w320__light
+S-143__zh-Hans__w375__light

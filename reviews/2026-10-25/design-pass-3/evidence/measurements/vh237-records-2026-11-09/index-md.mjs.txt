@@ -1,0 +1,34 @@
+// VH-237 #1: INDEX.md beside route (2')'s sheets: each sheet's path and sha1 with a link to its full-size tiles, the base and the after's diff
+// hash, the owner's two shots by sha1, and for each language and width at light 16 px the three readings before -> after, in plain words, from
+// route (1')'s records (format-help-d.mjs's geo). Read-only but for INDEX.md.
+//   node index-md.mjs --records <scroll-records> --before <b1 format-help.jsonl> --after <a1 format-help.jsonl> --at-before <x> --at-after <y>
+// VH-237 #2: the right edge's phrase given its noun ("24.00 px past the privacy paragraph's right edge"), wording only; INDEX.md made again from the same records.
+import { readFileSync, writeFileSync, existsSync, readdirSync } from 'node:fs'
+import { createHash } from 'node:crypto'
+import { join } from 'node:path'
+const args = process.argv.slice(2), opt = (n) => { const i = args.indexOf(n); if (i < 0) throw new Error(n); return args[i + 1] }
+const REC = opt('--records'), OUT = join(REC, 'INDEX.md'); if (existsSync(OUT)) throw new Error(`exists: ${OUT}`)
+const sha = (p) => createHash('sha1').update(readFileSync(p)).digest('hex')
+const rows = (f) => readFileSync(f, 'utf8').trim().split('\n').map((l) => JSON.parse(l))
+const B = rows(opt('--before')), A = rows(opt('--after'))
+const get = (rs, lang, view, state) => rs.find((r) => r.lang === lang && r.view === view && r.mode === 'light' && r.state === state)
+const S = '/Users/uazjob/UoN-Video-Helper-side/orchestrator-46/owner-shots'
+const px = (v) => (v == null ? 'not read' : `${Math.abs(v).toFixed(2)} px`)
+const low = (v) => (v == null ? 'not read' : Math.abs(v) < 0.005 ? 'on it' : v > 0 ? `${px(v)} low` : `${px(v)} high`)
+const edge = (v, n) => (v == null ? 'not read' : Math.abs(v) < 0.005 ? `on ${n}` : v > 0 ? `${px(v)} past ${n}` : `${px(v)} inside ${n}`)
+const L = []
+L.push('# VH-237: the format "?" and its opened box, before | after', '')
+L.push(`Before: ${opt('--at-before')}. After: ${opt('--at-after')}. Walker revision 7db38f355f3c46c2, Chrome 157 on the Mac Pro.`, '')
+L.push('The owner\'s two shots of the live site at 8bbb6e9, the source of this item:', '')
+for (const f of ['owner-live-closed-2026-11-09.png', 'owner-live-open-2026-11-09.png']) L.push(`- \`${S}/${f}\`, sha1 \`${sha(join(S, f))}\``)
+L.push('', '## The sheets', '', 'One per language and width: a row per colour mode and root font, light at 16 px first; columns rest, focused and open, each before | after. Full-size tiles are in `tiles/before/` and `tiles/after/`.', '')
+for (const f of readdirSync(REC).filter((x) => /^sheet-.*\.png$/.test(x)).sort()) L.push(`- [${f}](${f}), sha1 \`${sha(join(REC, f))}\`; [its HTML](${f.replace(/\.png$/, '.html')}); [full-size tiles](tiles/)`)
+L.push('', '## In plain words, light at 16 px', '', 'The "?": its square\'s centre against the centre of the capitals of its line (Arial\'s "H"), at rest. The opened box: the space above it (from the "?"\'s line) and below it (to the next promise\'s line), then the same to the ink (the lowest ink above, the next capitals below); its right edge against the text measure (the privacy paragraph\'s right edge).', '')
+for (const lang of ['en-GB', 'zh-Hans', 'ms-MY']) for (const view of ['w1280', 'w320']) {
+  const b = get(B, lang, view, 'rest')?.geo, a = get(A, lang, view, 'rest')?.geo, bo = get(B, lang, view, 'open')?.geo?.open, ao = get(A, lang, view, 'open')?.geo?.open
+  L.push(`### ${lang}, ${view}`, '')
+  L.push(`- The "?" ${b?.place?.sameLine === false ? '(on a line of its own) ' : ''}was ${low(b?.place?.offCapCentre)} against the capitals' centre; now ${low(a?.place?.offCapCentre)}.`)
+  L.push(`- Opened, the space above the box was ${px(bo?.lineAbove)} and below ${px(bo?.lineBelow)} (line to box); now ${px(ao?.lineAbove)} and ${px(ao?.lineBelow)}. To the ink: was ${px(bo?.inkAbove)} and ${px(bo?.inkBelow)}; now ${px(ao?.inkAbove)} and ${px(ao?.inkBelow)}.`)
+  L.push(`- The box's right edge was ${edge(bo?.rightOffPrivacy, "the privacy paragraph's right edge")} (${edge(bo?.rightOffMeasure, 'the measure')}); now ${edge(ao?.rightOffPrivacy, "the privacy paragraph's right edge")} (${edge(ao?.rightOffMeasure, 'the measure')}). Its left edge on the words: was ${px(bo?.leftOffWords)} off, now ${px(ao?.leftOffWords)} off.`, '')
+}
+writeFileSync(OUT, L.join('\n') + '\n'); console.log(`INDEX.md ${sha(OUT)}`)

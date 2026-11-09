@@ -1,0 +1,43 @@
+// VH-237 #2: route (1')'s criteria (1)-(4) over one side's format-help.jsonl, read-only; with a second file, the about button compared state by state.
+//   node criteria-read.mjs <side format-help.jsonl> [<other side format-help.jsonl>]
+// (1) place.offCapCentre within 0.5 px (16 px root) / 1 px (32 px) where place.sameLine; wrapped states' place listed; rows.whole in every state.
+// (2) open.lineDiff within 0.5 / 1 in every open state; tip.belowTarget true in every open state.
+// (3) open.leftOffWords within 0.5; w1280: rightOffPrivacy <= 0.5 (on it: |x| <= 0.5); w320: rightOffPrivacy <= 0 and doc.overflow false (every state).
+// (4) with a second file: aboutButton (box from the first promise's line top, and computed style) equal per state.
+import { readFileSync } from 'node:fs'
+const read = (f) => readFileSync(f, 'utf8').trim().split('\n').map((l) => JSON.parse(l)).filter((r) => r.geo)
+const [fa, fb] = process.argv.slice(2), rows = read(fa)
+const key = (r) => [r.lang, r.view, r.mode, r.root, r.state].join(' ')
+const tol = (r) => (r.root >= 32 ? 1 : 0.5)
+const s = { states: rows.length, sameLine: 0, wrapped: 0, open: 0, fail: [] }, mx = { off16: 0, off32: 0, line16: 0, line32: 0, left: 0 }
+const wrapped = [], rightW1280 = [], rightW320 = []
+for (const r of rows) {
+  const g = r.geo, p = g.place, k = key(r), t = tol(r), b = r.root >= 32 ? '32' : '16'
+  if (!g.rows.whole) s.fail.push(`${k}: rows not whole (${g.rows.inlineRowsPx} px)`)
+  if (g.doc?.overflow) s.fail.push(`${k}: overflow`)
+  if (p.sameLine) { s.sameLine++; mx['off' + b] = Math.max(mx['off' + b], Math.abs(p.offCapCentre)); if (Math.abs(p.offCapCentre) > t) s.fail.push(`${k}: offCapCentre ${p.offCapCentre}`) }
+  else { s.wrapped++; wrapped.push(`${k}: offCapCentre ${p.offCapCentre}, offLineCentre ${p.offLineCentre}, aboveCapTop ${p.aboveCapTop}`) }
+  if (r.state === 'open') {
+    s.open++; const o = g.open
+    if (!o) { s.fail.push(`${k}: no open reading`); continue }
+    mx['line' + b] = Math.max(mx['line' + b], Math.abs(o.lineDiff)); if (Math.abs(o.lineDiff) > t) s.fail.push(`${k}: lineDiff ${o.lineDiff}`)
+    if (!r.tip?.belowTarget) s.fail.push(`${k}: tip not below target`)
+    mx.left = Math.max(mx.left, Math.abs(o.leftOffWords)); if (Math.abs(o.leftOffWords) > 0.5) s.fail.push(`${k}: leftOffWords ${o.leftOffWords}`)
+    if (r.view === 'w1280') { rightW1280.push(o.rightOffPrivacy); if (o.rightOffPrivacy > 0.5) s.fail.push(`${k}: rightOffPrivacy ${o.rightOffPrivacy}`) }
+    if (r.view === 'w320') { rightW320.push(o.rightOffPrivacy); if (o.rightOffPrivacy > 0) s.fail.push(`${k}: rightOffPrivacy ${o.rightOffPrivacy}`) }
+  }
+}
+const range = (a) => (a.length ? `${Math.min(...a)}..${Math.max(...a)} (${a.length})` : 'none')
+console.log(`states ${s.states}, sameLine ${s.sameLine}, wrapped ${s.wrapped}, open ${s.open}`)
+console.log(`max |offCapCentre| sameLine: 16 px ${mx.off16}, 32 px ${mx.off32}; max |lineDiff| open: 16 px ${mx.line16}, 32 px ${mx.line32}; max |leftOffWords| ${mx.left}`)
+console.log(`rightOffPrivacy w1280 ${range(rightW1280)}; w320 ${range(rightW320)}`)
+console.log(`wrapped states (${wrapped.length}):`); for (const w of wrapped) console.log('  ' + w)
+if (fb) {
+  // the box in the page's own frame: its top and bottom from the first promise's line top (the driver scrolls the format "?" into view, so viewport tops move with it), its left and right as read; every other field as read
+  const rel = (r) => { const { box, ...rest } = r.geo.aboutButton, t = r.geo.geo.li1.top; return JSON.stringify([box.top - t, box.bottom - t, box.left, box.right, rest]) }
+  const other = new Map(read(fb).map((r) => [key(r), r])); let eq = 0, diff = 0, miss = 0, absDiff = 0
+  for (const r of rows) { const o = other.get(key(r)); if (!o) { miss++; continue } if (JSON.stringify(r.geo.aboutButton) !== JSON.stringify(o.geo.aboutButton)) absDiff++; rel(r) === rel(o) ? eq++ : (diff++, s.fail.push(`${key(r)}: aboutButton differs`)) }
+  console.log(`aboutButton (box from the first promise's top, style): equal ${eq}, differ ${diff}, missing ${miss}; viewport box differing ${absDiff} (the scroll)`)
+}
+console.log(`failing ${s.fail.length}`); for (const f of s.fail.slice(0, 40)) console.log('  ' + f)
+process.exitCode = s.fail.length ? 1 : 0

@@ -1,0 +1,168 @@
+My proposed design is **`text-top` alignment, equal line-box-to-border gaps using `--spacing-04`, and a tip width capped at the measure minus the list indent**. It needs no additional selector.
+
+This is a design recommendation, not a measured pass: I inspected the permitted source, history and both screenshots, but did not run the browser matrix or change files.
+
+**(a) Alignment and row height**
+
+Change only this declaration in the existing button block:
+
+```css
+.promise-with-help .help-button {
+  /* Keep the other existing declarations. */
+  vertical-align: text-top;
+}
+```
+
+The target is **the square’s top border edge aligned with the top of the fourth `li`’s primary-font content area**. It is not the top of the visible capital letters, Chinese ink, or the whole line box.
+
+CSS 2.2 defines `text-top` against the parent’s font; `middle` instead places the element’s centre half the parent’s x-height above its baseline. The parent is the `li`, whose primary face is Arial in all three languages: the Chinese stack is `Arial, var(--font-cjk)`. Chinese glyph fallback therefore does not redefine this target. [CSS 2.2 §10.8.1](https://www.w3.org/TR/CSS22/visudet.html#leading)
+
+This gives a font-relative placement without an empirical upward offset. Keep the existing `inline-flex` centring: the alignment target concerns the **square**, while the question-mark glyph retains VH-234’s compact-emphasis role.
+
+Let:
+
+- `L` be the body line height: 24 or 48 CSS px.
+- `H = A + D` be the primary font’s content ascent plus descent.
+- `t = (L − H) / 2` be its content top below the normal line top.
+- `C` be the square’s height: 20 or 40 CSS px.
+
+The square occupies `[t, t + C]`. It fits the ordinary row when:
+
+| Root | Required content-height interval |
+|---|---|
+| 16px | `16 ≤ H ≤ 24` |
+| 32px | `32 ≤ H ≤ 48` |
+
+Those are **conditions to validate from Chrome’s font geometry**, not font measurements supplied by this review. With that fit, the button does not enlarge the ordinary line. The absolutely positioned target contributes no line height.
+
+At 32px the square becomes 40px, the body row 48px, and the compact-emphasis text 28px/42px. The target remains **44px**, not 88px.
+
+If the button wraps onto its own line, the `li`’s strut still supplies the parent-font line metrics. The same alignment applies on that line. Record its row and placement explicitly; do not compare its top with the previous line’s last word. Opening the block below must not alter these inline rows.
+
+The history matters:
+
+- `git log -S'vertical-align: middle'` identifies **`28db91e`, VH-196**, as introducing `middle`.
+- VH-196’s recorded decision establishes the fourth-promise help and its behaviour; it does not prescribe x-height alignment.
+- VH-205 establishes the 20px square, 44px target and ordinary 24px row. It records a 40px square in a 48px row at the larger root.
+- VH-217’s close records the retained horizontal gap: 8.45px by character box, with different ink gaps, especially at the Chinese full stop. Do not “correct” those ink differences here.
+
+**(b) Equal spaces and target clearance**
+
+Use the **last inline line box’s bottom to the tip’s top border**, and **the tip’s bottom border to the fifth promise’s first line-box top**.
+
+```css
+.promise-with-help .toggletip {
+  margin-top: var(--spacing-04);
+  margin-bottom: var(--spacing-04);
+  max-width: calc(var(--measure) - var(--spacing-06));
+}
+```
+
+The top margin is retained; the bottom margin is added. The pair is 12px at the 16px root and 24px at the 32px root.
+
+Margins can collapse through the unbordered `.promise-help` wrapper and through the fourth item’s bottom. They do not disappear: with the neighbouring zero margins, the positive margin remains the separation. The preceding inline content prevents the top margin from collapsing past the fourth item’s text. Verify the resulting edges rather than adding computed margins together. [CSS 2.2 §8.3.1](https://www.w3.org/TR/CSS22/box.html#collapsing-margins)
+
+For the button’s last row, the target bottom is:
+
+```text
+lineTop + t + C/2 + 22
+```
+
+The tip begins at:
+
+```text
+lineTop + L + spacing-04
+```
+
+Therefore:
+
+| Root | Clearance below target |
+|---|---|
+| 16px | `24 + 12 − (t + 10 + 22) = 4 − t = H/2 − 8` |
+| 32px | `48 + 24 − (t + 20 + 22) = 30 − t = H/2 + 6` |
+
+For illustration only, content heights of 18px and 36px would give clearances of 1px and 24px. Actual clearance must come from the measured font and target rectangles. At 16px it is tight: require a positive measured clearance, not a rounded zero. If the button is on an earlier row, the intervening rows increase clearance.
+
+This pair deliberately does not promise equal **ink** gaps. Ink differs across languages and lines. The screenshots support the owner’s concern, but their scaled pixels cannot establish either CSS gap.
+
+When the tip is hidden it generates no box, so its new margin and maximum width have no effect. The intended button realignment still occurs in the closed state; the surrounding closed-state layout must remain unchanged.
+
+**(c) The overshoot and width cap**
+
+The privacy paragraph starts at the column’s left and is capped at `28rem`. The list’s words start `1.5rem` farther right, but its `li` independently receives the same `28rem` cap. The uncapped block tip fills that item, putting its right edge one list indent beyond the privacy paragraph.
+
+The remedy is:
+
+```css
+max-width: calc(var(--measure) - var(--spacing-06));
+```
+
+This subtraction form already occurs in the stylesheet. The global `border-box` rule makes the cap include the tip’s padding and border. Keeping width automatic lets the block shrink to its containing block on narrow screens. [CSS Box Sizing §3.3](https://www.w3.org/TR/css-sizing-3/#box-sizing)
+
+| Root | Privacy measure | List indent | Tip maximum border-box width |
+|---|---:|---:|---:|
+| 16px | 448px | 24px | 424px |
+| 32px | 896px | 48px | 848px |
+
+At w1280, the available column accommodates these measures at both roots. The tip’s right border therefore lands on the privacy paragraph’s **box edge**, not necessarily its last painted character.
+
+At w320, the containing block is narrower than either cap. The tip fills the available item width and remains inside the column; its left edge stays on the promise’s words. Read the actual `.main` padding and media-query state at each root. Changing the document root and changing the browser’s default font are not interchangeable breakpoint experiments.
+
+**(d) Judgement of the measuring method**
+
+I support the proposed transient probes, with these qualifications.
+
+An empty zero-height inline-block’s baseline falls at its bottom margin edge when it has no in-flow line boxes. A baseline-aligned probe can therefore locate the baseline; zero-height `top` and `bottom` probes can locate line boundaries. The first-item validation is valuable because it checks the instrument against a plain line before interpreting the button’s line. [CSS 2.2 §10.8.1](https://www.w3.org/TR/CSS22/visudet.html#leading)
+
+I would add or make explicit:
+
+- **Exact probe styles:** zero dimensions, margins, padding and border; no generated content; inherited `li` typography; no positioning or transform. Insert no whitespace.
+- **Sibling placement:** the set after “?” must be outside the button, in the `li`’s inline formatting context. A probe inside the flex button measures a different layout.
+- **Line membership:** identify which row contains every probe and the final word. A zero-width inline-block can still affect break opportunities or whitespace processing.
+- **Non-interference:** compare text-fragment rectangles and wrapping as well as element rectangles. Equal outer boxes alone can hide a changed line break.
+- **Font readiness:** wait for fonts and record the resolved language, font stack, font size, line height, viewport and root size.
+- **Independent target check:** read the pseudo-element geometry and sample hit points, rather than treating its declared dimensions as proof of an unobstructed target.
+- **Removal:** remove probes before captures and confirm that wrapping and geometry return unchanged.
+
+Measuring CSS `1ex` is preferable to substituting canvas “x” ink height: those are different quantities. Validate the base’s `middle` equation independently:
+
+```text
+squareCentreY = baselineY − CSS-ex/2
+```
+
+Canvas `actualBoundingBoxAscent/Descent` describes **ink**. It does not automatically give the CSS content area. “H” and “x” are useful visual references, but neither gives the parent’s full content ascent and descent. Chinese runs need their own ink bounds and matching shaping settings; they must not replace Arial’s primary-font metrics in the alignment target.
+
+CSS leaves aspects of non-replaced inline content-height construction to the implementation. Consequently, the proposed baseline/half-leading validation is essential. Keep the stipulated base tolerances—0.25px and 0.5px—and reject an instrument that fails them. Do not derive ascent from a measured baseline and then claim the same baseline equation independently validates it.
+
+**(e) Does w1280 represent the owner’s wider window?**
+
+At the **16px root, yes for this local layout**, provided both viewport widths exceed the 960px layout cap and the language, font, zoom and state match. `.main` then has the same width and internal padding. Its horizontal position changes with the viewport, but the promise’s available width does not.
+
+At the **32px root, no general equivalence**: the layout cap is 1920px, so w1280 and a wider window can have different column widths. Both may nevertheless be wide enough to reach this particular 896px prose cap, producing the same local wrapping. Establish that from the containing-block readings rather than assuming that the outer layout is capped.
+
+**Record, tests and limits**
+
+I would record VH-237 as replacing the inherited **`middle` implementation**, without claiming that VH-196’s recorded placement or VH-205’s square/target/row decision is superseded. Those decisions remain satisfied; the top step remains `--spacing-04`. VH-217’s gap and fill and VH-234’s type role remain intact.
+
+Inside the existing VH-205 `describe`, pin:
+
+- `vertical-align: text-top`;
+- both vertical margins to `--spacing-04`;
+- maximum width to the exact measure-minus-indent expression;
+- the retained square, centred target and horizontal-gap declarations;
+- VH-234’s unchanged prohibition on a local font or line-height override.
+
+Static tests cannot prove row geometry, margin collapse or target clearance. Those require the item’s before/after matrix, including wrapped-button states and all 48 open states.
+
+No additional block is needed. A failure requiring a wrapper change, a new token, altered type metrics or a global rule is a **stop**, not permission to expand this remedy.
+
+Forced colours should retain the same geometry, but focus visibility and hit testing still need checking. Under 1.4.12, increased spacing may wrap the button or overflow its fixed square; validate text, focus and target visibility without suppressing the user’s spacing. Reduced motion introduces no new concern because this change adds no motion.
+
+The applicable digest rules are Carbon **Tokens, not literals** and **Spacing**, and WCAG **1.4.8, 2.4.13 and 2.5.5**, alongside the item’s text-spacing and reflow checks.
+
+The final proof list is:
+
+- **Declarations:** `text-top`; retained top and new bottom `--spacing-04`; `max-width: calc(var(--measure) - var(--spacing-06))`.
+- **Pair:** last-line-box-to-top-border and bottom-border-to-next-line-box; read 12/12px or 24/24px within tolerance.
+- **Target:** square top equals primary-font content top; read that error, every inline row’s height, and the wrapped button’s own row.
+- **Clearance and width:** read positive target-to-tip clearance, equal word/tip left edges, tip right no farther than the privacy box at w1280, and no new column overflow at w320.

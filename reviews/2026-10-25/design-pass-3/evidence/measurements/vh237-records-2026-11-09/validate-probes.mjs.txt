@@ -1,0 +1,22 @@
+// VH-237 #1: route (1')'s probe validation (the design's (d)), read-only over a format-help.jsonl: per state, the first promise's line box equal to the
+// computed line-height, its baseline at half the leading plus the content ascent below its top, the boxes and lines equal with and without the probes,
+// the inline rows whole, and (with --middle, the base) the square's centre at the baseline less half the CSS x-height; 0.25 px at 16 px, 0.5 px at 32 px.
+//   node validate-probes.mjs <format-help.jsonl> [--middle]
+import { readFileSync } from 'node:fs'
+const [f, flag] = process.argv.slice(2), mid = flag === '--middle'
+const rows = readFileSync(f, 'utf8').trim().split('\n').map((l) => JSON.parse(l)).filter((r) => r.geo)
+let bad = 0; const fails = [], sum = { states: rows.length, sameLine: 0, wrapped: 0, maxLineOff: 0, maxBaseOff: 0, maxMiddle: 0 }
+for (const r of rows) {
+  const g = r.geo, c = g.check, tol = r.root === 32 ? 0.5 : 0.25, k = `${r.lang} ${r.view} ${r.mode} ${r.state}`
+  // Chrome's split (NGLineHeightMetrics::AddLeading): the half leading floored above the baseline; the content metrics as canvas gives them.
+  const blinkBase = Math.floor((g.rows.lineHeight - (g.ink.contentAscent + g.ink.contentDescent)) / 2) + g.ink.contentAscent, baseOff = c.li1BaselineFromTop - blinkBase; c.li1BaselineOff = Math.round(baseOff * 100) / 100
+  const t = [['li1LineBox', Math.abs(c.li1LineBoxOff) <= tol], ['li1Baseline', Math.abs(c.li1BaselineOff) <= tol], ['qLineBox', Math.abs(c.qLineBoxOff) <= tol], ['boxesDuring', c.boxesEqualDuring], ['boxesAfter', c.boxesEqualAfter], ['rowsWhole', g.rows.whole], ['fonts', g.fonts === 'loaded']]
+  if (mid) t.push(['middle', Math.abs(c.middleRule) <= tol])
+  g.place.sameLine ? sum.sameLine++ : sum.wrapped++
+  sum.maxLineOff = Math.max(sum.maxLineOff, Math.abs(c.li1LineBoxOff)); sum.maxBaseOff = Math.max(sum.maxBaseOff, Math.abs(c.li1BaselineOff)); sum.maxMiddle = Math.max(sum.maxMiddle, Math.abs(c.middleRule))
+  const f2 = t.filter(([, ok]) => !ok).map(([n]) => n); if (f2.length) { bad++; fails.push(`${k}: ${f2.join(', ')} (line ${c.li1LineBoxOff}, base ${c.li1BaselineOff}, middle ${c.middleRule}, rows ${g.rows.inlineLines})`) }
+}
+console.log(JSON.stringify(sum)); console.log(`failing states ${bad} of ${rows.length}`); for (const x of fails.slice(0, 12)) console.log('  ' + x)
+const ex = rows.find((r) => r.lang === 'en-GB' && r.mode === 'light' && r.state === 'rest') || rows[0]
+if (ex) console.log('example', ex.lang, ex.view, ex.mode, ex.state, JSON.stringify({ place: ex.geo.place, square: ex.geo.square, ink: { ...ex.geo.ink, font: undefined }, rows: ex.geo.rows.inlineLines }))
+process.exit(bad ? 1 : 0)

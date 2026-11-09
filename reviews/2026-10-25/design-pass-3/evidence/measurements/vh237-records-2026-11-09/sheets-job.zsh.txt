@@ -1,0 +1,6 @@
+#!/bin/zsh
+# VH-237 #1: the sheets group's job line (walk.sh runs it in vh237-walk with WALKER, OUTD … set): route (2')'s before | after sheets from b1's and a1's tiles,
+# then INDEX.md beside them.   zsh sheets-job.zsh <before at> <after at>
+D=/Users/uazjob/UoN-Video-Helper-side/vh237-walk
+node scroll-sheets2.mjs --before-states $D/b1/scroll-out/states --before-jsonl $D/b1/scroll.jsonl --after-states $D/a1/scroll-out/states --after-jsonl $D/a1/scroll.jsonl --records $OUTD/scroll-records --at-before "$1" --at-after "$2" > $OUTD/logs/sheets.log 2>&1 || exit 1
+node index-md.mjs --records $OUTD/scroll-records --before $D/b1/format-help.jsonl --after $D/a1/format-help.jsonl --at-before "$1" --at-after "$2" >> $OUTD/logs/sheets.log 2>&1

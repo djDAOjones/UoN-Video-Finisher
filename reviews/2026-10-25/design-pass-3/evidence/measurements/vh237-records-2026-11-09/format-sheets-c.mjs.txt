@@ -1,0 +1,73 @@
+// VH-237 #1: VH-234's copy, changed only in this line and the heading's item name (VH-237).
+// VH-234 #1's copy of VH-203's format-sheets-c.mjs (88d1d6e4), changed only in this line and the sheet's heading and run line (SIDE, SIDE_AT).
+// VH-203 #14, Part C's contact sheets, for the owner: one per language and width (6), each a single PNG of that set's 32 images (4 states x
+// 4 modes x 2 fonts), each image labelled. It copies format-help-c.mjs's images into the records folder, writes one HTML grid page per
+// sheet there, and shoots each with the walker's own Chrome over CDP (a new target, the page sized to its content, captureBeyondViewport
+// false). No new dependency. Nothing is written to the walker.
+//   CDP_PORT=… WALKER=… node format-sheets-c.mjs --states <OUT_ROOT/states> --jsonl <format-help-c's jsonl> --records <records folder>
+import { pathToFileURL } from 'node:url'
+import { join } from 'node:path'
+import { mkdirSync, readFileSync, writeFileSync, copyFileSync, existsSync, readdirSync } from 'node:fs'
+const WALKER = process.env.WALKER
+const { connectBrowser } = await import(pathToFileURL(join(WALKER, 'cdp.mjs')).href)
+const args = process.argv.slice(2)
+const opt = (n) => { const i = args.indexOf(n); if (i < 0) throw new Error(n); return args[i + 1] }
+const STATES = opt('--states'), JSONL = opt('--jsonl'), REC = opt('--records')
+const IMG = join(REC, 'images'); mkdirSync(IMG, { recursive: true })
+const rows = readFileSync(JSONL, 'utf8').trim().split('\n').map((l) => JSON.parse(l))
+const errors = rows.filter((r) => r.state === 'error'); if (errors.length) { console.log(`errors in the readings: ${errors.length}; no sheets`); process.exit(1) }
+// Copy every image the readings name, from its condition's folder.
+let copied = 0
+for (const r of rows) if (r.image) { const src = join(STATES, `${r.lang}__${r.view}__${r.mode}`, r.image); if (!existsSync(src)) throw new Error('missing ' + src); copyFileSync(src, join(IMG, r.image)); copied++ }
+const langs = ['en-GB', 'zh-Hans', 'ms-MY'], views = ['w1280', 'w320'], states = ['rest', 'hovered', 'focused', 'open']
+const modes = [['light', 'light', 16], ['dark', 'dark', 16], ['forced-light', 'forced light', 16], ['forced-dark', 'forced dark', 16], ['font32', 'light', 32], ['dark-font32', 'dark', 32], ['forced-light-font32', 'forced light', 32], ['forced-dark-font32', 'forced dark', 32]]
+const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;')
+const browser = await connectBrowser()
+const made = []
+for (const lang of langs) for (const view of views) {
+  let cells = 0
+  const body = modes.map(([mode, name, px]) => `<tr><th scope="row">${esc(name)}<br>${px} px</th>` + states.map((state) => {
+    const r = rows.find((x) => x.lang === lang && x.view === view && x.mode === mode && x.state === state)
+    if (!r) throw new Error(`no reading ${lang} ${view} ${mode} ${state}`)
+    cells++
+    return `<td><p class="l">${esc(lang)} · ${view} · ${esc(name)} · ${px} px · ${state}</p><img src="images/${esc(r.image)}" alt=""></td>`
+  }).join('') + '</tr>').join('\n')
+  if (cells !== 32) throw new Error(`${lang} ${view}: ${cells} cells`)
+  const name = `sheet-${lang}-${view}`
+  writeFileSync(join(REC, name + '.html'), `<!doctype html>
+<html lang="en-GB"><head><meta charset="utf-8"><title>Format help, ${lang}, ${view}</title>
+<style>
+body { margin: 16px; background: #ffffff; color: #000000; font: 14px/1.35 -apple-system, "Helvetica Neue", Arial, sans-serif; }
+h1 { font-size: 18px; margin: 0 0 4px; } p.n { margin: 0 0 12px; font-size: 13px; }
+table { border-collapse: collapse; } th, td { border: 1px solid #8a8a8a; padding: 6px; vertical-align: top; text-align: left; }
+thead th { background: #e8e8e8; } tbody th { background: #f2f2f2; white-space: nowrap; font-size: 13px; }
+p.l { margin: 0 0 4px; font-size: 12px; color: #222222; } img { display: block; border: 1px dashed #b0b0b0; }
+</style></head><body>
+<h1>VH-237 ${esc(process.env.SIDE ?? "")}: the format "?", ${esc(lang)} at ${view} (32 images)</h1>
+<p class="n">The title's panel open by its own button in every image. At rest: the tip closed. Hovered: the pointer over the "?". Focused: by the keyboard. Open: by the pointer, then the pointer away. Each image is a clip inside the viewport, 24 px round the promise and its "?". Run revision 7db38f355f3c46c2 at ${esc(process.env.SIDE_AT ?? "")}, on the Mac Pro, ${new Date().toISOString().slice(0, 10)}.</p>
+<table><thead><tr><th></th>${states.map((s) => `<th scope="col">${s}</th>`).join('')}</tr></thead>
+<tbody>
+${body}
+</tbody></table></body></html>
+`)
+  const page = await browser.newPage()
+  try {
+    await page.send('Page.enable'); await page.send('Runtime.enable')
+    await page.send('Emulation.setDeviceMetricsOverride', { width: 1200, height: 800, deviceScaleFactor: 1, mobile: false })
+    const loaded = page.once('Page.loadEventFired')
+    await page.send('Page.navigate', { url: pathToFileURL(join(REC, name + '.html')).href }); await loaded
+    const ok = await page.evaluate(`Promise.all([...document.images].map((i) => i.complete ? i.naturalWidth > 0 : new Promise((r) => { i.onload = () => r(true); i.onerror = () => r(false) }))).then((a) => a.filter(Boolean).length)`)
+    if (ok !== 32) throw new Error(`${name}: ${ok} of 32 images loaded`)
+    const size = await page.evaluate(`({ w: Math.ceil(document.documentElement.scrollWidth), h: Math.ceil(document.documentElement.scrollHeight) })`)
+    await page.send('Emulation.setDeviceMetricsOverride', { width: size.w, height: size.h, deviceScaleFactor: 1, mobile: false })
+    await new Promise((r) => setTimeout(r, 300))
+    const size2 = await page.evaluate(`({ w: Math.ceil(document.documentElement.scrollWidth), h: Math.ceil(document.documentElement.scrollHeight) })`)
+    const png = await page.send('Page.captureScreenshot', { format: 'png', captureBeyondViewport: false, clip: { x: 0, y: 0, width: size2.w, height: size2.h, scale: 1 } })
+    writeFileSync(join(REC, name + '.png'), Buffer.from(png.data, 'base64'))
+    made.push(`${name}.png ${size2.w}x${size2.h}`)
+    console.log(`sheet ${name}.png ${size2.w}x${size2.h}, 32 images`)
+  } finally { await page.close() }
+}
+browser.close()
+console.log(`copied ${copied} images; sheets ${made.length}: ${made.join('; ')}`)
+process.exit(made.length === 6 ? 0 : 1)

@@ -1,0 +1,10 @@
+// VH-237 #2: route (1')'s inherited readings (every field but geo and image) before -> after over the 192 states, by leaf path: how many states differ, with the values' range; read-only.
+//   node route1-fields.mjs <before format-help.jsonl> <after format-help.jsonl>
+import { readFileSync } from 'node:fs'
+const read = (f) => readFileSync(f, 'utf8').trim().split('\n').map((l) => JSON.parse(l)).filter((r) => r.geo)
+const key = (r) => [r.lang, r.view, r.mode, r.root, r.state].join(' ')
+const leaves = (o, p, out) => { if (o === null || typeof o !== 'object') { out.set(p, o); return out } for (const [k, v] of Object.entries(o)) leaves(v, p ? `${p}.${k}` : k, out); return out }
+const [b, a] = [read(process.argv[2]), read(process.argv[3])], bm = new Map(b.map((r) => [key(r), r])), d = {}
+for (const r of a) { const o = bm.get(key(r)); const strip = ({ geo, image, ...x }) => x; const la = leaves(strip(r), '', new Map()), lb = leaves(strip(o), '', new Map())
+  for (const p of new Set([...la.keys(), ...lb.keys()])) if (JSON.stringify(la.get(p)) !== JSON.stringify(lb.get(p))) { (d[p] ??= []).push(`${lb.get(p)}->${la.get(p)}`) } }
+for (const [p, v] of Object.entries(d).sort()) { const u = [...new Set(v)]; console.log(`${p}: ${v.length} states; ${u.slice(0, 6).join(', ')}${u.length > 6 ? ` … (${u.length} distinct)` : ''}`) }

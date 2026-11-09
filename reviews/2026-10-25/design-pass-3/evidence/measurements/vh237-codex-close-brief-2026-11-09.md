@@ -1,0 +1,26 @@
+<!-- markdownlint-disable -->
+
+# VH-237 — close check of the complete candidate
+
+You are Codex astra, reviewing read-only. Say what you find, in your own reading. Write nothing to any file.
+
+**The checkout** is `/Users/uazjob/UoN-Video-Helper-side/vh237` (your working directory), on `side/vh237` at `8bbb6e92c3f42e9e1e11bbd7d87db8a14e73f1e5` (VH-234's landing, the item's base, still origin/main). **The candidate** is everything uncommitted there: the tracked diff `git diff 8bbb6e92c3f42e9e1e11bbd7d87db8a14e73f1e5` (the product's two files, `src/styles/app.css` and `test/stylesheet.test.ts`, as you checked them blind, and the ledger: `project/backlog.md`, `project/decisions.md`, `project/decisions-2026-10.md`, `project/archive-index.md`, `project/trajectory.md`, `project/items/VH-234.md`, `reviews/2026-10-25/design-pass-3/design-pass-3-2026-10-27.md`) and the untracked files (`git status --porcelain=v1`): `project/items/VH-237.md`, and in `reviews/2026-10-25/design-pass-3/evidence/measurements/` the table `vh237-format-place-2026-11-09.md` (its Notes section included), its records `vh237-records-2026-11-09/`, and the `vh237-*-2026-11-09.*` design, verdict, brief, answer and compare files. The freeze is `/Users/uazjob/UoN-Video-Helper-side/vh237-frozen/` (`diff.patch`, `status.txt`, `untracked.sha1.txt`); the checkout must equal it.
+
+**What the earlier checks said:** Claude's design and your blind design compared (`vh237-design-compare-2026-11-09.md`): agreed on the box's pair, width and probes; the "?"'s target settled by the base's evidence as Claude's. Your blind check of the candidate said "Commit after the musts below." (`vh237-codex-blind-2026-11-09.md.txt`); its compare (`vh237-codex-compare-2026-11-09.md`) adopts must 1: the table's notes corrected (`formatTip` at 32 px; the motion records' wording), the second table generation set aside outside the repository and the table made again from the same groups, the sources check (`/Users/uazjob/UoN-Video-Helper-side/vh237-walk/sources-check.mjs`) 0 differing; must 2 is this close. The CSS comment's wording was disagreed and kept as walked, your precise words carried in the decision.
+
+**The gate:** `npm run check` in the checkout on this content, gate 1 by the queue under the walk lock, 16:10:47Z–16:12:36Z on 2026-11-09, exit 0, AC Power, start load 2.27 2.95, sampled peak 4.74, none at 8 or above: 89 test files, 1,778 passed, 1 skipped (EBU, standing; the base 1,777 and the same skip); markdownlint 0 issues in 748 files; links 0 broken in 803 files; check-memory 0 structural (the canon's 8 warnings); `node tools/check.mjs` 0 failures, 1 warning (`samples/CULT2011.mp4`, absent in a worktree, standing). Its log: `/Users/uazjob/UoN-Video-Helper-side/vh237-walk/gate-1.out` with `gate-1.load.log`.
+
+**The owner's look:** the six sheets and `INDEX.md` went to the owner from the orchestrator at 15:4xZ on 2026-11-09; no answer has come. On the owner's word "please commit so I can review on my devices" (`plan8-owner-words.md:466`–`:468`) the commit does not wait for it: the item, the decision and the commit record the look as pending with the owner, and VH-195's backlog line waits on it. Judge whether that is recorded honestly; judge everything else.
+
+**Read:** `AGENTS.md`; `project/profile.md`; `project/rules.md`; the item and every criterion; the ledger diff; the table, its notes and records; the Codex files and compares; `/Users/uazjob/UoN-Video-Helper-side/vh237-walk/` as your blind brief named it; `plan8-owner-words.md` lines 466–476 and 275 in `/Users/uazjob/UoN-Video-Helper-side/`.
+
+**Do not read:** any folder under `side-session-notes/`. In `/Users/uazjob/UoN-Video-Helper-side/`, do not read `vh237-progress.md`, `vh237-handover-*` or `vh237-wip-*`.
+
+**Answer each:**
+1. Is every criterion in `VH-237.md` met or, for the owner's look, honestly open?
+2. The ledger by the contract: the backlog line struck and VH-195's line naming VH-237 and "the owner's look answer for VH-237"; one trajectory line; the decision newest first, "Raised and closes", with a short heading and Decision line and the full Decision in its Rationale, no `**Items:**` line, Supersedes none, the owner's words with their sources, the evidence, Chrome's line metrics, the records' size and the Codex result; the archive move verbatim; VH-234's item (its Now made true, a Notes line quoting the owner) staying closed; nothing deferred left without a line; the Disposition row linked; the digest rules named (rule 8) with Carbon's Spacing rule's reading. Is any claim in the ledger unsupported by the records?
+3. Was your blind must 1 applied faithfully, and is every reading in the repaired notes supported by the records?
+4. Are the evidence files named, headed and copied as the precedent (briefs and Claude's files with the provenance header; Codex answers verbatim as `.md.txt`), with no absolute link in a linted file?
+5. Is the gate green on this content, with no test deleted or skipped, and does the checkout equal the freeze?
+
+**Verdict:** one of "Commit", "Commit after the musts below", or "Do not commit", leaving aside only the owner's answer. Give musts, shoulds and notes apart, each with its evidence. Write nothing to the repository.

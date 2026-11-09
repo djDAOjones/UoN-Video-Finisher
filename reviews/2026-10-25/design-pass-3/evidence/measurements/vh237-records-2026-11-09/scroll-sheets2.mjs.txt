@@ -1,0 +1,68 @@
+// VH-237 #1, route (2')'s sheets for the owner, from VH-234's scroll-sheets.mjs (23c5eabe), its HTML grid shot by the walker's own Chrome over CDP
+// (captureBeyondViewport false, the page sized to its content) kept. Changed: both sides read, and one sheet per language and width (6): a row per
+// mode, light at 16 px first (the owner's view), columns rest, focused and open, each before | after; each cell the state's tiles in scroll order,
+// every tile labelled (language, width, mode, font, state, side, tile k of n, its y range, the state as re-read after its scroll). Tiles are shown
+// at one scale per sheet (natural size, or less so the sheet stays within 16000 px a side, said in its heading); full-size tiles are copied into
+// <records>/tiles/<side>/. No new dependency; nothing written to the walker.
+//   CDP_PORT=… WALKER=… node scroll-sheets2.mjs --before-states <dir> --before-jsonl <f> --after-states <dir> --after-jsonl <f> --records <dir> --at-before <x> --at-after <y>
+import { pathToFileURL } from 'node:url'
+import { join } from 'node:path'
+import { mkdirSync, readFileSync, writeFileSync, copyFileSync, existsSync } from 'node:fs'
+const { connectBrowser } = await import(pathToFileURL(join(process.env.WALKER, 'cdp.mjs')).href)
+const args = process.argv.slice(2), opt = (n) => { const i = args.indexOf(n); if (i < 0) throw new Error(n); return args[i + 1] }
+const REC = opt('--records'); if (existsSync(REC)) throw new Error(`exists: ${REC}`)
+const SIDES = { before: { states: opt('--before-states'), jsonl: opt('--before-jsonl'), at: opt('--at-before') }, after: { states: opt('--after-states'), jsonl: opt('--after-jsonl'), at: opt('--at-after') } }
+const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;')
+const font = (m) => (m.endsWith('font32') ? 32 : 16), pal = (m) => m.replace(/-?font32$/, '') || 'light'
+const MODES = ['light', 'dark', 'forced-light', 'forced-dark', 'font32', 'dark-font32', 'forced-light-font32', 'forced-dark-font32'], STS = ['rest', 'focused', 'open']
+const cell = new Map(), sheets = new Map()
+for (const [side, s] of Object.entries(SIDES)) {
+  mkdirSync(join(REC, 'tiles', side), { recursive: true })
+  for (const r of readFileSync(s.jsonl, 'utf8').trim().split('\n').map((l) => JSON.parse(l)).filter((x) => x.state.endsWith('-scrolled'))) {
+    const st = r.state.replace(/-scrolled$/, ''); if (!STS.includes(st)) continue
+    for (const t of r.tiles) copyFileSync(join(s.states, `${r.lang}__${r.view}__${r.mode}`, t.file), join(REC, 'tiles', side, t.file))
+    cell.set(`${r.lang}|${r.view}|${r.mode}|${st}|${side}`, r); sheets.set(`${r.lang}|${r.view}`, true)
+  }
+}
+const sizeOf = (p) => { const b = readFileSync(p); return { w: b.readUInt32BE(16), h: b.readUInt32BE(20) } }
+const browser = await connectBrowser(), made = []; let missing = 0
+for (const k of sheets.keys()) {
+  const [lang, view] = k.split('|'), name = `sheet-${lang}-${view}`
+  let W = 0, H = 0
+  for (const m of MODES) { let rowH = 0; for (const st of STS) for (const side of ['before', 'after']) { const r = cell.get(`${lang}|${view}|${m}|${st}|${side}`); if (!r) continue; let h = 0; for (const t of r.tiles) { const z = sizeOf(join(REC, 'tiles', side, t.file)); h += z.h + 60; W = Math.max(W, z.w) } rowH = Math.max(rowH, h) } H += rowH + 20 }
+  const scale = Math.min(1, 15000 / (H + 200), 15000 / (6 * (W + 20) + 160))
+  const fig = (r, side, m, st) => r.tiles.map((t) => { const z = sizeOf(join(REC, 'tiles', side, t.file)); return `<figure><figcaption>${esc(lang)} · ${view} · ${esc(pal(m))} · ${font(m)} px · ${st} · ${side} · tile ${t.k} of ${t.n} · y ${t.ya}–${t.yb} · read after scroll: ${esc(t.label)}</figcaption><img src="tiles/${side}/${esc(t.file)}" width="${Math.round(z.w * scale)}" height="${Math.round(z.h * scale)}" alt=""></figure>` }).join('')
+  const body = MODES.map((m) => `<tr><th scope="row">${esc(pal(m))}<br>${font(m)} px</th>` + STS.map((st) => ['before', 'after'].map((side) => { const r = cell.get(`${lang}|${view}|${m}|${st}|${side}`); if (!r) { missing++; return `<td class="${side}">NOT REACHED: ${side} ${st}</td>` } return `<td class="${side}">${r.coveredWhole ? '' : '<b>NOT covered whole</b>'}${fig(r, side, m, st)}</td>` }).join('')).join('') + '</tr>').join('\n')
+  writeFileSync(join(REC, name + '.html'), `<!doctype html>
+<html lang="en-GB"><head><meta charset="utf-8"><title>Format help, before and after, ${lang}, ${view}</title>
+<style>
+body { margin: 16px; background: #ffffff; color: #000000; font: 14px/1.35 -apple-system, "Helvetica Neue", Arial, sans-serif; }
+h1 { font-size: 18px; margin: 0 0 4px; } p.n { margin: 0 0 12px; font-size: 13px; max-width: 80em; }
+table { border-collapse: collapse; } th, td { border: 1px solid #8a8a8a; padding: 6px; vertical-align: top; text-align: left; }
+thead th { background: #f2f2f2; } tbody th { background: #f2f2f2; white-space: nowrap; font-size: 13px; } td.after { border-right: 3px solid #000000; }
+figure { margin: 0 0 8px; } figcaption { font-size: 11px; color: #222222; max-width: ${Math.max(220, Math.round(W * scale))}px; margin: 0 0 4px; }
+img { display: block; border: 1px dashed #b0b0b0; }
+</style></head><body>
+<h1>VH-237: the format "?" and its opened box, before | after, ${esc(lang)} at ${view}</h1>
+<p class="n">The whole lede (the five promises, the opened box and the privacy paragraph), 24 px round, in viewport tiles with 64 px of overlap, top to bottom in scroll order; each tile a clip inside the viewport (captureBeyondViewport false), the state read again after each scroll. Rows: a colour mode and root font, light at 16 px first. Columns: rest, focused, open, each before | after. Tiles shown at ${Math.round(scale * 1000) / 10}% of their size; full size in tiles/. Before: ${esc(SIDES.before.at)}; after: ${esc(SIDES.after.at)}; revision 7db38f355f3c46c2, on the Mac Pro, ${new Date().toISOString().slice(0, 10)}.</p>
+<table><thead><tr><th>mode</th>${STS.map((st) => `<th>${st}, before</th><th>${st}, after</th>`).join('')}</tr></thead><tbody>
+${body}
+</tbody></table></body></html>
+`)
+  const page = await browser.newPage()
+  try {
+    await page.send('Page.enable'); await page.send('Runtime.enable')
+    await page.send('Emulation.setDeviceMetricsOverride', { width: 1200, height: 800, deviceScaleFactor: 1, mobile: false })
+    const loaded = page.once('Page.loadEventFired'); await page.send('Page.navigate', { url: pathToFileURL(join(REC, name + '.html')).href }); await loaded
+    const n = await page.evaluate(`document.images.length`)
+    const ok = await page.evaluate(`Promise.all([...document.images].map((i) => i.complete ? i.naturalWidth > 0 : new Promise((r) => { i.onload = () => r(true); i.onerror = () => r(false) }))).then((a) => a.filter(Boolean).length)`)
+    if (ok !== n) throw new Error(`${name}: ${ok} of ${n} images loaded`)
+    const size = await page.evaluate(`({ w: Math.ceil(document.documentElement.scrollWidth), h: Math.ceil(document.documentElement.scrollHeight) })`)
+    await page.send('Emulation.setDeviceMetricsOverride', { width: size.w, height: size.h, deviceScaleFactor: 1, mobile: false }); await new Promise((r) => setTimeout(r, 400))
+    const s2 = await page.evaluate(`({ w: Math.ceil(document.documentElement.scrollWidth), h: Math.ceil(document.documentElement.scrollHeight) })`)
+    const png = await page.send('Page.captureScreenshot', { format: 'png', captureBeyondViewport: false, clip: { x: 0, y: 0, width: s2.w, height: s2.h, scale: 1 } })
+    writeFileSync(join(REC, name + '.png'), Buffer.from(png.data, 'base64')); made.push({ name, w: s2.w, h: s2.h, tiles: n, scale }); console.log(`sheet ${name}.png ${s2.w}x${s2.h}, ${n} tiles, scale ${scale}`)
+  } finally { await page.close() }
+}
+writeFileSync(join(REC, 'sheets.json'), JSON.stringify({ made, missing }, null, 1))
+browser.close(); console.log(`sheets ${made.length}, cells not reached ${missing}`); process.exit(made.length === sheets.size && sheets.size === 6 && !missing ? 0 : 1)

@@ -1,0 +1,15 @@
+// VH-237 #2: per instrument whose record differs before -> after among the 102 cells, the leaf paths that differ (array indices as []), counted by cell; read-only.
+//   node field-diff.mjs <before runs> <after runs> [instrument]
+import { readdirSync, readFileSync } from 'node:fs'
+import { join } from 'node:path'
+const load = (dir) => { const m = new Map(); for (const r of readdirSync(dir)) { let fs; try { fs = readdirSync(join(dir, r)) } catch { continue }
+  for (const f of fs.filter((f) => /^S-14\d__.*\.json$/.test(f))) { const j = JSON.parse(readFileSync(join(dir, r, f), 'utf8')); m.set(j.key, j) } } return m }
+const leaves = (o, p, out) => { if (o === null || typeof o !== 'object') { out.push([p, o]); return out } for (const [k, v] of Object.entries(o)) leaves(v, `${p}.${Array.isArray(o) ? '[]' : k}`, out); return out }
+const [b, a] = [load(process.argv[2]), load(process.argv[3])], only = process.argv[4], paths = {}
+for (const [k, jb] of b) { const ja = a.get(k); for (const i of new Set([...Object.keys(jb.instruments), ...Object.keys(ja.instruments)])) {
+  if (only && i !== only) continue
+  if (JSON.stringify(jb.instruments[i]) === JSON.stringify(ja.instruments[i])) continue
+  const lb = leaves(jb.instruments[i], i, []).map(([p, v]) => p + '=' + JSON.stringify(v)), la = leaves(ja.instruments[i], i, []).map(([p, v]) => p + '=' + JSON.stringify(v))
+  const cnt = (l) => l.reduce((m, x) => m.set(x, (m.get(x) || 0) + 1), new Map()), cb = cnt(lb), ca = cnt(la), changed = new Set([...new Set([...lb, ...la])].filter((x) => cb.get(x) !== ca.get(x)).map((x) => x.split('=')[0]))
+  for (const p of changed) (paths[p] ??= new Set()).add(k) } }
+for (const [p, s] of Object.entries(paths).sort()) console.log(`${p}: ${s.size}`)

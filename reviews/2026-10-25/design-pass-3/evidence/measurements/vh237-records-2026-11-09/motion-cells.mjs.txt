@@ -1,0 +1,11 @@
+// VH-237 #2: the motion instrument of the cells in a keys file across groups (rows, exempt, outcome, the items seen, the page's watched ms); read-only.
+//   node motion-cells.mjs <keys file> <group runs dir>...
+import { readdirSync, readFileSync } from 'node:fs'
+import { join } from 'node:path'
+const [kf, ...dirs] = process.argv.slice(2), keys = readFileSync(kf, 'utf8').trim().split('\n')
+const load = (dir) => { const m = new Map(); for (const r of readdirSync(dir)) { let fs; try { fs = readdirSync(join(dir, r)) } catch { continue }
+  for (const f of fs.filter((f) => /^S-14\d__.*\.json$/.test(f))) { const j = JSON.parse(readFileSync(join(dir, r, f), 'utf8')); m.set(j.key, j) } } return m }
+const sides = dirs.map((d) => [d, load(d)])
+for (const k of keys) for (const [d, m] of sides) { const mo = m.get(k)?.instruments.motion; if (!mo) { console.log(k, d, 'not reached'); continue }
+  const seen = (mo.items || []).filter((i) => i.kind).map((i) => `${i.el.match(/#[\w-]+/)?.[0]} ${i.name} ${i.durationMs}ms ${i.seen}`)
+  console.log(`${k} ${d.split('/')[0]}: rows ${mo.rows} exempt ${mo.exempt} outcome ${mo.outcome} watched ${(mo.items || []).find((i) => i.watchedMs)?.watchedMs} ms; ${seen.length ? seen.join('; ') : 'no transition seen'}`) }

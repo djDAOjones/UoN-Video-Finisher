@@ -1,0 +1,22 @@
+states 192, sameLine 176, wrapped 16, open 48
+max |offCapCentre| sameLine: 16 px 0.27, 32 px 0.55; max |lineDiff| open: 16 px 0, 32 px 0; max |leftOffWords| 0
+rightOffPrivacy w1280 0..0 (24); w320 0..0 (24)
+wrapped states (16):
+  en-GB w320 font32 32 rest: offCapCentre -0.55, offLineCentre -1, aboveCapTop 9.09
+  en-GB w320 font32 32 hovered: offCapCentre -0.55, offLineCentre -1, aboveCapTop 9.09
+  en-GB w320 font32 32 focused: offCapCentre -0.55, offLineCentre -1, aboveCapTop 9.09
+  en-GB w320 font32 32 open: offCapCentre -0.55, offLineCentre -1, aboveCapTop 9.09
+  en-GB w320 dark-font32 32 rest: offCapCentre -0.55, offLineCentre -1, aboveCapTop 9.09
+  en-GB w320 dark-font32 32 hovered: offCapCentre -0.55, offLineCentre -1, aboveCapTop 9.09
+  en-GB w320 dark-font32 32 focused: offCapCentre -0.55, offLineCentre -1, aboveCapTop 9.09
+  en-GB w320 dark-font32 32 open: offCapCentre -0.55, offLineCentre -1, aboveCapTop 9.09
+  en-GB w320 forced-light-font32 32 rest: offCapCentre -0.55, offLineCentre -1, aboveCapTop 9.09
+  en-GB w320 forced-light-font32 32 hovered: offCapCentre -0.55, offLineCentre -1, aboveCapTop 9.09
+  en-GB w320 forced-light-font32 32 focused: offCapCentre -0.55, offLineCentre -1, aboveCapTop 9.09
+  en-GB w320 forced-light-font32 32 open: offCapCentre -0.55, offLineCentre -1, aboveCapTop 9.09
+  en-GB w320 forced-dark-font32 32 rest: offCapCentre -0.55, offLineCentre -1, aboveCapTop 9.09
+  en-GB w320 forced-dark-font32 32 hovered: offCapCentre -0.55, offLineCentre -1, aboveCapTop 9.09
+  en-GB w320 forced-dark-font32 32 focused: offCapCentre -0.55, offLineCentre -1, aboveCapTop 9.09
+  en-GB w320 forced-dark-font32 32 open: offCapCentre -0.55, offLineCentre -1, aboveCapTop 9.09
+aboutButton (box from the first promise's top, style): equal 192, differ 0, missing 0; viewport box differing 144 (the scroll)
+failing 0

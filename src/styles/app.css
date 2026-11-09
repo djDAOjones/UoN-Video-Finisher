@@ -1195,7 +1195,10 @@ details[open] > .disclosure-summary::before {
    `::after`, so 2.5.5 needs no exception. The tip's step down clears that
    target (VH-205). The gap beside the words does not at the default font:
    about 8 px, on the owner's word, so the target lies over the end of the
-   last word by what the probe measured (VH-217); words are no control. */
+   last word by what the probe measured (VH-217); words are no control.
+   The square sits on the promise's capitals, not its x-height: set at the
+   line's top, a hairline less than the smallest step below it, since the
+   line's half leading falls whole above the baseline (VH-237). */
 .promise-with-help .help-button {
   position: relative;
   display: inline-flex;
@@ -1205,9 +1208,10 @@ details[open] > .disclosure-summary::before {
   height: var(--control-size);
   min-width: 0;
   min-height: 0;
+  margin-top: calc(var(--spacing-01) - var(--border-width));
   margin-left: var(--spacing-02);
   padding: 0;
-  vertical-align: middle;
+  vertical-align: top;
 }
 
 .promise-with-help .help-button::after {
@@ -1220,8 +1224,13 @@ details[open] > .disclosure-summary::before {
   transform: translate(-50%, -50%);
 }
 
+/* The open tip: the same step below as above, so it sits evenly between the
+   promises, and the measure less the list's indent, so it ends where the
+   privacy sentence does (VH-237). */
 .promise-with-help .toggletip {
+  max-width: calc(var(--measure) - var(--spacing-06));
   margin-top: var(--spacing-04);
+  margin-bottom: var(--spacing-04);
 }
 
 /*

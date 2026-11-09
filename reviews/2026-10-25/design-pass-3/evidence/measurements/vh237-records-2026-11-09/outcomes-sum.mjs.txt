@@ -1,0 +1,15 @@
+// VH-234 #2: per side, each of the 102 cells' reached and instrument outcomes, the type reading's counts; read-only.
+import { readdirSync, readFileSync } from 'node:fs'
+import { join } from 'node:path'
+const dir = process.argv[2], out = {}, type = {}, reached = {}, keys = new Set()
+for (const r of readdirSync(dir)) {
+  let fs; try { fs = readdirSync(join(dir, r)) } catch { continue }
+  for (const f of fs.filter((f) => /^S-14\d__.*\.json$/.test(f))) {
+    const j = JSON.parse(readFileSync(join(dir, r, f), 'utf8')); keys.add(j.key)
+    reached[j.reached] = (reached[j.reached] || 0) + 1
+    for (const [k, v] of Object.entries(j.instruments || {})) { const o = v?.outcome ?? String(v); out[`${k}:${o}`] = (out[`${k}:${o}`] || 0) + 1 }
+    const t = j.instruments?.type?.outcome; type[t] = (type[t] || 0) + 1
+  }
+}
+console.log(JSON.stringify({ cells: keys.size, reached, type }))
+console.log(Object.entries(out).sort().map(([k, v]) => `${k} ${v}`).join('\n'))

@@ -1,0 +1,5 @@
+clip.height: 24 states; 194->215, 338->380, 431->427, 383->379, 345->343, 479->475
+tip.bottomOfTarget: 12 states; 286->284, 466->462, 457->455
+tip.right: 24 states; 656->632, 992->944
+tip.top: 36 states; 307->309, 329->333, 495->499, 473->475
+words.verticalGap: 16 states; 12.7->9

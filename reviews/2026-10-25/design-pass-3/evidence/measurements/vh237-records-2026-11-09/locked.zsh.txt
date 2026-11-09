@@ -1,0 +1,28 @@
+#!/bin/zsh
+# VH-237 #1: a copy of VH-234's file, adapted only in the folder (vh237-walk), W, BASE, WHO ("VH-237 #1") and names.
+# VH-237 #1: one non-walk run (npm ci, the gate) under the fixed walk lock, after the queue's TURN.
+#   zsh locked.zsh <name> <what> <dir> "<command line>"   -> $D/<name>.out, <name>.load.log; exit = the command's
+# NOLOAD=1 skips the start-load check (npm ci, not a group or gate). Takes the lock by mkdir (exit 3 if held), records owner, power and loads, keeps awake by caffeinate -w, samples load every 30 s,
+# releases the lock only when owner.txt names this WHO and the command's process has exited.
+D=/Users/uazjob/UoN-Video-Helper-side/vh237-walk; LOCK=/Users/uazjob/UoN-Video-Helper-side/walk.lock; WHO="VH-237 #3"
+NAME=$1; WHAT=$2; DIR=$3; CMD=$4
+for f in "$D/$NAME.out" "$D/$NAME.load.log"; do [ -e "$f" ] && { echo "EXISTS: $f"; exit 2; }; done
+L=$(uptime | sed -E 's/.*load averages?: ([0-9.]+).*/\1/'); L5=$(uptime | sed -E "s/.*load averages?: [0-9.]+,? ([0-9.]+).*/\1/")
+pmset -g batt | grep -q 'AC Power' || { echo "POWER-STOP"; exit 7; }
+[ -n "$NOLOAD" ] || { [ "$(echo "$L < 8" | bc)" = 1 ] && [ "$(echo "$L5 < 8" | bc)" = 1 ]; } || { echo "LOAD-STOP: $L $L5"; exit 8; }
+mkdir "$LOCK" || { echo "LOCK HELD: $(cat $LOCK/owner.txt 2>/dev/null)"; exit 3; }
+echo "$WHO — $(date -u +%FT%TZ) — $WHAT ($NAME)" > "$LOCK/owner.txt"
+{ echo "start $(date -u +%FT%TZ)"; pmset -g batt | head -1; uptime; echo "dir $DIR"; echo "cmd $CMD"; } > "$D/$NAME.out"
+( while :; do echo "$(date -u +%T) load $(uptime | sed -E 's/.*load averages?: ([0-9.]+).*/\1/')" >> "$D/$NAME.load.log"; sleep 30; done ) &
+LP=$!
+( cd "$DIR" && zsh -c "$CMD" ) >> "$D/$NAME.out" 2>&1 &
+CP=$!
+caffeinate -i -w $CP &
+CAF=$!
+echo "pids cmd $CP caffeinate $CAF loadloop $LP" >> "$D/$NAME.out"
+wait $CP; rc=$?
+kill $LP 2>/dev/null; wait $LP 2>/dev/null; kill $CAF 2>/dev/null
+{ echo "exit $rc"; echo "end $(date -u +%FT%TZ)"; uptime; echo "peak load $(awk '{print $3}' "$D/$NAME.load.log" | sort -n | tail -1)"; } >> "$D/$NAME.out"
+grep -q "$WHO" "$LOCK/owner.txt" && rm -r "$LOCK"
+echo "$NAME exit $rc; lock: $(ls -d $LOCK 2>/dev/null || echo released)"
+exit $rc

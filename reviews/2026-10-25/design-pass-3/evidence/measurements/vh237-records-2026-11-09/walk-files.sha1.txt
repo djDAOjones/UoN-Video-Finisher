@@ -1,0 +1,91 @@
+# VH-237 #1 walk files: source sha1 (vh234-walk) at copy, then the adapted copy's sha1 (filled after adaptation)
+src 2f4aeb7d26d240538b53b4d9c26ebe7805457b21 /Users/uazjob/UoN-Video-Helper-side/vh234-walk/go.sh
+src 452bebd38439c71654f1f16b6aa8a5b7e068de5c /Users/uazjob/UoN-Video-Helper-side/vh234-walk/walk.sh
+src 2eed270c0d55b2403d9bfb481931fe3cfefef8ea /Users/uazjob/UoN-Video-Helper-side/vh234-walk/group.zsh
+src ef55e7bef210a1b060d4342211a66445ac5a5ae5 /Users/uazjob/UoN-Video-Helper-side/vh234-walk/side-job.zsh
+src 7a88bf59767d953edca0596623a884b8a030e027 /Users/uazjob/UoN-Video-Helper-side/vh234-walk/keys-loop.zsh
+src cbb76b4d9fd592e9df6f267b1def69c1610364db /Users/uazjob/UoN-Video-Helper-side/vh234-walk/locked.zsh
+src 4828344bc689247594c5552cf52b839cbcb6e55f /Users/uazjob/UoN-Video-Helper-side/vh234-walk/deadline.zsh
+src fe14f01cfbb0a50f286986342292bd5e52292c0f /Users/uazjob/UoN-Video-Helper-side/vh234-walk/vh234-driver.mjs
+src 1485d64ed9c66d76431bb9bb08b33bbebcd598e8 /Users/uazjob/UoN-Video-Helper-side/vh234-walk/format-help-c.mjs
+src 624c18de8fb6e210b58ba93d6263f7e1949f2ded /Users/uazjob/UoN-Video-Helper-side/vh234-walk/format-sheets-c.mjs
+src 13c6c65367b2c914af5fe89c28fcebb2a8c880de /Users/uazjob/UoN-Video-Helper-side/vh234-walk/format-scroll-s.mjs
+src 23c5eabe0863beb9b09574d91544853240e11c90 /Users/uazjob/UoN-Video-Helper-side/vh234-walk/scroll-sheets.mjs
+src cf0c2dcb3a277d1ec11a7c26bfdf29ffb7035f5e /Users/uazjob/UoN-Video-Helper-side/vh234-walk/png-compare.mjs
+src c8f76f86c14c4cced8f7be75222568198af39c5b /Users/uazjob/UoN-Video-Helper-side/vh234-walk/record-compare.mjs
+src cf2ab912ff17ae4a36c872e041441002b3ace86d /Users/uazjob/UoN-Video-Helper-side/vh234-walk/cell-compare.mjs
+src cfc92f473cb0ca5a9a902cafd00df5c87c99dd42 /Users/uazjob/UoN-Video-Helper-side/vh234-walk/record-diff.mjs
+src d7729ad8c04a80ba62b594521a8e396af0ad7f7c /Users/uazjob/UoN-Video-Helper-side/vh234-walk/outcomes-sum.mjs
+src 52c70bbf999f8aadff3e89a0ec455341e72ae07c /Users/uazjob/UoN-Video-Helper-side/vh234-walk/wip-save.zsh
+src cea268b188baad3d15bb4139ddd6111294c48630 /Users/uazjob/UoN-Video-Helper-side/vh234-walk/keys-102.txt
+src 1a630b8725fb911ec9c57bd3082189b735e9ff5f /Users/uazjob/UoN-Video-Helper-side/vh234-walk/keys-a3g2-split.txt
+src 29fd24d0348f32f3a30334bfa4de44d5d5459c4f /Users/uazjob/UoN-Video-Helper-side/vh234-walk/keys-a3g2.txt
+src e504bf5a1c1336d0b8fb00c8016047d67b746b68 /Users/uazjob/UoN-Video-Helper-side/vh234-walk/keys-a3g4-split.txt
+src 787e94363b8abfafc648f022cee3e97b4581b669 /Users/uazjob/UoN-Video-Helper-side/vh234-walk/keys-a3g4.txt
+src 32d82ce2700fb063637d9631a2d3586e07fa03ba /Users/uazjob/UoN-Video-Helper-side/vh234-walk/keys-a3g9.txt
+src 3e19bf497f76c76a3bf7e917ed55d6d046612de5 /Users/uazjob/UoN-Video-Helper-side/vh234-walk/keys-split-38.txt
+# adapted or new, at 2026-11-09T14:29:07Z
+now e4bab8e62347a896c5341f9febfc7c71283cb89c go.sh
+now dd188535d9aac9c1e967a8e18d12b11c887ae46e walk.sh
+now 997f4e1bd5a6a0777dcacacc72fbf7640c056d6d group.zsh
+now 774ce263fe624ca7baca8e987e78dde750e2d1ee side-job.zsh
+now 15279a26f621351b7856f892b96e9eeadaf2c8a9 keys-loop.zsh
+now 49f93180e2d5c65b2cdd9b1f57dc7e634659f89e locked.zsh
+now 052d8cd2f99bd79113289e0de9047ebd8a9d65af deadline.zsh
+now 62075dbe0f3f195c1cf7f7147f4c6a6d1f661ed5 vh237-driver.mjs
+now 1485d64ed9c66d76431bb9bb08b33bbebcd598e8 format-help-c.mjs
+now 8e29c40da523dd73301cf3f78db27b3a3586ab6b format-help-d.mjs
+now 79f2d7d48e0b89bfbab0c85b8ba51793b59e1c5a format-sheets-c.mjs
+now 13c6c65367b2c914af5fe89c28fcebb2a8c880de format-scroll-s.mjs
+now fa2e9b3a62c36dad917e7ca43058fe0a113ee7e5 format-scroll-s2.mjs
+now 23c5eabe0863beb9b09574d91544853240e11c90 scroll-sheets.mjs
+now 5a9ce67833e6ac7c314c609b9b44e709342feb7c scroll-sheets2.mjs
+now feb6aab836d7544bf85d4a59c2c3f9ce4a7a41b2 index-md.mjs
+now 0b519cc9c195d56a8d0c73a59686467250477a96 sheets-job.zsh
+now cf0c2dcb3a277d1ec11a7c26bfdf29ffb7035f5e png-compare.mjs
+now c8f76f86c14c4cced8f7be75222568198af39c5b record-compare.mjs
+now cf2ab912ff17ae4a36c872e041441002b3ace86d cell-compare.mjs
+now cfc92f473cb0ca5a9a902cafd00df5c87c99dd42 record-diff.mjs
+now d7729ad8c04a80ba62b594521a8e396af0ad7f7c outcomes-sum.mjs
+now 0b76649e9ae298809ad5b89fd52f056ef3daa44d wip-save.zsh
+now f7edf93ae4325e4b260668b1545d5691454fba02 count.sh
+now e2b7228826c6da4f6372d4a330d34a3512bfd765 targets-144.txt
+now cea268b188baad3d15bb4139ddd6111294c48630 keys-102.txt
+now 1a630b8725fb911ec9c57bd3082189b735e9ff5f keys-a3g2-split.txt
+now 29fd24d0348f32f3a30334bfa4de44d5d5459c4f keys-a3g2.txt
+now e504bf5a1c1336d0b8fb00c8016047d67b746b68 keys-a3g4-split.txt
+now 787e94363b8abfafc648f022cee3e97b4581b669 keys-a3g4.txt
+now 32d82ce2700fb063637d9631a2d3586e07fa03ba keys-a3g9.txt
+now 3e19bf497f76c76a3bf7e917ed55d6d046612de5 keys-split-38.txt
+now f9b2439a7052131d55167cb58d7928a7fd050007 fix/lecture-60s.mp4
+now 207af49d8ab06e01ab7344f84a127631085b30aa format-help-d.mjs (after Codex's design, before b1)
+now d6f45ab52259d8b96fbefa534cbcf26beb029ade format-help-d.mjs (line rects by text nodes, before b1)
+now 775e1cd4c31cf647a201e90d7c62be5e25ccbb32 apply-change.py; 535cd11ff80870fe98f3dfe2db92cf9b6203e0b0 validate-probes.mjs
+# VH-237 #2, 2026-11-09: WHO "VH-237 #1" -> "VH-237 #2" (hand-over 1's start block differences); before / now
+#2 before 997f4e1bd5a6a0777dcacacc72fbf7640c056d6d group.zsh
+#2 before dd188535d9aac9c1e967a8e18d12b11c887ae46e walk.sh
+#2 before 49f93180e2d5c65b2cdd9b1f57dc7e634659f89e locked.zsh
+#2 before f7edf93ae4325e4b260668b1545d5691454fba02 count.sh
+#2 now 501cb789e613ffd4cc2b9d5df6ba3a933ab0399c group.zsh
+#2 now 3797c2a0c9e140248bd06de70af96d6bf2f364de walk.sh
+#2 now 412896da4355073e45bc70df9c0da6c446655ad1 locked.zsh
+#2 now 793175c9c2b4dde023f7f647eee421a0bd041776 count.sh
+#2 now d632d995d562a63a0b3275289fe955a907269a8c criteria-read.mjs (new, read-only reader)
+#2 now d2209f3553baec262e4455e35bcc72d431be0794 field-diff.mjs (new, read-only reader)
+#2 now 0d23f2c33aa19f0dfa38593e0ade3ceab62b234a ax-diff.mjs (new, read-only reader)
+#2 now 4e1215764b902c3421edb2aa009606a4bd914028 route1-fields.mjs (new, read-only reader)
+#2 now d9517d4b54fc7f7edd682b236a37759197211f49 keys-motion-3.txt (ruling 2's re-walk)
+#2 before feb6aab836d7544bf85d4a59c2c3f9ce4a7a41b2 index-md.mjs; #2 now 5712bdead90cb1cbde48dd7c79de817613dab1a9 index-md.mjs (the right edge's phrase, wording only)
+#2 now befd3c7e44924dd5fc071fcb960ac9f5e700a9c9 index-md.mjs (its comment moved below #1's)
+#2 now f4a6990659f75c2563c8e16cc11deb18c0a0b8d3 motion-cells.mjs (new, read-only reader)
+# VH-237 #3, 2026-11-09: WHO "VH-237 #2" -> "VH-237 #3" (hand-over 2 start block differences); before / now
+#3 before 501cb789e613ffd4cc2b9d5df6ba3a933ab0399c group.zsh
+#3 before 3797c2a0c9e140248bd06de70af96d6bf2f364de walk.sh
+#3 before 412896da4355073e45bc70df9c0da6c446655ad1 locked.zsh
+#3 before 793175c9c2b4dde023f7f647eee421a0bd041776 count.sh
+#3 now 5611ec76aa5f92c61f27fa3ff044ae1c2907690a group.zsh
+#3 now f4c2d35a6c6be761627c949aef7acf1e48334f7c walk.sh
+#3 now 3245406fd161b2af6cbf7d983ec3d9fff7bc561a locked.zsh
+#3 now d357d4cff7959bb90e478ea54f0fa8a918e61cdf count.sh
+#3 now a69215ce9981cf5e44c268a0d3065cd388a4652e table-bundle.mjs (copied unchanged from vh203-walk, so the page's sources name it inside the walk folder); flat-png.zsh 756418d97f74948a6ac89564ec689e9d4ef670e7 (new); sources-check.mjs e497ee6d9793c494f9535a3b3a55a48fc8f75ba3 (new, read-only)
+#3 now 31186af9f32ae7fae9dfaaac3443cf9afc329b8e vh237-table-notes.md.txt (Codex blind's must 1: formatTip's 32 px pair, the motion records' two transition counts and b1/b2 wording)

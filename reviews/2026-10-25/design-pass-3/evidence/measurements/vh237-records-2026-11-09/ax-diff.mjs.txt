@@ -1,0 +1,16 @@
+// VH-237 #2: the 102 cells' saved accessibility trees before -> after: per cell whose tree differs, the role|name multiset changes, InlineTextBox lines apart; read-only.
+//   node ax-diff.mjs <before runs> <after runs>
+import { readdirSync, readFileSync, existsSync } from 'node:fs'
+import { join } from 'node:path'
+const load = (dir) => { const m = new Map(); for (const r of readdirSync(dir)) { let fs; try { fs = readdirSync(join(dir, r)) } catch { continue }
+  for (const f of fs.filter((f) => /^S-14\d__.*\.json$/.test(f))) { const j = JSON.parse(readFileSync(join(dir, r, f), 'utf8')); m.set(j.key, { j, dir: join(dir, r) }) } } return m }
+const names = (p) => { const j = JSON.parse(readFileSync(p, 'utf8')); return (j.nodes || j).map((x) => `${x.role?.value ?? x.role}|${x.name?.value ?? x.name ?? ''}`) }
+const [b, a] = [load(process.argv[2]), load(process.argv[3])], sum = { cells: 0, differ: 0, onlyInline: 0, inlineTip: 0, other: {} }
+for (const [k, { j: jb, dir: db }] of b) { const { j: ja, dir: da } = a.get(k); sum.cells++
+  if (JSON.stringify(jb.instruments.ax) === JSON.stringify(ja.instruments.ax)) continue; sum.differ++
+  const pb = join(db, jb.instruments.ax.nodes.path), pa = join(da, ja.instruments.ax.nodes.path); if (!existsSync(pb) || !existsSync(pa)) { sum.other[`${k}: tree missing`] = 1; continue }
+  const nb = names(pb), na = names(pa), cb = {}, ca = {}; nb.forEach((x) => (cb[x] = (cb[x] || 0) + 1)); na.forEach((x) => (ca[x] = (ca[x] || 0) + 1))
+  const ch = [...new Set([...nb, ...na])].filter((x) => cb[x] !== ca[x]), other = ch.filter((x) => !x.startsWith('InlineTextBox|'))
+  if (!ch.length) continue
+  if (!other.length) sum.onlyInline++; for (const o of other) sum.other[o] = (sum.other[o] || 0) + 1 }
+console.log(JSON.stringify(sum, null, 1))
