@@ -1786,3 +1786,13 @@ INTAKE.2 stays a wish line: only a person listening can judge the Teams output. 
 **Supersedes:** 2026-10-22 — VH-150 — The job's state: Show progress withdrawn, a fresh bar, the stop withdrawn, one primary, and pins
 
 **Deferred:** VH-203, VH-212
+
+## 2026-10-29 — VH-227 — Raised and closes: the one Chinese named 中文, not 简体中文, on the owner's word
+
+**Decision:** VH-227 names the page's one Chinese 中文 wherever a language's name shows, in place of 简体中文, because one Chinese is offered and naming its script suggested a Traditional one beside it; the tag `zh-Hans`, which tells the browser, the fonts and the screen reader the script, is unchanged. One constant changes: no element, table word, state or walker diff.
+
+**Rationale:** Someone told the owner on 2026-10-29 that Chinese has two scripts, 简体 for the mainland and 繁體 for Hong Kong and Taiwan, that naming one may suggest the other is available, and that translation apps usually say 中文. Asked whether to change the name shown and keep the tag, the owner typed in this session's chat: "Yes, change to 中文". The page's Chinese readers are at Ningbo and the Malaysia campus, who read Simplified. Spec §9's "Simplified Chinese" and "each named in its own language" stand, so no `docs/` edit. `LANGUAGE_NAMES['zh-Hans']` in `src/config/languages.ts` feeds the switcher, the Video language choice, the summary and record line, the switch's announcement and the translation email's subject. The tests that assert it follow, the subject's percent-encoded bytes among them, as do the translator's note in `src/i18n/sheet.ts`, its two rows in the filled sheet and a comment in `tokens.brand.css`; no test deleted or skipped. Chrome, the dev server from this item's worktree: the Chinese segment 62 × 44 px with `lang="zh-Hans"` and the CJK face on the English, Chinese and Malay pages, at 1280 and 320 px, light and dark; no sideways scroll at 320 px; no console error; the Chinese page announces "页面语言：中文。" and its email subject ends ": 中文". Forced colours were not emulated. VH-227 is not one of pass 3's fix items, so VH-203's stage rule does not bind it: not walked with the pass's walker and not checked by Codex astra; VH-203's after-run reads it, as it re-reads every item that lands out of order. Built in its own worktree, `side/vh227` from `7750acb`, apart from the main checkout's uncommitted work, which this session did not make (rule 3). Digest rules: nielsen 2; wcag-2.2-aaa 2.5.5, and 3.1.2 held. Item: [VH-227](items/VH-227.md).
+
+**Supersedes:** none
+
+**Deferred:** VH-203
