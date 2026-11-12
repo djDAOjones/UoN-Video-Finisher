@@ -8,6 +8,14 @@
      items the canon record shipped before the migration, in v3's form;
      their why is in the frozen canon decision log (history.md). -->
 
+## V3 adoption
+
+- V3-CONFIRM — the owner confirmed every intake guess: the signatures, Network, Handoff and session hooks, gh outside the sandbox, the OneDrive checkout as the working copy with a sync guard after Codex's check, and en-GB prose (2026-10-05) — see decisions
+- V3-HARNESS — Codex runs outside the sandbox like gh, both session hooks confirmed running on this Mac, npm audit's dev-only findings captured (2026-10-05) — see decisions
+- V31-UPGRADE — the project runs pm-next v3.1: twelve tools, four verbs and the start-notice hook, the wish lines stamped, each phase oldest first, the AAA digest repaired, by pull request (2026-10-22) — see decisions
+- V31-REFRESH — the project runs pm-next v3.1 as the lab builds it at 4ab66b5: six tools and three verbs replaced and two tools and five add-on verbs added as a set, rule 9's Checked line by a model policy, Phase 1's and Phase 7's plans restated whole for the new phase-close rule, by pull request (2026-11-04) — see decisions
+- V31-REFRESH-3 — the project runs pm-next v3.1 as the lab builds it at 8d4e029: six tools and the intake verb replaced as a set, no pack and no signed file touched, the project's own architecture.md unchanged and not the 3.26 record, by pull request (2026-11-12) — see decisions
+
 ## Phase 8 — the owner's UX pass: the backlog and wish list, thirteen pieces
 
 - VH-183 — the trim's Page step is max(10 s, 1% of the video), from config; arrows, Home, End and the spoken value unchanged; 72 Chrome cases in three languages, three widths and four colour modes as expected; Codex astra "Commit after the musts below", the must the close (2026-10-24) — see decisions
@@ -64,13 +72,6 @@
 - VH-237 — the format "?" on its promise's capitals and its opened box evenly between the promises and within the measure, CSS only on existing tokens, no word or element; 102 cells a side on the Mac Pro, all reached, no outcome moved; its look in 144 scrolled states sent to the owner, pending (2026-11-09) — see decisions
 - VH-195 — Phase 8 closed: its 53 items reconciled against PLAN-8, its five lists restated whole, VH-204 and VH-226 moved to Phase 6, the Disposition table final, six notes for VH-137's review, the person checklist and the native readers' list, five wish lines, two retired (2026-11-09) — see decisions
 - RECALL — 8/8 (2026-11-09) — scores: 2,2,2,2 — local — see decisions
-
-## V3 adoption
-
-- V3-CONFIRM — the owner confirmed every intake guess: the signatures, Network, Handoff and session hooks, gh outside the sandbox, the OneDrive checkout as the working copy with a sync guard after Codex's check, and en-GB prose (2026-10-05) — see decisions
-- V3-HARNESS — Codex runs outside the sandbox like gh, both session hooks confirmed running on this Mac, npm audit's dev-only findings captured (2026-10-05) — see decisions
-- V31-UPGRADE — the project runs pm-next v3.1: twelve tools, four verbs and the start-notice hook, the wish lines stamped, each phase oldest first, the AAA digest repaired, by pull request (2026-10-22) — see decisions
-- V31-REFRESH — the project runs pm-next v3.1 as the lab builds it at 4ab66b5: six tools and three verbs replaced and two tools and five add-on verbs added as a set, rule 9's Checked line by a model policy, Phase 1's and Phase 7's plans restated whole for the new phase-close rule, by pull request (2026-11-04) — see decisions
 
 ## Phase 7 — a second design, UX and accessibility pass, with Codex astra as partner, before the cut
 
