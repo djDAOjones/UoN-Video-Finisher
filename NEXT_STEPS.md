@@ -17,8 +17,9 @@ ledger in [`project/`](project/); this page is a short summary of it.
 
 - `reviews/` holds about 640 MB and 8,700 tracked files of test evidence and
   keeps growing.
-- Some sample-video file names quoted in tracked docs and tests identify
-  people or sensitive topics, and this repository is public.
+- Two sample names that identified a person and a health topic were
+  replaced by aliases on 2026-11-12 (PRIVACY-NAMES); older commits still
+  carry them.
 - `npm audit` reports 22 issues, all in development tools (6 high); the
   runtime dependency `mediabunny` is clean. Dependency changes need a
   decision (AGENTS.md rule 7).

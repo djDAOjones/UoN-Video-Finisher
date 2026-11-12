@@ -24,6 +24,12 @@
      moves the oldest entries verbatim to project/decisions-YYYY-MM.md,
      beside this file, listed in project/archive-index.md. -->
 
+## 2026-11-12 — PRIVACY-NAMES — Tracked files name sensitive samples by alias, never by their real file names
+
+**Decision:** two samples are named in tracked files only as "Interview A" and "Testimonial video B", because the repository is public and their real names identify a person and a health topic.
+**Rationale:** On the owner's word of 2026-11-12, during a repository tidy, the names were replaced in two test files (labels and one fixture key, no behaviour change) and six review evidence files. The alias-to-file map is samples/ALIASES.md, which is Git-ignored and stays local. Earlier commits still carry the real names; history is not rewritten. A new sample whose name identifies a person or a sensitive topic gets an alias the same way.
+**Supersedes:** none
+
 ## 2026-11-12 — V31-REFRESH-3 — The project takes pm-next v3.1 as the lab builds it at 8d4e029: six tools and the intake verb replaced as a set, the record kept
 
 **Decision:** the project runs pm-next v3.1 at PM-Skills lab 8d4e029 from the commit carrying this entry: tools/brief, check, find, ledger, structure and view and verbs/intake.md replaced as a set; no pack, no App opinion line and no template is taken — because the owner released the lab's refresh of the four field projects on 2026-11-11 ("Yes, use gh", "Yes, merge on green").

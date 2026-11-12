@@ -164,8 +164,8 @@ const CORPUS = {
     sourceFrameRate: 1000 / 33,
     videoBitrateBps: 2_084_821,
   },
-  /** `Paul Smith NSS 2026-01-21.mp4` — 17.3 Mbps at 1080p25, far above the anchor. */
-  paulSmith: {
+  /** `Interview A.mp4` — 17.3 Mbps at 1080p25, far above the anchor. */
+  interviewA: {
     width: 1920,
     height: 1080,
     frameRate: 25,
@@ -295,7 +295,7 @@ describe('anchoring best quality to the source', () => {
   })
 
   it('holds at the anchor rather than raising a well-encoded master', () => {
-    const shape = outputShapeFor(PRESETS.best, CORPUS.paulSmith)
+    const shape = outputShapeFor(PRESETS.best, CORPUS.interviewA)
     expect(shape.videoBitrateBps).toBe(6_220_800)
     expect(shape.videoBitrateBps).toBe(shape.requestedVideoBitrateBps)
     expect(shape.bitrateBasis).toBe('anchor-ceiling')

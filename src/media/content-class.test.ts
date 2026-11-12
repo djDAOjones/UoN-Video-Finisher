@@ -97,7 +97,7 @@ describe('the corpus the thresholds were checked against (VH-19)', () => {
     ['River Evolution', 'animation', 0.0356, [0.00021, 0.00138, 0.00213, 0.00003, 0], 'unknown'],
     // A studio talking head on a static camera: the case most like slides that
     // is not slides. Every window is five times the camera threshold.
-    ['Paul Smith NSS', 'camera', 0.3338, [0.01402, 0.01531, 0.01388, 0.01823, 0.01175], 'camera'],
+    ['Interview A', 'camera', 0.3338, [0.01402, 0.01531, 0.01388, 0.01823, 0.01175], 'camera'],
     // A 29-minute Teams webcam recording at 0.03 bits per pixel — as thin as
     // the slide decks. Its FIRST window reads 0.0003, inside the screen band:
     // a still moment at the start. It is the other four that decide it, which
