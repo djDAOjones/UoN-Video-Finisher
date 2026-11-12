@@ -284,7 +284,7 @@ npm run check
 ```
 
 ```bash
-npm run check:placeholders && npm run typecheck && npm run lint && npm run test && npm run check:build && npm run docs:lint && npm run docs:links && npm run check:memory
+npm run check:placeholders && npm run typecheck && npm run lint && npm run test && npm run check:build && npm run docs:lint && npm run docs:links && npm run check:memory && node tools/check.mjs
 ```
 
 **Non-mutating and CI-safe.** It reports; it never reformats or writes.
@@ -389,7 +389,7 @@ media.**
 
 ## Version management
 
-Two parts, per `AGENTS.md` → "Traceable version identity".
+Two parts:
 
 | Part | Format | Source |
 | --- | --- | --- |

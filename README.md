@@ -11,7 +11,7 @@ software to install and **no media leaving the user's device**.
 shipped 2026-08-25: a real recording goes in and a branded, correctly-levelled
 MP4 comes out, entirely on the user's device.
 
-What it does NOT yet do is in [`pm_skills/project/backlog.md`](pm_skills/project/backlog.md).
+What it does NOT yet do is in [`project/backlog.md`](project/backlog.md).
 Three things are worth knowing before using it in anger:
 
 - **Firefox cannot make the audio, and is refused.** It has an `AudioEncoder`
@@ -128,7 +128,7 @@ Full rules: [`AGENTS.md`](AGENTS.md), [`UI-STANDARDS.md`](UI-STANDARDS.md),
 - **Mediabunny cannot even see subtitle tracks** — a subtitle-bearing MP4
   reads back as zero tracks. It writes them fine. Detecting one needs our
   own `hdlr` scan. See
-  [`architecture.md`](pm_skills/project/architecture.md) → "Known
+  [`architecture.md`](project/architecture.md) → "Known
   constraints in the dependency".
 - **This repo lives on OneDrive, and that has already bitten.** Files-On-Demand
   dehydrates `node_modules`, after which every read is a network fetch. The
@@ -151,14 +151,16 @@ public gives nobody else a right to reuse them. Fonts keep their own licences
 
 ## Project management
 
-This repository uses the [PM Skills](https://github.com/djDAOjones/PM-Skills-lab)
-framework (v4.9.2) in [`pm_skills/`](pm_skills/) for AI-assisted
-development. Project memory is in [`pm_skills/project/`](pm_skills/project/).
+This repository is managed with pm-next v3.1. The live ledger is
+[`project/`](project/): the backlog, decisions, trajectory and item files.
+[`pm_skills/`](pm_skills/) is the earlier PM Skills (v4.9.2) record, kept
+for history; do not update it. Current state and the next tasks are in
+[`NEXT_STEPS.md`](NEXT_STEPS.md).
 
 ## AI project context
 
 - Codex loads [`AGENTS.md`](AGENTS.md) automatically. It contains the shared
-  standing instructions and the tiered rules for loading project memory.
+  standing instructions: the twelve-rule contract for working on the ledger.
 - Claude Desktop Code loads [`CLAUDE.md`](CLAUDE.md), a small adapter that
   imports the same `AGENTS.md` rather than maintaining a duplicate.
 - Durable project knowledge belongs in the version-controlled files named by

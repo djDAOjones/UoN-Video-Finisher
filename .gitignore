@@ -26,7 +26,15 @@ release/
 
 # Local env
 .env
-.env.local
+.env.*
+!.env.example
+
+# Logs
+*.log
+npm-debug.log*
+
+# Files moved aside during tidy-ups; kept locally, never committed
+/_archive/
 
 # Media scratch — never commit source video
 /samples/
