@@ -16,6 +16,9 @@
 //     node matrix.mjs --resume <run dir>   resumes a run in place: records
 //   already ok are kept and skipped, failed ones moved to superseded/ and
 //   measured again, so an interrupted part never restarts.
+//   VH-223: `node matrix.mjs <plan> --keys <file>` keeps only the records
+//   the file lists by key, one per line (keepKeys).
+import { readFileSync } from 'node:fs'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { connectBrowser } from './cdp.mjs'
@@ -173,8 +176,27 @@ async function openWalk(browser, name, run) {
   return w
 }
 
+// VH-223: an exact key list. The records whose recordKey the list names, in the plan's order; refused,
+// before any run directory, on an empty list, a line not of a key's shape, a key listed twice or one
+// the plan does not declare. VH-224 passes its own list the same way.
+export function keepKeys(records, keys) {
+  if (!keys.length) throw new Error('--keys: the list is empty')
+  const bad = keys.filter((k) => k.split('__').length !== 4)
+  if (bad.length) throw new Error(`--keys: not a record key: ${bad.slice(0, 3).join(', ')}`)
+  const twice = keys.filter((k, i) => keys.indexOf(k) !== i)
+  if (twice.length) throw new Error(`--keys: listed twice: ${twice.slice(0, 3).join(', ')}`)
+  const want = new Set(keys), kept = records.filter((r) => want.has(recordKey(r))), have = new Set(kept.map(recordKey))
+  const missing = keys.filter((k) => !have.has(k))
+  if (missing.length) throw new Error(`--keys: ${missing.length} not declared by the plan: ${missing.slice(0, 3).join(', ')}`)
+  return kept
+}
+export const readKeys = (file) => readFileSync(file, 'utf8').split('\n').map((l) => l.trim()).filter(Boolean)
+
 async function main() {
   const resuming = process.argv[2] === '--resume'
+  // VH-223: `--keys <file>` only straight after the plan name, alone.
+  const keysAt = process.argv.indexOf('--keys')
+  if (keysAt !== -1 && (resuming || keysAt !== 3 || process.argv.length !== 5)) throw new Error('--keys <file> goes straight after the plan name, alone')
   let run, declared, planName, skip = new Set()
   if (resuming) {
     run = new Run(process.argv[3])
@@ -193,9 +215,10 @@ async function main() {
     if (!PLANS[planName]) throw new Error('no plan ' + planName)
     // A part or a run of one, held to the sizing script and the plan before it starts.
     if (partOf(planName) || runOf(planName)) { const c = await assertParts(); console.log(`parts as declared: ${c.total} records in ${c.runs.length} runs (the script's ${c.scriptTotal}, less ${c.sourceOnly.length} source-only); split ${c.runsSha}`) }
-    const only = process.argv.slice(3)
-    declared = PLANS[planName]().filter((r) => !only.length || only.includes(r.id)).map(declareRecord)
-    run = Run.create(RUN_ROOT, planName + (only.length ? '-part' : ''), declared, { appRoot: APP_ROOT, fixtures: declaredFixtures(declared) })
+    const only = keysAt === -1 ? process.argv.slice(3) : [], all = PLANS[planName]()
+    declared = (keysAt === -1 ? all.filter((r) => !only.length || only.includes(r.id)) : keepKeys(all, readKeys(process.argv[4]))).map(declareRecord)
+    if (keysAt !== -1) console.log(`--keys: ${declared.length} of ${planName}'s ${all.length} records`)
+    run = Run.create(RUN_ROOT, planName + (keysAt !== -1 ? '-keys' : only.length ? '-part' : ''), declared, { appRoot: APP_ROOT, fixtures: declaredFixtures(declared) })
   }
   const started = Date.now()
   const browser = await connectBrowser()
