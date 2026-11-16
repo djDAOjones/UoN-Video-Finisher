@@ -24,6 +24,18 @@
      moves the oldest entries verbatim to project/decisions-YYYY-MM.md,
      beside this file, listed in project/archive-index.md. -->
 
+## 2026-11-16 — V31-REFRESH-4 — The project runs the lab's pm-skills 5 candidate b875c63, taken by the refresh route, with the signed Harness sentence in the profile
+
+**Decision:** the project runs PM-Skills lab b875c63, the candidate for pm-skills 5.0.0, from 8d4e029, by the lab's refresh route, in the commit before this record: seventeen tools, verbs and CLAUDE.md replaced as a set and tools/VERSION added, reading 5.0.0; no pack, hook or setting installed, no App opinion line added, AGENTS.md unchanged — because the owner released the lab's last refresh on 2026-11-16 ("Yes, merge on green", "Yes, use gh"). The profile's Harness line takes specification 3.13's sentence, signed by him for this project on 2026-11-12, the profile reading 399 words of its 400.
+
+**Rationale:** The lab's V31-REFRESH-4, this project's share. The route ran first on a disposable clone of the repository's main at e165c4d, its rollback printed. Every replaced file equalled 8d4e029's bytes, so no local edit is carried, and every installed tool, verb, AGENTS.md and CLAUDE.md now equals b875c63's. The checker gave the same result before and after, no failure and two warnings, and the start read is byte-identical over the unchanged record. The Harness line's last words, "this ledger is the record", become the sentence "Most of what each harness keeps in its own memory repeats this ledger; where they differ, this ledger is the record."; no other signed file changes. Rollback: git revert --no-edit the refresh commit, or the pull request's merge commit.
+
+- Migration edit: none — every replaced file was 8d4e029's, byte for byte
+
+**Supersedes:** none
+
+**Deferred:** none
+
 ## 2026-11-12 — PRIVACY-NAMES — Tracked files name sensitive samples by alias, never by their real file names
 
 **Decision:** two samples are named in tracked files only as "Interview A" and "Testimonial video B", because the repository is public and their real names identify a person and a health topic.

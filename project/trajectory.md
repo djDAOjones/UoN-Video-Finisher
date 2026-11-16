@@ -15,6 +15,7 @@
 - V31-UPGRADE — the project runs pm-next v3.1: twelve tools, four verbs and the start-notice hook, the wish lines stamped, each phase oldest first, the AAA digest repaired, by pull request (2026-10-22) — see decisions
 - V31-REFRESH — the project runs pm-next v3.1 as the lab builds it at 4ab66b5: six tools and three verbs replaced and two tools and five add-on verbs added as a set, rule 9's Checked line by a model policy, Phase 1's and Phase 7's plans restated whole for the new phase-close rule, by pull request (2026-11-04) — see decisions
 - V31-REFRESH-3 — the project runs pm-next v3.1 as the lab builds it at 8d4e029: six tools and the intake verb replaced as a set, no pack and no signed file touched, the project's own architecture.md unchanged and not the 3.26 record, by pull request (2026-11-12) — see decisions
+- V31-REFRESH-4 — the project runs pm-skills 5 as the lab builds it at b875c63, the candidate for 5.0.0: seventeen tools, verbs and CLAUDE.md replaced and tools/VERSION added as a set, no pack, the profile's Harness line carrying the signed sentence, by pull request (2026-11-16) — see decisions
 
 ## Phase 8 — the owner's UX pass: the backlog and wish list, thirteen pieces
 
