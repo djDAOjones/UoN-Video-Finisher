@@ -24,6 +24,18 @@
      moves the oldest entries verbatim to project/decisions-YYYY-MM.md,
      beside this file, listed in project/archive-index.md. -->
 
+## 2026-11-18 — REFRESH-501 — The project runs pm-skills 5.0.1 (build fd5fb94), taken by the refresh route, after one trajectory line is mended
+
+**Decision:** the project runs pm-skills 5.0.1, build fd5fb94 (the tag v5.0.1 of canon), from 5.0.0 (a2a4b37), by the release's refresh route, in the commit before this record: tools/check.mjs, harness.mjs, ledger.mjs, migrate.mjs and read.mjs and verbs/intake.md replaced and tools/VERSION reading 5.0.1; no pack, hook or setting installed; AGENTS.md, CLAUDE.md and every other file under project/ unchanged. One line of project/trajectory.md, VH-231's, is mended first, in a commit of its own, because 5.0.1's checker fails on it. The owner's word of 2026-11-18 sends the seven projects to 5.0.1.
+
+**Rationale:** The route ran first on a disposable clone, its printed rollback tried and the tree found back as before; it refused nothing and the 156 files under project/ were byte-equal. Every installed tool, verb, AGENTS.md and CLAUDE.md now equals v5.0.1's bytes (26 files). The first attempt, before the mend, took 5.0.1 with the checker at one failure: the new placeholder check reads `{kept}`, `{from}` and `{to}` in VH-231's trajectory line, quoted product strings outside a code span, as unfilled template fields, and tools/read.mjs then refuses to print the start read ("the ledger is invalid"). The base had no failure, and the Upgrade actions do not warn of it. The owner's answer, asked 2026-11-18T13:04:57Z and given 13:29:38Z, was "Mend the line, upgrade (Recommended)": "The chat puts those quoted texts in code marks in that one history line (the words stay the same), records the edit in the pull request, and carries on to a merge on green." The mend (commit 68f4a2f9) puts the three quoted strings in code spans and changes no word; the checker then gives no failure and the same two warnings as the base, and the start read prints. Wish REFRESH-501.1 holds the finding. Rollback: `git revert --no-edit` of the refresh commit (a927523e), or the pull request's merge commit; the mend stands on its own.
+
+- Migration edit: project/trajectory.md — re-applied — VH-231's line, the quoted "Keeping {kept}.", "{kept}, from {from} to {to}" put in code spans, no word changed, so 5.0.1's checker reads no placeholder
+
+**Supersedes:** 2026-11-16 — V31-REFRESH-4 — The project runs the lab's pm-skills 5 candidate b875c63, taken by the refresh route, with the signed Harness sentence in the profile
+
+**Deferred:** none
+
 ## 2026-11-16 — V31-REFRESH-4 — The project runs the lab's pm-skills 5 candidate b875c63, taken by the refresh route, with the signed Harness sentence in the profile
 
 **Decision:** the project runs PM-Skills lab b875c63, the candidate for pm-skills 5.0.0, from 8d4e029, by the lab's refresh route, in the commit before this record: seventeen tools, verbs and CLAUDE.md replaced as a set and tools/VERSION added, reading 5.0.0; no pack, hook or setting installed, no App opinion line added, AGENTS.md unchanged — because the owner released the lab's last refresh on 2026-11-16 ("Yes, merge on green", "Yes, use gh"). The profile's Harness line takes specification 3.13's sentence, signed by him for this project on 2026-11-12, the profile reading 399 words of its 400.
