@@ -39,6 +39,10 @@ The public release on Xerte (PLAN-6) is VH-204's cut.
 
 ### Phase 8 — the owner's UX pass, then a third full design pass — CLOSED 2026-11-09
 
+### pm-skills 5.0.1 — the owner's word of 2026-11-18
+
+- [~] REFRESH-501 — The project takes pm-skills 5.0.1 by the refresh — since 2026-11-18
+
 ### Standing — the owner's, never phase-gated
 
 - [!] VH-M2 — Measure the device envelope — since 2026-08-24 — blocked: the owner's own work — a canon [maintainer] item
