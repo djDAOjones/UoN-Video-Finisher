@@ -8,6 +8,10 @@
      items the canon record shipped before the migration, in v3's form;
      their why is in the frozen canon decision log (history.md). -->
 
+## pm-skills 5.0.1 — the owner's word of 2026-11-18
+
+- REFRESH-501 — the project runs pm-skills 5.0.1: seven tools and the intake verb replaced as a set, tools/VERSION reading 5.0.1, no pack, no signed file touched, one history line of VH-231 mended with its quoted words in code marks, by pull request (2026-11-18) — see decisions
+
 ## V3 adoption
 
 - V3-CONFIRM — the owner confirmed every intake guess: the signatures, Network, Handoff and session hooks, gh outside the sandbox, the OneDrive checkout as the working copy with a sync guard after Codex's check, and en-GB prose (2026-10-05) — see decisions
