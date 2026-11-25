@@ -18,10 +18,15 @@
  * Xerte package (`npm run build:xerte`). The package's one structural promise
  * is checked too — no folders — because the maintainer uploads it to Xerte as
  * a single flat folder, where a subdirectory is a broken upload (2026-09-21).
+ *
+ * Both bundles must also carry the offline pair beside `index.html` (VH-161):
+ * the service worker, and a list of files to keep in which every name is a
+ * file the bundle holds and none is a source map. A list naming a file that
+ * is not there would fail every visitor's install, silently.
  */
 
 import { execFileSync } from 'node:child_process'
-import { mkdtempSync, readdirSync, rmSync } from 'node:fs'
+import { existsSync, mkdtempSync, readdirSync, readFileSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 
@@ -61,9 +66,30 @@ function build(name, modeArguments) {
   return directory
 }
 
+/** The offline pair's promise, for one bundle: `sw.js`, and a list that is true. */
+function checkOfflineFiles(name, directory) {
+  const problems = []
+  if (!existsSync(join(directory, 'sw.js'))) problems.push('no sw.js beside index.html')
+  const listPath = join(directory, 'offline-files.json')
+  if (!existsSync(listPath)) {
+    problems.push('no offline-files.json beside index.html')
+  } else {
+    const { files } = JSON.parse(readFileSync(listPath, 'utf8'))
+    if (!files.includes('index.html')) problems.push('offline-files.json does not list index.html')
+    for (const file of files) {
+      if (file.endsWith('.map')) problems.push(`offline-files.json lists a source map, ${file}`)
+      if (!existsSync(join(directory, file)))
+        problems.push(`offline-files.json lists ${file}, not in the build`)
+    }
+  }
+  for (const problem of problems) console.error(`check:build: ${name}: ${problem}`)
+  if (problems.length > 0) process.exitCode = 1
+}
+
 try {
-  build('site', [])
+  checkOfflineFiles('site', build('site', []))
   const xerte = build('xerte', ['--mode', 'xerte'])
+  checkOfflineFiles('xerte', xerte)
   const folders = readdirSync(xerte, { withFileTypes: true }).filter((entry) => entry.isDirectory())
   if (folders.length > 0) {
     console.error(

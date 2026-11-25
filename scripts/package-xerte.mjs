@@ -103,10 +103,15 @@ UPDATING
   job.worker-*.js in place for a while: a browser still holding the old
   index.html needs the scripts it names.
 
+  sw.js and offline-files.json let the app work offline after a first visit:
+  the browser keeps a copy of this version's files, and replaces it with the
+  next version once that is uploaded and the old page is closed. Keep both
+  files, with the rest, in every upload.
+
 MIME TYPES
   .js as text/javascript, .css as text/css, .webm as video/webm, .mp4 as
-  video/mp4, .svg as image/svg+xml, .woff2 as font/woff2. Default on
-  virtually all servers.
+  video/mp4, .svg as image/svg+xml, .woff2 as font/woff2, .json as
+  application/json. Default on virtually all servers.
 
 FILES
 ${listed}

@@ -19,3 +19,8 @@ declare function showSaveFilePicker(options?: {
   suggestedName?: string
   types?: { description?: string; accept: Record<string, string[]> }[]
 }): Promise<FileSystemFileHandle>
+/**
+ * Injected by `define` in `vite.config.ts`: the service worker's file name,
+ * `sw.js`, beside `index.html`. See `src/offline/register.ts` (VH-161).
+ */
+declare const __OFFLINE_WORKER_FILE__: string

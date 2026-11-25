@@ -4,6 +4,12 @@ import { extname, resolve } from 'node:path'
 import { defineConfig, type Plugin } from 'vitest/config'
 
 import pkg from './package.json' with { type: 'json' }
+import {
+  isBrandingMaster,
+  OFFLINE_FILES_FILE,
+  OFFLINE_WORKER_FILE,
+  offlineFiles,
+} from './src/offline/offline-cache'
 
 /**
  * Build identity, per DEV-INFRASTRUCTURE.md -> "Version management".
@@ -87,6 +93,60 @@ function emitBrandingFlat(): Plugin {
   }
 }
 
+/**
+ * Emits the service worker and its list of files, beside `index.html` in both
+ * builds (spec §11, offline after first load; VH-161).
+ *
+ * The worker is its own chunk with a fixed name, `sw.js`: its default scope is
+ * then the app's folder, with no header to ask the host for. The list,
+ * `offline-files.json`, is written once every other file has its final name,
+ * and carries the build id the worker was built with, so a worker never
+ * installs another build's list.
+ *
+ * A worker that imported a chunk would have to be a module worker and would
+ * name a hashed file; the build is refused instead, so a shared import cannot
+ * creep in unseen.
+ */
+function emitOfflineCache(buildIdentity: string, brandingDirectory: string): Plugin {
+  let root = process.cwd()
+  return {
+    name: 'uon-emit-offline-cache',
+    apply: 'build',
+    enforce: 'post',
+    configResolved(config) {
+      root = config.root
+    },
+    buildStart() {
+      this.emitFile({
+        type: 'chunk',
+        id: resolve(root, 'src/offline/service-worker.ts'),
+        fileName: OFFLINE_WORKER_FILE,
+      })
+    },
+    generateBundle(_options, bundle) {
+      const worker = bundle[OFFLINE_WORKER_FILE]
+      if (worker?.type !== 'chunk') return this.error(`no ${OFFLINE_WORKER_FILE} in the build`)
+      if (worker.imports.length > 0 || worker.dynamicImports.length > 0) {
+        return this.error(
+          `${OFFLINE_WORKER_FILE} imports ${[...worker.imports, ...worker.dynamicImports].join(', ')}: ` +
+            'it must stand alone, so nothing the page imports may be imported by it',
+        )
+      }
+      if (!('index.html' in bundle)) return this.error('no index.html in the build to keep')
+      const files = offlineFiles(
+        Object.keys(bundle),
+        readdirSync(resolve(root, 'public/branding')).filter(isBrandingMaster),
+        brandingDirectory,
+      )
+      this.emitFile({
+        type: 'asset',
+        fileName: OFFLINE_FILES_FILE,
+        source: `${JSON.stringify({ buildId: buildIdentity, files }, null, 2)}\n`,
+      })
+    },
+  }
+}
+
 export default defineConfig(({ mode }) => {
   // The Xerte package, `vite build --mode xerte` (DEV-INFRASTRUCTURE.md ->
   // "Xerte package"). Relocatable, because Xerte serves it from a folder whose
@@ -94,11 +154,14 @@ export default defineConfig(({ mode }) => {
   // `index.html`, no folders — because that is how the maintainer uploads it
   // (2026-09-21).
   const xerte = mode === 'xerte'
+  const buildIdentity = buildId()
+  const brandingDirectory = xerte ? '' : 'branding/'
   return {
     plugins: [
       // The README, and the record of the words drawn into the internal tails (VH-126).
       excludeFromBuild(['branding/README.md', 'branding/closing-internal-words.json']),
       ...(xerte ? [emitBrandingFlat()] : []),
+      emitOfflineCache(buildIdentity, brandingDirectory),
     ],
     // A GitHub Pages project site serves from `/<repo>/`, not the root. The
     // deploy workflow sets BASE_PATH; local dev and the acceptance run leave it
@@ -116,10 +179,13 @@ export default defineConfig(({ mode }) => {
     },
     define: {
       __APP_VERSION__: JSON.stringify(`v${pkg.version}`),
-      __BUILD_ID__: JSON.stringify(buildId()),
+      __BUILD_ID__: JSON.stringify(buildIdentity),
       // Where the branding masters sit under `base`: their own folder, except
       // in the flat Xerte package. Read by `src/config/branding.ts`.
-      __BRANDING_DIR__: JSON.stringify(xerte ? '' : 'branding/'),
+      __BRANDING_DIR__: JSON.stringify(brandingDirectory),
+      // The service worker's name, for the page to register it by (VH-161).
+      // Defined rather than imported: see `src/offline/offline-cache.ts`.
+      __OFFLINE_WORKER_FILE__: JSON.stringify(OFFLINE_WORKER_FILE),
     },
     build: {
       target: 'esnext',

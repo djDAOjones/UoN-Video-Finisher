@@ -58,6 +58,12 @@ describe('hostingReadme', () => {
     expect(readme).toContain('leave the previous app-*.js and\n  job.worker-*.js in place')
   })
 
+  it('says the offline pair travels in every upload (VH-161)', () => {
+    expect(readme).toContain('sw.js and offline-files.json')
+    expect(readme).toContain('Keep both\n  files, with the rest, in every upload.')
+    expect(readme).toContain('.json as\n  application/json')
+  })
+
   it('lists every file it travels with', () => {
     // Names padded to the longest, sizes right-aligned beneath each other.
     expect(readme).toMatch(/^ {2}index\.html {7}5,120 bytes$/m)

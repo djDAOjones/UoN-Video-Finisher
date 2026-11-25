@@ -221,6 +221,7 @@ import {
 import { escapeFocusesButton, focusClosesTip } from './ui/toggletip'
 import { createPreviewSeeker } from './ui/preview-seek'
 import type { PipelineStage } from './media/pipeline'
+import { registerOfflineCache } from './offline/register'
 import type { WorkerOutbound, WorkerRequest } from './workers/protocol'
 import type { FailureCode, FailureReason } from './workers/failure'
 
@@ -4241,5 +4242,26 @@ if (isDev) {
 
   devActions.append(copyButton, throwMainButton, throwWorkerButton)
 }
+
+// Offline after first load (spec §11, VH-161): the service worker keeps this
+// build's files once the page has loaded. Silent: nothing on the page changes,
+// and a browser that refuses it works as before, online.
+window.addEventListener(
+  'load',
+  () => {
+    const registered = registerOfflineCache({
+      dev: isDev,
+      container: 'serviceWorker' in navigator ? navigator.serviceWorker : undefined,
+      scriptUrl: `${import.meta.env.BASE_URL}${__OFFLINE_WORKER_FILE__}`,
+      onError: (error) => {
+        log.warn('boot', 'offline cache not registered', {
+          error: error instanceof Error ? error.message : String(error),
+        })
+      },
+    })
+    log.info('boot', 'offline cache', { registered })
+  },
+  { once: true },
+)
 
 log.info('boot', 'shell mounted')
