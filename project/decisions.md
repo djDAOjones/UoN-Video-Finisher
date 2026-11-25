@@ -24,6 +24,18 @@
      moves the oldest entries verbatim to project/decisions-YYYY-MM.md,
      beside this file, listed in project/archive-index.md. -->
 
+## 2026-11-25 — PLAN-9 — VH-244, two absent regression tests, joins Phase 9 before its close
+
+**Decision:** Phase 9's items are the six of the first entry and VH-244, two regression tests the wish list asks for, before VH-243's close — because the fixes landed with hours of the night left, the tests touch no page, and analyst C's triage found both an agent's to write.
+
+**Rationale:** The first entry's five fix items are shipped (VH-238, VH-241, VH-239, VH-240, VH-242) and VH-243's second analysis is running. VH-244 takes two wish lines whole: VH-193.2 — promoted to VH-244 — the limiter's bite paths correct by a kept probe and pinned by no test; VH-215.3 — promoted to VH-244 — the release guard tested as a predicate only, never through the worker. No product file changes, so nothing a walk reads moves. The other lines C judged an agent's are done (VH-233.1, VH-236.1, VH-162.1, VH-147.1) or left: VH-235.1, the worker's other `/ 1000`, "for the next change to the worker" by its own words, and no change to the worker is made tonight. The list is restated whole, as a later Items list is read as the whole list. Gateless on the owner's word of 2026-11-25 (the VH-204 entry).
+
+**Supersedes:** 2026-11-25 — PLAN-9 — Phase 9: the overnight UX loops, what a fresh analysis found mended in existing words
+
+**Items:** VH-238, VH-241, VH-239, VH-240, VH-242, VH-244, VH-243
+
+**Deferred:** none
+
 ## 2026-11-25 — VH-240 — Closes: step 6 keeps its height while the device check runs again
 
 **Decision:** VH-240 closes as a fix: a re-check of the same file holds step 6 at the height it had, by an inline `min-height` measured at the change and given up when the check's answer is painted; nothing stale is shown, no word or element; the step and the page no longer bounce 422 px; Create is still off the page for the check's second or so.
@@ -502,13 +514,3 @@ Each walk records its machine. Two questions remain for the owner:
 **Supersedes:** none
 
 **Deferred:** none
-
-## 2026-11-01 — VH-230 — Raised: the state words broken in the mark's column, its own fix item before VH-220
-
-**Decision:** VH-230 takes the state words too wide for the System check's 1.5 rem mark column, each broken over two lines, the same before and after VH-218: its own fix item, directly after VH-218 and before VH-219, landing before VH-220. Both remedies stay unchosen: widen the gutter for every row, or add a token. The orchestrator's ruling, not the owner's, listed for him.
-
-**Rationale:** Orchestrator #33's ruling, 2026-10-31, by section 3 of the brief, a remedy that outgrows the item, with his "even old issues should be solved for" (`plan8-owner-words.md`, read by `sed`): "The mark's column is its own fix item, not a wish." Measured by VH-218: default font "Tidak" 36.33 of 24 px and 好的 28 of 24 px; under spacing "OK" 24.38 of 24 px. Codex astra's re-check confirmed the assignment and added Chinese's pending "……", two lines, width unmeasured. VH-220's checks read the final page, as the PLAN-8 entry on VH-225 says. The first table's "wish VH-218.1" was never issued.
-
-**Supersedes:** none
-
-**Deferred:** VH-230

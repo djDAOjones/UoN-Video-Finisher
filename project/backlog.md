@@ -42,6 +42,7 @@ The public release on Xerte (PLAN-6) is VH-204's cut.
 
 ### Phase 9 — the overnight UX loops: what a fresh analysis found, mended in existing words
 
+- [ ] VH-244 — Two absent regression tests written: the limiter's bite at the plan level, the release guard through the worker — since 2026-11-25
 - [ ] VH-243 — The overnight run's close: a second analysis, the owner's sheet, the phase closed — since 2026-11-25
 
 ### Standing — the owner's, never phase-gated
