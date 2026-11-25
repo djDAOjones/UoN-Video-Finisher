@@ -73,6 +73,10 @@ export function languageSegments(name: string, options: readonly LanguageOption[
     input.type = 'radio'
     input.name = name
     input.value = option.tag
+    // Not put back by the browser after Back or Forward: it would show the
+    // language that history entry was left in, over a page painted from what
+    // is remembered now (VH-243, E-01).
+    input.autocomplete = 'off'
     input.checked = option.checked
     const face = document.createElement('span')
     face.className = 'segment-face'

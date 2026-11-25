@@ -57,6 +57,41 @@ describe('times in the fields', () => {
     },
   )
 
+  it.each([
+    ['３', 3],
+    ['０：０５', 5],
+    ['0：25', 25],
+    ['1：05．5', 65.5],
+    ['１：０２：０３．４', 3723.4],
+    ['　７５　', 75],
+  ])('reads %j, as a Chinese keyboard types it, as %s s (VH-243, E-03)', (text, seconds) => {
+    // Full-width digits, colon and full stop read on screen as the form the
+    // helper asks for; the student ID numbers' box already folds them.
+    expect(parseTrimTime(text)).toBeCloseTo(seconds, 9)
+  })
+
+  it.each([
+    'ａｂｃ',
+    '１：７５',
+    '－５',
+    '-５',
+    '１．５：００',
+    '１：２：３：４',
+    '0：0：0：5',
+    '１：',
+    '：３０',
+    '１，５',
+    '1、5',
+    '1：05。5',
+    '٣',
+    '三',
+  ])('still refuses %j once folded (VH-243, E-03)', (text) => {
+    // The fold changes the width of what was typed, never what counts as a
+    // time: letters, a third colon, a minus, a comma and digits of another
+    // script are refused as their Latin forms are.
+    expect(parseTrimTime(text)).toBeNull()
+  })
+
   it('accepts both examples the helper gives, as typed (VH-113)', () => {
     // The helper's examples are the parser's contract: a phone's decimal
     // keyboard can type the second, not the first.

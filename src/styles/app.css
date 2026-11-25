@@ -21,6 +21,13 @@ html {
   scroll-padding-block: var(--spacing-03);
 }
 
+/* The skip link's jump is the one scroll the inset above is not for: it
+   stopped that step short and left a strip of the header band over the title.
+   The target takes the step back, so it rests at the window's top (VH-243). */
+#main {
+  scroll-margin-top: calc(-1 * var(--spacing-03));
+}
+
 body {
   /* A column the height of the window, so the footer band sits at the bottom
      of a short page rather than halfway up it. */
@@ -1692,7 +1699,13 @@ details[open] > .disclosure-summary::before {
  * keeps the page's scroll inset, so Close, reached at its bottom edge, shows
  * its whole ring (VH-241). Its greatest height is the dynamic viewport's:
  * held at the top, a dialog as tall as the window a phone's address bar hides
- * part of would end below the visible edge (VH-243).
+ * part of would end below the visible edge (VH-243). A wheel or a flick past
+ * its end, or over the dimmed page, goes no further: it used to move the page
+ * behind, and on Escape focus went back to an opener by then off screen. The
+ * dialog and its dimming are both scroll containers that hand nothing on, the
+ * dimming made one for this; the root is left to scroll, since taking its
+ * scrollbar away moves the page sideways wherever a scrollbar has a width
+ * (VH-243).
  */
 .dialog {
   max-width: calc(100vw - 2 * var(--spacing-05));
@@ -1705,10 +1718,13 @@ details[open] > .disclosure-summary::before {
   background: var(--layer-01);
   color: var(--text-primary);
   overflow: auto;
+  overscroll-behavior: contain;
 }
 
 .dialog::backdrop {
   background: var(--overlay-backdrop);
+  overflow: hidden;
+  overscroll-behavior: contain;
 }
 
 .dialog h2 {
@@ -1745,9 +1761,13 @@ details[open] > .disclosure-summary::before {
 /* The box of student IDs grows with what is typed, so eight IDs, one a line
    or in full-width digits, all show (VH-241). Its floor is the resting height
    above: sized by its content, a textarea no longer reads `rows`, which is
-   why the feedback message, whose six rows are its size, is left as it is. */
+   why the feedback message, whose six rows are its size, is left as it is.
+   Its ceiling is a details pane's, which eight lines fit under: past that it
+   scrolls inside, so a class list pasted by mistake no longer pushes the
+   steps below it down by its whole length (VH-243). */
 #submission-card-ids {
   field-sizing: content;
+  max-height: var(--detail-max-height);
 }
 
 /* Below about 400 px the problem report gives half its inset and a quarter of

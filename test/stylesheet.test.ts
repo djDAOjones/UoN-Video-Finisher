@@ -662,10 +662,12 @@ describe('eight readings mended (VH-241)', () => {
   it('keeps a scroll inset on the page and in the dialog, one step wider than the ring’s room', () => {
     // Chrome scrolls a focused control's box to the edge and no further, so the
     // ring outside the box was cut (wish VH-233.1); a scroll margin on
-    // `:focus-visible` is applied too late to help.
+    // `:focus-visible` is applied too late to help, so focus has none. The
+    // sheet's one scroll margin is the skip link's target's (VH-243, below).
     expect(block('html')).toMatch(/scroll-padding-block:\s*var\(--spacing-03\);/)
     expect(block('.dialog')).toMatch(/scroll-padding-block:\s*var\(--spacing-03\);/)
-    expect(rules).not.toMatch(/scroll-margin/)
+    expect(rules.match(/scroll-margin/g)).toHaveLength(1)
+    expect(block('#main')).toMatch(/^\s*scroll-margin-top:[^;]*;\s*$/)
   })
 
   it('rests the indeterminate band in the middle of its track, where reduced motion leaves it', () => {
@@ -712,9 +714,52 @@ describe('eight readings mended (VH-241)', () => {
 
   it('lets the student IDs box grow with what is typed, and that box alone', () => {
     // Sized by its content a textarea no longer reads `rows`, so the feedback
-    // message, whose rows are its size, is not given it.
-    expect(block('#submission-card-ids')).toMatch(/^\s*field-sizing:\s*content;\s*$/)
+    // message, whose rows are its size, is not given it. Its one other
+    // declaration is the ceiling VH-243 gave it, below.
+    expect(block('#submission-card-ids')).toMatch(/^\s*field-sizing:\s*content;\s*max-height:[^;]*;\s*$/)
     expect(rules.match(/field-sizing:/g)).toHaveLength(1)
     expect(block('.textarea')).toMatch(/min-height:\s*var\(--textarea-min-height\);/)
+  })
+})
+
+describe('three side effects of the night’s fixes mended (VH-243)', () => {
+  const tokenFile = readFileSync(new URL('../src/styles/tokens.carbon.css', import.meta.url), 'utf8')
+  /** A rule's declarations, by its exact selector, outside any media query. */
+  const block = (selector: string): string =>
+    new RegExp(`(?:^|\\})\\s*${selector.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\s*\\{([^}]*)\\}`).exec(rules)?.[1] ?? ''
+
+  it('stops a scroll past the dialog’s end, or over the dimmed page, from moving the page behind', () => {
+    // Measured in Chrome: with neither, one wheel gesture over the open dialog
+    // moved the page 500 px and Escape returned focus to an opener off screen;
+    // with the dialog's alone, a gesture over the dimming still did.
+    expect(block('.dialog')).toMatch(/overflow:\s*auto;\s*overscroll-behavior:\s*contain;/)
+    // The dimming hands nothing on only as a scroll container, which `visible`
+    // and `clip` do not make it.
+    expect(block('.dialog::backdrop')).toMatch(/overflow:\s*hidden;\s*overscroll-behavior:\s*contain;/)
+    expect(rules.match(/overscroll-behavior:/g)).toHaveLength(2)
+    // The root is left to scroll: without its scrollbar the page moves
+    // sideways by half the bar's width wherever a scrollbar has one.
+    expect(block('html')).not.toMatch(/overflow/)
+    expect(rules).not.toMatch(/(?:html|body|:root)[^{]*(?:\[open\]|:modal)[^{]*\{/)
+    expect(rules).not.toMatch(/scrollbar-gutter/)
+  })
+
+  it('rests the skip link’s target at the window’s top, by the step the scroll inset takes', () => {
+    // The inset is for a focused control's ring; applied to the jump to
+    // `#main` it left 8 px of the header band above the title.
+    const inset = /scroll-padding-block:\s*(var\(--[a-z0-9-]+\));/.exec(block('html'))?.[1]
+    expect(inset).toBe('var(--spacing-03)')
+    expect(block('#main')).toBe(`\n  scroll-margin-top: calc(-1 * ${inset});\n`)
+    expect(rules.match(/#main\b/g)).toHaveLength(1)
+  })
+
+  it('gives the student IDs box a ceiling eight lines fit under, and scrolls it inside past that', () => {
+    expect(block('#submission-card-ids')).toMatch(/max-height:\s*var\(--detail-max-height\);/)
+    // Eight lines of the body's 1.5 on 1rem are 12rem, the box's own padding
+    // and border 1.5rem and 2 px more: 14rem holds them at any default font.
+    expect(tokenFile).toMatch(/--detail-max-height:\s*14rem;/)
+    expect(block('.textarea')).toMatch(/padding:\s*var\(--spacing-04\);/)
+    // Nothing takes the box's own scroll away.
+    expect(block('#submission-card-ids') + block('.textarea')).not.toMatch(/overflow/)
   })
 })

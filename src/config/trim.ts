@@ -45,6 +45,14 @@ export const TRIM_PAGE_STEP_SECONDS = 10
 export const TRIM_PAGE_STEP_FRACTION = 0.01
 
 /**
+ * The Unicode form a typed time is read in (VH-243, E-03): it folds the
+ * full-width digits, colon and full stop a Chinese input method types to the
+ * Latin ones the fields show, as the student ID numbers' box is read
+ * (`STUDENT_ID_FOLD`).
+ */
+export const TRIM_TIME_FOLD = 'NFKC'
+
+/**
  * How long the trim must be still before the device check re-runs for it, in
  * milliseconds. An arrow key held down commits a change per step, and each
  * would otherwise start a pre-flight — decoding and encoding three seconds —

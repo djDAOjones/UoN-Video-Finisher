@@ -154,15 +154,21 @@
            line beneath says what the side means and is read on demand, not
            announced; what it changes is Step 4's "Internal use only", and
            whether Step 3's title card is offered. -->
+      <!-- VH-243, 2026-11-25 (E-01). Every radio, checkbox and select on the
+           page carries autocomplete="off", as the card's typed fields do:
+           after Back or Forward the browser put each back as that history
+           entry left it, over a page already painted from what it remembers,
+           and the choice shown was not the choice used.
+           `test/screen-text.test.ts` holds each one to it. -->
       <fieldset class="segmented video-kind" id="video-kind" aria-describedby="video-kind-result video-next">
         <legend class="label" data-i18n="videoKind.label">Video type</legend>
         <div class="segments">
           <label class="segment">
-            <input type="radio" name="video-kind" value="staff" checked />
+            <input type="radio" name="video-kind" value="staff" checked autocomplete="off" />
             <span class="segment-face" data-i18n="videoKind.options.staff" data-text="Staff video" data-i18n-attr="data-text:videoKind.options.staff">Staff video</span>
           </label>
           <label class="segment">
-            <input type="radio" name="video-kind" value="submission" />
+            <input type="radio" name="video-kind" value="submission" autocomplete="off" />
             <span class="segment-face" data-i18n="videoKind.options.submission" data-text="Student submission" data-i18n-attr="data-text:videoKind.options.submission">Student submission</span>
           </label>
         </div>
@@ -300,7 +306,7 @@
           </p>
           <div class="field" id="title-card-box-field">
             <label class="checkbox" for="title-card-on">
-              <input type="checkbox" id="title-card-on" aria-describedby="title-card-reason title-card-rule title-card-empty-error" />
+              <input type="checkbox" id="title-card-on" autocomplete="off" aria-describedby="title-card-reason title-card-rule title-card-empty-error" />
               <span data-i18n="titleCard.add">Add a title card</span>
             </label>
             <p class="helper" id="title-card-reason" hidden></p>
@@ -424,14 +430,16 @@
                 aria-required="true"
                 aria-describedby="submission-card-ids-helper submission-card-ids-error"
               ></textarea>
+              <!-- The error straight under the box, as the three fields
+                   above have theirs, and the helper after it (VH-243, E-06). -->
+              <div aria-live="polite">
+                <p class="field-error" id="submission-card-ids-error" hidden></p>
+              </div>
               <!-- Painted from the table with STUDENT_ID_DIGITS and STUDENT_IDS_MAX (VH-140); this is the no-script English. -->
               <p class="helper" id="submission-card-ids-helper">
                 Each student ID (identity) number is 8 digits. Type up to 8, with spaces, commas, or new lines
                 between them. Do not add names.
               </p>
-              <div aria-live="polite">
-                <p class="field-error" id="submission-card-ids-error" hidden></p>
-              </div>
             </div>
             <!-- Painted from the table with the kept range's length; empty until a video is read. -->
             <p class="helper" id="submission-card-filled"></p>
@@ -458,7 +466,7 @@
           <div class="control-grid">
             <div class="field">
               <label class="label" for="closing-type" data-i18n="closing.typeLabel">Animation type</label>
-              <span class="select-wrap"><select class="select" id="closing-type" aria-describedby="closing-result">
+              <span class="select-wrap"><select class="select" id="closing-type" autocomplete="off" aria-describedby="closing-result">
                 <option value="cut" data-i18n="closing.types.cut" selected>Cut</option>
                 <option value="fade" data-i18n="closing.types.fade">Fade</option>
                 <option value="slide" data-i18n="closing.types.slide">Slide</option>
@@ -471,6 +479,7 @@
                 <span class="select-wrap"><select
                   class="select"
                   id="closing-onset"
+                  autocomplete="off"
                   aria-describedby="closing-none-reason closing-onset-reason closing-result"
                   disabled
                 >
@@ -516,13 +525,13 @@
                    is a tablist, which is the wrong role for a form value. -->
               <div class="segments">
                 <label class="segment">
-                  <input type="radio" name="closing-colour" value="blue" checked />
+                  <input type="radio" name="closing-colour" value="blue" checked autocomplete="off" />
                   <span class="segment-face">
                     <span class="swatch swatch--blue" aria-hidden="true"></span><span data-i18n="closing.colours.blue">Blue</span>
                   </span>
                 </label>
                 <label class="segment">
-                  <input type="radio" name="closing-colour" value="white" />
+                  <input type="radio" name="closing-colour" value="white" autocomplete="off" />
                   <span class="segment-face">
                     <span class="swatch swatch--white" aria-hidden="true"></span><span data-i18n="closing.colours.white">White</span>
                   </span>
@@ -540,6 +549,7 @@
               <input
                 type="checkbox"
                 id="closing-internal"
+                autocomplete="off"
                 aria-describedby="closing-none-reason closing-internal-reason closing-result"
               />
               <span data-i18n="closing.internalLabel">Internal use only</span>
@@ -562,14 +572,14 @@
                The names are `PRESETS[id].label`; `test/screen-text.test.ts`
                holds the two together (VH-85). -->
           <label class="radio radio--described">
-            <input type="radio" name="preset" value="best" checked />
+            <input type="radio" name="preset" value="best" checked autocomplete="off" />
             <span class="radio-label">
               <span data-i18n="preset.labels.best">High quality, for publishing</span>
               <span class="radio-detail" data-i18n="preset.details.best">For EchoVideo, YouTube, and similar sites.</span>
             </span>
           </label>
           <label class="radio radio--described">
-            <input type="radio" name="preset" value="smaller" />
+            <input type="radio" name="preset" value="smaller" autocomplete="off" />
             <span class="radio-label">
               <span data-i18n="preset.labels.smaller">Smaller file, for assignments and sharing</span>
               <span class="radio-detail" data-i18n="preset.details.smaller">For Moodle assignment uploads, email, and messages.</span>
@@ -639,7 +649,7 @@
              browser (VH-109). The outcome is announced whatever it says. -->
         <div class="field" id="announce-field" hidden>
           <label class="checkbox" for="announce-progress">
-            <input type="checkbox" id="announce-progress" checked aria-describedby="announce-help" />
+            <input type="checkbox" id="announce-progress" checked autocomplete="off" aria-describedby="announce-help" />
             <span data-i18n="create.announceProgress">Announce progress</span>
           </label>
           <p class="helper" id="announce-help" data-i18n="create.announceHelp">

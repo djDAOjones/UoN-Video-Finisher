@@ -14,6 +14,7 @@ import {
   TRIM_KEY_STEP_SECONDS,
   TRIM_PAGE_STEP_FRACTION,
   TRIM_PAGE_STEP_SECONDS,
+  TRIM_TIME_FOLD,
 } from '../config/trim'
 import { t } from '../i18n'
 import {
@@ -46,10 +47,14 @@ export function formatTrimTime(seconds: number): string {
 /**
  * Reads a typed time: `75`, `75.5`, `1:15`, `1:15.5` or `1:02:03.4`.
  *
+ * Folded first, as the student ID numbers are: a Chinese keyboard types
+ * `０：０５`, which reads on screen as the form the helper asks for, and was
+ * refused with that form as the remedy (VH-243, E-03).
+ *
  * @returns Seconds, or `null` for anything that is not a time — never a guess.
  */
 export function parseTrimTime(text: string): number | null {
-  const parts = text.trim().split(':')
+  const parts = text.normalize(TRIM_TIME_FOLD).trim().split(':')
   if (parts.length > 3 || parts.some((part) => !/^\d+(\.\d+)?$/.test(part))) return null
   // Only the last part may carry a fraction, and minutes and seconds after a
   // colon stay under 60.

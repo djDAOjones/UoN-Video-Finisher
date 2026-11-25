@@ -1208,30 +1208,200 @@ describe('the Create step keeps its height through a check (VH-240, pinned by VH
   const preset = listenerBody('presetChoice', 'change')
   const again = listenerBody('checkAgainButton', 'click')
 
+  // VH-243 (D-01, D-02) gave the check two more holds, so the step's is
+  // taken and given up through one function each, at the places it was.
+  it('takes the step’s hold, and the place of a card under the verdict, through one function', () => {
+    expect(functionBody('holdCheckRoom')).toBe('  createStepHold.hold()\n  resultPlaceHold.hold()')
+    expect(wiring.match(/createStepHold\.hold\(\)/g)).toHaveLength(1)
+    expect(wiring.match(/resultPlaceHold\.hold\(\)/g)).toHaveLength(1)
+  })
+
   it('takes the hold in three places, each before anything of the step is withdrawn', () => {
-    expect(wiring.match(/createStepHold\.hold\(\)/g)).toHaveLength(3)
+    expect(wiring.match(/\n\s+holdCheckRoom\(\)\n/g)).toHaveLength(3)
     for (const body of [commit, preset]) {
-      expect(body).toContain('\n  createStepHold.hold()\n')
-      expect(body.indexOf('createStepHold.hold()')).toBeLessThan(body.indexOf('processActions.hidden = true'))
-      expect(body.indexOf('createStepHold.hold()')).toBeLessThan(body.indexOf('withdrawVerdict()'))
+      expect(body).toContain('\n  holdCheckRoom()\n')
+      expect(body.indexOf('holdCheckRoom()')).toBeLessThan(body.indexOf('processActions.hidden = true'))
+      expect(body.indexOf('holdCheckRoom()')).toBeLessThan(body.indexOf('withdrawVerdict()'))
     }
-    expect(again).toContain('\n  createStepHold.hold()\n  void runPreflight(file, beginSelection())\n')
+    expect(again).toContain('\n  holdCheckRoom()\n  void runPreflight(file, beginSelection())\n')
+  })
+
+  it('gives up all three holds together, the step’s among them', () => {
+    expect(functionBody('releaseCheckRoom')).toBe(
+      '  createStepHold.release()\n  resultPlaceHold.release()\n  submissionLineHold.release()',
+    )
+    expect(wiring.match(/createStepHold\.release\(\)/g)).toHaveLength(1)
+    expect(wiring.match(/resultPlaceHold\.release\(\)/g)).toHaveLength(1)
+    // A new file, a trim that cannot be used (twice), a check's end, Stop
+    // the check, and a job's start.
+    expect(wiring.match(/\n\s+(?:if \(current\(\)\) )?releaseCheckRoom\(\)\n/g)).toHaveLength(6)
+    expect(listenerBody('stopCheckButton', 'click')).toContain('\n  releaseCheckRoom()\n')
+    expect(functionBody('beginJob')).toMatch(/^[\s\S]*?\n {2}releaseCheckRoom\(\)\n {2}clearResult\(\)\n/)
   })
 
   it('gives the hold up when its check ends, however it ends, unless a newer one has replaced it', () => {
     expect(preflightBody).toMatch(
-      /\n {2}\} finally \{\n(?:\s*\/\/[^\n]*\n)*\s*if \(current\(\)\) createStepHold\.release\(\)\n {2}\}\n\}\n$/,
+      /\n {2}\} finally \{\n(?:\s*\/\/[^\n]*\n)*\s*if \(current\(\)\) releaseCheckRoom\(\)\n {2}\}\n\}\n$/,
     )
     // In the `finally` the release is never unconditional: a replaced check
     // leaves the hold to whatever replaced it.
-    expect(preflightBody.match(/if \(current\(\)\) createStepHold\.release\(\)/g)).toHaveLength(1)
+    expect(preflightBody.match(/if \(current\(\)\) releaseCheckRoom\(\)/g)).toHaveLength(1)
   })
 
   it('keeps no room where no check follows: a trim that cannot be used', () => {
     // Both ways into it: the commit that finds the problem, and a check
     // asked for while it stands.
-    expect(commit).toMatch(/if \('problem' in currentTrim\(\)\) \{\n[\s\S]*?\n {4}createStepHold\.release\(\)\n {4}return\n {2}\}/)
-    expect(preflightBody).toMatch(/if \('problem' in trim\) \{\n[\s\S]*?\n {4}createStepHold\.release\(\)\n {4}return\n {2}\}/)
+    expect(commit).toMatch(/if \('problem' in currentTrim\(\)\) \{\n[\s\S]*?\n {4}releaseCheckRoom\(\)\n {4}return\n {2}\}/)
+    expect(preflightBody).toMatch(/if \('problem' in trim\) \{\n[\s\S]*?\n {4}releaseCheckRoom\(\)\n {4}return\n {2}\}/)
+  })
+})
+
+describe('a card under the verdict keeps its place through a check (VH-243, D-02)', () => {
+  const commit = functionBody('commitTrim')
+
+  it('opens the room in the verdict’s own box, and only while something stands in the result', () => {
+    expect(wiring).toMatch(
+      /const resultPlaceHold = createPlaceHold\(required<HTMLElement>\('#preflight-report'\), \(\) =>\n {2}processResult\.childElementCount > 0\n {4}\? processResult\.getBoundingClientRect\(\)\.top - preflightReport\.getBoundingClientRect\(\)\.top\n {4}: null,\n\)\n/,
+    )
+  })
+
+  it('puts the card back once “Checking…” and its stop are painted, at the commit and at the check', () => {
+    expect(wiring.match(/resultPlaceHold\.settle\(\)/g)).toHaveLength(2)
+    // A trim's commit: its check waits out the pause, and the line and the
+    // stop are on the page from now.
+    expect(commit).toMatch(
+      /\n {2}say\(\(\) => t\(\)\.status\.checking\)\n(?:\s*\/\/[^\n]*\n)*\s*offerStop\('check'\)\n(?:\s*\/\/[^\n]*\n)*\s*resultPlaceHold\.settle\(\)\n/,
+    )
+    expect(commit.indexOf('resultPlaceHold.settle()')).toBeGreaterThan(commit.indexOf('withdrawVerdict()'))
+    // Every check, before its first wait: an output change and Check again
+    // reach the line and the stop only here.
+    expect(preflightBody).toMatch(
+      /\n {2}withdrawVerdict\(\)\n {2}setStatus\(\(\) => t\(\)\.status\.checking\)\n {2}offerStop\('check'\)\n(?:\s*\/\/[^\n]*\n)*\s*resultPlaceHold\.settle\(\)\n/,
+    )
+    expect(preflightBody.indexOf('resultPlaceHold.settle()')).toBeLessThan(preflightBody.indexOf('await '))
+  })
+})
+
+describe('step 3’s line under Submission keeps its room while it is withdrawn (VH-243, D-01)', () => {
+  const paint = functionBody('paintSubmissionFilled')
+
+  it('holds the fields’ box, the smallest element round a line that is off the page without words', () => {
+    expect(wiring).toContain(
+      "const submissionLineHold = createHeightHold(required<HTMLElement>('#submission-card-fields'))\n",
+    )
+    const fields = markup.slice(markup.indexOf('<div id="submission-card-fields"'))
+    expect(fields.slice(0, fields.indexOf('</fieldset>'))).toContain('<p class="helper" id="submission-card-filled"></p>')
+  })
+
+  it('takes the hold as the line is withdrawn, before it goes, and nowhere else', () => {
+    expect(wiring.match(/submissionLineHold\.hold\(\)/g)).toHaveLength(1)
+    expect(paint).toContain('\n  if (running === null && paintedRunningTime !== null) submissionLineHold.hold()\n')
+    expect(paint.indexOf('submissionLineHold.hold()')).toBeLessThan(paint.indexOf('paintedRunningTime = running'))
+    expect(paint.indexOf('submissionLineHold.hold()')).toBeLessThan(paint.indexOf('paintLine('))
+  })
+
+  it('gives it up when the line is painted again, with the check’s other room, and at a new file', () => {
+    expect(paint).toContain('\n  if (running !== null) submissionLineHold.release()\n')
+    expect(paint.indexOf('submissionLineHold.release()')).toBeGreaterThan(paint.indexOf('paintLine('))
+    expect(functionBody('releaseCheckRoom')).toContain('submissionLineHold.release()')
+    // A new file withdraws the line after the check's room has been given
+    // up, and its first check holds nothing.
+    expect(wiring).toMatch(
+      /\n {2}forgetMadeSeconds\(\)\n(?:\s*\/\/[^\n]*\n)*\s*submissionLineHold\.release\(\)\n {2}inspectedFile = null\n/,
+    )
+    expect(wiring.match(/submissionLineHold\.release\(\)/g)).toHaveLength(3)
+  })
+})
+
+describe('a job’s progress is brought into the window as it arrives (VH-243, E-02)', () => {
+  const stage = functionBody('onStage')
+  const reveal = functionBody('revealProgress')
+
+  it('reveals at a job’s first report, once the bar is on the page, and at no other', () => {
+    expect(stage).toContain('\n  const arriving = processProgress.hidden\n')
+    expect(stage).toContain('\n  processProgress.hidden = false\n  if (arriving) revealProgress()\n')
+    expect(stage.indexOf('const arriving = ')).toBeLessThan(stage.indexOf('processProgressText.hidden = false'))
+    expect(wiring.match(/\brevealProgress\(\)/g)).toHaveLength(2)
+  })
+
+  it('reads the bar with its stage line, Cancel, the window and the root’s own inset', () => {
+    expect(reveal).toContain('top: processProgress.getBoundingClientRect().top,')
+    expect(reveal).toContain('bottom: processProgressText.getBoundingClientRect().bottom,')
+    expect(reveal).toContain('cancelButton.hidden ? null : cancelButton.getBoundingClientRect(),')
+    expect(reveal).toContain('window.innerHeight,')
+    expect(reveal).toContain('parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop),')
+  })
+
+  it('scrolls once, at once, only where the rule says to, and never behind the dialogue', () => {
+    expect(reveal).toMatch(/^ {2}if \(feedbackDialog\.open\) return\n/)
+    expect(reveal).toMatch(/\n {2}if \(by !== 0\) window\.scrollBy\(\{ top: by, behavior: 'instant' \}\)$/)
+    // The page's one scroll of its own: nothing smooth, and no second way in.
+    expect(wiring.match(/scrollBy\(/g)).toHaveLength(1)
+    expect(wiring).not.toMatch(/scrollIntoView|scrollTo\(|behavior: 'smooth'/)
+  })
+})
+
+describe('no choice is put back by the browser after Back or Forward (VH-243, E-01)', () => {
+  // Chrome restores every radio, checkbox and select to what a history entry
+  // held, after the page has painted itself from what it remembers, and the
+  // page does not look again: a card was made in 中文 while "English" showed
+  // chosen. `autocomplete="off"` stops the restore, as on the card's fields.
+  const controls = [...markup.matchAll(/<(?:input|select)\b[^>]*>/g)].map(([tag]) => tag)
+  const choices = controls.filter(
+    (tag) => tag.startsWith('<select') || /\stype="(?:radio|checkbox)"/.test(tag),
+  )
+  const nameOf = (tag: string): string => /\s(?:id|name)="([^"]+)"/.exec(tag)?.[1] ?? ''
+
+  it('reads every radio, checkbox and select the page has', () => {
+    expect(new Set(choices.map(nameOf))).toEqual(
+      new Set([
+        'video-kind',
+        'title-card-on',
+        'closing-type',
+        'closing-onset',
+        'closing-colour',
+        'closing-internal',
+        'preset',
+        'announce-progress',
+      ]),
+    )
+    expect(choices.filter((tag) => /\stype="radio"/.test(tag))).toHaveLength(6)
+    expect(choices.filter((tag) => /\stype="checkbox"/.test(tag))).toHaveLength(3)
+    expect(choices.filter((tag) => tag.startsWith('<select'))).toHaveLength(2)
+  })
+
+  it('gives each one autocomplete off', () => {
+    for (const tag of choices) expect(tag, nameOf(tag)).toMatch(/\sautocomplete="off"(?=[\s/>])/)
+  })
+
+  it('leaves no typed card field without it either', () => {
+    const typed = [...markup.matchAll(/<(?:input|textarea)\b[^>]*\sid="(?:title|submission)-card-[^"]+"[^>]*>/g)]
+      .map(([tag]) => tag)
+      .filter((tag) => !/\stype="checkbox"/.test(tag))
+    expect(typed).toHaveLength(8)
+    for (const tag of typed) expect(tag, nameOf(tag)).toMatch(/\sautocomplete="off"(?=[\s/>])/)
+  })
+})
+
+describe('each Submission field’s error is straight under its field (VH-243, E-06)', () => {
+  const fields = ['assignment', 'module', 'convenor', 'ids']
+
+  it('puts the error’s live box next after the field, the IDs’ helper after that', () => {
+    for (const field of fields) {
+      const close = field === 'ids' ? '></textarea>' : '/>'
+      expect(markup, field).toMatch(
+        new RegExp(
+          `id="submission-card-${field}"[^>]*${close}\\s*<div aria-live="polite">\\s*<p class="field-error" id="submission-card-${field}-error" hidden></p>\\s*</div>`,
+        ),
+      )
+    }
+    expect(markup).toMatch(
+      /id="submission-card-ids-error" hidden><\/p>\s*<\/div>\s*<p class="helper" id="submission-card-ids-helper">/,
+    )
+  })
+
+  it('keeps what the box of IDs is described by, in the order it had', () => {
+    expect(markup).toContain('aria-describedby="submission-card-ids-helper submission-card-ids-error"')
   })
 })
 

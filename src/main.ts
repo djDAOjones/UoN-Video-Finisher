@@ -107,7 +107,7 @@ import {
   writeVideoLanguagePreference,
 } from './ui/video-language'
 import { pickedAgain } from './ui/chosen-file'
-import { createHeightHold } from './ui/height-hold'
+import { createHeightHold, createPlaceHold } from './ui/height-hold'
 import { installDropZone } from './ui/drop-zone'
 import {
   describeBrowser,
@@ -178,6 +178,7 @@ import { buildLosses, readLine, renderSourceError, renderSourceReport } from './
 import type { SourceReport } from './media/inspect'
 import { lossesSpoken, spoken, warningsSpoken } from './ui/announce'
 import { focusHeldBy as handOnFocus, type HandOn } from './ui/focus-hand-on'
+import { progressRevealScroll } from './ui/progress-reveal'
 import { focusInside, outlineReach, revealStatus } from './ui/reveal-status'
 import { createPreviewRefusal } from './ui/preview-refusal'
 import { createFeedbackOpening, settleCopy } from './ui/feedback-opening'
@@ -313,6 +314,51 @@ const laterSteps = ['#step-trim', '#step-title', '#step-closing', '#step-preset'
  * line (the verdict, the sound notes) and below it (Create, its note).
  */
 const createStepHold = createHeightHold(required<HTMLElement>('#step-create'))
+/**
+ * The room of step 3's line under Submission, "The card also shows the
+ * running time…", held while the line is withdrawn (VH-243, D-01). VH-215
+ * takes the line away whenever the trim on screen is not the one the verdict
+ * checked, so it left and came back at every re-check, and steps 4 to 6
+ * jumped by its two or three lines each time: the bounce VH-240 ended for
+ * step 6, one step up. `paintSubmissionFilled` takes the hold as it withdraws
+ * the line, which a handle's drag does before any commit, and gives it up as
+ * it paints the line again; a check that ends without the line gives it up
+ * with step 6's. On the fields' box, the smallest element round a line that
+ * is itself off the page while it has no words. Nothing stale is shown.
+ */
+const submissionLineHold = createHeightHold(required<HTMLElement>('#submission-card-fields'))
+/**
+ * A finished or previous video's card, kept where it stands in step 6 while
+ * the verdict above it is withdrawn for a re-check (VH-243, D-02). The step's
+ * own hold opens its room at the step's foot, so the card, its player and
+ * "Save the video" rose by the verdict's height and fell back. The room is
+ * opened in the verdict's own box instead, less what "Checking…" and its
+ * stop take. With nothing in `#process-result` there is no place to keep, and
+ * the step's hold alone stands, as before.
+ */
+const resultPlaceHold = createPlaceHold(required<HTMLElement>('#preflight-report'), () =>
+  processResult.childElementCount > 0
+    ? processResult.getBoundingClientRect().top - preflightReport.getBoundingClientRect().top
+    : null,
+)
+
+/**
+ * Takes the room a re-check keeps in step 6, before anything of the step is
+ * withdrawn: the step's height (VH-240), and the place of a card standing
+ * under the verdict (VH-243, D-02), which `resultPlaceHold.settle` opens once
+ * "Checking…" is painted.
+ */
+function holdCheckRoom(): void {
+  createStepHold.hold()
+  resultPlaceHold.hold()
+}
+
+/** Gives up all the room kept for a check: step 6's, the card's place and step 3's line (VH-240, VH-243). */
+function releaseCheckRoom(): void {
+  createStepHold.release()
+  resultPlaceHold.release()
+  submissionLineHold.release()
+}
 const versionLine = required<HTMLParagraphElement>('#version-line')
 const errorsPanel = required<HTMLElement>('#errors-panel')
 const errorsContainer = required<HTMLDivElement>('#errors')
@@ -1524,7 +1570,7 @@ fileInput.addEventListener('change', () => {
   readLineOwed = false
   // A check still running was for the previous file, and so was the room
   // held for it: this file's verdict may be far shorter (VH-240).
-  createStepHold.release()
+  releaseCheckRoom()
   withdrawVerdict()
   // Hidden, not replaced: the Start and Cancel buttons live for the whole
   // session now, and emptying this container would throw them away (VH-36).
@@ -1534,6 +1580,9 @@ fileInput.addEventListener('change', () => {
   jobContentClass = 'unknown'
   jobKeptRange = null
   forgetMadeSeconds()
+  // The line that has just gone said the previous file's length, and a
+  // file's first check holds nothing (VH-240; VH-243, D-01).
+  submissionLineHold.release()
   inspectedFile = null
   inspectedReport = null
   // The trim described the previous video. Nothing of it is kept, and a
@@ -1663,7 +1712,7 @@ async function runPreflight(file: File, current: () => boolean): Promise<void> {
     payReadLine()
     setStatus(() => t().trim.correctToContinue)
     // No check runs, so no room is kept for one (VH-240).
-    createStepHold.release()
+    releaseCheckRoom()
     return
   }
   const keptRange = trim.range
@@ -1672,6 +1721,9 @@ async function runPreflight(file: File, current: () => boolean): Promise<void> {
   withdrawVerdict()
   setStatus(() => t().status.checking)
   offerStop('check')
+  // What stands above a card for the length of the check is painted: the
+  // card is put back where it stood before the withdrawal (VH-243, D-02).
+  resultPlaceHold.settle()
   setDiagnosticsContext({ stage: 'preflighting' })
 
   try {
@@ -1811,7 +1863,7 @@ async function runPreflight(file: File, current: () => boolean): Promise<void> {
     // all, the room held for it is given up after what it found is painted,
     // so the step moves once (VH-240). A check that was replaced leaves the
     // hold to whatever replaced it.
-    if (current()) createStepHold.release()
+    if (current()) releaseCheckRoom()
   }
 }
 
@@ -1831,7 +1883,7 @@ presetChoice.addEventListener('change', () => {
   cancelTrimRecheck()
   // Before anything below is withdrawn: the step keeps its height through
   // the check (VH-240).
-  createStepHold.hold()
+  holdCheckRoom()
   processActions.hidden = true
   createNote.hidden = true
   jobFile = null
@@ -2068,7 +2120,7 @@ function commitTrim(by: TrimCommit): void {
   // Before anything below is withdrawn: the step keeps its height through
   // the pause and the check after it (VH-240). Each key of a handle ends
   // here, and the hold the first took is the one kept.
-  createStepHold.hold()
+  holdCheckRoom()
   processActions.hidden = true
   createNote.hidden = true
   jobFile = null
@@ -2094,12 +2146,15 @@ function commitTrim(by: TrimCommit): void {
     say(() => t().trim.correctToContinue)
     // No check follows until the trim is put right, and an empty step must
     // not stand tall for as long as that takes (VH-240).
-    createStepHold.release()
+    releaseCheckRoom()
     return
   }
   say(() => t().status.checking)
   // Stoppable from now, not from when the pause ends (A-11).
   offerStop('check')
+  // The line and its stop now stand where the verdict did: a card below
+  // them is put back where it stood (VH-243, D-02).
+  resultPlaceHold.settle()
   trimRecheck = setTimeout(() => {
     trimRecheck = null
     // Belt and braces: every path that supersedes this also cancels it.
@@ -2233,6 +2288,8 @@ function onStage(stage: PipelineStage, fraction: number): void {
   // On arrival: the time left is timed from the encode's own reports (VH-136).
   const atMs = performance.now()
   lastProgress = { stage, fraction, atMs }
+  // A job's first report: the bar and its line are about to arrive.
+  const arriving = processProgress.hidden
   const before = progressMemo
   const view = progressView(stage, fraction, before, announceProgressBox.checked, atMs)
   progressMemo = view.memo
@@ -2259,7 +2316,31 @@ function onStage(stage: PipelineStage, fraction: number): void {
   processProgressLabel.textContent = view.shown
   processProgressLabel.hidden = false
   processProgress.hidden = false
+  if (arriving) revealProgress()
   setTitle('stage')
+}
+
+/**
+ * Brings the bar and its stage line into the window as they arrive, with
+ * one scroll, at once and no further than it takes (VH-243, E-02). They
+ * arrive above Cancel, which has focus by then, and on a phone the browser
+ * keeps Cancel where it was and lets them land above the window's top edge.
+ * Nothing moves where they are already in the window, nor behind the
+ * feedback dialogue. The room at the window's edge is the root's own
+ * `scroll-padding-block`, as for a control brought in by focus (VH-241).
+ */
+function revealProgress(): void {
+  if (feedbackDialog.open) return
+  const by = progressRevealScroll(
+    {
+      top: processProgress.getBoundingClientRect().top,
+      bottom: processProgressText.getBoundingClientRect().bottom,
+    },
+    cancelButton.hidden ? null : cancelButton.getBoundingClientRect(),
+    window.innerHeight,
+    parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop),
+  )
+  if (by !== 0) window.scrollBy({ top: by, behavior: 'instant' })
 }
 
 /** What the tab title is about, so it can be written again in another language. */
@@ -2543,7 +2624,7 @@ stopCheckButton.addEventListener('click', () => {
   setStatus(() => t().status.checkStopped)
   offerStop('check-again')
   // No check is running now, so the room kept for its verdict goes (VH-240).
-  createStepHold.release()
+  releaseCheckRoom()
   // The control under focus has just gone; its replacement takes it.
   checkAgainButton.focus()
 })
@@ -2553,7 +2634,7 @@ checkAgainButton.addEventListener('click', () => {
   if (!file || file !== inspectedFile) return
   // A failed check's box, or a block's way out, goes for "Checking…"; the
   // step keeps their room until the check has its answer (VH-240).
-  createStepHold.hold()
+  holdCheckRoom()
   void runPreflight(file, beginSelection())
   if (!stopCheckButton.hidden) stopCheckButton.focus()
 })
@@ -2880,11 +2961,15 @@ function paintSubmissionFilled(): void {
   const seconds = keptSecondsNow()
   const running = seconds === null ? null : formatClockTime(seconds)
   const changed = running !== paintedRunningTime
+  // Before the line goes: its room is kept until it is painted again, or
+  // the check that would paint it ends without it (VH-243, D-01).
+  if (running === null && paintedRunningTime !== null) submissionLineHold.hold()
   paintedRunningTime = running
   paintLine(
     submissionCardFilled,
     running === null ? null : t().titleCard.submission.filled({ running }),
   )
+  if (running !== null) submissionLineHold.release()
   if (changed) paintTitleCardErrors()
 }
 
@@ -3182,7 +3267,7 @@ function beginJob(file: File): void {
   // Belt and braces: Create is off the page while a check runs, so no hold
   // stands here; one that did would keep the step tall for the whole job
   // (VH-240).
-  createStepHold.release()
+  releaseCheckRoom()
   clearResult()
   // No finished video stands now: if this job fails or is cancelled, Create
   // comes back as itself, not "again" (VH-190, Codex astra).

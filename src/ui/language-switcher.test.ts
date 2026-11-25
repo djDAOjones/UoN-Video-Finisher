@@ -5,8 +5,8 @@
  * Chrome; what is pinned here is every decision it is built from.
  */
 
-import { readFileSync } from 'node:fs'
-import { describe, expect, it } from 'vitest'
+import { readdirSync, readFileSync } from 'node:fs'
+import { afterEach, describe, expect, it, vi } from 'vitest'
 
 import { TRANSLATION_FEEDBACK_ADDRESS, TRANSLATION_FEEDBACK_SUBJECT } from '../config/feedback'
 import {
@@ -15,7 +15,7 @@ import {
   MACHINE_TRANSLATED,
   type LanguageTag,
 } from '../config/languages'
-import { languageOptions, translationFeedbackMailto } from './language-switcher'
+import { languageOptions, languageSegments, translationFeedbackMailto } from './language-switcher'
 
 describe('languageOptions', () => {
   it('offers one segment per language, in the order offered, each named in its own language', () => {
@@ -87,5 +87,54 @@ describe('languageSegments (VH-135)', () => {
     expect(source).toMatch(
       /face\.textContent = option\.name\s*\n(?:\s*\/\/[^\n]*\n)*\s*face\.dataset\['text'\] = option\.name/,
     )
+  })
+})
+
+describe('languageSegments’ radios are not put back by the browser (VH-243, E-01)', () => {
+  afterEach(() => {
+    vi.unstubAllGlobals()
+  })
+
+  /** A document that makes plain objects, enough for the segments to be built and read back. */
+  function standIn() {
+    const made: { tag: string; [key: string]: unknown }[] = []
+    vi.stubGlobal('document', {
+      createElement(tag: string) {
+        const element = { tag, dataset: {}, append() {} }
+        made.push(element)
+        return element
+      },
+    })
+    return made
+  }
+
+  it('builds every radio with autocomplete off, for the page’s language and the video’s', () => {
+    // After Back or Forward Chrome puts a radio back as that history entry
+    // left it, over a page painted from what is remembered now: the switcher
+    // showed 中文 on a page in Bahasa Malaysia, and a card was made in 中文
+    // while "English" showed chosen.
+    for (const name of ['language', 'video-language']) {
+      const made = standIn()
+      languageSegments(name, languageOptions(LANGUAGES_OFFERED, 'en-GB'))
+      const inputs = made.filter(({ tag }) => tag === 'input')
+      expect(inputs).toHaveLength(LANGUAGES_OFFERED.length)
+      for (const input of inputs) {
+        expect(input['type'], name).toBe('radio')
+        expect(input['name']).toBe(name)
+        expect(input['autocomplete'], `${name} ${String(input['value'])}`).toBe('off')
+      }
+      expect(inputs.filter((input) => input['checked'] === true).map((input) => input['value'])).toEqual(['en-GB'])
+    }
+  })
+
+  it('is the only place the page’s script builds a form control', () => {
+    // The markup's own are held to the same rule by `test/screen-text.test.ts`.
+    const source = new URL('../', import.meta.url)
+    const builders = readdirSync(source, { recursive: true, encoding: 'utf8' })
+      .filter((file) => file.endsWith('.ts') && !file.endsWith('.test.ts'))
+      .filter((file) =>
+        /createElement\(\s*['"](?:input|select|textarea)['"]/.test(readFileSync(new URL(file, source), 'utf8')),
+      )
+    expect(builders.map((file) => file.replaceAll('\\', '/'))).toEqual(['ui/language-switcher.ts'])
   })
 })

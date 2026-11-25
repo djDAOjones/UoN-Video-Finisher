@@ -19,6 +19,9 @@
  * not what it showed, and a change arriving mid-check must neither grow the
  * hold nor lose it. Pure but for the element it is given, so the rule is
  * tested in Node with a stand-in; the heights are read in Chrome.
+ *
+ * VH-243 adds a hold on a PLACE beside it, for what stands below the
+ * withdrawn content inside the element held: see `createPlaceHold`.
  */
 
 /** The element held, as the hold reads and writes it. */
@@ -55,6 +58,76 @@ export function createHeightHold(element: HeldElement): HeightHold {
     },
     release(): void {
       element.style.minHeight = ''
+    },
+  }
+}
+
+/** A hold on where an element stands, while what is above it is withdrawn. */
+export interface PlaceHold {
+  /**
+   * Notes where the element stands now. Taken BEFORE anything above it is
+   * withdrawn. A hold already standing keeps the place it noted; with
+   * nothing to keep still, it notes nothing and the rest does nothing.
+   */
+  hold(): void
+  /**
+   * Opens in the spacer the room the withdrawal left short, so the element
+   * stands where it stood. Called once what takes the withdrawn content's
+   * place has been painted, and again whenever that is painted again.
+   */
+  settle(): void
+  /** Lets the element stand where what is above it now puts it. */
+  release(): void
+}
+
+/**
+ * A hold on an element's place below `spacer` (VH-243, analyst D's D-02).
+ *
+ * With a finished video's card standing in step 6 under the verdict, the
+ * step's own hold keeps the step's height and no more: the verdict leaves
+ * from above the card, so the card, its player and "Save the video" rose by
+ * the verdict's height and fell back at each check, and the room opened at
+ * the step's foot. This keeps the room where it was taken from. What a check
+ * puts in the verdict's place, its line and its stop, is not known until it
+ * is painted, so the hold is in two parts: the place is noted before the
+ * withdrawal, and the spacer is then made as tall as puts the element back.
+ * As the height's hold, it keeps SPACE only.
+ *
+ * @param spacer - An element above the kept one that the withdrawal leaves
+ *   short or empty. Its `min-height` must be no one else's.
+ * @param place - Where the kept element stands, measured from a point the
+ *   withdrawal does not move, in px; `null` when there is nothing to keep
+ *   still.
+ */
+export function createPlaceHold(spacer: HeldElement, place: () => number | null): PlaceHold {
+  let noted: number | null = null
+  /** How far above its noted place the element stands, or `null` with nothing to keep. */
+  const short = (): number | null => {
+    const now = place()
+    return noted === null || now === null ? null : noted - now
+  }
+  return {
+    hold(): void {
+      if (noted === null) noted = place()
+    },
+    settle(): void {
+      if (noted === null) return
+      // From what the spacer shows, not from an earlier settling: the line
+      // beside it may have been painted again since.
+      spacer.style.minHeight = ''
+      const first = short()
+      // Where it stood or lower: more arrived than left, and no room is owed.
+      if (first === null || first <= 0) return
+      const shown = spacer.getBoundingClientRect().height
+      spacer.style.minHeight = `${shown + first}px`
+      // Measured again: an empty spacer lets its neighbours' margins meet
+      // through it, and one given height parts them.
+      const second = short()
+      if (second !== null && second !== 0) spacer.style.minHeight = `${shown + first + second}px`
+    },
+    release(): void {
+      noted = null
+      spacer.style.minHeight = ''
     },
   }
 }
