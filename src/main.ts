@@ -107,6 +107,7 @@ import {
   writeVideoLanguagePreference,
 } from './ui/video-language'
 import { pickedAgain } from './ui/chosen-file'
+import { createHeightHold } from './ui/height-hold'
 import { installDropZone } from './ui/drop-zone'
 import {
   describeBrowser,
@@ -299,6 +300,17 @@ const sourceStatusLine = required<HTMLParagraphElement>('#source-status')
 const laterSteps = ['#step-trim', '#step-title', '#step-closing', '#step-preset', '#step-create'].map((selector) =>
   required<HTMLElement>(selector),
 )
+/**
+ * Step 6's height, held while the device check runs AGAIN for the same file
+ * (VH-240, A-01). A change to the trim or the output, and Check again, take
+ * the hold before they withdraw the verdict; whatever ends that check gives
+ * it up once what it found is painted, so the step moves once, to its new
+ * height, and nothing below it moves meanwhile. A file's first check holds
+ * nothing: there is no verdict of its own to keep the room of. The whole
+ * step, not a part of it: what a check withdraws lies both above the status
+ * line (the verdict, the sound notes) and below it (Create, its note).
+ */
+const createStepHold = createHeightHold(required<HTMLElement>('#step-create'))
 const versionLine = required<HTMLParagraphElement>('#version-line')
 const errorsPanel = required<HTMLElement>('#errors-panel')
 const errorsContainer = required<HTMLDivElement>('#errors')
@@ -1508,6 +1520,9 @@ fileInput.addEventListener('change', () => {
   clear(sourceReport)
   clear(sourceBlock)
   readLineOwed = false
+  // A check still running was for the previous file, and so was the room
+  // held for it: this file's verdict may be far shorter (VH-240).
+  createStepHold.release()
   withdrawVerdict()
   // Hidden, not replaced: the Start and Cancel buttons live for the whole
   // session now, and emptying this container would throw them away (VH-36).
@@ -1645,6 +1660,8 @@ async function runPreflight(file: File, current: () => boolean): Promise<void> {
     offerStop(null)
     payReadLine()
     setStatus(() => t().trim.correctToContinue)
+    // No check runs, so no room is kept for one (VH-240).
+    createStepHold.release()
     return
   }
   const keptRange = trim.range
@@ -1787,6 +1804,12 @@ async function runPreflight(file: File, current: () => boolean): Promise<void> {
     log.error('ui', 'preflight request failed', {
       reason: cause instanceof Error ? cause.message : String(cause),
     })
+  } finally {
+    // However this check ended, a verdict, a block, a failure or nothing at
+    // all, the room held for it is given up after what it found is painted,
+    // so the step moves once (VH-240). A check that was replaced leaves the
+    // hold to whatever replaced it.
+    if (current()) createStepHold.release()
   }
 }
 
@@ -1804,6 +1827,9 @@ presetChoice.addEventListener('change', () => {
   const current = beginSelection()
   titleMovesOn()
   cancelTrimRecheck()
+  // Before anything below is withdrawn: the step keeps its height through
+  // the check (VH-240).
+  createStepHold.hold()
   processActions.hidden = true
   createNote.hidden = true
   jobFile = null
@@ -2034,6 +2060,10 @@ function commitTrim(): void {
   if (!file || file !== inspectedFile) return
   const current = beginSelection()
   titleMovesOn()
+  // Before anything below is withdrawn: the step keeps its height through
+  // the pause and the check after it (VH-240). Each key of a handle ends
+  // here, and the hold the first took is the one kept.
+  createStepHold.hold()
   processActions.hidden = true
   createNote.hidden = true
   jobFile = null
@@ -2055,6 +2085,9 @@ function commitTrim(): void {
   if ('problem' in currentTrim()) {
     offerStop(null)
     sayOnce(() => t().trim.correctToContinue)
+    // No check follows until the trim is put right, and an empty step must
+    // not stand tall for as long as that takes (VH-240).
+    createStepHold.release()
     return
   }
   sayOnce(() => t().status.checking)
@@ -2502,6 +2535,8 @@ stopCheckButton.addEventListener('click', () => {
   // Check again is beside it, and explains itself (VH-124).
   setStatus(() => t().status.checkStopped)
   offerStop('check-again')
+  // No check is running now, so the room kept for its verdict goes (VH-240).
+  createStepHold.release()
   // The control under focus has just gone; its replacement takes it.
   checkAgainButton.focus()
 })
@@ -2509,6 +2544,9 @@ stopCheckButton.addEventListener('click', () => {
 checkAgainButton.addEventListener('click', () => {
   const file = chosenFile
   if (!file || file !== inspectedFile) return
+  // A failed check's box, or a block's way out, goes for "Checking…"; the
+  // step keeps their room until the check has its answer (VH-240).
+  createStepHold.hold()
   void runPreflight(file, beginSelection())
   if (!stopCheckButton.hidden) stopCheckButton.focus()
 })
@@ -3134,6 +3172,10 @@ function beginJob(file: File): void {
   savedResultFor = null
   // Create, or the question's Discard, is about to go: Cancel takes focus.
   const fromCreate = focusHeldBy([startButton, processResult])
+  // Belt and braces: Create is off the page while a check runs, so no hold
+  // stands here; one that did would keep the step tall for the whole job
+  // (VH-240).
+  createStepHold.release()
   clearResult()
   // No finished video stands now: if this job fails or is cancelled, Create
   // comes back as itself, not "again" (VH-190, Codex astra).

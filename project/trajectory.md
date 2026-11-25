@@ -14,6 +14,7 @@
 - VH-241 — eight stylesheet readings: the skip link on the band's roles (1.00:1 to 14.31), a scroll inset so a ring at the window's edge is whole (wish VH-233.1 paid), reduced motion's bar a resting band, a field's error on compact emphasis, and four smaller; CSS and one class, no word; measured in Chrome on the MacBook Pro; its look pending with the owner; two wishes (2026-11-25) — see decisions
 - VH-239 — a refused drop's message gone when its job, save or start-up ends; the tab's title plain again at the next check after a cancel or failure; a refused preview's announcement gone with its file (wish VH-236.1 paid); an unchanged trim error and status not rewritten on each key (6 and 3 writes to 0 and 0); no word; 26 tests; one wish (2026-11-25) — see decisions
 - VH-242 — DEV-INFRASTRUCTURE.md names Xerte the public home and Pages the preview; the placeholder check skips a worktree inside the checkout, proved by a probe; NEXT_STEPS.md current; wishes VH-162.1 and VH-147.1 paid; one wish (2026-11-25) — see decisions
+- VH-240 — a re-check holds step 6 at its height by a measured inline `min-height`, given up when the answer is painted: the step 605 → 183 → 605 px and the page's 422 px bounce both gone at 1280 and 375 px, three languages; nothing stale shown, no word; nine tests; Create still off the page during the check, the owner's; one wish (2026-11-25) — see decisions
 
 ## Phase 6 — the public release: the feedback form, the statement, the cut, Xerte
 

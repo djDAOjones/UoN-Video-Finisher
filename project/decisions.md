@@ -24,6 +24,16 @@
      moves the oldest entries verbatim to project/decisions-YYYY-MM.md,
      beside this file, listed in project/archive-index.md. -->
 
+## 2026-11-25 — VH-240 — Closes: step 6 keeps its height while the device check runs again
+
+**Decision:** VH-240 closes as a fix: a re-check of the same file holds step 6 at the height it had, by an inline `min-height` measured at the change and given up when the check's answer is painted; nothing stale is shown, no word or element; the step and the page no longer bounce 422 px; Create is still off the page for the check's second or so.
+
+**Rationale:** The Decision in full: `src/ui/height-hold.ts`, new and pure, with nine Node tests on a stand-in element, gives `hold()`, which sets the element's inline `min-height` to its measured border-box height unless a hold already stands, and `release()`, which takes it off. `src/main.ts` makes one for `#step-create`: the output choice, `commitTrim` and Check again take the hold before they withdraw the verdict; a `finally` on `runPreflight` gives it up after what the check found is painted, if that check is still the current one; so do both trim-problem paths, Stop the check, a new file's choosing and, belt and braces, `beginJob`. A file's first check holds nothing. The height is measured, so no number is written; no CSS, key, element or `index.html` line. VH-124's rule stands: the verdict, the estimate and the audio note are withdrawn as before, and only the room is kept. Why: analyst A's A-01 (`reviews/2026-11-25/ux-loop-1/A-novice-journey.md`), UI-STANDARDS' layout stability. Measured in Chrome on the MacBook Pro by the builder, sampled through a re-check (`reviews/2026-11-25/phase-9/VH-240-evidence.md`): at 1280 × 900 on `talk-30s.mp4` the step's height 605 → 183 → 605 px and the page's scroll height 3917 → 3495 → 3917 before, constant 605 and 3917 after; at 1280 × 1300 scrolled to the foot, `scrollY` 2617 → 2195 → 2617 before, constant after; at 375 × 812, 813 → 183 → 813 before, constant after; the same on `silent-10s.mp4` and in zh-Hans and ms-MY; no verdict or audio text in the DOM during any check; `#status`'s announcements and focus as before; the hold given up at a verdict, a warning, Stop, a new file mid-check, a language switch, a trim problem, and kept at 605 px through five changes mid-check. Not produced, reasoned from the `finally`: a block verdict; the check's failure was simulated in the page. For the owner, not built because it changes what a check shows: Create is still off the page for 0.33 to 1.25 s, the held room an empty panel; keeping it visible and disabled would close that (wish VH-240.1). No walk on the Mac Pro; no second model (PLAN-9); the diff read whole by the orchestrator. Digest rules applied: UI-STANDARDS Empty and no-data states (loading keeps the layout still); Nielsen 1; WCAG 2.4.3 untouched (focus as before); house conventions (the rule in a pure module with its test, no literal).
+
+**Supersedes:** none
+
+**Deferred:** none
+
 ## 2026-11-25 — VH-242 — Closes: the record caught up after the cut, the hosting lines, the placeholder check and the next steps
 
 **Decision:** VH-242 closes: DEV-INFRASTRUCTURE.md says Xerte is the public home and GitHub Pages the unadvertised preview, the placeholder check skips a worktree inside the checkout, and NEXT_STEPS.md says where the project stands; no product file — two wishes paid.
@@ -498,16 +508,6 @@ Each walk records its machine. Two questions remain for the owner:
 **Decision:** VH-230 takes the state words too wide for the System check's 1.5 rem mark column, each broken over two lines, the same before and after VH-218: its own fix item, directly after VH-218 and before VH-219, landing before VH-220. Both remedies stay unchosen: widen the gutter for every row, or add a token. The orchestrator's ruling, not the owner's, listed for him.
 
 **Rationale:** Orchestrator #33's ruling, 2026-10-31, by section 3 of the brief, a remedy that outgrows the item, with his "even old issues should be solved for" (`plan8-owner-words.md`, read by `sed`): "The mark's column is its own fix item, not a wish." Measured by VH-218: default font "Tidak" 36.33 of 24 px and 好的 28 of 24 px; under spacing "OK" 24.38 of 24 px. Codex astra's re-check confirmed the assignment and added Chinese's pending "……", two lines, width unmeasured. VH-220's checks read the final page, as the PLAN-8 entry on VH-225 says. The first table's "wish VH-218.1" was never issued.
-
-**Supersedes:** none
-
-**Deferred:** VH-230
-
-## 2026-11-01 — VH-218 — Closes: the System check's labels break only between words, CSS only
-
-**Decision:** VH-218 closes wish VH-186.1: each System check row wraps its value beneath its label when both won't fit, by a scoped flex rule, and at 32 px on a phone the mark takes its own line, in the existing 19.99rem query, so the label has the whole column. Label words broken 2,028 to 0 of 3,024 readings a side, no element, string or token value; the fallback stays, breaking no word now. One walker change, a fixed worker value, revision `fe44891d3c53f716`, proved. Four rulings the orchestrator's, listed for the owner.
-
-**Rationale:** His words: "yes to the question mark, and A and B. ensure everything passes UX / design / Accessibility"; "even old issues should be solved for" (`plan8-owner-words.md`). Orchestrator #33's rulings, 2026-10-31, his to see: (1) the repair past the brief's "report the word"; (2) S-103 walked under the AAC warning on both sides, 108 cells each, the before from a read-only `git archive` of the base, as the earlier "those cells can't exist" was false: Codex showed one can; pending and failed can't stand with S-103's row (`src/main.ts:1335`, `:1349`, `:1372`, `:2558`; `src/ui/failure-text.ts`); (3) one source diff across the after; (4) VH-230. Evidence: [the table](../reviews/2026-10-25/design-pass-3/evidence/measurements/vh218-check-rows-r3-2026-10-31.md), 648 cells a side, 648 reached, no verdict moved; S-103's row identical 108 of 108 each way; `type` fails alike in 162, the walker's reading of the combined spacing modes. Shortfalls: no true 32 px page shot, the walker's known capture effect, so the stacked mark rests on the probes' boxes; the first five befores on AC and the after on battery, all mode 2; `after2-s103` 8 of 18 load samples at 8 or above, peak 40.41, the owner's, on which Codex asked no re-run. Codex astra: FAIL, FAIL, FAIL, then PASS, each repaired. Digest: carbon, "two token systems, never collapsed"; wcag-2.2-aaa, 1.4.10 and 1.4.12.
 
 **Supersedes:** none
 
