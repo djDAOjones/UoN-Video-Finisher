@@ -40,6 +40,15 @@ The public release on Xerte (PLAN-6) is VH-204's cut.
 
 ### pm-skills 5.0.1 — the owner's word of 2026-11-18 — CLOSED 2026-11-18
 
+### Phase 9 — the overnight UX loops: what a fresh analysis found, mended in existing words
+
+- [ ] VH-238 — A file chosen again is read again, and every choice asks about the file the page read — since 2026-11-25
+- [ ] VH-241 — Eight readings mended in the stylesheet: the skip link, the focus ring at the window's edge, reduced motion's band, five smaller — since 2026-11-25
+- [ ] VH-239 — A status that has stopped being true is taken away, and one unchanged is not said again — since 2026-11-25
+- [ ] VH-240 — Step 6 keeps its height while the device check runs again — since 2026-11-25
+- [ ] VH-242 — The record caught up after the cut: the hosting lines, the placeholder check, the next steps — since 2026-11-25
+- [ ] VH-243 — The overnight run's close: a second analysis, the owner's sheet, the phase closed — since 2026-11-25
+
 ### Standing — the owner's, never phase-gated
 
 - [!] VH-M2 — Measure the device envelope — since 2026-08-24 — blocked: the owner's own work — a canon [maintainer] item
