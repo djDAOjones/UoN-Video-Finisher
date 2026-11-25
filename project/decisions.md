@@ -24,6 +24,16 @@
      moves the oldest entries verbatim to project/decisions-YYYY-MM.md,
      beside this file, listed in project/archive-index.md. -->
 
+## 2026-11-25 — VH-242 — Closes: the record caught up after the cut, the hosting lines, the placeholder check and the next steps
+
+**Decision:** VH-242 closes: DEV-INFRASTRUCTURE.md says Xerte is the public home and GitHub Pages the unadvertised preview, the placeholder check skips a worktree inside the checkout, and NEXT_STEPS.md says where the project stands; no product file — two wishes paid.
+
+**Rationale:** DEV-INFRASTRUCTURE.md's Deployment section said the intended home was an internal server and that D5 remained open, and its Xerte package section called Xerte the intended home; four passages now say what the brief, the profile and D5's answer say (PLAN-6, 2026-10-22): two homes, Xerte the public one by the owner's flat upload from each release, Pages the preview from `main`. The file is not a protected path, and the checker counts it 4,462 words of its 4,600. `scripts/check-placeholders.mjs` skips the path `.claude/worktrees` and only that, by a `SKIP_PATHS` set beside `SKIP_DIRS`: proved with a probe file holding a marker, clean inside that folder and failing in a sibling folder under `.claude`, both removed. Analyst C notes the same hole in ESLint's and Vitest's excludes; not taken, since tonight's gates run in a scratch worktree outside the checkout (wish VH-242.1). NEXT_STEPS.md, the tidy's summary page, takes the 0.3.0 cut, Phase 9 and the three tasks now next. No file under `src/`. Wishes VH-162.1 and VH-147.1 are paid and retired. Gateless on the owner's word of 2026-11-25 (PLAN-9); written by the orchestrator. Digest rule applied: house conventions (documentation true to the record; a script's exclusion named and reasoned).
+
+**Supersedes:** none
+
+**Deferred:** none
+
 ## 2026-11-25 — VH-239 — Closes: a status that has stopped being true is taken away, and one unchanged is not said again
 
 **Decision:** VH-239 closes as a fix: a refused drop's message goes when its cause ends, the tab's title drops "Cancelled" or "Not made" at the next check, a refused preview's announcement goes with its file, and an unchanged trim error or status sentence is not rewritten in its live region; no word or element; read in Chrome, the failed-job and save cases by Node tests only.
@@ -502,13 +512,3 @@ Each walk records its machine. Two questions remain for the owner:
 **Supersedes:** none
 
 **Deferred:** VH-230
-
-## 2026-10-31 — VH-209 — Closes: at a 32 px default font on a phone width the page keeps to its column, the insets on the orchestrator's ruling
-
-**Decision:** VH-209 closes V-50, CSS only. One query below 20rem, unreached by the default font at 320 CSS px or wider, gives the page's and panels' insets `--spacing-03`, wraps the switchers and Set buttons, stacks the colours and breaks a long heading word. No element, control moved, word or token value. The insets are the orchestrator's ruling, not the owner's, listed for him. Sideways scroll 110 of 144 reached cells to 0 of 156. V-18's six and 180 default-font cells unmoved. Wish VH-229.3 retired: Malay's title no longer breaks mid-word.
-
-**Rationale:** The owner took V-50 at rank 3 (VH-202's close, point 4); "CSS only, with the existing tokens; no element, no move of the switchers and no rewording" is the item's Intent. At 32 px the insets double and the window does not: the panel's column was 126 px at 320 and 207 at 401, under a control's padding and longest word together. Means, the criterion's bracket naming "wrapping, `min-width: 0`, a shrinking flex or grid track": Claude asked by rule 2, and Codex's design used the named means alone, by its count "one or two Latin letters per line" at 320 px. **The orchestrator's ruling, in its words:** "The criterion's bracket names means, not a closed list, and Set text at one or two letters per line would not meet the item's point of letting a person read the choices", on "below 20rem only, `--spacing-03`". It is a refined criterion in the item; Codex's blind check agreed "as an implementation choice", "not an assertion of owner endorsement". Column now 254 and 335 px. **Measured, on 92eaf65, revision e0a55331a7155cd3, AC, mode 2:** 336 cells each side, plus 120 in the repairs Codex asked for. At 32 px, in four colour modes, 156 cells: elements past the window and text past its column or control both 0 after. Rings: Set start and end, the page and video language, Staff video, Student submission, Blue, White and both summaries, 24 of 24 each. 1.4.12 with the rules active: overflow 12 of 12, with three long words past their column at 320 px, by 4, 7 and 33 px, none past the window, nothing lost. Targets: Set 254 x 118 or 160, segments 76 or 118 high. **Not moved:** V-18's six, 309, 480, 501, 471, 656, 724; 180 default-font cells, no instrument or row. One base rule's text, `border-left: 0` to `border-left-width: 0`, with no painted change. **Reported:** V-48's record 460 to 528 of 464, VH-210's (wish VH-209.3). The chooser's ring at 320 px and 32 px, 112 px² short on both sides (wish VH-209.1). Past 32 px at 320 px it does not all hold (wish VH-209.2). Wish VH-229.3 retired: Malay's title at 320 px and 32 px now reads two lines with "Pembantu" whole, from four, since its column grew, not worked on; the "?" keeps its own line there. Step 4's selects gained room, 20 to 148 and 101 to 229, still VH-219's. Wish VH-216.1's rows fail on both sides, his "Yes, leave them". Not walked: error, running and locked states at 32 px; S-03 and others at w375. Rule 8: wcag-2.2-aaa, "every exception recorded"; carbon, "our own code, never the packages". Evidence: `vh209-overflow-2026-10-31.md`, `vh209-repairs-2026-10-31.md`, the correction beside them.
-
-**Supersedes:** none
-
-**Deferred:** VH-203, VH-210, VH-219

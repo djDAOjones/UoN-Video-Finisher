@@ -1,17 +1,26 @@
 # Next steps
 
-Written 2026-11-12 during a repository tidy. The live record is the
-ledger in [`project/`](project/); this page is a short summary of it.
+Written 2026-11-12 during a repository tidy; brought up to date on
+2026-11-25, after the 0.3.0 cut and during the overnight UX loops
+(Phase 9). The live record is the ledger in [`project/`](project/); this
+page is a short summary of it.
 
 ## Current state
 
-- `main` is level with GitHub at the PR #5 merge (pm-next v3.1 tooling
-  refresh, 2026-11-12). Phase 8 closed 2026-11-09; no code is in flight.
-- The GitHub repository is now `djDAOjones/UoN-Video-Finisher`; the local
+- Release 0.3.0 is cut (VH-204, 2026-11-25): tag `v0.3.0`, and its Xerte
+  zip is in `release/`, built from the tag. It is the page Phase 8 closed
+  on. Nothing is uploaded: the upload is the owner's (VH-14).
+- Phase 9, the overnight UX loops of 2026-11-25 (PLAN-9), is mending what
+  a fresh analysis found, in existing words only. Its analysis, its
+  evidence and the sheet of points that wait on the owner are in
+  [`reviews/2026-11-25/`](reviews/2026-11-25/).
+- `main` on GitHub holds those fixes after 0.3.0, so the preview is ahead
+  of the release.
+- The GitHub repository is `djDAOjones/UoN-Video-Finisher`; the local
   folder and `package.json` name still say "helper" (VH-226).
-- Heavy work (walks, the gate, GPU work) runs on the Mac Pro (PLAN-8);
-  main development stays on the MacBook Pro.
-- The GitHub Pages preview deploys from `main` and was green on the last run.
+- Heavy work (walks, GPU work) runs on the Mac Pro (PLAN-8); main
+  development stays on the MacBook Pro. Phase 9's fixes were read in
+  Chrome on the MacBook Pro and have not had the Mac Pro's walk.
 
 ## Known problems
 
@@ -29,8 +38,10 @@ ledger in [`project/`](project/); this page is a short summary of it.
 
 ## Next three tasks
 
-1. **VH-204**: cut the release for Xerte (likely 0.3.0), on the MacBook Pro.
-2. **VH-137**: the owner's review of the accessibility statement, due
-   2026-11-18.
-3. **VH-14 / VH-226**: the Xerte upload, then rename the project folder and
-   the `package.json` name to "finisher".
+1. **The owner's sheet**: answer the points in
+   [`reviews/2026-11-25/`](reviews/2026-11-25/) that wait on him, the
+   words, the small new things and the defaults.
+2. **VH-137**: the owner's review of the accessibility statement, whose
+   date of 2026-11-18 has passed; the statement still promises it.
+3. **VH-14 / VH-226**: the Xerte upload of a release, then rename the
+   project folder and the `package.json` name to "finisher".

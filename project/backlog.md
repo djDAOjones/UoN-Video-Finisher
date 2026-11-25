@@ -43,7 +43,6 @@ The public release on Xerte (PLAN-6) is VH-204's cut.
 ### Phase 9 — the overnight UX loops: what a fresh analysis found, mended in existing words
 
 - [ ] VH-240 — Step 6 keeps its height while the device check runs again — since 2026-11-25
-- [ ] VH-242 — The record caught up after the cut: the hosting lines, the placeholder check, the next steps — since 2026-11-25
 - [ ] VH-243 — The overnight run's close: a second analysis, the owner's sheet, the phase closed — since 2026-11-25
 
 ### Standing — the owner's, never phase-gated

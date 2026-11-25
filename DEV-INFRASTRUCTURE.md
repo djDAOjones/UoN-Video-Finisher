@@ -411,13 +411,14 @@ The MVP starts at **`v0.1.0`**.
 
 ## Deployment
 
-**Live as an unadvertised pilot on GitHub Pages**, built from `main` by
-`.github/workflows/deploy-pages.yml`. The maintainer accepted public
-hosting on 2026-08-25 for piloting; the intended home is still an
-internal server, and **D5 remains open** for that.
+**Two homes** (D5, answered by PLAN-6 on 2026-10-22). The public home is
+Xerte, `xerte.nottingham.ac.uk`: a flat upload the owner makes by hand
+from each release (see "Xerte package" below). GitHub Pages stays up as
+the **unadvertised preview**, built from `main` by
+`.github/workflows/deploy-pages.yml`.
 
-**Every push to `main` publishes.** There is no separate act of
-deploying, and no gate beyond the workflow's own `npm run check`. That
+**Every push to `main` publishes the preview.** There is no separate act
+of deploying it, and no gate beyond the workflow's own `npm run check`. That
 is what makes the release boundary worth hardening: the build job holds
 `contents: read` only, Pages and OIDC credentials belong to the deploy
 job, and every action is pinned to a commit SHA (VH-65).
@@ -464,7 +465,7 @@ The reason step 3 is not optional: the version identity exists so
 "exactly what code is live?" has an answer that does not depend on
 trusting the deployment log.
 
-What is known, and constrains the eventual internal answer:
+What any home must give, Xerte included:
 
 - Static files only. No server-side processing, no build step on the
   host, no special response headers.
@@ -476,8 +477,9 @@ What is known, and constrains the eventual internal answer:
 
 ### Xerte package
 
-The intended home is a UoN-hosted app on `xerte.nottingham.ac.uk` (D5,
-VH-14), uploaded by hand as a zip. It has its own build:
+The public home is a UoN-hosted app on `xerte.nottingham.ac.uk` (D5,
+VH-14), uploaded by hand by the owner from each release's zip. It has
+its own build:
 
 ```bash
 npm run build:xerte

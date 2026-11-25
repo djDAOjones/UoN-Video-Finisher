@@ -19,6 +19,13 @@ import { join, relative, sep } from 'node:path'
 
 const ROOT = process.cwd()
 const SKIP_DIRS = new Set(['node_modules', '.git', 'dist', 'coverage', 'pm_skills', 'samples'])
+/**
+ * A worktree inside the checkout is another copy of the whole repository, its
+ * own `project/migration/` markers included, so the scan would fail on files
+ * this tree does not hold (VH-147.1). Only that folder is skipped: the rest of
+ * `.claude/` stays in the key-shape scan.
+ */
+const SKIP_PATHS = new Set([join('.claude', 'worktrees')])
 
 const PLACEHOLDERS = [/<!--\s*CUSTOMISE/, /\[Project Name\]/, /\[short product description\]/]
 
@@ -39,6 +46,7 @@ function* walk(dir) {
   for (const entry of readdirSync(dir)) {
     if (SKIP_DIRS.has(entry)) continue
     const full = join(dir, entry)
+    if (SKIP_PATHS.has(relative(ROOT, full))) continue
     if (statSync(full).isDirectory()) yield* walk(full)
     else yield full
   }
