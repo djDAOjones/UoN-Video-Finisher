@@ -30,9 +30,35 @@ export interface PcmMp4Options {
   readonly spans: ReadonlyArray<readonly [number, number]>
   /** Each block's length, {@link PCM_BLOCK_SECONDS} unless a test needs finer steps (VH-213). */
   readonly blockSeconds?: number
+  /**
+   * Each frame's level on both channels, as a fraction of full scale, from
+   * its time in seconds: a tone, or digital silence, for a test of the plan's
+   * figures (VH-244). The quiet, steady level when absent.
+   */
+  readonly level?: (seconds: number) => number
 }
 
-/** Muxes the spans' blocks as 16-bit PCM at a quiet, steady level. */
+/** A 16-bit sample's full scale. */
+const PCM_FULL_SCALE = 32_767
+
+/** One block of a chosen level, both channels alike, clipped to 16 bits. */
+function levelledBlock(
+  level: (seconds: number) => number,
+  fromSeconds: number,
+  blockFrames: number,
+): Int16Array {
+  const samples = new Int16Array(blockFrames * PCM_CHANNELS)
+  for (let frame = 0; frame < blockFrames; frame++) {
+    const value = Math.round(level(fromSeconds + frame / PCM_SAMPLE_RATE) * PCM_FULL_SCALE)
+    const clipped = Math.max(-PCM_FULL_SCALE, Math.min(PCM_FULL_SCALE, value))
+    for (let channel = 0; channel < PCM_CHANNELS; channel++) {
+      samples[frame * PCM_CHANNELS + channel] = clipped
+    }
+  }
+  return samples
+}
+
+/** Muxes the spans' blocks as 16-bit PCM, at a quiet, steady level unless one is given. */
 export async function pcmMp4(options: PcmMp4Options): Promise<Uint8Array> {
   const output = new Output({
     // In memory, for a test: the file is a few hundred kilobytes.
@@ -47,7 +73,9 @@ export async function pcmMp4(options: PcmMp4Options): Promise<Uint8Array> {
   let first = true
   for (const [from, to] of options.spans) {
     for (let index = 0; from + index * blockSeconds < to - 1e-9; index++) {
-      const samples = new Int16Array(blockFrames * PCM_CHANNELS).fill(1000)
+      const samples = options.level
+        ? levelledBlock(options.level, from + index * blockSeconds, blockFrames)
+        : new Int16Array(blockFrames * PCM_CHANNELS).fill(1000)
       const packet = new EncodedPacket(
         new Uint8Array(samples.buffer),
         'key',
