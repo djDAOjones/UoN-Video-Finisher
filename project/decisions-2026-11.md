@@ -79,3 +79,13 @@
 **Supersedes:** 2026-10-18 — PLAN-1 — Internal use only is the official closing with words added; no card text under 28 pt
 
 **Items:** VH-126, VH-127, VH-128, VH-131, VH-132
+
+## 2026-11-04 — PLAN-7 — Phase 7's twelve items restated whole, in place of the four wish lines' list
+
+**Decision:** Phase 7's items are VH-170 to VH-181, as the entries above restate them, here in place of the list of the owner's four wish lines. No membership changes.
+
+**Rationale:** Record-only, by V31-REFRESH; the reason is the entries' above.
+
+**Supersedes:** 2026-10-23 — PLAN-7 — The owner decides the four wish lines: one name for step 4, a forced-colour hover, V-18 accepted, the statement edited once
+
+**Items:** VH-170, VH-171, VH-172, VH-173, VH-174, VH-175, VH-176, VH-177, VH-178, VH-179, VH-180, VH-181

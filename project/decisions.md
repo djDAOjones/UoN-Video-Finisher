@@ -24,6 +24,16 @@
      moves the oldest entries verbatim to project/decisions-YYYY-MM.md,
      beside this file, listed in project/archive-index.md. -->
 
+## 2026-11-25 — PLAN-9 — The owner's answer to the sheet: every recommendation accepted, each item built from it checked by Codex, after the restructure
+
+**Decision:** The owner accepts every recommendation of the overnight sheet, `reviews/2026-11-25/owner-sheet-2026-11-25.md`, and wants each item built from it checked by Codex: 26 points are accepted to build, wishes PLAN-9.1 to PLAN-9.17, PLAN-9.19 to PLAN-9.21 and PLAN-9.24 to PLAN-9.29, A5 as the warning before leaving; seven wait on the check their recommendation names, PLAN-9.18, PLAN-9.22, PLAN-9.23 and PLAN-9.30 to PLAN-9.33; none is built before the UoN Video Tools restructure (VH-226).
+
+**Rationale:** The owner in chat, 2026-11-25, after reading the sheet: "I accept everything, but want codex checks." Each point carries a recommendation, so accepting everything takes each as written, as read back to the owner in the same chat: a plain yes for 26; for A5 the warning, not keeping the fields; for B12 a pass over the words with the owner; for C4 the owner's glance at the reordered card first; for C5 a "maybe" only; for D7 a person listening first; for D8 a trace on a slow laptop first; for D9 the owner's glance on a phone; for D10 the phone walk (VH-113). The Chinese and Malay of each new sentence are machine drafts for the campus colleagues, as before. Codex checks need a `project/model-policy.md` and Codex's hooks by `tools/harness.mjs`, neither set up yet; the restructure prompt, `UoN-Video-Tools-restructure-prompt.md`, untracked at the checkout's root until its stage 4 commits it, lists both to set up before the 26 are built. The owner then asked for the restructure first, "before we start", and development stays paused until it is done. The wish lines stand as the work's record until a phase plans them. No product file.
+
+**Supersedes:** none
+
+**Deferred:** VH-226
+
 ## 2026-11-25 — VH-246 — Paused with F-04 mended and four points left: development paused on the owner's word, the night's loose ends tied
 
 **Decision:** Development pauses on the owner's word of 2026-11-25: VH-246 goes from in progress to open, blocked on the owner's word to resume, with F-04 mended and F-03, F-02, the held card and `overscroll-behavior` left in wish PLAN-9.36; the night's six chats are archived and the branches already merged into `main` deleted, on the owner's answers.
@@ -502,15 +512,5 @@ Each walk records its machine. Two questions remain for the owner:
 **Rationale:** Record-only, by V31-REFRESH; the reason is the entry above's.
 
 **Supersedes:** 2026-10-23 — PLAN-7 — The fix plan: VH-178 to VH-180 for seven findings; the owner's ask decided on the standing instruction
-
-**Items:** VH-170, VH-171, VH-172, VH-173, VH-174, VH-175, VH-176, VH-177, VH-178, VH-179, VH-180, VH-181
-
-## 2026-11-04 — PLAN-7 — Phase 7's twelve items restated whole, in place of the four wish lines' list
-
-**Decision:** Phase 7's items are VH-170 to VH-181, as the entries above restate them, here in place of the list of the owner's four wish lines. No membership changes.
-
-**Rationale:** Record-only, by V31-REFRESH; the reason is the entries' above.
-
-**Supersedes:** 2026-10-23 — PLAN-7 — The owner decides the four wish lines: one name for step 4, a forced-colour hover, V-18 accepted, the statement edited once
 
 **Items:** VH-170, VH-171, VH-172, VH-173, VH-174, VH-175, VH-176, VH-177, VH-178, VH-179, VH-180, VH-181

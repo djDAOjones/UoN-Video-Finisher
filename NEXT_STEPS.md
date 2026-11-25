@@ -10,6 +10,12 @@ page is a short summary of it.
 - Development is paused (2026-11-25, on the owner's word). Nothing runs
   until the owner restarts it. VH-246 waits with four small points left;
   its item file names the next step.
+- The owner's sheet is answered (decisions, PLAN-9, 2026-11-25): every
+  recommendation accepted, 26 points to build with Codex checking each,
+  seven waiting on a person's check.
+- Next is the restructure into UoN Video Tools (VH-226), by
+  `UoN-Video-Tools-restructure-prompt.md` at this folder's root, run from
+  a chat on the new parent folder `2026-08-24 UoN Video Tools`.
 - Release 0.3.1 is cut (VH-245, 2026-11-25): tag `v0.3.1`, and its Xerte
   zip is in `release/`, built from the tag. It is 0.3.0, the page Phase 8
   closed on (VH-204), with Phase 9's fixes. Nothing is uploaded: the
@@ -46,11 +52,9 @@ page is a short summary of it.
 
 ## Next three tasks
 
-1. **The owner's sheet**: answer the points in
-   [`reviews/2026-11-25/`](reviews/2026-11-25/) that wait on him, the
-   words, the small new things and the defaults.
+1. **VH-226, the restructure**: from a chat on the parent folder, by the
+   restructure prompt; then the staff and student editions and the 26
+   accepted points of the owner's sheet, each checked by Codex.
 2. **VH-137**: the owner's review of the accessibility statement, whose
    date of 2026-11-18 has passed; the statement still promises it.
-3. **VH-14, then VH-226**: the owner uploads the 0.3.1 zip to Xerte;
-   then rename the project folder and the `package.json` name to
-   "finisher".
+3. **VH-14**: the owner uploads the 0.3.1 zip to Xerte.
