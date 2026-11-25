@@ -24,6 +24,16 @@
      moves the oldest entries verbatim to project/decisions-YYYY-MM.md,
      beside this file, listed in project/archive-index.md. -->
 
+## 2026-11-25 — VH-246 — Paused with F-04 mended and four points left: development paused on the owner's word, the night's loose ends tied
+
+**Decision:** Development pauses on the owner's word of 2026-11-25: VH-246 goes from in progress to open, blocked on the owner's word to resume, with F-04 mended and F-03, F-02, the held card and `overscroll-behavior` left in wish PLAN-9.36; the night's six chats are archived and the branches already merged into `main` deleted, on the owner's answers.
+
+**Rationale:** The owner in chat, 2026-11-25: "lets wrap things up / tie up loose ends, and pause dev for a bit". The overnight run had stopped: its last commit, 1c3bf0d, is on `origin/main`, none of its six chats was running, and the owner said they were finished, which released the handover the night parent had claimed at 08:14 UTC. The census before the pause: `main` level with `origin/main` and clean, no worktree, no stash, no enabled scheduled task; `node tools/check.mjs` 0 failures, 0 warnings. `main` is ahead of the release: VH-161's service worker and VH-246's F-04 mend landed after `v0.3.1`, and the 0.3.1 zip holds no `sw.js`, so VH-161's check on Xerte needs a later cut; its backlog line and NEXT_STEPS.md say so. Branches: five local `claude/` branches and two on GitHub, `pm/5.0.1` and `pm/v31-refresh-4`, held no commit not on `main` and are deleted; three tracking refs whose branches GitHub no longer held are pruned; the three WIP copies of shipped items, `claude/vh-140-wip`, `wip/2026-11-12-vh221` and `wip/2026-11-12-vh223`, are kept locally and unpushed, on the owner's answer. What waits on the owner is unchanged: the Xerte upload (VH-14), the statement's review (VH-137), the sheet's 33 points and the folder's rename (VH-226). No product file.
+
+**Supersedes:** none
+
+**Deferred:** VH-246
+
 ## 2026-11-25 — VH-246 — Opened from wish PLAN-9.36: the third analysis's leftovers, mended in existing words, F-04 first
 
 **Decision:** VH-246 is opened under Next from wish PLAN-9.36, the five points Phase 9 left, to be mended one at a time in existing words, tokens and components only — on the owner's overnight word, since Phase 9 is closed and each point is a defect a fresh reading found, not a new word or default.
@@ -504,13 +514,3 @@ Each walk records its machine. Two questions remain for the owner:
 **Supersedes:** 2026-10-23 — PLAN-7 — The owner decides the four wish lines: one name for step 4, a forced-colour hover, V-18 accepted, the statement edited once
 
 **Items:** VH-170, VH-171, VH-172, VH-173, VH-174, VH-175, VH-176, VH-177, VH-178, VH-179, VH-180, VH-181
-
-## 2026-11-04 — PLAN-1 — Phase 1's five items restated whole, in place of the 18 October closing's list
-
-**Decision:** Phase 1's items are VH-126, VH-127, VH-128, VH-131 and VH-132, all shipped, as the 19 October list names them; restated in place of the 18 October list of three, which v3.1's checker would otherwise leave standing beside it. No membership changes.
-
-**Rationale:** Record-only, by V31-REFRESH, for the reason the PLAN-7 entries above give.
-
-**Supersedes:** 2026-10-18 — PLAN-1 — Internal use only is the official closing with words added; no card text under 28 pt
-
-**Items:** VH-126, VH-127, VH-128, VH-131, VH-132

@@ -69,3 +69,13 @@
 **Supersedes:** none
 
 **Deferred:** none
+
+## 2026-11-04 — PLAN-1 — Phase 1's five items restated whole, in place of the 18 October closing's list
+
+**Decision:** Phase 1's items are VH-126, VH-127, VH-128, VH-131 and VH-132, all shipped, as the 19 October list names them; restated in place of the 18 October list of three, which v3.1's checker would otherwise leave standing beside it. No membership changes.
+
+**Rationale:** Record-only, by V31-REFRESH, for the reason the PLAN-7 entries above give.
+
+**Supersedes:** 2026-10-18 — PLAN-1 — Internal use only is the official closing with words added; no card text under 28 pt
+
+**Items:** VH-126, VH-127, VH-128, VH-131, VH-132

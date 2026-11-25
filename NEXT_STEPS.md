@@ -1,11 +1,15 @@
 # Next steps
 
 Written 2026-11-12 during a repository tidy; brought up to date on
-2026-11-25, after the overnight UX loops (Phase 9) and the 0.3.1 cut. The live record is the ledger in [`project/`](project/); this
+2026-11-25, after the overnight UX loops (Phase 9), the 0.3.1 cut and
+the pause. The live record is the ledger in [`project/`](project/); this
 page is a short summary of it.
 
 ## Current state
 
+- Development is paused (2026-11-25, on the owner's word). Nothing runs
+  until the owner restarts it. VH-246 waits with four small points left;
+  its item file names the next step.
 - Release 0.3.1 is cut (VH-245, 2026-11-25): tag `v0.3.1`, and its Xerte
   zip is in `release/`, built from the tag. It is 0.3.0, the page Phase 8
   closed on (VH-204), with Phase 9's fixes. Nothing is uploaded: the
@@ -15,7 +19,11 @@ page is a short summary of it.
   The analysts' reports, each fix's evidence and the sheet of 33 points
   that wait on the owner are in [`reviews/2026-11-25/`](reviews/2026-11-25/);
   start with `owner-sheet-2026-11-25.md`.
-- `main` on GitHub and the preview are the release.
+- `main` on GitHub and the preview are ahead of 0.3.1: VH-161's offline
+  after first load (a service worker, read true on GitHub Pages) and
+  VH-246's first fix (a trim time taken with Return reads in the page's
+  format) landed after the cut. The 0.3.1 zip has no service worker, so
+  offline on Xerte needs a later cut (VH-161).
 - The GitHub repository is `djDAOjones/UoN-Video-Finisher`; the local
   folder and `package.json` name still say "helper" (VH-226).
 - Heavy work (walks, GPU work) runs on the Mac Pro (PLAN-8); main
