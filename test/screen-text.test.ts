@@ -1002,7 +1002,7 @@ describe('the page frame (VH-92)', () => {
     expect(mainSource).toContain("required<HTMLElement>('#brand-header').append(languageSwitcher.fieldset)")
     expect(mainSource).toContain("required<HTMLDivElement>('.page-title-row').before(languageSwitcher.notice)")
     // The skip link still comes before the band, so it passes over the switcher.
-    expect(markup.indexOf('class="skip-link"')).toBeLessThan(markup.indexOf('<header'))
+    expect(markup.indexOf('class="skip-link on-brand-blue"')).toBeLessThan(markup.indexOf('<header'))
   })
 
   it('puts System check and the version in the footer', () => {

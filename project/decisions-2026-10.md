@@ -1860,3 +1860,13 @@ INTAKE.2 stays a wish line: only a person listening can judge the Teams output. 
 **Items:** VH-182, VH-183, VH-184, VH-185, VH-186, VH-187, VH-188, VH-189, VH-190, VH-191, VH-192, VH-193, VH-194, VH-196, VH-197, VH-198, VH-205, VH-199, VH-200, VH-201, VH-202, VH-211, VH-206, VH-207, VH-208, VH-212, VH-213, VH-214, VH-215, VH-216, VH-227, VH-217, VH-229, VH-209, VH-218, VH-219, VH-210, VH-225, VH-220, VH-221, VH-222, VH-223, VH-224, VH-203, VH-195, VH-204, VH-226
 
 **Deferred:** VH-229
+
+## 2026-10-31 — VH-217 — Closes: the format "?" nearer its words and both "?"s filled while open, on the owner's word
+
+**Decision:** VH-217 closes the owner's two changes. The format "?" takes `--spacing-02`: 8.45 px from its words by the character's box in three languages, 9.85 px by the ink in English and Malay and 18.37 in Chinese, whose full stop's ink sits left, reported, not respaced. Its 44 × 44 target lies over 2.15 px of "format."'s ink, reported; every sampled point hits the "?". Both "?"s fill while open with the chosen segment's tokens, a state and no second primary, and under forced colours with Highlight. No element, string, token value or `docs/` change. The walker's one change is the combined 32 px modes the item names.
+
+**Rationale:** The owner, verbatim (`plan8-owner-words.md`, read by the orchestrators): "I accept everything, but even old issues should be solved for. we also need to make sure that question mark about file formats looks good"; "yes to the question mark, and A and B. ensure everything passes UX / design / Accessibility". Measured at one instrument revision, `e0a55331a7155cd3`: 1,440 cells a side, 1,437 unmoved and the 3 others better after, a cause not shown; 108 cells at w375 and 32 px reached on neither side, stated. The clips found a forced-hover defect no number flagged, repaired; the blind check found the first states probe lost the 32 px font, repaired and re-read on both sides. Table: `vh217-format-help-2026-10-30.md`. Digest rules (rule 8): carbon, "one primary per state" and "two token systems, never collapsed"; wcag-2.2-aaa, "7:1 contrast against the brand palette" and "44 px targets".
+
+**Supersedes:** none
+
+**Deferred:** VH-203

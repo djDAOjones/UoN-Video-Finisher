@@ -14,6 +14,11 @@
 
 html {
   color-scheme: light dark;
+  /* A control reached at the window's top or bottom edge is scrolled in clear
+     of that edge, so its focus ring, drawn outside its box, is whole (VH-241,
+     wish VH-233.1). The ring's own room left a fraction of a pixel of it
+     outside; the next step up does not. */
+  scroll-padding-block: var(--spacing-03);
 }
 
 body {
@@ -86,7 +91,10 @@ a {
   display: none !important;
 }
 
-/* Skip link — visible on focus, never a hidden-only affordance */
+/* Skip link — visible on focus, never a hidden-only affordance. It is drawn
+   over the header band, so the markup gives it the band's roles
+   (`on-brand-blue`): on the page's own, in light, its box and its ring were
+   the band's blue (VH-241). */
 .skip-link {
   position: absolute;
   left: var(--spacing-05);
@@ -226,6 +234,14 @@ a {
   display: inline-flex;
   align-items: center;
   min-height: var(--target-min);
+}
+
+/* Two help links that wrap ran together, one underlined block (VH-241). The
+   room is inside each link's own box, so it shows only where a link's lines
+   outgrow the 44 px: a link on one line, and the list at a wide window in
+   English, are as they were. */
+.footer-help-list .footer-contact-link {
+  padding-block: var(--spacing-02);
 }
 
 .version {
@@ -757,7 +773,10 @@ a {
 
 /* A stage with no measured progress (VH-109): Carbon's indeterminate bar, a
    band that travels the track. Reduced motion collapses the animation above,
-   leaving a still band — which still reads as "working", not as 0%. */
+   leaving a still band — which still reads as "working", not as 0%. The band
+   rests at the track's middle: the keyframes move it while they run, and
+   without a resting place the collapsed animation left an empty track
+   (VH-241). */
 .progress:indeterminate {
   background: linear-gradient(
     90deg,
@@ -768,6 +787,7 @@ a {
     var(--border-divider) 100%
   );
   background-size: 250% 100%;
+  background-position: 50% 0;
   animation: progress-indeterminate var(--motion-progress) linear infinite;
 }
 
@@ -1640,6 +1660,15 @@ details[open] > .disclosure-summary::before {
   flex: none;
 }
 
+/* The two Set here buttons give way as their fields do, at every window: a
+   label wider than its row wraps inside the panel. Below 20rem alone, Malay's
+   "Set start here" under the text-spacing sheet at 320 px crossed the panel's
+   edge by 20 px (VH-241). After the rule above, which it must outrank. */
+.trim-time-row .button {
+  flex: 0 1 auto;
+  overflow-wrap: break-word;
+}
+
 /* --- Acceptance page (development only) --- */
 
 .log {
@@ -1657,11 +1686,18 @@ details[open] > .disclosure-summary::before {
 /*
  * Carbon's modal: a plain layer over a dimmed page, no rounded corners. The
  * dimming is the brand blue, so it is a token rather than a colour of its own.
+ * Its top is held one step from the window's, the step its greatest height
+ * already leaves: centred, it rose 153 px from under the pointer when "What
+ * will be sent with it" opened; held, it grows downward. Where it scrolls, it
+ * keeps the page's scroll inset, so Close, reached at its bottom edge, shows
+ * its whole ring (VH-241).
  */
 .dialog {
   max-width: calc(100vw - 2 * var(--spacing-05));
   width: min(var(--dialog-width), calc(100vw - 2 * var(--spacing-05)));
   max-height: calc(100vh - 2 * var(--spacing-05));
+  margin-block-start: var(--spacing-05);
+  scroll-padding-block: var(--spacing-03);
   padding: var(--spacing-07);
   border: var(--border-width) solid var(--border-subtle);
   background: var(--layer-01);
@@ -1704,6 +1740,29 @@ details[open] > .disclosure-summary::before {
   color: var(--support-error);
 }
 
+/* The box of student IDs grows with what is typed, so eight IDs, one a line
+   or in full-width digits, all show (VH-241). Its floor is the resting height
+   above: sized by its content, a textarea no longer reads `rows`, which is
+   why the feedback message, whose six rows are its size, is left as it is. */
+#submission-card-ids {
+  field-sizing: content;
+}
+
+/* Below about 400 px the problem report gives half its inset and a quarter of
+   its message box to its buttons, which a 320 × 568 window otherwise left
+   below the dialog's first view (VH-241). The breakpoint is the one the "?"
+   beside a select moves at; the block stands after the rules it must
+   outrank. */
+@media (max-width: 25rem) {
+  .dialog {
+    padding: var(--spacing-05);
+  }
+
+  #feedback-message {
+    height: var(--textarea-min-height);
+  }
+}
+
 .feedback-details {
   margin: var(--spacing-04) 0 0;
   padding: var(--spacing-04);
@@ -1723,10 +1782,11 @@ details[open] > .disclosure-summary::before {
  * at 320 px they left a column of 126 px, narrower than a control's padding
  * and its longest word together. So the insets give way, the logo and the page
  * title keeping one edge (V-36), and the controls wrap their words inside the
- * column: the switchers (no switcher moves), the two Set buttons and a
- * disclosure's heading. The colours stack, each face keeping its own four
- * edges and overlapping its neighbour by one hairline, as the switchers do;
- * in Chinese a colour's shortest width is one glyph, so a wrap would not fire.
+ * column: the switchers (no switcher moves) and a disclosure's heading; the
+ * two Set buttons do so at every window (VH-241). The colours stack, each
+ * face keeping its own four edges and overlapping its neighbour by one
+ * hairline, as the switchers do; in Chinese a colour's shortest width is one
+ * glyph, so a wrap would not fire.
  * A System check row's mark takes a line of its own, so its label has the whole
  * column and its longest word stays whole (VH-218). A select's text lane takes
  * back what its arrow's inset doesn't need, so fewer options wrap (VH-219).
@@ -1758,11 +1818,6 @@ details[open] > .disclosure-summary::before {
   .video-language .segment-face {
     overflow-wrap: break-word;
     text-align: center;
-  }
-
-  .trim-time-row .button {
-    flex: 0 1 auto;
-    overflow-wrap: break-word;
   }
 
   #closing-colour .segments {
@@ -1854,7 +1909,7 @@ body,
 }
 
 /* Supporting: body-compact-01 at the body's line. Labels and legends in a
-   step, helpers, buttons, selects, notification bodies, field errors. */
+   step, helpers, buttons, selects, notification bodies. */
 .version,
 .check .value,
 .button,
@@ -1874,20 +1929,22 @@ body,
 .segment-face,
 .lock-note,
 .closing-result,
-.trim-result,
-.field-error {
+.trim-result {
   font-size: var(--type-body-compact);
   font-weight: var(--type-weight-body);
   line-height: var(--line-height-body);
 }
 
 /* Compact emphasis: heading-compact-01. A chosen segment, a notification
-   item's title, Help, and `strong` in compact text. */
+   item's title, Help, and `strong` in compact text. A field's error line
+   too, so its weight tells it from the helper beside it where its colour
+   does not: in dark the two colours are 1.14:1 apart (VH-241). */
 .segment input:checked + .segment-face,
 .notification-item-title,
 .help-button,
 .toggletip strong,
-.status strong {
+.status strong,
+.field-error {
   font-size: var(--type-body-compact);
   font-weight: var(--type-weight-emphasis);
   line-height: var(--line-height-body);

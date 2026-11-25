@@ -378,8 +378,9 @@ describe('one type set (VH-166)', () => {
     'panel heading': ['heading-03', 'heading', 'heading-03', ['.panel h2', '.dialog h2']],
     'section heading': ['heading-compact', 'emphasis', 'body', ['.notification-title', '.statement-body h3', '.language-switcher > legend', '.video-kind > legend', '.video-language > legend']],
     body: ['body', 'body', 'body', ['body', '.text-input', '.textarea']],
-    supporting: ['body-compact', 'body', 'body', ['.button', '.label', '.helper', '.select', '.file-input', '.notification-body', '.field-error', '.segment-face', '.disclosure-summary']],
-    'compact emphasis': ['body-compact', 'emphasis', 'body', ['.segment input:checked + .segment-face', '.notification-item-title', '.help-button', '.toggletip strong', '.status strong']],
+    supporting: ['body-compact', 'body', 'body', ['.button', '.label', '.helper', '.select', '.file-input', '.notification-body', '.segment-face', '.disclosure-summary']],
+    // A field's error line moved here from supporting (VH-241).
+    'compact emphasis': ['body-compact', 'emphasis', 'body', ['.segment input:checked + .segment-face', '.notification-item-title', '.help-button', '.toggletip strong', '.status strong', '.field-error']],
     'status mark': ['body-compact', 'mark', 'body', ['.check .mark']],
     code: ['body-compact', 'body', 'body', ['.notification pre', '.feedback-details', '.log']],
   }
@@ -556,9 +557,13 @@ describe('a window below the layout\u2019s minimum (VH-209, V-50)', () => {
   })
 
   it('lets the two Set buttons wrap, the "?" beside a select keeping its width', () => {
-    const set = rule('.trim-time-row .button')
+    // At every window since VH-241, so the rule stands outside this block: after
+    // the rule it outranks at equal specificity, and once only.
+    const set = /(?:^|\})\s*\.trim-time-row \.button\s*\{([^}]*)\}/.exec(rules)?.[1] ?? ''
     expect(set).toMatch(/flex:\s*0 1 auto;/)
     expect(set).toMatch(/overflow-wrap:\s*break-word;/)
+    expect(rules.match(/\.trim-time-row \.button\s*\{/g)).toHaveLength(1)
+    expect(rules.indexOf('.trim-time-row .button')).toBeGreaterThan(rules.indexOf('.control-with-help .button'))
     expect(inside).not.toMatch(/\.control-with-help/)
     expect(rules.indexOf(opening)).toBeGreaterThan(rules.indexOf('.control-with-help .button'))
   })
@@ -631,5 +636,78 @@ describe('a wrapped footer link’s ring clear of the next under forced colours 
   it('spaces the footer list’s items by the ring’s own room, under forced colours only', () => {
     expect(forced).toMatch(/\.footer-help-list > li \+ li\s*\{\s*margin-block-start: var\(--focus-room\);\s*\}/)
     expect(outside).not.toContain('.footer-help-list > li')
+  })
+})
+
+describe('eight readings mended (VH-241)', () => {
+  const page = readFileSync(new URL('../index.html', import.meta.url), 'utf8')
+  /** A rule's declarations, by its exact selector, outside any media query. */
+  const block = (selector: string): string =>
+    new RegExp(`(?:^|\\})\\s*${selector.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\s*\\{([^}]*)\\}`).exec(rules)?.[1] ?? ''
+  const narrow = [...rules.matchAll(/@media \(max-width: 25rem\)\s*\{([\s\S]*?)\n\}/g)].map((match) => match[1]!).join('\n')
+
+  it('draws the skip link on the band’s roles, since the band is what it is drawn over', () => {
+    // On the page's roles its box and its ring were Nottingham Blue on the
+    // blue band in light, 1.00:1 each. The band's pairs are the ones
+    // test/contrast.test.ts measures "on a blue band".
+    expect(page).toContain('<a class="skip-link on-brand-blue" href="#main"')
+    const link = block('.skip-link')
+    expect(link).toContain('background: var(--interactive);')
+    expect(link).toContain('color: var(--text-on-interactive);')
+    // Its ring is the global one, in the band's --focus.
+    expect(rules).not.toMatch(/\.skip-link[^{]*\{[^}]*outline/)
+  })
+
+  it('keeps a scroll inset on the page and in the dialog, one step wider than the ring’s room', () => {
+    // Chrome scrolls a focused control's box to the edge and no further, so the
+    // ring outside the box was cut (wish VH-233.1); a scroll margin on
+    // `:focus-visible` is applied too late to help.
+    expect(block('html')).toMatch(/scroll-padding-block:\s*var\(--spacing-03\);/)
+    expect(block('.dialog')).toMatch(/scroll-padding-block:\s*var\(--spacing-03\);/)
+    expect(rules).not.toMatch(/scroll-margin/)
+  })
+
+  it('rests the indeterminate band in the middle of its track, where reduced motion leaves it', () => {
+    // The keyframes have no fill mode: once collapsed, the bar shows its
+    // resting position, which was the track's empty first two fifths.
+    expect(block('.progress:indeterminate')).toMatch(/background-size:\s*250% 100%;\s*background-position:\s*50% 0;/)
+    expect(rules).toMatch(/@keyframes progress-indeterminate\s*\{\s*from\s*\{\s*background-position:\s*100% 0;\s*\}\s*to\s*\{\s*background-position:\s*0 0;\s*\}\s*\}/)
+  })
+
+  it('tells a field’s error line from its helper by weight, on the compact emphasis role', () => {
+    const error = roleOf('.field-error')
+    expect(error).toBe(roleOf('.help-button'))
+    expect(error).toContain('font-weight: var(--type-weight-emphasis);')
+    expect(roleOf('.helper')).toContain('font-weight: var(--type-weight-body);')
+    // The role is the line's only weight: its own rule keeps to space and colour.
+    expect(block('.field-error')).toContain('color: var(--support-error);')
+    expect(block('.field-error')).not.toMatch(/font/)
+  })
+
+  it('gives two wrapped help links room inside their own boxes, so one line stays 44 px', () => {
+    expect(block('.footer-help-list .footer-contact-link')).toMatch(/^\s*padding-block:\s*var\(--spacing-02\);\s*$/)
+    expect(rules).toMatch(/\.footer-contact-link,\s*\.notification-link\s*\{[^}]*min-height:\s*var\(--target-min\);/)
+  })
+
+  it('holds the dialog’s top, by the step its greatest height leaves above it', () => {
+    const dialog = block('.dialog')
+    expect(dialog).toMatch(/max-height:\s*calc\(100vh - 2 \* var\(--spacing-05\)\);/)
+    expect(dialog).toMatch(/margin-block-start:\s*var\(--spacing-05\);/)
+  })
+
+  it('gives a narrow dialog’s inset and part of its message box to its buttons', () => {
+    expect(narrow).toMatch(/\.dialog\s*\{\s*padding:\s*var\(--spacing-05\);\s*\}/)
+    expect(narrow).toMatch(/#feedback-message\s*\{\s*height:\s*var\(--textarea-min-height\);\s*\}/)
+    // After the rules it must outrank, and the wide dialog's six rows untouched.
+    expect(rules.lastIndexOf('@media (max-width: 25rem)')).toBeGreaterThan(rules.indexOf('\n.textarea {'))
+    expect(page).toMatch(/<textarea\s+class="textarea"\s+id="feedback-message"\s+rows="6"/)
+  })
+
+  it('lets the student IDs box grow with what is typed, and that box alone', () => {
+    // Sized by its content a textarea no longer reads `rows`, so the feedback
+    // message, whose rows are its size, is not given it.
+    expect(block('#submission-card-ids')).toMatch(/^\s*field-sizing:\s*content;\s*$/)
+    expect(rules.match(/field-sizing:/g)).toHaveLength(1)
+    expect(block('.textarea')).toMatch(/min-height:\s*var\(--textarea-min-height\);/)
   })
 })

@@ -11,6 +11,7 @@
 ## Phase 9 — the overnight UX loops: what a fresh analysis found, mended in existing words
 
 - VH-238 — the chosen file held in one variable that every handler asks, so the same file picked again, Chrome's `cancel`, is read as a new choice and a trim after it is the trim made; a timed-out read says "Try again"; no word or element; simulated in Chrome on the MacBook Pro, the native chooser's trigger a person's or the walker's; one wish (2026-11-25) — see decisions
+- VH-241 — eight stylesheet readings: the skip link on the band's roles (1.00:1 to 14.31), a scroll inset so a ring at the window's edge is whole (wish VH-233.1 paid), reduced motion's bar a resting band, a field's error on compact emphasis, and four smaller; CSS and one class, no word; measured in Chrome on the MacBook Pro; its look pending with the owner; two wishes (2026-11-25) — see decisions
 
 ## Phase 6 — the public release: the feedback form, the statement, the cut, Xerte
 
