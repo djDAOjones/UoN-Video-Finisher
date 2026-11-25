@@ -8,6 +8,19 @@
      items the canon record shipped before the migration, in v3's form;
      their why is in the frozen canon decision log (history.md). -->
 
+## Phase 6 — the public release: the feedback form, the statement, the cut, Xerte
+
+- VH-160 — a link to the feedback form on its own line under Send feedback, "(new tab)" in all three languages, its plain address from config, no "Leave site?"; checked in Chrome at 1280, 375 and 320 px, light, dark and forced colours (2026-10-22) — see decisions
+- VH-164 — Open email app opens the email again: the feedback form link takes `#feedback-form-link`, the dialog keeps `#feedback-form`, every ID in the page used once, by test; checked in Chrome at 1280 px, an empty message refused in place (2026-10-22) — see decisions
+- VH-163 — the design pass: V-31 to V-39 with Codex astra's blind review and critique, V-31 shipped as VH-164, five fix items approved by the owner with the footer at Lora 20, a 28rem measure to confirm and the native file chooser kept (2026-10-22) — see decisions
+- VH-165 — a file name or student ID with no space breaks inside its column, so a 100-letter name no longer widens the page to 1,425 px at 320 px; the trim handles' forced-colour ring takes CanvasText; checked in three languages, three colour modes, with and without text spacing (2026-10-22) — see decisions
+- VH-166 — one type set: eight roles, each one rule; every `h2` Lora 20/28, the footer's two included; one section heading for legends, notification titles and the statement's subheadings; the phone logo on the column's 24 px; the footer's panels 24 px apart; 16 styles to 13; checked in three languages at 1280 and 375 px, dark and forced colours (2026-10-22) — see decisions
+- VH-167 — one reading measure: running text of every size and language stops at 28rem, 448 px, where it stopped at four widths; the Chinese measure retired; the fact note and choice detail capped; the toggletip's paragraphs a blank line apart; counted in Chrome in three languages at 1280 and 375 px, at most 78 characters and 32 CJK glyphs a line (2026-10-22) — see decisions
+- VH-169 — each button kind held down takes a fill of its own, never hover's: the primary darker, a secondary's fill deeper, Discard red-90, forced colours inverted; a disabled button ignores the press; 81 real presses in Chrome, three languages, light, dark and forced colours (2026-10-22) — see decisions
+- VH-168 — the file chooser stays the browser's own: its button and "No file chosen" in the browser's language, its accessible name the page's, recorded as a limitation; the spec and statement claim nothing else; no page change; the design fixes complete (2026-10-22) — see decisions
+- VH-162 — 0.2.0 cut on the owner's call, not waiting for VH-137's November review: the statement updated first (VH-137), the version 0.2.0, tag `v0.2.0`, the Xerte zip built from it; the brief, profile and D5 name Xerte the public home and Pages the preview (2026-10-24) — see decisions
+- VH-204 — 0.3.0 cut from the page Phase 8 closed on, on the owner's overnight word, gateless: the version by `npm version`, tag `v0.3.0`, the Xerte zip built from it; the statement unchanged, its review date of 18 November past and the owner's to move (VH-137), told to him before the upload (2026-11-25) — see decisions
+
 ## pm-skills 5.0.1 — the owner's word of 2026-11-18
 
 - REFRESH-501 — the project runs pm-skills 5.0.1: seven tools and the intake verb replaced as a set, tools/VERSION reading 5.0.1, no pack, no signed file touched, one history line of VH-231 mended with its quoted words in code marks, by pull request (2026-11-18) — see decisions
@@ -94,18 +107,6 @@
 - VH-177 — Phase 7 closed: the eleven items before it reconciled against PLAN-7, the Disposition table final, six notes for VH-137's review, the person checklist with what each check settles, five wish lines, none retired; VH-162's Phase 7 block lifted (2026-10-24) — see decisions
 - RECALL — 7/8 (2026-10-24) — scores: 2,2,2,1 — local — see decisions
 - RECALL — 8/8 (2026-10-24) — scores: 2,2,2,2 — local — see decisions
-
-## Phase 6 — the public release: the feedback form, the statement, the cut, Xerte
-
-- VH-160 — a link to the feedback form on its own line under Send feedback, "(new tab)" in all three languages, its plain address from config, no "Leave site?"; checked in Chrome at 1280, 375 and 320 px, light, dark and forced colours (2026-10-22) — see decisions
-- VH-164 — Open email app opens the email again: the feedback form link takes `#feedback-form-link`, the dialog keeps `#feedback-form`, every ID in the page used once, by test; checked in Chrome at 1280 px, an empty message refused in place (2026-10-22) — see decisions
-- VH-163 — the design pass: V-31 to V-39 with Codex astra's blind review and critique, V-31 shipped as VH-164, five fix items approved by the owner with the footer at Lora 20, a 28rem measure to confirm and the native file chooser kept (2026-10-22) — see decisions
-- VH-165 — a file name or student ID with no space breaks inside its column, so a 100-letter name no longer widens the page to 1,425 px at 320 px; the trim handles' forced-colour ring takes CanvasText; checked in three languages, three colour modes, with and without text spacing (2026-10-22) — see decisions
-- VH-166 — one type set: eight roles, each one rule; every `h2` Lora 20/28, the footer's two included; one section heading for legends, notification titles and the statement's subheadings; the phone logo on the column's 24 px; the footer's panels 24 px apart; 16 styles to 13; checked in three languages at 1280 and 375 px, dark and forced colours (2026-10-22) — see decisions
-- VH-167 — one reading measure: running text of every size and language stops at 28rem, 448 px, where it stopped at four widths; the Chinese measure retired; the fact note and choice detail capped; the toggletip's paragraphs a blank line apart; counted in Chrome in three languages at 1280 and 375 px, at most 78 characters and 32 CJK glyphs a line (2026-10-22) — see decisions
-- VH-169 — each button kind held down takes a fill of its own, never hover's: the primary darker, a secondary's fill deeper, Discard red-90, forced colours inverted; a disabled button ignores the press; 81 real presses in Chrome, three languages, light, dark and forced colours (2026-10-22) — see decisions
-- VH-168 — the file chooser stays the browser's own: its button and "No file chosen" in the browser's language, its accessible name the page's, recorded as a limitation; the spec and statement claim nothing else; no page change; the design fixes complete (2026-10-22) — see decisions
-- VH-162 — 0.2.0 cut on the owner's call, not waiting for VH-137's November review: the statement updated first (VH-137), the version 0.2.0, tag `v0.2.0`, the Xerte zip built from it; the brief, profile and D5 name Xerte the public home and Pages the preview (2026-10-24) — see decisions
 
 ## Phase 5 — what the review of the Codex run found
 
