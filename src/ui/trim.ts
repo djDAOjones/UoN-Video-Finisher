@@ -134,6 +134,28 @@ export function trimFieldValue(
 }
 
 /**
+ * What a trim field shows once focus leaves it: the time it was taken as, in
+ * the page's own format, or `null` to leave the field alone.
+ *
+ * A time taken with Return is still shown as typed — `２`, or a plain `2` —
+ * and no paint follows the blur, so without this it stays beside a field in
+ * the page's format (VH-246, F-04). Only text that reads as the time already
+ * taken is rewritten: a refused time stays for the person to correct, and a
+ * draft not yet taken is never replaced.
+ */
+export function trimFieldTextOnLeave(
+  text: string,
+  which: 'start' | 'end',
+  durationSeconds: number,
+  takenSeconds: number,
+): string | null {
+  const read = trimFieldValue(text, which, durationSeconds)
+  if ('problem' in read || read.seconds !== takenSeconds) return null
+  const shown = formatTrimTime(takenSeconds)
+  return shown === text ? null : shown
+}
+
+/**
  * The range to send, `null` for the whole video, or why it cannot be used.
  *
  * The same function the worker runs, so the two cannot disagree.

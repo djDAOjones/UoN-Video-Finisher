@@ -208,6 +208,7 @@ import {
 } from './ui/title-card-step'
 import {
   formatTrimTime,
+  trimFieldTextOnLeave,
   trimFieldValue,
   trimHandleText,
   trimKeyTarget,
@@ -2221,6 +2222,18 @@ for (const [field, which] of [
       showInPreview(value.seconds)
     }
     commitTrim('given')
+  })
+  // A time taken with Return reads in the page's format once focus leaves,
+  // as one left by Tab does (VH-246, F-04).
+  field.addEventListener('focusout', () => {
+    if (trimNotice !== null) return
+    const text = trimFieldTextOnLeave(
+      field.value,
+      which,
+      trimDuration,
+      which === 'start' ? trimStart : trimEnd,
+    )
+    if (text !== null) field.value = text
   })
 }
 

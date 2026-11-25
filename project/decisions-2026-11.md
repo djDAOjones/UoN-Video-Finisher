@@ -59,3 +59,13 @@
 **Supersedes:** none
 
 **Deferred:** VH-225
+
+## 2026-11-04 — VH-225 — Closes: the repository and the Pages address renamed, on the owner's word
+
+**Decision:** VH-225 closes with commit 2: on the owner's "Renamed it", the profile's repository URL, the init prompt's address, the branding path's comment and test, and `vite.config.ts`'s comment take UoN-Video-Finisher; vite's base follows the repository's name through the deploy workflow. Pages serves at the new address; the old returns 404 (VH-225.3).
+
+**Rationale:** The owner's word, 2026-11-04 at about 07:31Z, in Orchestrator #37's chat, their own turn, verbatim: "Renamed it" (`plan8-owner-words.md`), answering the rename ask made after commit 1, `72b103e8`, went green on Pages run 41749929086; and "Rename those too" (2026-10-28). Orchestrator #37 verified at 07:32Z that the renamed repository resolves with main at `72b103e8`, the new address returns 200 and the old 404. Commit 2's asset paths were proved before the ask by a local build with `BASE_PATH=/UoN-Video-Finisher/`: the page's script and stylesheet, the branding base and the job worker, all under `/UoN-Video-Finisher/`. No deploy was queued or running at the rename: commit 1's run completed at 00:53Z, and `gh run list` showed no later run at 00:54Z, 00:57Z and 07:32Z, with origin/main unmoved. Until commit 2's deploy the new address served commit 1's build, made for the old path, so its assets did not load: inferred from the workflow's `BASE_PATH`, not measured page by page; the ask said to finish and save any job first. Kept: the local `origin` URL, which GitHub redirects, with `.git/config` unchanged; the identifiers commit 1 pinned, so saved choices carry over on the same origin; the two scripts' temporary folder prefixes; the launch configuration's name; the records' file names. Shortfalls: the old address's 404, wish VH-225.3, for the owner; the names' native check, VH-105.2. Digest rules: house-conventions, "Fail loudly on data loss".
+
+**Supersedes:** none
+
+**Deferred:** none

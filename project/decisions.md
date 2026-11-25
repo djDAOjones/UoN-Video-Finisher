@@ -24,6 +24,16 @@
      moves the oldest entries verbatim to project/decisions-YYYY-MM.md,
      beside this file, listed in project/archive-index.md. -->
 
+## 2026-11-25 — VH-246 — Opened from wish PLAN-9.36: the third analysis's leftovers, mended in existing words, F-04 first
+
+**Decision:** VH-246 is opened under Next from wish PLAN-9.36, the five points Phase 9 left, to be mended one at a time in existing words, tokens and components only — on the owner's overnight word, since Phase 9 is closed and each point is a defect a fresh reading found, not a new word or default.
+
+**Rationale:** The owner's word of 2026-11-25, as the VH-204 entry quotes it: "do loops of UX analysis to try and hone things", without his input. Phase 9 opened its items on that word under PLAN-9 and VH-244 joined it by a decision; Phase 9 is now closed, so this item stands alone under Next rather than reopening it. The rule is Phase 9's: no new word, control or default; a point whose mend needs a choice of the owner's, such as where focus lands, stays in the wish, said plainly. Order: F-04, F-03, F-02, the held card, then `overscroll-behavior`, likely nothing to mend. F-04 is mended in this commit (item Notes). Built by a night sub-chat on a branch, not pushed; the night orchestrator gates and merges.
+
+**Supersedes:** none
+
+**Deferred:** none
+
 ## 2026-11-25 — VH-161 — The mechanism for offline after first load: a hand-written service worker beside `index.html`, built on a branch, the item left open
 
 **Decision:** Spec §11's offline promise is kept by a service worker of the project's own, `sw.js`, emitted beside `index.html` in both builds with `offline-files.json`, the build's list of its own files and the 24 branding masters; it waits for the old page to close, deletes its scope's older builds' caches on activation, takes the page from the network first and every other file from what it kept, stores nothing at run time and shows nothing; no dependency, no word; built on `vh-161-offline`, not pushed, and the item stays open for its two checks in the homes.
@@ -504,13 +514,3 @@ Each walk records its machine. Two questions remain for the owner:
 **Supersedes:** 2026-10-18 — PLAN-1 — Internal use only is the official closing with words added; no card text under 28 pt
 
 **Items:** VH-126, VH-127, VH-128, VH-131, VH-132
-
-## 2026-11-04 — VH-225 — Closes: the repository and the Pages address renamed, on the owner's word
-
-**Decision:** VH-225 closes with commit 2: on the owner's "Renamed it", the profile's repository URL, the init prompt's address, the branding path's comment and test, and `vite.config.ts`'s comment take UoN-Video-Finisher; vite's base follows the repository's name through the deploy workflow. Pages serves at the new address; the old returns 404 (VH-225.3).
-
-**Rationale:** The owner's word, 2026-11-04 at about 07:31Z, in Orchestrator #37's chat, their own turn, verbatim: "Renamed it" (`plan8-owner-words.md`), answering the rename ask made after commit 1, `72b103e8`, went green on Pages run 41749929086; and "Rename those too" (2026-10-28). Orchestrator #37 verified at 07:32Z that the renamed repository resolves with main at `72b103e8`, the new address returns 200 and the old 404. Commit 2's asset paths were proved before the ask by a local build with `BASE_PATH=/UoN-Video-Finisher/`: the page's script and stylesheet, the branding base and the job worker, all under `/UoN-Video-Finisher/`. No deploy was queued or running at the rename: commit 1's run completed at 00:53Z, and `gh run list` showed no later run at 00:54Z, 00:57Z and 07:32Z, with origin/main unmoved. Until commit 2's deploy the new address served commit 1's build, made for the old path, so its assets did not load: inferred from the workflow's `BASE_PATH`, not measured page by page; the ask said to finish and save any job first. Kept: the local `origin` URL, which GitHub redirects, with `.git/config` unchanged; the identifiers commit 1 pinned, so saved choices carry over on the same origin; the two scripts' temporary folder prefixes; the launch configuration's name; the records' file names. Shortfalls: the old address's 404, wish VH-225.3, for the owner; the names' native check, VH-105.2. Digest rules: house-conventions, "Fail loudly on data loss".
-
-**Supersedes:** none
-
-**Deferred:** none

@@ -6,6 +6,8 @@
  * a known step and never past the other handle's limit.
  */
 
+import { readFileSync } from 'node:fs'
+
 import { describe, expect, it } from 'vitest'
 
 import { KEPT_MIN_SECONDS } from '../config/trim'
@@ -17,6 +19,7 @@ import {
   trimKeyTarget,
   trimProblemText,
   trimRangeFor,
+  trimFieldTextOnLeave,
   trimFieldValue,
   trimStatusOwed,
   trimSummary,
@@ -307,3 +310,30 @@ describe('whether a commit says its status sentence (VH-243)', () => {
     expect(trimStatusOwed('given', null, correct)).toBe(true)
   })
 })
+
+describe('trimFieldTextOnLeave (VH-246, F-04)', () => {
+  it.each([
+    ['０：２０', 'end', 20, '0:20.0'],
+    ['３', 'start', 3, '0:03.0'],
+    ['2', 'start', 2, '0:02.0'],
+    ['1:05.5', 'end', 65.5, '1:05.5'],
+  ] as const)('rewrites %j, taken as %s %s s, as %j', (text, which, taken, shown) => {
+    const expected = shown === text ? null : shown
+    expect(trimFieldTextOnLeave(text, which, 90, taken)).toBe(expected)
+  })
+
+  it('leaves a refused time for the person to correct', () => {
+    expect(trimFieldTextOnLeave('abc', 'start', 30, 0)).toBeNull()
+    expect(trimFieldTextOnLeave('0:45', 'end', 30, 30)).toBeNull()
+  })
+
+  it('never replaces a draft that is not the time taken', () => {
+    expect(trimFieldTextOnLeave('0:07', 'start', 30, 3)).toBeNull()
+  })
+
+  it('is wired to each field leaving focus, after the field is taken', () => {
+    const main = readFileSync(new URL('../main.ts', import.meta.url), 'utf8')
+    expect(main).toMatch(/field\.addEventListener\('focusout', \(\) => \{\n\s+if \(trimNotice !== null\) return\n\s+const text = trimFieldTextOnLeave\(/)
+  })
+})
+

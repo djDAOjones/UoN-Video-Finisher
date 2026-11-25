@@ -52,6 +52,7 @@ The public release on Xerte (PLAN-6) is VH-245's cut, 0.3.1.
 After the release.
 
 - [ ] VH-13 — Published limits copy — since 2026-08-24 — blocked: VH-M2 (the measured envelope) and VH-31's estimate
+- [~] VH-246 — What the third analysis and the second review left of Phase 9, mended in existing words — since 2026-11-25 — (from: PLAN-9, 2026-11-25)
 - [!] VH-161 — Offline after first load: the cache strategy spec §11 asks for, split from VH-14 — since 2026-10-22 — blocked: read true locally and on GitHub Pages; its check on Xerte needs the owner's upload of a release with the service worker — (from: PLAN-6, 2026-10-22)
 - [!] VH-17 — Evaluate `fastStart: 'reserve'` for the smaller preset — since 2026-10-01 — blocked: the owner's SharePoint upload test
 - [!] VH-113 — The phone path — since 2026-10-01 — blocked: the owner's walk on a real Android phone and an iPhone — a canon [maintainer] item
