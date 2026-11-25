@@ -8,6 +8,10 @@
      items the canon record shipped before the migration, in v3's form;
      their why is in the frozen canon decision log (history.md). -->
 
+## Phase 9 — the overnight UX loops: what a fresh analysis found, mended in existing words
+
+- VH-238 — the chosen file held in one variable that every handler asks, so the same file picked again, Chrome's `cancel`, is read as a new choice and a trim after it is the trim made; a timed-out read says "Try again"; no word or element; simulated in Chrome on the MacBook Pro, the native chooser's trigger a person's or the walker's; one wish (2026-11-25) — see decisions
+
 ## Phase 6 — the public release: the feedback form, the statement, the cut, Xerte
 
 - VH-160 — a link to the feedback form on its own line under Send feedback, "(new tab)" in all three languages, its plain address from config, no "Leave site?"; checked in Chrome at 1280, 375 and 320 px, light, dark and forced colours (2026-10-22) — see decisions

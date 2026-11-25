@@ -52,7 +52,13 @@ export function failureText(code: FailureCode, reason?: FailureReason): FailureT
   const { failure } = t()
   switch (code) {
     case 'unreadable-source':
-      return { what: unreadableWhat(reason), next: failure.unreadable.next }
+      // A read that ran out of time did not find the file unreadable, so the
+      // step is to try it again, not to choose another (VH-238, analyst C's
+      // C-08). The same file picked again is read again.
+      return {
+        what: unreadableWhat(reason),
+        next: reason === 'took-too-long' ? failure.tryAgain : failure.unreadable.next,
+      }
     case 'bad-trim':
       return {
         what:

@@ -1848,3 +1848,15 @@ INTAKE.2 stays a wish line: only a person listening can judge the Teams output. 
 **Supersedes:** none
 
 **Deferred:** none
+
+## 2026-10-30 — VH-229 — Raised: the promises and the privacy line behind a "?" beside the title, on the owner's choice
+
+**Decision:** VH-229 puts the five promises and the privacy line behind a "?" beside the page title, closed at every load, so the empty page opens on the title, step 1 and the switch. It is built after VH-217 and before VH-209. The owner approved §9.2's new wording, wish VH-229.1, within the 8,200-word budget, and the "?"'s name "About this tool": "Approve both", about 15:08Z.
+
+**Rationale:** His words, in the "Upload controls and app promises layout" chat, about 14:39Z, typed by him: "what about a question mark box after the app title, if clicked expands the promises follwoed by the "Your video is processed on your device, it is never uploaded, and the original file does not change." segment. users then aren't bother by text, the controls are self evident / self guiding, and novices can click the question mark". Claude recommended the promises alone behind the "?", with the privacy line kept in view: §9.2 asks for it, no control can say a file is not uploaded, and it is what makes trying a file safe on a page that no longer says what the tool does. He was shown that, with the measurements, and asked "Which version shall I open an item for?"; he answered "Hide both". Measured by a mock-up on `bdf6b6d`, the button's painted bottom closed: 310, 481 and 502 at 1280 × 900, and 481, 657 and 734 at 320 × 568, in en-GB, zh-Hans and ms-MY, so V-18's two short cases stay short, by about 89 and 166 px, the translation notice being 187 and 229 px of it. The browser note stays outside the panel. Placed on his word, about 14:50Z: "schedule it at the most appripate point in the backlog". After VH-217, which reads the format "?" on today's page and whose open state reaches the new "?"; before VH-209 and VH-210, which then read the new title row at 32 px and its rings, and before VH-225, which then tests the longer title beside the "?". This raise builds nothing and supersedes nothing yet; VH-229's close supersedes VH-216 in where the promises sit. The criteria are drafts for its worker: `project/items/VH-229.md`.
+
+**Supersedes:** none
+
+**Items:** VH-182, VH-183, VH-184, VH-185, VH-186, VH-187, VH-188, VH-189, VH-190, VH-191, VH-192, VH-193, VH-194, VH-196, VH-197, VH-198, VH-205, VH-199, VH-200, VH-201, VH-202, VH-211, VH-206, VH-207, VH-208, VH-212, VH-213, VH-214, VH-215, VH-216, VH-227, VH-217, VH-229, VH-209, VH-218, VH-219, VH-210, VH-225, VH-220, VH-221, VH-222, VH-223, VH-224, VH-203, VH-195, VH-204, VH-226
+
+**Deferred:** VH-229

@@ -24,6 +24,16 @@
      moves the oldest entries verbatim to project/decisions-YYYY-MM.md,
      beside this file, listed in project/archive-index.md. -->
 
+## 2026-11-25 — VH-238 — Closes: a file chosen again is read again, and every choice asks about the file the page took up
+
+**Decision:** VH-238 closes as a fix: the chosen file is held in one variable and every handler asks it, never the picker's live list; the same file picked again, which Chrome reports as `cancel`, is read as a new choice; a read that ran out of time says "Try again"; no word or element; the native chooser's trigger simulated, not seen.
+
+**Rationale:** The Decision in full: in `src/main.ts`, `chosenFile` is set where the `change` handler takes a file up, and the six places that compared `fileInput.files?.[0]` with the file read (the output choice, `commitTrim`, `resultOnScreen`, `resultOfChosenFile`, Check again, the card's "Previous video" test) ask it instead; a `cancel` listener on the picker dispatches `change` when `pickedAgain` says the list holds a file that is not the held one and the picker is not disabled, so a re-pick runs exactly the code a first choice runs, as a drop does; a chooser closed with nothing picked, the list empty or still holding the held object, does nothing. `pickedAgain` is `src/ui/chosen-file.ts`, pure, with five Node tests. In `src/ui/failure-text.ts` an unreadable source whose reason is `took-too-long` takes `failure.tryAgain`, the table's own sentence, as its next step, by test. No key in any language, no element, no `docs/` line, no dependency; `src/ui/drop-zone.ts` changes one comment sentence the change made false. Why: analyst C's C-01, C-02 and C-08 (`reviews/2026-11-25/ux-loop-1/C-code-and-wishes.md`). Before, by C's simulation, a fresh `File` of the same fixture and a `cancel` left a trim change re-checking nothing and Create making "the whole video (30 seconds)" under "Keeping 10 seconds of 30 seconds." After, read in Chrome on the MacBook Pro by the builder, en-GB at the desktop size: the same simulation reads the file again, End 0:10 re-checks (12.4 to 6.2 MB) and Create makes "10 seconds of 30 seconds"; a plain `cancel` mutates nothing, with an unsaved video or the discard question on screen too; a `cancel` during a job is ignored; the `change` route, the discard question, an unreadable file then a good one, the drop route, the output choice and Check again read as before; the record is `reviews/2026-11-25/phase-9/VH-238-evidence.md`. Not seen, and named: the native chooser, which no tool here drives, so that Chrome fires `cancel` with new `File` objects for the same path rests on C's reading of Chromium's source; the fix is right under either premise, since if Chrome keeps the old objects the listener finds no difference and the held variable equals the list (wish VH-238.1). One consequence for the owner: a finished video's card reads "Previous video" once its same file is picked again, as a drop of it already did. No walk on the Mac Pro; no second model (PLAN-9). Orchestrator's review: the diff read whole. Digest rules applied: Nielsen 1 and 5 (status visible; no silent wrong state), 9 (the next step fits the cause); house conventions (the rule in a pure module with its test).
+
+**Supersedes:** none
+
+**Deferred:** none
+
 ## 2026-11-25 — PLAN-9 — Phase 9: the overnight UX loops, what a fresh analysis found mended in existing words
 
 **Decision:** Phase 9 is VH-238 (a file chosen again), VH-241 (eight stylesheet readings), VH-239 (stale and repeated status), VH-240 (step 6's height), VH-242 (the record) and VH-243 (a second analysis, the owner's sheet, the close), signed off gateless on the owner's overnight word of 2026-11-25 (the VH-204 entry below), to plan and execute.
@@ -502,15 +512,3 @@ Each walk records its machine. Two questions remain for the owner:
 **Supersedes:** none
 
 **Deferred:** VH-203
-
-## 2026-10-30 — VH-229 — Raised: the promises and the privacy line behind a "?" beside the title, on the owner's choice
-
-**Decision:** VH-229 puts the five promises and the privacy line behind a "?" beside the page title, closed at every load, so the empty page opens on the title, step 1 and the switch. It is built after VH-217 and before VH-209. The owner approved §9.2's new wording, wish VH-229.1, within the 8,200-word budget, and the "?"'s name "About this tool": "Approve both", about 15:08Z.
-
-**Rationale:** His words, in the "Upload controls and app promises layout" chat, about 14:39Z, typed by him: "what about a question mark box after the app title, if clicked expands the promises follwoed by the "Your video is processed on your device, it is never uploaded, and the original file does not change." segment. users then aren't bother by text, the controls are self evident / self guiding, and novices can click the question mark". Claude recommended the promises alone behind the "?", with the privacy line kept in view: §9.2 asks for it, no control can say a file is not uploaded, and it is what makes trying a file safe on a page that no longer says what the tool does. He was shown that, with the measurements, and asked "Which version shall I open an item for?"; he answered "Hide both". Measured by a mock-up on `bdf6b6d`, the button's painted bottom closed: 310, 481 and 502 at 1280 × 900, and 481, 657 and 734 at 320 × 568, in en-GB, zh-Hans and ms-MY, so V-18's two short cases stay short, by about 89 and 166 px, the translation notice being 187 and 229 px of it. The browser note stays outside the panel. Placed on his word, about 14:50Z: "schedule it at the most appripate point in the backlog". After VH-217, which reads the format "?" on today's page and whose open state reaches the new "?"; before VH-209 and VH-210, which then read the new title row at 32 px and its rings, and before VH-225, which then tests the longer title beside the "?". This raise builds nothing and supersedes nothing yet; VH-229's close supersedes VH-216 in where the promises sit. The criteria are drafts for its worker: `project/items/VH-229.md`.
-
-**Supersedes:** none
-
-**Items:** VH-182, VH-183, VH-184, VH-185, VH-186, VH-187, VH-188, VH-189, VH-190, VH-191, VH-192, VH-193, VH-194, VH-196, VH-197, VH-198, VH-205, VH-199, VH-200, VH-201, VH-202, VH-211, VH-206, VH-207, VH-208, VH-212, VH-213, VH-214, VH-215, VH-216, VH-227, VH-217, VH-229, VH-209, VH-218, VH-219, VH-210, VH-225, VH-220, VH-221, VH-222, VH-223, VH-224, VH-203, VH-195, VH-204, VH-226
-
-**Deferred:** VH-229

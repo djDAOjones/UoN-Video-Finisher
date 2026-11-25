@@ -6,7 +6,8 @@
  * is handed to that input and announced with the input's own `change` event,
  * so a dropped video is read by exactly the code a chosen one is: the same
  * reset of Trim and the verdict, the same request to the worker, and every
- * later reader of `input.files` — the preset change, the job — sees it too.
+ * later handler — the preset change, the job — asks about the file that code
+ * took up (VH-238).
  * Nothing is uploaded; the `File` never leaves the page.
  *
  * The target is Carbon's file-uploader drop zone: a dashed container that

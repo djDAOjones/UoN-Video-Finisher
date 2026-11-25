@@ -40,6 +40,10 @@ describe('failureText', () => {
     expect(failureText('out-of-space').next).toContain('Free some space')
     expect(failureText('encoder-refused').next).toContain('other option')
     expect(failureText('unreadable-source').next).toContain('Choose a different file')
+    expect(failureText('unreadable-source', 'not-a-video').next).toBe(t().failure.unreadable.next)
+    // A read that ran out of time was not found unreadable (VH-238, C-08).
+    expect(failureText('unreadable-source', 'took-too-long').next).toBe(t().failure.tryAgain)
+    expect(failureText('unreadable-source', 'took-too-long').next).not.toMatch(/different file/i)
     expect(failureText('bad-trim').next).toContain('step 2')
     // The card's words are the cause, so the way on is shortening them (VH-127).
     expect(failureText('title-card-refused').next).toContain('step 3')

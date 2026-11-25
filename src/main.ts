@@ -106,6 +106,7 @@ import {
   wordsLanguageParts,
   writeVideoLanguagePreference,
 } from './ui/video-language'
+import { pickedAgain } from './ui/chosen-file'
 import { installDropZone } from './ui/drop-zone'
 import {
   describeBrowser,
@@ -1403,6 +1404,16 @@ void Promise.all([checkWorker(), bootEncodeSupport])
 // --- File selection ---
 
 /**
+ * The file the page took up at the last choice, read or not, or `null` before
+ * any: set where a choice is taken up, and what every later handler asks
+ * about (VH-238). Never the picker's own list, which Chrome gives new `File`
+ * objects when the same file is picked again, without a `change`: compared
+ * with that list, the trim and the output choice stopped re-checking and
+ * Create made the old trim (analyst C's C-01).
+ */
+let chosenFile: File | null = null
+
+/**
  * The file whose inspection has succeeded, or `null` while none has.
  *
  * Steps 2 to 4 stay on the page between files (VH-91), so the preset can now
@@ -1450,6 +1461,7 @@ const repaintDropRefusal = installDropZone({
 fileInput.addEventListener('change', () => {
   const file = fileInput.files?.[0]
   if (!file) return
+  chosenFile = file
   // Noted before anything below takes it away (V-46). The choosing hides or
   // empties the check's Stop, the read, the verdict and Create's row; its
   // reading lock disables the trim, "Use the whole video" included; and the result shown again or cleared
@@ -1597,6 +1609,15 @@ fileInput.addEventListener('change', () => {
       })
     }
   })()
+})
+
+// The same file picked again arrives as `cancel`, with the list holding a new
+// object for it; said as the `change` it is, as a drop is, so it is read by
+// exactly the code a first choice is (VH-238). A chooser closed with nothing
+// picked leaves the list as it was, and nothing here runs.
+fileInput.addEventListener('cancel', () => {
+  if (!pickedAgain(fileInput.files?.[0], chosenFile, fileInput.disabled)) return
+  fileInput.dispatchEvent(new Event('change', { bubbles: true }))
 })
 
 /**
@@ -1767,7 +1788,7 @@ async function runPreflight(file: File, current: () => boolean): Promise<void> {
 presetChoice.addEventListener('change', () => {
   // The output's size moves with the preset, and the card is fitted at it.
   paintTitleCardErrors()
-  const file = fileInput.files?.[0]
+  const file = chosenFile
   // Nothing to re-check until this file has been read: see `inspectedFile`.
   if (!file || file !== inspectedFile) return
   // The output shape, projected size and estimate all change with the preset,
@@ -2002,7 +2023,7 @@ function renderTrim(): void {
  */
 function commitTrim(): void {
   renderTrim()
-  const file = fileInput.files?.[0]
+  const file = chosenFile
   if (!file || file !== inspectedFile) return
   const current = beginSelection()
   processActions.hidden = true
@@ -2282,7 +2303,7 @@ let savedResultFor: File | null = null
 
 /** A finished video on screen: unsaved, or saved and still the chosen file's. */
 function resultOnScreen(): boolean {
-  return unsavedResult !== null || (savedResultFor !== null && savedResultFor === fileInput.files?.[0])
+  return unsavedResult !== null || (savedResultFor !== null && savedResultFor === chosenFile)
 }
 
 /**
@@ -2290,8 +2311,8 @@ function resultOnScreen(): boolean {
  * Beside a "Previous video" Create makes a different video, not this one again.
  */
 function resultOfChosenFile(): boolean {
-  const chosen = fileInput.files?.[0]
-  return chosen !== undefined && (unsavedResult?.source === chosen || savedResultFor === chosen)
+  const chosen = chosenFile
+  return chosen !== null && (unsavedResult?.source === chosen || savedResultFor === chosen)
 }
 
 /**
@@ -2462,7 +2483,7 @@ stopCheckButton.addEventListener('click', () => {
 })
 
 checkAgainButton.addEventListener('click', () => {
-  const file = fileInput.files?.[0]
+  const file = chosenFile
   if (!file || file !== inspectedFile) return
   void runPreflight(file, beginSelection())
   if (!stopCheckButton.hidden) stopCheckButton.focus()
@@ -3466,7 +3487,7 @@ function renderResult(kept: RetainedResult): HTMLElement {
     // the wrong thing (VH-88). Once another file has been chosen it is the
     // PREVIOUS video, and says so: a result sitting unnamed under the next
     // file's verdict was the wrong lecture saved and published (U-03).
-    const previous = fileInput.files?.[0] !== source
+    const previous = chosenFile !== source
     const size = formatFileSize(file.size)
     if (title) title.textContent = previous ? t().result.previous({ size }) : t().result.finished({ size })
     // The length made, never the length the file promised, and why beside
