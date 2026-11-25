@@ -2,6 +2,10 @@
 
 For Joe. Written by the orchestrator (Claude Code, on the MacBook Pro) at the end of the run you started with these words: "act as an orchestrator, and try to develop this project as much as you can according to rpoject intentions and backlog, but without my input (I am going to sleep). do loops of UX analysis to try and hone things."
 
+## Since this sheet was written
+
+- **0.3.1 is cut**, on your word of 25 November, "Cut 0.3.1" (VH-245): tag `v0.3.1`, the page of 0.3.0 with the fixes below, and none of the 33 points. Its Xerte zip is in `release/`, named `uon-video-finisher-v0.3.1+…-site.zip`. That answers point 2 of "Before you upload anything"; points 1 and 3 stand.
+
 ## In one minute
 
 - **Release 0.3.0 is cut.** Tag `v0.3.0`, and the Xerte zip is `release/uon-video-finisher-v0.3.0+20261125.bd4632a3-site.zip` (33 files). It is the page Phase 8 closed on, cut before anything else was touched tonight.

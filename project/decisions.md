@@ -24,6 +24,16 @@
      moves the oldest entries verbatim to project/decisions-YYYY-MM.md,
      beside this file, listed in project/archive-index.md. -->
 
+## 2026-11-25 — VH-245 — The cut: 0.3.1, Phase 9's fixes released on the owner's word, the statement unchanged
+
+**Decision:** VH-245 closes: the release is 0.3.1, a patch that carries Phase 9's fixes and nothing else, tagged `v0.3.1`, its Xerte zip built from the tag; no point of the owner's sheet is in it and the statement is unchanged, its review VH-137's — on the owner's word of 2026-11-25, "Cut 0.3.1".
+
+**Rationale:** The owner's word in chat on 2026-11-25, whole, in answer to the close of the overnight run and its question of which release should go to Xerte: "Cut 0.3.1". The item's first criterion asked for his word after his look at the preview and his answers to the points of the sheet he wants in the cut: the word is given and no point is answered, so none is in the cut; the 33 points stay wish lines PLAN-9.1 to PLAN-9.33, his. A patch by DEV-INFRASTRUCTURE.md's bump rule ("patch for fixes"): the product since `v0.3.0` is VH-238 to VH-243's fixes, every one in existing words, and VH-244's tests; no dependency changes, `package.json` and the lockfile's root moved by `npm version`. The accessibility statement is as VH-204 left it: VH-137's review has not happened, so the page goes out saying "We will review it again by 18 November 2026", a date now past, and wishes VH-192.1 and VH-194.2 stand; he was told so before this word, in the sheet and in the run's last message. What the cut has not had, said to him with it: the Mac Pro's walk (wish PLAN-9.35), a second model's check, the native chooser's two readings (wishes VH-238.1 and PLAN-9.37), a real phone, a screen reader. The head of `main` it is cut from, 482cbda, published the preview green. Nothing claims v1 or full conformance. Digest rule applied: house conventions (the two-part version identity, the product version from `package.json`).
+
+**Supersedes:** none
+
+**Deferred:** VH-137, VH-14
+
 ## 2026-11-25 — VH-243 — Phase 9 closes: seven items reconciled, the second and third analyses' findings mended, 37 points deferred to the owner's sheet and the wish list
 
 **Decision:** Phase 9 closes by rule 11: its seven items reconciled against PLAN-9's second list, VH-243's own analyses, reviews and mends among them; every finding that needs a new word, control or default is a wish line, PLAN-9.1 to PLAN-9.37, and a point of the owner's sheet; no release beyond VH-204's; the next item is VH-137, the owner's.
@@ -504,13 +514,3 @@ Each walk records its machine. Two questions remain for the owner:
 **Supersedes:** none
 
 **Deferred:** VH-225
-
-## 2026-11-03 — VH-210 — Closes: V-48 whole on the base, V-49's footer link spaced by the ring's room
-
-**Decision:** VH-210 closes V-48 with no rule, its ring whole on the base, and V-49 by `--focus-room` between the footer list's items under forced colours: `#contact-creators` failing 418 forced cells to 0. Wish VH-209.3 retired, its condition applied. The orchestrators' rulings listed for the owner.
-
-**Rationale:** The owner's words: the answer to VH-202's ask, "as reccomended, and convery me the 9 point ask here" (the "Backlog review" chat, 2026-10-27, point 1, the plan approved), and "Gateless covers the rest of Phase 8" (`plan8-owner-words.md`). V-48: VH-209 removed the sideways scroll, so the item's own condition applied: recorded, no rule; the finding's 4 px² went with the scroll and were not located. V-49: the theme paints a backplate behind each line of a wrapped link, and the ring of the link above, drawn past its box by its room, lay under the next link's first line; an inside ring would lie over the link's own glyphs, LinkText to Highlight not 3:1. `.footer-help-list > li + li { margin-block-start: var(--focus-room); }` in `app.css`'s forced-colours block, pinned by `test/stylesheet.test.ts` (a source-presence test). Each link keeps its 44 px box; the forced footer is 4 px taller, one-line cases included, explained, not unchanged. Walked before and after: 1,165 table cells a side, with S-ID1's two f3 records outside the script's count (VH-210.4), revision `fe44891d3c53f716`, mode 2, AC but after-f1 on battery 100% to 80%. [The table](../reviews/2026-10-25/design-pass-3/evidence/measurements/vh210-rings-r4-2026-11-02.md), the fourth by script from one walk, the first three on file: Codex's blind check found the notes' wording wanting, and the repaint check was added. Rulings, the orchestrators': #34, the forced records' groups, the staged records, the stale-palette spacing cells walked alone (sp), groups at load 8 or above standing on their first runs, `#accessibility-statement a` reported unmoved; #35, the export proof accepted with its exit 1 on `f.changedAny` alone (11 of 84, noise, VH-210.3), the re-walked pairs for ruling 4's repaint (rw4), S-76 (rw76) and S-109 (rw109; its timed `player` row flaky on the base, VH-199.1's), and the repaint check: in 418 fail-to-pass cells no ring reads 0 where the before read whole, and every other ring reads as before but `#contact-self-service`, which passes with equal or more area. Shortfalls: a real Windows theme stays the person checklist's task D; 32 px page shots show the default size (VH-217.5). Wish VH-209.3 retired: its condition is applied. UI-STANDARDS unchanged: its 2.4.13 rule already reads forced colours. Digest rules: wcag-2.2-aaa, 2.4.13 and "focus appearance"; carbon, "two token systems, never collapsed".
-
-**Supersedes:** none
-
-**Deferred:** none

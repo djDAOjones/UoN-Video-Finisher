@@ -8,17 +8,6 @@
      items the canon record shipped before the migration, in v3's form;
      their why is in the frozen canon decision log (history.md). -->
 
-## Phase 9 — the overnight UX loops: what a fresh analysis found, mended in existing words
-
-- VH-238 — the chosen file held in one variable that every handler asks, so the same file picked again, Chrome's `cancel`, is read as a new choice and a trim after it is the trim made; a timed-out read says "Try again"; no word or element; simulated in Chrome on the MacBook Pro, the native chooser's trigger a person's or the walker's; one wish (2026-11-25) — see decisions
-- VH-241 — eight stylesheet readings: the skip link on the band's roles (1.00:1 to 14.31), a scroll inset so a ring at the window's edge is whole (wish VH-233.1 paid), reduced motion's bar a resting band, a field's error on compact emphasis, and four smaller; CSS and one class, no word; measured in Chrome on the MacBook Pro; its look pending with the owner; two wishes (2026-11-25) — see decisions
-- VH-239 — a refused drop's message gone when its job, save or start-up ends; the tab's title plain again at the next check after a cancel or failure; a refused preview's announcement gone with its file (wish VH-236.1 paid); an unchanged trim error and status not rewritten on each key (6 and 3 writes to 0 and 0); no word; 26 tests; one wish (2026-11-25) — see decisions
-- VH-242 — DEV-INFRASTRUCTURE.md names Xerte the public home and Pages the preview; the placeholder check skips a worktree inside the checkout, proved by a probe; NEXT_STEPS.md current; wishes VH-162.1 and VH-147.1 paid; one wish (2026-11-25) — see decisions
-- VH-240 — a re-check holds step 6 at its height by a measured inline `min-height`, given up when the answer is painted: the step 605 → 183 → 605 px and the page's 422 px bounce both gone at 1280 and 375 px, three languages; nothing stale shown, no word; nine tests; Create still off the page during the check, the owner's; one wish (2026-11-25) — see decisions
-- VH-244 — eleven tests in three new files: the limiter's bite through the real `planAudio`, null on silence and on a pass with no level, measured under a lowered ceiling; the release guard through the worker's own module, refused and let go; no product file; wishes VH-193.2 and VH-215.3 paid (2026-11-25) — see decisions
-- VH-243 — Phase 9 closed: a second and third analysis and two independent reviews, no bug; mended in existing words: switches no longer restored out of step after Back (rank 1), full-width trim times, progress and Cancel kept in the window, the held room's reach, the dialog's scroll, the title following the status; 33 points on the owner's sheet, 37 wishes; no 0.3.1, VH-245 the owner's (2026-11-25) — see decisions
-- RECALL — 8/8 (2026-11-25) — scores: 2,2,2,2 — local — see decisions
-
 ## Phase 6 — the public release: the feedback form, the statement, the cut, Xerte
 
 - VH-160 — a link to the feedback form on its own line under Send feedback, "(new tab)" in all three languages, its plain address from config, no "Leave site?"; checked in Chrome at 1280, 375 and 320 px, light, dark and forced colours (2026-10-22) — see decisions
@@ -31,6 +20,18 @@
 - VH-168 — the file chooser stays the browser's own: its button and "No file chosen" in the browser's language, its accessible name the page's, recorded as a limitation; the spec and statement claim nothing else; no page change; the design fixes complete (2026-10-22) — see decisions
 - VH-162 — 0.2.0 cut on the owner's call, not waiting for VH-137's November review: the statement updated first (VH-137), the version 0.2.0, tag `v0.2.0`, the Xerte zip built from it; the brief, profile and D5 name Xerte the public home and Pages the preview (2026-10-24) — see decisions
 - VH-204 — 0.3.0 cut from the page Phase 8 closed on, on the owner's overnight word, gateless: the version by `npm version`, tag `v0.3.0`, the Xerte zip built from it; the statement unchanged, its review date of 18 November past and the owner's to move (VH-137), told to him before the upload (2026-11-25) — see decisions
+- VH-245 — 0.3.1 cut on the owner's word, "Cut 0.3.1": a patch carrying Phase 9's fixes and no point of his sheet, the version by `npm version`, tag `v0.3.1`, the Xerte zip built from it; the statement unchanged, its review date past and his to move (VH-137); no Mac Pro walk, no second model (2026-11-25) — see decisions
+
+## Phase 9 — the overnight UX loops: what a fresh analysis found, mended in existing words
+
+- VH-238 — the chosen file held in one variable that every handler asks, so the same file picked again, Chrome's `cancel`, is read as a new choice and a trim after it is the trim made; a timed-out read says "Try again"; no word or element; simulated in Chrome on the MacBook Pro, the native chooser's trigger a person's or the walker's; one wish (2026-11-25) — see decisions
+- VH-241 — eight stylesheet readings: the skip link on the band's roles (1.00:1 to 14.31), a scroll inset so a ring at the window's edge is whole (wish VH-233.1 paid), reduced motion's bar a resting band, a field's error on compact emphasis, and four smaller; CSS and one class, no word; measured in Chrome on the MacBook Pro; its look pending with the owner; two wishes (2026-11-25) — see decisions
+- VH-239 — a refused drop's message gone when its job, save or start-up ends; the tab's title plain again at the next check after a cancel or failure; a refused preview's announcement gone with its file (wish VH-236.1 paid); an unchanged trim error and status not rewritten on each key (6 and 3 writes to 0 and 0); no word; 26 tests; one wish (2026-11-25) — see decisions
+- VH-242 — DEV-INFRASTRUCTURE.md names Xerte the public home and Pages the preview; the placeholder check skips a worktree inside the checkout, proved by a probe; NEXT_STEPS.md current; wishes VH-162.1 and VH-147.1 paid; one wish (2026-11-25) — see decisions
+- VH-240 — a re-check holds step 6 at its height by a measured inline `min-height`, given up when the answer is painted: the step 605 → 183 → 605 px and the page's 422 px bounce both gone at 1280 and 375 px, three languages; nothing stale shown, no word; nine tests; Create still off the page during the check, the owner's; one wish (2026-11-25) — see decisions
+- VH-244 — eleven tests in three new files: the limiter's bite through the real `planAudio`, null on silence and on a pass with no level, measured under a lowered ceiling; the release guard through the worker's own module, refused and let go; no product file; wishes VH-193.2 and VH-215.3 paid (2026-11-25) — see decisions
+- VH-243 — Phase 9 closed: a second and third analysis and two independent reviews, no bug; mended in existing words: switches no longer restored out of step after Back (rank 1), full-width trim times, progress and Cancel kept in the window, the held room's reach, the dialog's scroll, the title following the status; 33 points on the owner's sheet, 37 wishes; no 0.3.1, VH-245 the owner's (2026-11-25) — see decisions
+- RECALL — 8/8 (2026-11-25) — scores: 2,2,2,2 — local — see decisions
 
 ## pm-skills 5.0.1 — the owner's word of 2026-11-18
 
