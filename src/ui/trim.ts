@@ -203,3 +203,31 @@ export function trimKeyTarget(
       return null
   }
 }
+
+/**
+ * What committed a change to the trim: a `handle`, by a key or a drag, which
+ * commits again on every key held; or a time `given` outright, typed into a
+ * field, set from the preview or reset with "Use the whole video".
+ */
+export type TrimCommit = 'handle' | 'given'
+
+/**
+ * Whether a commit writes its status sentence into the live region (VH-243,
+ * narrowing VH-239's answer to analyst C's C-06).
+ *
+ * A handle's key is one of many, and a sentence the line already holds is
+ * not written again for each. A time given outright is one deliberate act
+ * and is answered every time, the same sentence included: with Start and End
+ * both refused, End put right leaves "Correct the start and end times…"
+ * standing, and saying nothing would leave a screen-reader user unsure
+ * whether Create is still withheld.
+ *
+ * Pure, so the rule is tested in Node; the events are a real browser's.
+ *
+ * @param by - What committed the change.
+ * @param held - The status line's text now.
+ * @param sentence - The sentence this commit would say.
+ */
+export function trimStatusOwed(by: TrimCommit, held: string | null, sentence: string): boolean {
+  return by === 'given' || held !== sentence
+}

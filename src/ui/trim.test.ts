@@ -18,6 +18,7 @@ import {
   trimProblemText,
   trimRangeFor,
   trimFieldValue,
+  trimStatusOwed,
   trimSummary,
   type TrimProblem,
 } from './trim'
@@ -213,5 +214,34 @@ describe('the handles on the keyboard', () => {
   it('leaves every other key to the browser', () => {
     expect(trimKeyTarget('Tab', 10, bounds, duration)).toBeNull()
     expect(trimKeyTarget('a', 10, bounds, duration)).toBeNull()
+  })
+})
+
+describe('whether a commit says its status sentence (VH-243)', () => {
+  const correct = 'Correct the start and end times in step 2 to continue.'
+  const checking = 'Checking this video against your device…'
+
+  it('says a new sentence, whatever committed the change', () => {
+    expect(trimStatusOwed('handle', '', correct)).toBe(true)
+    expect(trimStatusOwed('handle', checking, correct)).toBe(true)
+    expect(trimStatusOwed('given', '', correct)).toBe(true)
+    expect(trimStatusOwed('given', checking, correct)).toBe(true)
+  })
+
+  it('does not say again, for a handle’s key or drag, the sentence the line holds (regression: C-06)', () => {
+    expect(trimStatusOwed('handle', correct, correct)).toBe(false)
+    expect(trimStatusOwed('handle', checking, checking)).toBe(false)
+  })
+
+  it('says again, for a time given outright, the sentence the line holds (regression: the review of VH-239)', () => {
+    // Start and End both refused, End put right: the sentence is unchanged,
+    // and Create is still withheld.
+    expect(trimStatusOwed('given', correct, correct)).toBe(true)
+    expect(trimStatusOwed('given', checking, checking)).toBe(true)
+  })
+
+  it('says a sentence into a line that holds no text at all', () => {
+    expect(trimStatusOwed('handle', null, correct)).toBe(true)
+    expect(trimStatusOwed('given', null, correct)).toBe(true)
   })
 })

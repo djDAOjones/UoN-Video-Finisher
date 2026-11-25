@@ -97,7 +97,8 @@ describe('the brand bands (VH-92)', () => {
  * the two token files (VH-124; `AGENTS.md` → "Numbers live in src/config or a
  * CSS token"). What is exempt is structural, and named here rather than
  * waved through: zero; percentages and viewport fills, which are geometry
- * relative to a box or the window; the `.visually-hidden` technique, whose
+ * relative to a box or the window, the dynamic viewport's height, the window
+ * a phone's address bar leaves, among them (VH-243); the `.visually-hidden` technique, whose
  * one-pixel box is the technique; the reduced-motion block, whose near-zero
  * duration is the technique; the breakpoint in a media query prelude, which
  * CSS cannot read from a token; and the forced-colour system colours, which
@@ -111,9 +112,9 @@ describe('tokens, not literals (VH-124)', () => {
     .replace(/\.visually-hidden\s*\{[^}]*\}/, '')
 
   it('names no length outside the token files', () => {
-    const lengths = [...declarations.matchAll(/-?\d*\.?\d+(?:px|rem|em|ch|vh|vw|vmin|vmax|s|ms)\b/g)]
+    const lengths = [...declarations.matchAll(/-?\d*\.?\d+(?:px|rem|em|ch|vh|vw|dvh|vmin|vmax|s|ms)\b/g)]
       .map((match) => match[0])
-      .filter((value) => !/^100v[hw]$/.test(value))
+      .filter((value) => !/^100(?:v[hw]|dvh)$/.test(value))
     expect(lengths, 'literal lengths in app.css').toEqual([])
   })
 
@@ -691,8 +692,14 @@ describe('eight readings mended (VH-241)', () => {
 
   it('holds the dialog’s top, by the step its greatest height leaves above it', () => {
     const dialog = block('.dialog')
-    expect(dialog).toMatch(/max-height:\s*calc\(100vh - 2 \* var\(--spacing-05\)\);/)
+    // The dynamic viewport's height (VH-243): the large one, `100vh`, is the
+    // window with a phone's address bar away, and a dialog that tall, held at
+    // the top, ends below the visible edge while the bar shows.
+    expect(dialog).toMatch(/max-height:\s*calc\(100dvh - 2 \* var\(--spacing-05\)\);/)
+    expect(dialog).not.toMatch(/100vh/)
     expect(dialog).toMatch(/margin-block-start:\s*var\(--spacing-05\);/)
+    // Its width is the window's, which no address bar narrows.
+    expect(dialog).toContain('width: min(var(--dialog-width), calc(100vw - 2 * var(--spacing-05)));')
   })
 
   it('gives a narrow dialog’s inset and part of its message box to its buttons', () => {

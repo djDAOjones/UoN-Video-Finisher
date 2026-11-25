@@ -1690,12 +1690,14 @@ details[open] > .disclosure-summary::before {
  * already leaves: centred, it rose 153 px from under the pointer when "What
  * will be sent with it" opened; held, it grows downward. Where it scrolls, it
  * keeps the page's scroll inset, so Close, reached at its bottom edge, shows
- * its whole ring (VH-241).
+ * its whole ring (VH-241). Its greatest height is the dynamic viewport's:
+ * held at the top, a dialog as tall as the window a phone's address bar hides
+ * part of would end below the visible edge (VH-243).
  */
 .dialog {
   max-width: calc(100vw - 2 * var(--spacing-05));
   width: min(var(--dialog-width), calc(100vw - 2 * var(--spacing-05)));
-  max-height: calc(100vh - 2 * var(--spacing-05));
+  max-height: calc(100dvh - 2 * var(--spacing-05));
   margin-block-start: var(--spacing-05);
   scroll-padding-block: var(--spacing-03);
   padding: var(--spacing-07);

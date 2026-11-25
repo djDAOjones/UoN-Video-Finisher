@@ -1107,3 +1107,157 @@ describe('the footer\'s feedback form (VH-160)', () => {
     expect(mainSource).toContain("required<HTMLAnchorElement>('#feedback-form-link')")
   })
 })
+
+/**
+ * The overnight run's first fixes, pinned where they are wired (VH-243). Each
+ * rule is a pure function with a test beside it, and an independent review
+ * found that taking its call out of `main.ts` failed none of them. These read
+ * the source's text, as the blocks above do; what the calls do on the page is
+ * Chrome's to show.
+ */
+const wiring = readFileSync(new URL('../src/main.ts', import.meta.url), 'utf8')
+/** A function's body at the margin of `main.ts`, its closing brace left off. */
+const functionBody = (name: string): string =>
+  new RegExp(`\\nfunction ${name}\\([^)]*\\): void \\{\\n([\\s\\S]*?)\\n\\}\\n`).exec(wiring)?.[1] ?? ''
+/** The body of the first listener `main.ts` gives a control for an event. */
+const listenerBody = (control: string, event: string): string =>
+  new RegExp(`\\n${control}\\.addEventListener\\('${event}', \\(\\) => \\{\\n([\\s\\S]*?)\\n\\}\\)\\n`).exec(wiring)?.[1] ?? ''
+// Its parameter list holds a `() => boolean`, which `functionBody` cannot step over.
+const preflightBody = /\nasync function runPreflight\([\s\S]*?\n\}\n/.exec(wiring)?.[0] ?? ''
+
+describe('the chosen file, held in one variable (VH-238, pinned by VH-243)', () => {
+  const choosing = listenerBody('fileInput', 'change')
+  const cancelled = listenerBody('fileInput', 'cancel')
+
+  it('takes the file up at the choosing, the one place the variable is set', () => {
+    expect(choosing).toMatch(/^ {2}const file = fileInput\.files\?\.\[0\]\n {2}if \(!file\) return\n {2}chosenFile = file\n/)
+    expect(wiring).toContain('\nlet chosenFile: File | null = null\n')
+    expect(wiring.match(/\bchosenFile = /g)).toHaveLength(1)
+  })
+
+  it('reads the picker’s own list in three places and no more: the take-up, the cancel rule, the redaction set', () => {
+    // Chrome gives the list new objects when the same file is picked again,
+    // so a handler that compared with it stopped re-checking (C-01).
+    expect(wiring.match(/fileInput\.files/g)).toHaveLength(3)
+    expect(choosing.match(/fileInput\.files/g)).toHaveLength(1)
+    expect(cancelled.match(/fileInput\.files/g)).toHaveLength(1)
+    expect(wiring).toContain('for (const chosen of fileInput.files ?? []) chosenFileNames.add(chosen.name)')
+  })
+
+  it('has the six later readers ask the variable', () => {
+    // The output choice, a trim commit and Check again; then the result's
+    // two questions and its "Previous video".
+    expect(listenerBody('presetChoice', 'change')).toContain('const file = chosenFile\n')
+    expect(functionBody('commitTrim')).toContain('const file = chosenFile\n')
+    expect(listenerBody('checkAgainButton', 'click')).toContain('const file = chosenFile\n')
+    expect(wiring).toContain('(savedResultFor !== null && savedResultFor === chosenFile)')
+    expect(wiring).toContain('const chosen = chosenFile\n  return chosen !== null &&')
+    expect(wiring).toContain('const previous = chosenFile !== source\n')
+  })
+
+  it('reads the same file picked again as the `change` it is, by the rule and nothing else', () => {
+    expect(cancelled).toBe(
+      "  if (!pickedAgain(fileInput.files?.[0], chosenFile, fileInput.disabled)) return\n  fileInput.dispatchEvent(new Event('change', { bubbles: true }))",
+    )
+    expect(wiring.match(/\bpickedAgain\(/g)).toHaveLength(1)
+  })
+})
+
+describe('a status that has stopped being true is taken away (VH-239, pinned by VH-243)', () => {
+  const choosing = listenerBody('fileInput', 'change')
+  const lock = functionBody('applyControlLock')
+  const commit = functionBody('commitTrim')
+  const preset = listenerBody('presetChoice', 'change')
+  const trim = functionBody('renderTrim')
+
+  it('settles a refused drop wherever a job, a save or the start-up check ends', () => {
+    // Every such end comes through the lock's one applier.
+    expect(lock).toContain('\n  dropRefusal.settle()\n')
+    expect(wiring.match(/dropRefusal\.settle\(\)/g)).toHaveLength(1)
+  })
+
+  it('takes a refused preview’s words away at the next file’s choosing, after the trim is cleared', () => {
+    expect(choosing).toMatch(/\n {2}clearTrim\('reading'\)\n(?:\s*\/\/[^\n]*\n)*\s*previewRefusal\.fileChanged\(\)\n/)
+    expect(wiring.match(/previewRefusal\.fileChanged\(\)/g)).toHaveLength(1)
+  })
+
+  it('moves the tab’s title on at a trim commit and at an output change, once the choice is known to count', () => {
+    // After the guard that the file has been read, so a choice that starts
+    // no check leaves "Cancelled" in the tab.
+    const afterGuard = /\n {2}if \(!file \|\| file !== inspectedFile\) return\n(?:\s*\/\/[^\n]*\n)*\s*const current = beginSelection\(\)\n {2}titleMovesOn\(\)\n/
+    expect(commit).toMatch(afterGuard)
+    expect(preset).toMatch(afterGuard)
+    // The two calls and the definition.
+    expect(wiring.match(/\btitleMovesOn\(\)/g)).toHaveLength(3)
+    expect(functionBody('titleMovesOn')).toBe("  if (outcomeEndsAtNewCheck(titleOf)) setTitle('none')")
+  })
+
+  it('writes the trim’s two error lines only when their words change', () => {
+    // The lines are in a live region, and this runs on every key of a handle.
+    expect(trim).toContain('\n    paintLine(line, own)\n')
+    expect(trim).not.toMatch(/\.textContent = own|line\.textContent/)
+    // The one direct write is the notice's, which hides both lines.
+    expect(trim.match(/line\.hidden = /g)).toHaveLength(1)
+    expect(trim).toContain('for (const line of [trimStartError, trimEndError]) line.hidden = true')
+    expect(functionBody('paintLine')).toMatch(/^ {2}if \(line\.textContent !== \(text \?\? ''\)\) line\.textContent = text \?\? ''\n/)
+  })
+})
+
+describe('the Create step keeps its height through a check (VH-240, pinned by VH-243)', () => {
+  const commit = functionBody('commitTrim')
+  const preset = listenerBody('presetChoice', 'change')
+  const again = listenerBody('checkAgainButton', 'click')
+
+  it('takes the hold in three places, each before anything of the step is withdrawn', () => {
+    expect(wiring.match(/createStepHold\.hold\(\)/g)).toHaveLength(3)
+    for (const body of [commit, preset]) {
+      expect(body).toContain('\n  createStepHold.hold()\n')
+      expect(body.indexOf('createStepHold.hold()')).toBeLessThan(body.indexOf('processActions.hidden = true'))
+      expect(body.indexOf('createStepHold.hold()')).toBeLessThan(body.indexOf('withdrawVerdict()'))
+    }
+    expect(again).toContain('\n  createStepHold.hold()\n  void runPreflight(file, beginSelection())\n')
+  })
+
+  it('gives the hold up when its check ends, however it ends, unless a newer one has replaced it', () => {
+    expect(preflightBody).toMatch(
+      /\n {2}\} finally \{\n(?:\s*\/\/[^\n]*\n)*\s*if \(current\(\)\) createStepHold\.release\(\)\n {2}\}\n\}\n$/,
+    )
+    // In the `finally` the release is never unconditional: a replaced check
+    // leaves the hold to whatever replaced it.
+    expect(preflightBody.match(/if \(current\(\)\) createStepHold\.release\(\)/g)).toHaveLength(1)
+  })
+
+  it('keeps no room where no check follows: a trim that cannot be used', () => {
+    // Both ways into it: the commit that finds the problem, and a check
+    // asked for while it stands.
+    expect(commit).toMatch(/if \('problem' in currentTrim\(\)\) \{\n[\s\S]*?\n {4}createStepHold\.release\(\)\n {4}return\n {2}\}/)
+    expect(preflightBody).toMatch(/if \('problem' in trim\) \{\n[\s\S]*?\n {4}createStepHold\.release\(\)\n {4}return\n {2}\}/)
+  })
+})
+
+describe('a handle’s key says its sentence once, a time given outright every time (VH-243)', () => {
+  const commit = functionBody('commitTrim')
+
+  it('asks the rule before each of the commit’s two sentences, and says neither any other way', () => {
+    expect(commit).toContain('if (trimStatusOwed(by, statusLine.textContent, sentence())) setStatus(sentence)')
+    expect(commit).toContain('say(() => t().trim.correctToContinue)')
+    expect(commit).toContain('say(() => t().status.checking)')
+    expect(commit.match(/\bsetStatus\(/g)).toHaveLength(1)
+  })
+
+  it('names what committed: the handles by key or drag, the fields and the three buttons outright', () => {
+    for (const range of ['trimStartRange', 'trimEndRange']) {
+      expect(wiring).toContain(`${range}.addEventListener('change', () => commitTrim('handle'))\n`)
+    }
+    expect(wiring).toContain("    onRangeInput(which, target)\n    commitTrim('handle')\n")
+    expect(wiring.match(/commitTrim\('handle'\)/g)).toHaveLength(3)
+    // A typed field's `change`, written once for the two fields.
+    expect(wiring).toMatch(/field\.addEventListener\('change', \(\) => \{\n[\s\S]*?\n {4}commitTrim\('given'\)\n {2}\}\)/)
+    for (const button of ['trimSetStart', 'trimSetEnd', 'trimClear']) {
+      expect(listenerBody(button, 'click'), button).toContain("\n  commitTrim('given')")
+    }
+    expect(wiring.match(/commitTrim\('given'\)/g)).toHaveLength(4)
+    // No commit without its source.
+    expect(wiring).not.toMatch(/commitTrim\(\)|, commitTrim\)/)
+  })
+})

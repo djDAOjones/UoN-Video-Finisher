@@ -212,7 +212,9 @@ import {
   trimKeyTarget,
   trimProblemText,
   trimRangeFor,
+  trimStatusOwed,
   trimSummary,
+  type TrimCommit,
   type TrimProblem,
 } from './ui/trim'
 import { escapeFocusesButton, focusClosesTip } from './ui/toggletip'
@@ -2053,8 +2055,11 @@ function renderTrim(): void {
  * range, so Start comes down at once and anything in flight is stopped; the
  * device check re-runs once the trim has been still for a moment, so a held
  * arrow key does not queue a check per step.
+ *
+ * @param by - A handle's key or drag, or a time given outright: a typed
+ *   field, "Set start here", "Set end here", "Use the whole video".
  */
-function commitTrim(): void {
+function commitTrim(by: TrimCommit): void {
   renderTrim()
   const file = chosenFile
   if (!file || file !== inspectedFile) return
@@ -2076,21 +2081,23 @@ function commitTrim(): void {
   // re-check, or with the trim error that stops it.
   withdrawVerdict()
   // A sentence the line already holds is not written into the live region
-  // again: each key of a handle ends here, the other handle's while a typed
-  // time stands refused among them. Once anything else has been said, the
-  // sentence is said afresh (VH-239, C-06).
-  const sayOnce = (sentence: () => string): void => {
-    if (statusLine.textContent !== sentence()) setStatus(sentence)
+  // again by a handle: each key of one ends here, the other handle's while a
+  // typed time stands refused among them. Once anything else has been said,
+  // the sentence is said afresh (VH-239, C-06). A time given outright is
+  // answered every time: with two bad times and one put right, the user
+  // still hears that the other stands (VH-243).
+  const say = (sentence: () => string): void => {
+    if (trimStatusOwed(by, statusLine.textContent, sentence())) setStatus(sentence)
   }
   if ('problem' in currentTrim()) {
     offerStop(null)
-    sayOnce(() => t().trim.correctToContinue)
+    say(() => t().trim.correctToContinue)
     // No check follows until the trim is put right, and an empty step must
     // not stand tall for as long as that takes (VH-240).
     createStepHold.release()
     return
   }
-  sayOnce(() => t().status.checking)
+  say(() => t().status.checking)
   // Stoppable from now, not from when the pause ends (A-11).
   offerStop('check')
   trimRecheck = setTimeout(() => {
@@ -2119,8 +2126,8 @@ function onRangeInput(which: 'start' | 'end', value: number): void {
 
 trimStartRange.addEventListener('input', () => onRangeInput('start', trimStartRange.valueAsNumber))
 trimEndRange.addEventListener('input', () => onRangeInput('end', trimEndRange.valueAsNumber))
-trimStartRange.addEventListener('change', commitTrim)
-trimEndRange.addEventListener('change', commitTrim)
+trimStartRange.addEventListener('change', () => commitTrim('handle'))
+trimEndRange.addEventListener('change', () => commitTrim('handle'))
 
 for (const [range, which] of [
   [trimStartRange, 'start'],
@@ -2135,7 +2142,7 @@ for (const [range, which] of [
     if (target === null) return
     event.preventDefault()
     onRangeInput(which, target)
-    commitTrim()
+    commitTrim('handle')
   })
 }
 
@@ -2153,27 +2160,27 @@ for (const [field, which] of [
       else trimEnd = value.seconds
       showInPreview(value.seconds)
     }
-    commitTrim()
+    commitTrim('given')
   })
 }
 
 trimSetStart.addEventListener('click', () => {
   trimFieldProblems.delete(trimStartField)
   trimStart = trimPreview.currentTime
-  commitTrim()
+  commitTrim('given')
 })
 
 trimSetEnd.addEventListener('click', () => {
   trimFieldProblems.delete(trimEndField)
   trimEnd = trimPreview.currentTime
-  commitTrim()
+  commitTrim('given')
 })
 
 trimClear.addEventListener('click', () => {
   trimFieldProblems.clear()
   trimStart = 0
   trimEnd = trimDuration
-  commitTrim()
+  commitTrim('given')
   // The button disables itself; focus goes somewhere that still works.
   trimStartRange.focus()
 })
