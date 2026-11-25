@@ -124,6 +124,7 @@ import {
 } from './ui/preflight-panel'
 import {
   NO_PROGRESS,
+  outcomeEndsAtNewCheck,
   outcomeTitle,
   progressView,
   readAnnounceProgress,
@@ -1441,7 +1442,7 @@ function payReadLine(): void {
 // A dropped video arrives as a `change` on the picker, so everything below
 // reads it exactly as a chosen one (VH-101). Busy is read at the drop: the
 // lock below is what keeps the picker from starting a second video too.
-const repaintDropRefusal = installDropZone({
+const dropRefusal = installDropZone({
   zone: dropZone,
   input: fileInput,
   hint: dropHint,
@@ -1522,6 +1523,10 @@ fileInput.addEventListener('change', () => {
   // re-check still waiting to run for it must not (Codex review).
   cancelTrimRecheck()
   clearTrim('reading')
+  // A refused preview's words were said of that video too, and go with it:
+  // they must not stand over a file that cannot be read, or one that
+  // previews (VH-239, wish VH-236.1). No other announcement is touched.
+  previewRefusal.fileChanged()
   // Kept when there is something to lose: the result panel describes a video
   // that already exists, and the source panel describes what was just chosen.
   // Clearing it here removed the only route to a finished file (VH-56).
@@ -1797,6 +1802,7 @@ presetChoice.addEventListener('change', () => {
   // Start comes down for the interval, because the verdict that revealed it
   // described a different preset (review R-05).
   const current = beginSelection()
+  titleMovesOn()
   cancelTrimRecheck()
   processActions.hidden = true
   createNote.hidden = true
@@ -1982,8 +1988,9 @@ function renderTrim(): void {
         : field === trimEndField
           ? rangeProblem
           : null
-    line.textContent = own ?? ''
-    line.hidden = own === null
+    // Written only when its words change: the line is in a live region, and
+    // this runs on every key of either handle (VH-239, C-06).
+    paintLine(line, own)
     // A problem with the range is shown once, under End, and described to
     // both fields: Start takes End's line into its description while one
     // shows (Codex review of VH-124).
@@ -2026,6 +2033,7 @@ function commitTrim(): void {
   const file = chosenFile
   if (!file || file !== inspectedFile) return
   const current = beginSelection()
+  titleMovesOn()
   processActions.hidden = true
   createNote.hidden = true
   jobFile = null
@@ -2037,12 +2045,19 @@ function commitTrim(): void {
   // The verdict priced the previous trim (U-04); the step now leads with the
   // re-check, or with the trim error that stops it.
   withdrawVerdict()
+  // A sentence the line already holds is not written into the live region
+  // again: each key of a handle ends here, the other handle's while a typed
+  // time stands refused among them. Once anything else has been said, the
+  // sentence is said afresh (VH-239, C-06).
+  const sayOnce = (sentence: () => string): void => {
+    if (statusLine.textContent !== sentence()) setStatus(sentence)
+  }
   if ('problem' in currentTrim()) {
     offerStop(null)
-    setStatus(() => t().trim.correctToContinue)
+    sayOnce(() => t().trim.correctToContinue)
     return
   }
-  setStatus(() => t().status.checking)
+  sayOnce(() => t().status.checking)
   // Stoppable from now, not from when the pause ends (A-11).
   offerStop('check')
   trimRecheck = setTimeout(() => {
@@ -2217,6 +2232,15 @@ function setTitle(of: typeof titleOf): void {
     of === 'stage' && lastProgress
       ? progressView(lastProgress.stage, lastProgress.fraction, progressMemo, false, lastProgress.atMs).title
       : outcomeTitle(of === 'stage' ? 'none' : of)
+}
+
+/**
+ * A choice that sends the page on to a new check: the status line stops
+ * saying "Cancelled." or that the video was not made, and the tab title
+ * stops with it (VH-239, C-11). A finished video's "Ready" stays.
+ */
+function titleMovesOn(): void {
+  if (outcomeEndsAtNewCheck(titleOf)) setTitle('none')
 }
 
 // The title says the same thing again when the language changes (VH-105),
@@ -2601,6 +2625,10 @@ function applyControlLock(): void {
     note.textContent = lockText
     note.hidden = lockText === ''
   }
+  // A drop refused for the job, the save or the start-up check has its
+  // answer when that ends, and every such end comes through here; the words
+  // are the chooser's description, and must not outlast it (VH-239, C-03).
+  dropRefusal.settle()
   // Shut until the start-up check settles, and for good if it blocked.
   fileInput.disabled = locked || startup !== 'ready'
   presetChoice.disabled = locked
@@ -4017,7 +4045,7 @@ onLanguageChange(() => {
   if (jobInFlight)
     jobNotice.textContent = jobEnding ? t().status.stoppingAfterFailure : t().progress.jobNotice
   renderFeedbackDisclosure()
-  repaintDropRefusal()
+  dropRefusal.repaint()
   languageSwitcher.paint()
 })
 

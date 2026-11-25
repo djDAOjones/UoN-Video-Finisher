@@ -10,6 +10,7 @@ import { setLanguage } from '../i18n'
 import {
   encodeSecondsLeft,
   NO_PROGRESS,
+  outcomeEndsAtNewCheck,
   outcomeTitle,
   progressView,
   readAnnounceProgress,
@@ -72,6 +73,15 @@ describe('progressView', () => {
     )
     expect(outcomeTitle('ready')).toBe('Ready — UoN Video Finisher')
     expect(outcomeTitle('none')).toBe('UoN Video Finisher')
+  })
+
+  it("takes a cancelled or failed job's outcome out of the title at a new check, and keeps Ready (VH-239)", () => {
+    expect(outcomeEndsAtNewCheck('cancelled')).toBe(true)
+    expect(outcomeEndsAtNewCheck('failed')).toBe(true)
+    // A finished video's result still stands on the page.
+    expect(outcomeEndsAtNewCheck('ready')).toBe(false)
+    expect(outcomeEndsAtNewCheck('stage')).toBe(false)
+    expect(outcomeEndsAtNewCheck('none')).toBe(false)
   })
 })
 

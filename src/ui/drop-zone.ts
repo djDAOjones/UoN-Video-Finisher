@@ -13,7 +13,8 @@
  * The target is Carbon's file-uploader drop zone: a dashed container that
  * turns solid, with a focus-colour outline and different words, while a file
  * is held over it — never colour alone. A drop it cannot take is refused in
- * words beside the input.
+ * words beside the input, and a refusal for what the page was busy with is
+ * taken away when the page stops being busy with it (VH-239).
  */
 
 import { t } from '../i18n'
@@ -77,6 +78,29 @@ export function dropProblem(
   return null
 }
 
+/**
+ * Whether a refusal has outlived its cause (VH-239, C-03): the drop was
+ * refused for what the page was busy with, and the page is no longer busy
+ * with that — the job finished, failed or was cancelled, the save ended, the
+ * start-up check settled. A refusal for the drop itself (several files, not a
+ * video) has no such cause, and stands until the next drag or choice.
+ */
+export function refusalEnded(refusedFor: DropBusy, busyNow: DropBusy): boolean {
+  return refusedFor !== null && busyNow !== refusedFor
+}
+
+/** What the page does with a refusal still showing, after the drop that raised it. */
+export interface DropRefusal {
+  /** Says it again, in the page's current language (VH-105); nothing when none is showing. */
+  repaint(): void
+  /**
+   * Takes it away if its cause has ended (VH-239): called whenever what the
+   * page is busy with may have changed. One whose cause still holds stays,
+   * and so does one for the drop itself.
+   */
+  settle(): void
+}
+
 /** Whether a drag is carrying files rather than text or a link. */
 function carriesFiles(event: DragEvent): boolean {
   return event.dataTransfer?.types.includes('Files') ?? false
@@ -92,8 +116,8 @@ function carriesFiles(event: DragEvent): boolean {
  *
  * @param busy - Read at the moment of the drop, so a job or a save started
  *   since the drag began is respected.
- * @returns The way to say a refusal still showing again, in the page's
- *   current language (VH-105); it says nothing when none is showing.
+ * @returns What the page does with a refusal still showing: say it again
+ *   after a change of language, and take it away once its cause has ended.
  */
 export function installDropZone(options: {
   readonly zone: HTMLElement
@@ -103,7 +127,7 @@ export function installDropZone(options: {
   /** An always-present live region for the refusal; empty when there is none. */
   readonly message: HTMLElement
   readonly busy: () => DropBusy
-}): () => void {
+}): DropRefusal {
   const { zone, input, hint, message, busy } = options
 
   /**
@@ -187,5 +211,12 @@ export function installDropZone(options: {
     depth = 0
     setHeld(false)
   })
-  return sayRefusal
+  return {
+    repaint: sayRefusal,
+    settle() {
+      if (refused === null || !refusalEnded(refused.busy, busy())) return
+      refused = null
+      sayRefusal()
+    },
+  }
 }

@@ -6,7 +6,8 @@
  * and step 1's line beside it, which the refusal must leave alone. Each
  * order step 1's block and the preview's `error` can come in is forced and
  * its sequence of the announcer's text asserted, in all three languages.
- * The text in Chrome is walked (VH-236's table).
+ * The text in Chrome is walked (VH-236's table). A new file's choosing takes
+ * the last file's words away, and nothing else (VH-239, wish VH-236.1).
  */
 
 import { describe, expect, it } from 'vitest'
@@ -88,6 +89,11 @@ function pageFor(words: string, locale: string) {
       state.trimOffered = recoverable
       state.sourceStatus = ''
       refusal.trimWithdrawn()
+    },
+    /** The next file's choosing, as the handler meets it: `clearTrim('reading')` hides the note, then the refusal is told. */
+    newFile(): void {
+      state.refused = false
+      refusal.fileChanged()
     },
   }
 }
@@ -194,6 +200,68 @@ describe.each(tables)('a refused preview in $table.meta.locale (VH-236)', ({ tab
     page.state.refused = true
     page.block(false)
     expect(page.announcer.sequence).toEqual([''])
+  })
+
+  it('a refusal, then a new file: the announcer emptied, both sentences or the first alone (VH-239)', () => {
+    const offered = pageFor(full, locale)
+    offered.previewError()
+    offered.newFile()
+    expect(offered.announcer.sequence).toEqual(['', full, ''])
+    expect(offered.announcer.log).toEqual([`write ${full}`, 'empty'])
+
+    const withdrawn = pageFor(full, locale)
+    withdrawn.previewError()
+    withdrawn.block(false)
+    withdrawn.newFile()
+    expect(withdrawn.announcer.sequence).toEqual(['', full, first, ''])
+  })
+
+  it('a refusal, then a file that cannot be read: emptied at its choosing, nothing at the read failure (VH-239)', () => {
+    const page = pageFor(full, locale)
+    page.previewError()
+    page.newFile()
+    // The read fails: clearTrim('unreadable') withdraws the steps.
+    page.state.trimOffered = false
+    page.state.sourceStatus = 'We could not read this video.'
+    page.refusal.trimWithdrawn()
+    expect(page.announcer.sequence).toEqual(['', full, ''])
+    expect(page.announcer.log).toEqual([`write ${full}`, 'empty'])
+  })
+
+  it('a new file leaves another sentence said since alone (VH-239)', () => {
+    const page = pageFor(full, locale)
+    page.previewError()
+    page.announcer.announce(table.errors.revealed)
+    page.newFile()
+    expect(page.announcer.sequence).toEqual(['', full, table.errors.revealed])
+    expect(page.announcer.log).not.toContain('empty')
+    // Nor at any later file: the refusal's node was forgotten at the first.
+    page.newFile()
+    expect(page.announcer.text()).toBe(table.errors.revealed)
+  })
+
+  it('a new file writes nothing to an announcer already emptied, or where no preview was refused (VH-239)', () => {
+    const emptied = pageFor(full, locale)
+    emptied.previewError()
+    emptied.announcer.replaceChildren()
+    emptied.newFile()
+    expect(emptied.announcer.log).toEqual([`write ${full}`, 'empty'])
+
+    const none = pageFor(full, locale)
+    none.announcer.announce(table.errors.revealed)
+    none.newFile()
+    expect(none.announcer.log).toEqual([`write ${table.errors.revealed}`])
+  })
+
+  it("the next file's own refusal is said and shortened as the first was (VH-239)", () => {
+    const page = pageFor(full, locale)
+    page.previewError()
+    page.newFile()
+    page.previewError()
+    page.block(false)
+    expect(page.announcer.sequence).toEqual(['', full, '', full, first])
+    page.newFile()
+    expect(page.announcer.text()).toBe('')
   })
 })
 

@@ -25,7 +25,14 @@
  * or no block), and nothing over another sentence said since, an emptied
  * region (a change of language) or an earlier file's words. The first
  * sentence is the first sentence segment of the message in its own
- * language, trailing space trimmed: no word is added anywhere. Pure but for
+ * language, trailing space trimmed: no word is added anywhere.
+ *
+ * The words are said of one file, so they go when the next is chosen
+ * (VH-239, wish VH-236.1): if the node said is still the announcer's only
+ * child, the announcer is emptied, as a change of language empties it. An
+ * earlier file's "You can still set the times." then cannot stand over a file
+ * that cannot be read, nor its first sentence over a file that previews.
+ * Another sentence said since is a different node, and is left alone. Pure but for
  * the objects it is given, so the rule is tested in Node with stand-ins; the
  * announcer's text is walked in Chrome.
  */
@@ -36,10 +43,10 @@ export interface SaidNode {
   deleteData(offset: number, count: number): void
 }
 
-/** The page's announcer, as the refusal writes a fresh node into it and reads its children back. */
+/** The page's announcer, as the refusal writes a fresh node into it, empties it and reads its children back. */
 export interface RefusalAnnouncer<N extends SaidNode> {
   readonly childNodes: ArrayLike<unknown>
-  replaceChildren(node: N): void
+  replaceChildren(...nodes: N[]): void
 }
 
 /** What the refusal reads from the page and writes to it. */
@@ -57,12 +64,14 @@ export interface PreviewRefusalPage<N extends SaidNode> {
   locale(): string
 }
 
-/** The two moments the refusal is said in. */
+/** The two moments the refusal is said in, and the one it is taken away in. */
 export interface PreviewRefusal {
   /** On the preview's `error`: both sentences while the trim is offered, the first alone once withdrawn. */
   said(): void
   /** After step 1's block: the second sentence taken from the words said, if the trim has gone. */
   trimWithdrawn(): void
+  /** On a new file's choosing: the words said of the last file taken out of the announcer, if they are still all it holds (VH-239). */
+  fileChanged(): void
 }
 
 /** `text`'s first sentence in `locale`, trailing white space trimmed. */
@@ -89,6 +98,15 @@ export function createPreviewRefusal<N extends SaidNode>(page: PreviewRefusalPag
       if (children.length !== 1 || children[0] !== node) return
       if (node.data !== full || first.length >= full.length) return
       node.deleteData(first.length, full.length - first.length)
+    },
+    fileChanged() {
+      if (said === null) return
+      const { node } = said
+      // Forgotten either way: the next file's refusal writes a node of its own.
+      said = null
+      const children = page.announcer.childNodes
+      if (children.length !== 1 || children[0] !== node) return
+      page.announcer.replaceChildren()
     },
   }
 }
