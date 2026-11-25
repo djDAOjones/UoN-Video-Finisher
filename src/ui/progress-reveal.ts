@@ -11,15 +11,20 @@
  * the bar and its line are wholly in the window: the least distance that
  * does it, Cancel and its focus ring kept in the window too where the window
  * can hold both. Where the bar and its line are already in the window,
- * nothing moves. Pure, so the rule is tested in Node; the scroll itself is
- * read in Chrome.
+ * nothing moves, unless their arrival has pushed Cancel past the window's
+ * foot: about 250 px of bar, line and notes land above a Cancel that stood
+ * near the bottom edge, and it was left below it, still holding focus
+ * (analyst F's F-01). Then the page moves by the least that brings Cancel
+ * and its ring's room back in, the bar never above the inset. Pure, so the
+ * rule is tested in Node; the scroll itself is read in Chrome.
  */
 
 import type { Box } from './reveal-status'
 
 /**
  * How far to scroll the page, in px, positive downwards, so `progress` is
- * wholly in the window; 0 where it already is.
+ * wholly in the window, and Cancel with it where the window holds both; 0
+ * where they already are.
  *
  * @param progress - The bar and its stage line as one box, in the window's
  *   coordinates.
@@ -34,7 +39,6 @@ export function progressRevealScroll(
   windowHeight: number,
   inset: number,
 ): number {
-  if (progress.top >= 0 && progress.bottom <= windowHeight) return 0
   const room = Number.isFinite(inset) ? Math.max(0, inset) : 0
   const top = room
   const bottom = windowHeight - room
@@ -47,7 +51,15 @@ export function progressRevealScroll(
         }
   // The progress alone where the window cannot hold both: it is what says
   // the job has started.
-  const shown = both.bottom - both.top <= bottom - top ? both : progress
+  const holdsBoth = both.bottom - both.top <= bottom - top
+  if (progress.top >= 0 && progress.bottom <= windowHeight) {
+    if (cancel === null || !holdsBoth) return 0
+    // In the window, with Cancel pushed past its foot by their arrival
+    // (F-01): up by the least that shows Cancel and its ring's room, and
+    // never so far that the progress's start passes the inset.
+    return Math.max(0, Math.min(cancel.bottom - bottom, progress.top - top))
+  }
+  const shown = holdsBoth ? both : progress
   // Its start at the top where it is cut off above, or is taller than the
   // window; otherwise its end at the bottom.
   if (shown.top < top || shown.bottom - shown.top > bottom - top) return shown.top - top

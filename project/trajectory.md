@@ -16,6 +16,8 @@
 - VH-242 — DEV-INFRASTRUCTURE.md names Xerte the public home and Pages the preview; the placeholder check skips a worktree inside the checkout, proved by a probe; NEXT_STEPS.md current; wishes VH-162.1 and VH-147.1 paid; one wish (2026-11-25) — see decisions
 - VH-240 — a re-check holds step 6 at its height by a measured inline `min-height`, given up when the answer is painted: the step 605 → 183 → 605 px and the page's 422 px bounce both gone at 1280 and 375 px, three languages; nothing stale shown, no word; nine tests; Create still off the page during the check, the owner's; one wish (2026-11-25) — see decisions
 - VH-244 — eleven tests in three new files: the limiter's bite through the real `planAudio`, null on silence and on a pass with no level, measured under a lowered ceiling; the release guard through the worker's own module, refused and let go; no product file; wishes VH-193.2 and VH-215.3 paid (2026-11-25) — see decisions
+- VH-243 — Phase 9 closed: a second and third analysis and two independent reviews, no bug; mended in existing words: switches no longer restored out of step after Back (rank 1), full-width trim times, progress and Cancel kept in the window, the held room's reach, the dialog's scroll, the title following the status; 33 points on the owner's sheet, 37 wishes; no 0.3.1, VH-245 the owner's (2026-11-25) — see decisions
+- RECALL — 8/8 (2026-11-25) — scores: 2,2,2,2 — local — see decisions
 
 ## Phase 6 — the public release: the feedback form, the statement, the cut, Xerte
 

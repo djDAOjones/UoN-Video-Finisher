@@ -53,6 +53,19 @@ export const TRIM_PAGE_STEP_FRACTION = 0.01
 export const TRIM_TIME_FOLD = 'NFKC'
 
 /**
+ * The full stops read as a typed time's decimal point besides the Latin one
+ * (VH-243): the ideographic full stop, U+3002, which a Chinese keyboard in
+ * Chinese-punctuation mode types for it, and its half-width form, U+FF61.
+ * `TRIM_TIME_FOLD` does not reach them: it folds the full-width `．` to `.`,
+ * leaves `。` as it is and turns `｡` into it, so `1：05。5` was refused where
+ * `1：05．5` was read.
+ */
+export const TRIM_TIME_FULL_STOPS = ['\u3002', '\uFF61'] as const
+
+/** The decimal point a typed time is read with, and the fields show. */
+export const TRIM_TIME_DECIMAL_POINT = '.'
+
+/**
  * How long the trim must be still before the device check re-runs for it, in
  * milliseconds. An arrow key held down commits a change per step, and each
  * would otherwise start a pre-flight — decoding and encoding three seconds —

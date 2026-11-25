@@ -29,3 +29,13 @@
 **Supersedes:** none
 
 **Deferred:** none
+
+## 2026-11-02 — VH-219 — Closes: step 4's selects whole when closed, at 32 px on a phone
+
+**Decision:** VH-219 closes wish VH-189.1, CSS only: the selects' closed text wraps between words, its lane widened by tokens below 19.99rem. Options clipped closed 2,784 to 0 of 31,104 readings a side. Two rulings the orchestrators', listed for the owner.
+
+**Rationale:** His words: "yes to the question mark, and A and B. ensure everything passes UX / design / Accessibility" and "even old issues should be solved for" (the "Backlog review" chat, 2026-10-27, `plan8-owner-words.md`). The before, measured on `62fc265` (no VH-199 record matched the moved page): at 32 px the lane was 148, 203, 228 and 229 px at 320, 375, 400 and 401 px, and no token padding fits English's 304 px option on one line, so the text wraps; the lane is now 204 to 285 px and the box 76 to 118 px tall, 44 to 60 in the spacing mode. Evidence: [the third table](../reviews/2026-10-25/design-pass-3/evidence/measurements/vh219-selects-r2-2026-11-01.md), 5,184 + 84 cells a side: clipped 2,784 to 0, targeted 101 of 504 to 0, over the arrow 1,920 to 0, spacing at the default font 480 to 0; the default font unspaced unmoved; names, labels, 44 px targets and rings unchanged. No residue for the owner. Orchestrator #33: the matrix stands at 5,184 + 84, onset read by `selectedIndex`, not walked as a dimension. Orchestrator #34: groups with load at 8 or above re-walked where the battery allowed, all identical; the rest stand on their first runs, after-staff-fade and -none confirmed 2026-11-02. Codex's blind check, "pass with conditions": evidence qualifications, each verified, carried in the second table's notes, no re-walk; its close check, "FAIL" on one sentence of those notes, a void said moved that lies where it ran, corrected in the third. The first two tables stay on file. Shortfall: the open list unmeasured, a person's check (VH-219.3); 32 px page shots show the default size (VH-217.5), so the visual reading rests on 12 viewport captures; the walker's select rows and `type` read the wrong thing (VH-219.1, VH-219.2); the driver's `hold` labelled 2,592 cells a side failed with every reading whole, and the export runs' manifests name the checkout (VH-219.4). Sized at about 40k, it took two workers. UI-STANDARDS: no rule changes. Digest rules: carbon, "two token systems, never collapsed"; wcag-2.2-aaa, "44 px targets" and 1.4.10.
+
+**Supersedes:** none
+
+**Deferred:** none

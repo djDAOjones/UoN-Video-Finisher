@@ -1181,15 +1181,61 @@ describe('a status that has stopped being true is taken away (VH-239, pinned by 
     expect(wiring.match(/previewRefusal\.fileChanged\(\)/g)).toHaveLength(1)
   })
 
-  it('moves the tab’s title on at a trim commit and at an output change, once the choice is known to count', () => {
-    // After the guard that the file has been read, so a choice that starts
-    // no check leaves "Cancelled" in the tab.
-    const afterGuard = /\n {2}if \(!file \|\| file !== inspectedFile\) return\n(?:\s*\/\/[^\n]*\n)*\s*const current = beginSelection\(\)\n {2}titleMovesOn\(\)\n/
-    expect(commit).toMatch(afterGuard)
-    expect(preset).toMatch(afterGuard)
-    // The two calls and the definition.
-    expect(wiring.match(/\btitleMovesOn\(\)/g)).toHaveLength(3)
+  it('moves the tab’s title on wherever the status line is written, and nowhere else (VH-243, F-05)', () => {
+    // The title followed the line only at a trim commit and an output
+    // change, so a refused Create, and the card put right after it, left
+    // "Cancelled" in the tab over a line that no longer said it. The line's
+    // one writer now moves the title on before it writes.
+    expect(functionBody('setStatus')).toBe(
+      '  statusAsksDiscard = false\n  titleMovesOn()\n  show(statusLine, () => paintStatus(statusLine, message, spokenOnly))',
+    )
+    // The call and the definition.
+    expect(wiring.match(/\btitleMovesOn\(\)/g)).toHaveLength(2)
     expect(functionBody('titleMovesOn')).toBe("  if (outcomeEndsAtNewCheck(titleOf)) setTitle('none')")
+    // No other way to the line's words: one painter, and no direct write.
+    expect(wiring.match(/\(statusLine, /g)).toHaveLength(2)
+    expect(wiring).not.toMatch(/statusLine\.(?:textContent|innerHTML|innerText) = |statusLine\.(?:replaceChildren|append|prepend)\(|clear\(statusLine\)/)
+  })
+
+  it('still moves it on at a trim commit and at an output change, by their status, once the choice is known to count', () => {
+    // After the guard that the file has been read, so a choice that starts
+    // no check leaves "Cancelled" in the tab, as it leaves it on the line.
+    const guard = '\n  if (!file || file !== inspectedFile) return\n'
+    for (const body of [commit, preset]) {
+      expect(body).toContain(guard)
+      expect(body).not.toContain('titleMovesOn()')
+    }
+    // A trim's commit says one of its two sentences below the guard; a
+    // handle's repeat of a sentence the line holds is not written, and by
+    // then the title has gone with the line's earlier words.
+    expect(commit.indexOf(guard)).toBeLessThan(commit.indexOf('setStatus('))
+    expect(commit).toMatch(/\n {2}say\(\(\) => t\(\)\.status\.checking\)\n/)
+    expect(commit).toMatch(/\n {4}say\(\(\) => t\(\)\.trim\.correctToContinue\)\n/)
+    // An output change says nothing itself: its check does, in every branch
+    // and before its first wait.
+    expect(preset).not.toContain('setStatus(')
+    expect(preset.indexOf(guard)).toBeLessThan(preset.indexOf('void runPreflight(file, current)'))
+    expect(preflightBody).toMatch(/if \('problem' in trim\) \{\n[\s\S]*?\n {4}setStatus\(\(\) => t\(\)\.trim\.correctToContinue\)\n[\s\S]*?\n {4}return\n {2}\}/)
+    expect(preflightBody.indexOf('setStatus(() => t().status.checking)')).toBeLessThan(preflightBody.indexOf('await '))
+  })
+
+  it('writes a job’s outcome on the line first and in the title after, each time (VH-243, F-05)', () => {
+    // The other order would have the line's writer take away the title just
+    // set. Every "Cancelled" or "Not made" title follows a status write with
+    // no other title between them.
+    const outcomes = wiring.match(/setTitle\('(?:cancelled|failed)'\)/g) ?? []
+    expect(outcomes).toHaveLength(4)
+    expect(
+      wiring.match(/setStatus\((?:(?!setStatus\(|setTitle\()[\s\S])*setTitle\('(?:cancelled|failed)'\)/g),
+    ).toHaveLength(outcomes.length)
+    expect(wiring).toMatch(/\n {8}setStatus\(\(\) => t\(\)\.status\.cancelled\)\n {8}handTo = startButton\n {8}setTitle\('cancelled'\)\n/)
+    // A failure whose stop has ended writes its sentence again without "The
+    // job is stopping", and its title again after it.
+    expect(wiring).toMatch(
+      /\n {6}await settled\(id\)\n(?:\s*\/\/[^\n]*\n)*\s*setStatus\('', \(\) => t\(\)\.status\.couldNotCreate\(\{ sentence: failureSentence\(failureWords\(failure\)\) \}\)\)\n(?:\s*\/\/[^\n]*\n)*\s*setTitle\('failed'\)\n {4}\}\)\n/,
+    )
+    // "Ready" is not an outcome the line's writer ends.
+    expect(wiring.match(/setTitle\('ready'\)/g)).toHaveLength(1)
   })
 
   it('writes the trim’s two error lines only when their words change', () => {
@@ -1381,6 +1427,14 @@ describe('no choice is put back by the browser after Back or Forward (VH-243, E-
     expect(typed).toHaveLength(8)
     for (const tag of typed) expect(tag, nameOf(tag)).toMatch(/\sautocomplete="off"(?=[\s/>])/)
   })
+
+  it('nor the file chooser, which would name a file the page has not read', () => {
+    // Chrome can put a file input's selection back after Back or Forward
+    // with no `change`, and the page takes a file up only at one.
+    const files = controls.filter((tag) => /\stype="file"/.test(tag))
+    expect(files.map(nameOf)).toEqual(['file-input'])
+    for (const tag of files) expect(tag, nameOf(tag)).toMatch(/\sautocomplete="off"(?=[\s/>])/)
+  })
 })
 
 describe('each Submission field’s error is straight under its field (VH-243, E-06)', () => {
@@ -1402,6 +1456,22 @@ describe('each Submission field’s error is straight under its field (VH-243, E
 
   it('keeps what the box of IDs is described by, in the order it had', () => {
     expect(markup).toContain('aria-describedby="submission-card-ids-helper submission-card-ids-error"')
+  })
+
+  it('puts the staff card’s errors there too, Date’s before its helper as the IDs’ is', () => {
+    for (const field of ['title', 'department', 'authors', 'date']) {
+      expect(markup, field).toMatch(
+        new RegExp(
+          `id="title-card-${field}"[^>]*/>\\s*<div aria-live="polite">\\s*<p class="field-error" id="title-card-${field}-error" hidden></p>\\s*</div>`,
+        ),
+      )
+    }
+    expect(markup).toMatch(
+      /id="title-card-date-error" hidden><\/p>\s*<\/div>\s*<p class="helper" id="title-card-date-helper">/,
+    )
+    // The one helper under Date, described by it in the order it had.
+    expect(markup.match(/id="title-card-date-helper"/g)).toHaveLength(1)
+    expect(markup).toContain('aria-describedby="title-card-date-helper title-card-date-error"')
   })
 })
 

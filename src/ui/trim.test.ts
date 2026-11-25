@@ -71,6 +71,31 @@ describe('times in the fields', () => {
   })
 
   it.each([
+    ['1：05。5', 65.5],
+    ['１：０５。５', 65.5],
+    ['５。５', 5.5],
+    ['65。5', 65.5],
+    ['1:05｡5', 65.5],
+    ['１：０２：０３。４', 3723.4],
+  ])('reads %j, its decimal point typed in Chinese punctuation, as %s s (VH-243)', (text, seconds) => {
+    // The ideographic full stop is the key the full-width `．` is on, in the
+    // keyboard's other punctuation mode, and NFKC folds only the latter:
+    // `1：05．5` was read and `1：05。5` refused. Its half-width form too.
+    expect(parseTrimTime(text)).toBeCloseTo(seconds, 9)
+  })
+
+  it.each(['。', '｡', '1。2。3', '1。', '。5', '1。5：00', '1：05。', '1。.5', '1、5', '1·5'])(
+    'still refuses %j: an ideographic full stop is a decimal point and nothing more (VH-243)',
+    (text) => {
+      // Read as `.`, so refused exactly where the Latin form is: `.`,
+      // `1.2.3`, `1.`, `.5`, `1.5:00`. No other mark is taken for a point.
+      expect(parseTrimTime(text)).toBeNull()
+      const latin = text.replaceAll('。', '.').replaceAll('｡', '.').replaceAll('：', ':')
+      expect(parseTrimTime(latin)).toBeNull()
+    },
+  )
+
+  it.each([
     'ａｂｃ',
     '１：７５',
     '－５',
@@ -82,13 +107,15 @@ describe('times in the fields', () => {
     '：３０',
     '１，５',
     '1、5',
-    '1：05。5',
+    '1。2。3',
     '٣',
     '三',
   ])('still refuses %j once folded (VH-243, E-03)', (text) => {
     // The fold changes the width of what was typed, never what counts as a
-    // time: letters, a third colon, a minus, a comma and digits of another
-    // script are refused as their Latin forms are.
+    // time: letters, a third colon, a minus, a comma, a second decimal point
+    // and digits of another script are refused as their Latin forms are.
+    // (`1：05。5` stood here, refused, with the same reasoning; its Latin
+    // form `1:05.5` is the helper's own example, and it is now read.)
     expect(parseTrimTime(text)).toBeNull()
   })
 

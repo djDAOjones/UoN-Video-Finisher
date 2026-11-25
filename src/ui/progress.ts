@@ -180,9 +180,11 @@ export function outcomeTitle(outcome: 'ready' | 'failed' | 'cancelled' | 'none')
 
 /**
  * Whether a choice that sends the page on to a new check takes the tab
- * title's outcome with it (VH-239, C-11). A cancelled or failed job's goes,
- * as "Cancelled." goes from the status line; "Ready" stays, since its result
- * still stands on the page, and a running stage is not an outcome.
+ * title's outcome with it (VH-239, C-11), as does anything else that gives
+ * the status line other words or none (VH-243, F-05). A cancelled or failed
+ * job's goes, as "Cancelled." goes from the status line; "Ready" stays,
+ * since its result still stands on the page, and a running stage is not an
+ * outcome.
  */
 export function outcomeEndsAtNewCheck(of: 'ready' | 'failed' | 'cancelled' | 'none' | 'stage'): boolean {
   return of === 'failed' || of === 'cancelled'

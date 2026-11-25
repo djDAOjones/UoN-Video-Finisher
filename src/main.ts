@@ -933,9 +933,15 @@ function updateSystemCheckSummary(): void {
  * The Create step's status line. It is not on the page until a video has been read, so
  * anything about the FILE goes through {@link setSourceStatus} instead: a live
  * region inside a hidden section is neither seen nor announced.
+ *
+ * The line's one writer, so the tab title follows it from here: new words,
+ * or none, end a title that still said "Cancelled" or "Not made" (VH-243,
+ * analyst F's F-05). A job's end therefore writes its sentence first and its
+ * title after.
  */
 function setStatus(message: Text, spokenOnly: Text = ''): void {
   statusAsksDiscard = false
+  titleMovesOn()
   show(statusLine, () => paintStatus(statusLine, message, spokenOnly))
 }
 
@@ -1879,7 +1885,6 @@ presetChoice.addEventListener('change', () => {
   // Start comes down for the interval, because the verdict that revealed it
   // described a different preset (review R-05).
   const current = beginSelection()
-  titleMovesOn()
   cancelTrimRecheck()
   // Before anything below is withdrawn: the step keeps its height through
   // the check (VH-240).
@@ -2116,7 +2121,6 @@ function commitTrim(by: TrimCommit): void {
   const file = chosenFile
   if (!file || file !== inspectedFile) return
   const current = beginSelection()
-  titleMovesOn()
   // Before anything below is withdrawn: the step keeps its height through
   // the pause and the check after it (VH-240). Each key of a handle ends
   // here, and the hold the first took is the one kept.
@@ -2325,8 +2329,10 @@ function onStage(stage: PipelineStage, fraction: number): void {
  * one scroll, at once and no further than it takes (VH-243, E-02). They
  * arrive above Cancel, which has focus by then, and on a phone the browser
  * keeps Cancel where it was and lets them land above the window's top edge.
- * Nothing moves where they are already in the window, nor behind the
- * feedback dialogue. The room at the window's edge is the root's own
+ * Where they land in the window and push the focused Cancel past its foot,
+ * the same one scroll brings Cancel back in (analyst F's F-01). Nothing
+ * moves where all of it is already in the window, nor behind the feedback
+ * dialogue. The room at the window's edge is the root's own
  * `scroll-padding-block`, as for a control brought in by focus (VH-241).
  */
 function revealProgress(): void {
@@ -2356,9 +2362,12 @@ function setTitle(of: typeof titleOf): void {
 }
 
 /**
- * A choice that sends the page on to a new check: the status line stops
- * saying "Cancelled." or that the video was not made, and the tab title
- * stops with it (VH-239, C-11). A finished video's "Ready" stays.
+ * The status line stops saying "Cancelled." or that the video was not made,
+ * and the tab title stops with it (VH-239, C-11): at a choice that sends
+ * the page on to a new check, and at anything else that gives the line
+ * other words or empties it, a refused Create among them (VH-243, F-05).
+ * Called by {@link setStatus} and nowhere else, so the two cannot disagree.
+ * A finished video's "Ready" stays.
  */
 function titleMovesOn(): void {
   if (outcomeEndsAtNewCheck(titleOf)) setTitle('none')
@@ -3476,6 +3485,9 @@ function beginJob(file: File): void {
       // stopping", which would otherwise stand as the page's last word and be
       // said again by a change of language (VH-150).
       setStatus('', () => t().status.couldNotCreate({ sentence: failureSentence(failureWords(failure)) }))
+      // The line was written again with the failure's own words, so the
+      // title it has just let go is the failure's still (VH-243, F-05).
+      setTitle('failed')
     })
     .finally(() => {
       jobCancelId = null

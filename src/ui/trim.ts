@@ -14,7 +14,9 @@ import {
   TRIM_KEY_STEP_SECONDS,
   TRIM_PAGE_STEP_FRACTION,
   TRIM_PAGE_STEP_SECONDS,
+  TRIM_TIME_DECIMAL_POINT,
   TRIM_TIME_FOLD,
+  TRIM_TIME_FULL_STOPS,
 } from '../config/trim'
 import { t } from '../i18n'
 import {
@@ -49,12 +51,18 @@ export function formatTrimTime(seconds: number): string {
  *
  * Folded first, as the student ID numbers are: a Chinese keyboard types
  * `０：０５`, which reads on screen as the form the helper asks for, and was
- * refused with that form as the remedy (VH-243, E-03).
+ * refused with that form as the remedy (VH-243, E-03). In Chinese
+ * punctuation the same keyboard types `。` for the decimal point, which the
+ * fold leaves alone, so it is read as the point here (VH-243).
  *
  * @returns Seconds, or `null` for anything that is not a time — never a guess.
  */
 export function parseTrimTime(text: string): number | null {
-  const parts = text.normalize(TRIM_TIME_FOLD).trim().split(':')
+  const folded = TRIM_TIME_FULL_STOPS.reduce(
+    (time, stop) => time.replaceAll(stop, TRIM_TIME_DECIMAL_POINT),
+    text.normalize(TRIM_TIME_FOLD),
+  )
+  const parts = folded.trim().split(':')
   if (parts.length > 3 || parts.some((part) => !/^\d+(\.\d+)?$/.test(part))) return null
   // Only the last part may carry a fraction, and minutes and seconds after a
   // colon stay under 60.

@@ -1,8 +1,7 @@
 # Next steps
 
 Written 2026-11-12 during a repository tidy; brought up to date on
-2026-11-25, after the 0.3.0 cut and during the overnight UX loops
-(Phase 9). The live record is the ledger in [`project/`](project/); this
+2026-11-25, after the 0.3.0 cut and the overnight UX loops (Phase 9). The live record is the ledger in [`project/`](project/); this
 page is a short summary of it.
 
 ## Current state
@@ -10,10 +9,11 @@ page is a short summary of it.
 - Release 0.3.0 is cut (VH-204, 2026-11-25): tag `v0.3.0`, and its Xerte
   zip is in `release/`, built from the tag. It is the page Phase 8 closed
   on. Nothing is uploaded: the upload is the owner's (VH-14).
-- Phase 9, the overnight UX loops of 2026-11-25 (PLAN-9), is mending what
-  a fresh analysis found, in existing words only. Its analysis, its
-  evidence and the sheet of points that wait on the owner are in
-  [`reviews/2026-11-25/`](reviews/2026-11-25/).
+- Phase 9, the overnight UX loops of 2026-11-25 (PLAN-9), is closed: three
+  rounds of analysis, and what they found mended in existing words only.
+  The analysts' reports, each fix's evidence and the sheet of 33 points
+  that wait on the owner are in [`reviews/2026-11-25/`](reviews/2026-11-25/);
+  start with `owner-sheet-2026-11-25.md`.
 - `main` on GitHub holds those fixes after 0.3.0, so the preview is ahead
   of the release.
 - The GitHub repository is `djDAOjones/UoN-Video-Finisher`; the local
@@ -43,5 +43,7 @@ page is a short summary of it.
    words, the small new things and the defaults.
 2. **VH-137**: the owner's review of the accessibility statement, whose
    date of 2026-11-18 has passed; the statement still promises it.
-3. **VH-14 / VH-226**: the Xerte upload of a release, then rename the
-   project folder and the `package.json` name to "finisher".
+3. **VH-245, then VH-14 / VH-226**: the owner chooses the release to
+   upload, 0.3.0 as cut or a 0.3.1 with Phase 9's fixes; the Xerte upload;
+   then rename the project folder and the `package.json` name to
+   "finisher".

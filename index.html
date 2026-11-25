@@ -118,12 +118,17 @@
              present, so a refusal is announced; it is empty otherwise.
              The heading is the input's visible label (VH-124): "Choose a
              video" said once, over the one filled button on the empty page,
-             rather than a heading, a label, a hint and a status all saying it. -->
+             rather than a heading, a label, a hint and a status all saying it.
+             `autocomplete="off"` as on every other control (VH-243): after
+             Back or Forward the browser may put a chosen file back with no
+             `change`, and the chooser would name a file the page has not
+             read. -->
         <div class="field drop-zone" id="drop-zone">
           <input
             class="file-input"
             type="file"
             id="file-input"
+            autocomplete="off"
             accept="video/*,.mp4,.mov,.m4v,.mkv,.webm"
             aria-labelledby="choose-heading"
             aria-describedby="drop-error"
@@ -352,13 +357,15 @@
                 spellcheck="false"
                 aria-describedby="title-card-date-helper title-card-date-error"
               />
+              <!-- The error straight under the field, as the three fields
+                   above have theirs, and the helper after it (VH-243). -->
+              <div aria-live="polite">
+                <p class="field-error" id="title-card-date-error" hidden></p>
+              </div>
               <p class="helper" id="title-card-date-helper">
                 <span class="helper-line" data-i18n="titleCard.dateHelper">Filled with today’s date in the video language.</span>
                 <span class="helper-line" data-i18n="titleCard.dateHelperNext">You can change it or clear it.</span>
               </p>
-              <div aria-live="polite">
-                <p class="field-error" id="title-card-date-error" hidden></p>
-              </div>
             </div>
           </div>
           <!-- VH-128, 2026-10-19. Submission, shown in place of the staff
