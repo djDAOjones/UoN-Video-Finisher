@@ -1,7 +1,7 @@
 // Copied from the UoN Video Finisher at 27f51dd (VNG-1), its Finisher-only
 // ignores dropped.
 {
-  "config": { "extends": "./.markdownlint.json" },
+  "config": { "extends": "../.markdownlint.json" }, // the repository's base (UVT-3)
   "globs": ["**/*.md"],
   "ignores": ["node_modules", "dist"],
 }
