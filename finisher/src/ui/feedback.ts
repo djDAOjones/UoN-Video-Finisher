@@ -9,15 +9,15 @@
  *
  * This is the diagnostics bundle's first production reader, so it has its own
  * redaction profile, deliberately narrower than the bundle's: it starts from
- * the already-redacted bundle (`core/redact.ts` has removed filenames, paths,
+ * the already-redacted bundle (`shared/core/redact.ts` has removed filenames, paths,
  * titles and caption text) and then keeps only a short list of named facts.
  * Nothing it does not name gets through. Over-redaction is the safe direction.
  *
  * Pure, so what a report contains is tested in Node.
  */
 
-import type { DiagnosticsBundle } from '../core/diagnostics'
-import { REDACTED } from '../core/redact'
+import type { DiagnosticsBundle } from '../../../shared/core/diagnostics'
+import { REDACTED } from '../../../shared/core/redact'
 import { FEEDBACK_LOG_LINE_MAX_CHARACTERS, FEEDBACK_RECENT_LOG_LINES } from '../config/feedback'
 import { language, t } from '../i18n'
 

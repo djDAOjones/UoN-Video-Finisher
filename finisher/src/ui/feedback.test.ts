@@ -14,10 +14,10 @@ import {
   buildDiagnosticsBundle,
   resetDiagnosticsContext,
   setDiagnosticsContext,
-} from '../core/diagnostics'
-import { clearLogRecords, log } from '../core/logger'
+} from '../../../shared/core/diagnostics'
+import { clearLogRecords, log } from '../../../shared/core/logger'
 import { setLanguage } from '../i18n'
-import { REDACTED } from '../core/redact'
+import { REDACTED } from '../../../shared/core/redact'
 import {
   describeBrowser,
   feedbackDetails,

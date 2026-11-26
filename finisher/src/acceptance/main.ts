@@ -6,7 +6,7 @@
  */
 
 import '../styles/app.css'
-import { APP_VERSION, BUILD_ID } from '../core/version'
+import { APP_VERSION, BUILD_ID } from '../../../shared/core/version'
 import { runAcceptance, type Check } from './run'
 
 const runButton = document.querySelector<HTMLButtonElement>('#run')

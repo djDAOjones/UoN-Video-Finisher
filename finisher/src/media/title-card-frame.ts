@@ -15,7 +15,7 @@
 import { GAP_SILENCE_BLOCK_SECONDS } from '../config/audio'
 import { LONGEST_CLOSING_SECONDS } from '../config/branding'
 import { TITLE_CARD_SECONDS } from '../config/cards'
-import { log } from '../core/logger'
+import { log } from '../../../shared/core/logger'
 import { JobFailureError } from '../workers/failure'
 import type { TitleCardRequest, TitleCardText } from '../workers/protocol'
 import {

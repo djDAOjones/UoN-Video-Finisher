@@ -9,7 +9,7 @@
  */
 
 import { SAVE_LEASE_LIMIT_MS } from '../config/thresholds'
-import { log } from '../core/logger'
+import { log } from '../../../shared/core/logger'
 
 /** Only what this needs of an `OpfsWorkspace`, so a test can pass two lines. */
 export interface Disposable {

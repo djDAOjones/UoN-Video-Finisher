@@ -50,7 +50,7 @@ import {
 } from '../config/branding'
 import { BOUNDARY_FADE_MS } from '../config/audio'
 import type { LanguageTag } from '../config/languages'
-import { log } from '../core/logger'
+import { log } from '../../../shared/core/logger'
 import type { OutputShape } from '../config/presets'
 import { toPlanar, toSample } from './audio-frames'
 import { fitRectangle } from './conform'

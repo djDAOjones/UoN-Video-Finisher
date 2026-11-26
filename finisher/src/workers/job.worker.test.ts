@@ -16,7 +16,7 @@
 
 import { afterEach, describe, expect, it, vi } from 'vitest'
 
-import type { LogRecord } from '../core/logger'
+import type { LogRecord } from '../../../shared/core/logger'
 import type { TitleCardRequest, WorkerOutbound, WorkerRequest, WorkerResponse } from './protocol'
 
 const heavy = vi.hoisted(() => ({

@@ -1,8 +1,8 @@
 /// <reference types="vite/client" />
 
-/** Injected by `define` in `vite.config.ts`. See `src/core/version.ts`. */
+/** Injected by `define` in `vite.config.ts`. See `shared/core/version.ts`. */
 declare const __APP_VERSION__: string
-/** Injected by `define` in `vite.config.ts`. See `src/core/version.ts`. */
+/** Injected by `define` in `vite.config.ts`. See `shared/core/version.ts`. */
 declare const __BUILD_ID__: string
 /**
  * Injected by `define` in `vite.config.ts`: `branding/`, or empty in the flat

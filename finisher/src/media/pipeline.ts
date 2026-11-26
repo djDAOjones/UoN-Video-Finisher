@@ -26,7 +26,7 @@ import {
 } from 'mediabunny'
 
 import { detectProductionWarnings, type AudioWarning } from '../audio/warnings'
-import { log } from '../core/logger'
+import { log } from '../../../shared/core/logger'
 import {
   CLOSING_DEFAULTS,
   CLOSING_ONSET_SECONDS,

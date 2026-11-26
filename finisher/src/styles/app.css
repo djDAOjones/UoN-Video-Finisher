@@ -3,7 +3,7 @@
  * See UI-STANDARDS.md before changing anything here.
  */
 
-@import './tokens.carbon.css';
+@import '../../../shared/styles/tokens.carbon.css';
 @import './tokens.brand.css';
 
 *,

@@ -19,7 +19,7 @@ import {
   WebMInputFormat,
 } from 'mediabunny'
 
-import { log } from '../core/logger'
+import { log } from '../../../shared/core/logger'
 import { conformCost, type ConformDecision } from './framerate'
 import { throwIfAborted } from './pipeline'
 import { scanTrackHandlers, type TrackScan } from './isobmff'

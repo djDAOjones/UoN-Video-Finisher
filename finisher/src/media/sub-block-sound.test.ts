@@ -15,7 +15,7 @@ import { describe, expect, it } from 'vitest'
 
 import { cutShort, pcmMp4, soundTrackOf } from '../../test/helpers/pcm-mp4'
 import { BLOCK_SECONDS } from '../audio/loudness'
-import { clearLogRecords, getLogRecords } from '../core/logger'
+import { clearLogRecords, getLogRecords } from '../../../shared/core/logger'
 import { detectSourceWarnings } from '../audio/warnings'
 import { analyseSourceAudio, planAudio } from './audio-plan'
 import { declaredExtent, shortfall } from './ends-early'

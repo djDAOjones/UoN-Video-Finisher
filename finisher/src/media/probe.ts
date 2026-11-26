@@ -24,7 +24,7 @@ import {
 } from 'mediabunny'
 
 import { CODEC_PROBE, GAIN_SOLVE } from '../config/audio'
-import { log } from '../core/logger'
+import { log } from '../../../shared/core/logger'
 import {
   AUDIO_STAGE_PASSES,
   CALIBRATION_PROBE_SECONDS,

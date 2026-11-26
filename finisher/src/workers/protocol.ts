@@ -7,9 +7,9 @@
  * pipeline that emits them, not before.
  */
 
-import type { CapturedError } from '../core/diagnostics'
-import type { EgressReport } from '../core/egress'
-import type { LogRecord } from '../core/logger'
+import type { CapturedError } from '../../../shared/core/diagnostics'
+import type { EgressReport } from '../../../shared/core/egress'
+import type { LogRecord } from '../../../shared/core/logger'
 import type { BrandingChoice, BrandingMode } from '../config/branding'
 import type { FailureCode, FailureReason } from './failure'
 import type { ContentClass, PresetId } from '../config/presets'

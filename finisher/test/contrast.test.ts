@@ -23,7 +23,10 @@ const read = (name: string) =>
     .replace(/\/\*[\s\S]*?\*\//g, '')
 
 // In import order: a later declaration of the same property wins.
-const css = `${read('tokens.carbon.css')}\n${read('tokens.brand.css')}`
+// The Carbon tokens are shared (UVT-2); the brand's are the Finisher's own.
+const carbon = readFileSync(new URL('../../shared/styles/tokens.carbon.css', import.meta.url), 'utf8')
+  .replace(/\/\*[\s\S]*?\*\//g, '')
+const css = `${carbon}\n${read('tokens.brand.css')}`
 
 /** Pulls custom properties out of a block of declarations. */
 function parseBlock(source: string): Record<string, string> {

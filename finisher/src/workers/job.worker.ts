@@ -6,9 +6,9 @@
  * never gains a decode or encode path.
  */
 
-import { installGlobalErrorCapture, type CapturedError } from '../core/diagnostics'
-import { EgressWatch, type EgressReport } from '../core/egress'
-import { getLogRecords, log, setMinimumLogLevel } from '../core/logger'
+import { installGlobalErrorCapture, type CapturedError } from '../../../shared/core/diagnostics'
+import { EgressWatch, type EgressReport } from '../../../shared/core/egress'
+import { getLogRecords, log, setMinimumLogLevel } from '../../../shared/core/logger'
 import {
   CONTENT_CLASSES,
   OUTPUT_SAMPLE_RATE,

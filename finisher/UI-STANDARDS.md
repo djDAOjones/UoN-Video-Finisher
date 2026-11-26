@@ -33,7 +33,7 @@ other.**
 | System | Governs | Source |
 | --- | --- | --- |
 | **UoN brand tokens** | Colour and typeface: the palette and its tints, and the colour ROLES assigned from it — surfaces, text, borders, interactive, focus — plus the heading and body font stacks and the logo's size and clear space | `src/styles/tokens.brand.css` |
-| **Carbon conventions** | Shape: spacing scale, type scale, motion, the 44 px target floor — and status colour, which the brand palette cannot supply at AAA | `src/styles/tokens.carbon.css` — implemented to match Carbon's spec, never installed as a package |
+| **Carbon conventions** | Shape: spacing scale, type scale, motion, the 44 px target floor — and status colour, which the brand palette cannot supply at AAA | `../shared/styles/tokens.carbon.css` (shared since UVT-2) — implemented to match Carbon's spec, never installed as a package |
 
 When adding a token, decide which system owns it from the table above.
 Colour is the brand's. How big, how far apart and how a control behaves is

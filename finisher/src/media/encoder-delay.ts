@@ -33,7 +33,7 @@ import {
   type AudioEncodingConfig,
 } from 'mediabunny'
 
-import { log } from '../core/logger'
+import { log } from '../../../shared/core/logger'
 
 /** Measured once per codec configuration; the delay is a property of the encoder. */
 const cache = new Map<string, Promise<number | null>>()

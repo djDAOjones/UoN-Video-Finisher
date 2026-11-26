@@ -27,7 +27,7 @@ import {
   CONTENT_SCREEN_MAX_MEAN_DIFFERENCE,
   CONTENT_SCREEN_MAX_SOURCE_BITS_PER_PIXEL_PER_FRAME,
 } from '../config/thresholds'
-import { log } from '../core/logger'
+import { log } from '../../../shared/core/logger'
 import type { KeptRange } from './kept-range'
 
 export interface ContentMotionMeasurement {

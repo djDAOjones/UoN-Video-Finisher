@@ -8,7 +8,7 @@
  * to prevent.
  */
 
-import { log } from '../core/logger'
+import { log } from '../../../shared/core/logger'
 
 export interface EncodeSupport {
   readonly supported: boolean

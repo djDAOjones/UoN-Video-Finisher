@@ -17,7 +17,7 @@
  */
 
 import { PICKER_CREATED_WITHIN_MS } from '../config/thresholds'
-import { log } from '../core/logger'
+import { log } from '../../../shared/core/logger'
 import { t } from '../i18n'
 
 export type SaveOutcome = 'saved' | 'downloaded' | 'cancelled' | 'refused-source'

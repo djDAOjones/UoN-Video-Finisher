@@ -61,14 +61,10 @@ src/
     branding.ts            durations (D2), closing defaults, controls -> job mapping (§4.2)
     thresholds.ts          pre-flight bands (§7.3), probe length, worker limits
     video-kind.ts          Staff video or Student submission, and a submission's closing rule (VH-131)
-  core/
-    logger.ts              structured logger + bounded ring buffer
-    diagnostics.ts         global error/unhandledrejection capture, redacted bundle
-    redact.ts              what never leaves the machine, applied to the bundle
-    egress.ts              per-realm watch on what leaves; the worker runs its own
+  core/                    logger, diagnostics, redact, egress and version are
+                           in the repository's ../shared/core/ since UVT-2
     keep-awake.ts          screen wake lock + the unload-warning rule (§7.5)
     watchdog.ts            silence-based timeouts for worker requests
-    version.ts             product version and build identity
   media/
     inspect.ts             Mediabunny demux → SourceReport, on the PRIMARY tracks
     isobmff.ts             handler-type scan for the tracks Mediabunny cannot see
@@ -124,7 +120,8 @@ src/
   spike/                   maintainer probes. Dev-only; not built.
   styles/
     tokens.brand.css       UoN palette, font stacks, and the colour roles assigned from them
-    tokens.carbon.css      Carbon structural tokens (spacing, type, motion, status)
+                           tokens.carbon.css, Carbon's structural tokens, is in
+                           ../shared/styles/ since UVT-2
   assets/                  brand files that are wanted and optional at build time
 test/
   ebu3341/                 signal synthesis + published expected values

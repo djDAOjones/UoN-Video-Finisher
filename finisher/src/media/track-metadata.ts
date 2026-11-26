@@ -14,7 +14,7 @@
 
 import type { TrackDisposition } from 'mediabunny'
 
-import { log } from '../core/logger'
+import { log } from '../../../shared/core/logger'
 
 /** The part of Mediabunny's `InputTrack` this reads. */
 export interface SourceTrackIdentity {

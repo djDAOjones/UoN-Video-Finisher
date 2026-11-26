@@ -35,7 +35,7 @@ import {
   LIMITER,
   TRUE_PEAK_CEILING_DBTP,
 } from '../config/audio'
-import { log } from '../core/logger'
+import { log } from '../../../shared/core/logger'
 import { toPlanar, toSample } from './audio-frames'
 
 /** A half-open range of frames, `[start, end)`, in the chain's output stream. */

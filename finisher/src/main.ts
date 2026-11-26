@@ -17,15 +17,15 @@ import {
   resetDiagnosticsContext,
   setDiagnosticsContext,
   type CapturedError,
-} from './core/diagnostics'
+} from '../../shared/core/diagnostics'
 import {
   KeepAwake,
   shouldHoldWakeLock,
   shouldWarnBeforeLeaving,
   warnBeforeLeaving,
 } from './core/keep-awake'
-import { adoptLogRecords, log, setMinimumLogLevel } from './core/logger'
-import { APP_VERSION, BUILD_ID } from './core/version'
+import { adoptLogRecords, log, setMinimumLogLevel } from '../../shared/core/logger'
+import { APP_VERSION, BUILD_ID } from '../../shared/core/version'
 import {
   brandingChoiceFor,
   closingTypeUsesOnset,

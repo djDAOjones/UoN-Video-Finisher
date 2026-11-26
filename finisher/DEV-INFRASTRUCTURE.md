@@ -200,7 +200,7 @@ with it.
 
 ### The logger
 
-One structured logger in `src/core/logger.ts`. Never scattered
+One structured logger in `shared/core/logger.ts` at the repository's root (UVT-2). Never scattered
 `console.log`.
 
 ```ts
@@ -218,7 +218,7 @@ Scopes match the module tree: `boot`, `inspect`, `capability`, `probe`,
 
 ### Global capture
 
-`src/core/diagnostics.ts` installs, at boot and before anything else:
+`shared/core/diagnostics.ts` installs, at boot and before anything else:
 
 - `window.addEventListener('error', …)`
 - `window.addEventListener('unhandledrejection', …)`
@@ -397,7 +397,7 @@ Two parts:
 | **Build identity** | `v0.1.0+20260824.92e9791` | Injected at build time from the date and `git rev-parse --short HEAD` |
 
 Injected by Vite `define` as `__APP_VERSION__` and `__BUILD_ID__`, read
-once in `src/core/version.ts`. Both appear in the diagnostics bundle and
+once in `shared/core/version.ts`. Both appear in the diagnostics bundle and
 in the UI's About/footer line — both are non-secret and safe to copy.
 
 **Bump rule:** patch for fixes; minor for a completed milestone; `v1.0.0`
@@ -619,7 +619,7 @@ a preference — it is what keeps the open decisions cheap.
 | `config/branding.ts` | D2 durations, the §4.2 master variant table |
 | `config/thresholds.ts` | Pre-flight bands (§7.3), audio-warning triggers (§5.4) |
 | `styles/tokens.brand.css` | The D1 brand background colour, and the UoN palette |
-| `styles/tokens.carbon.css` | Carbon structural tokens |
+| `../shared/styles/tokens.carbon.css` | Carbon structural tokens, shared since UVT-2 |
 
 Each constant carries a one-line comment saying where the number came
 from. User-facing copy lives with its component, not in a config file —

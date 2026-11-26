@@ -1,6 +1,7 @@
 import { execSync } from 'node:child_process'
 import { existsSync, readdirSync, readFileSync, rmSync } from 'node:fs'
 import { extname, resolve } from 'node:path'
+import { searchForWorkspaceRoot } from 'vite'
 import { defineConfig, type Plugin } from 'vitest/config'
 
 import pkg from './package.json' with { type: 'json' }
@@ -176,6 +177,10 @@ export default defineConfig(({ mode }) => {
       // and `strictPort` stays off so a neighbour holding 5173 moves us rather
       // than stopping us. See DEV-INFRASTRUCTURE.md -> "Dev server".
       port: Number(process.env['PORT']) || 5173,
+      // The shared code sits beside this folder, at the repository's root
+      // (`../shared/`, the parent's, UVT-2): the dev server may read it as
+      // well as this folder. A build reads it from disk and needs no leave.
+      fs: { allow: [searchForWorkspaceRoot(import.meta.dirname), resolve(import.meta.dirname, '../shared')] },
     },
     define: {
       __APP_VERSION__: JSON.stringify(`v${pkg.version}`),
@@ -208,7 +213,9 @@ export default defineConfig(({ mode }) => {
     },
     test: {
       environment: 'node',
-      include: ['test/**/*.test.ts', 'src/**/*.test.ts'],
+      // The shared core's tests run here too, under this tool's build-time
+      // values: the Finisher depends on them (UVT-2).
+      include: ['test/**/*.test.ts', 'src/**/*.test.ts', '../shared/core/**/*.test.ts'],
       // The audio chain tests push 90-120 seconds of synthesised speech through
       // the full DSP chain, which legitimately takes seconds rather than
       // milliseconds. Locally the slowest sits at ~3.9 s, comfortably under

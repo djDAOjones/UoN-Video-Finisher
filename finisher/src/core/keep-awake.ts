@@ -13,7 +13,7 @@
  * worth asking for.
  */
 
-import { log } from './logger'
+import { log } from '../../../shared/core/logger'
 
 /** The bit of `navigator.wakeLock` this needs, since the DOM lib may not have it. */
 interface WakeLockLike {

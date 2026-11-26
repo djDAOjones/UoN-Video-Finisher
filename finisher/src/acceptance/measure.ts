@@ -317,7 +317,7 @@ export async function measureLoudness(
   return analyser.finish()
 }
 
-// The egress instruments moved to `core/egress.ts` when the worker had to run
+// The egress instruments moved to `core/egress.ts` (now `shared/core/egress.ts`) when the worker had to run
 // one too (VH-62). Re-exported so the harness keeps one import for everything
 // it measures.
 export {
@@ -326,4 +326,4 @@ export {
   mergeEgress,
   type EgressRecord,
   type EgressReport,
-} from '../core/egress'
+} from '../../../shared/core/egress'

@@ -135,7 +135,7 @@ describe('tokens, not literals (VH-124)', () => {
     // The guard above means nothing if the token files stop carrying the
     // values: the measure, the line heights and the paragraph gap are
     // where the brief's typography lands.
-    const tokens = readFileSync(new URL('../src/styles/tokens.carbon.css', import.meta.url), 'utf8')
+    const tokens = readFileSync(new URL('../../shared/styles/tokens.carbon.css', import.meta.url), 'utf8')
     expect(tokens).toMatch(/--measure:\s*28rem;/)
     expect(tokens).toMatch(/--line-height-body:\s*1\.5;/)
     expect(tokens).toMatch(/--paragraph-gap:\s*var\(--spacing-05\);/)
@@ -244,7 +244,7 @@ describe('disabled controls look disabled (VH-151)', () => {
 })
 
 describe('type weights (VH-145, pinned by VH-151)', () => {
-  const tokens = readFileSync(new URL('../src/styles/tokens.carbon.css', import.meta.url), 'utf8')
+  const tokens = readFileSync(new URL('../../shared/styles/tokens.carbon.css', import.meta.url), 'utf8')
 
   it('hold the three weights and the status mark\u2019s own role', () => {
     expect(tokens).toMatch(/--type-weight-body:\s*400;/)
@@ -373,7 +373,7 @@ describe('long words and the trim handles under forced colours (VH-165)', () => 
 })
 
 describe('one type set (VH-166)', () => {
-  const tokens = readFileSync(new URL('../src/styles/tokens.carbon.css', import.meta.url), 'utf8')
+  const tokens = readFileSync(new URL('../../shared/styles/tokens.carbon.css', import.meta.url), 'utf8')
   const roles: Record<string, [string, string, string, string[]]> = {
     'page title': ['heading-04', 'heading', 'heading', ['.page-title']],
     'panel heading': ['heading-03', 'heading', 'heading-03', ['.panel h2', '.dialog h2']],
@@ -419,7 +419,7 @@ describe('one type set (VH-166)', () => {
 })
 
 describe('one reading measure (VH-167)', () => {
-  const tokens = readFileSync(new URL('../src/styles/tokens.carbon.css', import.meta.url), 'utf8')
+  const tokens = readFileSync(new URL('../../shared/styles/tokens.carbon.css', import.meta.url), 'utf8')
 
   it('is one rem width, so no size or language resolves it to a width of its own', () => {
     // 55ch and 40em held four widths in one column (V-33); a rem does not follow the element's font.
@@ -473,7 +473,7 @@ describe('a pressed state for each button kind (VH-169)', () => {
 })
 
 describe('three rings drawn whole, and a forced-colour hover (VH-179)', () => {
-  const tokens = readFileSync(new URL('../src/styles/tokens.carbon.css', import.meta.url), 'utf8')
+  const tokens = readFileSync(new URL('../../shared/styles/tokens.carbon.css', import.meta.url), 'utf8')
   const forced = /@media \(forced-colors: active\)\s*\{([\s\S]*?)\n\}/.exec(rules)?.[1] ?? ''
   const block = (source: string, selector: string): string =>
     new RegExp(`(?:^|\\})\\s*${selector.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\s*\\{([^}]*)\\}`).exec(source)?.[1] ?? ''
@@ -611,7 +611,7 @@ describe('a wrapped statement link’s ring (VH-233)', () => {
 })
 
 describe('the System check’s mark column (VH-230)', () => {
-  const tokenFile = readFileSync(new URL('../src/styles/tokens.carbon.css', import.meta.url), 'utf8')
+  const tokenFile = readFileSync(new URL('../../shared/styles/tokens.carbon.css', import.meta.url), 'utf8')
   const rowRule = /(?:^|\})\s*\.system-check \.check\s*\{([^}]*)\}/m.exec(rules)?.[1] ?? ''
   const markRule = /(?:^|\})\s*\.system-check \.check \.mark\s*\{([^}]*)\}/m.exec(rules)?.[1] ?? ''
 
@@ -723,7 +723,7 @@ describe('eight readings mended (VH-241)', () => {
 })
 
 describe('three side effects of the night’s fixes mended (VH-243)', () => {
-  const tokenFile = readFileSync(new URL('../src/styles/tokens.carbon.css', import.meta.url), 'utf8')
+  const tokenFile = readFileSync(new URL('../../shared/styles/tokens.carbon.css', import.meta.url), 'utf8')
   /** A rule's declarations, by its exact selector, outside any media query. */
   const block = (selector: string): string =>
     new RegExp(`(?:^|\\})\\s*${selector.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\s*\\{([^}]*)\\}`).exec(rules)?.[1] ?? ''

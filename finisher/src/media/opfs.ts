@@ -21,7 +21,7 @@
 
 import { StreamTarget, type StreamTargetChunk } from 'mediabunny'
 
-import { log } from '../core/logger'
+import { log } from '../../../shared/core/logger'
 
 /** Every job's scratch lives under this one directory, so a sweep knows where to look. */
 export const ROOT_DIRECTORY = 'uon-video-helper-jobs'
