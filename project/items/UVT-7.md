@@ -31,7 +31,7 @@ phase's end (UVT-9).
 
 Updated: 2026-11-26
 
-Next step: Set 1 and the Node range at the one install, its own commit with Codex's review; then the base configs.
+Next step: the base configs offered: the TypeScript design and the ESLint layers, its own commit with Codex's review; then the pack tools' reach.
 
 Open question: None.
 
@@ -50,3 +50,4 @@ Open question: None.
 - 2026-11-26 — Codex's review of the draft plan (gpt-6.2-astra, rejected with thirteen findings, folded in here and in PLAN-11): `erasableSyntaxOnly` raises 25 TS1294 errors in the Finisher (its audio biquad module among them); two escape rules raise 10 in its media content-class module; the accessibility runner reads Playwright, axe and ESLint under the tool's own `node_modules` and found them absent from both tool folders; the pack's test files raise 102 diagnostics under the Finisher's strict project.
 - 2026-11-26 — Codex's review of the record (gpt-6.2-astra, rejected with eleven findings, folded in): the trial's `main.tsx` was dropped by TypeScript for the `main.ts` beside it, not by the install; `a11y:extended` and the JSDoc ratchet have their own tool-local lookups; Node 20 cannot hold under vitest 5.1.0 and the existing markdownlint; the Codex hooks need a fresh-checkout check. Set 1's engines read from the trial's lockfile: Node 22.18.0 fails only undici's `>=22.19.0`; 25.0.0 fails vitest, dependency-cruiser and watskeburt; 22.19.0, 24.0.0 and 26.0.0 fail none.
 - 2026-11-26 — Step 1, the model policy and the root's Codex hooks: `project/model-policy.md` and its routed row, both signed lines delegated; `.codex/hooks.json` by hand, the root found by Git, each hook standing aside in a tool's folder; checked in a fresh clone (`/Users/joe/UoN-Video-Tools-spike/uvt7-codex-fresh`), each hook trusted in `/hooks`, then, with no bypass, each of the four fired once and exited 0 on the root, the three start and tool hooks from `lobby/`, no root script invoked from `finisher/` (the decision UVT-7); a live chat's view stays the owner's, a wish line.
+- 2026-11-26 — Step 2, Set 1 and the Node range: the item's list at exact versions, one `playwright-core` 1.56.1; `engines` `^22.19.0 || ^24.0.0 || >=26.0.0` and the profile's Runtime and Dependencies lines; the whole gate green at today's counts on Node 22.19.0 and 24.21.0; Set 1's signed record in the decision.

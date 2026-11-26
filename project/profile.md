@@ -23,13 +23,13 @@
 
 ## Stack and infrastructure
 
-- Runtime: TypeScript (strict), Vite, Vitest; Chrome with WebCodecs; Node ^20.19 or >=22.12
+- Runtime: TypeScript (strict), Vite, Vitest; Chrome with WebCodecs; Node ^22.19.0 || ^24.0.0 || >=26.0.0
 - Gate: `npm run check` — non-mutating, at the root: each tool's gate from its folder, then this ledger's checker; CI runs it before every publish
 - Hosting and deploy: GitHub Pages, the unadvertised preview from `main`, the staff lobby at the top and each tool in its folder; Xerte, the public home, a flat upload per tool by the owner
 - Harness: Claude Code and Codex · the root's hooks are the tools' hand-kept ones, not generated (INTAKE) · where a harness's memory differs, this ledger is the record
 - Handoff: Claude Code plans and executes; Codex reviews read-only; one writer per checkout across all three ledgers, a second session in its own clone, handed back by commit
 - Secrets: none held; never in source, URLs or logs; a leak is rotated first, then a decision
-- Dependencies: one install and lockfile, at the root; one runtime dependency, mediabunny; a change is this ledger's decision; a second runtime dependency stops and asks
+- Dependencies: one root install and lockfile; Set 1 exact; no install scripts; runtime mediabunny, react, react-dom, @carbon/react, a fifth only on asking
 - Structure: `project/structure.md` (generated)
 
 ## Standards adopted
@@ -50,6 +50,6 @@
 
 ## Signed
 
-- Owner: Joe, 2026-11-26.
+- Owner (delegated, not reviewed): Joe, 2026-11-26 — see PLAN-11, UVT-7
 
 Changes above this line are decisions.

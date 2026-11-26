@@ -57,8 +57,12 @@ jobs:
           node-version: 24
           cache: npm
 
-      # One install, at the root; each tool finds it by walking up.
-      - run: npm ci
+      # One install, at the root; each tool finds it by walking up. No
+      # dependency's install script runs (UVT-7): package.json denies each in
+      # allowScripts, and --ignore-scripts holds whatever npm the runner has,
+      # so Carbon's and IBM Plex's telemetry postinstalls, which collect only
+      # on CI, never run here.
+      - run: npm ci --ignore-scripts
 
       # The full gate, not just a build: every tool's, each from its own
       # folder, which is what `npm run check` at the root runs. A deploy is the

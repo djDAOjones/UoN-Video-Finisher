@@ -6,24 +6,69 @@
   "description": "The UoN Video Tools: each tool in its own folder, one install at the root.",
   "license": "MIT",
   "engines": {
-    "node": "^20.19.0 || >=22.12.0"
+    "node": "^22.19.0 || ^24.0.0 || >=26.0.0"
   },
   "scripts": {
     "check": "npm run check --prefix finisher && npm run check --prefix name-graphics && npm run check:root",
     "check:root": "node scripts/check-commit-ids.mjs && eslint eslint.config.js eslint.base.js eslint.boundaries.js scripts shared --max-warnings 0 && tsc -p shared && vitest run --config shared/vitest.config.ts && node --test scripts/*.test.mjs && node tools/check.mjs"
   },
   "dependencies": {
-    "mediabunny": "^1.55.2"
+    "@carbon/react": "1.118.0",
+    "mediabunny": "^1.55.2",
+    "react": "19.1.10",
+    "react-dom": "19.1.10"
   },
   "devDependencies": {
-    "@eslint/js": "^10.0.1",
+    "@axe-core/playwright": "4.13.0",
+    "@eslint/js": "9.39.5",
+    "@guidepup/guidepup": "0.36.4",
+    "@guidepup/setup": "0.29.3",
+    "@ibm/plex": "6.4.1",
+    "@playwright/test": "1.56.1",
     "@types/node": "^26.2.0",
-    "eslint": "^10.9.1",
+    "@types/prop-types": "15.7.15",
+    "@types/react": "19.1.17",
+    "@types/react-dom": "19.1.11",
+    "axe-core": "4.13.0",
+    "dependency-cruiser": "18.6.0",
+    "eslint": "9.39.5",
+    "eslint-plugin-jsx-a11y": "6.10.2",
+    "eslint-plugin-react-hooks": "7.1.1",
+    "fast-check": "4.10.2",
+    "knip": "6.41.0",
     "markdownlint-cli2": "^0.23.2",
+    "playwright-core": "1.56.1",
     "prettier": "^3.9.6",
-    "typescript": "~6.0.3",
-    "typescript-eslint": "^8.68.0",
-    "vite": "^8.2.2",
-    "vitest": "^4.1.11"
+    "sass": "1.105.1",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.71.2",
+    "vite": "8.2.2",
+    "vitest": "5.1.0"
+  },
+  "allowScripts": {
+    "ffmpeg-static": false,
+    "@carbon/colors": false,
+    "@carbon/feature-flags": false,
+    "@carbon/grid": false,
+    "@carbon/icons-react": false,
+    "@carbon/icon-helpers": false,
+    "@carbon/layout": false,
+    "@carbon/react": false,
+    "@carbon/motion": false,
+    "@carbon/styles": false,
+    "@carbon/themes": false,
+    "@carbon/type": false,
+    "@carbon/utilities": false,
+    "@ibm/plex": false,
+    "@ibm/plex-mono": false,
+    "@ibm/plex-sans-arabic": false,
+    "@ibm/plex-sans": false,
+    "@ibm/plex-sans-devanagari": false,
+    "@ibm/plex-sans-thai": false,
+    "@ibm/plex-serif": false,
+    "@ibm/plex-sans-thai-looped": false,
+    "@ibm/plex-sans-hebrew": false,
+    "@parcel/watcher": false,
+    "fsevents": false
   }
 }
