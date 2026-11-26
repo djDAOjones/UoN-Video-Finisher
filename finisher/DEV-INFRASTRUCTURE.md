@@ -629,12 +629,21 @@ it is content, not configuration.
 
 ## Editor config
 
-`.editorconfig` at the root (scaffolded). Mechanical rules only: UTF-8,
+`.editorconfig` at the repository's root (scaffolded). Mechanical rules only: UTF-8,
 LF line endings, final newline, trimmed trailing whitespace, 2-space
 indent for JS/TS/CSS/JSON, 4-space for Markdown continuation.
 
 Prettier owns everything beyond that and runs on save. The two do not
 disagree; if they ever do, Prettier wins and `.editorconfig` is corrected.
+
+Since UVT-3 the tool configs both tools share live at the repository's
+root, one copy each: `.editorconfig`, `.prettierrc.json` and
+`.markdownlint.json` are found there (Prettier and EditorConfig search
+upward; `.markdownlint-cli2.jsonc` here extends the root's by path), and
+`tsconfig.json` and `eslint.config.js` here extend `tsconfig.base.json`
+and `eslint.base.js`, adding only this tool's `include` and `ignores`.
+`.prettierignore` and `.markdownlint-cli2.jsonc` stay here: their
+ignores are this tool's.
 
 ---
 

@@ -1,5 +1,5 @@
 {
-  "config": { "extends": "./.markdownlint.json" },
+  "config": { "extends": "../.markdownlint.json" }, // the repository's base (UVT-3)
   "globs": ["**/*.md"],
   "ignores": [
     "node_modules",
