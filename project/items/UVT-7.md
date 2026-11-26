@@ -1,0 +1,51 @@
+# UVT-7 — The stack's foundation at the root: the root's model policy, Set 1 at the one install, the base configs from the app pack, the dependency folder's place, the signed lines
+
+## Intent
+
+On the owner's word of 2026-11-26 both tools are rebuilt as though they
+were begun on pm-skills 5's app opinion, every pack that fits taken in
+full, each step reviewed by Codex (PLAN-11). Everything the tools'
+items build on is this ledger's: the one install, the base configs every
+folder extends, the dependency rules and the signed constraints. This
+item lays that ground without changing what either tool does: every new
+rule is offered for each tool to take up in its own item (the Finisher
+in VH-250, Name Graphics in VNG-14), and switched on for all only at the
+phase's end (UVT-9).
+
+## Acceptance criteria
+
+- Each step is its own commit, the root gate green after it, Codex's review before it: the model policy; Set 1 and the Node range; the base configs; the pack tools' reach to the root install; the signed lines.
+- project/model-policy.md from the pack's template: per step, Claude's model and effort and Codex on `gpt-6.2-astra`, read-only, before the commit lands; a recheck after fixes; the revision reviewed named; the reviewer briefed from the item, the diff, the Always rules and the routed documents; each commit carrying `Verify:`, `Checked: gpt-6.2-astra — <verdict> — <scope at revision>` and, at a close, the digest rule applied. The rules file's routed row. Signed, delegated on "everything approved".
+- The root's Codex hooks: a Codex hooks file (`hooks.json` in a `.codex` folder) written by hand at the root (the session and handover hooks run with `--harness codex`, their paths the root's own; never by `tools/harness.mjs`, UVT-6.3), and checked in a fresh checkout: a new clone with its own install, Codex opened on the root, the project's `.codex` layer and each hook trusted, each hook firing once and exiting 0, the run recorded; what only a person sees in a live Codex chat named as the owner's.
+- Set 1 at the one install, exact versions in `package.json` (no ranges for the pack's packages): runtime react 19.1.10, react-dom 19.1.10, @carbon/react 1.118.0 beside mediabunny; dev eslint 9.39.5 and @eslint/js 9.39.5 (the pack's recorded conflict, "ESLint 9, or no jsx-a11y"), typescript-eslint 8.71.2, eslint-plugin-react-hooks 7.1.1, eslint-plugin-jsx-a11y 6.10.2, knip 6.41.0, dependency-cruiser 18.6.0, fast-check 4.10.2, sass 1.105.1, @ibm/plex 6.4.1, @types/react 19.1.17, @types/react-dom 19.1.11, @types/prop-types 15.7.15, @playwright/test 1.56.1, @axe-core/playwright 4.13.0, axe-core 4.13.0, @guidepup/guidepup 0.36.4, @guidepup/setup 0.29.3, typescript 6.0.3, vite 8.2.2, vitest 5.1.0. Set 1's signed record (`signed`, `keep`, `endOfLife`) written here for each adopting tool to carry as its own project/app/set1.json. Every gate green at today's counts: the Finisher 2,001 passed and 1 skipped (EBU cases 7 and 8), Name Graphics 126, `shared/` 25.
+- Node, decided against the whole gate (PLAN-11): the root's `engines` become `^22.19.0 || ^24.0.0 || >=26.0.0` and the root profile's Runtime line says so. The floor is the highest any package in Set 1's tree declares: vitest 5.1.0 accepts `^22.12.0 || ^24.0.0 || >=26.0.0` and dependency-cruiser 18.6.0 `^22 || ^24 || >=26` (neither takes Node 20, 23 or 25), dependency-cruiser's watskeburt `^22.13`, @guidepup/setup's undici `>=22.19.0`, and the markdownlint-cli2 already in today's gate `>=22`, so today's promise of `^20.19.0` is already broken. Tested: the whole root gate, every tool's gate in it, run green on Node 22.19.0, the floor, as well as on 24 (this Mac and CI), each run's version and result in the decision. Each tool's `engines` and Runtime line follow in its own item (VH-249, VNG-14).
+- The TypeScript design, strictness defined once: the root's `tsconfig.base.json` stays the one strict definition and gains the pack's checks it lacks (`erasableSyntaxOnly`) only as an option a folder opts into until UVT-9 (today it raises 25 errors in the Finisher); five projects each tool's `npm run typecheck` runs in its gate, none left out: a core project with ES libraries only and empty ambient types, so a DOM import in a core fails; the app; the workers; the tests; and the accessibility pack's test files, which are never edited and raise about 100 diagnostics under the repository's strict set, so their project's settings are recorded. The pack's tool-local `tsconfig.base.json` is not copied. The same-basename trap is written into the design: TypeScript reading a tool's `src` folder keeps `main.ts` and silently drops a `main.tsx` beside it (the trial, in both tools), even when both are named in `include` (Codex, with TypeScript 6.0.3), so a tool's React entry takes a basename of its own, and a check proves the compiler and ESLint's project service read it.
+- The accessibility pack's copied test harness (its eight TypeScript files, never edited) given a passing policy, proved in a tool folder before any tool copies it: one `playwright-core` for both @playwright/test and @axe-core/playwright, so their `Page` types match (today axe resolves 1.65.1 beside Playwright's 1.56.1, a mismatch even a relaxed project keeps), the alignment a Set 1 decision; the harness's own TypeScript project typechecking all eight files with no diagnostic; and an ESLint layer scoped to the harness's folder, as the app pack scopes its strict escape rules to `src/`, so the pack's code (twelve explicit `any` among Codex's 342 errors) is not judged by rules written for ours, while the project's own tests keep theirs. Each tool and the root apply it in their copy commit (VH-249, VNG-14, UVT-8).
+- The ESLint layers: `eslint.base.js` offers the pack's (ESLint's recommended rules, the type-checked set, the nine escape rules, the accessibility fragment over JSX and TSX, React's hook rules over TSX) as named layers a folder opts into, the `uvt` boundaries rule kept; today two escape rules raise 10 errors in one Finisher file, which the Finisher fixes under its own ID.
+- The pack tools reach the root install from a tool's folder, or a way round each is chosen: the accessibility runner reads Playwright, axe and ESLint under the tool's own `node_modules`; `a11y:extended` has its own lookup of the Playwright CLI there; the JSDoc ratchet runs only a TypeScript declared in the folder's own `package.json` and installed under its own `node_modules`, by real path; the app pack's configs assume the app owns its install. Proved from both tool folders before any tool adopts a pack: `npm run a11y`, `a11y:sample`, `a11y:doctor` and `a11y:extended` (its unattended browser projects; the attended VoiceOver run is each phase close's) resolving the root's Playwright, axe and ESLint while reading the tool's own declarations; the ratchet measuring each tool's own JSDoc configuration and its own baseline with the root's compiler. The way chosen recorded in the decision, and each limit in the pm-skills finding PLAN-11 left in the wish-list.
+- The dependency folder's place said in the profile: `node_modules` at the root of the pinned OneDrive checkout, on the owner's word "project lies in onedrive", an exception to intake's rule that keeps dependency folders outside OneDrive or excluded from sync (intake's other way, excluding the folder from sync, weighed and the choice recorded), with its recovery (the Finisher's DEV-INFRASTRUCTURE.md, "When the toolchain stalls"); a writer's own worktree lives outside OneDrive with its own install. Whether the checkout later leaves OneDrive stays the open question of D2 (UVT-6.16).
+- The signed lines rewritten to the stack, signed as delegated on "everything approved": the brief's Constraints (one runtime dependency; Carbon in our own code), the profile's Runtime, Dependencies, Standards and Harness lines; the profile and rules within their budgets. The Carbon rule is stated here once, for each tool's `UI-STANDARDS.md` to cite (UVT-6.11's trigger, answered in PLAN-11).
+- `node tools/check.mjs` 0 failures; the root gate green.
+
+## Now
+
+Updated: 2026-11-26
+
+Next step: the model policy and the Codex hooks, then Set 1 and the Node range at the one install, each its own commit with Codex's review.
+
+Open question: None.
+
+## Context and sources
+
+- [The plan, PLAN-11](../decisions.md)
+- [The profile](../profile.md)
+- [The brief](../brief.md)
+- [The base TypeScript config](../../tsconfig.base.json)
+- [The base ESLint config](../../eslint.base.js)
+- [The Finisher's recovery notes](../../finisher/DEV-INFRASTRUCTURE.md)
+
+## Notes
+
+- 2026-11-26 — The trial (clones outside OneDrive, `/Users/joe/UoN-Video-Tools-spike/trial-base` and `trial-stack`): Set 1 installed with no peer conflict; every gate green at today's counts on it, and again with vitest 5.1.0, on Node 24. The pack source is canon's v5.0.3 at d599678, checked out at `/Users/joe/UoN-Video-Tools-spike/pm-skills-503/pm_skills`.
+- 2026-11-26 — Codex's review of the draft plan (gpt-6.2-astra, rejected with thirteen findings, folded in here and in PLAN-11): `erasableSyntaxOnly` raises 25 TS1294 errors in the Finisher (its audio biquad module among them); two escape rules raise 10 in its media content-class module; the accessibility runner reads Playwright, axe and ESLint under the tool's own `node_modules` and found them absent from both tool folders; the pack's test files raise 102 diagnostics under the Finisher's strict project.
+- 2026-11-26 — Codex's review of the record (gpt-6.2-astra, rejected with eleven findings, folded in): the trial's `main.tsx` was dropped by TypeScript for the `main.ts` beside it, not by the install; `a11y:extended` and the JSDoc ratchet have their own tool-local lookups; Node 20 cannot hold under vitest 5.1.0 and the existing markdownlint; the Codex hooks need a fresh-checkout check. Set 1's engines read from the trial's lockfile: Node 22.18.0 fails only undici's `>=22.19.0`; 25.0.0 fails vitest, dependency-cruiser and watskeburt; 22.19.0, 24.0.0 and 26.0.0 fail none.

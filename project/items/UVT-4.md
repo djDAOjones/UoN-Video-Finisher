@@ -23,7 +23,7 @@ and VNG-12, each blocked on this item.
 
 Updated: 2026-11-26
 
-Next step: after stage 6's shared set (UVT-1 to UVT-3), plan the register's file format and the move of the Finisher's sheet with the owner.
+Next step: after Phase 11 (UVT-9) and the Finisher's VH-129, as PLAN-11 orders, plan the register's file format and the move of the Finisher's sheet with the owner.
 
 Open question: None.
 
