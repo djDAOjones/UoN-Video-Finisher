@@ -24,6 +24,16 @@
      moves the oldest entries verbatim to project/decisions-YYYY-MM.md,
      beside this file, listed in project/archive-index.md. -->
 
+## 2026-11-26 — REFRESH-503 — The project runs pm-skills 5.0.3 (build d599678), taken by the refresh route before the parent ledger is founded
+
+**Decision:** the project runs pm-skills 5.0.3, build d599678 (no tag `v5.0.3` yet, so named by commit), from 5.0.2 (b6a6707), by the release's refresh route, in the commit before this record: five files replaced, none of the project's own (`tools/migrate.mjs` and `view.mjs`, `verbs/control.md` and `intake.md`, and `tools/VERSION` reading 5.0.3); no pack, hook or setting installed; `AGENTS.md`, `CLAUDE.md`, the frozen canon record under `pm_skills/` and every file under `project/` unchanged by the refresh — on the owner's word of 2026-11-26, before the parent ledger is founded.
+
+**Rationale:** The owner's words in chat, 2026-11-26: "start stage 6, and insert upgrade to pm-skills 5.0.3 at the earliest advisable opportunity". Taken before stage 6 founds the parent ledger, so all three ledgers are founded and run on one version (D8). 5.0.3's Upgrade actions ask a project on 5.0.2 for the refresh and nothing else: no signed file, setting or hook. The route was tried first on a throwaway clone outside OneDrive, with the same five files, then run here; it refused nothing and found the 167 files under `project/` byte-equal, the signed files among them. Every installed tool, verb, `AGENTS.md` and `CLAUDE.md` now equals d599678's bytes (26 files); d599678 is canon's `main` at "REL-503: pm-skills 5.0.3", its `pm_skills/VERSION` 5.0.3. At the base and after the refresh, `node tools/check.mjs` gave 0 failures and 0 warnings, and `npm run check` from `finisher/` was green, 2,001 tests passed and 1 skipped (EBU cases 7 and 8, VH-27). Name Graphics takes the same refresh under its own REFRESH-503. The entry takes the live decisions to 46 of 45, so the close verb's archive step moves the oldest. Rollback: revert the refresh commit.
+
+**Supersedes:** 2026-11-26 — REFRESH-502 — The project runs pm-skills 5.0.2 (build b6a6707), taken by the refresh route
+
+**Deferred:** none
+
 ## 2026-11-26 — PLAN-10 — The student edition out of the Icebox, and the Finisher's words to join a translation register every tool shares, both after pm-skills 5.0.3
 
 **Decision:** VH-129, the student edition, moves from the Icebox to a milestone under Current, blocked on pm-skills 5.0.3's refresh; VH-247 opens, blocked on the parent ledger's translation register (stage 6) and VH-129's words; the register is the parent's: one record of every tool's words, kept in the repository and built from the code, from which each colleague gets a workbook of only their language's new, changed and unreviewed rows — on the owner's word of 2026-11-26.
@@ -475,15 +485,3 @@
 **Supersedes:** none
 
 **Deferred:** none
-
-## 2026-11-05 — VH-231 — Raised: a cut Matroska or WebM file said cut short with the finished video, never "the whole video", in the owner's words
-
-**Decision:** VH-231 takes VH-158.1's case, found by VH-222 on the Mac Pro: a cut Matroska or WebM file's warning is withdrawn when the job ends, and the trim and the record call its read length "the whole video". It is its own fix item, after VH-224 and before VH-203, built here: the warning first with the finished video, its announcement and the retained result; the trim's and the record's words and spec §5.4's row as the owner approved them. "Duration" stays.
-
-**Rationale:** The owner's answer, verbatim: "Yes, as drafted" (in Orchestrator #40's session, about 07:15Z), to "Which wording should VH-231 build?", whose recommended option was the three lines leaving "Duration" alone. Approved: for a cut Matroska or WebM file, the trim's "Keeping {kept}." in place of "Keeping the whole video, {duration}." and "Keeping {kept} of {duration}.", and the record's "{kept}, from {from} to {to}" in place of "the whole video ({duration})" and "{kept} of {duration}, from {from} to {to}", with the zh-Hans and ms-MY machine drafts, whose native check is wish VH-231.1; and spec §5.4's cut-short row extended to "said first among the warnings before processing, and again with the finished video and its completion announcement". Not taken: Video properties' "Duration" relabelled "Length that can be read". The owner chose the option that leaves it, so it is not deferred. The owner's answer 1 of 2026-11-05, "Here on the Mac Pro (Recommended)" (`plan8-owner-words.md`): a fix item raised by VH-220 to VH-224 is built, walked, gated and landed here, on its own branch; VH-222's stage rule makes a defect it finds a fix item before VH-203. Evidence: VH-222 #4's proof5 and VH-222 #5's g1, 81 of 81 cells. In every cell the panel gives the read length as the whole length; S-23 before Create shows the warning and `#status` names it; in all 45 finished cells the record says "the whole video (20 seconds / 5 seconds)", the warning is absent and `#status` is silent. The cause: `withdrawVerdict()` at the job's end, the card's warnings only the production ones, and `endedEarly` blind to a Matroska index. VH-231 #1's design and Codex astra's blind design check agreed on the warning carried with its existing words and no element; "the whole video" settled toward Codex by VH-139's precedent, the cut MP4's record. S-170, the cut WebM before Create, still unread, is VH-231's, given by Orchestrator #40. The Items list restates VH-229's, the latest, with VH-230 in its place after VH-218 (its raise carried no list) and VH-231 after VH-224. This raise builds nothing; the criteria are drafts for its worker: `project/items/VH-231.md`.
-
-**Supersedes:** 2026-10-30 — VH-229 — Raised: the promises and the privacy line behind a "?" beside the title, on the owner's choice
-
-**Items:** VH-182, VH-183, VH-184, VH-185, VH-186, VH-187, VH-188, VH-189, VH-190, VH-191, VH-192, VH-193, VH-194, VH-196, VH-197, VH-198, VH-205, VH-199, VH-200, VH-201, VH-202, VH-211, VH-206, VH-207, VH-208, VH-212, VH-213, VH-214, VH-215, VH-216, VH-227, VH-217, VH-229, VH-209, VH-218, VH-230, VH-219, VH-210, VH-225, VH-220, VH-221, VH-222, VH-223, VH-224, VH-231, VH-203, VH-195, VH-204, VH-226
-
-**Deferred:** VH-231

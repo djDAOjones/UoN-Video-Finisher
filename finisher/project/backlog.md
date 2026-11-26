@@ -49,9 +49,7 @@ The public release on Xerte (PLAN-6) is VH-245's cut, 0.3.1.
 
 ### pm-skills 5.0.2 — the owner's word of 2026-11-26 — CLOSED 2026-11-26
 
-### pm-skills 5.0.3 — the owner's word of 2026-11-26
-
-- [~] REFRESH-503 — The project takes pm-skills 5.0.3 by the refresh — since 2026-11-26
+### pm-skills 5.0.3 — the owner's word of 2026-11-26 — CLOSED 2026-11-26
 
 ### Standing — the owner's, never phase-gated
 

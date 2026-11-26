@@ -8,6 +8,10 @@
      items the canon record shipped before the migration, in v3's form;
      their why is in the frozen canon decision log (history.md). -->
 
+## pm-skills 5.0.3 — the owner's word of 2026-11-26
+
+- REFRESH-503 — the project runs pm-skills 5.0.3, canon's d599678 (no tag yet, named by commit): two tools, two verbs and tools/VERSION replaced as a set by the refresh route, none of the project's own, no pack, hook or setting, no signed file touched, the gate green, before the parent ledger is founded (2026-11-26) — see decisions
+
 ## pm-skills 5.0.2 — the owner's word of 2026-11-26
 
 - REFRESH-502 — the project runs pm-skills 5.0.2, canon's tag v5.0.2 at b6a6707: two tools, two verbs and tools/VERSION replaced as a set, none of the project's own, no pack, hook or setting, no signed file touched, by pull request (2026-11-26) — see decisions
