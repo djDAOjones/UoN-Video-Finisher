@@ -37,7 +37,7 @@ The public release on Xerte (PLAN-6) is VH-245's cut, 0.3.1.
 ### Staff and student editions, and the shared translation register — the owner's word of 2026-11-26, after pm-skills 5.0.3
 
 - [ ] VH-129 — The student edition: no official closings, hosted apart — since 2026-10-18 — (from: PLAN-1, 2026-10-18)
-- [ ] VH-247 — The Finisher's words in the translation register every tool shares, the student edition's with them — since 2026-11-26 — blocked: the parent ledger's register (stage 6) and VH-129's words
+- [ ] VH-247 — The Finisher's words in the translation register every tool shares, the student edition's with them — since 2026-11-26 — blocked: UVT-4 and VH-129's words
 
 ### Phase 7 — a second design, UX and accessibility pass, with Codex astra as partner, before the cut — CLOSED 2026-10-24
 
