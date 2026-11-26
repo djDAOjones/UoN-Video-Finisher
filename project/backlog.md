@@ -42,6 +42,8 @@ The public release on Xerte (PLAN-6) is VH-245's cut, 0.3.1.
 
 ### Phase 9 — the overnight UX loops: what a fresh analysis found, mended in existing words — CLOSED 2026-11-25
 
+### pm-skills 5.0.2 — the owner's word of 2026-11-26 — CLOSED 2026-11-26
+
 ### Standing — the owner's, never phase-gated
 
 - [!] VH-M2 — Measure the device envelope — since 2026-08-24 — blocked: the owner's own work — a canon [maintainer] item

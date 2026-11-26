@@ -8,6 +8,10 @@
      items the canon record shipped before the migration, in v3's form;
      their why is in the frozen canon decision log (history.md). -->
 
+## pm-skills 5.0.2 — the owner's word of 2026-11-26
+
+- REFRESH-502 — the project runs pm-skills 5.0.2, canon's tag v5.0.2 at b6a6707: two tools, two verbs and tools/VERSION replaced as a set, none of the project's own, no pack, hook or setting, no signed file touched, by pull request (2026-11-26) — see decisions
+
 ## Phase 6 — the public release: the feedback form, the statement, the cut, Xerte
 
 - VH-160 — a link to the feedback form on its own line under Send feedback, "(new tab)" in all three languages, its plain address from config, no "Leave site?"; checked in Chrome at 1280, 375 and 320 px, light, dark and forced colours (2026-10-22) — see decisions
