@@ -32,7 +32,7 @@ The public release on Xerte (PLAN-6) is VH-245's cut, 0.3.1.
 
 - [!] VH-137 — The accessibility statement's review, due 2026-11-18, with its contradictions and its two lists corrected — since 2026-10-20 — (from: VH-130, 2026-10-18) — blocked: the owner's review and the further tests chosen
 - [!] VH-14 — Deployment: the release on Xerte, the public home, and GitHub Pages kept as the unadvertised preview — since 2026-08-24 — blocked: the owner's own work, the Xerte upload of VH-245's 0.3.1 zip, not 0.3.0's — a canon [maintainer] item
-- [!] VH-226 — The project folder renamed — since 2026-10-28 — blocked: the owner's quiet point, when no sessions or walks are running, and his answer on the side folder
+- [~] VH-226 — The UoN Video Tools restructure: the Finisher becomes `finisher/` in one repository with Video Name Graphics and shared code — since 2026-10-28
 
 ### Phase 7 — a second design, UX and accessibility pass, with Codex astra as partner, before the cut — CLOSED 2026-10-24
 

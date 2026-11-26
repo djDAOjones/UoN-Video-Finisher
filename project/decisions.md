@@ -24,6 +24,26 @@
      moves the oldest entries verbatim to project/decisions-YYYY-MM.md,
      beside this file, listed in project/archive-index.md. -->
 
+## 2026-11-26 — VH-226 — Widened to the UoN Video Tools restructure: one repository, each tool a folder, shared code by path, three ledgers
+
+**Decision:** VH-226 is the whole restructure, not a folder rename: this repository becomes `djDAOjones/UoN-Video-Tools`, the Finisher moves as one block into `finisher/`, Video Name Graphics' history is merged in under `name-graphics/`, code two tools need lives in `shared/` imported by path under one install at the root, editions of one tool are build-time modes inside it, and the root holds a parent ledger (`UVT-n`) that owns the root, `shared/` and `lobby/` — on the owner's word of 2026-11-25.
+
+**Rationale:** The owner's words of 2026-11-25, verbatim: "the parent project should be UoN Video Tools, and there are standalone tools within that which share a lot of base code, the tools include the Video Name Graphics Generator and the Video Finisher (which soon must be split into staff and student versions). We need to figure out how to maintain a shared code base and differences." The options and the fifteen decisions are in `reviews/2026-11-25/UoN-Video-Tools-restructure-prompt.md`, answered "approves everything", the three rewritten rows "accept all, proceed". A throwaway spike outside OneDrive on 2026-11-26 proved the lift (15,180 pure renames, the tree equal), the merge (every cited SHA and tag resolves), one install (no version change), the three gates green, each ledger read from its own folder, and the service worker held to its folder; `RESTRUCTURE-LOG.md` in the parent folder holds the evidence. The parent folder has no contract and no hooks until the parent's ledger is founded. The side folders stay where they are (D11).
+
+**Supersedes:** 2026-10-28 — PLAN-8 — VH-225 raised: the app renamed UoN Video Finisher, before VH-203, on the owner's word
+
+**Deferred:** VH-129
+
+## 2026-11-26 — VH-226 — The working copy becomes `finisher/` inside the UoN Video Tools folder, still the pinned OneDrive checkout
+
+**Decision:** the working copy moves with the restructure from `2_Projects/2026-08-24 UoN Video Helper` to `finisher/` inside `2_Projects/2026-08-24 UoN Video Tools`, whose root is the repository's; it stays the owner's OneDrive checkout, pinned with Always Keep on This Device, `core.fileMode` false, a change no session made reported and never committed — because the owner chose to keep it on OneDrive (D2, 2026-11-25).
+
+**Rationale:** D2's answer: "Yes, pinned with 'Always keep on this device' as the decision of 2026-10-05 says. Moving off OneDrive is a separate question, not mixed into this." The move is one `mv` on the same drive, so OneDrive sees a rename, not 15,000 new files; the pin is set again on the parent folder.
+
+**Supersedes:** 2026-10-05 — V3-CONFIRM — The OneDrive working copy, corrected after Codex's check
+
+**Deferred:** none
+
 ## 2026-11-25 — PLAN-9 — The owner's answer to the sheet: every recommendation accepted, each item built from it checked by Codex, after the restructure
 
 **Decision:** The owner accepts every recommendation of the overnight sheet, `reviews/2026-11-25/owner-sheet-2026-11-25.md`, and wants each item built from it checked by Codex: 26 points are accepted to build, wishes PLAN-9.1 to PLAN-9.17, PLAN-9.19 to PLAN-9.21 and PLAN-9.24 to PLAN-9.29, A5 as the warning before leaving; seven wait on the check their recommendation names, PLAN-9.18, PLAN-9.22, PLAN-9.23 and PLAN-9.30 to PLAN-9.33; none is built before the UoN Video Tools restructure (VH-226).
@@ -494,23 +514,3 @@ Each walk records its machine. Two questions remain for the owner:
 **Supersedes:** 2026-10-22 — V31-UPGRADE — The project runs pm-next v3.1: tools, verbs and the start-notice hook replaced as a set, the record kept
 
 **Deferred:** none
-
-## 2026-11-04 — PLAN-7 — Phase 7's twelve items restated whole, in place of the 22 October list
-
-**Decision:** Phase 7's items are VH-170 to VH-181, all shipped, the twelve its three PLAN-7 lists named between them; restated because v3.1's checker reads a later Items list as the whole list, and these lists were additive. No membership changes.
-
-**Rationale:** Record-only, by V31-REFRESH. The new phase-close rule takes the PLAN-7 list no other supersedes and fails three different lists left standing. An entry supersedes one entry, so this and the next two restate the same twelve items, each in place of one of the three lists; nothing is re-judged.
-
-**Supersedes:** 2026-10-22 — PLAN-7 — A second design, UX and accessibility pass, with Codex astra as partner at every stage, gates the cut
-
-**Items:** VH-170, VH-171, VH-172, VH-173, VH-174, VH-175, VH-176, VH-177, VH-178, VH-179, VH-180, VH-181
-
-## 2026-11-04 — PLAN-7 — Phase 7's twelve items restated whole, in place of the fix plan's list
-
-**Decision:** Phase 7's items are VH-170 to VH-181, as the entry above restates them, here in place of the fix plan's list. No membership changes.
-
-**Rationale:** Record-only, by V31-REFRESH; the reason is the entry above's.
-
-**Supersedes:** 2026-10-23 — PLAN-7 — The fix plan: VH-178 to VH-180 for seven findings; the owner's ask decided on the standing instruction
-
-**Items:** VH-170, VH-171, VH-172, VH-173, VH-174, VH-175, VH-176, VH-177, VH-178, VH-179, VH-180, VH-181
