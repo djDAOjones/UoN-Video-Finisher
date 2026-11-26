@@ -8,9 +8,9 @@
 
 import './styles/app.css'
 
-import { installGlobalErrorCapture } from './core/diagnostics'
-import { log, setMinimumLogLevel } from './core/logger'
-import { APP_VERSION, BUILD_ID } from './core/version'
+import { installGlobalErrorCapture } from '../../shared/core/diagnostics'
+import { log, setMinimumLogLevel } from '../../shared/core/logger'
+import { APP_VERSION, BUILD_ID } from '../../shared/core/version'
 
 const isDev = import.meta.env.DEV
 

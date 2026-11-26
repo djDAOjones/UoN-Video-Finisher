@@ -35,7 +35,7 @@ other.**
 | System | Governs | Source |
 | --- | --- | --- |
 | **Brand pack tokens** | Colour and typeface: the pack's palette and the colour ROLES assigned from it — surfaces, text, borders, interactive, focus — plus the heading and body font stacks and the logo's size and clear space | `brands/<id>/tokens.css`, the active pack chosen at build time |
-| **Carbon conventions** | Shape: spacing scale, type scale, motion, the 44 px target floor — and status colour, which a brand palette may not supply at AAA | `src/styles/tokens.carbon.css` — implemented to match Carbon's spec, never installed as a package |
+| **Carbon conventions** | Shape: spacing scale, type scale, motion, the 44 px target floor — and status colour, which a brand palette may not supply at AAA | `../shared/styles/tokens.carbon.css` (shared since UVT-2) — implemented to match Carbon's spec, never installed as a package |
 
 When adding a token, decide which system owns it from the table above.
 Colour is the pack's. How big, how far apart and how a control behaves is

@@ -3,7 +3,7 @@
  *
  * One of the two token systems in `UI-STANDARDS.md`. This one owns colour and
  * typeface; shape, spacing, the type scale, status colour and the 44 px floor
- * belong to `src/styles/tokens.carbon.css`, and the two must not be collapsed
+ * belong to `shared/styles/tokens.carbon.css` at the repository's root, and the two must not be collapsed
  * into one.
  *
  * The structure is the UoN Video Finisher's `tokens.brand.css` at 27f51dd:

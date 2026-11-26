@@ -26,7 +26,7 @@ const read = (path: string) =>
     .replace(/\/\*[\s\S]*?\*\//g, '')
 
 // In import order: a later declaration of the same property wins.
-const css = `${read('src/styles/tokens.carbon.css')}\n${read('brands/neutral/tokens.css')}`
+const css = `${read('../shared/styles/tokens.carbon.css')}\n${read('brands/neutral/tokens.css')}`
 
 /** Pulls custom properties out of a block of declarations. */
 function parseBlock(source: string): Record<string, string> {

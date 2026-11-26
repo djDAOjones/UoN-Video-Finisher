@@ -9,7 +9,7 @@
  * every colour role.
  */
 
-@import './tokens.carbon.css';
+@import '../../../shared/styles/tokens.carbon.css';
 /* The active brand pack. VNG-2 makes the pack a build-time choice. */
 @import '../../brands/neutral/tokens.css';
 

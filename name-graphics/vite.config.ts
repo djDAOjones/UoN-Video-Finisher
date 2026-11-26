@@ -3,6 +3,8 @@
 // its Xerte mode (VNG-9's) or its audio tests' timeout.
 
 import { execSync } from 'node:child_process'
+import { resolve } from 'node:path'
+import { searchForWorkspaceRoot } from 'vite'
 import { defineConfig } from 'vitest/config'
 
 import pkg from './package.json' with { type: 'json' }
@@ -38,6 +40,10 @@ export default defineConfig({
     // and `strictPort` stays off so a neighbour holding 5173 moves us rather
     // than stopping us.
     port: Number(process.env['PORT']) || 5173,
+    // The shared code sits beside this folder, at the repository's root
+    // (`../shared/`, the parent's, UVT-2): the dev server may read it as
+    // well as this folder. A build reads it from disk and needs no leave.
+    fs: { allow: [searchForWorkspaceRoot(import.meta.dirname), resolve(import.meta.dirname, '../shared')] },
   },
   define: {
     __APP_VERSION__: JSON.stringify(`v${pkg.version}`),
@@ -59,6 +65,8 @@ export default defineConfig({
   },
   test: {
     environment: 'node',
-    include: ['test/**/*.test.ts', 'src/**/*.test.ts'],
+    // The shared core's tests run here too, under this tool's build-time
+    // values: Name Graphics depends on them (UVT-2).
+    include: ['test/**/*.test.ts', 'src/**/*.test.ts', '../shared/core/**/*.test.ts'],
   },
 })
