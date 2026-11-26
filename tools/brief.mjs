@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// pm-next-v3.1 brief tool (specification 3.19). Zero dependencies; an add-on outside the core that no rule reads.
+// pm-skills 5 brief tool (specification 3.19). Zero dependencies; an add-on outside the core that no rule reads.
 //   node tools/brief.mjs [--root <dir>] <ID>
 // Prints one open item's start packet, for the orchestrate verb's brief, from the ledger alone — the project/ files,
 // never Git, the network or anything outside the installation: the item's backlog line, milestone and phase, its
@@ -86,7 +86,7 @@ const countLine = (n) => `brief: ${n} words of ${BUDGET}`;
 let shown = 0;
 const render = () => {
   const list = decisions.slice(0, shown).map(shownAs);
-  if (shown < decisions.length) list.push(`${decisions.length - shown} ${shown ? 'older ' : ''}cut for the budget: node tools/find.mjs ${query} prints them whole.`);
+  if (shown < decisions.length) list.push(`${decisions.length - shown} ${shown ? 'older ' : ''}cut for the budget: node tools/find.mjs --full ${query} prints them whole.`);
   const body = [...fixed, ...optional.map((b) => b.full ? b.whole : b.pointer),
     `## Decisions naming it by heading, Items or Decision line (${decisions.length}, newest first)\n\n${list.length ? list.join('\n\n') : 'None.'}`].join('\n\n');
   return `${body}\n\n${countLine(words(body) + words(countLine(0)))}`;
