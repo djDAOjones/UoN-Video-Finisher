@@ -10,7 +10,7 @@
 
 | Path | Files | Role |
 | --- | --- | --- |
-| `./` | 9 | the one install (`package.json`, `package-lock.json`), `.gitignore`, `README.md`, `RESTRUCTURE-LOG.md`, this ledger's contract (`AGENTS.md`, `CLAUDE.md`), the root's ESLint config and the import-boundary rule (`eslint.boundaries.js`) |
+| `./` | 14 | the one install (`package.json`, `package-lock.json`), `.gitignore`, `README.md`, `RESTRUCTURE-LOG.md`, this ledger's contract (`AGENTS.md`, `CLAUDE.md`), the root's ESLint config and the import-boundary rule (`eslint.boundaries.js`), the tool configs every folder shares (`eslint.base.js`, `tsconfig.base.json`, `.editorconfig`, `.prettierrc.json`, `.markdownlint.json`) |
 | `.claude/` | 1 | the root chat's hooks, byte-identical to the tools' |
 | `.github/` | 1 | the one deploy workflow: the root gate, each tool built into its own folder, the lobby at the top |
 | `finisher/` | 15,180 | the Video Finisher, its own ledger (VH); not this ledger's |
