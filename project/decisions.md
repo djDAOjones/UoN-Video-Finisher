@@ -19,6 +19,16 @@
      moves the oldest entries verbatim to project/decisions-{YYYY-MM}.md
      and adds one line to project/archive-index.md. -->
 
+## 2026-11-26 — VNG-11 — Shared, not copied: Name Graphics joins the Finisher in one repository as `name-graphics/`, code two tools need in `shared/`
+
+**Decision:** the project's history is merged into the Finisher's repository, renamed `djDAOjones/UoN-Video-Tools`, as the folder `name-graphics/` with its own ledger; code both tools need moves to `shared/` and is imported by path, not copied and owned; a parent ledger at the root owns `shared/`, and a change there is a parent item that closes only with every tool's gate green — because the owner chose one parent with shared base code on 2026-11-25.
+
+**Rationale:** The owner's words of 2026-11-25, verbatim, are in VNG-11's item file; the plan and the fifteen answers (D1 to D15, "approves everything") are the Finisher's restructure prompt. Nothing shared had drifted since the copy at 27f51dd, and the open backlog names Finisher code five more times (VNG-2, VNG-4, VNG-5, VNG-8, VNG-9), so copying would make every shared fix twice. A throwaway spike on 2026-11-26 proved this project's tree byte-equal under `name-graphics/`, its two SHAs resolving and its gate green on the one root install. Brands stay packs chosen at build time.
+
+**Supersedes:** 2026-11-05 — INTAKE — Video Name Graphics founded as the UoN Video Finisher's sibling: its own repository, code copied and owned, brands as build-time packs
+
+**Deferred:** none
+
 ## 2026-11-26 — REFRESH-501 — The project runs pm-skills 5.0.1 (build fd5fb94), by the refresh route, after the lab build is restored to the 5.0.0 release
 
 **Decision:** the project runs pm-skills 5.0.1, build fd5fb94 (the tag v5.0.1 of canon, its release folder `pm_skills/`), as the Finisher does, by the release's refresh route in its own commit (74b5d07), after a commit (9b81e5d) that puts back the 5.0.0 release's own copies over the lab build 4ab66b5 the project was founded on; nothing under `project/` is written — because the owner's decision D8 of 2026-11-25 takes Name Graphics to 5.0.1 before it is merged with the Finisher, so the merged repository holds one pm-skills version.

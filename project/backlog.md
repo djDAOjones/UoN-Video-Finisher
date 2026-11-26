@@ -14,6 +14,10 @@
 
 ### pm-skills 5.0.1 — the owner's decision D8 of 2026-11-25 — CLOSED 2026-11-26
 
+### The UoN Video Tools restructure — the owner's word of 2026-11-25
+
+- [~] VNG-11 — The UoN Video Tools restructure: Name Graphics becomes `name-graphics/` in one repository with the Finisher and shared code — since 2026-11-26
+
 ### Phase 1 — the seed, the brand packs and the output format
 
 - [ ] VNG-2 — Brand packs: `brands/neutral` and `brands/uon` chosen at build time, and the check that the neutral build carries no UoN — since 2026-11-05
