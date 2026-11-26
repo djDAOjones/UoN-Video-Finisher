@@ -1,4 +1,4 @@
-# Rules — UoN Video Helper
+# Rules — UoN Video Finisher
 
 <!-- Owner-signed; rule 1 reads this file. Always holds the invariants,
      the protected paths and the Environment; By task routes the
