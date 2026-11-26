@@ -27,8 +27,9 @@
 
 import { execFileSync } from 'node:child_process'
 import { existsSync, mkdtempSync, readdirSync, readFileSync, rmSync } from 'node:fs'
+import { createRequire } from 'node:module'
 import { tmpdir } from 'node:os'
-import { join } from 'node:path'
+import { dirname, join } from 'node:path'
 
 const outputDirectory = mkdtempSync(join(tmpdir(), 'uon-video-helper-check-build-'))
 
@@ -52,7 +53,8 @@ function build(name, modeArguments) {
   execFileSync(
     process.execPath,
     [
-      join(process.cwd(), 'node_modules', 'vite', 'bin', 'vite.js'),
+      // Found as Node finds it, walking up: the install is at the repository's root (VH-226).
+      join(dirname(createRequire(import.meta.url).resolve('vite/package.json')), 'bin', 'vite.js'),
       'build',
       ...modeArguments,
       '--outDir',

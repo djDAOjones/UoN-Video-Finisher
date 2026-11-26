@@ -109,3 +109,15 @@
 **Supersedes:** 2026-10-23 — PLAN-7 — The fix plan: VH-178 to VH-180 for seven findings; the owner's ask decided on the standing instruction
 
 **Items:** VH-170, VH-171, VH-172, VH-173, VH-174, VH-175, VH-176, VH-177, VH-178, VH-179, VH-180, VH-181
+
+## 2026-11-04 — V31-REFRESH — The project takes pm-next v3.1 as the lab now builds it: tools and verbs replaced as a set, the record kept
+
+**Decision:** the project runs pm-next v3.1 at PM-Skills lab 4ab66b5 from the commit carrying this entry: six tools and three verbs replaced, two tools and five add-on verbs added, as v3.1's set; rule 9 asks a Checked line only where a model policy requires it, and this project keeps none — because the owner asked on 2026-11-04 to upgrade the project after its first-month test.
+
+**Rationale:** The lab's V31-REFRESH-1. No route in v3.1's change notes covers a later v3.1 build over an installed v3.1 (the upgrade tool refuses a second snapshot), so this follows the "Existing installations" rules by hand: every installed file matched b5c6f4b's bytes, so no local edit is carried; tools and verbs are replaced as a set from lab/next-v31 at 4ab66b5; the contract merges rule 9's one change; no project template is copied over the record, and the decisions template's sentences on Items and Retired are merged into this file's comment. Replaced: check.mjs and ledger.mjs (a closed phase is checked against the PLAN Items list no other supersedes, a Retired field, traces read in a Rationale, the trajectory read by each line's own date with a phase-order warning), handover.mjs (the start notice's recovery sentences), harness.mjs (the post-commit hook rebuilds the status site), view.mjs (the status site beside view.html, both ignored here), migrate.mjs (the upgrade checks), and the intake, plan and close verbs. Added: brief.mjs and lanes.mjs, for orchestration and parallel writers, and the add-on verbs orchestrate, control, sweep, stocktake and design-review, which no rule reads. The session hooks are unchanged, so no setting is regenerated. The new checker failed Phase 1 and Phase 7, whose PLAN lists were additive; the four PLAN entries below restate them whole. Rollback: revert the pull request's merge commit; nothing outside the repository changes.
+
+- Migration edit: none — every replaced file was b5c6f4b's, byte for byte
+
+**Supersedes:** 2026-10-22 — V31-UPGRADE — The project runs pm-next v3.1: tools, verbs and the start-notice hook replaced as a set, the record kept
+
+**Deferred:** none

@@ -71,17 +71,12 @@ describe('the identifiers the rename keeps (VH-225)', () => {
     expect(workerNames('src/main.ts')).toEqual(['uon-video-helper-job'])
   })
 
-  it('keeps the package name, in the package and both lockfile entries', () => {
-    const pkg = JSON.parse(read('package.json')) as { name: string }
-    const lock = JSON.parse(read('package-lock.json')) as {
-      name: string
-      packages: Record<string, { name?: string }>
-    }
-    expect([pkg.name, lock.name, lock.packages['']?.name]).toEqual([
-      'uon-video-helper',
-      'uon-video-helper',
-      'uon-video-helper',
-    ])
+  it('names the package for the tool, with no lockfile or dependencies of its own (D12, VH-226)', () => {
+    // No code reads the package's name, only its version; the install and the
+    // lockfile are the repository root's since the UoN Video Tools restructure.
+    const pkg = JSON.parse(read('package.json')) as { name: string; dependencies?: unknown }
+    expect(pkg.name).toBe('uon-video-finisher')
+    expect(pkg.dependencies).toBeUndefined()
   })
 
   it('files nothing in src/ under the new name', () => {

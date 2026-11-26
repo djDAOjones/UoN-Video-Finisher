@@ -1,4 +1,7 @@
-# Deploys the app to GitHub Pages.
+# Deploys the UoN Video Tools preview to GitHub Pages: one site, each tool
+# in its own folder beside the others, the placeholder staff lobby at the top
+# (VH-226, D14). A service worker controls its own folder and everything below
+# it, so no tool's folder sits inside another's and the lobby registers none.
 #
 # The maintainer accepted a public site on 2026-08-25 for piloting — it is
 # unadvertised, and the intended home is an internal server once this is ready
@@ -50,26 +53,39 @@ jobs:
           node-version: 24
           cache: npm
 
+      # One install, at the root; each tool finds it by walking up.
       - run: npm ci
 
-      # The full gate, not just a build. A deploy is the one place where
-      # shipping a broken bundle is expensive to undo.
+      # The full gate, not just a build: every tool's, each from its own
+      # folder, which is what `npm run check` at the root runs. A deploy is the
+      # one place where shipping a broken bundle is expensive to undo, and one
+      # tool's red gate holds back every tool's preview, as intended.
       - run: npm run check
+        working-directory: finisher
         env:
-          BASE_PATH: /${{ github.event.repository.name }}/
+          BASE_PATH: /${{ github.event.repository.name }}/finisher/
 
-      # Derived from the repo name so a fork or a rename does not silently
-      # produce a site whose asset URLs all 404.
-      - run: npm run build
+      # Each tool built for its own folder. The base is derived from the
+      # repo name so a fork or a rename does not silently produce a site whose
+      # asset URLs all 404.
+      - name: Build the Finisher into finisher/
+        run: npm run build
+        working-directory: finisher
         env:
-          BASE_PATH: /${{ github.event.repository.name }}/
+          BASE_PATH: /${{ github.event.repository.name }}/finisher/
+
+      - name: Gather the site
+        run: |
+          mkdir _site
+          cp lobby/index.html _site/index.html
+          cp -R finisher/dist _site/finisher
 
       - uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
       # Composite: runs actions/upload-artifact v7.0.0, pinned by SHA inside it.
-      # From v4 it leaves dotfiles out of the artifact; the build has none.
+      # From v4 it leaves dotfiles out of the artifact; the builds have none.
       - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
         with:
-          path: dist
+          path: _site
 
   deploy:
     needs: build

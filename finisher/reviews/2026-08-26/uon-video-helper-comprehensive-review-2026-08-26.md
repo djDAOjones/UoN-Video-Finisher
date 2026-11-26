@@ -506,7 +506,7 @@ These were unavailable, unsafe for a read-only review, required unsupported brow
 - **Confidence:** High
 - **Classification:** Strongly supported risk
 - **Category:** Supply chain / privacy
-- **Location:** [.github/workflows/deploy-pages.yml](../../.github/workflows/deploy-pages.yml), [scripts/check-placeholders.mjs](../../scripts/check-placeholders.mjs)
+- **Location:** [.github/workflows/deploy-pages.yml](../../../.github/workflows/deploy-pages.yml), [scripts/check-placeholders.mjs](../../scripts/check-placeholders.mjs)
 - **Affected component or flow:** CI build/deploy and Vite public-directory publication
 - **Evidence:** Pages/OIDC permissions are granted at workflow scope, so build and dependency-install steps inherit them. Actions use mutable major tags rather than full commit SHAs. The media guard rejects recordings only under `public/spike`; a misplaced real recording elsewhere under `public/` would be copied into the deployment.
 - **Current behaviour:** No current media leak or CI exploit was found, but the preventions are weaker than the repository’s privacy promise.
@@ -549,7 +549,7 @@ These were unavailable, unsafe for a read-only review, required unsupported brow
 - **Confidence:** High
 - **Classification:** Confirmed defect
 - **Category:** Documentation / operational correctness
-- **Location:** [DEV-INFRASTRUCTURE.md](../../DEV-INFRASTRUCTURE.md), [.github/workflows/deploy-pages.yml](../../.github/workflows/deploy-pages.yml), [src/core/diagnostics.ts](../../src/core/diagnostics.ts), [src/main.ts](../../src/main.ts), [package.json](../../package.json)
+- **Location:** [DEV-INFRASTRUCTURE.md](../../DEV-INFRASTRUCTURE.md), [.github/workflows/deploy-pages.yml](../../../.github/workflows/deploy-pages.yml), [src/core/diagnostics.ts](../../src/core/diagnostics.ts), [src/main.ts](../../src/main.ts), [package.json](../../package.json)
 - **Affected component or flow:** Quality gate, deployment, offline promise, diagnostics, version identity
 - **Evidence:** Infrastructure documentation describes deployment as undecided/local while a Pages workflow deploys `main`. The offline-after-first-load promise has no service-worker/cache implementation. Production UI exposes the product version but not the full build identity described by infrastructure rules. Diagnostics omit several promised job/capability details. The quality gate is documented as non-mutating but includes `vite build`, which writes ignored `dist/`.
 - **Current behaviour:** Maintainers and users can rely on contracts the implementation does not satisfy.

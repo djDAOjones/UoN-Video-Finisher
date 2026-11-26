@@ -24,6 +24,16 @@
      moves the oldest entries verbatim to project/decisions-YYYY-MM.md,
      beside this file, listed in project/archive-index.md. -->
 
+## 2026-11-26 — VH-226 — The package is named `uon-video-finisher` with no lockfile of its own; the kept identifiers' test pins that in place of the old name
+
+**Decision:** `package.json`'s name becomes `uon-video-finisher` (D12), and the Finisher keeps no lockfile, dependencies or `node_modules` of its own, since the install is the repository root's; `test/kept-identifiers.test.ts` pins the new name and the absence of dependencies in place of the old name in the package and both lockfile fields, and its four pins of the browser-side identifiers stand unchanged.
+
+**Rationale:** D12, answered "approves everything" on 2026-11-25: browser-side identifiers never change (VH-225 stands), and `package.json`'s name becomes `uon-video-finisher`, as `NEXT_STEPS.md` plans. VH-225's first commit pinned the package name among the hidden identifiers it kept; this entry supersedes it on that one point only. No code reads the package's name, only `pkg.version`, so no saved choice or stored job is filed under it; the pins that guard what a person's data is filed under (the four saved-choice keys, the stored jobs' folder, the job worker's name, nothing in `src/` under the new name) are untouched. The Finisher's lockfile moved to the root byte for byte but for its root entry's name and version (`uon-video-tools`, `0.0.0`), with no package's version or integrity changed; `scripts/check-build.mjs` now finds Vite as Node does, walking up. The spike of 2026-11-26 found both needs (RESTRUCTURE-LOG.md in the parent folder, stage 3). The parent folder has no contract and no hooks until its ledger is founded. Digest rules: house-conventions, "Fail loudly on data loss".
+
+**Supersedes:** 2026-11-04 — VH-225 — Commit 1: the visible name UoN Video Finisher in three languages, no address changed, the item open
+
+**Deferred:** none
+
 ## 2026-11-26 — VH-226 — Widened to the UoN Video Tools restructure: one repository, each tool a folder, shared code by path, three ledgers
 
 **Decision:** VH-226 is the whole restructure, not a folder rename: this repository becomes `djDAOjones/UoN-Video-Tools`, the Finisher moves as one block into `finisher/`, Video Name Graphics' history is merged in under `name-graphics/`, code two tools need lives in `shared/` imported by path under one install at the root, editions of one tool are build-time modes inside it, and the root holds a parent ledger (`UVT-n`) that owns the root, `shared/` and `lobby/` — on the owner's word of 2026-11-25.
@@ -500,17 +510,5 @@ Each walk records its machine. Two questions remain for the owner:
 - how a fix item built on the MacBook Pro reaches its walks on the Mac Pro, beyond the branch route this entry takes.
 
 **Supersedes:** none
-
-**Deferred:** none
-
-## 2026-11-04 — V31-REFRESH — The project takes pm-next v3.1 as the lab now builds it: tools and verbs replaced as a set, the record kept
-
-**Decision:** the project runs pm-next v3.1 at PM-Skills lab 4ab66b5 from the commit carrying this entry: six tools and three verbs replaced, two tools and five add-on verbs added, as v3.1's set; rule 9 asks a Checked line only where a model policy requires it, and this project keeps none — because the owner asked on 2026-11-04 to upgrade the project after its first-month test.
-
-**Rationale:** The lab's V31-REFRESH-1. No route in v3.1's change notes covers a later v3.1 build over an installed v3.1 (the upgrade tool refuses a second snapshot), so this follows the "Existing installations" rules by hand: every installed file matched b5c6f4b's bytes, so no local edit is carried; tools and verbs are replaced as a set from lab/next-v31 at 4ab66b5; the contract merges rule 9's one change; no project template is copied over the record, and the decisions template's sentences on Items and Retired are merged into this file's comment. Replaced: check.mjs and ledger.mjs (a closed phase is checked against the PLAN Items list no other supersedes, a Retired field, traces read in a Rationale, the trajectory read by each line's own date with a phase-order warning), handover.mjs (the start notice's recovery sentences), harness.mjs (the post-commit hook rebuilds the status site), view.mjs (the status site beside view.html, both ignored here), migrate.mjs (the upgrade checks), and the intake, plan and close verbs. Added: brief.mjs and lanes.mjs, for orchestration and parallel writers, and the add-on verbs orchestrate, control, sweep, stocktake and design-review, which no rule reads. The session hooks are unchanged, so no setting is regenerated. The new checker failed Phase 1 and Phase 7, whose PLAN lists were additive; the four PLAN entries below restate them whole. Rollback: revert the pull request's merge commit; nothing outside the repository changes.
-
-- Migration edit: none — every replaced file was b5c6f4b's, byte for byte
-
-**Supersedes:** 2026-10-22 — V31-UPGRADE — The project runs pm-next v3.1: tools, verbs and the start-notice hook replaced as a set, the record kept
 
 **Deferred:** none

@@ -1,0 +1,16 @@
+# The one install, at the root; each tool finds it by walking up
+node_modules/
+
+# The gathered Pages site, made by the deploy workflow
+/_site/
+
+# Editor / OS
+.DS_Store
+*.swp
+.vscode/
+.idea/
+
+# AI preferences for a chat on the root, never shared
+/CLAUDE.local.md
+/.claude/settings.local.json
+/.claude/launch.json
