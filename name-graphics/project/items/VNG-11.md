@@ -16,7 +16,7 @@ The Finisher's VH-226 counterpart, on the owner's word of 2026-11-25: "the paren
 
 Updated: 2026-11-26
 
-Next step: the folder has moved in and its history is merged with its own SHAs; the gates from each folder and the root, the deploy of the one preview, then this repository's archiving and its Pages site turned off, on the owner's word.
+Next step: stage 6 of the prompt, the parent ledger and the shared set, on the owner's word. Stage 5 is done and pushed: the history merged with its own SHAs (REFRESH-502's included), the preview at /UoN-Video-Tools/name-graphics/, djDAOjones/Video-Name-Graphics archived with its Pages site off, on the owner's word of 2026-11-26.
 
 Open question: None.
 
