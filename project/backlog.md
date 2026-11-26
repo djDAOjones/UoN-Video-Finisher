@@ -12,9 +12,7 @@
 
 ## Current
 
-### pm-skills 5.0.1 — the owner's decision D8 of 2026-11-25
-
-- [~] REFRESH-501 — The project takes pm-skills 5.0.1 by the refresh route — since 2026-11-26
+### pm-skills 5.0.1 — the owner's decision D8 of 2026-11-25 — CLOSED 2026-11-26
 
 ### Phase 1 — the seed, the brand packs and the output format
 

@@ -19,6 +19,16 @@
      moves the oldest entries verbatim to project/decisions-{YYYY-MM}.md
      and adds one line to project/archive-index.md. -->
 
+## 2026-11-26 — REFRESH-501 — The project runs pm-skills 5.0.1 (build fd5fb94), by the refresh route, after the lab build is restored to the 5.0.0 release
+
+**Decision:** the project runs pm-skills 5.0.1, build fd5fb94 (the tag v5.0.1 of canon, its release folder `pm_skills/`), as the Finisher does, by the release's refresh route in its own commit (74b5d07), after a commit (9b81e5d) that puts back the 5.0.0 release's own copies over the lab build 4ab66b5 the project was founded on; nothing under `project/` is written — because the owner's decision D8 of 2026-11-25 takes Name Graphics to 5.0.1 before it is merged with the Finisher, so the merged repository holds one pm-skills version.
+
+**Rationale:** The owner named the release on 2026-11-26: "<https://github.com/djDAOjones/PM-Skills>". It was cloned outside OneDrive; its tag v5.0.1 is fd5fb94, the build REFRESH-501 gave the Finisher, and all 26 of the Finisher's installed tool, verb and contract files equal `pm_skills/` there. The lab build 4ab66b5 is in no history of canon: not one of the project's tool files was a blob of it, only `AGENTS.md`. So the route, named any released build as the installed one, refused with 19 reasons, each "a local edit no decision carries ... or restore the pm-skills copy". The restore took the 5.0.0 release (a2a4b37), whose file list is the project's plus `tools/VERSION`; then the route replaced seven files (`tools/VERSION`, `check.mjs`, `harness.mjs`, `ledger.mjs`, `migrate.mjs`, `read.mjs`, `verbs/intake.md`) and found the 17 files under `project/` byte-equal. Both steps ran first on a throwaway clone with the same result. The ledger already passed 5.0.1's checker before either step. At each commit `node tools/check.mjs` gave 0 failures and 0 warnings and `npm run check` was green, 126 tests. A canon v5.0.2 exists; the repository stays on one version, 5.0.1, and a later refresh takes every ledger together. It supersedes INTAKE's "pm-next v3.1 ledger at PM-Skills lab 4ab66b5" and nothing else of it. Rollback: revert 74b5d07, then 9b81e5d.
+
+**Supersedes:** 2026-11-05 — INTAKE — Video Name Graphics founded as the UoN Video Finisher's sibling: its own repository, code copied and owned, brands as build-time packs
+
+**Deferred:** none
+
 ## 2026-11-05 — VNG-1 — The seed: the Finisher's tooling, core and shell copied at 27f51dd; the neutral pack a grey ramp; the gate without the neutral-build check until VNG-2
 
 **Decision:** the seed copies the Finisher's dev tooling (its nine dev dependencies, no runtime one), `src/core/` and `tokens.carbon.css` at 27f51dd, cuts `app.css` to the rules the shell's elements use, and gives the neutral pack Carbon's grey ramp for every colour role; `app.css` imports `brands/neutral/tokens.css` directly and the gate is the Finisher's code and docs checks plus the v3 checker — because VNG-1's criteria say so, and the build-time pack choice and the neutral-build check are VNG-2's.
