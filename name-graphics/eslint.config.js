@@ -1,5 +1,6 @@
 import js from '@eslint/js'
 import tseslint from 'typescript-eslint'
+import { boundaries } from '../eslint.boundaries.js' // the parent's import boundaries (UVT-1, D9)
 
 /**
  * Copied from the UoN Video Finisher at 27f51dd (VNG-1).
@@ -10,6 +11,7 @@ import tseslint from 'typescript-eslint'
 export default tseslint.config(
   { ignores: ['dist/**', 'node_modules/**', 'coverage/**', 'tools/**'] }, // tools/ is pm-next v3's, linted upstream
   js.configs.recommended,
+  boundaries,
   ...tseslint.configs.recommendedTypeChecked,
   {
     languageOptions: {
