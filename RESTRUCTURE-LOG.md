@@ -408,6 +408,43 @@ One `mv` of `2026-08-24 UoN Video Helper` into this folder as
   `../../../.github/…`, where the workflow lives, the reviews' text
   otherwise as written. Link check: 0 broken.
 
+### Step 5: committed: done, `eaaf1c92`
+
+VH-226, the gate from the root (the Finisher's from `finisher/`) chained
+before it: green, 98 files, 2,001 passed, 1 skipped; checker 0 and 0.
+
+### Step 6: Name Graphics merged: done, `0e19b21a` and `d68b6cbf`
+
+- Its tree clean (0 lines of `git status --porcelain`), then one `mv` of
+  `2026-11-05 Video Name Graphics` into this folder as `name-graphics/`.
+  The old folder no longer exists.
+- **Its `.git` is in the backup folder**, never deleted:
+  `/Users/joe/UoN-Video-Tools-restructure-backup/video-name-graphics-dot-git`.
+- `git fetch` of its `main` (`7be785f`) from there, `git merge -s ours
+  --allow-unrelated-histories --no-commit`, `git add -A name-graphics`.
+- **Proof:** `git write-tree --prefix=name-graphics/` = `02249622`, the
+  old tree; 79 additions, nothing outside `name-graphics/`; the
+  Finisher's tree unchanged; `319f867`, `22d86e1`, `7be785f`, `27f51dd`,
+  `be80c4fa`, `v0.2.0`, `v0.3.0` and `v0.3.1` all resolve. No tracked
+  file of Name Graphics' is ignored and none is 100755.
+- `0e19b21a` VNG-11, the merge (parents `eaaf1c92` and `7be785f5`): its
+  gate from `name-graphics/` on its own install, green, 5 files, 126
+  passed; checker 0 and 0. Made as `8efed19d` with "its two commits" in
+  the subject; Name Graphics has seven since its refresh, so the unpushed
+  message was amended, the tree and parents unchanged.
+- `d68b6cbf` VNG-11: its lockfile, dev dependencies, `node_modules` and
+  its own deploy workflow removed; a decision records that its dev tools
+  now run at the root lockfile's versions (73 differ, eslint 10.14.0 to
+  10.9.1, vite 8.3.6 to 8.2.2, vitest 4.1.12 to 4.1.11, typescript-eslint
+  8.72.1 to 8.68.0). Gate from `name-graphics/` on the root install:
+  green, 126 passed; checker 0 and 0.
+
+### Step 8: the deploy workflow takes in Name Graphics
+
+The root `check` runs both tools' gates; the workflow runs each tool's
+gate from its folder, builds each with its own `BASE_PATH` and gathers
+both beside the lobby, which now links to both.
+
 ## Stages 6 and 7
 
 Not started.

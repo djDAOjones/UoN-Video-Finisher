@@ -65,6 +65,11 @@ jobs:
         env:
           BASE_PATH: /${{ github.event.repository.name }}/finisher/
 
+      - run: npm run check
+        working-directory: name-graphics
+        env:
+          BASE_PATH: /${{ github.event.repository.name }}/name-graphics/
+
       # Each tool built for its own folder. The base is derived from the
       # repo name so a fork or a rename does not silently produce a site whose
       # asset URLs all 404.
@@ -74,11 +79,18 @@ jobs:
         env:
           BASE_PATH: /${{ github.event.repository.name }}/finisher/
 
+      - name: Build Video Name Graphics into name-graphics/
+        run: npm run build
+        working-directory: name-graphics
+        env:
+          BASE_PATH: /${{ github.event.repository.name }}/name-graphics/
+
       - name: Gather the site
         run: |
           mkdir _site
           cp lobby/index.html _site/index.html
           cp -R finisher/dist _site/finisher
+          cp -R name-graphics/dist _site/name-graphics
 
       - uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
       # Composite: runs actions/upload-artifact v7.0.0, pinned by SHA inside it.
