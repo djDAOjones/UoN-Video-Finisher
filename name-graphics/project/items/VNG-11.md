@@ -16,7 +16,7 @@ The Finisher's VH-226 counterpart, on the owner's word of 2026-11-25: "the paren
 
 Updated: 2026-11-26
 
-Next step: stage 6 of the prompt, the parent ledger and the shared set, on the owner's word. Stage 5 is done and pushed: the history merged with its own SHAs (REFRESH-502's included), the preview at /UoN-Video-Tools/name-graphics/, djDAOjones/Video-Name-Graphics archived with its Pages site off, on the owner's word of 2026-11-26.
+Next step: None. Closed at stage 7; the leftovers are wishes VNG-11.1 to VNG-11.5 and VNG-13, and the order of work across the tools is the repository's NEXT_STEPS.md.
 
 Open question: None.
 
@@ -27,3 +27,4 @@ Open question: None.
 ## Notes
 
 - 2026-11-26 — Opened as VH-226's counterpart (D6). The project took pm-skills 5.0.1 first (REFRESH-501), as the merged repository holds one version (D8).
+- 2026-11-26 — Closed. The owner's instructions for it still in force, verbatim with dates: 2026-11-25, "the parent project should be UoN Video Tools, and there are standalone tools within that which share a lot of base code, the tools include the Video Name Graphics Generator and the Video Finisher (which soon must be split into staff and student versions). We need to figure out how to maintain a shared code base and differences."; 2026-11-25, on the decisions, "approves everything"; 2026-11-26, on the old repository, "Yes, do both"; 2026-11-26, "Start stage 7"; 2026-11-26, on the signed lines, "Sign all three (Recommended)", and on the rules' Always over its guideline, "Leave it, log a follow-up (Recommended)". The rest of the owner's words are in RESTRUCTURE-LOG.md at the repository's root.

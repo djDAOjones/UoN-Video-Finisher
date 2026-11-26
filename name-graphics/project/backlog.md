@@ -18,9 +18,7 @@
 
 ### pm-skills 5.0.3 — the owner's word of 2026-11-26 — CLOSED 2026-11-26
 
-### The UoN Video Tools restructure — the owner's word of 2026-11-25
-
-- [~] VNG-11 — The UoN Video Tools restructure: Name Graphics becomes `name-graphics/` in one repository with the Finisher and shared code — since 2026-11-26
+### The UoN Video Tools restructure — the owner's word of 2026-11-25 — CLOSED 2026-11-26
 
 ### Phase 1 — the seed, the brand packs and the output format
 
@@ -42,6 +40,7 @@
 
 The public release.
 
+- [!] VNG-13 — Trim the rules file's Always, with its Environment, from 425 words to its 400-word guideline — since 2026-11-26 — (from: VNG-11, 2026-11-26) — blocked: the owner's signature on the trimmed lines
 - [ ] VNG-8 — Help and feedback, the problem report and the accessibility statement, from the Finisher's — since 2026-11-05
 - [ ] VNG-9 — The Xerte package and the first release — since 2026-11-05
 

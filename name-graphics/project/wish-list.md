@@ -19,4 +19,4 @@
 - VNG-11.2 — A Codex model policy here, `project/model-policy.md` and the Codex hooks kept by hand, before items are checked by Codex (the parent's UVT-6.12) — (from: VNG-11, 2026-11-26)
 - VNG-11.3 — A link back to its lobby from this tool's page, with the parent's real lobbies (UVT-6.10) — (from: VNG-11, 2026-11-26)
 - VNG-11.4 — VNG-2, VNG-4, VNG-5, VNG-8 and VNG-9 each reuse Finisher code (the brand as a pack, the language machinery and switcher, the step pattern, help, feedback and the statement, the Xerte package and service worker): each raises a parent item that moves it to `shared/` first, and its line reads "blocked: UVT-n" (the parent's UVT-6.13) — (from: VNG-11, 2026-11-26)
-- VNG-11.5 — For the owner: the profile's Signed line is still the INTAKE's "Owner (delegated, not reviewed): Joe, 2026-11-05", and the brief's likewise; the rules file is signed since 2026-11-26 — (from: VNG-11, 2026-11-26)
+- VNG-11.5 — For the owner: the brief's Signed line is still the INTAKE's "Owner (delegated, not reviewed): Joe, 2026-11-05"; the profile and the rules file are signed since 2026-11-26 — (from: VNG-11, 2026-11-26)
