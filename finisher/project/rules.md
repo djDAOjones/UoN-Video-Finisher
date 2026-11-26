@@ -25,7 +25,7 @@
 ### Environment
 
 - Run the environment preflight at session start (warn-only), blocking before any memory-file surgery. The working copy is the owner's OneDrive checkout, pinned, `core.fileMode` false; a change no session made (a revert, a conflict copy) is reported, never committed. Checks and recovery: DEV-INFRASTRUCTURE.md → "When the toolchain stalls on this filesystem".
-- Local `main` is stale by design; what is published is `origin/main`.
+- Every file belongs to one ledger, by its folder: `finisher/` to VH, `name-graphics/` to VNG, the rest to UVT. An item changes only what its ledger owns. `shared/` is common to every tool: code moves there when a second tool needs it, a change there is a parent item, and it closes only with every tool's gate green. Shared source is not a dependency.
 - Run `npm run check` on a settled machine, never beside `run-in-engines.mjs`; a slow DSP failure reports the machine.
 - The owner, a vibe coder, owns structure and design: do the work; explain only when asked.
 - `CLAUDE.local.md` holds personal instructions; harness memories are not the record.
@@ -47,4 +47,4 @@
 
 ## Signed
 
-- Owner: Joe, 2026-10-02.
+- Owner: Joe, 2026-11-26.
