@@ -955,7 +955,10 @@ Finisher" (wish VH-225.4 paid). The Finisher's profile is 398 words of
 400, so the reason (wrong paths below the root) is in its decision, not
 the line; Name Graphics' profile, 388, carries it, and is signed by the
 owner for the first time since INTAKE's delegated signature. Its brief
-keeps that signature (wish VNG-11.5).
+kept that signature until the owner's answer of 2026-11-26, "Sign
+profile and brief (Recommended)": signed in the VNG-11 commit after
+`01481258`, with a decision entry, wish VNG-11.5 retired as paid. All
+three of its signed files now carry the owner's own signature.
 
 "Leave it, log a follow-up (Recommended)": the rules' Always, with its
 Environment, stays over its 400-word guideline (the Finisher 451, Name
@@ -982,7 +985,8 @@ signature, and each checker's one warning links to its line.
   `reviews/`' 852 MB, the link back to the lobby; and VH-248.
 - **Name Graphics:** VNG-11.1 to VNG-11.5: the hooks in a live chat, a
   model policy, the link back to the lobby, the Finisher code its items
-  reuse moving to `shared/` first, the brief's signature; and VNG-13.
+  reuse moving to `shared/` first, the brief's signature (since paid);
+  and VNG-13.
 - Already held, not repeated: VH-129, VH-247, VNG-12, UVT-4, UVT-5, the
   PLAN-9 wishes, VH-14, VH-137, VH-161, VH-246, VH-225.3.
 - **Found:** the two load logs under `finisher/reviews/2026-10-25/` are
