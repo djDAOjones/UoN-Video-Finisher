@@ -9,14 +9,12 @@ the parent's ledger.
 
 ## Where it stands
 
-- **Stage reached:** stage 5 done, 2026-11-26: one folder, one
-  repository (`djDAOjones/UoN-Video-Tools`), `finisher/` and
-  `name-graphics/` on one install at the root, every gate green, pushed,
-  the preview and the Xerte package checked, the old Name Graphics
-  repository archived with its Pages site off. Both tools are on
-  pm-skills 5.0.2 (the owner's REFRESH-502, merged in during the move).
-- **Next:** stage 6, the parent ledger and the shared set, best in a
-  fresh chat on this folder, on the owner's word. Not started.
+- **Stage reached:** stage 6 under way, 2026-11-26: step 0 (both tools
+  to pm-skills 5.0.3) done; the parent ledger next. Stage 5 done: one
+  folder, one repository (`djDAOjones/UoN-Video-Tools`), `finisher/` and
+  `name-graphics/` on one install at the root, the preview and the Xerte
+  package checked, the old Name Graphics repository archived.
+- **Next:** stage 6, steps 1 to 5. Stage 7 is not started.
 - **Then, fairly soon (the owner's word of 2026-11-26), after pm-skills
   5.0.3:** the Finisher's student edition (VH-129) and the translation
   register every tool shares: the parent's two items written under
@@ -615,9 +613,52 @@ stays in the backup folder.
   Chrome (above).
 - The Xerte upload itself (VH-14; nothing was uploaded).
 
-## Stages 6 and 7
+## Stage 6: the parent ledger and the shared set (2026-11-26)
 
-Not started.
+A chat on this folder, started by the owner's chat after stage 5. The
+owner's words, 2026-11-26, verbatim: "start stage 6, and insert upgrade
+to pm-skills 5.0.3 at the earliest advisable opportunity". The earliest
+advisable point is before step 1, so the parent ledger is founded on the
+same version the tools run (D8).
+
+### Step 0, inserted: both tools to pm-skills 5.0.3: done
+
+- The release: canon (`https://github.com/djDAOjones/PM-Skills`) fetched
+  in the clone at `/Users/joe/UoN-Video-Tools-spike/pm-skills`. **No
+  `v5.0.3` tag exists**; `main` is `d599678` ("REL-503: pm-skills 5.0.3,
+  the night's work released; number set (#12)"), `pm_skills/VERSION`
+  5.0.3. So the build is named by commit, and both records say so. It is
+  checked out as a detached worktree beside the clone,
+  `/Users/joe/UoN-Video-Tools-spike/pm-skills-503`.
+- 5.0.3's Upgrade action 1 asks a project on 5.0.2 for the refresh and
+  nothing more: no signed file, setting or hook. So no question for the
+  owner.
+- Tried first on a throwaway clone of `cba68d2f`,
+  `/Users/joe/UoN-Video-Tools-spike/trial-503/`: in each tool the route
+  replaced the same five files (`tools/VERSION`, `tools/migrate.mjs`,
+  `tools/view.mjs`, `verbs/control.md`, `verbs/intake.md`) and wrote
+  nothing under `project/`.
+- Then here, per tool, the pattern REFRESH-501 and REFRESH-502 used: open
+  the item, the refresh alone, the record. Every commit touches only its
+  tool's folder; each gate chained before its commit.
+
+- `7a1426cc` Finisher: REFRESH-503 opened. Checker 0 and 0.
+- `b7390269` Finisher: refresh to build d599678. The 26 installed files
+  equal d599678's `pm_skills/`; 167 ledger files byte-equal; checker 0
+  and 0; gate green, 98 files, 2,001 passed, 1 skipped.
+- `e34c47f5` Finisher: the record, with `tools/archive.mjs` (46 live of
+  45, the close verb's Archive step). The first draft's Decision line
+  put the ten-entry slice over its 1,000 words; it was shortened before
+  the commit. Checker 0 and 0, `--commit HEAD` 0.
+- `d5151a5c` Name Graphics: REFRESH-503 opened. Checker 0 and 0.
+- `b3d6eb04` Name Graphics: refresh to build d599678. The 26 files equal
+  d599678's and the Finisher's; 19 ledger files byte-equal; checker 0
+  and 0; gate green, 126 passed.
+- `04d9b907` Name Graphics: the record. Checker 0 and 0, `--commit HEAD`
+  0.
+- Root gate after: green, the Finisher 2,001 passed and 1 skipped, Name
+  Graphics 126 passed, both checkers 0 and 0
+  (`gate-stage6-step0-root.log` in the backup folder).
 
 ### Waiting for stage 6: the parent's first items (the owner's word of 2026-11-26)
 
@@ -670,3 +711,7 @@ student edition's words go with the rest; the returned workbooks merged;
 each language's "machine translated" note lifted once all its rows are
 reviewed (the Finisher's wish VH-105.2). Name Graphics' words join a
 later round as its page settles; only what changed is asked for.
+
+## Stage 7
+
+Not started.
