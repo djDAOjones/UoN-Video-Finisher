@@ -17,3 +17,5 @@
 
 - UVT-1 — the root gate checks every commit after the founding against its folders, and `uvt/boundaries`, an ESLint rule of our own, fails shared/ reaching a tool or one tool another, in the root's and both tools' configs; node:test, no dependency (2026-11-26) — see decisions
 - UVT-2 — D10's identical set in shared/ with no second copy: the nine core files and the Carbon tokens added in the Finisher's bytes, then each tool switched and deleted its copies, every gate green at the same counts, the shared tests in each tool's gate and the root's (2026-11-26) — see decisions
+- UVT-3 — the tool configs both tools share in one copy at the root: a base TypeScript and ESLint config each folder extends, adding only its include or ignores, and one `.editorconfig`, Prettier and markdownlint config; three green steps, every resolved config identical to before, every probe still failing (2026-11-26) — see decisions
+- RECALL — 8/8 (2026-11-26) — scores: 2,2,2,2 — local — see decisions

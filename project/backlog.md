@@ -16,9 +16,7 @@
 
 ## Current
 
-### Stage 6 — the shared set, after the founding — the owner's word of 2026-11-26
-
-- [ ] UVT-3 — The shared tool configs: a base ESLint and TypeScript config each tool extends, and one `.editorconfig`, Prettier and markdownlint config — since 2026-11-26
+### Phase 1 — Stage 6, the shared set, after the founding — CLOSED 2026-11-26
 
 ### The shared translation register — the owner's word of 2026-11-26
 
@@ -27,6 +25,6 @@
 
 ## Next
 
-- [ ] UVT-6 — Stage 7 of the restructure, the parent's half: its closing record, a `NEXT_STEPS.md` at the root, a line for every leftover — since 2026-11-26 — (from: INTAKE, 2026-11-26) — blocked: stage 6
+- [ ] UVT-6 — Stage 7 of the restructure, the parent's half: its closing record, a `NEXT_STEPS.md` at the root, a line for every leftover — since 2026-11-26 — (from: INTAKE, 2026-11-26)
 
 ## Icebox
