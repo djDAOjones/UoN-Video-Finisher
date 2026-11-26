@@ -10,13 +10,14 @@
 
 | Path | Files | Role |
 | --- | --- | --- |
-| `./` | 7 | the one install (`package.json`, `package-lock.json`), `.gitignore`, `README.md`, `RESTRUCTURE-LOG.md` and this ledger's contract (`AGENTS.md`, `CLAUDE.md`) |
+| `./` | 9 | the one install (`package.json`, `package-lock.json`), `.gitignore`, `README.md`, `RESTRUCTURE-LOG.md`, this ledger's contract (`AGENTS.md`, `CLAUDE.md`), the root's ESLint config and the import-boundary rule (`eslint.boundaries.js`) |
 | `.claude/` | 1 | the root chat's hooks, byte-identical to the tools' |
 | `.github/` | 1 | the one deploy workflow: the root gate, each tool built into its own folder, the lobby at the top |
 | `finisher/` | 15,180 | the Video Finisher, its own ledger (VH); not this ledger's |
 | `lobby/` | 1 | the placeholder staff lobby: names and links, no script |
 | `name-graphics/` | 78 | Video Name Graphics, its own ledger (VNG); not this ledger's |
 | `project/` | 16 | this ledger |
+| `scripts/` | 3 | the root's checks: the commit-ID check and the tests of it and of the import-boundary rule |
 | `tools/`, `verbs/` | 27 | pm-skills 5.0.3's tools and verbs, the release's bytes |
 
 `tools/structure.mjs` stopped on this repository (spawnSync git

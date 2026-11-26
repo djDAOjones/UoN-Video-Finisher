@@ -73,6 +73,10 @@ jobs:
       # Each tool built for its own folder. The base is derived from the
       # repo name so a fork or a rename does not silently produce a site whose
       # asset URLs all 404.
+      # The parent's own checks: the commit-ID check (in this shallow
+      # checkout, the newest commit only), the root's lint and tests, and
+      # the parent ledger's checker (UVT-1).
+      - run: npm run check:root
       - name: Build the Finisher into finisher/
         run: npm run build
         working-directory: finisher

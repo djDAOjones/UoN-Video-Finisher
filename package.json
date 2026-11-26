@@ -9,7 +9,8 @@
     "node": "^20.19.0 || >=22.12.0"
   },
   "scripts": {
-    "check": "npm run check --prefix finisher && npm run check --prefix name-graphics && node tools/check.mjs"
+    "check": "npm run check --prefix finisher && npm run check --prefix name-graphics && npm run check:root",
+    "check:root": "node scripts/check-commit-ids.mjs && eslint eslint.config.js eslint.boundaries.js scripts --max-warnings 0 && node --test scripts/*.test.mjs && node tools/check.mjs"
   },
   "dependencies": {
     "mediabunny": "^1.55.2"
