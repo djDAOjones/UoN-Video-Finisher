@@ -34,6 +34,16 @@
      project/archive-index.md (date range, count, IDs). Archived
      entries are still the record; grep finds them. -->
 
+## 2026-11-26 — UVT-2 — The identical set lives in `shared/`, no second copy: the nine core files and the Carbon tokens, each tool's gate running the shared tests
+
+**Decision:** `shared/core/` (diagnostics, egress, logger and redact with their tests, and version) and `shared/styles/tokens.carbon.css` are the one copy, both tools import them by path, and each tool's gate runs the four shared test files under its own build-time values while the root gate also lints, type-checks and tests `shared/` on its own — D10, in three green steps.
+
+**Rationale:** The steps: e4710c79 (this item) added the files in the Finisher's bytes at 349b3ae4, with `shared/`'s own tsconfig, test config, declarations and type-checked lint; 9ad7635d (VH-226) switched the Finisher's 35 import lines and its stylesheet and deleted its copies, keep-awake and watchdog staying in the tool; 730e4b44 (VNG-11) did the same for Name Graphics' 3 lines, whose copies differed only by a two-line "copied" header. Every gate stayed green with the same counts: the Finisher 98 files, 2,001 passed and 1 skipped; Name Graphics 5 files, 126 passed; `shared/` 4 files, 25 passed. A tool's dev server reads only its folder unless told, so each tool's `vite.config.ts` allows `../shared/`: read on ports 5199 and 5198, 200 for the shared logger and 403 still for the other tool; a build reads from disk, and the Finisher's Xerte build stayed flat. The tools' checkers accept no path outside the tool's folder, so 17 backticked paths in the Finisher's closed items now name the file without its folder, and four links in old records point at its new place, their text as written; a wish for pm-skills goes with stage 7's. `version.ts` reads two build-time values each tool injects; `shared/env.d.ts` declares them for the root's check only. Digest rule applied: house conventions, a shared module's tests beside it and run in every gate that imports it.
+
+**Supersedes:** none
+
+**Deferred:** none
+
 ## 2026-11-26 — UVT-1 — The ID-folder check and the import-boundary rule in every gate: a root script and an ESLint rule of our own, no dependency
 
 **Decision:** the root gate checks every commit after the founding against its folders (`scripts/check-commit-ids.mjs`), and an ESLint rule of the repository's own, `uvt/boundaries` in `eslint.boundaries.js`, resolves each import and fails `shared/` reaching a tool or one tool reaching the other; the root's config and both tools' configs include it — because D9 and the parent's rules ask for both, and a rule resolving paths catches what a name pattern misses.

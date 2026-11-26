@@ -16,5 +16,5 @@ parent's ledger (`../project/`, IDs `UVT-n`).
 
 | Path | From | Used by |
 | --- | --- | --- |
-| `core/diagnostics.ts`, `egress.ts`, `logger.ts`, `redact.ts`, each with its test, and `version.ts` | the Finisher's `src/core/`, at `349b3ae4` (UVT-2) | the Finisher and Name Graphics, each once it switches |
-| `styles/tokens.carbon.css` | the Finisher's `src/styles/`, at `349b3ae4` (UVT-2) | the Finisher and Name Graphics, each once it switches |
+| `core/diagnostics.ts`, `egress.ts`, `logger.ts`, `redact.ts`, each with its test, and `version.ts` | the Finisher's `src/core/`, at `349b3ae4` (UVT-2) | the Finisher (`9ad7635d`), Name Graphics (`730e4b44`) |
+| `styles/tokens.carbon.css` | the Finisher's `src/styles/`, at `349b3ae4` (UVT-2) | the Finisher (`9ad7635d`), Name Graphics (`730e4b44`) |

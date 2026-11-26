@@ -10,14 +10,14 @@ the parent's ledger.
 ## Where it stands
 
 - **Stage reached:** stage 6 under way, 2026-11-26: step 0 (both tools
-  to pm-skills 5.0.3), step 1 (the parent's ledger, `UVT-n`) and step 2
-  (UVT-1) done.
+  to pm-skills 5.0.3), step 1 (the parent's ledger, `UVT-n`), step 2
+  (UVT-1) and steps 3 and 5 (UVT-2, the shared set) done.
   Stage 5 done: one folder, one repository
   (`djDAOjones/UoN-Video-Tools`), `finisher/` and `name-graphics/` on
   one install at the root, the preview and the Xerte
   package checked, the old Name Graphics repository archived.
-- **Next:** stage 6, steps 3 to 5 (UVT-2 and UVT-3, PLAN-1 in the
-  parent's ledger). Stage 7 is not started.
+- **Next:** stage 6, step 4 (UVT-3, the shared tool configs), then
+  D9's rule signed into both tools' rules files. Stage 7 is not started.
 - **Then, fairly soon (the owner's word of 2026-11-26), after pm-skills
   5.0.3:** the Finisher's student edition (VH-129) and the translation
   register every tool shares: the parent's two items written under
@@ -713,6 +713,35 @@ same version the tools run (D8).
   founding on, 0 failures.
 - Gates: the root gate green before `884acca9`; each tool's green
   before its commit (logs `gate-stage6-*.log` in the backup folder).
+
+### Steps 3 and 5: the identical set in `shared/` (UVT-2): done
+
+D10's three green steps, each with its gate chained before the commit:
+
+- `e4710c79` UVT-2: `shared/core/` (nine files) and
+  `shared/styles/tokens.carbon.css`, byte-identical to the Finisher's at
+  `349b3ae4`; `shared/`'s own `tsconfig.json`, `env.d.ts`,
+  `vitest.config.ts` and README; the root's ESLint config lints
+  `shared/` type-checked; `check:root` runs that lint, `tsc -p shared`
+  and the shared tests (4 files, 25 passed). Root gate green.
+- `9ad7635d` VH-226: 35 import lines in 26 files and `app.css` switched,
+  the copies deleted (`keep-awake`, `watchdog` stay); the shared tests
+  in its vitest include; `server.fs.allow` for `../shared/`; the two
+  tests that read the tokens by path; 4 links and 17 backticked paths in
+  old records (the checker refuses a path outside the tool's folder);
+  three live docs. Gate green, 98 files, 2,001 passed, 1 skipped, the
+  same counts. Dev server: shared logger 200, `name-graphics/` 403.
+  `vite build --mode xerte`: flat, 35 files.
+- `730e4b44` VNG-11: 3 import lines and `app.css` switched, its copies
+  deleted (`src/core/` gone), the same config changes. Gate green, 5
+  files, 126 passed, the same counts. Dev server: shared logger 200.
+- **Step 5:** each tool's gate runs the four shared test files under its
+  own build-time values; the root gate runs every tool's gate and
+  `shared/`'s own lint, type check and tests.
+- No second copy: neither tool holds any of the ten files.
+- For pm-skills (stage 7): the item-file path check refuses a path
+  outside the installation, so a ledger below the root cannot name
+  `../shared/…`.
 
 ### Written for stage 6, now UVT-4 and UVT-5: the parent's first items (the owner's word of 2026-11-26)
 

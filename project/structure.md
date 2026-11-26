@@ -17,7 +17,7 @@
 | `lobby/` | 1 | the placeholder staff lobby: names and links, no script |
 | `name-graphics/` | 78 | Video Name Graphics, its own ledger (VNG); not this ledger's |
 | `project/` | 16 | this ledger |
-| `shared/` | 15 | code two tools need, imported by path: the core modules and their tests, the Carbon tokens, and shared/'s own tsconfig, test config and declarations (`shared/README.md`) |
+| `shared/` | 14 | code two tools need, imported by path: the core modules and their tests, the Carbon tokens, and shared/'s own tsconfig, test config and declarations (`shared/README.md`) |
 | `scripts/` | 3 | the root's checks: the commit-ID check and the tests of it and of the import-boundary rule |
 | `tools/`, `verbs/` | 27 | pm-skills 5.0.3's tools and verbs, the release's bytes |
 

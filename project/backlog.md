@@ -18,7 +18,6 @@
 
 ### Stage 6 — the shared set, after the founding — the owner's word of 2026-11-26
 
-- [~] UVT-2 — The identical set in `shared/`: the nine core files with their tests and `tokens.carbon.css`, each tool's gate running them — since 2026-11-26
 - [ ] UVT-3 — The shared tool configs: a base ESLint and TypeScript config each tool extends, and one `.editorconfig`, Prettier and markdownlint config — since 2026-11-26
 
 ### The shared translation register — the owner's word of 2026-11-26

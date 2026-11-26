@@ -16,3 +16,4 @@
 ## Stage 6 — the shared set, after the founding — the owner's word of 2026-11-26
 
 - UVT-1 — the root gate checks every commit after the founding against its folders, and `uvt/boundaries`, an ESLint rule of our own, fails shared/ reaching a tool or one tool another, in the root's and both tools' configs; node:test, no dependency (2026-11-26) — see decisions
+- UVT-2 — D10's identical set in shared/ with no second copy: the nine core files and the Carbon tokens added in the Finisher's bytes, then each tool switched and deleted its copies, every gate green at the same counts, the shared tests in each tool's gate and the root's (2026-11-26) — see decisions
