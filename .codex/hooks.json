@@ -1,0 +1,47 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "compact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "case \"$(git rev-parse --show-prefix)\" in finisher/*|name-graphics/*) exit 0;; esac; node \"$(git rev-parse --show-toplevel)/tools/session.mjs\" --harness codex",
+            "timeout": 5
+          }
+        ]
+      },
+      {
+        "matcher": "startup|resume|clear",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "case \"$(git rev-parse --show-prefix)\" in finisher/*|name-graphics/*) exit 0;; esac; node \"$(git rev-parse --show-toplevel)/tools/session.mjs\" --harness codex",
+            "timeout": 5
+          }
+        ]
+      },
+      {
+        "matcher": "startup|clear",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "case \"$(git rev-parse --show-prefix)\" in finisher/*|name-graphics/*) exit 0;; esac; node \"$(git rev-parse --show-toplevel)/tools/handover.mjs\" --harness codex",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "case \"$(git rev-parse --show-prefix)\" in finisher/*|name-graphics/*) exit 0;; esac; node \"$(git rev-parse --show-toplevel)/tools/session.mjs\" --harness codex",
+            "timeout": 5
+          }
+        ]
+      }
+    ]
+  }
+}

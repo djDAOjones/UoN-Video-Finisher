@@ -37,7 +37,8 @@
 | UI | project/digests/wcag-2.2-aaa.md | 600 | |
 | UI | project/digests/carbon.md | 460 | |
 | UI | project/digests/nielsen.md | 350 | |
+| briefing a session or second model; any close | project/model-policy.md | 400 | the owner signs the policy |
 
 ## Signed
 
-- Owner: Joe, 2026-11-26.
+- Owner (delegated, not reviewed): Joe, 2026-11-26 — see PLAN-11 (2026-11-26), "everything approved"; UVT-7 added the model policy's row
