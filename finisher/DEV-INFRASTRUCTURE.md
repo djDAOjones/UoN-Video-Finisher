@@ -27,8 +27,10 @@ Dev dependencies are tooling, ship nothing to the user, and do not count
 against that rule — but keep the set small and boring: `vite`, `vitest`,
 `typescript`, `eslint` + `typescript-eslint`, `prettier`, `markdownlint-cli2`.
 
-**`npm ci` in CI, `npm install` locally.** The lockfile is committed and
-is not hand-edited.
+**One install, at the repository's root** (VH-226): its `package.json`
+and committed lockfile hold every tool's dependencies, found here by
+walking up; this folder has neither. `npm ci` there in CI, `npm install`
+locally; a dependency change is the parent ledger's decision.
 
 ---
 
@@ -98,7 +100,7 @@ The built output is testable the same way via `npm run preview`.
 ### Boot
 
 ```bash
-npm install && npm run dev
+(cd .. && npm install) && npm run dev
 ```
 
 **Readiness check — not just "a process started":**
@@ -135,7 +137,7 @@ Files-On-Demand has dehydrated `node_modules` and reads are waiting on the
 network — not anything in the code.
 
 ```bash
-rm -rf node_modules && npm ci
+cd .. && rm -rf node_modules && npm ci
 ```
 
 That rewrites every dependency locally and takes a few seconds. It is a
@@ -146,17 +148,22 @@ running, reads merely wait; with sync **paused** they cannot complete at all,
 and git fails with `fatal: mmap failed: Operation timed out` — `git add`,
 `git show` and even `git status` once the index needs a tree. Resume OneDrive
 (or mark the folder "Always keep on this device") before any git work.
-Measured 2026-09-21: 2,047 of 2,369 files under `.git` were cloud-only.
 
-The working copy is this OneDrive checkout, pinned with "Always keep on this
-device" and `core.fileMode` false (decisions, 2026-10-05). Before git work,
-from the repository root on macOS, check that nothing outside `node_modules`
-is cloud-only. Empty output with a zero exit status means none; pause sync
-only after the check passes:
+The working copy is the OneDrive checkout of the repository,
+`2_Projects/2026-08-24 UoN Video Tools`, `.git` at its root, pinned with
+"Always keep on this device" and `core.fileMode` false (decisions,
+2026-10-05; VH-226, 2026-11-26). Before git work, from the root on macOS,
+check that nothing outside `node_modules` is cloud-only, and that no
+conflict copy exists. Empty output means none; pause sync only after the
+check passes:
 
 ```bash
-find . -path ./node_modules -prune -o -flags +dataless -print
+find . -name node_modules -prune -o -flags +dataless -print
+find . -name node_modules -prune -o \( -name '* [0-9].*' -o -name '*conflict*' \) -print
 ```
+
+With `core.fileMode` false a move drops the executable bit: put `100755`
+back from the old `git ls-tree` with `git update-index --chmod=+x`.
 
 The pin stops dehydration, not sync itself: OneDrive can still revert a
 tracked file mid-session or leave a conflict copy (a duplicate with the
@@ -170,13 +177,13 @@ never staged or committed — a session stages only its own item's lines
 | --- | --- |
 | `dist/` | `npm run build`, or `npm run build:xerte` |
 | `release/` | `npm run package:xerte` |
-| `node_modules/` | `npm install` |
+| `../node_modules/` | `npm ci` at the repository's root |
 | `test/fixtures/` | `npm run fixtures` |
 | `.vite/` cache | automatically |
 
 ### Never deleted by any script
 
-`src/`, `docs/`, `pm_skills/`, `samples/`, and the lockfile. `samples/`
+`src/`, `docs/`, `pm_skills/`, `samples/`, and the root's lockfile. `samples/`
 holds the maintainer's real recordings and is irreplaceable — no script
 may write to it, move it, or remove it.
 
@@ -258,7 +265,8 @@ makes the bundle useful. The filename is not. `redact()` in
 
 ## Quality gate
 
-The gate also runs in CI before every deploy (`.github/workflows/deploy-pages.yml`).
+The gate also runs in CI before every deploy, from this folder
+(`../.github/workflows/deploy-pages.yml`).
 A GitHub-hosted runner is roughly 1.5x slower than a development machine, which
 is why `testTimeout` is raised to 30 s in `vite.config.ts`: the audio chain
 tests process 90-120 seconds of audio and three of them timed out against
@@ -274,10 +282,7 @@ The bound is the wrong lever for this and the operating rule is the right one:
 do not run `npm run check` next to anything heavy — a browser fleet, an ffmpeg
 batch, `scripts/run-in-engines.mjs`. A DSP test that fails after an unusually
 long duration is reporting the machine, not the code; re-run it idle before
-believing it. Vitest's default failure report names the file and prints both
-file and test-case durations; `npm test` precedes that report with the same
-settled-machine instruction so the contention interpretation is visible at the
-point of failure rather than only in this document.
+believing it. `npm test` prints the same instruction before its report.
 
 ```bash
 npm run check
@@ -405,8 +410,6 @@ when staff can be told to trust it — which, per spec §13, means the
 acceptance criteria pass on the real test corpus, not on synthesised
 fixtures.
 
-The MVP starts at **`v0.1.0`**.
-
 ---
 
 ## Deployment
@@ -414,11 +417,14 @@ The MVP starts at **`v0.1.0`**.
 **Two homes** (D5, answered by PLAN-6 on 2026-10-22). The public home is
 Xerte, `xerte.nottingham.ac.uk`: a flat upload the owner makes by hand
 from each release (see "Xerte package" below). GitHub Pages stays up as
-the **unadvertised preview**, built from `main` by
-`.github/workflows/deploy-pages.yml`.
+the **unadvertised preview**, built from `main` by the repository's
+`.github/workflows/deploy-pages.yml`: one site, the staff lobby at
+<https://djdaojones.github.io/UoN-Video-Tools/>, this tool in
+`finisher/` beside the others (VH-226).
 
-**Every push to `main` publishes the preview.** There is no separate act
-of deploying it, and no gate beyond the workflow's own `npm run check`. That
+**Every push to `main` publishes the preview**, every tool's at once.
+There is no separate act of deploying it, and no gate beyond the
+workflow's own `npm run check`, every tool's and the parent's. That
 is what makes the release boundary worth hardening: the build job holds
 `contents: read` only, Pages and OIDC credentials belong to the deploy
 job, and every action is pinned to a commit SHA (VH-65).
@@ -429,8 +435,9 @@ is published of `origin/main` after a `git fetch`, never of local
 `main`: on 2026-10-01 a local `main` 103 commits stale read as an
 undeployed branch while Pages was serving its head.
 
-`BASE_PATH` is derived from the repository name so a fork or a rename
-does not silently produce a site whose asset URLs all 404.
+`BASE_PATH` is `/<repository>/finisher/`, derived from the repository's
+name so a fork or a rename does not silently produce a site whose asset
+URLs all 404; the old preview addresses return 404 (VH-225.3).
 
 ### Rolling back a bad deploy
 
@@ -538,7 +545,7 @@ it names.
 | `package-xerte.mjs` | `scripts/` | `npm run package:xerte`: the Xerte zip, named for its build id. See "Xerte package" above. |
 | `verdict.mjs` | `scripts/` | The verdict line a spike page ends on, and how the runner reads it. Shared by both; `verdict.d.mts` types it for the pages. |
 | `gen-placeholder-branding.mjs` | `scripts/` | Generates stand-in branding masters for all four §4.2 variants, so real After Effects renders drop in unchanged (VH-12). |
-| `check-links.mjs` | root | Scaffolded internal Markdown link checker. |
+| `check-links.mjs` | this folder | Scaffolded internal Markdown link checker. |
 | `gen-fixtures.mjs` | `scripts/` | **Not written yet — arrives with VH-16.** Will generate synthesised test media: slide-like frames with fine text, a variable-level speech bed, a VFR clip. |
 
 ### Cross-engine verification
@@ -652,8 +659,8 @@ ignores are this tool's.
 | Path | Why |
 | --- | --- |
 | `dist/` | Build output. Overwritten by `npm run build`. |
-| `node_modules/` | Installed. |
-| `package-lock.json` | Written by npm. Change it through `npm install`, never by hand. |
+| `../node_modules/` | Installed, at the repository's root. |
+| `../package-lock.json` | Written by npm at the root. Change it through `npm install` there, never by hand. |
 | `samples/` | The maintainer's real recordings. Read-only, irreplaceable, gitignored. |
 | `test/fixtures/` | Generated by `npm run fixtures`. Regenerate; do not edit. |
 | `docs/*.md` | The specification set. Protected — propose corrections, do not rewrite. |

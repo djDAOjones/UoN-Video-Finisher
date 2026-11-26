@@ -1,60 +1,52 @@
 # Next steps
 
 Written 2026-11-12 during a repository tidy; brought up to date on
-2026-11-25, after the overnight UX loops (Phase 9), the 0.3.1 cut and
-the pause. The live record is the ledger in [`project/`](project/); this
-page is a short summary of it.
+2026-11-26, at the close of the UoN Video Tools restructure (VH-226). The
+live record is the ledger in [`project/`](project/); this page is a short
+summary of it. The order of work across every tool is in the
+repository's [`NEXT_STEPS.md`](../NEXT_STEPS.md).
 
 ## Current state
 
-- Development is paused (2026-11-25, on the owner's word). Nothing runs
-  until the owner restarts it. VH-246 waits with four small points left;
-  its item file names the next step.
+- The restructure is done (VH-226, 2026-11-26): the Finisher is
+  `finisher/` in the repository `djDAOjones/UoN-Video-Tools`, beside Video
+  Name Graphics and `shared/`, on one install at the repository's root.
+  Its preview is <https://djdaojones.github.io/UoN-Video-Tools/finisher/>;
+  the old `/UoN-Video-Finisher/` address returns 404. The running record is
+  `RESTRUCTURE-LOG.md` at the root.
+- Open a chat on this folder to work on the Finisher. Chats from before the
+  move were filed under the old folder's path and cannot be resumed. One
+  writer per checkout: two chats on two tools at once need a second clone.
 - The owner's sheet is answered (decisions, PLAN-9, 2026-11-25): every
   recommendation accepted, 26 points to build with Codex checking each,
-  seven waiting on a person's check.
-- Next is the restructure into UoN Video Tools (VH-226), by
-  `UoN-Video-Tools-restructure-prompt.md` at this folder's root, run from
-  a chat on the new parent folder `2026-08-24 UoN Video Tools`.
-- Release 0.3.1 is cut (VH-245, 2026-11-25): tag `v0.3.1`, and its Xerte
-  zip is in `release/`, built from the tag. It is 0.3.0, the page Phase 8
-  closed on (VH-204), with Phase 9's fixes. Nothing is uploaded: the
-  upload is the owner's (VH-14).
-- Phase 9, the overnight UX loops of 2026-11-25 (PLAN-9), is closed: three
-  rounds of analysis, and what they found mended in existing words only.
-  The analysts' reports, each fix's evidence and the sheet of 33 points
-  that wait on the owner are in [`reviews/2026-11-25/`](reviews/2026-11-25/);
-  start with `owner-sheet-2026-11-25.md`.
-- `main` on GitHub and the preview are ahead of 0.3.1: VH-161's offline
-  after first load (a service worker, read true on GitHub Pages) and
-  VH-246's first fix (a trim time taken with Return reads in the page's
-  format) landed after the cut. The 0.3.1 zip has no service worker, so
-  offline on Xerte needs a later cut (VH-161).
-- The GitHub repository is `djDAOjones/UoN-Video-Finisher`; the local
-  folder and `package.json` name still say "helper" (VH-226).
-- Heavy work (walks, GPU work) runs on the Mac Pro (PLAN-8); main
-  development stays on the MacBook Pro. Phase 9's fixes were read in
-  Chrome on the MacBook Pro and have not had the Mac Pro's walk.
+  seven waiting on a person's check. The 26 wait for a Codex model policy.
+- Release 0.3.1 is cut (VH-245, 2026-11-25): tag `v0.3.1`, its Xerte zip
+  in `release/`. Nothing is uploaded: the upload is the owner's (VH-14).
+  `main` and the preview are ahead of it: VH-161's offline after first
+  load and VH-246's first fix.
+- Heavy work (walks, GPU work) runs on the Mac Pro (PLAN-8), which needs
+  the new path set up when it next takes work (D15).
 
 ## Known problems
 
-- `reviews/` holds about 640 MB and 8,700 tracked files of test evidence and
-  keeps growing.
+- `reviews/` holds about 860 MB and 14,600 tracked files of test evidence.
 - Two sample names that identified a person and a health topic were
   replaced by aliases on 2026-11-12 (PRIVACY-NAMES); older commits still
   carry them.
-- `npm audit` reports 22 issues, all in development tools (6 high); the
-  runtime dependency `mediabunny` is clean. Dependency changes need a
-  decision (AGENTS.md rule 7).
+- `npm audit` reports issues in development tools only; the runtime
+  dependency `mediabunny` is clean. Dependency changes are the parent
+  ledger's decision.
 - There is no `LICENSE` file, although `package.json` says MIT.
 - The repository sits on OneDrive; Files-On-Demand can dehydrate
   `node_modules` and git worktrees.
 
 ## Next three tasks
 
-1. **VH-226, the restructure**: from a chat on the parent folder, by the
-   restructure prompt; then the staff and student editions and the 26
-   accepted points of the owner's sheet, each checked by Codex.
-2. **VH-137**: the owner's review of the accessibility statement, whose
-   date of 2026-11-18 has passed; the statement still promises it.
-3. **VH-14**: the owner uploads the 0.3.1 zip to Xerte.
+1. **VH-129**, the staff and student editions: the first item when
+   development restarts; its plan asks the owner what each edition keeps
+   and is called.
+2. **VH-247**, the Finisher's words in the shared translation register,
+   with the parent's UVT-4; then the colleagues' first round (UVT-5).
+3. **The 26 accepted points** of the owner's sheet (PLAN-9), once a Codex
+   model policy is in place; beside them the owner's own: VH-137 (the
+   statement's review) and VH-14 (the Xerte upload).

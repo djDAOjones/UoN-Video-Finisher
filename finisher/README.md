@@ -5,9 +5,15 @@ educational video for publication: approved opening branding and closing
 graphics, consistent audio levels, and a correctly encoded MP4 — with no
 software to install and **no media leaving the user's device**.
 
+It is one of the [UoN Video Tools](../README.md): this folder, `finisher/`,
+in the repository `djDAOjones/UoN-Video-Tools`, beside Video Name Graphics
+(`../name-graphics/`) and the code they share (`../shared/`).
+
 ## Status
 
-**Live as an unadvertised pilot**, built from `main` on every push. The MVP
+**Live as an unadvertised pilot** at
+<https://djdaojones.github.io/UoN-Video-Tools/finisher/>, built from `main`
+on every push; the public home is Xerte (VH-14). The MVP
 shipped 2026-08-25: a real recording goes in and a branded, correctly-levelled
 MP4 comes out, entirely on the user's device.
 
@@ -44,17 +50,17 @@ The page's footer groups its routes by need (VH-182); every address is in
 ## Quick start
 
 ```bash
-npm install && npm run dev
+(cd .. && npm install) && npm run dev
 ```
 
-Then open <http://localhost:5173>. Readiness is a page that mounts and a
+The install is the repository root's, one for every tool. Then open <http://localhost:5173>. Readiness is a page that mounts and a
 `boot` line in the console — not merely a running process.
 
 | Command | Does |
 | --- | --- |
 | `npm run dev` | Dev server at <http://localhost:5173> |
 | `npm run build` | Static output to `dist/` |
-| `npm run check` | The one quality gate — types, lint, tests, build, docs |
+| `npm run check` | The one quality gate — types, lint, tests, build, docs; at the root, every tool's |
 | `npm test` | Test suite, including the EBU Tech 3341 meter validation |
 
 Full detail: [`DEV-INFRASTRUCTURE.md`](DEV-INFRASTRUCTURE.md).
@@ -134,10 +140,10 @@ Full rules: [`AGENTS.md`](AGENTS.md), [`UI-STANDARDS.md`](UI-STANDARDS.md),
   dehydrates `node_modules`, after which every read is a network fetch. The
   symptom is `tsc` hanging or ESLint failing with
   `ETIMEDOUT: connection timed out, read` — neither of which looks like a
-  storage problem. `npm ci` rewrites the files locally and fixes it in seconds.
-  Cloud sync can also revert tracked files mid-session. Exclude this folder
-  from sync, or mark it "always keep on this device"; `.gitignore` has no
-  effect, because OneDrive does not read it.
+  storage problem. `npm ci` at the repository's root rewrites the files
+  locally and fixes it in seconds. Cloud sync can also revert tracked files
+  mid-session. The repository's folder is marked "always keep on this
+  device"; `.gitignore` has no effect, because OneDrive does not read it.
 
 ## Licence and trademarks
 
@@ -151,14 +157,18 @@ public gives nobody else a right to reuse them. Fonts keep their own licences
 
 ## Project management
 
-This repository is managed with pm-next v3.1. The live ledger is
-[`project/`](project/): the backlog, decisions, trajectory and item files.
+This tool is managed with pm-skills 5.0.3, its own ledger in
+[`project/`](project/), IDs `VH-n`: the backlog, decisions, trajectory and
+item files. The repository's root and each other tool keep their own.
 [`pm_skills/`](pm_skills/) is the earlier PM Skills (v4.9.2) record, kept
 for history; do not update it. Current state and the next tasks are in
 [`NEXT_STEPS.md`](NEXT_STEPS.md).
 
 ## AI project context
 
+- Open a chat on this folder, not on the repository's root, to work on the
+  Finisher; one writer per checkout, so a second chat at the same time needs
+  its own clone or worktree.
 - Codex loads [`AGENTS.md`](AGENTS.md) automatically. It contains the shared
   standing instructions: the twelve-rule contract for working on the ledger.
 - Claude Desktop Code loads [`CLAUDE.md`](CLAUDE.md), a small adapter that
