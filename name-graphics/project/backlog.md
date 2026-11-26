@@ -16,9 +16,7 @@
 
 ### pm-skills 5.0.2 — the owner's word of 2026-11-26 — CLOSED 2026-11-26
 
-### pm-skills 5.0.3 — the owner's word of 2026-11-26
-
-- [~] REFRESH-503 — The project takes pm-skills 5.0.3 by the refresh — since 2026-11-26
+### pm-skills 5.0.3 — the owner's word of 2026-11-26 — CLOSED 2026-11-26
 
 ### The UoN Video Tools restructure — the owner's word of 2026-11-25
 

@@ -19,6 +19,16 @@
      moves the oldest entries verbatim to project/decisions-{YYYY-MM}.md
      and adds one line to project/archive-index.md. -->
 
+## 2026-11-26 — REFRESH-503 — The project runs pm-skills 5.0.3 (build d599678), by the refresh route, before the parent ledger is founded
+
+**Decision:** the project runs pm-skills 5.0.3, build d599678 (no tag `v5.0.3` yet, so named by commit), from 5.0.2 (b6a6707), by the release's refresh route, in the commit before this record: five files replaced, none of the project's own (`tools/migrate.mjs` and `view.mjs`, `verbs/control.md` and `intake.md`, and `tools/VERSION` reading 5.0.3); no pack, hook or setting installed; `AGENTS.md`, `CLAUDE.md` and every file under `project/` unchanged by the refresh — on the owner's word of 2026-11-26, before the parent ledger is founded.
+
+**Rationale:** The owner's words in chat, 2026-11-26: "start stage 6, and insert upgrade to pm-skills 5.0.3 at the earliest advisable opportunity". Taken before stage 6 founds the parent ledger, so all three ledgers are founded and run on one version (D8). 5.0.3's Upgrade actions ask a project on 5.0.2 for the refresh and nothing else: no signed file, setting or hook. The route was tried first on a throwaway clone outside OneDrive, with the same five files, then run here; it refused nothing and found the 19 files under `project/` byte-equal, the signed files among them. Every installed tool, verb, `AGENTS.md` and `CLAUDE.md` now equals d599678's bytes (26 files), and the Finisher's after its own REFRESH-503; d599678 is canon's `main` at "REL-503: pm-skills 5.0.3", its `pm_skills/VERSION` 5.0.3. At the base and after the refresh, `node tools/check.mjs` gave 0 failures and 0 warnings and `npm run check` from `name-graphics/` was green, 126 tests. Rollback: revert the refresh commit.
+
+**Supersedes:** 2026-11-26 — REFRESH-502 — The project runs pm-skills 5.0.2 (build b6a6707), by the refresh route
+
+**Deferred:** none
+
 ## 2026-11-26 — PLAN-2 — Name Graphics' words to join a translation register every tool shares, after pm-skills 5.0.3 and the parent ledger
 
 **Decision:** VNG-12 opens under Current, blocked on the parent ledger's translation register (stage 6) and VNG-4's English table: the register is the parent's, one record of every tool's words kept in the repository and built from the code, with a column for which tools use each row, from which each colleague gets a workbook of only their language's new, changed and unreviewed rows — on the owner's word of 2026-11-26.
