@@ -13,6 +13,10 @@
      at close over budget and warns when an item line is dated before
      the one above it or a phase's newest line after the phase above. -->
 
+## pm-skills 5.0.2 — the owner's word of 2026-11-26
+
+- REFRESH-502 — the project runs pm-skills 5.0.2, canon's tag v5.0.2 at b6a6707: two tools, two verbs and tools/VERSION replaced as a set by the refresh route, none of the project's own, no pack, hook or setting, no file under project/ written, the gate green (2026-11-26) — see decisions
+
 ## pm-skills 5.0.1 — the owner's decision D8 of 2026-11-25
 
 - REFRESH-501 — the project runs pm-skills 5.0.1: the lab build restored to the 5.0.0 release, then seven tools and the intake verb replaced by the refresh route, tools/VERSION reading 5.0.1, no file under project/ written, the gate green (2026-11-26) — see decisions
