@@ -13,6 +13,10 @@
      at close over budget and warns when an item line is dated before
      the one above it or a phase's newest line after the phase above. -->
 
+## Stage 7 — the record and the paths — the owner's word of 2026-11-26
+
+- UVT-6 — the parent's half of stage 7: the root's README current, a NEXT_STEPS.md naming each ledger's next item and the order across them, the structure table recounted by hand, and every leftover this ledger owns a wish line, UVT-6.1 to UVT-6.21, nine of them for pm-skills with their evidence (2026-11-26) — see decisions
+
 ## Stage 6 — the shared set, after the founding — the owner's word of 2026-11-26
 
 - UVT-1 — the root gate checks every commit after the founding against its folders, and `uvt/boundaries`, an ESLint rule of our own, fails shared/ reaching a tool or one tool another, in the root's and both tools' configs; node:test, no dependency (2026-11-26) — see decisions

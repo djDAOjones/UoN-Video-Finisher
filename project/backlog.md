@@ -25,6 +25,4 @@
 
 ## Next
 
-- [ ] UVT-6 — Stage 7 of the restructure, the parent's half: its closing record, a `NEXT_STEPS.md` at the root, a line for every leftover — since 2026-11-26 — (from: INTAKE, 2026-11-26)
-
 ## Icebox

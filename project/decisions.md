@@ -34,6 +34,16 @@
      project/archive-index.md (date range, count, IDs). Archived
      entries are still the record; grep finds them. -->
 
+## 2026-11-26 — UVT-6 — Stage 7, the parent's half: the root's docs current, a `NEXT_STEPS.md` naming each ledger's next item, every leftover a line
+
+**Decision:** the parent's half of stage 7 closes: the root's `README.md` says what the root now owns and gives the three preview addresses; a new `NEXT_STEPS.md` names each ledger's next item and the order of work across them (VH-129, then UVT-4 with VH-247 and VNG-12, then UVT-5, then the PLAN-9 points); the structure table is recounted by hand; and every leftover of the restructure this ledger owns is a wish line, UVT-6.1 to UVT-6.21, the pm-skills findings among them — because the restructure prompt's stage 7 asks it and the owner said "Start stage 7" on 2026-11-26.
+
+**Rationale:** The leftovers are the prompt's "Leave for later" list, the restructure log's "only a person verified" items and what was found since, each written once in the ledger that owns it, the others' named by ID: the Finisher's (VH-226.1 to VH-226.8, among them VH-129's questions and the 26 points waiting on a model policy) and Name Graphics' (VNG-11.1 to VNG-11.5) close with their items. Lines already held were not repeated: VH-129, VH-247, VNG-12, UVT-4, UVT-5, the PLAN-9 wishes, VH-14, VH-137, VH-161 and VH-246 for the untouched items, VH-225.3 for the address before the last. The pm-skills wishes (UVT-6.1 to UVT-6.9) are lines here with their evidence in RESTRUCTURE-LOG.md; nothing was sent to the pm-skills repository. `tools/structure.mjs` was not run at the root (ENOBUFS, UVT-6.2); the table was counted with `git ls-files -co --exclude-standard`. Old absolute paths in the tools' decisions and `reviews/` are history and stay as written. Outside the repository (the Codex trust entry, `.claude/settings.local.json`, the scheduled task) is the orchestrator chat's, with the owner. No code, UI or dependency changed; digest rule applied: house conventions, commit subjects `ID: summary` with a `Verify:` line. The root gate green before the commit.
+
+**Supersedes:** none
+
+**Deferred:** UVT-4, UVT-5
+
 ## 2026-11-26 — UVT-3 — The tool configs both tools share live at the root, one copy, each folder extending a base; stage 6 closes
 
 **Decision:** `tsconfig.base.json` and `eslint.base.js` at the root are the one TypeScript and ESLint config: `shared/` and each tool extend them and add only their own `include` or `ignores`; `.editorconfig`, `.prettierrc.json` and `.markdownlint.json` are the one copy, at the root; each tool's `.prettierignore` and `.markdownlint-cli2.jsonc` stay, their ignores its own — D10, in three green steps. With it the phase closes; the next item is UVT-6, stage 7.

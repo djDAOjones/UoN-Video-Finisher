@@ -10,21 +10,22 @@
 
 | Path | Files | Role |
 | --- | --- | --- |
-| `./` | 14 | the one install (`package.json`, `package-lock.json`), `.gitignore`, `README.md`, `RESTRUCTURE-LOG.md`, this ledger's contract (`AGENTS.md`, `CLAUDE.md`), the root's ESLint config and the import-boundary rule (`eslint.boundaries.js`), the tool configs every folder shares (`eslint.base.js`, `tsconfig.base.json`, `.editorconfig`, `.prettierrc.json`, `.markdownlint.json`) |
+| `./` | 15 | the one install (`package.json`, `package-lock.json`), `.gitignore`, `README.md`, `NEXT_STEPS.md` (each ledger's next item), `RESTRUCTURE-LOG.md`, this ledger's contract (`AGENTS.md`, `CLAUDE.md`), the root's ESLint config and the import-boundary rule (`eslint.boundaries.js`), the tool configs every folder shares (`eslint.base.js`, `tsconfig.base.json`, `.editorconfig`, `.prettierrc.json`, `.markdownlint.json`) |
 | `.claude/` | 1 | the root chat's hooks, byte-identical to the tools' |
 | `.github/` | 1 | the one deploy workflow: the root gate, each tool built into its own folder, the lobby at the top |
-| `finisher/` | 15,180 | the Video Finisher, its own ledger (VH); not this ledger's |
+| `finisher/` | 15,167 | the Video Finisher, its own ledger (VH); not this ledger's |
 | `lobby/` | 1 | the placeholder staff lobby: names and links, no script |
-| `name-graphics/` | 78 | Video Name Graphics, its own ledger (VNG); not this ledger's |
-| `project/` | 16 | this ledger |
+| `name-graphics/` | 66 | Video Name Graphics, its own ledger (VNG); not this ledger's |
+| `project/` | 18 | this ledger |
 | `shared/` | 14 | code two tools need, imported by path: the core modules and their tests, the Carbon tokens, and shared/'s own tsconfig, test config and declarations (`shared/README.md`) |
 | `scripts/` | 3 | the root's checks: the commit-ID check and the tests of it and of the import-boundary rule |
 | `tools/`, `verbs/` | 27 | pm-skills 5.0.3's tools and verbs, the release's bytes |
 
 `tools/structure.mjs` stopped on this repository (spawnSync git
 ENOBUFS: the Finisher's 15,000 tracked files overflow its buffer), so
-this table was written by hand on 2026-11-26, counted with git
-ls-files. A wish for pm-skills.
+this table was written by hand on 2026-11-26 and again at UVT-6's close,
+counted with git ls-files, tracked and untracked, respecting ignores
+(wish UVT-6.2).
 
 ## Entry points
 
