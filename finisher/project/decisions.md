@@ -24,6 +24,18 @@
      moves the oldest entries verbatim to project/decisions-YYYY-MM.md,
      beside this file, listed in project/archive-index.md. -->
 
+## 2026-11-26 — PLAN-10 — The student edition out of the Icebox, and the Finisher's words to join a translation register every tool shares, both after pm-skills 5.0.3
+
+**Decision:** VH-129, the student edition, moves from the Icebox to a milestone under Current, blocked on pm-skills 5.0.3's refresh; VH-247 opens, blocked on the parent ledger's translation register (stage 6) and VH-129's words; the register is the parent's: one record of every tool's words, kept in the repository and built from the code, from which each colleague gets a workbook of only their language's new, changed and unreviewed rows — on the owner's word of 2026-11-26.
+
+**Rationale:** The owner's words in chat, 2026-11-26: "we need to split the video finisher app into staff and student versions; and I have collegues willing to help with translation - how should that be managed accross apps? a single excel for all the apps with a field for which app(s)? it would be good to date translation so updated translation requests are only requested on parts needed. … this needs to be done fairly soon, after the pm skills update to 5.0.3". Asked where shared work lives before the parent ledger exists, he answered "Stage 6 first (Recommended)"; asked how colleagues receive work, "Requests of changes only (Recommended)". The register keeps the English each translation was made from, by date and by a fingerprint of its text: a date alone cannot tell an edited string from an unchanged one, and the fingerprint is what marks a row out of date. The spreadsheet is what colleagues receive and return, not the record, so two colleagues never edit one file and the code never reads a hand-kept sheet. The first round waits for VH-129's words, so the student edition's are translated with the rest; Name Graphics' words join in later rounds as its page settles (VNG-12), and only what changed is asked for. The parent's items are written in RESTRUCTURE-LOG.md, "Stages 6 and 7", for stage 6 to open. VH-129's deferral (PLAN-1, 2026-10-18) ends; its staff-and-student lobby criterion is the owner's word of 2026-11-25 in the same log.
+
+**Supersedes:** 2026-10-18 — PLAN-1 — Band 8: a title card and an Internal only closing, in one app for staff and students
+
+**Items:** VH-129, VH-247
+
+**Deferred:** VH-129, VH-247
+
 ## 2026-11-26 — VH-226 — The package is named `uon-video-finisher` with no lockfile of its own; the kept identifiers' test pins that in place of the old name
 
 **Decision:** `package.json`'s name becomes `uon-video-finisher` (D12), and the Finisher keeps no lockfile, dependencies or `node_modules` of its own, since the install is the repository root's; `test/kept-identifiers.test.ts` pins the new name and the absence of dependencies in place of the old name in the package and both lockfile fields, and its four pins of the browser-side identifiers stand unchanged.
@@ -475,13 +487,3 @@
 **Items:** VH-182, VH-183, VH-184, VH-185, VH-186, VH-187, VH-188, VH-189, VH-190, VH-191, VH-192, VH-193, VH-194, VH-196, VH-197, VH-198, VH-205, VH-199, VH-200, VH-201, VH-202, VH-211, VH-206, VH-207, VH-208, VH-212, VH-213, VH-214, VH-215, VH-216, VH-227, VH-217, VH-229, VH-209, VH-218, VH-230, VH-219, VH-210, VH-225, VH-220, VH-221, VH-222, VH-223, VH-224, VH-231, VH-203, VH-195, VH-204, VH-226
 
 **Deferred:** VH-231
-
-## 2026-11-05 — PLAN-8 — The owner's three answers from the Mac Pro: fix items built here, walked cells re-walked here, VH-203 across workers under its one ID
-
-**Decision:** While the owner steers from the Claude iOS app only, a fix item raised by VH-220 to VH-224 is built, walked, gated and landed on the Mac Pro, each on its own branch; the MacBook Pro keeps VH-204, VH-14 and VH-226. The cells VH-220 to VH-223 walked on the MacBook Pro are walked again on the Mac Pro, so each table rests on one machine, with the earlier records cited as support only. VH-203's after-run runs across successive workers under its one ID, as VH-199 ran, not as bounded items. These are the owner's answers to the two questions the entry below left open and to VH-203's open question.
-
-**Rationale:** The owner's own answers in Orchestrator #39's chat on the Mac Pro, 2026-11-05 at about 00:00Z, each choosing the option marked recommended: "Here on the Mac Pro (Recommended)", "Re-walk here (Recommended)" and "One ID across workers (Recommended)" (`plan8-owner-words.md`, with what was shown). Before them, in the same chat: "how do we keep developing all the way til the next scheduled deployment, with only ios app control? can you go gateless with my express permission (granted). can you spawn new chats when the context gets too big?". "Gateless" keeps the meaning the owner gave it on 2026-10-25 and 2026-10-31: the owner's approval stops are off and choices go on the sessions' recommendations, the unconditional stops remain, and rule 7's gate still runs. The re-walk was #38's recommendation and VH-221's worker's: text readings could stand across machines, but timed, focus and geometry readings could not be told from a page change. VH-203's question was Claude's recommendation against Codex astra's (VH-211's ask, point 4), a disagreement the evidence did not settle, so it was the owner's. The entry below gated green on the Mac Pro at 23:59Z (1,663 passed and 1 standing skip, EBU cases 7 and 8; 121 s; load 5.5 to 6.5) and landed by fast-forward, its SHA unchanged. The Mac Pro's load threshold is Orchestrator #39's ruling: a gate or walk starts only at a 1-minute load below 8, its physical core count.
-
-**Supersedes:** none
-
-**Deferred:** none

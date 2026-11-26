@@ -17,6 +17,12 @@ the parent's ledger.
   pm-skills 5.0.2 (the owner's REFRESH-502, merged in during the move).
 - **Next:** stage 6, the parent ledger and the shared set, best in a
   fresh chat on this folder, on the owner's word. Not started.
+- **Then, fairly soon (the owner's word of 2026-11-26), after pm-skills
+  5.0.3:** the Finisher's student edition (VH-129) and the translation
+  register every tool shares: the parent's two items written under
+  "Stages 6 and 7" below, which stage 6 opens, and each tool's half
+  (VH-247, VNG-12). The decisions are PLAN-10 in the Finisher and PLAN-2
+  in Name Graphics.
 - **Waiting on the owner:** the two Chrome tabs left open on the
   Finisher (each holds an unsaved test video; close each and choose
   "Leave"); the word for stage 6.
@@ -612,3 +618,55 @@ stays in the backup folder.
 ## Stages 6 and 7
 
 Not started.
+
+### Waiting for stage 6: the parent's first items (the owner's word of 2026-11-26)
+
+Stage 6 opens these two as the parent's first `UVT-n` items, with an item
+file each, after pm-skills 5.0.3. The owner's words in chat, 2026-11-26:
+"I have collegues willing to help with translation - how should that be
+managed accross apps? a single excel for all the apps with a field for
+which app(s)? it would be good to date translation so updated
+translation requests are only requested on parts needed". He chose
+"Stage 6 first (Recommended)" for where the shared work lives and
+"Requests of changes only (Recommended)" for how colleagues receive it.
+
+**1. The translation register: one record of every tool's words, and
+change-only requests.** Owned by the parent, in `shared/`.
+
+- One register in the repository, one row per message, built from each
+  tool's English table by a script, never kept by hand. Each row: the
+  key; which tools use it (the Finisher, its student edition, Name
+  Graphics; a message two tools share is one row); the English; where it
+  shows; the translator's note; whether it is drawn into a video or
+  graphic; when the English last changed and a fingerprint of it. For
+  each language: the translation, its status (machine draft, reviewed,
+  out of date), when it was reviewed, and the fingerprint of the English
+  it was made from.
+- When a tool's English changes, the script gives the row a new
+  fingerprint and date and marks every language's translation out of
+  date, keeping the old one as a starting point. A date alone cannot
+  tell an edited string from an unchanged one; the fingerprint can.
+- A request is one Excel workbook per language, holding only that
+  language's new, out-of-date and unreviewed rows: which tools, where it
+  shows, the note, the English now, the English before (for a changed
+  row), the current translation to correct, a column for the answer and
+  one for comments. The key and fingerprint ride in locked columns.
+- A returned workbook is merged by a script: a row is taken only if its
+  fingerprint still matches (otherwise it is reported as changed while
+  out for translation), its placeholders are checked, and it is marked
+  reviewed with the date. The tools' zh-Hans and ms-MY tables are then
+  written from the register; the gate fails if a table and the register
+  disagree.
+- The repository is public: the register records that a row was
+  reviewed and when, not the colleague's name, unless the owner says
+  otherwise.
+- The Finisher's sheet and scripts (`finisher/src/i18n/sheet.ts`,
+  `scripts/strings-sheet.mjs`, `scripts/strings-table.mjs`) are the
+  starting point, moved to `shared/`, not rewritten.
+
+**2. The colleagues' first round (the owner's).** Who checks zh-Hans and
+who ms-MY; the first request sent once VH-129's words are in, so the
+student edition's words go with the rest; the returned workbooks merged;
+each language's "machine translated" note lifted once all its rows are
+reviewed (the Finisher's wish VH-105.2). Name Graphics' words join a
+later round as its page settles; only what changed is asked for.

@@ -158,3 +158,13 @@ Each walk records its machine. Two questions remain for the owner:
 **Supersedes:** none
 
 **Deferred:** none
+
+## 2026-11-05 — PLAN-8 — The owner's three answers from the Mac Pro: fix items built here, walked cells re-walked here, VH-203 across workers under its one ID
+
+**Decision:** While the owner steers from the Claude iOS app only, a fix item raised by VH-220 to VH-224 is built, walked, gated and landed on the Mac Pro, each on its own branch; the MacBook Pro keeps VH-204, VH-14 and VH-226. The cells VH-220 to VH-223 walked on the MacBook Pro are walked again on the Mac Pro, so each table rests on one machine, with the earlier records cited as support only. VH-203's after-run runs across successive workers under its one ID, as VH-199 ran, not as bounded items. These are the owner's answers to the two questions the entry below left open and to VH-203's open question.
+
+**Rationale:** The owner's own answers in Orchestrator #39's chat on the Mac Pro, 2026-11-05 at about 00:00Z, each choosing the option marked recommended: "Here on the Mac Pro (Recommended)", "Re-walk here (Recommended)" and "One ID across workers (Recommended)" (`plan8-owner-words.md`, with what was shown). Before them, in the same chat: "how do we keep developing all the way til the next scheduled deployment, with only ios app control? can you go gateless with my express permission (granted). can you spawn new chats when the context gets too big?". "Gateless" keeps the meaning the owner gave it on 2026-10-25 and 2026-10-31: the owner's approval stops are off and choices go on the sessions' recommendations, the unconditional stops remain, and rule 7's gate still runs. The re-walk was #38's recommendation and VH-221's worker's: text readings could stand across machines, but timed, focus and geometry readings could not be told from a page change. VH-203's question was Claude's recommendation against Codex astra's (VH-211's ask, point 4), a disagreement the evidence did not settle, so it was the owner's. The entry below gated green on the Mac Pro at 23:59Z (1,663 passed and 1 standing skip, EBU cases 7 and 8; 121 s; load 5.5 to 6.5) and landed by fast-forward, its SHA unchanged. The Mac Pro's load threshold is Orchestrator #39's ruling: a gate or walk starts only at a 1-minute load below 8, its physical core count.
+
+**Supersedes:** none
+
+**Deferred:** none

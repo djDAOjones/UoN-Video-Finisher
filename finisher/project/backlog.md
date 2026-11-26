@@ -34,6 +34,11 @@ The public release on Xerte (PLAN-6) is VH-245's cut, 0.3.1.
 - [!] VH-14 — Deployment: the release on Xerte, the public home, and GitHub Pages kept as the unadvertised preview — since 2026-08-24 — blocked: the owner's own work, the Xerte upload of VH-245's 0.3.1 zip, not 0.3.0's — a canon [maintainer] item
 - [~] VH-226 — The UoN Video Tools restructure: the Finisher becomes `finisher/` in one repository with Video Name Graphics and shared code — since 2026-10-28
 
+### Staff and student editions, and the shared translation register — the owner's word of 2026-11-26, after pm-skills 5.0.3
+
+- [ ] VH-129 — The student edition: no official closings, hosted apart — since 2026-10-18 — (from: PLAN-1, 2026-10-18) — blocked: pm-skills 5.0.3's refresh
+- [ ] VH-247 — The Finisher's words in the translation register every tool shares, the student edition's with them — since 2026-11-26 — blocked: the parent ledger's register (stage 6) and VH-129's words
+
 ### Phase 7 — a second design, UX and accessibility pass, with Codex astra as partner, before the cut — CLOSED 2026-10-24
 
 ### Phase 8 — the owner's UX pass, then a third full design pass — CLOSED 2026-11-09
@@ -78,4 +83,3 @@ After the release.
 - [ ] VH-118 — `BEST_SOURCE_BLEND` has nothing measured behind it — since 2026-10-01
 - [ ] VH-119 — Skip true peak in the B and B′ planning passes — since 2026-10-01
 - [ ] VH-120 — A gain-solve step that anticipates the limiter — since 2026-10-01
-- [ ] VH-129 — The student edition: no official closings, hosted apart — since 2026-10-18 — (from: PLAN-1, 2026-10-18)
