@@ -9,16 +9,16 @@ the parent's ledger.
 
 ## Where it stands
 
-- **Stage reached:** stage 6 under way, 2026-11-26: step 0 (both tools
+- **Stage reached:** stage 6 closed, 2026-11-26: step 0 (both tools
   to pm-skills 5.0.3), step 1 (the parent's ledger, `UVT-n`), step 2
-  (UVT-1) and steps 3 and 5 (UVT-2, the shared set) done.
-  Stage 5 done: one folder, one repository
+  (UVT-1), steps 3 and 5 (UVT-2, the shared set), step 4 (UVT-3, the
+  shared tool configs) and D9 signed in both tools' rules files: "Stage 6
+  closed" below. Stage 5 done: one folder, one repository
   (`djDAOjones/UoN-Video-Tools`), `finisher/` and `name-graphics/` on
   one install at the root, the preview and the Xerte
   package checked, the old Name Graphics repository archived.
-- **Next:** stage 6, step 4 (UVT-3, the shared tool configs), then
-  D9's rule signed into both tools' rules files: "Where stage 6
-  stopped" below. Best in a fresh chat on the root. Stage 7 is not started.
+- **Next:** stage 7 (UVT-6, the parent's half, and each tool's closing
+  record), run by the orchestrator chat on the root. Not started.
 - **Then, fairly soon (the owner's word of 2026-11-26), after pm-skills
   5.0.3:** the Finisher's student edition (VH-129) and the translation
   register every tool shares: the parent's two items written under
@@ -27,7 +27,7 @@ the parent's ledger.
   in Name Graphics.
 - **Waiting on the owner:** the two Chrome tabs left open on the
   Finisher (each holds an unsaved test video; close each and choose
-  "Leave"); the word for stage 6.
+  "Leave"); the word for stage 7.
 - **The restructure prompt** is
   `finisher/reviews/2026-11-25/UoN-Video-Tools-restructure-prompt.md`
   (committed by VH-226 in `1a9927ca`, before the move).
@@ -785,6 +785,88 @@ UVT-4 (with VH-247 and VNG-12), UVT-5 and the owner's 26 accepted
 points (PLAN-9), each with the owner's go-ahead. It picked up at
 `054f770c`, equal to `origin/main`, the tree clean. The stage 5 and
 stage 6 chats are idle and stay so unless the owner says otherwise.
+
+### Stage 6 closed (2026-11-26)
+
+A chat on the root, started by the orchestrator at `b58a9353`, equal to
+`origin/main`, the tree clean. Every commit had the root gate chained
+before it with `&&` and the commit-ID check after it; logs
+`gate1.log` to `gate6.log` were kept in that chat's scratchpad only.
+
+**Step 4, UVT-3, the shared tool configs, in three green steps:**
+
+- `c6d3de67` UVT-3: `tsconfig.base.json` (the compilerOptions every
+  folder carried) and `eslint.base.js` (the type-checked rules, Node's
+  globals for scripts, and `toolConfig()`, a tool's whole config but
+  its ignores) at the root; `.editorconfig`, `.prettierrc.json` and
+  `.markdownlint.json` in the tools' bytes; `shared/tsconfig.json`
+  extends the base, the root's ESLint config applies `typeChecked()` to
+  `shared/`, and `check:root` lints `eslint.base.js`.
+- `5fceceb4` VH-226 and `82ab57b4` VNG-11: each tool's
+  `eslint.config.js` is `toolConfig()` with its own ignores, its
+  `tsconfig.json` extends the base with its own `include`, its
+  `.markdownlint-cli2.jsonc` extends `../.markdownlint.json`, and its
+  three plain copies are deleted. `.prettierignore` and
+  `.markdownlint-cli2.jsonc` stay per tool: their ignores differ. The
+  Finisher's `DEV-INFRASTRUCTURE.md`, "Editor config", says where each
+  lives.
+- Resolution: Prettier and EditorConfig search upward, and the root's
+  `.editorconfig` says `root = true`; markdownlint-cli2 does not look
+  above its folder, hence the explicit `extends`.
+- Proofs at each step, against captures taken before any change:
+  `tsc --showConfig` identical in `shared/` and both tools; `eslint
+  --print-config` identical for a TypeScript source, a script and the
+  config itself in each folder; Prettier's output on two files per tool
+  identical to the old layout's (`src/main.ts` and `vite.config.ts`
+  were unformatted before too; Prettier is not in the gate). Probes,
+  written and deleted at each step: a type error (TS2322) and an
+  explicit `any` still failed in `shared/` and both tools, a skipped
+  heading level (MD001) in both tools, and a long line passed (MD013
+  off, so the root's markdownlint config is read).
+- `5e517d21` UVT-3: the record: the decision entry (digest rule
+  applied: house conventions, tool configs at the root, each tool
+  extending them and adding only what it alone needs), the trajectory
+  line, the item struck, the phase "Phase 1 — Stage 6, … — CLOSED
+  2026-11-26" reconciled against PLAN-1, UVT-6's blocker dropped, and a
+  local recall, 8/8. Pushed `b58a9353..5e517d21`; Pages run
+  45837601424 green.
+
+**D9 in both tools' rules files, on the owner's word of 2026-11-26,
+"Yes, sign both (Recommended)":**
+
+- `224d8be5` VH-226: D9's rule, word for word, in the Finisher's
+  Environment where "Local `main` is stale by design; what is published
+  is `origin/main`." was; Signed 2026-11-26; a decision entry, Supersedes
+  none. `tools/archive.mjs` moved the oldest live entry (VH-223,
+  2026-11-05) verbatim, 45 live. The file is 598 words of 600.
+- `4b28dd8c` VNG-11: D9's rule in place of the sibling line; Signed
+  "Owner: Joe, 2026-11-26." in place of the INTAKE's delegated signature;
+  a decision entry, Supersedes none (the copied-code decision was
+  already superseded by "2026-11-26 — VNG-11 — Shared, not copied").
+  The file is 546 words of 600. Pushed `5e517d21..4b28dd8c`; Pages run
+  45838103873 green.
+- **One warning in each tool's checker, left standing:** Always, with
+  its Environment, is over its 400-word guideline (the Finisher 451,
+  Name Graphics 425), inside the 600-word hard budget. Each decision
+  defers it to stage 7, which reviews these Environment lines (the
+  prompt's stage 7, step 2).
+
+**Gates:** the root gate green before every commit, the same counts
+throughout: the Finisher 2,001 passed and 1 skipped, Name Graphics 126,
+`shared/` 25, node --test 9, the commit-ID check 0 failures (19 checked
+at `4b28dd8c`), the parent's checker 0 and 0, each tool's 0 and 0 until
+its D9 commit, then 0 and 1. No dependency changed.
+
+**What only a person verified, or has yet to:** nothing in this stage
+needed a person. That an editor applies the root's `.editorconfig` to a
+tool's file is by EditorConfig's upward search, not seen in an editor.
+The owner's signatures are their chat answer of 2026-11-26, quoted
+above. The deploy run for this log's own commit is read after its push
+and reported to the orchestrator.
+
+**Found, not changed:** two `.load.log` files under
+`finisher/reviews/2026-10-25/` are tracked though ignored, since the
+move (`5b58ac1b`); they are the Finisher's, for stage 7 to weigh.
 
 ### Written for stage 6, now UVT-4 and UVT-5: the parent's first items (the owner's word of 2026-11-26)
 
