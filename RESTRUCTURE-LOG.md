@@ -17,7 +17,8 @@ the parent's ledger.
   one install at the root, the preview and the Xerte
   package checked, the old Name Graphics repository archived.
 - **Next:** stage 6, step 4 (UVT-3, the shared tool configs), then
-  D9's rule signed into both tools' rules files. Stage 7 is not started.
+  D9's rule signed into both tools' rules files: "Where stage 6
+  stopped" below. Best in a fresh chat on the root. Stage 7 is not started.
 - **Then, fairly soon (the owner's word of 2026-11-26), after pm-skills
   5.0.3:** the Finisher's student edition (VH-129) and the translation
   register every tool shares: the parent's two items written under
@@ -742,6 +743,37 @@ D10's three green steps, each with its gate chained before the commit:
 - For pm-skills (stage 7): the item-file path check refuses a path
   outside the installation, so a ledger below the root cannot name
   `../shared/…`.
+
+### Found after the push: the deploy run failed on the commit-ID check
+
+- Pages run 45833013588 (`349b3ae4`) failed at `check:root`: the
+  workflow's checkout is one commit deep, so git showed that commit
+  without a parent, every file in the repository as added, and the check
+  judged UVT-1 to have written `finisher/`. The preview was not deployed
+  from `349b3ae4`; run 45834443117 (`15d8ff85`) would fail the same way.
+- Fixed under UVT-1: the checkout fetches two commits deep, and the
+  script judges no commit whose parent it cannot see. Proved on local
+  shallow clones: depth 1, 0 checked; depth 2, the newest checked, 0
+  failures; the full history, 11 checked, 0 failures.
+- `15d8ff85`'s Verify line says 11 commits; the check counted 10.
+
+### Where stage 6 stopped (context over the session's 350k budget)
+
+Done: step 0, step 1, step 2 (UVT-1), steps 3 and 5 (UVT-2). Left:
+
+1. **Step 4, UVT-3:** a base ESLint and TypeScript config at the root,
+   each tool extending it, and one `.editorconfig`, Prettier and
+   markdownlint config; in three green steps like UVT-2 (a UVT commit
+   adds the base, then a VH-226 and a VNG-11 commit switch each tool).
+   The root's `eslint.config.js` and `shared/tsconfig.json` already hold
+   the Finisher's settings, so the base can be factored from them.
+2. **D9 in both tools' rules files**, signed by the owner on 2026-11-26
+   ("Yes, sign both (Recommended)"): Name Graphics' sibling line
+   replaced by D9's rule; the Finisher's line "Local `main` is stale by
+   design; what is published is `origin/main`." dropped and D9's rule
+   added, under 600 words. Each in its own commit with a decision
+   superseding nothing, the signature line naming the date.
+3. Then the stage's close in the log, and a fresh read of the Pages run.
 
 ### Written for stage 6, now UVT-4 and UVT-5: the parent's first items (the owner's word of 2026-11-26)
 

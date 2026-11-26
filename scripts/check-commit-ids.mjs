@@ -129,9 +129,11 @@ function main(argv) {
   let note = ''
   if (!range) {
     if (has(BASE)) range = `${BASE}..HEAD`
-    else note = ' (a shallow clone without the founding commit: the newest only)'
+    else if (has('HEAD^')) note = ' (a shallow clone without the founding commit: the newest only)'
+    else note = " (a shallow clone without the newest commit's parent: nothing to compare, none)"
   }
-  const list = range ? commits(range) : commits('-1', 'HEAD')
+  // Without its parent a commit shows every file as added, so none is judged then.
+  const list = range ? commits(range) : note.endsWith('none)') ? [] : commits('-1', 'HEAD')
   const failures = []
   for (const c of list) {
     if (EXCEPTIONS.has(c.sha)) continue
