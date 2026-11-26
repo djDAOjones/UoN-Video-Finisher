@@ -40,7 +40,9 @@ old contents are merged into the installed file by hand.
    tasks naming the project. Before step 5 each is landed, carried into
    the record, or set aside on the owner's word, recorded.
 2. **Ask only what you cannot infer**, in one short list: the gate
-   command if none exists (for an existing project, its own gate
+   command if none exists (while the project has no tests, offer
+   `node tools/check.mjs` as the default, changed by a decision when
+   tests come; for an existing project, its own gate
    command also runs `node tools/check.mjs`, so a fault in the ledger
    fails the gate wherever it runs; say so in the adoption decision),
    hosting, the harness and its surface, the
