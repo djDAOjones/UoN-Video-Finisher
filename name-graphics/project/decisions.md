@@ -19,6 +19,16 @@
      moves the oldest entries verbatim to project/decisions-{YYYY-MM}.md
      and adds one line to project/archive-index.md. -->
 
+## 2026-11-26 — VNG-11 — D9's rule in the rules file, signed: every file belongs to one ledger by its folder, in place of the sibling line
+
+**Decision:** the rules file carries D9's rule, word for word as in the parent's rules and the Finisher's, in its Environment in place of the line naming the sibling UoN Video Finisher as the source of copied code, which the move made untrue; the Signed line names the owner's signature of 2026-11-26 — on the owner's word of 2026-11-26, "Yes, sign both (Recommended)".
+
+**Rationale:** D9's words are the restructure prompt's Owner decisions table, accepted on 2026-11-25, and the first Always line of the parent's rules file; this file's copy was compared with both. The dropped line named the old sibling folder and copied code, which "2026-11-26 — VNG-11 — Shared, not copied" already replaced as a decision; the restructure log at the repository's root, stage 6, step 1, has the owner's answer. The Signed line was the INTAKE's delegated signature of 2026-11-05; the owner signed this file in that answer. The rules file is now 546 words of 600; the checker warns that Always, with its Environment, is 425 words against a guideline of 400, inside the hard budget, so the warning stands until stage 7 of the restructure, which reviews this file's sibling lines under this item. No standard is touched.
+
+**Supersedes:** none
+
+**Deferred:** VNG-11
+
 ## 2026-11-26 — REFRESH-503 — The project runs pm-skills 5.0.3 (build d599678), by the refresh route, before the parent ledger is founded
 
 **Decision:** the project runs pm-skills 5.0.3, build d599678 (no tag `v5.0.3` yet, so named by commit), from 5.0.2 (b6a6707), by the release's refresh route, in the commit before this record: five files replaced, none of the project's own (`tools/migrate.mjs` and `view.mjs`, `verbs/control.md` and `intake.md`, and `tools/VERSION` reading 5.0.3); no pack, hook or setting installed; `AGENTS.md`, `CLAUDE.md` and every file under `project/` unchanged by the refresh — on the owner's word of 2026-11-26, before the parent ledger is founded.

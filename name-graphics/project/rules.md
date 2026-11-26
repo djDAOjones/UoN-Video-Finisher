@@ -23,7 +23,7 @@
 ### Environment
 
 - The working copy is the owner's OneDrive checkout, `core.fileMode` false; a change no session made (a revert, a conflict copy) is reported, never committed. If the toolchain stalls, the Finisher's DEV-INFRASTRUCTURE.md, "When the toolchain stalls on this filesystem", is the recovery.
-- The sibling UoN Video Finisher (`../2026-08-24 UoN Video Helper`) is the source of copied code: a copy names the Finisher commit it came from; this project reads its code, never its record, and never writes there.
+- Every file belongs to one ledger, by its folder: `finisher/` to VH, `name-graphics/` to VNG, the rest to UVT. An item changes only what its ledger owns. `shared/` is common to every tool: code moves there when a second tool needs it, a change there is a parent item, and it closes only with every tool's gate green. Shared source is not a dependency.
 - The owner, a vibe coder, owns structure and design: do the work; explain only when asked.
 - `CLAUDE.local.md` holds personal instructions; harness memories are not the record.
 - Name what only a person verified: Clipchamp, real browsers, the Xerte upload.
@@ -42,4 +42,4 @@
 
 ## Signed
 
-- Owner (delegated, not reviewed): Joe, 2026-11-05 — see the INTAKE decision, 2026-11-05
+- Owner: Joe, 2026-11-26.
