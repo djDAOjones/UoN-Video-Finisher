@@ -1,7 +1,7 @@
 # Next steps
 
 Written 2026-11-12 during a repository tidy; brought up to date on
-2026-11-26, at the close of the UoN Video Tools restructure (VH-226). The
+2026-11-26 for Phase 12, the full pm-skills stack (PLAN-12). The
 live record is the ledger in [`project/`](project/); this page is a short
 summary of it. The order of work across every tool is in the
 repository's [`NEXT_STEPS.md`](../NEXT_STEPS.md).
@@ -19,7 +19,8 @@ repository's [`NEXT_STEPS.md`](../NEXT_STEPS.md).
   writer per checkout: two chats on two tools at once need a second clone.
 - The owner's sheet is answered (decisions, PLAN-9, 2026-11-25): every
   recommendation accepted, 26 points to build with Codex checking each,
-  seven waiting on a person's check. The 26 wait for a Codex model policy.
+  seven waiting on a person's check. The 26 wait for Phase 12, whose
+  VH-249 brings the Codex model policy.
 - Release 0.3.1 is cut (VH-245, 2026-11-25): tag `v0.3.1`, its Xerte zip
   in `release/`. Nothing is uploaded: the upload is the owner's (VH-14).
   `main` and the preview are ahead of it: VH-161's offline after first
@@ -42,11 +43,18 @@ repository's [`NEXT_STEPS.md`](../NEXT_STEPS.md).
 
 ## Next three tasks
 
-1. **VH-129**, the staff and student editions: the first item when
-   development restarts; its plan asks the owner what each edition keeps
-   and is called.
-2. **VH-247**, the Finisher's words in the shared translation register,
-   with the parent's UVT-4; then the colleagues' first round (UVT-5).
-3. **The 26 accepted points** of the owner's sheet (PLAN-9), once a Codex
-   model policy is in place; beside them the owner's own: VH-137 (the
-   statement's review) and VH-14 (the Xerte upload).
+1. **Phase 12, the full pm-skills stack** (PLAN-12, the owner's word of
+   2026-11-26 in the parent's PLAN-11): the Finisher rebuilt on the app
+   opinion's forms kind with React and Carbon React, each step reviewed
+   by Codex. First **VH-249**, after the parent's UVT-7: the packs, the
+   baseline accessibility run and the correction of the specification,
+   which the owner approves before **VH-250** starts; then VH-251 (after
+   Name Graphics' pilot, VNG-15) and VH-252.
+2. **VH-129**, the staff and student editions, on the rebuilt Finisher,
+   after Phase 12 and the parent's UVT-9; its plan asks the owner what
+   each edition keeps and is called.
+3. **VH-247**, the Finisher's words in the shared translation register,
+   with the parent's UVT-4; then the colleagues' first round (UVT-5) and
+   **the 26 accepted points** of the owner's sheet (PLAN-9); beside them
+   the owner's own: VH-137 (the statement's review) and VH-14 (the Xerte
+   upload).
