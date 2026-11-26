@@ -29,6 +29,16 @@
 
 **Deferred:** none
 
+## 2026-11-26 — REFRESH-502 — The project runs pm-skills 5.0.2 (build b6a6707), by the refresh route
+
+**Decision:** the project runs pm-skills 5.0.2, build b6a6707 (the tag v5.0.2 of canon, its release folder `pm_skills/`), from 5.0.1 (fd5fb94), by the release's refresh route, in the commit before this record: five files replaced, none of the project's own (`tools/ledger.mjs` and `migrate.mjs`, `verbs/design-review.md` and `intake.md`, and `tools/VERSION` reading 5.0.2); no pack, hook or setting installed; `AGENTS.md`, `CLAUDE.md` and every file under `project/` unchanged by the refresh — because the owner's word of 2026-11-26 sends the installations on 5.0.1 to 5.0.2.
+
+**Rationale:** The route refused nothing and found the 18 files under `project/` byte-equal, the signed files among them. Every installed tool, verb, `AGENTS.md` and `CLAUDE.md` now equals v5.0.2's bytes (26 files). At the base and after the refresh, `node tools/check.mjs` gave 0 failures and 0 warnings and `npm run check` was green, 126 tests. The start read differs only by this item's heading and line and by the empty CLOSED heading, pm-skills 5.0.1's, that 5.0.2's read leaves out. REFRESH-501 kept the repository on one version for the merge with the Finisher; the Finisher takes the same refresh in its own pull request, so both ledgers run 5.0.2 once both merge. Rollback: revert the refresh commit, or the pull request's merge commit.
+
+**Supersedes:** 2026-11-26 — REFRESH-501 — The project runs pm-skills 5.0.1 (build fd5fb94), by the refresh route, after the lab build is restored to the 5.0.0 release
+
+**Deferred:** none
+
 ## 2026-11-26 — VNG-11 — Shared, not copied: Name Graphics joins the Finisher in one repository as `name-graphics/`, code two tools need in `shared/`
 
 **Decision:** the project's history is merged into the Finisher's repository, renamed `djDAOjones/UoN-Video-Tools`, as the folder `name-graphics/` with its own ledger; code both tools need moves to `shared/` and is imported by path, not copied and owned; a parent ledger at the root owns `shared/`, and a change there is a parent item that closes only with every tool's gate green — because the owner chose one parent with shared base code on 2026-11-25.

@@ -14,6 +14,8 @@
 
 ### pm-skills 5.0.1 — the owner's decision D8 of 2026-11-25 — CLOSED 2026-11-26
 
+### pm-skills 5.0.2 — the owner's word of 2026-11-26 — CLOSED 2026-11-26
+
 ### The UoN Video Tools restructure — the owner's word of 2026-11-25
 
 - [~] VNG-11 — The UoN Video Tools restructure: Name Graphics becomes `name-graphics/` in one repository with the Finisher and shared code — since 2026-11-26
