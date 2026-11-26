@@ -19,6 +19,18 @@
      moves the oldest entries verbatim to project/decisions-{YYYY-MM}.md
      and adds one line to project/archive-index.md. -->
 
+## 2026-11-26 — PLAN-2 — Name Graphics' words to join a translation register every tool shares, after pm-skills 5.0.3 and the parent ledger
+
+**Decision:** VNG-12 opens under Current, blocked on the parent ledger's translation register (stage 6) and VNG-4's English table: the register is the parent's, one record of every tool's words kept in the repository and built from the code, with a column for which tools use each row, from which each colleague gets a workbook of only their language's new, changed and unreviewed rows — on the owner's word of 2026-11-26.
+
+**Rationale:** The owner's words in chat, 2026-11-26, asked how colleagues' translation help "should … be managed accross apps? a single excel for all the apps with a field for which app(s)? it would be good to date translation so updated translation requests are only requested on parts needed", to be done "fairly soon, after the pm skills update to 5.0.3". He chose "Stage 6 first (Recommended)" for where the shared work lives and "Requests of changes only (Recommended)" for how colleagues receive it. Each row keeps the English it was translated from by date and fingerprint, so a changed string, and only that, goes in the next request. The Finisher's PLAN-10 of the same date opens its half (VH-247) and moves its student edition out of the Icebox; the parent's items are written in RESTRUCTURE-LOG.md, "Stages 6 and 7". VNG-4 is not re-scoped: it builds the language machinery, and this item points its tables at the register.
+
+**Supersedes:** none
+
+**Items:** VNG-12
+
+**Deferred:** VNG-12
+
 ## 2026-11-26 — VNG-11 — One install at the repository's root: no lockfile or dev dependencies here, the dev tools at the root lockfile's versions
 
 **Decision:** the project keeps no lockfile, dependencies or `node_modules` of its own: its nine dev dependencies, same packages and ranges as before, come from the one install at the repository's root, whose lockfile is the Finisher's; so its dev tools move to the versions that lockfile resolved (73 packages differ, for example eslint 10.14.0 to 10.9.1, vite 8.3.6 to 8.2.2, vitest 4.1.12 to 4.1.11, typescript-eslint 8.72.1 to 8.68.0), and its own deploy workflow goes, the repository's one workflow building this tool into `name-graphics/` of the preview — because one repository has one install and one lockfile (D3), and the owner chose the Finisher's.

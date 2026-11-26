@@ -32,6 +32,10 @@
 - [ ] VNG-6 — The first neutral style drawn and saved as video and as PNG — since 2026-11-05
 - [ ] VNG-7 — The UoN pack's styles, from the owner's designs — since 2026-11-05 — blocked: the owner's design source
 
+### The shared translation register — the owner's word of 2026-11-26, after pm-skills 5.0.3
+
+- [ ] VNG-12 — Name Graphics' words in the translation register every tool shares — since 2026-11-26 — blocked: the parent ledger's register (stage 6) and VNG-4's English table
+
 ## Next
 
 The public release.
