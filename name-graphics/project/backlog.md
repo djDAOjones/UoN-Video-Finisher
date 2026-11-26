@@ -36,7 +36,7 @@
 
 ### The shared translation register — the owner's word of 2026-11-26, after pm-skills 5.0.3
 
-- [ ] VNG-12 — Name Graphics' words in the translation register every tool shares — since 2026-11-26 — blocked: the parent ledger's register (stage 6) and VNG-4's English table
+- [ ] VNG-12 — Name Graphics' words in the translation register every tool shares — since 2026-11-26 — blocked: UVT-4 and VNG-4's English table
 
 ## Next
 
