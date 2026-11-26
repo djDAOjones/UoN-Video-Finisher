@@ -1,0 +1,134 @@
+/*
+ * Carbon structural tokens.
+ *
+ * Implemented to match IBM Carbon's productive design language in this
+ * project's own code — Carbon is never installed as a package
+ * (`AGENTS.md` -> "Carbon-first UI").
+ *
+ * What is here is shape: spacing, the type scale, motion, the pointer-target
+ * floor — and status colour, the one colour the brand palette cannot supply.
+ * Surface, text, border and interactive colour were here until VH-92 and are
+ * the brand's now: see `tokens.brand.css`, which assigns the same role names
+ * (`--layer-01`, `--text-primary`, …) from the University's palette.
+ *
+ * Status: clearing 7:1 against every surface forces the far end of each
+ * ramp — the -80 steps on light surfaces, the -20 steps on dark ones.
+ * Carbon's mid-ramp status colours (green-50, red-60) meet AA, not AAA. This
+ * is the documented adaptation `UI-STANDARDS.md` anticipates. The visible
+ * consequence is that status colour reads as near-black or near-white rather
+ * than as "green" or "red" — which is acceptable precisely because colour is
+ * never the carrier of meaning here: every status also states its outcome in
+ * words. The dark-surface steps are set beside the dark roles, in
+ * `tokens.brand.css`; every pair is asserted by test/contrast.test.ts.
+ */
+
+:root {
+  /* Status — reinforcement only; never the sole carrier of meaning */
+  --support-error: #750e13; /* red-80 */
+  --support-success: #044317; /* green-80 */
+  --support-warning: #483700; /* yellow-80 */
+
+  /* Spacing scale (Carbon) */
+  --spacing-01: 0.125rem;
+  --spacing-02: 0.25rem;
+  --spacing-03: 0.5rem;
+  --spacing-04: 0.75rem;
+  --spacing-05: 1rem;
+  --spacing-06: 1.5rem;
+  --spacing-07: 2rem;
+  --spacing-08: 2.5rem;
+  --spacing-09: 3rem;
+
+  /* Type scale (Carbon productive) */
+  --type-body-compact: 0.875rem;
+  --type-body: 1rem;
+  --type-heading-compact: 1rem;
+  --type-heading-03: 1.25rem;
+  --type-heading-04: 1.75rem;
+
+  /* The page title and every panel heading (VH-166). */
+  --type-weight-heading: 700;
+
+  /* Running text, and the emphasis a chosen segment or a section heading
+     carries (VH-166). */
+  --type-weight-body: 400;
+  --type-weight-emphasis: 600;
+
+  /* A system check's pass or fail mark: a status glyph, not a heading, bold
+     so it reads at the compact size beside its words (VH-151). */
+  --type-weight-mark: 700;
+
+  /* Line height: Carbon's body (1.5, WCAG 1.4.8's line spacing) and its
+     headings. Paragraph spacing is one blank line — 2.5 × the font size top
+     to top, the 1.4.8 Understanding document's figure (VH-124). */
+  --line-height-body: 1.5;
+  --line-height-heading: 1.25;
+  /* Carbon heading-03's 28 px line at 20 px: the panel heading (VH-166). */
+  --line-height-heading-03: 1.4;
+  --paragraph-gap: var(--spacing-05);
+
+  /* WCAG 1.4.8 (AAA): no more than 80 characters a line, or 40 CJK glyphs;
+     the house counts a CJK glyph as two against 80, mixed lines too.
+     One width in rem, so text of every size and language stops at one place
+     (VH-167): `ch` and `em` resolved against each element's own font, and
+     the column held four widths. Counted in Chrome at 1280 px: at most 63
+     characters a line at 16 px and 78 at 14 px, 32 CJK glyphs at 14 px. */
+  --measure: 28rem;
+
+  /* Layout: the content column, and the widths the form rows wrap at. */
+  --layout-width: 60rem;
+  --field-min-width: 12rem;
+  --field-wide-min-width: 20rem;
+  --facts-term-width: 8rem;
+  --dialog-width: 40rem;
+
+  /* Heights: the preview's cap, a details or log pane before it scrolls,
+     and a message box's resting size. */
+  --preview-max-height: 60vh;
+  --detail-max-height: 14rem;
+  --log-max-height: 18rem;
+  --textarea-min-height: 8rem;
+
+  /* Edges: a hairline, an emphasised edge (an invalid field, a swatch's
+     mat), a notification's rail, and the focus ring. */
+  --border-width: 1px;
+  --border-width-emphasis: 2px;
+  --rail-width: 4px;
+  --focus-width: 2px;
+  --focus-offset: 2px;
+  /* The ring and its gap: the room a ring needs inside a box that clips it,
+     as the file input clips its button's (V-40). */
+  --focus-room: calc(var(--focus-width) + var(--focus-offset));
+
+  /* Native checkbox and radio glyphs, the status mark column, and the "?"
+     drawn inline in the fourth promise's text (VH-205). */
+  --control-size: 1.25rem;
+  --mark-width: 1.5rem;
+  /* The System check's mark column (VH-230): its state words, whole in each
+     language: Malay's "Tidak", 2.8rem under the text-spacing sheet. */
+  --system-check-mark-width: var(--spacing-09);
+
+  /* The AAA pointer-target floor. Never shrink a control below this. */
+  --target-min: 44px;
+
+  /* A trim handle's dark disc and the light band round it, in px like the
+     44 px thumb they sit in: in rem, a 32 px default font grew the disc under
+     the focus ring, which then had nothing to contrast with (V-41). */
+  --thumb-disc: 12px;
+  --thumb-halo: 2px;
+
+  /* Motion (Carbon productive, `fast-02`), and the indeterminate bar's
+     sweep. Reduced to nothing by the `prefers-reduced-motion` rule. */
+  --motion-fast: 110ms;
+  --motion-progress: 1.8s;
+
+  /* Carbon's danger button, for the one destructive action on the page
+     (Discard, VH-124): the error ramp's far end, which clears 7:1 for white
+     text — red-80 at rest, red-70 on hover, red-90 pressed, as Carbon's
+     danger press darkens past rest (VH-169). The dark-surface values sit
+     beside the dark status steps in `tokens.brand.css`. */
+  --button-danger: var(--support-error);
+  --button-danger-hover: #a2191f; /* red-70 */
+  --button-danger-active: #520408; /* red-90 */
+  --text-on-danger: #ffffff;
+}
