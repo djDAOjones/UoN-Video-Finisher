@@ -1,33 +1,26 @@
 # UoN Video Tools: the restructure log
 
 The running record of the restructure described in
-`../2026-08-24 UoN Video Helper/UoN-Video-Tools-restructure-prompt.md`.
-A fresh chat opened on this folder resumes from this log and that prompt.
-
-This folder has no contract, no ledger and no hooks until stage 6 founds
-the parent's ledger.
+`finisher/reviews/2026-11-25/UoN-Video-Tools-restructure-prompt.md`
+(written at the Finisher's old folder, where the early stages below
+name it). The restructure is done; each ledger is now the record, and
+`NEXT_STEPS.md` names what comes next.
 
 ## Where it stands
 
-- **Stage reached:** stage 6 closed, 2026-11-26: step 0 (both tools
-  to pm-skills 5.0.3), step 1 (the parent's ledger, `UVT-n`), step 2
-  (UVT-1), steps 3 and 5 (UVT-2, the shared set), step 4 (UVT-3, the
-  shared tool configs) and D9 signed in both tools' rules files: "Stage 6
-  closed" below. Stage 5 done: one folder, one repository
-  (`djDAOjones/UoN-Video-Tools`), `finisher/` and `name-graphics/` on
-  one install at the root, the preview and the Xerte
-  package checked, the old Name Graphics repository archived.
-- **Next:** stage 7 (UVT-6, the parent's half, and each tool's closing
-  record), run by the orchestrator chat on the root. Not started.
-- **Then, fairly soon (the owner's word of 2026-11-26), after pm-skills
-  5.0.3:** the Finisher's student edition (VH-129) and the translation
-  register every tool shares: the parent's two items written under
-  "Stage 6" below, opened as UVT-4 and UVT-5, and each tool's half
-  (VH-247, VNG-12). The decisions are PLAN-10 in the Finisher and PLAN-2
-  in Name Graphics.
+- **Stage reached:** all seven stages done, 2026-11-26: "Stage 7"
+  below. VH-226, VNG-11 and UVT-6 are closed; every leftover is a line in
+  its ledger. Stage 6 closed the shared set; stage 5 made one folder and
+  one repository (`djDAOjones/UoN-Video-Tools`), the old Name Graphics
+  repository archived.
+- **Next:** by `NEXT_STEPS.md` at the root, each with the owner's
+  go-ahead: VH-129, the Finisher's student edition; then UVT-4 with
+  VH-247 and VNG-12, the translation register; then UVT-5, the owner's
+  colleagues' first round; then the 26 points of the owner's sheet
+  (PLAN-9), once a Codex model policy is in place.
 - **Waiting on the owner:** the two Chrome tabs left open on the
-  Finisher (each holds an unsaved test video; close each and choose
-  "Leave"); the word for stage 7.
+  Finisher in stage 5 (each holds an unsaved test video; close each and
+  choose "Leave"); the lines in each ledger marked as a person's to see.
 - **The restructure prompt** is
   `finisher/reviews/2026-11-25/UoN-Video-Tools-restructure-prompt.md`
   (committed by VH-226 in `1a9927ca`, before the move).
@@ -920,6 +913,101 @@ each language's "machine translated" note lifted once all its rows are
 reviewed (the Finisher's wish VH-105.2). Name Graphics' words join a
 later round as its page settles; only what changed is asked for.
 
-## Stage 7
+## Stage 7: the record and the paths (2026-11-26)
 
-Not started.
+The owner's word, 2026-11-26: "Start stage 7". A chat on the root,
+started by the orchestrator at `1acbe15e`, equal to `origin/main`, the
+tree clean, the only writer. Every commit had the root gate chained
+before it with `&&` and the commit-ID check after it; logs in that
+chat's scratchpad only. The orchestrator chat did everything outside the
+repository with the owner (`~/.claude.json`, the `.claude/settings.local.json`
+line, the scheduled task, the Codex trust).
+
+### The commits
+
+- `f8201338` UVT-6, closed: the root's README (what the root owns, the
+  three preview addresses), a new `NEXT_STEPS.md` naming each ledger's
+  next item and the order of work, the structure table by hand, and
+  wishes UVT-6.1 to UVT-6.21, nine of them for pm-skills with their
+  evidence (nothing sent to the pm-skills repository). Pages run
+  45841516706 green.
+- `b8ce89a8` VH-226: `DEV-INFRASTRUCTURE.md` (the install at the root,
+  the deploy, the recovery steps run from the root with the conflict-copy
+  check and the executable bit, the paths; 4,596 words of its 4,600),
+  `README.md`, `NEXT_STEPS.md`, `project/structure.md` by hand with a
+  role for every directory, wishes VH-226.1 to VH-226.8.
+- `1c778411` VNG-11: `README.md` (build, run and check, the routed
+  document), a new `NEXT_STEPS.md`, the structure table by hand, wishes
+  VNG-11.1 to VNG-11.5. Pages run 45841735106 green.
+- `1f1f3e85` VH-226, closed: the signed lines and the closing record.
+- `f29dbba7` VNG-11, closed: the same in Name Graphics, superseding
+  what its INTAKE still held (the old repository, the generated
+  settings); its copying was superseded in stage 4.
+- This log's commit, UVT-6.
+
+### The signed lines, on the owner's word of 2026-11-26
+
+"Sign all three (Recommended)": each tool's Repository line names
+`<https://github.com/djDAOjones/UoN-Video-Tools>` with its folder; each
+Harness line says the hooks are hand-kept, never regenerated by
+`tools/harness.mjs`; the Finisher's rules are titled "Rules — UoN Video
+Finisher" (wish VH-225.4 paid). The Finisher's profile is 398 words of
+400, so the reason (wrong paths below the root) is in its decision, not
+the line; Name Graphics' profile, 388, carries it, and is signed by the
+owner for the first time since INTAKE's delegated signature. Its brief
+keeps that signature (wish VNG-11.5).
+
+"Leave it, log a follow-up (Recommended)": the rules' Always, with its
+Environment, stays over its 400-word guideline (the Finisher 451, Name
+Graphics 425); VH-248 and VNG-13 trim it later with the owner's
+signature, and each checker's one warning links to its line.
+
+### Leftovers, each one line
+
+- **The parent:** UVT-6.1 to UVT-6.9 for pm-skills (no v5.0.3 tag;
+  `structure.mjs` ENOBUFS at the root and its ignore-blind walk below
+  it; `harness.mjs`'s hook paths below the root; one handover per
+  checkout; the item-file path check refusing `../shared/`; the checker
+  and a prefix rename; the start notice and the contract in nested
+  installations; the one-writer rule; one page for every backlog), then
+  UVT-6.10 to UVT-6.21: the real lobbies, the shared standards, a Codex
+  model policy in each ledger, what moves to `shared/` next, release tags
+  per tool, the Mac Pro, leaving OneDrive, `LICENSE`, `npm audit`,
+  `redact()`'s keys, the root's hooks and `.editorconfig` seen by a
+  person, the spike and backup folders.
+- **The Finisher:** VH-226.1 to VH-226.8: VH-129's three questions, the
+  26 PLAN-9 points waiting on a Codex model policy, the hooks in a live
+  chat, Save and the outputs frame by frame, the worker's first visit in
+  the owner's Chrome, the `/UoN-Video-Finisher/` address's 404,
+  `reviews/`' 852 MB, the link back to the lobby; and VH-248.
+- **Name Graphics:** VNG-11.1 to VNG-11.5: the hooks in a live chat, a
+  model policy, the link back to the lobby, the Finisher code its items
+  reuse moving to `shared/` first, the brief's signature; and VNG-13.
+- Already held, not repeated: VH-129, VH-247, VNG-12, UVT-4, UVT-5, the
+  PLAN-9 wishes, VH-14, VH-137, VH-161, VH-246, VH-225.3.
+- **Found:** the two load logs under `finisher/reviews/2026-10-25/` are
+  tracked though `*.log` ignores them, deliberately, force-added at the
+  lift; recorded in VH-226's close and the structure table, not changed.
+  Name Graphics had no `NEXT_STEPS.md`; one was written.
+
+### Checks
+
+- Checkers after the last commit: the parent 0 and 0; each tool 0
+  failures and 1 warning, linked.
+- Gate before every commit, the same counts throughout: the Finisher
+  98 files, 2,001 passed, 1 skipped; Name Graphics 5 files, 126 passed;
+  `shared/` 25; node --test 9; the commit-ID check 0 failures (25
+  checked at `f29dbba7`). No test deleted or skipped; no dependency
+  changed.
+- Pages run 45842299260 (`f29dbba7`, which carried `1f1f3e85` too):
+  build and deploy green. `curl`: `/UoN-Video-Tools/`, `/finisher/`,
+  `/name-graphics/` and `/finisher/sw.js` 200; the Finisher's bundle
+  names `v0.3.1+20261126.f29dbba`. This log's own commit's run is read
+  after its push and reported to the orchestrator.
+- Final, after this log's commit: the tree clean, no conflict copy and
+  nothing cloud-only outside `node_modules`, `samples/` untouched.
+
+### What only a person verified, or has yet to
+
+Nothing in this stage needed a person; what earlier stages left is a
+line in each ledger (VH-226.3 to VH-226.5, VNG-11.1, UVT-6.20, VH-14).
