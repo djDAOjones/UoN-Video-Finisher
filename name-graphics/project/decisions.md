@@ -19,6 +19,16 @@
      moves the oldest entries verbatim to project/decisions-{YYYY-MM}.md
      and adds one line to project/archive-index.md. -->
 
+## 2026-11-26 — VNG-11 — The brief signed by the owner, in place of INTAKE's delegated signature
+
+**Decision:** the brief's Signed line becomes "Owner: Joe, 2026-11-26.", so the profile, rules and brief all carry the owner's own signature, none delegated — on the owner's word of 2026-11-26, "Sign profile and brief (Recommended)".
+
+**Rationale:** INTAKE (2026-11-05) signed the three files "Owner (delegated, not reviewed)" until the owner signed them. The rules file was signed on 2026-11-26 with D9's rule, and the profile at VNG-11's close, "The profile's Repository and Harness lines after the move, signed", which this answer also covers; the brief's text is unchanged, only its signature. Wish VNG-11.5 — retired — paid. No standard is touched.
+
+**Supersedes:** none
+
+**Deferred:** none
+
 ## 2026-11-26 — VNG-11 — Closed: Name Graphics is `name-graphics/` in djDAOjones/UoN-Video-Tools, its old repository archived, its common code in `shared/`
 
 **Decision:** VNG-11 closes: Name Graphics lives in `name-graphics/` of djDAOjones/UoN-Video-Tools with its history and SHAs, on the root's install and the hand-kept hooks, its core and tokens from `shared/`; its old repository is archived with its Pages site off — because each acceptance criterion is met or named as a person's to see.

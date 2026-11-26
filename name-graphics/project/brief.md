@@ -68,4 +68,4 @@ the University.
 
 ## Signed
 
-- Owner (delegated, not reviewed): Joe, 2026-11-05 — see the INTAKE decision, 2026-11-05
+- Owner: Joe, 2026-11-26.
