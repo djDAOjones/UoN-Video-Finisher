@@ -19,6 +19,16 @@
      moves the oldest entries verbatim to project/decisions-{YYYY-MM}.md
      and adds one line to project/archive-index.md. -->
 
+## 2026-11-26 — VNG-11 — One install at the repository's root: no lockfile or dev dependencies here, the dev tools at the root lockfile's versions
+
+**Decision:** the project keeps no lockfile, dependencies or `node_modules` of its own: its nine dev dependencies, same packages and ranges as before, come from the one install at the repository's root, whose lockfile is the Finisher's; so its dev tools move to the versions that lockfile resolved (73 packages differ, for example eslint 10.14.0 to 10.9.1, vite 8.3.6 to 8.2.2, vitest 4.1.12 to 4.1.11, typescript-eslint 8.72.1 to 8.68.0), and its own deploy workflow goes, the repository's one workflow building this tool into `name-graphics/` of the preview — because one repository has one install and one lockfile (D3), and the owner chose the Finisher's.
+
+**Rationale:** The owner's answer on the lockfile, 2026-11-26, verbatim: "do as you reccomend re the lockfile, let me know if you need me to do it, but I prefer you do it". The recommendation, raised after stage 1 found the two lockfiles resolved the same ranges on different days: the Finisher's lockfile becomes the root's, byte for byte but for its root entry's name and version, because the Finisher's 0.3.1 was released on those versions; this project takes them and records it here. The project has no runtime dependency, so only its dev tools change; ten packages were this lockfile's only and four are the root's only (`mediabunny` and what it brings). The spike of 2026-11-26 ran this project's gate green on those versions. The package keeps its name, version and scripts. The parent folder has no contract and no hooks until its ledger is founded; the root's dependencies are then the parent's.
+
+**Supersedes:** none
+
+**Deferred:** none
+
 ## 2026-11-26 — VNG-11 — Shared, not copied: Name Graphics joins the Finisher in one repository as `name-graphics/`, code two tools need in `shared/`
 
 **Decision:** the project's history is merged into the Finisher's repository, renamed `djDAOjones/UoN-Video-Tools`, as the folder `name-graphics/` with its own ledger; code both tools need moves to `shared/` and is imported by path, not copied and owned; a parent ledger at the root owns `shared/`, and a change there is a parent item that closes only with every tool's gate green — because the owner chose one parent with shared base code on 2026-11-25.

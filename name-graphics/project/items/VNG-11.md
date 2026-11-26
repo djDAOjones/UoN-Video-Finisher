@@ -16,7 +16,7 @@ The Finisher's VH-226 counterpart, on the owner's word of 2026-11-25: "the paren
 
 Updated: 2026-11-26
 
-Next step: the Finisher's VH-226 moves its folder first; then this folder moves in and its history is merged.
+Next step: the folder has moved in and its history is merged with its own SHAs; the gates from each folder and the root, the deploy of the one preview, then this repository's archiving and its Pages site turned off, on the owner's word.
 
 Open question: None.
 
