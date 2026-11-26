@@ -12,6 +12,10 @@
 
 ## Current
 
+### pm-skills 5.0.1 — the owner's decision D8 of 2026-11-25
+
+- [~] REFRESH-501 — The project takes pm-skills 5.0.1 by the refresh route — since 2026-11-26
+
 ### Phase 1 — the seed, the brand packs and the output format
 
 - [ ] VNG-2 — Brand packs: `brands/neutral` and `brands/uon` chosen at build time, and the check that the neutral build carries no UoN — since 2026-11-05
