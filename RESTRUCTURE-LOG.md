@@ -10,15 +10,17 @@ the parent's ledger.
 ## Where it stands
 
 - **Stage reached:** stage 6 under way, 2026-11-26: step 0 (both tools
-  to pm-skills 5.0.3) done; the parent ledger next. Stage 5 done: one
-  folder, one repository (`djDAOjones/UoN-Video-Tools`), `finisher/` and
-  `name-graphics/` on one install at the root, the preview and the Xerte
+  to pm-skills 5.0.3) and step 1 (the parent's ledger, `UVT-n`) done.
+  Stage 5 done: one folder, one repository
+  (`djDAOjones/UoN-Video-Tools`), `finisher/` and `name-graphics/` on
+  one install at the root, the preview and the Xerte
   package checked, the old Name Graphics repository archived.
-- **Next:** stage 6, steps 1 to 5. Stage 7 is not started.
+- **Next:** stage 6, steps 2 to 5 (UVT-1 to UVT-3, PLAN-1 in the
+  parent's ledger). Stage 7 is not started.
 - **Then, fairly soon (the owner's word of 2026-11-26), after pm-skills
   5.0.3:** the Finisher's student edition (VH-129) and the translation
   register every tool shares: the parent's two items written under
-  "Stages 6 and 7" below, which stage 6 opens, and each tool's half
+  "Stage 6" below, opened as UVT-4 and UVT-5, and each tool's half
   (VH-247, VNG-12). The decisions are PLAN-10 in the Finisher and PLAN-2
   in Name Graphics.
 - **Waiting on the owner:** the two Chrome tabs left open on the
@@ -660,7 +662,40 @@ same version the tools run (D8).
   Graphics 126 passed, both checkers 0 and 0
   (`gate-stage6-step0-root.log` in the backup folder).
 
-### Waiting for stage 6: the parent's first items (the owner's word of 2026-11-26)
+### Step 1: the parent's ledger founded: done
+
+- `node <clone>/pm_skills/install.mjs --to .` at d599678: 41 files
+  (`AGENTS.md`, `CLAUDE.md`, `project/`, `tools/`, `verbs/`), no
+  conflict. The three contracts are byte-identical.
+- Hazard check (intake step 1): one worktree, no stash, no open pull
+  request; of the two scheduled tasks, neither names this project.
+- **Harness:** `tools/harness.mjs --print` at the root names
+  `${CLAUDE_PROJECT_DIR}/tools/…`, right for a chat on the root, but
+  also writes a sandbox, a strict network allowlist and a deny list
+  (SendMessage, Workflow, WebFetch among them) that neither tool has.
+  Not written. `.claude/settings.json` is the tools' hand-kept file,
+  byte for byte (hooks only). The session and handover hooks, run by
+  hand with `CLAUDE_PROJECT_DIR` the root, exit 0. That they fire once
+  in a live chat on the root is the owner's to see.
+- **`tools/structure.mjs` stops on this repository** (`spawnSync git
+  ENOBUFS`, the Finisher's 15,180 files); `project/structure.md` was
+  written by hand. A wish for pm-skills, stage 7.
+- The gate: the root `npm run check` now ends with `node
+  tools/check.mjs`, the parent's checker.
+- Standards: WCAG 2.2 AAA, Carbon and Nielsen with pm-skills 5.0.3's
+  digests; house conventions as a short digest pointing at the
+  Finisher's, not a third copy.
+- Backlog: UVT-1 to UVT-3 (stage 6, steps 2 to 5; PLAN-1), UVT-4 and
+  UVT-5 (the two items below, each with an item file), UVT-6 (stage 7's
+  parent half).
+- **The owner's answers, 2026-11-26, verbatim choices:** the profile,
+  rules and brief: "Sign all three (Recommended)"; Handoff and Network:
+  "Confirm both (Recommended)"; D9 in both tools' rules files, Name
+  Graphics' stale sibling line replaced and the Finisher's line "Local
+  `main` is stale by design; what is published is `origin/main`."
+  dropped to stay within 600 words: "Yes, sign both (Recommended)".
+
+### Written for stage 6, now UVT-4 and UVT-5: the parent's first items (the owner's word of 2026-11-26)
 
 Stage 6 opens these two as the parent's first `UVT-n` items, with an item
 file each, after pm-skills 5.0.3. The owner's words in chat, 2026-11-26:

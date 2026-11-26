@@ -9,7 +9,7 @@
     "node": "^20.19.0 || >=22.12.0"
   },
   "scripts": {
-    "check": "npm run check --prefix finisher && npm run check --prefix name-graphics"
+    "check": "npm run check --prefix finisher && npm run check --prefix name-graphics && node tools/check.mjs"
   },
   "dependencies": {
     "mediabunny": "^1.55.2"

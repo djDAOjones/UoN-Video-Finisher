@@ -14,3 +14,7 @@ node_modules/
 /CLAUDE.local.md
 /.claude/settings.local.json
 /.claude/launch.json
+
+# The status page this ledger makes
+/project/view.html
+/project/view.site/

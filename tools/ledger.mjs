@@ -1,0 +1,789 @@
+// Shared ledger grammar and inspection. No writes, subprocesses or dependencies.
+import { readFileSync, readdirSync, existsSync } from 'node:fs';
+import { join, resolve, relative } from 'node:path';
+import { createRequire } from 'node:module';
+
+// V31-A11Y (3.18): the accessibility pack's ledger module, in the inspected installation's own tools/ folder, where
+// intake copies it with the profile's Accessibility testing line; never the reusable source's, which install copies
+// whole. It is looked up and loaded only by an inspection that finds the line, synchronously (an ES module without
+// top-level await), so an installation without the line loads, reads and checks nothing new. Returns the module,
+// null when the file is absent, or the Error that loading it raised.
+export const A11Y_FIELD = 'Accessibility testing';
+const A11Y_EXPORTS = { inspectA11y: (v) => typeof v === 'function', sectionA11y: (v) => typeof v === 'function', SECTION: (v) => typeof v?.id === 'string' && typeof v?.name === 'string', RENDERER: (v) => typeof v === 'string' && v !== '' };
+const a11yModules = new Map();
+export function a11yPack(root) {
+  const file = join(resolve(root), 'tools', 'a11y-ledger.mjs');
+  if (!a11yModules.has(file)) {
+    let m = null;
+    if (existsSync(file)) {
+      try {
+        m = createRequire(import.meta.url)(file);
+        const keys = Object.keys(A11Y_EXPORTS), absent = keys.filter((k) => m[k] === undefined), wrong = keys.filter((k) => m[k] !== undefined && !A11Y_EXPORTS[k](m[k]));
+        if (absent.length || wrong.length) m = new Error([absent.length ? `it exports no ${absent.join(', ')}` : '', wrong.length ? `its ${wrong.join(', ')} ${wrong.length > 1 ? 'are' : 'is'} not of the kind expected` : ''].filter(Boolean).join(' and '));
+      } catch (e) { m = e instanceof Error ? e : new Error(String(e)); }
+    }
+    a11yModules.set(file, m);
+  }
+  return a11yModules.get(file);
+}
+
+// V31-APP-SWITCH (3.28): the profile's App opinion line, which intake writes for a new web app (or at the opt-out's one re-ask),
+// read here by the installed checker. No line is the flag off: nothing is read, checked or loaded. The line is
+// `- App opinion: <editor|forms|unsure|off>, <YYYY-MM-DD>`, with `, asked again <YYYY-MM-DD>` after off alone. The commit counts
+// ("about 20 commits or a week", "about 50 commits") are Git's, read by check.mjs and handed to appCommitWarning; this module
+// stays free of subprocesses.
+export const APP_FIELD = 'App opinion';
+export const APP_DIGEST = 'project/digests/app-opinion.md';
+export const APP_SET = 'project/app/set1.json';
+export const APP_REASK_DAYS = 7, APP_REASK_COMMITS = 20, APP_KEEPER_COMMITS = 50, APP_SET_DAYS = 183;
+const appDays = (from, to) => Math.round((Date.parse(to) - Date.parse(from)) / 86400000);
+export function appLine(value) {
+  const m = String(value).match(/^(editor|forms|unsure|off), (\d{4}-\d{2}-\d{2})(?:, asked again (\d{4}-\d{2}-\d{2}))?$/);
+  if (!m || !validDate(m[2]) || (m[3] !== undefined && (m[1] !== 'off' || !validDate(m[3]) || m[3] < m[2]))) return null;
+  return { state: m[1], date: m[2], asked: m[3] ?? null };
+}
+const appReaskMessage = (line) => `project/profile.md: App opinion: the opt-out of ${line.date} is due its one re-ask (a week or twenty commits on); ask the owner once, then write ", asked again <date>" after it, or the kind in its place (3.28)`;
+export function appCommitWarning(line, commits) {
+  if (!line || !Number.isFinite(commits)) return '';
+  if (line.state === 'off' && !line.asked && commits >= APP_REASK_COMMITS) return appReaskMessage(line);
+  if (line.state === 'unsure' && commits >= APP_KEEPER_COMMITS) return `project/profile.md: App opinion: unsure since ${line.date}, ${commits} commits on, counts as a keeper; ask the owner the kind, then write it in the line (3.28)`;
+  return '';
+}
+
+export const ID = '[A-Z][A-Z0-9]*(?:-[A-Z0-9]+)*';
+export const DATE = '\\d{4}-\\d{2}-\\d{2}';
+// V31-WISH-IDS: a wish's permanent ID is its origin item's ID, a full stop and a sequence number — outside the item
+// grammar, so V3-FIELD.1 never reads as an item such as V3-FIELD-1.
+export const WISH_ID = `${ID}\\.[1-9][0-9]*`;
+export const WISH_LINE = new RegExp(`^- (${WISH_ID}) — (.+) — \\(from: (${ID}), (${DATE})\\)$`);
+// A wish ID as a whole token: not inside a longer ID or word, and ORIGIN.1 never matching ORIGIN.10, ORIGIN.1x or ORIGIN.1.2.
+export const wishToken = (id) => new RegExp(`(?<![\\p{L}\\p{N}_.-])${id.replace('.', '\\.')}(?![\\p{L}\\p{N}_-]|\\.[\\p{L}\\p{N}])`, 'u');
+// The counting rule (specification 3.4): whitespace words after removing HTML comments and fenced blocks; the same rule for every file.
+export const words = (s) => active(s).split(/\s+/).filter(Boolean).length;
+export const validDate = (s) => /^\d{4}-\d{2}-\d{2}$/.test(s) &&
+  Number.isFinite(Date.parse(s)) && new Date(s).toISOString().slice(0, 10) === s;
+// A closing fence is of the opening's character, at least its length, with nothing after it; comments and fences keep their newlines.
+const blank = (m) => m.replace(/[^\n]/g, '');
+export const active = (s) => s.replace(/\r\n/g, '\n').replace(/<!--[\s\S]*?-->/g, blank)
+  .replace(/^([ \t]*)(`{3,})[^\n]*\n[\s\S]*?^\1\2`*[ \t]*$/gm, blank).replace(/^([ \t]*)(~{3,})[^\n]*\n[\s\S]*?^\1\2~*[ \t]*$/gm, blank);
+// The backlog as rule 1 reads it and the estimate counts it: a closed phase's heading with nothing under it is left out
+// (5.0.1, the efficiency review's F3), any "### … — CLOSED date" heading, the shape the checker reads as closed (5.0.2);
+// a closed phase that holds any text is kept whole.
+export const backlogRead = (s) => {
+  const lines = active(s).split('\n'), out = [];
+  for (let i = 0; i < lines.length; i++) {
+    if (/^### .+ — CLOSED \d{4}-\d{2}-\d{2}[ \t]*$/.test(lines[i])) {
+      let j = i + 1; while (j < lines.length && !lines[j].trim()) j++;
+      if (j === lines.length || /^#{1,3} /.test(lines[j])) { i = j - 1; continue; } // only a heading of its level or above ends it
+    }
+    out.push(lines[i]);
+  }
+  return out.join('\n');
+};
+export const sections = (s) => new Map([...active(s).matchAll(/^## ([^\n]+)\n([\s\S]*?)(?=^## |$(?![\s\S]))/gm)]
+  .map((m) => [m[1], m[2].trim()]));
+export const field = (s, name) => (active(s).match(new RegExp(`^- ${name}: (.+(?:\\n[ \\t]+\\S.*)*)`, 'm')) || [])[1]?.replace(/\n\s+/g, ' ') || '';
+export const fieldLines = (s, name) => [...active(s).matchAll(new RegExp(`^- ${name}:(.*)$`, 'gm'))].map((m) => m[1].trim());
+// The Push and Network lines (3.5): three Push routes, three Network values; listed hosts must name at least one host.
+export function pushRoute(line) {
+  if (/\b(?:never|no|not|cannot|\w+n['’]t)\s+(?:\w+\s+)?push/i.test(line)) return ''; // any negated push: "must not push", "does not push", "won't push"
+  if (/\bowner[- ]operated\b|\bthe owner pushes\b/i.test(line)) return 'owner';
+  return /\bharness\b.*\bpush(?:es)? to (?:the project's origin|origin|[A-Za-z0-9*][A-Za-z0-9.*-]*\.[A-Za-z0-9-]+|a named host|the named host)\b/i.test(line) ? 'harness' : '';
+}
+export const OUTSIDE_PHASES = /^Outside the phases(?:\s+[—–-]\s+.*)?$/i;
+export function networkChoice(line) {
+  const kind = /^open\b/i.test(line) ? 'open' : /^closed\b/i.test(line) ? 'closed' : /^listed hosts?\b/i.test(line) ? 'listed' : '';
+  // One choice, not a hedge. A listed line may say "and" between hosts and name other hosts in prose, so only an "or"/"and"
+  // that goes on to "open" or "closed" as a word of its own hedges it, past brackets, quotes and one of a few filler words
+  // ("or else open", "or (closed)"); a host name that starts with the word, open-source.example.org, is no hedge.
+  const hedged = kind === 'listed'
+    ? /\b(?:or|and)\b[\s,(["'“‘]*(?:(?:else|maybe|perhaps|possibly)\b[\s,(["'“‘]*)*(?:open|closed)(?![\p{L}\p{N}_-]|\.[\p{L}\p{N}])/iu.test(line)
+    : /\b(?:or|and)\b.*\b(open|closed|listed)\b/i.test(line);
+  if (!kind || hedged) return null;
+  const hosts = kind === 'listed' ? [...line.replace(/^listed hosts?:?\s*/i, '').matchAll(/[A-Za-z0-9*][A-Za-z0-9.*-]*\.[A-Za-z0-9-]+/g)].map((m) => m[0]) : [];
+  return kind === 'listed' && !hosts.length ? null : { kind, hosts };
+}
+// Hard budgets (3.4), the profile's Budget line overriding each by name; a raise is the owner's recorded decision.
+export const DEFAULT_BUDGETS = { total: 4000, contract: 500, profile: 400, rules: 600, direction: 150, backlog: 1000, slice: 1000, trajectory: 300 };
+export const RULES_ALWAYS_GUIDELINE = 400, BRIEF_GUIDELINE = 1500;
+export const SESSION_LINE = /^([1-9]\d*)k tokens of context$/; // the one Session grammar (3.15), shared with the sensor
+// The Session-end line (3.15): every line of a commit message that starts `Session-end:`, of which a commit carries at most
+// one, in one shape; shared by the checker and the start notice, so neither reads an end the other would refuse.
+export const SESSION_END = new RegExp(`^Session-end: (continue|done|owner) — next (${ID}|none) — (\\S.*)$`);
+export const sessionEndLines = (message) => String(message).split('\n').filter((l) => /^Session-end:/.test(l));
+export function sessionEnd(message) { // { lines, end }: end is { status, next, reason } only for exactly one well-formed line
+  const lines = sessionEndLines(message), m = lines.length === 1 ? lines[0].match(SESSION_END) : null;
+  return { lines, end: m ? { status: m[1], next: m[2], reason: m[3] } : null };
+}
+export function options(values = []) {
+  const result = { root: process.cwd() };
+  const allowed = new Set(['root', ...values]);
+  for (let i = 2; i < process.argv.length; i++) {
+    const name = process.argv[i].replace(/^--/, '');
+    if (!process.argv[i].startsWith('--') || !allowed.has(name)) throw Error(`unknown option: ${process.argv[i]}`);
+    if (['audit-prose', 'print', 'force', 'hooks-only', 'open', 'quiet', 'verbose'].includes(name)) result[name] = true;
+    else {
+      const value = process.argv[++i];
+      if (!value || value.startsWith('--')) throw Error(`--${name} requires a value`);
+      result[name] = value;
+    }
+  }
+  result.root = resolve(result.root);
+  return result;
+}
+export function decisionEntries(text, file, fail = () => {}) {
+  const body = active(text);
+  const entries = [];
+  for (const block of body.split(/^(?=## )/m).filter((s) => s.startsWith('## '))) {
+    const head = block.split('\n')[0].slice(3);
+    const m = head.match(new RegExp(`^(${DATE}) — (${ID}) — (.+)$`));
+    if (!m || !validDate(m[1])) { fail(`${file}: invalid decision heading: ${head}`); continue; }
+    const fields = {};
+    for (const k of ['Decision', 'Rationale', 'Supersedes', 'Deferred', 'Items', 'Retired']) { // Retired: V31-LEDGER-FIX
+      const matches = [...block.matchAll(new RegExp(`^\\*\\*${k}:\\*\\*([^\\n]*(?:\\n(?!\\*\\*|## )[^\\n]*)*)`, 'gm'))];
+      if ((!['Deferred', 'Items', 'Retired'].includes(k) && matches.length !== 1) || matches.length > 1) fail(`${file}: ${head}: needs exactly one ${k} field`);
+      fields[k.toLowerCase()] = matches[0]?.[1].trim() || '';
+      if (k === 'Supersedes') fields.supersedes = fields.supersedes.replace(/\n[ \t]*/g, ' ');
+      if (matches.length && (!fields[k.toLowerCase()] || /^\{.*\}$/.test(fields[k.toLowerCase()]))) fail(`${file}: ${head}: empty ${k}`);
+    }
+    entries.push({ raw: block, head, date: m[1], id: m[2], title: m[3], file, ...fields });
+  }
+  return entries;
+}
+// The find tool's summary-first read of a decision entry (3.12, V31-FIND-SUMMARY): its heading, Decision line and Deferred
+// line, in rule 1's slice order; the Rationale and the other fields stay in the file and in `find --full`.
+export const summaryText = (e) => [`## ${e.head}`, `**Decision:** ${e.decision}`, e.deferred ? `**Deferred:** ${e.deferred}` : ''].filter(Boolean).join('\n');
+// Which entries a later entry's Supersedes line names (3.12), worked out at read time from `entries`, the live file's and
+// each archived chunk's in whatever order they come (a chunk keeps the order its entries were moved in, not their dates):
+// a Map from the named entry's heading to the headings of the later entries naming it, newest first. "Later" is by date;
+// on one date the naming decides, the entry naming the other being the later, and two naming each other mark neither.
+// A heading is found whole, anywhere in the line; a longer heading that holds a shorter one is taken out first, so the
+// shorter is marked only where named on its own. An entry is never marked by itself or by an older entry. The line does
+// not say whether the supersession is whole or in part (the Rationale does): the mark says "see" and no more. Nothing is
+// stored; no byte of any entry changes.
+export function supersededBy(entries) {
+  const dateOf = (e) => e.date || String(e.head).slice(0, 10);
+  const names = new Map(entries.map((e) => { // the headings each line names, a longer heading taking its text out before a shorter is looked for
+    let rest = String(e.supersedes || ''); const hit = new Map();
+    for (const o of [...entries].sort((a, b) => b.head.length - a.head.length)) { // the entry itself too, so its own longer heading takes its text out
+      if (!rest.includes(o.head)) continue;
+      rest = rest.replaceAll(o.head, '\0');
+      if (o !== e && !hit.has(o.head)) hit.set(o.head, o);
+    }
+    return [e, hit];
+  }));
+  const marks = new Map();
+  for (const e of [...entries].sort((a, b) => dateOf(b).localeCompare(dateOf(a)) || b.head.localeCompare(a.head))) { // newest first; one date by heading, so the order given does not show
+    for (const [head, o] of names.get(e)) {
+      if (dateOf(o) < dateOf(e) || (dateOf(o) === dateOf(e) && !names.get(o).has(e.head))) marks.set(head, [...(marks.get(head) || []), e.head]);
+    }
+  }
+  return marks;
+}
+export const supersededLines = (heads = []) => heads.map((h) => `Superseded — see: ${h}`);
+export function archiveRow(file, entries) {
+  const dates = entries.map((e) => e.date).sort();
+  return `- ${file} — ${dates[0]}..${dates.at(-1)} — ${entries.length} entries — IDs: ${[...new Set(entries.map((e) => e.id))].sort().join(', ')}`;
+}
+// Rule 1's decisions slice (3.3, as ruled 2026-10-01 at the lab's migration): exactly the latest ten entries, newest first.
+// An entry is inherited when the migration inventory (project/migration/inventory.json, written at the v2 snapshot) lists its
+// heading: it counts as heading and Deferred line only, its Decision line on demand until it leaves the latest ten. Every
+// other entry — written under v3, whatever its date or ID — counts as heading, Decision and Deferred; a project with no
+// inventory (a fresh or adopted INTAKE) has no inherited entries. The boundary is fixed at the snapshot and cannot move.
+export function decisionSlice(live, inheritedHeads = new Set()) {
+  const entries = live.slice(0, 10).map((e) => {
+    const inherited = inheritedHeads.has(e.head);
+    const text = [`## ${e.head}`, inherited ? '' : `**Decision:** ${e.decision}`, e.deferred ? `**Deferred:** ${e.deferred}` : ''].filter(Boolean).join('\n');
+    return { head: e.head, decision: inherited ? '' : e.decision, deferred: e.deferred, inherited, text, words: words(text) };
+  });
+  return { entries, text: entries.map((e) => e.text).join('\n\n'), words: entries.reduce((n, e) => n + e.words, 0) };
+}
+// Rule 1's trajectory read (3.3, amended 2026-10-01; by date, V31-TRAJ-ORDER): the latest item lines — `- ID — outcome
+// (date) — see decisions`, RECALL lines excluded — by each line's own last "(date)", whatever the order of phases, that fit
+// the trajectory budget, never fewer than the last four shipped items. Equal dates keep the order the read always took:
+// the phase standing first, then a phase's later line first, so a trajectory kept as the template asks reads as before.
+// Shown newest first under their phase headings, a heading again where the phase changes; the words include the headings.
+export const lineDate = (line) => line.match(new RegExp(`^${ID} — .+ \\((${DATE})\\) — see decisions$`))?.[1] || '';
+export function trajectoryItemLines(tphases, budget = DEFAULT_BUDGETS.trajectory, floor = 4) {
+  const candidates = [];
+  tphases.forEach((phase, p) => {
+    const items = phase.lines.filter((l) => !l.startsWith('RECALL — '));
+    for (let i = items.length - 1; i >= 0; i--) candidates.push({ phase: phase.name, p, line: items[i], date: lineDate(items[i]), n: candidates.length });
+  });
+  candidates.sort((a, b) => b.date.localeCompare(a.date) || a.n - b.n);
+  const render = (lines) => {
+    const shown = [];
+    for (const { phase, p, line } of lines) { if (shown.at(-1)?.p !== p) shown.push({ phase, p, lines: [] }); shown.at(-1).lines.push(line); }
+    return shown.map((g) => `## ${g.phase}\n${g.lines.map((l) => `- ${l}`).join('\n')}`).join('\n');
+  };
+  let lines = [];
+  for (const c of candidates) {
+    const next = [...lines, c];
+    if (next.length > floor && words(render(next)) > budget) break;
+    lines = next;
+  }
+  const text = render(lines);
+  return { lines: lines.map(({ phase, line }) => ({ phase, line })), text, words: words(text) };
+}
+// The owner's signature (3.8): one reviewed line, or one delegated line that cites its authority and needs the owner until replaced.
+export function signature(text) {
+  const signed = sections(active(text)).get('Signed') || '';
+  const reviewed = [...signed.matchAll(/^- Owner: ([^\n,]+), (\d{4}-\d{2}-\d{2})\.?$/gm)].map((m) => ({ name: m[1], date: m[2], delegated: false, authority: '' }));
+  const delegated = [...signed.matchAll(/^- Owner \(delegated, not reviewed\): ([^\n,]+), (\d{4}-\d{2}-\d{2}) — see (\S.*)$/gm)].map((m) => ({ name: m[1], date: m[2], delegated: true, authority: m[3].trim() }));
+  const all = [...reviewed, ...delegated];
+  return all.length === 1 && validDate(all[0].date) && !/\bunsigned\b/i.test(all[0].name) ? all[0] : null; // a line that says UNSIGNED, the owner's signature not yet given, is no signature
+}
+// The disposition form a tool can see (3.7): the ID or text, a disposition word and a reason of five words or more, in one
+// statement; the writer still judges.
+const DISPOSED = /\b(superseded?|supersedes|retired?|retires|withdrawn|withdraws|dropped|drops|cancelled|closed|merged|folded|absorbed|replaced|shipped|done|delivered|promoted|paid|obsolete|duplicate)\b/i;
+const disposition = (text, test) => test(text) && DISPOSED.test(text) && text.trim().split(/\s+/).length >= 5;
+// V31-LEDGER-FIX (V3-HARVEST.3): a Rationale is read statement by statement — soft wraps joined within a paragraph or
+// list item, then split after a full stop, question or exclamation mark or semicolon that whitespace follows (an ID's
+// own dot, as in ORIGIN.N, is never a boundary) — so a long Rationale traces only an ID one statement disposes of.
+export function statements(text = '') {
+  return active(text).split(/\n\s*\n|\n(?=\s*[-*+] )/).map((p) => p.replace(/\s*\n\s*/g, ' ').trim()).filter(Boolean)
+    .flatMap((p) => p.split(/(?<=[.!?;])\s+/)).map((t) => t.trim()).filter(Boolean);
+}
+const idRe = (id) => new RegExp(`(^|[^A-Z0-9-])${id}(?![A-Z0-9-]|\\.[0-9])`); // a wish ID, ORIGIN.N, is no mention of its origin item
+// A decision entry disposes of what test matches: its title and Decision line read together, as before, or one statement
+// of its Rationale.
+export const disposes = (e, test) => disposition(`${e.title} ${e.decision}`, test) || statements(e.rationale).some((t) => disposition(t, test));
+// A trace for every removed line (3.7): an open backlog line (matched by ID) or wish line (by its ID, V31-WISH-IDS; an unstamped one verbatim) removed between
+// two states of the ledger leaves a trajectory line, the line moved verbatim, a new decision entry naming it in its title and Decision line or one statement of its Rationale, or a sentence
+// in the commit body; a bare mention of an ID is not a trace. Warnings, never failures; the writer answers each flag.
+export function removedLineFlags(before, after, message = '') {
+  const flags = [];
+  const items = (t) => new Map([...active(t).matchAll(new RegExp(`^- \\[( |~|!)\\] (${ID}) — (.+)$`, 'gm'))].map((m) => [m[2], m[0]]));
+  const wishes = (t) => active(t).split('\n').filter((l) => /^- \S/.test(l));
+  const idea = (l) => l.replace(/\s+— \(from: [^)]*\)\s*$/, '').replace(/^- /, '').trim();
+  const movedLines = new Set(['backlog', 'wish'].flatMap((k) => active(after[k] || '').split('\n').map((l) => l.trim()))); // a line moved verbatim is a whole line
+  const oldHeads = new Set(decisionEntries(before.decisions || '').map((e) => e.head));
+  const newEntries = decisionEntries(after.decisions || '').filter((e) => !oldHeads.has(e.head)); // a decision naming it as superseded or retired, with the reason
+  const body = message.split('\n').slice(1); // the commit body, never the title
+  const sentence = (test) => body.some((l) => disposition(l, test));
+  const afterItems = items(after.backlog || '');
+  for (const [id, line] of items(before.backlog || '')) {
+    if (afterItems.has(id)) continue;
+    const traced = new RegExp(`^- ${id} — .+ — see decisions$`, 'm').test(active(after.trajectory || '')) || movedLines.has(line.trim())
+      || newEntries.some((e) => disposes(e, (t) => idRe(id).test(t))) || sentence((l) => idRe(id).test(l));
+    if (!traced) flags.push(`removed without a trace: backlog ${id} — a trace is its trajectory line, the line moved verbatim to the backlog or wish-list, a decision naming it superseded or retired with the reason, or a sentence in the commit body giving the reason; a bare mention of the ID is not a trace (3.7)`);
+  }
+  const afterWishes = new Set(wishes(after.wish || '').flatMap((l) => [idea(l), idea(l).replace(new RegExp(`^${WISH_ID} — `), '')])), afterIds = new Set(wishIds(after.wish)); // an unstamped line stamped at the upgrade to pm-skills 5 is kept
+  for (const line of wishes(before.wish || '')) {
+    const wid = line.match(WISH_LINE)?.[1];
+    if (wid) { // V31-WISH-IDS: matched by ID; a line that keeps its ID with new text is reworded or narrowed, not removed (wishChanges)
+      const token = wishToken(wid);
+      if (afterIds.has(wid) || movedLines.has(line.trim()) || newEntries.some((e) => disposes(e, (t) => token.test(t))) || sentence((l) => token.test(l))) continue;
+      flags.push(`removed without a trace: wish ${wid} — a trace is the line moved verbatim to the backlog, a new decision naming ${wid} with a disposition and the reason, or a commit-body line such as "${wid} — promoted to NEW-ITEM — reason" or "${wid} — retired — reason"; a bare mention is not a trace (3.7)`);
+      continue;
+    }
+    const text = idea(line);
+    const promoted = new RegExp(`^- \\[( |~|!)\\] ${ID} — ${text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')} — since `, 'm').test(active(after.backlog || '')); // the plan verb's promotion: the idea becomes the item's title
+    if (afterWishes.has(text) || movedLines.has(line.trim()) || promoted || newEntries.some((e) => disposes(e, (t) => t.includes(text))) || sentence((l) => l.includes(text) && l.trim() !== text)) continue;
+    flags.push(`removed without a trace: wish line "${text.slice(0, 60)}${text.length > 60 ? '…' : ''}" — a trace is the line moved verbatim to the backlog or wish-list, a decision naming it superseded or retired with the reason, or a sentence in the commit body giving the reason; a bare mention is not a trace (3.7)`);
+  }
+  return flags;
+}
+// V31-WISH-IDS: the wish IDs of a wish-list text, in order.
+export const wishIds = (t = '') => active(t).split('\n').map((l) => l.match(WISH_LINE)?.[1]).filter(Boolean);
+// A wish that keeps its ID with a new idea text was reworded or narrowed; the checker cannot tell which, so it says so
+// (INFO) unless a new decision or a commit-body line names the ID with the disposition and a reason.
+export function wishChanges(before, after, message = '') {
+  const ideas = (t) => new Map(active(t || '').split('\n').map((l) => l.match(WISH_LINE)).filter(Boolean).map((m) => [m[1], m[2]]));
+  const was = ideas(before.wish), now = ideas(after.wish), out = [];
+  const oldHeads = new Set(decisionEntries(before.decisions || '').map((e) => e.head));
+  const said = [...decisionEntries(after.decisions || '').filter((e) => !oldHeads.has(e.head)).map((e) => `${e.title} ${e.decision}`), ...message.split('\n').slice(1)];
+  for (const [id, text] of now) {
+    if (!was.has(id) || was.get(id) === text) continue;
+    if (said.some((l) => wishToken(id).test(l) && /\b(reworded|rewords?|narrowed|narrows?|widened|clarified|corrected)\b/i.test(l) && l.trim().split(/\s+/).length >= 5)) continue;
+    out.push(`wish ${id} keeps its ID with a new text; the checker cannot tell a rewording from a narrowing — if scope left it, name ${id} as narrowed with the reason in the commit body, and give what left its own line or a retirement`);
+  }
+  return out;
+}
+// A wish ID new in after that the record before it, or the history (the wish list's past lines and the commit messages),
+// already named: IDs are permanent, so a removed wish's number is never issued again.
+export function reusedWishIds(before, after, history = '') {
+  const old = new Set(wishIds(before.wish)), seen = [before.backlog, before.decisions, before.trajectory, active(before.wish || ''), history].join('\n');
+  return wishIds(after.wish).filter((id) => !old.has(id) && wishToken(id).test(seen))
+    .map((id) => `wish ${id} reuses a number the record or the history already used; IDs are permanent — take the origin's next unused number (find shows its wishes)`);
+}
+// Every YYYY-MM-DD date in an open line's title or blocker, never its since or origin date, oldest first, ties in
+// backlog order (V3-STATUS-VIEW): a list of dates mentioned, none of them called a deadline.
+export function datesMentioned(open) {
+  const out = []; let n = 0;
+  for (const i of open.values()) for (const [part, text] of [['title', i.title], ['blocker', i.blocked]]) {
+    if (!text) continue;
+    const clauses = text.split(/ — |; |: |, /);
+    for (const clause of clauses) for (const m of clause.matchAll(/\b(\d{4}-\d{2}-\d{2})\b/g)) out.push({ date: m[1], id: i.id, part, clause: clause.trim(), order: n++ });
+  }
+  return out.sort((a, b) => a.date.localeCompare(b.date) || a.order - b.order);
+}
+
+// V31-C4-MERMAID (3.26): the optional architecture record, project/architecture.md. Only its envelope is parsed, never
+// Mermaid's grammar: one `# Architecture` title, one `Updated: YYYY-MM-DD` line before the first level, then the levels
+// in order, `## System context` and, optionally, `## Containers`; each holds optional prose, exactly one ```mermaid
+// fence whose first non-blank line declares a flowchart (`flowchart`, an optional direction, then nothing or a semicolon and
+// statements: the owner's ruling of 2026-11-13, V31-ARCH-FIXES), then `### Text alternative` with text. An `Updated:` line
+// outside a fence and a comment is the record's one line, before the levels, wherever it sits. HTML comments outside a
+// fence are dropped; a fence's lines are kept as written. Problems are returned, never thrown or failed here: the checker
+// fails on them and the view still shows the file.
+// V31-C4-FIX: the record is the file that carries ARCHITECTURE_MARK as a whole line outside a fence and an open comment,
+// as the template writes it on adoption; `marked` says so. A project's own document at the path, without the line, is
+// not the record: inspect neither takes it nor fails it.
+export const ARCHITECTURE_LEVELS = ['System context', 'Containers'];
+export const ARCHITECTURE_MARK = '<!-- pm-next architecture record, specification 3.26 — keep this line -->';
+export function architecture(text) {
+  const problems = [], levels = [], intro = [], lines = String(text).replace(/^\ufeff/, '').replace(/\r\n?/g, '\n').split('\n');
+  let title = '', titles = 0, updated = '', updates = 0, level = null, fence = null, comment = false, marked = false, fenced = false;
+  const problem = (n, m) => problems.push(`line ${n}: ${m}`);
+  for (const [k, raw] of lines.entries()) {
+    const n = k + 1;
+    if (fence) { // inside a fence: its own lines, until a closing fence of its character and at least its length
+      const close = raw.match(/^ {0,3}(`{3,}|~{3,})[ \t]*$/);
+      if (close && close[1][0] === fence.mark[0] && close[1].length >= fence.mark.length) { fence = null; continue; }
+      if (fence.level) fence.level.source.push(raw);
+      continue;
+    }
+    let line = raw;
+    if (!comment && raw.trim() === ARCHITECTURE_MARK) marked = true;
+    // a backtick fence's info string holds no backtick; a tilde fence's may. Outside a comment, a fence opener is read
+    // before comment syntax, so `<!--` in its info string opens no comment (V31-C4-FIX, review findings).
+    const fenceOpen = (l) => l.match(/^ {0,3}(`{3,})[ \t]*([^\s`]*)[^`]*$/) || l.match(/^ {0,3}(~{3,})[ \t]*(\S*).*$/);
+    let opened = comment ? null : fenceOpen(raw);
+    if (!opened) {
+      if (comment) { const end = line.indexOf('-->'); if (end < 0) continue; comment = false; line = line.slice(end + 3); }
+      line = line.replace(/<!--[\s\S]*?-->/g, '');
+      const open = line.indexOf('<!--'); if (open >= 0) { comment = true; line = line.slice(0, open); }
+      opened = fenceOpen(line);
+    }
+    if (opened) {
+      fence = { mark: opened[1], n, level: null };
+      if (opened[2] === 'mermaid' && level && !level.ignored) fenced = true; // in a level, placed well or not: the INFO line's shape
+      if (opened[2] !== 'mermaid') problem(n, `a ${opened[2] ? `"${opened[2]}"` : 'plain'} fence; the record holds only mermaid fences, one in each level`);
+      else if (!level) problem(n, 'a mermaid fence outside a level; it belongs under ## System context or ## Containers');
+      else if (level.fences++) problem(n, `a second mermaid fence in ## ${level.name}; each level holds exactly one`);
+      else if (level.alternativeAt) problem(n, `the mermaid fence in ## ${level.name} comes after its ### Text alternative; the fence comes first`);
+      else { fence.level = level; level.fenceAt = n; }
+      continue;
+    }
+    let m;
+    const head = line.replace(/[ \t]+#+[ \t]*$/, ''); // a heading's closing #s, as CommonMark allows, are not its text
+    if ((m = head.match(/^#[ \t]+(.+?)[ \t]*$/))) {
+      if (level) problem(n, 'a top-level heading inside a level; the record has one, # Architecture, first');
+      else if (titles++) problem(n, 'a second top-level heading; the record has one, # Architecture, first');
+      else if (!/^Architecture(?: — \S.*)?$/.test(m[1])) problem(n, `the title must read "# Architecture", optionally "# Architecture — <name>": # ${m[1]}`);
+      else title = m[1];
+      continue;
+    }
+    if ((m = head.match(/^##[ \t]+(.+?)[ \t]*$/))) {
+      const at = ARCHITECTURE_LEVELS.indexOf(m[1]), last = levels.length ? ARCHITECTURE_LEVELS.indexOf(levels.at(-1).name) : -1;
+      if (at < 0) { problem(n, `## ${m[1]} is not a level; the record holds ## System context and, optionally, ## Containers`); level = { name: m[1], ignored: true, fences: 0, prose: [], alternative: [], source: [] }; continue; }
+      if (at <= last) { problem(n, `## ${m[1]} ${at === last ? 'repeats a level' : 'comes after ## Containers'}; the levels are ## System context, then optionally ## Containers, once each`); level = { name: m[1], ignored: true, fences: 0, prose: [], alternative: [], source: [] }; continue; }
+      level = { name: m[1], n, fences: 0, fenceAt: 0, alternativeAt: 0, between: 0, prose: [], alternative: [], source: [] }; levels.push(level);
+      continue;
+    }
+    if ((m = head.match(/^(#{3,6})[ \t]+(.+?)[ \t]*$/))) {
+      const alt = m[1] === '###' && m[2] === 'Text alternative';
+      if (level && !level.ignored && alt && !level.alternativeAt) { level.alternativeAt = n; continue; }
+      problem(n, level && !level.ignored && alt ? `a second ### Text alternative in ## ${level.name}` : `the heading "${m[0].trim()}" is not part of the record; a level holds prose, its mermaid fence and ### Text alternative`);
+      continue;
+    }
+    if (!level) {
+      const u = line.match(/^Updated:[ \t]*(.*?)[ \t]*$/);
+      if (u) { if (updates++) problem(n, 'a second Updated line; the record has one'); else if (!titles) problem(n, 'the Updated line comes before the title; it goes under # Architecture'); else if (!validDate(u[1])) problem(n, `Updated must be a valid YYYY-MM-DD date: ${u[1] || '(empty)'}`); else updated = u[1]; }
+      else if (line.trim() && !titles) problem(n, 'text before the title; the record opens with # Architecture');
+      else intro.push(line);
+      continue;
+    }
+    if (/^Updated:/.test(line)) { problem(n, updates ? 'a second Updated line; the record has one' : `an Updated line inside ## ${level.name}; it goes under # Architecture, before the levels`); continue; } // V31-ARCH-FIXES: anywhere outside a fence and a comment
+    if (level.ignored) continue;
+    if (level.fenceAt && !level.alternativeAt) { if (line.trim() && !level.between++) problem(n, `text between the mermaid fence in ## ${level.name} and its ### Text alternative, from here; prose goes before the fence`); continue; }
+    (level.alternativeAt ? level.alternative : level.prose).push(line);
+  }
+  if (comment) problems.push('an HTML comment is never closed');
+  if (fence) problem(fence.n, 'this fence is never closed');
+  if (!titles) problems.push('no title; the record opens with # Architecture');
+  if (!updates) problems.push('no Updated line; under the title, "Updated: YYYY-MM-DD", the date the record was last brought up to date');
+  if (!levels.some((l) => l.name === 'System context')) problems.push('no ## System context; it is the one level every architecture record has');
+  for (const l of levels) {
+    if (!l.fenceAt) problem(l.n, `## ${l.name} has no mermaid fence`);
+    else if (!/^flowchart(?:[ \t]+(?:TB|TD|BT|RL|LR))?[ \t]*(?:;.*)?$/.test((l.source.find((s) => s.trim()) || '').trim())) problem(l.fenceAt, `the mermaid fence in ## ${l.name} must declare a flowchart on its first non-blank line, "flowchart" or "flowchart LR" or another direction, then nothing or a semicolon and statements; C4 roles are labels, not Mermaid's C4 syntax`);
+    if (!l.alternativeAt) problem(l.n, `## ${l.name} has no ### Text alternative after its fence`);
+    else if (!l.alternative.some((s) => s.trim())) problem(l.alternativeAt, `## ${l.name}'s ### Text alternative is empty; it says in sentences what the diagram shows`);
+  }
+  const at = (m) => Number(m.match(/^line (\d+): /)?.[1] ?? Infinity);
+  problems.sort((a, b) => at(a) - at(b)); // by line, stable; a problem of the whole file last
+  const trim = (a) => a.join('\n').replace(/^\n+|\s+$/g, '');
+  return { title, updated, intro: trim(intro), levels: levels.map((l) => ({ name: l.name, prose: trim(l.prose), source: l.source.join('\n'), alternative: trim(l.alternative) })), problems, marked, fenced };
+}
+export const architectureMarked = (text) => architecture(text).marked;
+
+export function inspect(root, { auditProse = false, checkDate = '' } = {}) {
+  const fails = [], warns = [], info = [];
+  const fail = (m) => fails.push(m), warn = (m) => warns.push(m);
+  const P = (p) => join(root, 'project', p);
+  const sources = new Map(); // every file this inspection read, by root-relative path, as bytes: the view's fingerprint (V3-STATUS-VIEW)
+  const take = (p) => { const bytes = readFileSync(p); sources.set(relative(root, p).split('\\').join('/'), bytes); return bytes.toString('utf8'); };
+  const read = (p, required = false) => {
+    try { return take(p); }
+    catch (e) { if (required || e.code !== 'ENOENT') fail(`${relative(root, p)}: ${e.code}`); return ''; }
+  };
+  const files = Object.fromEntries(['profile', 'brief', 'rules', 'backlog', 'decisions', 'trajectory', 'wish-list'].map((n) => [n, read(P(n + '.md'), true)]));
+  const { profile, rules, backlog, trajectory } = files;
+  if (checkDate && !validDate(checkDate)) fail(`check date ${checkDate} is not a valid YYYY-MM-DD date`);
+  const today = checkDate && validDate(checkDate) ? checkDate : new Date().toISOString().slice(0, 10); // the one date input
+  // Budgets: the profile's Budget line names the total and the per-file hard budgets (3.4).
+  const budgets = { ...DEFAULT_BUDGETS };
+  const budgetLine = field(profile, 'Budget');
+  if (!budgetLine) fail('project/profile.md: needs a Budget line (3.4)');
+  else {
+    const take = (key, re) => { // one complete number per name: digits with optional thousands commas, ending at a separator
+      const all = [...budgetLine.matchAll(new RegExp(re.source + '(?=[,;.]?(?:\\s|$))', re.flags.replace('g', '') + 'g'))];
+      if (all.length !== 1) return false;
+      budgets[key] = Number(all[0][1].replace(/,/g, '')); return true;
+    };
+    const N = '(\\d{1,3}(?:,\\d{3})+|\\d+)'; // one complete number, with or without thousands commas
+    // decisions: exactly one declaration by name, so a malformed second cannot hide behind a valid first (kept from V31-SPEC-REVERSALS)
+    const found = [take('total', new RegExp(`total ${N}`)), take('contract', new RegExp(`contract ${N}`)), take('profile', new RegExp(`profile ${N}`)), take('rules', new RegExp(`rules ${N}`)),
+      take('direction', new RegExp(`Direction ${N}`, 'i')), take('backlog', new RegExp(`backlog ${N}`)), (budgetLine.match(/(?<![\w-])decisions\b/g) || []).length === 1 && take('slice', new RegExp(`(?<![\\w-])decisions slice ${N}`)), take('trajectory', new RegExp(`trajectory(?: item lines)? ${N}`))];
+    if (found.some((ok) => !ok) || Object.values(budgets).some((n) => !Number.isInteger(n) || n <= 0)) fail('project/profile.md: the Budget line must state the total and every per-file hard budget — contract, profile, rules, Direction, backlog, decisions slice, trajectory (3.4)');
+  }
+  const signatures = [];
+  for (const n of ['profile', 'brief', 'rules']) {
+    const s = active(files[n]), sig = signature(s);
+    if (!sig) fail(`project/${n}.md: needs one visible dated owner signature in ## Signed, reviewed or delegated with its authority (shape only)`);
+    else signatures.push({ file: `project/${n}.md`, ...sig });
+    if (/\{[^}\n]+\}/.test(s)) fail(`project/${n}.md: unresolved template placeholder`);
+    for (const m of s.matchAll(/until: (\d{4}-\d{2}-\d{2})/g)) {
+      if (!validDate(m[1])) fail(`project/${n}.md: invalid until: date ${m[1]}`);
+      else if (m[1] < today) warn(`project/${n}.md: until: ${m[1]} has passed; retire or ratify the constraint by a decision (3.8)`);
+    }
+  }
+  const counts = { contract: 0, profile: words(profile), rules: words(rules), direction: 0, backlog: words(backlogRead(backlog)), slice: 0, trajectory: 0 };
+  const ESCALATION = 'move detail into item files, the Rationale or the archive; shorten a Decision line written this session or supersede an earlier entry; never delete a line without a trace or edit a past entry; a budget the project cannot meet is raised by the owner\'s recorded decision';
+  const over = (key, label, count) => { if (count > budgets[key]) fail(`${label}: ${count} words, hard budget ${budgets[key]} (3.4) — ${ESCALATION}`); };
+  over('profile', 'project/profile.md', counts.profile);
+  over('backlog', 'project/backlog.md', counts.backlog);
+  if (!/^`[^`]+`(?: — .+)?$/.test(field(profile, 'Gate'))) fail('project/profile.md: needs a Gate command in backticks');
+  if (!field(profile, 'Harness')) fail('project/profile.md: needs a Harness line');
+  if (/claude/i.test(field(profile, 'Harness')) && /codex/i.test(field(profile, 'Harness')) && !field(profile, 'Handoff')) fail('project/profile.md: two harnesses need a Handoff line');
+  if (!pushRoute(field(profile, 'Push'))) fail('project/profile.md: the Push line must say that the harness pushes to the project\'s origin or to a named host, or that it is owner-operated (3.5)');
+  if (!networkChoice(field(profile, 'Network'))) fail('project/profile.md: the Network line must be closed, listed hosts with at least one host name, or open (3.5)');
+  const secrets = field(profile, 'Secrets');
+  if (!secrets || /\{[^}]*\}/.test(secrets) || /placeholder/i.test(secrets)) fail('project/profile.md: the Secrets line is a required choice; "none held" is allowed, a placeholder is not (3.8)');
+  const sessionLines = fieldLines(profile, 'Session');
+  const session = sessionLines.length === 1 ? sessionLines[0].match(SESSION_LINE) : null;
+  if (!session) fail(`project/profile.md: needs exactly one Session line, "- Session: <N>k tokens of context" with a positive whole number of thousands (3.15)${sessionLines.length > 1 ? '; found ' + sessionLines.length : ''}`);
+  // The brief: Direction is rule 1's read (3.2); the rest is read at kick-off, after amendments, in the plan verb and on demand.
+  const briefSections = sections(files.brief), direction = briefSections.get('Direction') || '';
+  if (!direction) fail('project/brief.md: needs a non-empty ## Direction section (3.2)');
+  counts.direction = words(direction);
+  over('direction', 'project/brief.md ## Direction', counts.direction);
+  const briefWords = words(files.brief);
+  if (briefWords > BRIEF_GUIDELINE) warn(`project/brief.md: ${briefWords} words, guideline ${BRIEF_GUIDELINE} (read whole at kick-off and in the plan verb)`);
+  // The rules file (3.1): Always, By task, Signed; routed files exist; budgets reported.
+  const rulesSections = sections(rules), routed = [];
+  for (const h of ['Always', 'By task', 'Signed']) if (!rulesSections.has(h)) fail(`project/rules.md: missing ## ${h} (3.1)`);
+  over('rules', 'project/rules.md', counts.rules);
+  const always = words(rulesSections.get('Always') || '');
+  if (always > RULES_ALWAYS_GUIDELINE) warn(`project/rules.md: Always ${always} words, guideline ${RULES_ALWAYS_GUIDELINE} within the file's hard budget`);
+  for (const row of (rulesSections.get('By task') || '').split('\n').filter((l) => /^\|/.test(l)).slice(2)) {
+    const cells = row.split('|').slice(1, -1).map((c) => c.trim());
+    if (cells.length < 3) { fail(`project/rules.md: By-task row needs task type, document and budget: ${row}`); continue; }
+    const [task, doc, budget] = cells, path = doc.replace(/^`|`$/g, '');
+    const budgetN = Number(String(budget).replace(/,/g, ''));
+    const abs = resolve(root, path);
+    if (relative(root, abs).startsWith('..') || !existsSync(abs)) { fail(`project/rules.md: routed document missing: ${path} (${task})`); continue; }
+    if (!Number.isInteger(budgetN) || budgetN <= 0) fail(`project/rules.md: routed document needs a word budget: ${path}`);
+    let count; try { count = words(take(abs)); } catch { fail(`project/rules.md: routed document cannot be read as a file: ${path} (${task})`); continue; }
+    if (budgetN && count > budgetN) warn(`project/rules.md: routed ${path} is ${count} words, stated budget ${budgetN} (${task})`);
+    routed.push({ task, path, words: count, budget: budgetN || 0 });
+  }
+
+  const milestones = [], open = new Map(); let ms, ph;
+  const itemRe = new RegExp(`^- \\[( |~|!)\\] (${ID}) — (.+?) — since (${DATE})(?: — \\(from: (${ID}), (${DATE})\\))?(?: — blocked: (.+))?$`);
+  for (const [lineIndex, line] of active(backlog).split('\n').entries()) {
+    const loc = `project/backlog.md:${lineIndex + 1}`;
+    let m;
+    if ((m = line.match(/^## (.+)$/))) {
+      if (!['Current', 'Next', 'Icebox'].includes(m[1]) || milestones.some((s) => s.name === m[1])) fail(`${loc}: unknown or duplicate milestone ${m[1]}`);
+      ms = { name: m[1], phases: [] }; milestones.push(ms); ph = null;
+    } else if ((m = line.match(/^### (.+)$/))) {
+      if (!ms) fail(`${loc}: phase outside milestone`);
+      ph = { name: m[1], items: [] }; ms?.phases.push(ph);
+    } else if (/^\s*[-*+] /.test(line)) {
+      m = line.match(itemRe);
+      if (!m) { fail(`${loc}: backlog line does not parse: ${line}`); continue; }
+      if (!ms) { fail(`${loc}: item outside milestone`); continue; }
+      if (!validDate(m[4]) || (m[6] && !validDate(m[6]))) fail(`${loc}: invalid date`);
+      if (/— since |— \(from:/.test(m[3])) fail(`${loc}: repeated item metadata`);
+      if (open.has(m[2])) fail(`${loc}: duplicate ID ${m[2]}`);
+      if (/ — CLOSED /.test(ph?.name || '')) fail(`${loc}: open item in a closed phase`);
+      if (!ph) { ph = { name: '', items: [] }; ms.phases.push(ph); }
+      const item = { mark: m[1], id: m[2], title: m[3], since: m[4], from: m[5] ? `${m[5]}, ${m[6]}` : '', blocked: m[7] || '', milestone: ms.name, phase: ph.name };
+      open.set(item.id, item); ph.items.push(item);
+    }
+  }
+  for (const h of ['Current', 'Next', 'Icebox']) if (!milestones.some((s) => s.name === h)) fail(`project/backlog.md: missing ## ${h}`);
+  /** @param {string} text @param {boolean} [quoted] */
+  const placeholder = (text, quoted = false) => { // a {word …} the template leaves, not a stash@{0}, a ${HOME}, a {0} or a code span of any backtick length (final-QC ease 8)
+    const plain = text.replace(/(?<!`)(`+)(?!`)[^\n]*?(?<!`)\1(?!`)/g, '');
+    return /(?<![$@\w{])\{[A-Za-z][^}\n]*\}/.test(quoted ? plain.replace(/"[^"\n]*"|“[^”\n]*”/g, ' ') : plain); // an item line's double-quoted text, straight or curly, is the product's own words (5.0.2); a space keeps a {word} after it a word
+  };
+  const shipped = new Map(), tphases = [], recalls = [], late = []; let tp, last;
+  for (const line of active(trajectory).split('\n')) {
+    let m;
+    if ((m = line.match(/^## (.+)$/))) { tp = { name: m[1], lines: [] }; tphases.push(tp); last = null; if (placeholder(m[1])) fail(`project/trajectory.md: unresolved template placeholder in the phase heading ${m[1]}`); } // the template's own "## Phase 1 — {name}" left in
+    else if (/^\s*[-*+] /.test(line)) {
+      if (!tp) fail('project/trajectory.md: line outside a phase');
+      tp?.lines.push(line.slice(2));
+      if (placeholder(line, true)) fail(`project/trajectory.md: unresolved template placeholder in an item line: ${line.trim().slice(0, 80)}`);
+      if (line.startsWith('- RECALL — ')) {
+        m = line.match(new RegExp(`^- RECALL — ([0-8])/8 \\((${DATE})\\) — scores: ([012]),([012]),([012]),([012]) — (fresh|local) — see decisions$`));
+        if (!m || !validDate(m[2]) || Number(m[1]) !== m.slice(3, 7).reduce((n, s) => n + Number(s), 0)) fail('project/trajectory.md: invalid recall date, component scores, total or mode');
+        else recalls.push({ score: m[1], date: m[2], mode: m[7] });
+        continue;
+      }
+      m = line.match(new RegExp(`^- (${ID}) — (.+) \\((${DATE})\\) — see decisions$`));
+      if (!m || !validDate(m[3])) { fail(`project/trajectory.md: line does not parse: ${line}`); continue; }
+      if (shipped.has(m[1])) fail(`project/trajectory.md: duplicate shipped ID ${m[1]}`);
+      shipped.set(m[1], { id: m[1], outcome: m[2], date: m[3], phase: tp?.name });
+      if (tp) { if (last && m[3] < last.date) { if (late.at(-1)?.tp !== tp) late.push({ tp, id: m[1], date: m[3], above: last, n: 0 }); late.at(-1).n++; } last = { id: m[1], date: m[3] }; }
+      if (open.has(m[1])) fail(`drift: ${m[1]} is shipped but still open`);
+    }
+  }
+  // A phase keeps its item lines oldest first (V3-READ-ORDER), the order rule 1 breaks equal dates by; RECALL lines and equal dates pass.
+  for (const l of late) warn(`project/trajectory.md: ${l.tp.name}: ${l.id} (${l.date}) sits below ${l.above.id} (${l.above.date})${l.n > 1 ? `, and ${l.n - 1} more item line(s) in the phase are dated before the line above` : ''}; a phase's item lines go oldest first, a new line at its end, and rule 1 breaks equal dates by that order — reorder the phase, every line unchanged`);
+  // Phases stand newest first, a new phase at the top (V31-TRAJ-ORDER): a phase whose newest item line is dated after the
+  // newest of the phase above it is out of order. Rule 1 reads by date whatever the order; the file is read by people too.
+  // A block headed "Outside the phases", with or without a spaced dash and a note, is no phase (V31-CHECKER-FIXES): it takes no place in the order.
+  const newest = tphases.filter((ph) => !OUTSIDE_PHASES.test(ph.name)).map((ph) => ({ name: ph.name, date: ph.lines.filter((l) => !l.startsWith('RECALL — ')).map(lineDate).sort().at(-1) || '' })).filter((ph) => ph.date);
+  const below = newest.flatMap((ph, i) => i && ph.date > newest[i - 1].date ? [{ ph, above: newest[i - 1] }] : []);
+  if (below.length) warn(`project/trajectory.md: ${below[0].ph.name} (newest ${below[0].ph.date}) stands below ${below[0].above.name} (newest ${below[0].above.date})${below.length > 1 ? `, and ${below.length - 1} more phase(s) stand below an older one` : ''}; phases go newest first, a new phase at the top — rule 1 reads by date whatever the order, but people read from the top: move the phases, every line unchanged`);
+  const trajectoryRead = trajectoryItemLines(tphases, budgets.trajectory);
+  counts.trajectory = trajectoryRead.words;
+  over('trajectory', `project/trajectory.md latest item lines (the last ${trajectoryRead.lines.length} shipped, never fewer than four)`, counts.trajectory);
+  const live = decisionEntries(files.decisions, 'project/decisions.md', fail);
+  for (let i = 1; i < live.length; i++) if (live[i].date > live[i - 1].date) fail('project/decisions.md: entries must be newest first');
+  if (live.length > 45) warn(`project/decisions.md: ${live.length} live entries (budget 45); run tools/archive.mjs`);
+  let inheritedHeads = new Set(); // the migration inventory names every entry that predates v3 (3.3); an unusable one fails, never silently exempts
+  if (existsSync(P('migration/inventory.json'))) {
+    let inv = null, text = '';
+    try { text = take(P('migration/inventory.json')); } catch { fail('project/migration/inventory.json: exists but cannot be read; the inherited-entry boundary cannot be read (3.3)'); }
+    if (text) { try { inv = JSON.parse(text); } catch { fail('project/migration/inventory.json: not valid JSON; the inherited-entry boundary cannot be read (3.3)'); } }
+    if (inv !== null) {
+      const list = inv?.record?.decisions;
+      if (!Array.isArray(list) || !list.every((d) => d && typeof d.head === 'string' && d.head)) fail('project/migration/inventory.json: record.decisions must be an array of entries with a heading; the inherited-entry boundary cannot be read (3.3)');
+      else inheritedHeads = new Set(list.map((d) => d.head));
+    }
+  }
+  const slice = decisionSlice(live, inheritedHeads);
+  counts.slice = slice.words;
+  over('slice', 'project/decisions.md latest ten (heading, Decision, Deferred)', counts.slice);
+  const archives = [], all = [...live];
+  if (existsSync(P(''))) for (const file of readdirSync(P('')).filter((n) => /^decisions-.*\.md$/.test(n)).sort()) { // archived chunks sit beside decisions.md
+    const text = read(P(file)), entries = decisionEntries(text, 'project/' + file, fail);
+    if (!entries.length) fail(`project/${file}: no decision entries`);
+    archives.push({ file, entries, text }); all.push(...entries);
+  }
+  const index = active(read(P('archive-index.md'), archives.length > 0)).split('\n').filter((l) => l.startsWith('- '));
+  const expectedRows = archives.map((a) => archiveRow(a.file, a.entries));
+  if (index.length !== expectedRows.length || expectedRows.some((row) => !index.includes(row))) fail('project/archive-index.md: archive coverage, dates, counts or IDs differ; regenerate with tools/archive.mjs');
+  const heads = new Set();
+  for (const e of all) { if (heads.has(e.head)) fail(`graph: duplicate decision heading ${e.head}`); heads.add(e.head); }
+  // V31-LEDGER-FIX (V31-STOCKTAKE.4): an item retired unshipped is named on its decision's optional **Retired:** field —
+  // unique item IDs, comma-separated, or none — live or archived, the reason in that entry. Retired is a third state,
+  // neither open nor shipped: an ID is in one at a time, never reopened; its item file is kept and no orphan. A later
+  // entry may name it again. The field is no trace by itself: the entry names each ID with a disposition (3.7).
+  const retired = new Map(), isId = (id) => new RegExp(`^${ID}$`).test(id);
+  for (const e of all) {
+    if (!e.retired || e.retired === 'none') continue;
+    const ids = e.retired.split(/,\s*/);
+    if (new Set(ids).size !== ids.length || !ids.every(isId)) { fail(`graph: ${e.head}: Retired must name unique item IDs, comma-separated, or none`); continue; }
+    for (const id of ids) {
+      if (open.has(id)) fail(`graph: ${e.head}: Retired ${id} is open in the backlog; an item is open, shipped or retired, one at a time, and a retired one is never reopened — new work takes a new ID`);
+      else if (shipped.has(id)) fail(`graph: ${e.head}: Retired ${id} has a trajectory line, so it shipped; an item is open, shipped or retired, one at a time`);
+      if (!disposes(e, (t) => idRe(id).test(t))) warn(`graph: ${e.head}: Retired ${id} is not named with a disposition and its reason in the entry's title and Decision line or one Rationale statement (3.7)`);
+      if (!retired.has(id) || e.date < retired.get(id).date) retired.set(id, { id, head: e.head, date: e.date });
+    }
+  }
+  const known = (id) => isId(id) && (open.has(id) || shipped.has(id) || retired.has(id));
+  for (const e of all) {
+    if (e.supersedes !== 'none' && (!heads.has(e.supersedes) || e.supersedes === e.head)) fail(`graph: ${e.head}: Supersedes must name an exact different live or archived heading`);
+    if (e.deferred && e.deferred !== 'none') for (const id of e.deferred.split(/,\s*/)) {
+      if (!known(id)) fail(`graph: ${e.head}: Deferred target ${id} is neither open, shipped nor retired`);
+    }
+  }
+  const byHead = new Map(all.map((e) => [e.head, e]));
+  for (const e of all) {
+    const seen = new Set([e.head]); let ref = e.supersedes;
+    while (byHead.has(ref)) {
+      if (seen.has(ref)) { fail(`graph: supersession cycle involving ${e.head}`); break; }
+      seen.add(ref); ref = byHead.get(ref).supersedes;
+    }
+    if (e.items) {
+      const ids = e.items.split(/,\s*/);
+      if (new Set(ids).size !== ids.length || !ids.every(known)) fail(`graph: ${e.head}: Items must name unique open, shipped or retired IDs`);
+    }
+  }
+  // V31-LEDGER-FIX (SUNSET-RQ8.1): a closed phase is governed by its PLAN-N Items list that no other PLAN-N Items list
+  // supersedes, directly or through entries between, whatever the file order, live or archived. An entry without Items
+  // changes no membership; an Items list replaces the whole list. Two or more lists left standing must name the same IDs
+  // (a close restating its opening's list), else the phase is ambiguous and fails: no list is dropped by its date.
+  for (const m of milestones) for (const phase of m.phases) {
+    const closed = phase.name.match(new RegExp(`^Phase (\\d+) — .+ — CLOSED (${DATE})$`));
+    if (!closed) continue;
+    if (!validDate(closed[2])) fail(`backlog: invalid phase-close date ${closed[2]}`);
+    const plans = all.filter((e) => e.id === `PLAN-${closed[1]}` && e.items), replaced = new Set();
+    for (const e of plans) {
+      const seen = new Set([e.head]); let ref = e.supersedes;
+      while (byHead.has(ref) && !seen.has(ref)) { seen.add(ref); const r = byHead.get(ref); if (r.id === e.id && r.items) replaced.add(ref); ref = r.supersedes; }
+    }
+    const standing = plans.filter((e) => !replaced.has(e.head)).sort((a, b) => b.date.localeCompare(a.date));
+    const members = (e) => [...new Set(e.items.split(/,\s*/))].sort().join(', ');
+    if (!standing.length) fail(`backlog: closed Phase ${closed[1]} needs a PLAN-${closed[1]} Items list`);
+    else if (new Set(standing.map(members)).size > 1) fail(`backlog: closed Phase ${closed[1]} has ${standing.length} PLAN-${closed[1]} Items lists that no other supersedes, naming different items: ${standing.map((e) => e.head).join('; ')} — a later list supersedes the earlier by its Supersedes line`);
+    else for (const id of standing[0].items.split(/,\s*/)) if (!shipped.has(id) && !retired.has(id)) fail(`backlog: closed Phase ${closed[1]} has unfinished planned item ${id}`);
+  }
+  const wish = active(files['wish-list']).split('\n').filter((l) => /^\s*[-*+] /.test(l));
+  const origins = new Set([...open.values()].map((i) => i.from).filter(Boolean)), wishIds = new Set();
+  for (const line of wish) {
+    const m = line.match(WISH_LINE);
+    if (!m || !validDate(m[4])) fail(`project/wish-list.md: line needs "- ORIGIN.N — idea — (from: ORIGIN, valid date)", N the origin's next unused number; an unstamped line from before pm-skills 5 takes its ID from tools/migrate.mjs --stamp-wishes: ${line}`);
+    else if (m[1].slice(0, m[1].lastIndexOf('.')) !== m[3]) fail(`project/wish-list.md: wish ${m[1]} must carry its origin's ID, ${m[3]}: ${line}`);
+    else if (wishIds.has(m[1])) fail(`project/wish-list.md: duplicate wish ID ${m[1]} — two branches gave the same origin the same number; renumber the later line above the origin's highest number and trace the change in its commit body`);
+    else { wishIds.add(m[1]); origins.add(`${m[3]}, ${m[4]}`); }
+  }
+  if (auditProse) {
+    const defer = /\b(later item|separate item|deferred|parked|follow-up|revisit|after launch|next release)\b/i;
+    for (const e of live) if (!e.deferred && defer.test(e.decision + ' ' + e.rationale) && !origins.has(`${e.id}, ${e.date}`)) info.push(`REVIEW ${e.id}: possible uncaptured or already fulfilled deferral; semantic review only`);
+    info.push('Prose scan is incomplete and can be wrong; review trajectory and commits for uncaptured or fulfilled work too.');
+  }
+
+  const digests = [];
+  for (const slug of new Set([...active(profile).matchAll(/digest: ([a-z0-9][a-z0-9.-]*)/g)].map((m) => m[1]))) {
+    const file = slug + '.md', t = read(P('digests/' + file), true);
+    const fm = t.replace(/\r\n/g, '\n').match(/^---\n([\s\S]*?)\n---(?:\n|$)/);
+    const get = (k) => (fm?.[1].match(new RegExp(`^${k}: (.+)$`, 'm')) || [])[1] || '';
+    if (!fm) fail(`project/digests/${file}: no header`);
+    for (const k of ['standard', 'source', 'version', 'retrieved', 'next-check', 'licence']) if (!get(k)) fail(`project/digests/${file}: missing ${k}`);
+    if (!validDate(get('retrieved')) || !validDate(get('next-check')) || get('next-check') < get('retrieved')) fail(`project/digests/${file}: invalid or reversed review dates`);
+    else if (get('next-check') < today) warn(`project/digests/${file}: next-check ${get('next-check')} has passed`);
+    for (const h of ['Rules that bite here', 'Checklist by task type', 'Exceptions recorded', 'Deeper references']) if (!sections(t).get(h)) fail(`project/digests/${file}: missing or empty ## ${h}`);
+    const source = get('source').split(/\s+/)[0], house = !/^https?:\/\//.test(source);
+    if (house && (relative(root, resolve(root, source)).startsWith('..') || !existsSync(resolve(root, source)))) fail(`project/digests/${file}: source must be an HTTP(S) URL or, for a house digest, a repository path that exists`);
+    digests.push({ file, standard: get('standard'), version: get('version'), retrieved: get('retrieved'), next: get('next-check'), source, house });
+  }
+  const items = new Map();
+  if (existsSync(P('items'))) for (const f of readdirSync(P('items')).filter((n) => n.endsWith('.md') && !n.startsWith('_'))) {
+    const id = f.slice(0, -3), text = active(read(P('items/' + f))), heads = [...text.matchAll(/^# (.+)$/gm)];
+    if (!new RegExp(`^${ID}$`).test(id) || heads.length !== 1 || !heads[0]?.[1].startsWith(id + ' — ')) fail(`project/items/${f}: needs one heading matching the filename ID`);
+    const s = sections(text);
+    for (const h of ['Intent', 'Acceptance criteria', 'Context and sources']) if (!s.get(h)) fail(`project/items/${f}: missing or empty ## ${h}`);
+    const criteria = []; let continues = false; // a criterion is its bullet line and the indented lines under it
+    for (const l of (s.get('Acceptance criteria') || '').split('\n')) {
+      if (/^- \S/.test(l)) { criteria.push(l.slice(2)); continues = true; }
+      else if (continues && /^\s+\S/.test(l)) criteria[criteria.length - 1] += ' ' + l.trim();
+      else continues = false;
+    }
+    if (!criteria.length) fail(`project/items/${f}: no acceptance criteria`);
+    if (!open.has(id) && !shipped.has(id) && !retired.has(id)) warn(`project/items/${f}: orphan; neither open, shipped nor retired`);
+    if (/^status:/m.test(text)) fail(`project/items/${f}: status belongs only in backlog`);
+    for (const m of text.matchAll(/`((?:[A-Za-z0-9_.-]+\/)+[^`]+)`/g)) {
+      const path = resolve(root, m[1]);
+      if (relative(root, path).startsWith('..') || !existsSync(path)) warn(`project/items/${f}: local path missing or outside repository: ${m[1]}`);
+    }
+    // V31-NOW: a Now section older than the item's latest dated note is information only, never a warning or failure.
+    if (s.has('Now')) {
+      const updated = [...s.get('Now').matchAll(/^Updated:(.*)$/gm)].map((m) => m[1].trim());
+      const noted = [...(s.get('Notes') || '').matchAll(new RegExp(`^- (${DATE}) — `, 'gm'))].map((m) => m[1]).filter(validDate).sort();
+      if ((active(text).match(/^## Now$/gm) || []).length !== 1 || updated.length !== 1 || !validDate(updated[0])) info.push(`project/items/${f}: Now freshness unknown; expected one Now section with one valid Updated: YYYY-MM-DD`);
+      else if (noted.length && updated[0] < noted.at(-1)) info.push(`project/items/${f}: Now updated ${updated[0]} is older than the latest note, ${noted.at(-1)}; the item's next close rewrites it`);
+    }
+    // V31-STATUS-SITE: the heading's title and every section in file order, for the view's item pages.
+    items.set(id, { intent: s.get('Intent'), criteria, now: s.get('Now') || '', words: words(text), title: heads[0]?.[1].slice(id.length + 3) || '', sections: [...s] });
+  }
+  const structure = active(read(P('structure.md')));
+  if (/\{what lives here/.test(structure)) warn('project/structure.md: directory roles need filling');
+  for (const m of structure.matchAll(/`([^`]+)`/g)) if (!existsSync(resolve(root, m[1]))) warn(`project/structure.md: missing path ${m[1]}`);
+  const contract = read(join(root, 'AGENTS.md'), true);
+  const ruleNumbers = [...active(contract).matchAll(/^(\d+)\. /gm)].map((m) => Number(m[1]));
+  if (ruleNumbers.length !== 12 || ruleNumbers.some((n, i) => n !== i + 1)) fail('AGENTS.md: expected twelve consecutively numbered rules; a budget change needs owner evidence and a checker update');
+  counts.contract = words(contract);
+  over('contract', 'AGENTS.md', counts.contract);
+  const hotWords = counts.contract + counts.profile + counts.rules + counts.direction + counts.backlog + counts.slice + counts.trajectory;
+  if (hotWords > budgets.total) fail(`read estimate ${hotWords} words exceeds the total budget ${budgets.total} (3.4) — ${ESCALATION}`);
+  info.push(`${open.size} open, ${shipped.size} shipped, ${retired.size} retired, ${live.length} live decisions, ${all.length - live.length} archived, ${digests.length} adopted digests`);
+  const inherited = slice.entries.filter((e) => e.inherited).length;
+  info.push(`read estimate: ${hotWords} whitespace words of ${budgets.total} (contract ${counts.contract}, profile ${counts.profile}, rules ${counts.rules}, Direction ${counts.direction}, backlog ${counts.backlog}, decisions slice ${counts.slice} — ${slice.entries.length - inherited} entries as heading, Decision and Deferred${inherited ? `, ${inherited} inherited as heading and Deferred` : ''}, trajectory ${trajectoryRead.lines.length} item lines ${counts.trajectory}; the base set by the 3.4 rule, not tokens or observed reads)`);
+  const openItemWords = [...open.keys()].filter((id) => items.has(id)).reduce((n, id) => n + items.get(id).words, 0);
+  info.push(`conditional reads, not counted: the full brief ${briefWords - counts.direction} words beyond Direction; ${[...open.keys()].filter((id) => items.has(id)).length} open item files, ${openItemWords} words; Rationale bodies on demand`);
+  for (const r of routed) info.push(`routed read, ${r.task}: ${r.path} (${r.words} words${r.budget ? `, budget ${r.budget}` : ''}); mandatory when that task type fires, reported apart from the base set`);
+  // V31-A11Y (3.18): with an Accessibility testing line, the pack's checks, through this inspection's reader so the
+  // view's fingerprint covers the pack's files; a message given above is not repeated. Without the line, nothing.
+  let a11y = null;
+  if (fieldLines(profile, A11Y_FIELD).length) {
+    const pack = a11yPack(root);
+    let r = null, why = '';
+    if (!pack) why = 'which is not installed';
+    else if (pack instanceof Error) why = `which cannot be loaded (${String(pack.message).split('\n')[0]})`;
+    else {
+      try { r = pack.inspectA11y({ root, profile, rules, backlog, take }); } catch (e) { why = `whose checks could not complete (${e instanceof Error ? e.message : String(e)})`; }
+      if (r && !([r.fails, r.warns, r.info].every((l) => Array.isArray(l) && l.every((m) => typeof m === 'string')) && (r.a11y === null || typeof r.a11y === 'object'))) { r = null; why = 'whose checks returned no lists of messages'; }
+    }
+    if (!r) fail(`project/profile.md: the ${A11Y_FIELD} line needs the pack's tools/a11y-ledger.mjs beside tools/ledger.mjs, ${why}; intake copies the pack when it writes the line (3.18)`);
+    else {
+      for (const [list, from] of [[fails, r.fails], [warns, r.warns], [info, r.info]]) for (const m of from) if (!list.includes(m)) list.push(m);
+      a11y = r.a11y;
+    }
+  }
+  // V31-APP-SWITCH (3.28): with an App opinion line, the line's grammar, the digest the pack copies, the opt-out's re-ask by
+  // date and Set 1's record (T2 and T3). Without the line, nothing is read or checked.
+  let app = null;
+  const appValues = fieldLines(profile, APP_FIELD);
+  if (appValues.length > 1) fail(`project/profile.md: one ${APP_FIELD} line, not ${appValues.length} (3.28)`);
+  else if (appValues.length === 1) {
+    app = appLine(appValues[0]);
+    if (!app) fail(`project/profile.md: the ${APP_FIELD} line must read "<editor, forms, unsure or off>, <YYYY-MM-DD>", with ", asked again <YYYY-MM-DD>" after off alone, not "${appValues[0]}" (3.28)`);
+    else if (app.state === 'off') {
+      if (!app.asked && appDays(app.date, today) >= APP_REASK_DAYS) warn(appReaskMessage(app));
+    } else {
+      if (!existsSync(join(root, APP_DIGEST))) fail(`project/profile.md: the ${APP_FIELD} line needs ${APP_DIGEST}, which is not installed; intake copies the pack when it writes the line (3.28)`);
+      else take(join(root, APP_DIGEST));
+      if (!existsSync(join(root, APP_SET))) warn(`${APP_SET}: Set 1 is not pinned yet; the first app's intake pins it on the owner's word and records it here (3.28)`);
+      else {
+        let set, parsed = true;
+        try { set = JSON.parse(take(join(root, APP_SET))); } catch { parsed = false; fail(`${APP_SET}: not valid JSON`); }
+        if (parsed) {
+          const plain = set !== null && typeof set === 'object' && !Array.isArray(set);
+          const eol = plain && set.endOfLife !== null && typeof set.endOfLife === 'object' && !Array.isArray(set.endOfLife) ? set.endOfLife : null;
+          if (!plain || typeof set.signed !== 'string' || !validDate(set.signed) || !(set.keep === null || (typeof set.keep === 'string' && validDate(set.keep) && set.keep >= set.signed)) || !eol || !Object.values(eol).every((d) => typeof d === 'string' && validDate(d))) fail(`${APP_SET}: must be { "signed": <YYYY-MM-DD>, "keep": <YYYY-MM-DD, not before signed, or null>, "endOfLife": { <package>: <YYYY-MM-DD> } } (3.28)`);
+          else {
+            if (set.keep === null && appDays(set.signed, today) > APP_SET_DAYS) warn(`${APP_SET}: T2: Set 1 was signed ${appDays(set.signed, today)} days ago and no keep decision is recorded; about six months (${APP_SET_DAYS} days) is the limit, so the owner re-certifies it before the keep decision (3.28)`);
+            if (set.keep !== null && appDays(set.signed, set.keep) > APP_SET_DAYS) warn(`${APP_SET}: T2: Set 1 was signed ${appDays(set.signed, set.keep)} days before the keep decision (about six months is ${APP_SET_DAYS}); the owner re-certifies it (3.28)`);
+            for (const [pkg, d] of Object.entries(eol)) if (d <= today) warn(`${APP_SET}: T3: ${pkg} reached its recorded end of life on ${d}; a security advisory needing a major outside the certified ones is the same trigger, which this check cannot see offline (3.28)`);
+          }
+        }
+      }
+    }
+  }
+  // V31-C4-MERMAID (3.26): the optional architecture record, read into the sources so the view's fingerprint covers it;
+  // absent, nothing is shown or checked. Its envelope's problems are returned apart, not failed here: the checker fails
+  // on them, and the view still publishes, showing them. V31-C4-FIX: only a file carrying the mark is the record; any
+  // other file at the path, or a path that does not read as a file, is probed without joining the sources and gets
+  // nothing (a routed read takes and checks it as before), save one INFO line where a level holds a mermaid fence, the
+  // shape a record keeps when its mark is deleted.
+  let archRecord = null, archBytes = null;
+  try { archBytes = readFileSync(P('architecture.md')); } catch { /* absent or not a file: not the record */ }
+  if (archBytes) {
+    const probe = architecture(archBytes.toString('utf8'));
+    if (probe.marked) { sources.set('project/architecture.md', archBytes); archRecord = probe; }
+    else if (probe.fenced) info.push(`project/architecture.md: not read as the architecture record (3.26): it lacks the mark line, though a level holds a mermaid fence; if it is the record, restore the line ${ARCHITECTURE_MARK}`);
+  }
+  const needsOwner = [...open.values()].filter((i) => i.mark === '!');
+  if (needsOwner.length) info.push(`needs the owner: ${needsOwner.map((i) => i.id).join(', ')} (already recorded)`);
+  const delegated = signatures.filter((s) => s.delegated);
+  if (delegated.length) info.push(`delegated signatures needing the owner's review: ${delegated.map((s) => s.file).join(', ')}`);
+  if (['profile', 'brief', 'rules'].every((n) => fails.includes(`project/${n}.md: unresolved template placeholder`))) fails.unshift('not set up yet: follow verbs/intake.md, which fills the template and takes the owner\'s review; the failures below are its to mend'); // the three files still the template: a fresh install, before intake
+  return { fails, warns, info, files, milestones, open, shipped, retired, decisions: live, slice, archives, wish: wish.map((s) => s.slice(2)), tphases, trajectoryRead, recall: recalls.sort((a, b) => b.date.localeCompare(a.date))[0], digests, items, hotWords, counts, budgets, routed, signatures, session: session ? Number(session[1]) * 1000 : 0, today, sources, a11y, app, architecture: archRecord };
+}
