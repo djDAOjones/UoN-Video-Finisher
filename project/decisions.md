@@ -34,6 +34,16 @@
      project/archive-index.md (date range, count, IDs). Archived
      entries are still the record; grep finds them. -->
 
+## 2026-11-26 — UVT-1 — The ID-folder check and the import-boundary rule in every gate: a root script and an ESLint rule of our own, no dependency
+
+**Decision:** the root gate checks every commit after the founding against its folders (`scripts/check-commit-ids.mjs`), and an ESLint rule of the repository's own, `uvt/boundaries` in `eslint.boundaries.js`, resolves each import and fails `shared/` reaching a tool or one tool reaching the other; the root's config and both tools' configs include it — because D9 and the parent's rules ask for both, and a rule resolving paths catches what a name pattern misses.
+
+**Rationale:** A commit's subject names one ID; `VH-` may write only `finisher/`, `VNG-` only `name-graphics/`, `UVT-` only the rest; another ID (INTAKE, PLAN-n, REFRESH-n) writes one ledger whose record names it, which lets REFRESH-503, in both tools, pass in each. Merges are left out, their commits checked. The check runs from the founding commit, 11af3017, so the restructure's earlier commits stay the rules' one exception: over c119477b..HEAD it flags the two that wrote two ledgers' folders, PLAN-10 (ae427d96) and VH-226's log commit (bdcd3790). The deploy workflow's checkout is shallow, so there the newest commit only is checked, and says so; every local gate checks them all. The gate runs before a commit exists, so a wrong commit fails the next gate; `EXCEPTIONS` would keep one, by SHA and decision, and is empty. The rule covers import, export from, `import()` and `import type`; CSS `@import` is not linted. Tests use Node's own runner (9), so no dependency was added. Each tool wired the rule in its own commit (VH-226 977d39c2, VNG-11 89c158ff), a probe import reported in each and deleted. Digest rule applied: house conventions, a shared rule's tests beside it and run in every gate.
+
+**Supersedes:** none
+
+**Deferred:** none
+
 ## 2026-11-26 — PLAN-1 — Stage 6 after the founding: the commit-folder check and boundary lint, the identical set in `shared/`, the shared tool configs
 
 **Decision:** the phase "Stage 6 — the shared set, after the founding" is UVT-1 (the root check that a commit's ID matches its folders, and the import-boundary lint rule), UVT-2 (D10's identical set in `shared/`, in three green steps, each tool's gate running the shared tests) and UVT-3 (the identical tool configs shared at the root), in that order — because the restructure prompt's stage 6, steps 2 to 5, sets them so, on the owner's word of 2026-11-26.

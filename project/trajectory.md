@@ -14,3 +14,5 @@
      the one above it or a phase's newest line after the phase above. -->
 
 ## Stage 6 — the shared set, after the founding — the owner's word of 2026-11-26
+
+- UVT-1 — the root gate checks every commit after the founding against its folders, and `uvt/boundaries`, an ESLint rule of our own, fails shared/ reaching a tool or one tool another, in the root's and both tools' configs; node:test, no dependency (2026-11-26) — see decisions

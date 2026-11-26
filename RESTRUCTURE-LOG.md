@@ -10,12 +10,13 @@ the parent's ledger.
 ## Where it stands
 
 - **Stage reached:** stage 6 under way, 2026-11-26: step 0 (both tools
-  to pm-skills 5.0.3) and step 1 (the parent's ledger, `UVT-n`) done.
+  to pm-skills 5.0.3), step 1 (the parent's ledger, `UVT-n`) and step 2
+  (UVT-1) done.
   Stage 5 done: one folder, one repository
   (`djDAOjones/UoN-Video-Tools`), `finisher/` and `name-graphics/` on
   one install at the root, the preview and the Xerte
   package checked, the old Name Graphics repository archived.
-- **Next:** stage 6, steps 2 to 5 (UVT-1 to UVT-3, PLAN-1 in the
+- **Next:** stage 6, steps 3 to 5 (UVT-2 and UVT-3, PLAN-1 in the
   parent's ledger). Stage 7 is not started.
 - **Then, fairly soon (the owner's word of 2026-11-26), after pm-skills
   5.0.3:** the Finisher's student edition (VH-129) and the translation
@@ -694,6 +695,24 @@ same version the tools run (D8).
   Graphics' stale sibling line replaced and the Finisher's line "Local
   `main` is stale by design; what is published is `origin/main`."
   dropped to stay within 600 words: "Yes, sign both (Recommended)".
+
+### Step 2: the ID-folder check and the boundary rule (UVT-1): done
+
+- `884acca9` UVT-1: `scripts/check-commit-ids.mjs` (every commit after
+  INTAKE `11af3017`, merges left out; in CI's shallow checkout the
+  newest only), `eslint.boundaries.js` (`uvt/boundaries`, resolving each
+  import), the root's `eslint.config.js`, 9 node:test tests, the root
+  gate's `check:root`, and the deploy workflow running it after the
+  tools' gates.
+- `977d39c2` VH-226 and `89c158ff` VNG-11: each tool's ESLint config
+  includes the rule; a probe import of the other tool was reported in
+  each and deleted.
+- Over `c119477b..HEAD` the check flags exactly the two founding-era
+  commits that wrote two ledgers' folders (`ae427d96` PLAN-10,
+  `bdcd3790` VH-226's log), as the rules' exception allows; from the
+  founding on, 0 failures.
+- Gates: the root gate green before `884acca9`; each tool's green
+  before its commit (logs `gate-stage6-*.log` in the backup folder).
 
 ### Written for stage 6, now UVT-4 and UVT-5: the parent's first items (the owner's word of 2026-11-26)
 
