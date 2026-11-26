@@ -9,20 +9,20 @@ the parent's ledger.
 
 ## Where it stands
 
-- **Stage reached:** stage 4 done: the plan is in both ledgers, both
-  repositories and the three local-only branches are pushed, and bundles
-  are in the backup folder. Nothing has moved.
-- **Next:** stage 5, the move, in one sitting, best in a fresh chat on
-  this folder.
-- **Waiting on the owner:** the word to start stage 5 at a quiet point
-  (both project folders closed in every other app and chat, OneDrive "Up
-  to date"); during it, "Always keep on this device" on this folder
-  (step 2), and the rename of the GitHub repository or the word for
-  `gh repo rename` (step 11).
-- **The restructure prompt** now lives at
-  `../2026-08-24 UoN Video Helper/reviews/2026-11-25/UoN-Video-Tools-restructure-prompt.md`
-  (committed by VH-226 in `1a9927ca`); after stage 5 it is
-  `finisher/reviews/2026-11-25/UoN-Video-Tools-restructure-prompt.md`.
+- **Stage reached:** stage 5 done, 2026-11-26: one folder, one
+  repository (`djDAOjones/UoN-Video-Tools`), `finisher/` and
+  `name-graphics/` on one install at the root, every gate green, pushed,
+  the preview and the Xerte package checked, the old Name Graphics
+  repository archived with its Pages site off. Both tools are on
+  pm-skills 5.0.2 (the owner's REFRESH-502, merged in during the move).
+- **Next:** stage 6, the parent ledger and the shared set, best in a
+  fresh chat on this folder, on the owner's word. Not started.
+- **Waiting on the owner:** the two Chrome tabs left open on the
+  Finisher (each holds an unsaved test video; close each and choose
+  "Leave"); the word for stage 6.
+- **The restructure prompt** is
+  `finisher/reviews/2026-11-25/UoN-Video-Tools-restructure-prompt.md`
+  (committed by VH-226 in `1a9927ca`, before the move).
 
 ## The backup folder
 
@@ -497,7 +497,117 @@ Video-Name-Graphics #1 at 11:51:03Z): pm-skills 5.0.2 (build `b6a6707`)
   `6c9ecf49`'s and the Finisher's: **both tools are on pm-skills 5.0.2**,
   one version (D8). Gate from `name-graphics/` green (126).
 - Then VH-226: `tools/archive.mjs` in the Finisher (46 live of 45),
-  which pays and retires wish REFRESH-502.1.
+  which pays and retires wish REFRESH-502.1. Committed as `c92510e6`,
+  the root gate chained before it: green, the Finisher 2,001 passed, 1
+  skipped, Name Graphics 126 passed; `node tools/check.mjs --commit
+  HEAD` 0 and 0.
+
+### Step 9: the gates: done
+
+Green from `finisher/`, from `name-graphics/` and from the root at each
+commit, chained before it, none deleted or skipped (the one skip is the
+baseline's). Logs: `gate-stage5-*.log` in the backup folder.
+
+### Step 12: pushed and read in Chrome: done
+
+- `git push origin main`: `c63935e0..c92510e6`, a fast-forward, 19
+  commits. Pages run 45817450087: build and deploy green (log
+  `pages-run-45817450087.log` in the backup folder).
+- `curl`: `/UoN-Video-Tools/`, `/finisher/`, `/name-graphics/` and
+  `/finisher/sw.js` 200; the old `/UoN-Video-Finisher/` 404, as D4 said.
+- Read in Claude in Chrome, the owner's profile:
+  - **The lobby:** "UoN Video Tools", `noindex, nofollow`, no script, two
+    links (`finisher/`, `name-graphics/`), no registration, no
+    controller.
+  - **The Finisher:** version line `v0.3.1+20261126.c92510e`. All 30
+    files `offline-files.json` lists answer 200 (3.96 MB, every closing
+    master among them, no 404). `sw.js` at the scope
+    `/UoN-Video-Tools/finisher/`; after a reload it controls the page,
+    and its one cache, named for that scope and build, holds exactly the
+    30 listed files, none missing, none extra. A job on the synthetic 6 s
+    source with the defaults: "Your video is ready", 5.2 MB, "a cut to
+    the blue closing card".
+  - **Name Graphics:** the shell page, "Video Name Graphics", its script
+    and stylesheet 200 under `/UoN-Video-Tools/name-graphics/`; not
+    controlled, while the Finisher's worker was registered on the same
+    origin. The lobby, read again then, not controlled either.
+- **Found, not resolved: the page's own registration failed twice in
+  this profile.** On the first two loads the worker was registered by
+  the page, sat "installing" (the first time over two minutes, while a
+  long script of mine held the tab and froze its renderer once), then
+  the registration was dropped with nothing kept. The same `addAll` run
+  from the page into a throwaway cache took 2 s with no error;
+  registering `sw.js` by hand installed and activated it in 1.4 s, and
+  from then on it behaved as above. `register.ts` is a plain
+  `register(scriptUrl)`, so the code drops nothing itself. Not seen
+  locally (the nested Xerte run registered at once), nor in VH-161's
+  fresh-profile reading on Pages. This origin, `djdaojones.github.io`,
+  holds 4.2 GB of "fileSystem" data in this profile from earlier use of
+  the old preview, outside the stored-jobs folder (which was empty);
+  it was left alone. For VH-161 and the owner: whether a worker on
+  Pages installs on a first visit in the owner's own Chrome.
+- **Not done, a person's:** Save (it downloads a file), and the output
+  read frame by frame. Afterwards, on this origin: my job's folder
+  removed, the worker at `/UoN-Video-Tools/finisher/` unregistered, its
+  cache deleted; nothing else touched. The tab of each run is left open
+  because the page asks before leaving an unsaved video; the owner
+  closes it.
+
+### Step 13: the Xerte package: done
+
+- From `finisher/` on a clean tree, `npm run package:xerte`: exit 0,
+  `uon-video-finisher-v0.3.1+20261126.c92510e6-site.zip`, 36 files,
+  3,937,089 bytes. **Flat:** no entry has a folder. Its kinds are the
+  0.3.1 zip's plus one `.js` and one `.map` (`sw.js` and its map) and
+  one `.json` (`offline-files.json`).
+- That zip was moved to the backup folder, so `release/` holds only its
+  three zips as before. **The 0.3.1 zip is unchanged:** sha256
+  `b0e43222…dd458d` before and after (`release-0.3.1-sha-stage5.txt`).
+- **Run from a nested path:** unzipped under
+  `/Users/joe/UoN-Video-Tools-spike/xerte-check/site/deep/nested/finisher/`,
+  served by `python3 -m http.server` on 127.0.0.1:8781, read in Claude
+  in Chrome. The page's script and stylesheet are `./`-relative; version
+  line `v0.3.1+20261126.c92510e6`; `sw.js` active at the scope
+  `/deep/nested/finisher/`, one cache named for that scope and build. A
+  job on a synthetic 6 s source (made with ffmpeg, nothing from
+  `samples/`), the defaults, Cut to the blue closing card: "Your video is
+  ready", 5.2 MB, "a cut to the blue closing card". Every file of the
+  package answered 200 or 304 (the blue 1080p tail among them); the one
+  404 was `/favicon.ico` at the server's root, outside the package.
+- **Not done:** Save, which downloads a file; the output was not read
+  frame by frame. Afterwards in that Chrome profile, for
+  `127.0.0.1:8781`: the worker unregistered, its cache deleted, the
+  stored-jobs folder removed; the server stopped. Nothing uploaded.
+
+### Step 14: the old Name Graphics repository: done
+
+The owner, asked, chose "Yes, do both". First checked: both refs of
+`djDAOjones/Video-Name-Graphics` (`main` `6c9ecf49` and `pm/5.0.2`
+`d0fe8cc8`) are ancestors of UoN-Video-Tools' `main`. Then its Pages site
+deleted (`gh api -X DELETE …/pages`; the old address 404) and the
+repository archived (`gh repo archive`; `isArchived` true). Its `.git`
+stays in the backup folder.
+
+### After the move
+
+- `samples/` compared again with the stage-1 list: identical, 34 files.
+- Cloud-only from the root (outside `node_modules`): 0. No conflict
+  copy. `finisher/pm_skills/` equals `1a9927ca`'s `pm_skills/`.
+- `finisher/release/` holds its three zips as before, the 0.3.1 zip's
+  sha256 unchanged; `finisher/_archive/` and
+  `finisher/.claude/settings.local.json` in place, untouched.
+- No `.claude/launch.json` was added at the root. The two old project
+  folders no longer exist beside this one.
+
+### What only a person verified, or has yet to
+
+- That each tool's hooks fire once in a live chat opened on its folder
+  (the spike's test chats proved it on the same files; not re-run).
+- Save of a finished video, on Pages and from the Xerte package, and the
+  outputs read frame by frame.
+- The service worker's first-visit install on Pages in the owner's own
+  Chrome (above).
+- The Xerte upload itself (VH-14; nothing was uploaded).
 
 ## Stages 6 and 7
 
