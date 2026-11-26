@@ -443,7 +443,61 @@ before it: green, 98 files, 2,001 passed, 1 skipped; checker 0 and 0.
 
 The root `check` runs both tools' gates; the workflow runs each tool's
 gate from its folder, builds each with its own `BASE_PATH` and gathers
-both beside the lobby, which now links to both.
+both beside the lobby, which now links to both. Committed as
+`71700ba1` VH-226, the root gate chained before it: green, the Finisher
+98 files, 2,001 passed, 1 skipped, then Name Graphics 5 files, 126
+passed; both checkers 0 and 0.
+
+A dry run of the workflow's build and gather, off OneDrive
+(`/Users/joe/UoN-Video-Tools-spike/stage5-site/`): both builds made with
+`BASE_PATH=/UoN-Video-Tools/<tool>/`, each page's script and stylesheet
+under its own folder, the Finisher's `sw.js` and `offline-files.json`
+beside its page.
+
+### Step 10: hooks: checked, not regenerated
+
+Both tools' `.claude/settings.json` are byte-identical and unchanged:
+`node "${CLAUDE_PROJECT_DIR}/tools/session.mjs"` and `tools/handover.mjs`,
+both present in each tool. Run by hand from each tool's folder with
+`CLAUDE_PROJECT_DIR` set to it and a startup event on stdin: both exit 0,
+silent, and no new handover claim was made (no current session end).
+`tools/harness.mjs` was not run. That a hook fires exactly once in a
+real chat opened on each tool's folder was proved by the spike's three
+test chats on these same files; it was not re-proved in a live chat in
+stage 5, so it is the owner's to see in the next chat on each folder.
+
+### Step 11: the rename: done
+
+The owner, asked, chose "Yes, you rename it". `gh repo rename
+UoN-Video-Tools` on `djDAOjones/UoN-Video-Finisher`, then `origin` set
+to `https://github.com/djDAOjones/UoN-Video-Tools.git`. The old preview
+address stopped working from that moment.
+
+### Found at the rename: both repositories had moved on GitHub
+
+`git fetch` after the rename showed `origin/main` at `c63935e0`, not
+`1a9927ca`. The owner had merged a REFRESH-502 pull request in each
+repository during the move (UoN-Video-Tools #8 at 11:50:59Z,
+Video-Name-Graphics #1 at 11:51:03Z): pm-skills 5.0.2 (build `b6a6707`)
+"on the owner's word of 2026-11-26 that the installations on 5.0.1 take
+5.0.2". Each brings five tool and verb files and its record.
+
+- Plain `git merge origin/main` sent the five tool files to
+  `name-graphics/` (rename detection, the two tools' pm-skills files
+  being byte-identical). Aborted; the first abort was refused once
+  ("not uptodate", a timestamp touch, likely OneDrive; nothing differed)
+  and went through on the second try.
+- `7fe0f897` VH-226: `origin/main` merged with `-Xsubtree=finisher`.
+  One conflict in `finisher/project/decisions.md`, both 2026-11-26
+  entries kept, newest first. `finisher/tools/` and `verbs/` equal
+  `c63935e0`'s. Gate from `finisher/` green (2,001 passed, 1 skipped).
+- `38145944` VNG-11: Video-Name-Graphics' `main` (`6c9ecf49`) fetched
+  from GitHub and merged with `-Xsubtree=name-graphics`. One conflict in
+  its decisions, resolved the same way. Its `tools/` and `verbs/` equal
+  `6c9ecf49`'s and the Finisher's: **both tools are on pm-skills 5.0.2**,
+  one version (D8). Gate from `name-graphics/` green (126).
+- Then VH-226: `tools/archive.mjs` in the Finisher (46 live of 45),
+  which pays and retires wish REFRESH-502.1.
 
 ## Stages 6 and 7
 
