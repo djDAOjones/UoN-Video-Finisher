@@ -1,0 +1,7 @@
+// Copied from the UoN Video Finisher at 27f51dd (VNG-1), its Finisher-only
+// ignores dropped.
+{
+  "config": { "extends": "./.markdownlint.json" },
+  "globs": ["**/*.md"],
+  "ignores": ["node_modules", "dist"],
+}

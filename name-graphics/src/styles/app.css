@@ -1,0 +1,193 @@
+/*
+ * App shell styles. Carbon productive language, AAA targets.
+ * See UI-STANDARDS.md before changing anything here.
+ *
+ * Cut from the UoN Video Finisher's app.css at 27f51dd (VNG-1) to the rules a
+ * page element here uses: its lines 1–475 and its type-role and forced-colours
+ * rules from line 1797. Each later item brings back the rules its own
+ * elements need. No rule here names a brand: the active pack's tokens assign
+ * every colour role.
+ */
+
+@import './tokens.carbon.css';
+/* The active brand pack. VNG-2 makes the pack a build-time choice. */
+@import '../../brands/neutral/tokens.css';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  color-scheme: light dark;
+}
+
+body {
+  /* A column the height of the window, so the footer band sits at the bottom
+     of a short page rather than halfway up it. */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+  background: var(--layer-00);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+}
+
+/* Running text stops at the measure, whatever the panel's width (Finisher
+   VH-112, WCAG 1.4.8). A word longer than its line breaks where it must
+   rather than push the page sideways on a phone (Finisher VH-165, 1.4.10);
+   every other word still breaks only at a space. */
+p {
+  max-width: var(--measure);
+  overflow-wrap: anywhere;
+}
+
+/* The pack's heading face. */
+h1 {
+  font-family: var(--font-heading);
+}
+
+/* Skip link — visible on focus, never a hidden-only affordance */
+.skip-link {
+  position: absolute;
+  left: var(--spacing-05);
+  top: -100%;
+  z-index: 10;
+  padding: var(--spacing-04) var(--spacing-05);
+  background: var(--interactive);
+  color: var(--text-on-interactive);
+  text-decoration: none;
+}
+
+.skip-link:focus-visible {
+  top: var(--spacing-05);
+}
+
+:focus-visible {
+  outline: var(--focus-width) solid var(--focus);
+  outline-offset: var(--focus-offset);
+}
+
+/*
+ * The bands, top and bottom. `.on-brand`, in the pack's tokens, re-assigns
+ * the colour roles inside them, so these rules name roles like any other and
+ * come out light on the band's ground — including the focus ring.
+ */
+.band {
+  background: var(--layer-00);
+  color: var(--text-primary);
+}
+
+.band-inner {
+  width: 100%;
+  max-width: var(--layout-width);
+  margin: 0 auto;
+  padding: var(--spacing-05) var(--spacing-06);
+}
+
+/* In the dark theme the page is the same ground as the band, so a rule is
+   what separates them. In the light theme it is a quiet edge and nothing
+   more. */
+.band--header {
+  border-bottom: var(--border-width) solid var(--border-subtle);
+}
+
+.band--footer {
+  border-top: var(--border-width) solid var(--border-subtle);
+}
+
+/*
+ * The header band holds a pack's logo top-left against the window's edge,
+ * not indented to the content column, which is centred. Its height is the
+ * logo plus the clear space above and below, so the band keeps its shape even
+ * before an image has loaded, or where a pack has none.
+ */
+.band--header .band-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-05);
+  max-width: none;
+  min-height: calc(var(--brand-logo-height) + 2 * var(--brand-logo-clear));
+  padding: var(--brand-logo-clear) var(--brand-logo-inset);
+}
+
+/* Below the layout width, where the content column meets the window's
+   gutters, the band takes the column's inset, so the band's content and the
+   page title share one edge on a phone (Finisher VH-166, V-36). */
+@media (max-width: 60rem) {
+  .band--header .band-inner {
+    padding-inline: var(--spacing-06);
+  }
+}
+
+/* The page's name, on the content's left edge. */
+.page-title {
+  margin: 0 0 var(--spacing-05);
+  overflow-wrap: break-word;
+}
+
+.version {
+  margin: 0;
+  color: var(--text-secondary);
+  font-variant-numeric: tabular-nums;
+}
+
+.main {
+  flex: 1;
+  width: 100%;
+  max-width: var(--layout-width);
+  margin: 0 auto;
+  padding: var(--spacing-07) var(--spacing-06) var(--spacing-09);
+}
+
+/* The promise, in the page's own text colour: a headline, not a footnote
+   (Finisher VH-124). Its width is the measure's, like every other paragraph.
+   One blank line between its paragraphs (1.4.8's paragraph spacing). */
+.lede {
+  margin: 0 0 var(--spacing-07);
+}
+
+.lede p {
+  margin: 0;
+}
+
+.lede p + p {
+  margin-top: var(--paragraph-gap);
+}
+
+/* Page title: Carbon's heading-04. */
+.page-title {
+  font-size: var(--type-heading-04);
+  font-weight: var(--type-weight-heading);
+  line-height: var(--line-height-heading);
+}
+
+/* Body: like body-02. Running text. */
+body {
+  font-size: var(--type-body);
+  font-weight: var(--type-weight-body);
+  line-height: var(--line-height-body);
+}
+
+/* Supporting: body-compact-01 at the body's line. */
+.version {
+  font-size: var(--type-body-compact);
+  font-weight: var(--type-weight-body);
+  line-height: var(--line-height-body);
+}
+
+/*
+ * Forced colours — Windows contrast themes (Finisher VH-112, U-11). The
+ * browser replaces every author colour with the theme's; the shell draws
+ * nothing by a background alone, so only the focus ring needs the theme's
+ * own colour.
+ */
+@media (forced-colors: active) {
+  :focus-visible {
+    outline-color: Highlight;
+  }
+}

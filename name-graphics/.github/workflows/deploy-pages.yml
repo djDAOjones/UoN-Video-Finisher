@@ -1,0 +1,85 @@
+# Deploys the app to GitHub Pages.
+#
+# Copied from the UoN Video Finisher at 27f51dd (VNG-1), the action SHAs
+# unchanged. GitHub Pages is the unadvertised preview from `main` (the brief's
+# Direction); the public home is a Xerte upload. So `main` deploys
+# automatically, with manual dispatch kept for re-running without a commit.
+#
+# The app makes its graphics entirely on the viewer's device, so deploying it
+# exposes nothing anyone types. What deploying DOES expose is the tool itself.
+
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Least privilege at the top, and the deploy credentials granted only to the
+# job that deploys (Finisher VH-65). `build` runs `npm ci` and then the whole test
+# suite, which is a lot of third-party code to hand a token that can publish to
+# the preview site. It needs to read the repository and nothing
+# more.
+permissions:
+  contents: read
+
+# Never publish two builds at once; let a queued run supersede a waiting one,
+# but do not cancel one that is mid-deploy.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+# Actions are pinned to commit SHAs, not to `v4`. A major-version tag is
+# mutable: whoever controls it can move it to any commit, and that commit runs
+# with this workflow's permissions on every push to `main` — which is this
+# project's act of publishing. The version each SHA resolves to is named beside
+# it, and the update route is to re-resolve the tag deliberately
+# (`gh api repos/<owner>/<repo>/commits/<tag> --jq .sha`) rather than to let it
+# drift. Last re-resolved 2026-10-01, onto releases that run on Node 24: the
+# Node 20 ones were being forced onto it by the runner, with a deprecation
+# warning on every deploy.
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 24
+          cache: npm
+
+      - run: npm ci
+
+      # The full gate, not just a build. A deploy is the one place where
+      # shipping a broken bundle is expensive to undo.
+      - run: npm run check
+        env:
+          BASE_PATH: /${{ github.event.repository.name }}/
+
+      # Derived from the repo name so a fork or a rename does not silently
+      # produce a site whose asset URLs all 404.
+      - run: npm run build
+        env:
+          BASE_PATH: /${{ github.event.repository.name }}/
+
+      - uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
+      # Composite: runs actions/upload-artifact v7.0.0, pinned by SHA inside it.
+      # From v4 it leaves dotfiles out of the artifact; the build has none.
+      - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    # The only job that needs these, and the only one that has them.
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1

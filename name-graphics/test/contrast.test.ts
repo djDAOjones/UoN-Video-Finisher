@@ -1,0 +1,188 @@
+/**
+ * Copied from the UoN Video Finisher at 27f51dd (VNG-1), adapted to read the
+ * neutral brand pack; VNG-2 runs it for every pack.
+ *
+ * Makes the AAA contrast claim in UI-STANDARDS.md mechanical.
+ *
+ * The invariant: every text/background pair the app actually renders meets
+ * WCAG 2.2 AAA (7:1), and every component border meets 1.4.11 (3:1) — in the
+ * light theme, in the dark theme, and on the pack's header band. Changing a
+ * token fails this test until the new value is checked — which is the point.
+ * Colour choices are not a matter of taste in a project with a stated AAA
+ * target.
+ *
+ * The colour roles are assigned from the pack's palette in
+ * `brands/<id>/tokens.css`, as `var()` references, while status colour stays
+ * in `tokens.carbon.css`. Both files are read and the references resolved, so
+ * what is measured is the colour that is drawn.
+ */
+
+import { readFileSync } from 'node:fs'
+import { describe, expect, it } from 'vitest'
+
+const read = (path: string) =>
+  readFileSync(new URL(`../${path}`, import.meta.url), 'utf8')
+    // Comments out, so a hex value mentioned in prose is never parsed as one.
+    .replace(/\/\*[\s\S]*?\*\//g, '')
+
+// In import order: a later declaration of the same property wins.
+const css = `${read('src/styles/tokens.carbon.css')}\n${read('brands/neutral/tokens.css')}`
+
+/** Pulls custom properties out of a block of declarations. */
+function parseBlock(source: string): Record<string, string> {
+  const tokens: Record<string, string> = {}
+  for (const match of source.matchAll(/(--[a-z0-9-]+)\s*:\s*([^;]+);/g)) {
+    const [, name, value] = match
+    if (name && value) tokens[name] = value.trim()
+  }
+  return tokens
+}
+
+/** The body of the first block whose prelude matches, braces balanced. */
+function blockAfter(source: string, prelude: string): string {
+  const start = source.indexOf(prelude)
+  if (start < 0) throw new Error(`no block for ${prelude}`)
+  const open = source.indexOf('{', start)
+  let depth = 0
+  for (let index = open; index < source.length; index++) {
+    if (source[index] === '{') depth++
+    if (source[index] === '}' && --depth === 0) return source.slice(open + 1, index)
+  }
+  throw new Error(`unbalanced block for ${prelude}`)
+}
+
+const darkBlock = blockAfter(css, '@media (prefers-color-scheme: dark)')
+const bandBlock = blockAfter(css, '.on-brand {')
+
+// Everything that is not inside the dark media query or the band rule is a
+// plain `:root` declaration, which is the light theme.
+const lightSource = css
+  .replace(/@media \(prefers-color-scheme: dark\)\s*\{[\s\S]*?\n\}/, '')
+  .replace(/\.on-brand\s*\{[\s\S]*?\n\}/, '')
+
+const light = parseBlock(lightSource)
+const dark = { ...light, ...parseBlock(darkBlock) }
+const band = { ...light, ...parseBlock(bandBlock) }
+
+/** Follows `var(--x)` until it reaches a literal. */
+function resolve(tokens: Record<string, string>, name: string, seen = new Set<string>()): string {
+  const value = tokens[name]
+  if (value === undefined) throw new Error(`missing token ${name}`)
+  const reference = /^var\((--[a-z0-9-]+)\)$/.exec(value)?.[1]
+  if (!reference) return value
+  if (seen.has(reference)) throw new Error(`circular token ${name}`)
+  return resolve(tokens, reference, seen.add(name))
+}
+
+function channel(hex: string): [number, number, number] {
+  const clean = hex.replace('#', '')
+  const int = Number.parseInt(clean, 16)
+  return [(int >> 16) & 255, (int >> 8) & 255, int & 255]
+}
+
+/** WCAG 2.x relative luminance. */
+function luminance(hex: string): number {
+  const [r, g, b] = channel(hex)
+  const linear = [r, g, b].map((v) => {
+    const s = v / 255
+    return s <= 0.04045 ? s / 12.92 : ((s + 0.055) / 1.055) ** 2.4
+  })
+  return 0.2126 * linear[0]! + 0.7152 * linear[1]! + 0.0722 * linear[2]!
+}
+
+function contrast(a: string, b: string): number {
+  const [hi, lo] = [luminance(a), luminance(b)].sort((x, y) => y - x)
+  return (hi! + 0.05) / (lo! + 0.05)
+}
+
+/** Foreground token, background token. Mirrors what app.css actually pairs. */
+const TEXT_PAIRS: ReadonlyArray<readonly [string, string]> = [
+  ['--text-primary', '--layer-00'],
+  ['--text-primary', '--layer-01'],
+  ['--text-primary', '--layer-02'],
+  ['--text-secondary', '--layer-00'],
+  ['--text-secondary', '--layer-01'],
+  ['--text-secondary', '--layer-02'],
+  ['--interactive', '--layer-00'],
+  ['--interactive', '--layer-01'],
+  ['--interactive', '--layer-02'],
+  ['--support-error', '--layer-01'],
+  ['--support-error', '--layer-02'],
+  ['--support-success', '--layer-01'],
+  ['--support-warning', '--layer-01'],
+  ['--text-on-interactive', '--interactive'],
+  ['--text-on-interactive', '--interactive-hover'],
+  // The danger button (Finisher VH-124): white on red-80 at rest, on red-70 hovered.
+  ['--text-on-danger', '--button-danger'],
+  ['--text-on-danger', '--button-danger-hover'],
+  // Each button kind held down (Finisher VH-169): the primary, a secondary and the danger button.
+  ['--text-on-interactive', '--interactive-active'],
+  ['--interactive', '--layer-active'],
+  ['--text-on-danger', '--button-danger-active'],
+]
+
+const BORDER_PAIRS: ReadonlyArray<readonly [string, string]> = [
+  ['--border-subtle', '--layer-00'],
+  ['--border-subtle', '--layer-01'],
+  ['--border-strong', '--layer-01'],
+  // The focus ring against everything it can be drawn over (WCAG 2.4.13).
+  ['--focus', '--layer-00'],
+  ['--focus', '--layer-01'],
+  ['--focus', '--layer-02'],
+  // The progress fill and trim's kept part against the cut pattern's two colours (Finisher VH-148).
+  ['--interactive', '--layer-01'],
+  ['--interactive', '--border-divider'],
+]
+
+describe.each([
+  ['light', light],
+  ['dark', dark],
+  ['on the header band', band],
+])('%s', (_contextName, tokens) => {
+  it.each(TEXT_PAIRS)('%s on %s meets AAA (7:1)', (fg, bg) => {
+    expect(contrast(resolve(tokens, fg), resolve(tokens, bg))).toBeGreaterThanOrEqual(7)
+  })
+
+  it.each(BORDER_PAIRS)('%s on %s meets 1.4.11 (3:1)', (fg, bg) => {
+    expect(contrast(resolve(tokens, fg), resolve(tokens, bg))).toBeGreaterThanOrEqual(3)
+  })
+
+  it('resolves every colour role to a hex value', () => {
+    for (const name of new Set([...TEXT_PAIRS, ...BORDER_PAIRS].flat())) {
+      expect(resolve(tokens, name), name).toMatch(/^#[0-9a-f]{6}$/)
+    }
+  })
+})
+
+// The open "?" (Finisher VH-217): its glyph on each of its fills, and each fill against
+// the two grounds a "?" stands on, the format's and the onset's.
+describe.each([
+  ['light', light],
+  ['dark', dark],
+])('the open "?", %s', (_contextName, tokens) => {
+  it.each(['--interactive', '--interactive-hover', '--interactive-active'])('its glyph on %s meets AAA (7:1)', (fill) => {
+    expect(contrast(resolve(tokens, '--text-on-interactive'), resolve(tokens, fill))).toBeGreaterThanOrEqual(7)
+  })
+
+  it.each(['--interactive', '--interactive-hover', '--interactive-active'])('%s against its grounds meets 1.4.11 (3:1)', (fill) => {
+    for (const ground of ['--layer-00', '--layer-01']) {
+      expect(contrast(resolve(tokens, fill), resolve(tokens, ground)), ground).toBeGreaterThanOrEqual(3)
+    }
+  })
+})
+
+describe('the neutral pack', () => {
+  it('keeps the header band and the dark theme on exactly the same roles', () => {
+    // They are the same context — light things on the band's ground —
+    // written twice because CSS cannot share a block between a media query
+    // and a class. If they drift, a band in the light theme stops being
+    // tested by the dark theme's eye.
+    expect(parseBlock(bandBlock)).toEqual(parseBlock(darkBlock))
+  })
+})
+
+describe('token hygiene', () => {
+  it('defines the AAA pointer-target floor', () => {
+    expect(light['--target-min']).toBe('44px')
+  })
+})

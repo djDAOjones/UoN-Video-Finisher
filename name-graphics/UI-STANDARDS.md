@@ -1,0 +1,341 @@
+# UI Standards
+
+<!-- Carried from the UoN Video Finisher's UI-STANDARDS.md at 27f51dd; the token and brand sections rewritten for brand packs; "Finisher VH-n" names the Finisher item a rule came from. -->
+
+The project's UI, usability and accessibility rules, read before any task
+that touches UI, text, states or accessibility.
+
+---
+
+## Design system
+
+IBM Carbon is the **reference standard**, matched in the project's own
+code and never installed as a package.
+
+### Carbon-first UI discipline
+
+- Prefer Carbon components, patterns, tokens, spacing, and interaction
+  conventions wherever a suitable Carbon solution exists; never invent a
+  custom control where Carbon provides one.
+- Use Carbon's **productive** UI style for the working interface, not
+  expressive or marketing styling.
+- Use semantic design tokens for colour, spacing, typography, layer,
+  border, and state. Do not hard-code ad hoc UI values unless there is
+  no suitable tokenised equivalent.
+- Keep layouts modular, consistent, and task-focused, reusing a Carbon
+  pattern before creating one.
+- Where Carbon defaults meet AA but not this project's stricter AAA
+  target, adapt them. Carbon is the baseline, not the ceiling.
+
+### Token systems
+
+Two token systems run side by side. **Do not collapse one into the
+other.**
+
+| System | Governs | Source |
+| --- | --- | --- |
+| **Brand pack tokens** | Colour and typeface: the pack's palette and the colour ROLES assigned from it — surfaces, text, borders, interactive, focus — plus the heading and body font stacks and the logo's size and clear space | `brands/<id>/tokens.css`, the active pack chosen at build time |
+| **Carbon conventions** | Shape: spacing scale, type scale, motion, the 44 px target floor — and status colour, which a brand palette may not supply at AAA | `src/styles/tokens.carbon.css` — implemented to match Carbon's spec, never installed as a package |
+
+When adding a token, decide which system owns it from the table above.
+Colour is the pack's. How big, how far apart and how a control behaves is
+Carbon's. The role NAMES — `--layer-01`, `--text-primary`, `--interactive` —
+are Carbon's vocabulary and stay what `app.css` uses; each pack assigns
+their VALUES from its own palette. No rule in `app.css` names a brand
+colour, and no hex value appears outside the token files.
+
+Every pack assigns the roles three times — light, dark, and `.on-brand`,
+the context inside the pack's header band. A rule written inside a band
+names roles like any other.
+
+A graphic's own colours and faces are a style's, not the page's: a style
+lives in its pack and names its colours there. The page tokens never leak
+into a graphic, and a graphic's colours never leak into the page.
+
+### Type roles
+
+Eight, each one rule in `app.css`, carried from the Finisher (Finisher VH-166
+there): local adaptations of the Carbon style named, in the pack's faces,
+tracking `normal`. Page title 28/35/700 (`heading-04`); panel heading,
+every `h2`, 20/28/700 (`heading-03`); section heading 16/24/600; body and
+editable text 16/24/400; supporting 14/21/400 (`body-compact-01`); compact
+emphasis 14/21/600 (`heading-compact-01`); status mark 14/21/700; code,
+mono 14/21/400 (`code-01`). A link takes its text's role.
+
+### What a brand pack's rules require
+
+A pack may carry its organisation's own brand rules; they bind the page
+only in that pack's build, and are written in the pack's README. The
+neutral pack's rules: no organisation's name, mark, typeface or colour;
+system font stacks; a palette chosen for contrast alone.
+
+The UoN pack carries the University's, read for the Finisher from the
+University's brand pages on 2026-09-30:
+
+- **No black.** Text is Nottingham Blue or white.
+- **No pure white ground.** The page is the 5% blue tint; panels are
+  Portland Stone.
+- **Nottingham Blue dominant**, with at most two supporting colours.
+- **Bands are not sticky.** A band that follows the scroll can cover the
+  focused control (WCAG 2.4.11).
+- **Shape stays Carbon productive.** The website's pill buttons are not
+  adopted.
+- **The logo is a trademark.** It is never redrawn, recoloured or
+  cropped; it is drawn as nottingham.ac.uk draws it — 62 px high,
+  top-left against the window edge, 12 px clear above and below, 20 px
+  in; its `alt` is "University of Nottingham". See
+  `brands/uon/README.md`.
+
+### Contrast
+
+The AAA target (7:1 normal text, 4.5:1 large) is checked against **each
+pack's** palette, not assumed from it — `test/contrast.test.ts` resolves
+every role to the hex it is drawn in and measures each pair the app
+renders, in all three contexts, for every pack. If a brand colour cannot
+reach 7:1 against its background, that is an exception to be documented
+per the design review gate — not a reason to silently drop to AA.
+
+One such exception is carried from the Finisher: **status colour is not
+the brand's.** Jubilee Red measures 6.4:1 on white, so error, success and
+warning keep Carbon's -80 steps on light surfaces and -20 steps on dark
+ones, in every pack.
+
+---
+
+## Usability heuristics
+
+Nielsen's heuristics are **hard rules**, not aspirations.
+
+### Content and form (Carbon rules)
+
+- **Sentence case** for all UI text.
+- Every input must have a visible label. No colons after labels.
+- Visible label text must match the accessible name.
+- Labels: concise, 1–3 words where practical.
+- Helper text only when it prevents error, clarifies format, or
+  explains consequence.
+- Prefer native HTML form controls before custom ARIA widgets.
+- Use user language, not implementation terms.
+
+### System status
+
+- Every async action must show status: loading, progress, success,
+  or error. The UI must never appear frozen.
+- Important status changes must be announced programmatically, not
+  only shown visually. A live region is for what the user did not cause
+  or cannot see — a stage change, an outcome, validation — never a
+  control's own result on the keystroke that produced it, which is read
+  on demand through `aria-describedby`. Routine progress is announced at
+  stage changes and a few milestones, never every percent, and the user
+  can switch those announcements off (WCAG 2.2.4; Finisher VH-109).
+- Auto-save, export, import, and recovery states must be visible.
+
+### Empty and no-data states
+
+- Every panel must have an intentional empty state explaining what
+  belongs here and what to do next.
+- Distinguish "nothing yet," "filtered out," "failed to load," and
+  "not available." No blank panels or silent failures.
+- Loading states must preserve layout stability — no content jumps.
+
+### User control and freedom
+
+- Provide cancel, undo, or back-out routes for non-trivial actions.
+- Destructive actions require confirmation or reliable undo.
+- Do not trap users in modes, overlays, or incomplete flows.
+
+### Consistency
+
+- Same words, icons, patterns, and spacing for the same concepts
+  throughout. Do not create synonyms for existing concepts.
+- Follow existing Carbon conventions and established design tokens.
+
+### Error prevention and recovery
+
+- Constrain invalid input, validate early, disable impossible actions.
+- Prefer safe defaults. No silent propagation of invalid states.
+- Error messages must say what happened and what to do next.
+- Errors must be specific, human-readable, and linked to the relevant
+  control. No vague "Something went wrong" without actionable detail.
+
+### Recognition over recall
+
+- Keep key controls visible. Show current selection, mode, and state
+  explicitly. Surface context near the point of action.
+
+### Flexibility and efficiency
+
+- Support novice and repeat use. Expose shortcuts for common actions.
+- Provide click, tap, and keyboard alternatives — avoid drag-only
+  interactions.
+
+### Minimalist design
+
+- Keep interfaces lean and task-relevant. No decorative chrome,
+  redundant copy, or competing calls to action.
+
+### Motion discipline
+
+- Motion must be subtle, purposeful, and easy to ignore.
+- Respect `prefers-reduced-motion`. No motion as the only carrier
+  of meaning. No content flashing more than 3 times per second.
+
+### Help and contextual guidance
+
+- Provide contextual help (tooltips, helper text, inline guidance)
+  for non-obvious controls and workflows.
+- Help content must be task-focused, concrete, and brief.
+
+---
+
+## Accessibility — WCAG 2.2 AAA by default
+
+Target **WCAG 2.2 AAA** for all applicable UI. Document exceptions
+explicitly. Where a criterion cannot reasonably apply, record it in
+implementation notes.
+
+### Perceivable
+
+- Text contrast: **7:1** (large text may use **4.5:1** where WCAG
+  permits).
+- Do not rely on colour alone for state, status, or meaning.
+- Link text must make sense on its own — no "click here."
+- Use headings and landmarks for substantial content. Provide text
+  alternatives for meaningful non-text content.
+- Visual presentation (WCAG 1.4.8), all five: the user's own colours are
+  not overridden; running text stops at the `--measure` token (`28rem`, one
+  width for every size and language, under 80 characters with a CJK glyph
+  counted as two, mixed lines too; 1.4.8 is met apart, by G204's reflow);
+  no justified text; line spacing from `--line-height-body` (1.5)
+  and one blank line between paragraphs from `--paragraph-gap` (the Finisher's spec §9.3),
+  tokens so the user's text-spacing overrides win; text enlarges to 200%
+  without horizontal scroll.
+- Every length, colour and line height in `app.css` is a token from the two
+  token files; `test/stylesheet.test.ts` fails on a literal, and names the
+  structural exemptions (zero, percentages and viewport fills, the
+  visually-hidden technique, the reduced-motion block, a media query's
+  breakpoint, the forced-colour system colours).
+- One inline notification (`src/ui/notification.ts`, Carbon's) for
+  everything worth knowing: a rail in the status colour, a title, body text,
+  titled items, an optional action row. Kinds `info`, `success`, `warning`,
+  `error`; the title says the thing, never the colour alone. Carbon's tinted
+  ground is left out — no brand tint carries text at 7:1.
+- Destructive actions take `.button--danger` (Carbon's danger button, the
+  error ramp's far end at 7:1) and never default focus: the question does.
+- A status line beside a panel that says the thing only speaks it
+  (`setStatus('', spokenOnly)`); visible status is for what no panel shows.
+- Forced colours (Windows contrast themes) are checked. Anything drawn by a
+  background — a track, a fill, a chosen segment — vanishes under them, so
+  it opts out with `forced-color-adjust: none` and paints itself, its ring
+  included, in system colours, never a token; hover changes a filled
+  button's border alone (V-44). All in `app.css`'s `forced-colors` block.
+
+### Operable
+
+- All functionality must be keyboard operable without traps.
+- Focus order must be logical. Focus indicators must be visible and
+  not obscured by sticky headers or overlays.
+- Focus appearance (WCAG 2.4.13): every indicator is at least a 2 CSS px
+  solid perimeter of the control, and its pixels change by at least 3:1
+  between focused and unfocused — checked on the rendered control, in light,
+  dark, a blue band, forced colours and a larger default font.
+- When a transition removes the focused control, focus passes to the one
+  that continues the task, never away from where a user reads (Finisher VH-111).
+- One primary button per state. While a finished result is on screen,
+  starting again steps down to secondary.
+- Disabled reads as disabled at a glance: a field or segment loses its fill
+  and takes a dashed edge; the text keeps the pinned AAA pair. A step whose
+  controls are locked says so in one line.
+- Held down, each button kind takes its own fill at 7:1, not hover's;
+  forced colours invert it (Finisher VH-169).
+- Pointer targets: **≥ 44 × 44 CSS px** unless a WCAG exception
+  applies.
+- Do not require path-based gestures or fine motor precision when a
+  simpler alternative exists.
+- Provide pause/stop/hide for moving or auto-updating content.
+- Warn before timeouts that could cause data loss.
+
+### Understandable
+
+- Predictable behaviour. No unexpected context changes on focus or
+  input.
+- Form instructions and validation near the relevant control.
+- Visible labels and accessible names must match for speech input.
+
+### Robust
+
+- Semantic HTML before ARIA. No ARIA is better than bad ARIA.
+- Dynamic updates (loading, validation, errors) exposed
+  programmatically. Custom widgets must expose role, name, value,
+  and state correctly.
+
+---
+
+## Diagnostics affordance
+
+The "copy diagnostics" control is how a maintainer hands the app's own
+diagnostic snapshot to an AI agent. The underlying logger, the bundle
+contents, and the redaction rules live in `README.md` →
+"Maintainer diagnostics"; this section governs how the control looks and
+behaves. It applies to any project with meaningful UI. A Tier 0 project
+with no UI has no affordance — it still logs errors legibly.
+
+### Placement
+
+Do not drop a floating debug wart over the working UI. Prefer, in order:
+
+- An existing dev or status toolbar, if the app has one.
+- An app-shell utility menu, if there is a permanent header or sidebar.
+- A small floating debug button only if no suitable permanent surface
+  exists. Allow a position token: `bottom-right` (default),
+  `bottom-left`, `top-right`, or `relative`.
+
+Never let it cover primary navigation, submit buttons, chat inputs,
+toasts, or critical status.
+
+### Behaviour and styling
+
+- **Dev-only by default.** Hidden in production unless an explicit
+  opt-in is set (gated per `README.md` → "Maintainer
+  diagnostics"); production exposure requires a redaction review.
+  The one production reader is the feedback dialog (Finisher VH-93, reviewed in
+  the decision log): it sends a short allow-list of named facts
+  (`src/ui/feedback.ts`), never the whole bundle, shows every line
+  before it goes, and leaves through the user's own email app.
+- **Carbon icon button** with a tooltip naming the action in sentence
+  case (e.g. "Copy diagnostics"). Visible label and accessible name
+  must match.
+- **≥ 44 × 44 CSS px** target, visible focus ring, fully keyboard
+  operable.
+- **Feedback after copy.** Announce success or failure programmatically,
+  not by colour alone (e.g. an inline status or toast) — never a silent
+  copy. Say what was copied (a redacted bundle) so expectations are set.
+- Honour `prefers-reduced-motion` for any reveal or animation.
+
+---
+
+## Design review gate
+
+Before sign-off on any UI-affecting change, verify:
+
+1. Which Carbon component or pattern this change follows.
+2. Why a custom pattern was necessary if Carbon was not used.
+3. Which Nielsen heuristics were most at risk.
+4. Text contrast meets **7:1** for normal text and **4.5:1** for large
+   text where permitted.
+5. Focus order, focus visibility, and focus non-obscuration still work.
+6. All pointer targets meet **44 × 44 CSS px** unless a documented WCAG
+   exception applies.
+7. Visible labels match accessible names.
+8. Link text is self-describing without surrounding context.
+9. Empty, loading, success, validation, and error states were all
+   considered and are not visual-only.
+10. Keyboard, pointer, and assistive-technology routes all still work.
+11. Motion can be reduced or disabled where non-essential.
+12. Critical submissions or destructive actions support validation,
+    confirmation, undo, or reversal as appropriate.
+13. Any exception to the AAA-by-default rule is documented explicitly.
+14. If a diagnostics affordance is present: it is dev-only by default,
+    Carbon-styled, ≥ 44 × 44 CSS px, keyboard operable, gives copy
+    feedback, and sits on a permanent surface without covering primary
+    controls.

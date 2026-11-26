@@ -1,0 +1,51 @@
+import js from '@eslint/js'
+import tseslint from 'typescript-eslint'
+
+/**
+ * Copied from the UoN Video Finisher at 27f51dd (VNG-1).
+ *
+ * Strict on correctness, silent on taste — per project/digests/house-conventions.md -> Tooling.
+ * Formatting is Prettier's job and never fails the gate.
+ */
+export default tseslint.config(
+  { ignores: ['dist/**', 'node_modules/**', 'coverage/**', 'tools/**'] }, // tools/ is pm-next v3's, linted upstream
+  js.configs.recommended,
+  ...tseslint.configs.recommendedTypeChecked,
+  {
+    languageOptions: {
+      parserOptions: { projectService: true, tsconfigRootDir: import.meta.dirname },
+    },
+    rules: {
+      '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+      '@typescript-eslint/no-explicit-any': 'error',
+      '@typescript-eslint/no-floating-promises': 'error',
+      '@typescript-eslint/consistent-type-imports': 'error',
+      // Taste rules stay off: a noisy rule that gets inline-disabled erodes
+      // trust in the whole gate.
+      '@typescript-eslint/no-non-null-assertion': 'off',
+    },
+  },
+  {
+    // Node tooling scripts: not part of the app bundle, not type-checked
+    // against the app's tsconfig, and they legitimately use Node globals.
+    files: ['**/*.mjs', 'scripts/**/*.js'],
+    extends: [tseslint.configs.disableTypeChecked],
+    languageOptions: {
+      // Node's own globals, declared one at a time rather than pulled from a
+      // `globals` package — that would be a dependency for a lookup table.
+      globals: {
+        console: 'readonly',
+        process: 'readonly',
+        URL: 'readonly',
+        fetch: 'readonly',
+        setTimeout: 'readonly',
+        AbortSignal: 'readonly',
+        WebSocket: 'readonly',
+      },
+    },
+  },
+  {
+    files: ['**/*.js'],
+    extends: [tseslint.configs.disableTypeChecked],
+  },
+)

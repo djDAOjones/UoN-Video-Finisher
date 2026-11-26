@@ -1,0 +1,73 @@
+# close — end of task
+
+One writer per checkout at a time; a second session works in its own
+clone or worktree and hands back by commit; stage only this item's
+lines from HEAD. Finish the record before checking and committing.
+
+1. Standards: name each applicable digest rule in the decision or
+   commit. Exceptions are decisions.
+2. Record: write decisions another session needs — what and one-line
+   why on the Decision line, evidence in the Rationale. Remove the
+   open item, add its trajectory line at the end of its phase,
+   retire paid lines; an item retired unshipped gets no trajectory
+   line, its decision naming it on `**Retired:**` with why.
+   Capture outstanding deferrals once; a new wish
+   line takes the origin's next unused number. A removed wish is
+   traced by its ID, "ORIGIN.N — retired — reason"; a narrowed one
+   keeps its ID, named as narrowed in the commit body. Optional
+   `**Deferred:**` IDs make named targets checkable; review prose,
+   trajectory and commit meaning too.
+   Every removed open line needs a trace.
+   In the item's file, if it has one, add a dated Notes entry quoting
+   verbatim, with dates, the owner's instructions for it still in
+   force, or saying none is recorded; never quote a summary. Then
+   rewrite its Now: date it, name the next step and the open question,
+   `Owner:` before a question for the owner, never status; None where
+   nothing remains.
+3. At phase close, follow Phase close.
+4. Follow Whole-phase stop wherever a whole-phase run stops.
+5. Stage, then run the profile's gate and `node tools/check.mjs` after
+   all edits. Structural and budget failures block close. If over
+   budget, follow Over-budget trim. Answer each removed-line flag
+   before committing. Fix other warnings or link one existing
+   follow-up; INFO messages create no work. Above 45 live decisions,
+   follow Archive. Restage and rerun checks after further record
+   edits. Use the checker's messages for budget escalation, trace
+   dispositions and Session-end grammar.
+6. Commit as `ID: summary` with
+   `Verify:` stating the gate result and harness. A second model
+   checking the work is briefed from the record — the item's criteria
+   (its file, otherwise its backlog line), the diff, the rules file's
+   Always section and any routed document the task fires — not from
+   a chat prompt; one line `Checked: <model> — <verdict> — <scope>`
+   records its check, the scope naming the revision checked. Where
+   the project keeps a model policy, the line is due on every step it
+   checks, and a step it skips writes `Checked: none — skipped —
+   <step>: <reason>`; elsewhere the line is optional.
+   Run `node tools/check.mjs --commit HEAD`: declaration shapes cannot
+   prove execution. Then generate `node tools/view.mjs`, so the status
+   site names this commit; the post-commit hook does it where installed.
+7. Push as the Push line says: by default the harness pushes to the
+   project's origin, never to an upstream the project does not own.
+   Report a pending push if it fails or Network blocks it. In a
+   session the owner-started runner opened, the runner pushes instead,
+   between sessions, after its checks.
+
+If the owner is needed, retain an open `[!]` line with the blocker.
+Never mark unfinished work shipped or invent signatures or results.
+
+## Whole-phase stop
+
+Wherever a whole-phase run stops, put exactly one Session-end line beside `Verify:` and any `Checked:` in the commit body, in the shape `node tools/check.mjs --commit HEAD` states when it refuses one. Any other close needs no line; a session that cannot close writes none and never fakes a close. After the push step, repeat the Session-end line in your last message and stop. Where the client runs the hooks, a fresh chat opened in this checkout then gets that line from the start notice while it is current, claimed for it or shown as held, with nothing pasted.
+
+## Phase close
+
+Reconcile against the PLAN-N `**Items:**` list. With `Accessibility testing: extended` in the profile, run `npm run a11y:extended` and record its date and outcome as docs/extended.md says before marking the phase closed. Mark the backlog phase CLOSED with its date, and record the next phase's first item and reason, or that owner direction is needed. Then run `verbs/recall.md` and store its labelled result.
+
+## Archive
+
+Run `node tools/archive.mjs`, review the verbatim moves and rebuilt index, then restage and rerun both checks. Interrupted moves may leave duplicates: compare them before retrying; never discard unmatched content.
+
+## Over-budget trim
+
+Resolve the failure, record any owner budget raise, and revalidate before closing.

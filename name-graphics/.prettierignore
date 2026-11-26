@@ -1,0 +1,13 @@
+dist
+node_modules
+coverage
+
+# Copied from the UoN Video Finisher at 27f51dd (VNG-1).
+# Markdown is governed by markdownlint, not Prettier (house conventions ->
+# Tooling). Prettier pads table cells to align them, which rewrites every table
+# in the record for no gain.
+*.md
+
+# Scaffolded by the framework and replaced on upgrade; not ours to restyle.
+check-links.mjs
+tools

@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Video Name Graphics</title>
+    <meta
+      name="description"
+      content="Make a name graphic for your video, saved as a transparent video for Clipchamp or as a still picture, without uploading anything."
+    />
+  </head>
+  <body>
+    <!-- The page shell (VNG-1), after the UoN Video Finisher's index.html at
+         27f51dd. English only; VNG-4 adds zh-Hans and ms-MY. -->
+    <a class="skip-link" href="#main">Skip to main content</a>
+
+    <!-- The header band, and deliberately not sticky: a band that follows the
+         scroll can sit on top of the focused control (WCAG 2.4.11).
+         `on-brand` re-assigns the colour roles, so everything inside is drawn
+         — and contrast-tested — as light on the band's ground. A pack's logo
+         arrives here with VNG-2; the neutral pack has none. -->
+    <header class="band band--header on-brand">
+      <div class="band-inner" id="brand-header"></div>
+    </header>
+
+    <main class="main" id="main">
+      <!-- The title belongs to the content, not the band, as in the Finisher. -->
+      <h1 class="page-title">Video Name Graphics</h1>
+
+      <div class="lede">
+        <p>
+          Make a name graphic for your video: your name, and a second line if you want one, such as
+          your role. Save it as a transparent video to lay over your footage in Clipchamp, or as a
+          still picture.
+        </p>
+        <p>The graphic is made on your device, and nothing you type is uploaded.</p>
+        <!-- The empty state, said rather than left blank (UI-STANDARDS.md ->
+             Empty and no-data states): the form arrives with VNG-5. -->
+        <p>This preview cannot make a graphic yet.</p>
+      </div>
+    </main>
+
+    <footer class="band band--footer on-brand">
+      <div class="band-inner">
+        <p class="version" id="version-line">Loading…</p>
+      </div>
+    </footer>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

@@ -1,0 +1,165 @@
+/*
+ * Neutral brand pack tokens (VNG-1).
+ *
+ * One of the two token systems in `UI-STANDARDS.md`. This one owns colour and
+ * typeface; shape, spacing, the type scale, status colour and the 44 px floor
+ * belong to `src/styles/tokens.carbon.css`, and the two must not be collapsed
+ * into one.
+ *
+ * The structure is the UoN Video Finisher's `tokens.brand.css` at 27f51dd:
+ * a PALETTE, the pack's own values, and the ROLES (`--layer-*`, `--text-*`,
+ * `--interactive`, `--border-*`, `--focus`) that `app.css` uses, each
+ * assigned from the palette, in light, dark and `.on-brand` (the header
+ * band). The role names are the Finisher's, so its rules carry over unchanged.
+ *
+ * The neutral pack's rule (brands/README.md): no organisation's name, mark,
+ * typeface or colour; system font stacks; a palette chosen for contrast
+ * alone. So the palette is a plain grey ramp — Carbon's grey steps, which are
+ * no organisation's colour — and nothing else.
+ *
+ * Every role pair below is asserted by `test/contrast.test.ts` in all three
+ * contexts. Changing a value fails that test until the new value is checked,
+ * which is the point.
+ */
+
+:root {
+  /* ---- Palette ------------------------------------------------------- */
+
+  /* Carbon's grey ramp, by step. Chosen for contrast alone (VNG-1). */
+  --neutral-grey-100: #161616;
+  --neutral-grey-90: #262626;
+  --neutral-grey-80: #393939;
+  --neutral-grey-70: #525252;
+  --neutral-grey-60: #6f6f6f;
+  --neutral-grey-50: #8d8d8d;
+  --neutral-grey-30: #c6c6c6;
+  --neutral-grey-20: #e0e0e0;
+  --neutral-grey-10: #f4f4f4;
+  --neutral-white: #ffffff;
+
+  /* ---- Typeface ------------------------------------------------------ */
+
+  /* The device's own faces: nothing is fetched, and no organisation's
+     typeface is named. */
+  --font-heading: system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  --font-body: system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+
+  /*
+   * Simplified Chinese, as the Finisher's VH-105: the Simplified Chinese face
+   * each system ships, used behind the body face under `:lang(zh)` below.
+   */
+  --font-cjk:
+    'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Noto Sans SC', 'Source Han Sans SC',
+    sans-serif;
+
+  /* ---- Header band --------------------------------------------------- */
+
+  /*
+   * The neutral pack has no logo, so the band keeps the height a 44 px
+   * control needs, with Carbon's spacing above, below and to the side — we
+   * chose it, so the band holds VNG-4's language switcher without changing
+   * shape. A pack with a logo sets these to the logo's own geometry.
+   */
+  --brand-logo-height: var(--target-min);
+  --brand-logo-clear: var(--spacing-04);
+  --brand-logo-inset: var(--spacing-06);
+
+  /* ---- Roles, light -------------------------------------------------- */
+
+  /* Surfaces: the page, a panel on it, and an inset within a panel. */
+  --layer-00: var(--neutral-grey-10);
+  --layer-01: var(--neutral-white);
+  --layer-02: var(--neutral-grey-10);
+
+  --text-primary: var(--neutral-grey-100);
+  --text-secondary: var(--neutral-grey-70);
+  --text-on-interactive: var(--neutral-white);
+
+  --interactive: var(--neutral-grey-90);
+  --interactive-hover: var(--neutral-grey-80);
+  --focus: var(--neutral-grey-100);
+
+  /* Pressed: a step past hover that still holds 7:1 with the text. */
+  --interactive-active: var(--neutral-grey-100);
+  --layer-active: var(--neutral-grey-20);
+
+  /* 3:1 against their surface, per WCAG 1.4.11. */
+  --border-subtle: var(--neutral-grey-60);
+  --border-strong: var(--neutral-grey-70);
+  /* A rule between rows, and a progress track. Decorative: no 3:1 claim. */
+  --border-divider: var(--neutral-grey-20);
+}
+
+/* Chinese text: the body face first, for its Latin, with the CJK face behind. */
+:lang(zh) {
+  --font-body: system-ui, -apple-system, 'Segoe UI', Roboto, Arial, var(--font-cjk);
+  --font-heading: system-ui, -apple-system, 'Segoe UI', Roboto, Arial, var(--font-cjk);
+}
+
+/*
+ * Roles, dark: a near-black ground, white text. Also the roles inside the
+ * header band in the light theme (`.on-brand`), which is the same context —
+ * light things on the darkest grey — and takes the same values. The two
+ * blocks are held identical by `test/contrast.test.ts`.
+ *
+ * Status keeps Carbon's ramp, as in every pack; on dark grounds it needs the
+ * light end of it.
+ */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --layer-00: var(--neutral-grey-100);
+    --layer-01: var(--neutral-grey-90);
+    --layer-02: var(--neutral-grey-80);
+
+    --text-primary: var(--neutral-white);
+    --text-secondary: var(--neutral-grey-20);
+    --text-on-interactive: var(--neutral-grey-100);
+
+    --interactive: var(--neutral-grey-10);
+    --interactive-hover: var(--neutral-grey-20);
+    --focus: var(--neutral-white);
+    --interactive-active: var(--neutral-grey-30);
+    --layer-active: var(--neutral-grey-70);
+
+    --border-subtle: var(--neutral-grey-50);
+    --border-strong: var(--neutral-grey-30);
+    --border-divider: var(--neutral-grey-70);
+
+    --support-error: #ffd7d9; /* red-20 */
+    --support-success: #a7f0ba; /* green-20 */
+    --support-warning: #fddc69; /* yellow-20 */
+    --button-danger: var(--support-error);
+    --button-danger-hover: #ffb3b8; /* red-30 */
+    --button-danger-active: #fff1f1; /* red-10 */
+    --text-on-danger: var(--neutral-grey-100);
+  }
+}
+
+.on-brand {
+  --layer-00: var(--neutral-grey-100);
+  --layer-01: var(--neutral-grey-90);
+  --layer-02: var(--neutral-grey-80);
+
+  --text-primary: var(--neutral-white);
+  --text-secondary: var(--neutral-grey-20);
+  --text-on-interactive: var(--neutral-grey-100);
+
+  --interactive: var(--neutral-grey-10);
+  --interactive-hover: var(--neutral-grey-20);
+  --focus: var(--neutral-white);
+  --interactive-active: var(--neutral-grey-30);
+  --layer-active: var(--neutral-grey-70);
+
+  --border-subtle: var(--neutral-grey-50);
+  --border-strong: var(--neutral-grey-30);
+  --border-divider: var(--neutral-grey-70);
+
+  --support-error: #ffd7d9; /* red-20 */
+  --support-success: #a7f0ba; /* green-20 */
+  --support-warning: #fddc69; /* yellow-20 */
+  --button-danger: var(--support-error);
+  --button-danger-hover: #ffb3b8; /* red-30 */
+  --button-danger-active: #fff1f1; /* red-10 */
+  --text-on-danger: var(--neutral-grey-100);
+}
