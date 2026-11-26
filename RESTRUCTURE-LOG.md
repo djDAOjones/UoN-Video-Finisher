@@ -775,6 +775,17 @@ Done: step 0, step 1, step 2 (UVT-1), steps 3 and 5 (UVT-2). Left:
    superseding nothing, the signature line naming the date.
 3. Then the stage's close in the log, and a fresh read of the Pages run.
 
+### Orchestration handed over (2026-11-26)
+
+The orchestrator chat's context grew long, and the owner asked for the
+orchestration to move to a fresh chat. A new chat on the root now runs
+the rest: stage 6's step 4 (UVT-3), D9 in both tools' rules files and
+the stage's close; then stage 7 (UVT-6 the parent's half); then VH-129,
+UVT-4 (with VH-247 and VNG-12), UVT-5 and the owner's 26 accepted
+points (PLAN-9), each with the owner's go-ahead. It picked up at
+`054f770c`, equal to `origin/main`, the tree clean. The stage 5 and
+stage 6 chats are idle and stay so unless the owner says otherwise.
+
 ### Written for stage 6, now UVT-4 and UVT-5: the parent's first items (the owner's word of 2026-11-26)
 
 Stage 6 opens these two as the parent's first `UVT-n` items, with an item
@@ -782,7 +793,7 @@ file each, after pm-skills 5.0.3. The owner's words in chat, 2026-11-26:
 "I have collegues willing to help with translation - how should that be
 managed accross apps? a single excel for all the apps with a field for
 which app(s)? it would be good to date translation so updated
-translation requests are only requested on parts needed". He chose
+translation requests are only requested on parts needed". They chose
 "Stage 6 first (Recommended)" for where the shared work lives and
 "Requests of changes only (Recommended)" for how colleagues receive it.
 
