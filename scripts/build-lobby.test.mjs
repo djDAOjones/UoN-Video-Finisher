@@ -52,7 +52,7 @@ test('the page the deploy command builds is a doctype and the static render of l
 
 test('the build command takes one folder, and refuses no folder or two', () => {
   for (const args of [[], ['a', 'b']]) {
-    assert.throws(() => execFileSync(process.execPath, [BUILDER, ...args], { stdio: 'pipe' }), (e) => e.status === 2)
+    assert.throws(() => execFileSync(process.execPath, [BUILDER, ...args], { stdio: 'pipe' }), (e) => /** @type {{ status?: number }} */ (e).status === 2)
   }
 })
 

@@ -60,6 +60,9 @@ export function locate(dir, base, pathname, search = '') {
  * Builds the lobby into a fresh temporary folder and serves it; resolves to
  * the page's URL, the folder and `close()`, which stops the server and
  * removes the folder.
+ *
+ * @param {{ base?: string, port?: number, host?: string }} [options] the base path, the port (0 for any free one) and the host
+ * @returns {Promise<{ url: string, dir: string, close: () => Promise<void> }>}
  */
 export async function serveLobby({ base = DEFAULT_BASE, port = DEFAULT_PORT, host = '127.0.0.1' } = {}) {
   if (!/^\/(?:[^/]+\/)*$/.test(base)) throw new Error(`the base path must start and end with "/": ${base}`)
@@ -91,13 +94,13 @@ export async function serveLobby({ base = DEFAULT_BASE, port = DEFAULT_PORT, hos
     buildLobby(dir)
     await new Promise((listening, failed) => {
       server.once('error', failed)
-      server.listen(port, host, listening)
+      server.listen(port, host, () => listening(undefined))
     })
   } catch (error) {
     rmSync(dir, { recursive: true, force: true })
     throw error
   }
-  const address = server.address()
+  const address = /** @type {import('node:net').AddressInfo} */ (server.address())
   return { url: `http://${host}:${address.port}${base}`, dir, close }
 }
 

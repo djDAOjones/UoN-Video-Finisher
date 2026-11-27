@@ -143,6 +143,7 @@ test('the checkout is checked clean after the gate, before the first build', () 
 })
 
 test('the clean check, run as CI runs it (bash -e), fails on either dist/ alone and on an untracked file', () => {
+  /** @type {[string, (dir: string) => void, number][]} */
   const cases = [
     ['a clean checkout', () => {}, 0],
     ['finisher/dist alone', (d) => mkdirSync(join(d, 'finisher', 'dist'), { recursive: true }), 1],

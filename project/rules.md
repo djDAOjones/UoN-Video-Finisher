@@ -8,13 +8,12 @@
 ## Always
 
 - Every file belongs to one ledger, by its folder: `finisher/` to VH, `name-graphics/` to VNG, the rest to UVT. An item changes only what its ledger owns. `shared/` is common to every tool: code moves there when a second tool needs it, a change there is a parent item, and it closes only with every tool's gate green. Shared source is not a dependency.
-- The ID says where a commit may write: `VH-n` only `finisher/`, `VNG-n` only `name-graphics/`, this ledger's IDs only the rest; the restructure's founding commits excepted.
 - `shared/` imports from no tool; no tool imports from another. A tool item needing a shared change raises a parent item, which ships first; the tool's line reads "blocked: UVT-n". Code moves into `shared/` in three green steps: added, switched, taken up.
 - A decision is written once, in the ledger that owns it; another cites it by date and ID. Deferred work crossing ledgers is a line in the other ledger.
 - One pm-skills version for all three ledgers, refreshed together; the three contracts are the same file.
 - Editions are build-time modes inside a tool. No preview folder inside another's; no service worker for the lobby; the student side never names the staff side.
 - Protected paths: `finisher/samples/` — never written, moved or deleted; `package-lock.json`, `node_modules/`, `_site/` — generated.
-- Push and network follow the profile's Push and Network lines: push by that route after every close, never to an upstream the project does not own; a blocked push is reported as pending.
+- Push and network follow the profile's Push and Network lines, never to an upstream the project does not own; a blocked push is reported as pending.
 
 ### Environment
 
@@ -39,7 +38,8 @@
 | UI | project/digests/nielsen.md | 350 | |
 | briefing a session or second model; any close | project/model-policy.md | 400 | the owner signs the policy |
 | UI state, component or journey | docs/accessibility.md | 300 | the owner signs each exception |
+| JavaScript exports, shapes or callers | project/digests/jsdoc.md | 400 | the owner signs each exception |
 
 ## Signed
 
-- Owner (delegated, not reviewed): Joe, 2026-11-26 — see PLAN-11 (2026-11-26), "everything approved"; UVT-7 added the model policy's row and a second clone's place outside OneDrive
+- Owner (delegated, not reviewed): Joe, 2026-11-26 — see PLAN-11 (2026-11-26), "everything approved"; UVT-7 added the model policy's row and a second clone's place outside OneDrive; UVT-8 the packs' rows

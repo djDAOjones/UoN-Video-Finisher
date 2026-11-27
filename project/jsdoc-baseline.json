@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "errors": 12,
+  "compilerVersion": "6.0.3",
+  "configHash": "0035ba312da7c1920a25d05469e88663e2a9ba4787f92f0231f3e259f3b1ca13",
+  "files": {
+    "eslint.base.js": 3,
+    "eslint.config.js": 1,
+    "scripts/boundaries.test.mjs": 1,
+    "scripts/check-projects.mjs": 1,
+    "scripts/check-projects.test.mjs": 2,
+    "scripts/eslint-layers.test.mjs": 2,
+    "scripts/jsdoc-ratchet.mjs": 2
+  }
+}

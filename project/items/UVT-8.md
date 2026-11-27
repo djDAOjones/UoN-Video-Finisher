@@ -22,7 +22,7 @@ do in their own items (PLAN-11), and makes CI run what the gate runs.
 
 Updated: 2026-11-27
 
-Next step: step 4, the JSDoc pack on the root's scripts.
+Next step: step 5, the architecture record.
 
 Open question: None.
 
@@ -39,3 +39,4 @@ Open question: None.
 - 2026-11-27 — Step 1: the pack copied at extended depth, AAA, by canon v5.0.3's installer (40 files, no conflict), its harness type-checked and linted as UVT-7 proved; `a11y:doctor --no-canary` ready for engines, touch, media, flash capture and ai-review, VoiceOver, veraPDF, the iOS audit, Android and the native journey blocked. The checker's warning that no extended run is recorded is UVT-9's, the lobby's extended run.
 - 2026-11-27 — Step 2: the lobby's markup is `lobby/Lobby.tsx`, rendered to its static page at build time by `scripts/build-lobby.mjs` (TypeScript's `transpileModule` and react-dom/server, no script shipped); `scripts/serve-lobby.mjs` serves a fresh build at the Pages base path for the gate; the deploy workflow gathers the built page; the hand-written page is gone.
 - 2026-11-27 — Step 3: every feature absent with its evidence; the lobby's state, snapshot, a keyboard function and a handoff kept under the adaptations for each link, journeys and dated records declared; the links made 44 px targets after the first run failed 2.5.5 and SUP03; `npm run a11y` passing (42 checked, 0 failed, 24 unverified, 0 blocked) in `check:root`; CI installing Chromium's headless shell into an explicit cache, the gate at the Pages base path, the checkout checked clean, and a test, run on CI first and on its own, that every command of the root gate is an unconditional CI step and each lobby link's tool is gathered. Codex rejected the first draft (a blocker, the clean check's `&&` under `bash -e`, and six should-fixes) and two rechecks (seven more, the last two in the test's own YAML reading); all fixed; at xhigh it ruled YAML forms the workflow does not use a nit, a wish line and asked the targets' 44 px be a CSS token, done. The first CI run failed: Playwright 1.56.1 refuses its headless shell on ubuntu-latest's 26.04, so the build job is pinned to ubuntu-24.04, a wish line for the raise.
+- 2026-11-27 — Step 4: the JSDoc pack at the root, the ratchet over the `.mjs` scripts and the root's ESLint configs, measured by the pack's own runner; 16 errors at first, four cleared in UVT-8's own scripts, 12 recorded; `npm run typecheck` in `check:root`; the profile's JSDoc lines, its Gate line and the rules' row, the budgets kept by trimming lines said elsewhere.

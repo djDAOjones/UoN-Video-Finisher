@@ -37,7 +37,12 @@ comes next, ledger by ledger, is [NEXT_STEPS.md](NEXT_STEPS.md).
 - **The gate:** `npm run check` in a tool's folder runs that tool's gate;
   at the root it runs every tool's in turn, then the commit-ID check, the
   root's lint (`shared/`, the lobby, the scripts and configs, `tests/`) and
-  types (`shared/`, the lobby, `tests/a11y/`), its tests, the
+  types (`npm run typecheck`: `shared/`, the lobby, `tests/a11y/`, and the
+  scripts' and configs' JSDoc by a ratchet, which `npm run jsdoc` runs
+  behind a guard; its modes go through it, never to the ratchet alone:
+  `npm run jsdoc -- --init` for a first baseline, `-- --lower` for a
+  lower count, `-- --lower --accept-environment-change` after a reviewed
+  compiler or config change), its tests, the
   lobby's accessibility gate (`npm run a11y`, which needs Playwright's
   Chromium headless shell in its cache) and the parent's checker. CI runs
   each part.
