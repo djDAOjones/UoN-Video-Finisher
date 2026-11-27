@@ -19,7 +19,8 @@ purpose-named outputs, nothing else.
 `docs/01-specification.md` is authoritative; `docs/02-technical-rationale.md`
 settles WebCodecs over ffmpeg.wasm, the runtime dependencies and the
 loudness targets, and none re-opens without new evidence. WCAG 2.2 AAA
-and Carbon productive design in our own code; the EBU Tech 3341 meter
+and Carbon productive design through Carbon React, by the root brief's
+Carbon rule; the EBU Tech 3341 meter
 validation is an acceptance criterion. Public on a UoN Xerte upload;
 GitHub Pages stays as the unadvertised preview from `main`.
 
@@ -141,9 +142,10 @@ and every push to `main` updates it.
 - **Licensing.** All dependencies permissive (MPL-2.0 or better). No GPL
   components shipped. UoN assumes no codec patent obligation.
 - **Accessibility.** WCAG 2.2 AAA is the target, AA the documented floor;
-  every AAA exception is recorded explicitly. Carbon productive design
-  language, implemented in our own code, with a separate UoN brand token
-  layer. See `UI-STANDARDS.md`.
+  every AAA exception is recorded explicitly. Carbon productive design by
+  the Carbon rule in [the root brief's Constraints](../../project/brief.md#constraints)
+  (UVT-7), through Carbon React, with a separate UoN brand token layer.
+  See `UI-STANDARDS.md`.
 - **Browser support** — built for Chrome, and the page says so (VH-98).
   Firefox is refused for any video with sound (VH-49); Safari below 26 and
   Firefox on Android lack what the app needs. Every block names Chrome, and

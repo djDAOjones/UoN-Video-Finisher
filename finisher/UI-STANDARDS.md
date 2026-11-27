@@ -7,8 +7,10 @@ that touches UI, text, states or accessibility.
 
 ## Design system
 
-IBM Carbon is the **reference standard**, matched in the project's own
-code and never installed as a package.
+IBM Carbon is the **reference standard**, used through Carbon React
+(`@carbon/react`, from VH-251) by the
+[root brief's Carbon rule](../project/brief.md#constraints), cited, not
+restated.
 
 ### Carbon-first UI discipline
 
@@ -33,7 +35,7 @@ other.**
 | System | Governs | Source |
 | --- | --- | --- |
 | **UoN brand tokens** | Colour and typeface: the palette and its tints, and the colour ROLES assigned from it — surfaces, text, borders, interactive, focus — plus the heading and body font stacks and the logo's size and clear space | `src/styles/tokens.brand.css` |
-| **Carbon conventions** | Shape: spacing scale, type scale, motion, the 44 px target floor — and status colour, which the brand palette cannot supply at AAA | `../shared/styles/tokens.carbon.css` (shared since UVT-2) — implemented to match Carbon's spec, never installed as a package |
+| **Carbon conventions** | Shape: spacing scale, type scale, motion, the 44 px target floor — and status colour, which the brand palette cannot supply at AAA | `../shared/styles/tokens.carbon.css` (shared since UVT-2), with Carbon React's own, by the root brief's Carbon rule |
 
 When adding a token, decide which system owns it from the table above.
 Colour is the brand's. How big, how far apart and how a control behaves is

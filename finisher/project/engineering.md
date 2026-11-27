@@ -17,11 +17,13 @@ resolution-preserving compression without new evidence.
 | Loudness DSP | **Bespoke TypeScript** in a Web Worker | No filter graph exists in a WebCodecs architecture, and a wasm audio build would reintroduce the licensing question for no gain. |
 | Working storage | **OPFS**, written through Mediabunny's `StreamTarget` | `StreamTarget` takes a `WritableStream<{type,data,position}>` — positioned, seekable writes with backpressure that propagates back and throttles the encoders. An OPFS file handle's `createWritable()` produces exactly that shape, so no bespoke target is needed. |
 | Save to disk | **File System Access API**, blob download fallback | Lets a multi-GB result stream straight to the user's chosen location. |
-| UI | **Vanilla TS + our own components** | Carbon productive design language implemented in project code — never the Carbon packages. See `UI-STANDARDS.md`. |
+| UI | **React + Carbon React** (VH-251; vanilla TS until then) | Carbon productive design through Carbon React, by the Carbon rule in the root brief's Constraints. See `UI-STANDARDS.md`. |
 
-No framework but React, which the rebuild brings in (Dependency policy),
-no CSS library, no polyfills. If the browser cannot do it natively, the
-browser is not supported (spec §10) and says so plainly.
+No framework but React and no CSS library but Carbon React's styles,
+which the rebuild brings in (Dependency policy; the root brief's Carbon
+rule); no polyfills. If the
+browser cannot do it natively, the browser is not supported (spec §10)
+and says so plainly.
 
 ## The shape of a job
 

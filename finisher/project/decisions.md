@@ -24,6 +24,16 @@
      moves the oldest entries verbatim to project/decisions-YYYY-MM.md,
      beside this file, listed in project/archive-index.md. -->
 
+## 2026-11-27 — VH-249 — The Carbon lines cite the root brief's Carbon rule: Carbon through Carbon React, never "our own code, never the packages"
+
+**Decision:** `UI-STANDARDS.md`, the engineering document's UI row and framework sentence, the brief's Direction and accessibility Constraint, and the profile's Carbon line cite the Carbon rule in the root brief's Constraints (2026-11-26 — UVT-7, `c66ffdd1`) rather than restate it; the Runtime line names React from VH-251; the Harness line is shortened, its obligations kept — on "everything approved" (2026-11-26 — PLAN-11).
+
+**Rationale:** VH-249's signed-lines criterion, its last part. Replaced: UI-STANDARDS.md's "matched in the project's own code and never installed as a package" and its token table's "never installed as a package"; `project/engineering.md`'s UI row ("Vanilla TS + our own components … never the Carbon packages", now React and Carbon React from VH-251, vanilla TS until then) and "no CSS library" (now none but Carbon React's styles); the brief's "Carbon productive design in our own code" (Direction) and "implemented in our own code" (Constraints); the profile's "our own code, never the packages". The Runtime line gains "React from VH-251". The Harness line takes the parent's shorter wording, nothing dropped: hooks kept by hand, never by `tools/harness.mjs`, the ledger over a harness's memory. UI-STANDARDS.md is 2,399 of its 2,400 words. The migration census keeps its dated rows. The Gate line was step 12's.
+
+**Supersedes:** none
+
+**Deferred:** none
+
 ## 2026-11-27 — VH-249 — The JSDoc pack on the Finisher's .mjs scripts and check-links.mjs, by the root's compiler; the ratchet starts at 0
 
 **Decision:** the JSDoc pack's ratchet, digest and configuration, adapted to `scripts/**/*.mjs` and `check-links.mjs` (the stock pack selects `src/**/*.js`), measured by the root's runner, start at 0 errors and run in `npm run typecheck` — on "everything approved" (PLAN-11).
@@ -467,15 +477,5 @@
 **Rationale:** Record-only, at VH-195's close; the reason is the entry above's.
 
 **Supersedes:** 2026-10-27 — PLAN-8 — Pass 3's fix plan: VH-206 to VH-210 for six findings, built after VH-202 and before VH-203
-
-**Items:** VH-182, VH-183, VH-184, VH-185, VH-186, VH-187, VH-188, VH-189, VH-190, VH-191, VH-192, VH-193, VH-194, VH-196, VH-197, VH-198, VH-205, VH-199, VH-200, VH-201, VH-202, VH-211, VH-206, VH-207, VH-208, VH-212, VH-213, VH-214, VH-215, VH-216, VH-227, VH-217, VH-229, VH-209, VH-218, VH-230, VH-219, VH-210, VH-225, VH-220, VH-221, VH-222, VH-223, VH-224, VH-231, VH-232, VH-203, VH-233, VH-234, VH-235, VH-236, VH-237, VH-195
-
-## 2026-11-09 — PLAN-8 — Phase 8's 53 items restated whole, in place of the old issues' list
-
-**Decision:** Phase 8's items are the 53 the entries above restate, here in place of the owner's old issues' list.
-
-**Rationale:** Record-only, at VH-195's close; the reason is the first of these entries'.
-
-**Supersedes:** 2026-10-27 — PLAN-8 — The owner's old issues planned: VH-212 to VH-224 for the format "?", A and B, before VH-203; VH-211 closes
 
 **Items:** VH-182, VH-183, VH-184, VH-185, VH-186, VH-187, VH-188, VH-189, VH-190, VH-191, VH-192, VH-193, VH-194, VH-196, VH-197, VH-198, VH-205, VH-199, VH-200, VH-201, VH-202, VH-211, VH-206, VH-207, VH-208, VH-212, VH-213, VH-214, VH-215, VH-216, VH-227, VH-217, VH-229, VH-209, VH-218, VH-230, VH-219, VH-210, VH-225, VH-220, VH-221, VH-222, VH-223, VH-224, VH-231, VH-232, VH-203, VH-233, VH-234, VH-235, VH-236, VH-237, VH-195
