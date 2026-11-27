@@ -71,9 +71,12 @@ Section 10). These users are shown a clear explanation, not a broken app.
 | Loudness DSP | Bespoke JS (see Section 5) | Project-owned |
 | Working storage | OPFS (Origin Private File System) | Browser built-in |
 | Save to disk | File System Access API where available, else blob download | Browser built-in |
+| Interface | [React](https://react.dev/) and [Carbon React](https://carbondesignsystem.com/) (`react`, `react-dom`, `@carbon/react`) | MIT; Apache-2.0 |
 
-No runtime dependency outside Mediabunny. No server. No network calls
-carrying media.
+Mediabunny is the media pipeline's only direct runtime dependency. The
+interface uses `react`, `react-dom` and `@carbon/react` (PLAN-12;
+rationale §7). Any further direct runtime dependency stops and asks. No
+server. No network calls carrying media.
 
 ## 4. Branding
 

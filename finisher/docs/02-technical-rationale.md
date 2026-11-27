@@ -315,6 +315,16 @@ caption file is taken; and there is no opening to offset against (spec §8).
 The resolution stands for whichever of those returns first — and now covers
 trimming, which moves every cue the other way.
 
+## 7. Why React and Carbon React for the interface
+
+On 2026-11-26 the maintainer chose to rebuild the interface on pm-skills
+5's app opinion: React with Carbon React components, the stack Video Name
+Graphics pilots (PLAN-12, on the parent's PLAN-11). Their licences: MIT
+and Apache-2.0. The engine keeps its behaviour as the code moves:
+WebCodecs, Mediabunny and the loudness DSP stay outside the interface, and
+sections 1 to 6 stand. Adding another direct runtime dependency requires
+approval (spec §3.1).
+
 ---
 
 ## Sources

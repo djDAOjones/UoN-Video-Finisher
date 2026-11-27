@@ -41,7 +41,9 @@ ALREADY DECIDED — do not re-open without new evidence
 - Engine: WebCodecs. NOT ffmpeg.wasm. Rationale doc section 1 explains why
   ffmpeg.wasm fails this brief on memory, licensing, hosting headers and
   speed. This is load-bearing.
-- Container layer: Mediabunny (MPL-2.0). The only runtime dependency.
+- Container layer: Mediabunny (MPL-2.0), the media pipeline's only direct
+  runtime dependency; the interface uses React and Carbon React
+  (specification §3.1).
 - Working storage: OPFS. Save via File System Access API where available.
 - Loudness: -16 LUFS integrated, -2.0 dBTP true peak, ITU-R BS.1770-4.
 - Loudness DSP is bespoke JavaScript in a Web Worker, validated against
