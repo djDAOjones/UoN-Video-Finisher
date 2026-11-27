@@ -4,8 +4,10 @@
 // temporary folder, never the checkout, served at the Pages base path —
 // BASE_PATH, else /UoN-Video-Tools/, the repository's name as the deploy
 // workflow derives it — on 127.0.0.1. As Pages does, a folder serves its
-// index.html and a folder named without its slash redirects to it; anything
-// outside the build is a 404. It serves the lobby's page alone: the links lead
+// index.html and a folder named without its slash redirects to it. The
+// server's root, where Pages serves another site, redirects to the base path:
+// the accessibility pack takes the server's URL as the origin its tools start
+// from (tests/a11y/project.mjs). Anything else outside the build is a 404. It serves the lobby's page alone: the links lead
 // to the tools' folders, each tool's own page, built and tested in its own
 // ledger (VH-249, VNG-15), so a journey here checks that a link opens its
 // target, not the tool there. The folder is removed when the server stops.
@@ -22,22 +24,32 @@ export const DEFAULT_BASE = '/UoN-Video-Tools/'
 /** The port the accessibility gate's server listens on (the tools' previews use 4173). */
 export const DEFAULT_PORT = 4180
 
+/** @type {Record<string, string>} */
 const TYPES = { '.html': 'text/html; charset=utf-8' }
 
+/** @param {string} p */
 const isFile = (p) => statSync(p, { throwIfNoEntry: false })?.isFile() === true
+/** @param {string} p */
 const isDir = (p) => statSync(p, { throwIfNoEntry: false })?.isDirectory() === true
 
 /**
  * What a request path gets from the build in `dir` served at `base`:
  * `{ file }`, `{ redirect }` (keeping the query, as Pages does) or null for a
- * 404. The URL parser has already resolved dot segments, encoded ones
+ * 404. The server's root redirects to the base path. The URL parser has already resolved dot segments, encoded ones
  * included; a decoded segment that is a dot segment or holds a separator or
  * NUL is refused, the file must lie inside the folder, and a file asked for
  * as a folder, with a trailing slash, is a 404.
+ *
+ * @param {string} dir the build's folder
+ * @param {string} base the base path, starting and ending with "/"
+ * @param {string} pathname the request's path, as the URL parser left it
+ * @param {string} [search] the request's query, kept on a redirect
+ * @returns {{ file?: string, redirect?: string } | null} the file to serve, the address to redirect to, or null for a 404
  */
 export function locate(dir, base, pathname, search = '') {
-  if (`${pathname}/` === base) return { redirect: `${base}${search}` }
+  if (`${pathname}/` === base || (pathname === '/' && base !== '/')) return { redirect: `${base}${search}` }
   if (!pathname.startsWith(base)) return null
+  /** @type {string[]} */
   let segments
   try {
     segments = pathname.slice(base.length).split('/').map(decodeURIComponent)
@@ -85,6 +97,7 @@ export async function serveLobby({ base = DEFAULT_BASE, port = DEFAULT_PORT, hos
       res.writeHead(404, { 'content-type': 'text/plain; charset=utf-8' }).end('Not found\n')
     }
   })
+  /** @returns {Promise<void>} */
   const close = () =>
     new Promise((done) => {
       server.close(() => done())
@@ -92,11 +105,13 @@ export async function serveLobby({ base = DEFAULT_BASE, port = DEFAULT_PORT, hos
     })
   try {
     buildLobby(dir)
-    await new Promise((listening, failed) => {
-      server.once('error', failed)
-      server.listen(port, host, () => listening(undefined))
-    })
-  } catch (error) {
+    await /** @type {Promise<void>} */ (
+      new Promise((listening, failed) => {
+        server.once('error', failed)
+        server.listen(port, host, () => listening(undefined))
+      })
+    )
+  } catch (/** @type {unknown} */ error) {
     rmSync(dir, { recursive: true, force: true })
     throw error
   }
@@ -113,6 +128,7 @@ if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.ur
   }
   const served = await serveLobby({ base: process.env.BASE_PATH || DEFAULT_BASE, port })
   console.log(`serve-lobby: ${served.url} (the build in ${served.dir})`)
+  /** @returns {void} */
   const stop = () => void served.close().then(() => process.exit(0))
   process.once('SIGINT', stop)
   process.once('SIGTERM', stop)

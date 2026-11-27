@@ -21,7 +21,11 @@ const LIVE = '[role~="status"], [role~="alert"], [role~="log"], [role~="progress
 const focused = (page) => page.evaluate(() => (document.activeElement && document.activeElement !== document.body ? document.activeElement.textContent.trim() : null));
 // The lobby's address, a tool's whole address resolved from it (origin, path, no query or fragment), and whether the
 // page is now there.
-const HOME = `http://127.0.0.1:${PORT}${base}`;
+// The origin is where the pack's tools take the page to be served: the extended method tools prefix it to each
+// state's path (tools/a11y-extended.mjs), and the server redirects it to the base path, an answer Playwright's
+// readiness check takes.
+const ORIGIN = `http://127.0.0.1:${PORT}`;
+const HOME = `${ORIGIN}${base}`;
 const address = (target) => new URL(target, HOME).href;
 const at = (page, target) => page.url() === address(target);
 const reach = (page, target) => page.waitForURL((u) => u.href === address(target), { timeout: 5_000 }).catch(() => undefined);
@@ -39,8 +43,8 @@ const handoff = (i) => ({
 });
 
 export default {
-  baseURL: `http://127.0.0.1:${PORT}`,
-  server: { command: `node scripts/serve-lobby.mjs --port ${PORT}`, url: HOME },
+  baseURL: ORIGIN,
+  server: { command: `node scripts/serve-lobby.mjs --port ${PORT}`, url: ORIGIN },
   // The page's one source: the credited jsx-a11y rules judge the markup the page is rendered from.
   lint: ['lobby'],
   houseTarget: 44,
@@ -205,7 +209,7 @@ export default {
     date: '2026-11-27',
     rows: {
       P09: { state: 'pass', note: 'the lobby shares no component with the tools and this was its first run, so every state and journey ran' },
-      P10: { state: 'pass', note: 'no open finding: the first run failed 2.5.5 and SUP03, the links 18 px high, fixed in lobby/Lobby.tsx as 44 px targets; it left the keyboard rows only a journey checks not run, and the journeys here were written; all retested and passing (UVT-8)' },
+      P10: { state: 'pass', note: 'no open finding from the standard run: the first run failed 2.5.5 and SUP03, the links 18 px high, fixed in lobby/Lobby.tsx as 44 px targets; it left the keyboard rows only a journey checks not run, and the journeys here were written; all retested and passing (UVT-8); the extended run\'s, the VoiceOver journeys and the touch probe on links, are UVT-9\'s (UVT-8.4, UVT-8.5)' },
     },
   },
   // The sampling, by hand through `npm run a11y:sample`: the one route, listed, so nothing is walked; the links lead

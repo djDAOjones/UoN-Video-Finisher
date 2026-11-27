@@ -10,17 +10,25 @@ import { test } from 'node:test'
 import { fileURLToPath } from 'node:url'
 import { renderLobby } from './build-lobby.mjs'
 import { DEFAULT_BASE, locate, serveLobby } from './serve-lobby.mjs'
+import { baseURL, loadProject } from '../tools/a11y-extended.mjs'
 
 const ROOT = fileURLToPath(new URL('..', import.meta.url))
 
-/** A raw request, so the path reaches the server as written. */
+/**
+ * A raw request, so the path reaches the server as written.
+ *
+ * @param {string} url the server's address
+ * @param {string} path the path, sent as written
+ * @param {string} [method] the HTTP method
+ * @returns {Promise<{ status: number | undefined, headers: import('node:http').IncomingHttpHeaders, body: string }>} the response
+ */
 const get = (url, path, method = 'GET') =>
   new Promise((done, failed) => {
     const { hostname, port } = new URL(url)
     const req = request({ hostname, port, path, method }, (res) => {
       let body = ''
       res.setEncoding('utf8')
-      res.on('data', (chunk) => (body += chunk))
+      res.on('data', (/** @type {string} */ chunk) => (body += chunk))
       res.on('end', () => done({ status: res.statusCode, headers: res.headers, body }))
     })
     req.on('error', failed)
@@ -43,7 +51,52 @@ test('the page at the Pages base path is the lobby render, from a fresh build ou
   assert.equal(head.body, '')
 })
 
-test('as Pages does: the base without its slash redirects, and the rest is a 404', async (t) => {
+/** @type {(value: unknown) => value is unknown[]} */
+const isList = (value) => Array.isArray(value)
+
+/**
+ * Narrows the declarations the pack's loader returns untyped, asserting each value this test reads.
+ * @param {unknown} value the default export of tests/a11y/project.mjs
+ * @returns {{ baseURL: string, serverURL: string, states: { name: string, path: string }[] }} what this test reads
+ */
+const declarations = (value) => {
+  assert.ok(value !== null && typeof value === 'object')
+  const { baseURL: base, server, states } = /** @type {{ baseURL?: unknown, server?: unknown, states?: unknown }} */ (value)
+  assert.ok(typeof base === 'string')
+  assert.ok(server !== null && typeof server === 'object')
+  const { url } = /** @type {{ url?: unknown }} */ (server)
+  assert.ok(typeof url === 'string')
+  assert.ok(isList(states))
+  return {
+    baseURL: base,
+    serverURL: url,
+    states: states.map((state) => {
+      assert.ok(state !== null && typeof state === 'object')
+      const { name, path } = /** @type {{ name?: unknown, path?: unknown }} */ (state)
+      assert.ok(typeof name === 'string')
+      assert.ok(typeof path === 'string')
+      return { name, path }
+    }),
+  }
+}
+
+test("the accessibility tools reach the lobby: the extended method tools from the server's URL, the standard run from the base URL", async () => {
+  // The declarations read as the pack's tools read them, then narrowed: the pack types neither.
+  /** @type {unknown} */
+  const declared = await loadProject(ROOT)
+  const project = declarations(declared)
+  const home = `${project.baseURL}${process.env.BASE_PATH || DEFAULT_BASE}`
+  assert.ok(project.states.length > 0)
+  for (const state of project.states) {
+    assert.equal(new URL(state.path, project.baseURL).href, home, `${state.name}: the standard run`)
+    /** @type {unknown} */
+    const from = baseURL(declared, { A11Y_BASE_URL: project.serverURL })
+    assert.ok(typeof from === 'string')
+    assert.equal(from + state.path, home, `${state.name}: the extended method tools`)
+  }
+})
+
+test('as Pages does: the base without its slash redirects, and the rest is a 404; the root redirects to the base', async (t) => {
   const served = await serveLobby({ port: 0 })
   t.after(() => served.close())
   const bare = await get(served.url, '/UoN-Video-Tools')
@@ -52,7 +105,10 @@ test('as Pages does: the base without its slash redirects, and the rest is a 404
   const query = await get(served.url, '/UoN-Video-Tools?from=x')
   assert.equal(query.status, 301)
   assert.equal(query.headers.location, '/UoN-Video-Tools/?from=x')
-  for (const path of ['/', '/index.html', '/UoN-Video-Tools/missing.html', '/UoN-Video-Tools/index.html/']) {
+  const root = await get(served.url, '/?from=x')
+  assert.equal(root.status, 301)
+  assert.equal(root.headers.location, '/UoN-Video-Tools/?from=x')
+  for (const path of ['/index.html', '/UoN-Video-Tools/missing.html', '/UoN-Video-Tools/index.html/']) {
     assert.equal((await get(served.url, path)).status, 404, path)
   }
   assert.equal((await get(served.url, '/UoN-Video-Tools/', 'POST')).status, 405)
@@ -107,6 +163,8 @@ test('locate: a folder serves its index.html, and redirects to its slash', (t) =
   assert.deepEqual(locate(dir, '/b/', '/b/sub/'), { file: join(dir, 'sub', 'index.html') })
   assert.deepEqual(locate(dir, '/b/', '/b'), { redirect: '/b/' })
   assert.deepEqual(locate(dir, '/b/', '/b', '?q=1'), { redirect: '/b/?q=1' })
+  assert.deepEqual(locate(dir, '/b/', '/'), { redirect: '/b/' })
+  assert.deepEqual(locate(dir, '/', '/'), { file: join(dir, 'index.html') })
   assert.deepEqual(locate(dir, '/b/', '/b/sub', '?q=1'), { redirect: '/b/sub/?q=1' })
   assert.equal(locate(dir, '/b/', '/b/index.html/'), null)
   assert.equal(locate(dir, '/b/', '/other/'), null)

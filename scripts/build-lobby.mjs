@@ -25,6 +25,10 @@ export const DOCTYPE = '<!doctype html>\n'
  * stripped, JSX for the `react-jsx` runtime, as the root's app layer sets it),
  * its imports resolved from `resolveFrom`, its own path unless a test's copy
  * lies outside the checkout. A syntax error is refused.
+ *
+ * @param {string} file the TSX module
+ * @param {string} [resolveFrom] the path its imports resolve from
+ * @returns {Record<string, unknown>} its exports
  */
 export function loadTsx(file, resolveFrom = file) {
   const { outputText, diagnostics = [] } = ts.transpileModule(readFileSync(file, 'utf8'), {
@@ -40,6 +44,7 @@ export function loadTsx(file, resolveFrom = file) {
     const text = diagnostics.map((d) => ts.flattenDiagnosticMessageText(d.messageText, '\n'))
     throw new Error(`${file}: ${text.join('; ')}`)
   }
+  /** @type {{ exports: Record<string, unknown> }} */
   const module = { exports: {} }
   const body = vm.compileFunction(outputText, ['require', 'module', 'exports'], { filename: file })
   body(createRequire(resolveFrom), module, module.exports)
@@ -50,10 +55,17 @@ export function loadTsx(file, resolveFrom = file) {
 export function renderLobby(file = LOBBY_SOURCE, resolveFrom = file) {
   const { Lobby } = loadTsx(file, resolveFrom)
   if (typeof Lobby !== 'function') throw new Error(`${file} exports no Lobby component`)
-  return `${DOCTYPE}${renderToStaticMarkup(createElement(Lobby))}\n`
+  const component = /** @type {import('react').FunctionComponent<Record<string, never>>} */ (Lobby)
+  return `${DOCTYPE}${renderToStaticMarkup(createElement(component))}\n`
 }
 
-/** Writes the page to `<outDir>/index.html`, making the folder; returns the file's path. */
+/**
+ * Writes the page to `<outDir>/index.html`, making the folder; returns the file's path.
+ *
+ * @param {string} outDir the folder to write into
+ * @param {string} [file] the TSX source
+ * @returns {string} the page's path
+ */
 export function buildLobby(outDir, file = LOBBY_SOURCE) {
   const page = renderLobby(file)
   mkdirSync(outDir, { recursive: true })

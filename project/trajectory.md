@@ -15,6 +15,7 @@
 
 ## Phase 11 — The full pm-skills stack, both tools rebuilt on it — the owner's word of 2026-11-26
 - UVT-7 — the stack's foundation at the root, five Codex-reviewed steps: the model policy and Codex hooks written by hand; Set 1 exact at the one install, one playwright-core, Node ^22.19.0 || ^24.0.0 || >=26.0.0; the base configs offered, none switched on, an entry check; the pack tools' reach, a link script and a JSDoc runner, a way round each app-pack config; `node_modules` in OneDrive by exception and the signed lines rewritten, the Carbon rule stated once (2026-11-27) — see decisions
+- UVT-8 — the root's packs, five Codex-reviewed steps: the accessibility pack at extended depth, AAA, its lobby a TSX page rendered at build time, 42 rows checked; JSDoc over the scripts, a guarded ratchet at 12; CI running the whole gate with Chromium; the architecture record (2026-11-27) — see decisions
 ## Stage 7 — the record and the paths — the owner's word of 2026-11-26
 
 - UVT-6 — the parent's half of stage 7: the root's README current, a NEXT_STEPS.md naming each ledger's next item and the order across them, the structure table recounted by hand, and every leftover this ledger owns a wish line, UVT-6.1 to UVT-6.21, nine of them for pm-skills with their evidence (2026-11-26) — see decisions

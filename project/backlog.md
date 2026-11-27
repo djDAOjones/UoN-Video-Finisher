@@ -20,8 +20,7 @@
 
 ### Phase 11 — The full pm-skills stack, both tools rebuilt on it — the owner's word of 2026-11-26
 
-- [ ] UVT-8 — The root's packs: the lobby's accessibility testing at extended depth, JSDoc on the root's scripts, the architecture record, Playwright's browser in CI — since 2026-11-26 — (from: PLAN-11, 2026-11-26)
-- [ ] UVT-9 — Phase 11's close: the shared defaults switched on for every folder, the lobby's extended run, NEXT_STEPS rewritten, the phase closed — since 2026-11-26 — (from: PLAN-11, 2026-11-26) — blocked: UVT-8, VH-252, VNG-15
+- [ ] UVT-9 — Phase 11's close: the shared defaults switched on for every folder, the lobby's extended run, NEXT_STEPS rewritten, the phase closed — since 2026-11-26 — (from: PLAN-11, 2026-11-26) — blocked: VH-252, VNG-15
 
 ### The shared translation register — the owner's word of 2026-11-26
 

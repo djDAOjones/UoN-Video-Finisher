@@ -17,8 +17,10 @@ every file outside the two tool folders and the order of work across the
 tools; the one install (`package.json` and `package-lock.json`); the tool
 configs every folder extends (`tsconfig.base.json`, `eslint.base.js`,
 `.editorconfig`, Prettier and markdownlint); the deploy workflow; and
-`RESTRUCTURE-LOG.md`, the record of how the two tools came together. What
-comes next, ledger by ledger, is [NEXT_STEPS.md](NEXT_STEPS.md).
+`RESTRUCTURE-LOG.md`, the record of how the two tools came together. Its
+architecture record, [project/architecture.md](project/architecture.md),
+draws the whole system: the lobby, the two tools and where each is served.
+What comes next, ledger by ledger, is [NEXT_STEPS.md](NEXT_STEPS.md).
 
 ## Working here
 

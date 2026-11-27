@@ -10,20 +10,23 @@
 
 | Path | Files | Role |
 | --- | --- | --- |
-| `./` | 15 | the one install (`package.json`, `package-lock.json`), `.gitignore`, `README.md`, `NEXT_STEPS.md` (each ledger's next item), `RESTRUCTURE-LOG.md`, this ledger's contract (`AGENTS.md`, `CLAUDE.md`), the root's ESLint config and the import-boundary rule (`eslint.boundaries.js`), the tool configs every folder shares (`eslint.base.js`, `tsconfig.base.json`, `.editorconfig`, `.prettierrc.json`, `.markdownlint.json`) |
+| `./` | 25 | the one install (`package.json`, `package-lock.json`, `.npmrc`), `.gitignore`, `README.md`, `NEXT_STEPS.md` (each ledger's next item), `RESTRUCTURE-LOG.md`, this ledger's contract (`AGENTS.md`, `CLAUDE.md`), the root's ESLint config and the import-boundary rule (`eslint.boundaries.js`), the tool configs every folder shares (`eslint.base.js`, `tsconfig.base.json`, `.editorconfig`, `.prettierrc.json`, `.markdownlint.json`), the root's ESLint and TypeScript projects with the base layers offered (`eslint.config.js`, `eslint.a11y.mjs`, `tsconfig.json` and the layers beside it), the JSDoc project (`tsconfig.jsdoc.json`) |
 | `.claude/` | 1 | the root chat's hooks, byte-identical to the tools' |
-| `.github/` | 1 | the one deploy workflow: the root gate, each tool built into its own folder, the lobby at the top |
-| `finisher/` | 15,167 | the Video Finisher, its own ledger (VH); not this ledger's |
+| `.codex/` | 1 | the root's Codex hooks, written by hand (UVT-7) |
+| `.github/` | 1 | the one deploy workflow: Chromium's headless shell, every gate, each tool built into its own folder, the lobby at the top |
+| `docs/` | 2 | the accessibility pack's documents: `docs/accessibility.md`, routed by the rules, and `docs/extended.md` |
+| `finisher/` | 15,222 | the Video Finisher, its own ledger (VH); not this ledger's |
 | `lobby/` | 1 | the placeholder staff lobby: names and links, no script |
-| `name-graphics/` | 66 | Video Name Graphics, its own ledger (VNG); not this ledger's |
-| `project/` | 18 | this ledger |
+| `name-graphics/` | 126 | Video Name Graphics, its own ledger (VNG); not this ledger's |
+| `project/` | 27 | this ledger, with its architecture record, the accessibility catalogue and coverage, and the JSDoc baseline |
 | `shared/` | 14 | code two tools need, imported by path: the core modules and their tests, the Carbon tokens, and shared/'s own tsconfig, test config and declarations (`shared/README.md`) |
-| `scripts/` | 3 | the root's checks: the commit-ID check and the tests of it and of the import-boundary rule |
-| `tools/`, `verbs/` | 27 | pm-skills 5.0.3's tools and verbs, the release's bytes |
+| `scripts/` | 17 | the root's scripts and their tests: the commit-ID and project checks, the lobby's build and server, the JSDoc guard, the tools' JSDoc runner and root-install link, the tests of the import-boundary rule, the ESLint layers and the CI parity |
+| `tests/` | 25 | the accessibility pack's harness: the lobby's declarations (`tests/a11y/project.mjs`), its specs and helpers, and the known-bad pages |
+| `tools/`, `verbs/` | 37 | pm-skills 5.0.3's tools and verbs, the release's bytes, with the accessibility pack's twelve tools and the JSDoc ratchet (canon v5.0.3) |
 
 `tools/structure.mjs` stopped on this repository (spawnSync git
 ENOBUFS: the Finisher's 15,000 tracked files overflow its buffer), so
-this table was written by hand on 2026-11-26 and again at UVT-6's close,
+this table was written by hand on 2026-11-26 and again at UVT-6's and UVT-8's closes,
 counted with git ls-files, tracked and untracked, respecting ignores
 (wish UVT-6.2).
 

@@ -15,15 +15,18 @@ and the order of work across them, which is the parent ledger's.
    `verbs/orchestrate.md` says, each step reviewed by Codex on
    gpt-6.2-astra:
    1. **UVT-7**, the stack's foundation at the root: shipped 2026-11-27.
-   2. Then in parallel, their folders apart: **UVT-8** (the root's packs),
-      **VNG-14** (Name Graphics' packs), **VH-249** (the Finisher's packs).
+   2. In parallel, their folders apart: **UVT-8** (the root's packs:
+      shipped 2026-11-27),
+      **VNG-14** (Name Graphics' packs), **VH-249** (the Finisher's packs);
+      the last two began before UVT-7 closed (decision 2026-11-27, UVT-8).
    3. **VNG-15**, Name Graphics rebuilt on the stack, the pilot, after
-      VNG-14 and UVT-8 (Playwright's browser in CI).
+      VNG-14 and UVT-8 (Playwright's browser in CI, in place on the build
+      job's `ubuntu-24.04` pin until UVT-8.2).
    4. **VH-250**, after VH-249 (the Finisher's specification corrected
       with the owner's approval, `9b2acf81`); then **VH-251**, after
       VNG-15, and **VH-252**: the Finisher's layout, its interface in
       React and Carbon React, accessibility in the gate.
-   5. **UVT-9**, after UVT-8, VH-252 and VNG-15: the shared defaults
+   5. **UVT-9**, after VH-252 and VNG-15: the shared defaults
       switched on for every folder, the lobby's extended run, this page
       rewritten, Phase 11 closed.
 1. **VH-129**, the Finisher's student edition, on the rebuilt Finisher,
@@ -42,7 +45,7 @@ and the order of work across them, which is the parent ledger's.
 
 | Ledger | Folder | Next | Then |
 | --- | --- | --- | --- |
-| UoN Video Tools, `UVT-n` | the root | UVT-8, the root's packs | UVT-9 |
+| UoN Video Tools, `UVT-n` | the root | UVT-9, Phase 11's close, after VH-252 and VNG-15 | UVT-4 |
 | Video Finisher, `VH-n` | `finisher/` | VH-249 | VH-250 to VH-252, then VH-129 |
 | Video Name Graphics, `VNG-n` | `name-graphics/` | VNG-14 | VNG-15, then VNG-2 |
 
