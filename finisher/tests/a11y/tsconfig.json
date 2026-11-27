@@ -1,0 +1,13 @@
+{
+  "extends": "../../../tsconfig.a11y.json",
+  "files": [
+    "adaptation.spec.ts",
+    "helpers.ts",
+    "journeys.spec.ts",
+    "keyboard.spec.ts",
+    "known-bad/known-bad.spec.ts",
+    "playwright.config.ts",
+    "sample.spec.ts",
+    "states.spec.ts"
+  ]
+}
