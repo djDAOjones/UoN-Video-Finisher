@@ -9,24 +9,24 @@
 
 ## Always
 
-- Nothing typed leaves the device: no fetch, upload, beacon or analytics call carries a name, a role line or a graphic; brand assets travel inbound only.
+- Nothing typed leaves the device: no network or analytics call carries a name, a role line or a graphic; brand assets travel inbound only.
 - Brands are packs under `brands/<id>/`, chosen at build time. Nothing outside a pack names a brand. The neutral build carries no University name, logo, typeface or colour, and the gate proves it. Every pack offers the neutral styles beside its own.
-- Output: transparent video native at 3840 × 2160 with a 1920 × 1080 option, or a still PNG; transparency kept in every output; as small and as cheap to make as the format allows. What Clipchamp accepts is checked by a person and recorded.
+- Output: transparent video native at 3840 × 2160 with a 1920 × 1080 option, or a still PNG; transparency kept in every output; as small and as cheap to make as the format allows.
 - No runtime dependency without a decision; a second stops and asks.
 - Numbers live in `src/config/`, a brand pack or a CSS token; a literal elsewhere is a defect.
-- All imports at the top; build output is read-only. Search the full source tree before proposing a change; check `src/config/` and existing controls before adding a value or a control.
+- All imports at the top; build output is read-only. Search the whole source, `src/config/` and existing controls included, before proposing a change or adding a value or control.
 - One structured logger; the diagnostics bundle is redacted (never a typed name or role) and dev-only.
-- A two-part version identity (product version, build id). Secrets never in source, URLs, logs or the bundle; a leak is rotated first, then a `[!]` line.
+- A two-part version identity (product version, build id); no secret in the bundle (the profile's Secrets line).
 - Protected paths: `brands/uon/assets/` — the University's trademark and typeface, changed only on the owner's word; `dist/`, `release/`, `node_modules/`, `package-lock.json` — generated.
-- Push and network follow the profile's Push and Network lines: push by that route after every close, never to an upstream the project does not own; a blocked push is reported as pending.
+- Push and network follow the profile's lines; a blocked push is reported as pending.
 
 ### Environment
 
-- The working copy is the owner's OneDrive checkout, `core.fileMode` false; a change no session made (a revert, a conflict copy) is reported, never committed. If the toolchain stalls, the Finisher's DEV-INFRASTRUCTURE.md, "When the toolchain stalls on this filesystem", is the recovery.
+- The working copy is the owner's pinned OneDrive checkout, `core.fileMode` false; a change no session made is reported, never committed. Recovery: `finisher/DEV-INFRASTRUCTURE.md`, "When the toolchain stalls on this filesystem".
 - Every file belongs to one ledger, by its folder: `finisher/` to VH, `name-graphics/` to VNG, the rest to UVT. An item changes only what its ledger owns. `shared/` is common to every tool: code moves there when a second tool needs it, a change there is a parent item, and it closes only with every tool's gate green. Shared source is not a dependency.
-- The owner, a vibe coder, owns structure and design: do the work; explain only when asked.
+- The owner owns structure and design: do the work; explain only when asked.
 - `CLAUDE.local.md` holds personal instructions; harness memories are not the record.
-- Name what only a person verified: Clipchamp, real browsers, the Xerte upload.
+- A person checks by hand what no tool can (what Clipchamp accepts, real browsers, the Xerte upload), recorded as a person's.
 
 ## By task
 
@@ -44,4 +44,4 @@
 
 ## Signed
 
-- Owner (delegated, not reviewed): Joe, 2026-11-27 — see the parent's PLAN-11 (2026-11-26), "everything approved"; VNG-14 added By-task rows
+- Owner (delegated, not reviewed): Joe, 2026-11-27 — see the parent's PLAN-11, VNG-14

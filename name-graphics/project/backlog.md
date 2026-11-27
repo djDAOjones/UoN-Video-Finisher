@@ -22,7 +22,7 @@
 
 ### Phase 13 — The full pm-skills stack: Name Graphics rebuilt on it, the pilot — the owner's word of 2026-11-26
 
-- [~] VNG-14 — Name Graphics' packs and signed lines: the model policy, accessibility testing at extended depth, the app opinion's forms kind, JSDoc on its scripts, the architecture record, Set 1 — since 2026-11-26 — (from: PLAN-13, 2026-11-26) — blocked: UVT-7's close, for the packs, the root's compiler checks and lint layers, the JSDoc ratchet, the typecheck projects, the entry check and the Carbon rule's lines
+- [~] VNG-14 — Name Graphics' packs and signed lines: the model policy, accessibility testing at extended depth, the app opinion's forms kind, JSDoc on its scripts, the architecture record, Set 1 — since 2026-11-26 — (from: PLAN-13, 2026-11-26)
 - [ ] VNG-15 — The seed rebuilt on the stack: its page in React and Carbon React in the forms kind's layout, the neutral palette at AAA, `npm run a11y` in the gate — since 2026-11-26 — (from: PLAN-13, 2026-11-26) — blocked: VNG-14 and the parent's UVT-8 (Playwright's browser in CI)
 
 ### Phase 1 — the seed, the brand packs and the output format
@@ -45,7 +45,6 @@
 
 The public release.
 
-- [!] VNG-13 — Trim the rules file's Always, with its Environment, from 425 words to its 400-word guideline — since 2026-11-26 — (from: VNG-11, 2026-11-26) — blocked: the owner's signature on the trimmed lines
 - [ ] VNG-8 — Help and feedback, the problem report and the accessibility statement, from the Finisher's — since 2026-11-05
 - [ ] VNG-9 — The Xerte package and the first release — since 2026-11-05
 

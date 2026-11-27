@@ -26,7 +26,7 @@ stack on the root's one install before the Finisher's rebuild.
 
 Updated: 2026-11-27
 
-Next step: paused for UVT-7's close (the early start, 2026-11-27): then the packs, the root's compiler checks and lint layers, the JSDoc pack, the typecheck projects, the entry check and the signed lines.
+Next step: the signed lines rewritten to the stack, then the accessibility pack, the forms kind, the root's compiler checks and lint layers with the typecheck projects and the entry check, and the JSDoc pack.
 
 Open question: None.
 
@@ -47,3 +47,5 @@ Open question: None.
 - 2026-11-27 — The model policy's row leaves the rules file at 583 words of 600: 17 to spare for the four By-task rows to come, so the signed lines are compressed first where needed.
 - 2026-11-27 — The Node line leaves the profile at 399 words of 400: the later steps' signed lines are compressed first.
 - 2026-11-27 — The architecture record's row leaves the rules file at 597 words of 600: the three rows to come need its signed lines compressed first.
+- 2026-11-27 — The pause's trigger amended by the orchestrator's ruling of 2026-11-27: UVT-7's step 5, `c66ffdd1`, stands for its close; the pack steps resume (decision of the same date).
+- 2026-11-27 — The budgets step: the profile at 354 words of 400 and the rules at 543 of 600, the Always at 377 of its 400 guideline, shipping VNG-13; the later lines drafted on a copy fit, the profile near 391 and the rules near 588.
