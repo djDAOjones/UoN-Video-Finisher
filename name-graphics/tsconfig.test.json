@@ -1,0 +1,19 @@
+// The tests project (VNG-14): the folder's own tests, any file it writes in
+// tests/a11y/ beside the accessibility pack's copied harness (whose eight
+// TypeScript files are tests/a11y/tsconfig.json's), and vite.config.ts, which
+// configures the tests and runs in Node; on the root's tests layer, with its
+// offered erasableSyntaxOnly (UVT-7).
+{
+  "extends": ["../tsconfig.test.json", "../tsconfig.erasable.json"],
+  "include": ["test", "src/**/*.test.ts", "src/**/*.test.tsx", "tests/a11y", "vite.config.ts"],
+  "exclude": [
+    "tests/a11y/adaptation.spec.ts",
+    "tests/a11y/helpers.ts",
+    "tests/a11y/journeys.spec.ts",
+    "tests/a11y/keyboard.spec.ts",
+    "tests/a11y/known-bad/known-bad.spec.ts",
+    "tests/a11y/playwright.config.ts",
+    "tests/a11y/sample.spec.ts",
+    "tests/a11y/states.spec.ts"
+  ]
+}

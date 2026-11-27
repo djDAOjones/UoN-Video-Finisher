@@ -1,6 +1,11 @@
 // Copied from the UoN Video Finisher at 27f51dd (VNG-1): its build id,
 // BASE_PATH, port and sourcemap handling, without its branding-asset plugins,
-// its Xerte mode (VNG-9's) or its audio tests' timeout.
+// its Xerte mode (VNG-9's) or its audio tests' timeout. The app pack's forms
+// kind merged in (VNG-14), its vite.config.mjs and vitest.config.mjs not kept
+// beside this file, which Vite and Vitest would read first: its IBM Plex alias,
+// pointed at the root's one install (UVT-7), and its test runner's settings.
+// The seed's base path, port and build target stay, so the preview builds as
+// before; no React plugin, as the pack has none: Vite reads the tsconfig's JSX.
 
 import { execSync } from 'node:child_process'
 import { resolve } from 'node:path'
@@ -28,12 +33,17 @@ function buildId(): string {
   return `v${pkg.version}+${stamp}.${sha}`
 }
 
+// IBM Plex's font files for Carbon's Sass (`src/ui/theme.scss`), bundled from
+// the root's install, none fetched (the app-opinion digest).
+const plex = resolve(import.meta.dirname, '../node_modules/@ibm/plex')
+
 export default defineConfig({
   // A GitHub Pages project site serves from `/<repo>/`, not the root. The
   // deploy workflow sets BASE_PATH; local dev leaves it unset and stays at
   // `/`. Runtime asset URLs read `import.meta.env.BASE_URL` so they follow
   // this automatically.
   base: process.env['BASE_PATH'] ?? '/',
+  resolve: { alias: { '~@ibm/plex': plex } },
   server: {
     // Honour PORT when something upstream assigns one (preview tooling, a
     // container, a shared machine). Falls back to Vite's default otherwise,
@@ -41,9 +51,16 @@ export default defineConfig({
     // than stopping us.
     port: Number(process.env['PORT']) || 5173,
     // The shared code sits beside this folder, at the repository's root
-    // (`../shared/`, the parent's, UVT-2): the dev server may read it as
-    // well as this folder. A build reads it from disk and needs no leave.
-    fs: { allow: [searchForWorkspaceRoot(import.meta.dirname), resolve(import.meta.dirname, '../shared')] },
+    // (`../shared/`, the parent's, UVT-2), and so do Plex's fonts: the dev
+    // server may read both as well as this folder. A build reads them from
+    // disk and needs no leave.
+    fs: {
+      allow: [
+        searchForWorkspaceRoot(import.meta.dirname),
+        resolve(import.meta.dirname, '../shared'),
+        plex,
+      ],
+    },
   },
   define: {
     __APP_VERSION__: JSON.stringify(`v${pkg.version}`),
@@ -64,7 +81,14 @@ export default defineConfig({
     },
   },
   test: {
+    // The app pack's runner settings: no jsdom (the interface is tested in a
+    // real browser by the accessibility pack), forked workers capped at three,
+    // a stray `only` or a run that finds no test failing it.
     environment: 'node',
+    pool: 'forks',
+    maxWorkers: 3,
+    allowOnly: false,
+    passWithNoTests: false,
     // The shared core's tests run here too, under this tool's build-time
     // values: Name Graphics depends on them (UVT-2).
     include: ['test/**/*.test.ts', 'src/**/*.test.ts', '../shared/core/**/*.test.ts'],

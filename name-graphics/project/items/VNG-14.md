@@ -26,7 +26,7 @@ stack on the root's one install before the Finisher's rebuild.
 
 Updated: 2026-11-27
 
-Next step: the forms kind, the root's compiler checks and lint layers with the typecheck projects, the entry check and the Gate line.
+Next step: the close.
 
 Open question: None.
 
@@ -51,3 +51,4 @@ Open question: None.
 - 2026-11-27 — The budgets step: the profile at 354 words of 400 and the rules at 543 of 600, the Always at 377 of its 400 guideline, shipping VNG-13; the later lines drafted on a copy fit, the profile near 391 and the rules near 588.
 - 2026-11-27 — The accessibility pack's copy: `a11y:doctor` ready for engines, touch, media and flash capture; VoiceOver, PDF, the iOS audit, the native journey and the Android checks blocked, each named in the decision.
 - 2026-11-27 — The JSDoc pack: 0 errors at the start over `check-links.mjs`; the rules at 582 words of 600, so the app-opinion row (about 17 words) leaves almost none.
+- 2026-11-27 — The forms step, by the orchestrator's ruling A of 2026-11-27, which the owner kept ("Keep it"): `npm run typecheck` runs the app, tests and accessibility-harness projects through UVT-7's entry check; the core and workers projects join with their first file, since an empty project fails that check by design and Name Graphics has none yet (decision of the same date). The starter's model, validation and persistence adapter removed before the commit; the entry `src/root.tsx`; profile 398 words of 400, rules 596 of 600.

@@ -1,0 +1,8 @@
+// The app project (VNG-14): src/, its tests aside, on the root's app layer:
+// the DOM, JSX and Vite's client types, no Node; with the root's offered
+// erasableSyntaxOnly (UVT-7).
+{
+  "extends": ["../tsconfig.app.json", "../tsconfig.erasable.json"],
+  "include": ["src"],
+  "exclude": ["src/**/*.test.ts", "src/**/*.test.tsx"]
+}

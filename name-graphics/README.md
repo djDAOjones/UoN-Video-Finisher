@@ -30,9 +30,10 @@ returns 404.
   run at the root lockfile's versions.
 - **Dev server:** `npm run dev` here, at <http://localhost:5173> (Vite
   moves to the next free port if that one is taken).
-- **The gate:** `npm run check` here: types, lint, tests (including the
-  shared core's tests from `../shared/`), Markdown lint and links, then
-  this ledger's checker. At the root, `npm run check` runs every tool's
+- **The gate:** `npm run check` here: types (three TypeScript projects
+  and the React entry's check), lint, boundaries, dead code, tests
+  (including the shared core's tests from `../shared/`), Markdown lint
+  and links, then this ledger's checker. At the root, `npm run check` runs every tool's
   gate and the parent's checks.
 - **Shared code:** the core modules and the Carbon tokens are imported
   by path from `../shared/`, never copied; a change there is the parent

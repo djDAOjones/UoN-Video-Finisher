@@ -1,6 +1,17 @@
+// Name Graphics' folder project (VNG-14): the one ESLint's project service,
+// dependency-cruiser, Vite's JSX transform and an editor find for src/,
+// test/, vite.config.ts and any file this folder writes in tests/a11y/ beside
+// the accessibility pack's copied harness (whose eight TypeScript files are
+// tests/a11y/tsconfig.json's), on the root's tests layer, the widest of the
+// stack's (the DOM, the worker scope, JSX, Vite's client types and Node's),
+// with its offered erasableSyntaxOnly. The app pack's tsconfig.json is
+// merged here, its JSX and libraries in the root's layers (UVT-7). `npm run
+// typecheck` runs the stack's projects, each on its own layer:
+// tsconfig.app.json, tsconfig.test.json and tests/a11y/tsconfig.json; the core
+// project joins at VNG-15, the workers project with the first worker file.
 {
-  "extends": "../tsconfig.base.json",
-  "include": ["src", "test", "tests/a11y", "vite.config.ts", "eslint.config.js"],
+  "extends": ["../tsconfig.test.json", "../tsconfig.erasable.json"],
+  "include": ["src", "test", "tests/a11y", "vite.config.ts"],
   "exclude": [
     "tests/a11y/adaptation.spec.ts",
     "tests/a11y/helpers.ts",

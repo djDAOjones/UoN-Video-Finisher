@@ -18,11 +18,11 @@
 - One structured logger; the diagnostics bundle is redacted (never a typed name or role) and dev-only.
 - A two-part version identity (product version, build id); no secret in the bundle (the profile's Secrets line).
 - Protected paths: `brands/uon/assets/` — the University's trademark and typeface, changed only on the owner's word; `dist/`, `release/`, `node_modules/`, `package-lock.json` — generated.
-- Push and network follow the profile's lines; a blocked push is reported as pending.
+- Push and network follow the profile; a blocked push is reported pending.
 
 ### Environment
 
-- The working copy is the owner's pinned OneDrive checkout, `core.fileMode` false; a change no session made is reported, never committed. Recovery: `finisher/DEV-INFRASTRUCTURE.md`, "When the toolchain stalls on this filesystem".
+- The working copy is the owner's pinned OneDrive checkout, `core.fileMode` false; a change no session made is reported, never committed. Recovery: `finisher/DEV-INFRASTRUCTURE.md`, its toolchain-stall section.
 - Every file belongs to one ledger, by its folder: `finisher/` to VH, `name-graphics/` to VNG, the rest to UVT. An item changes only what its ledger owns. `shared/` is common to every tool: code moves there when a second tool needs it, a change there is a parent item, and it closes only with every tool's gate green. Shared source is not a dependency.
 - The owner owns structure and design: do the work; explain only when asked.
 - `CLAUDE.local.md` holds personal instructions; harness memories are not the record.
@@ -43,6 +43,7 @@
 | a container, external system, boundary or interface change | project/architecture.md | 400 | none |
 | UI state, component or journey | docs/accessibility.md | 300 | the owner signs each exception |
 | JavaScript exports, shapes or callers | project/digests/jsdoc.md | 400 | the owner signs each exception |
+| an interface, core, player, export or dependency change | project/digests/app-opinion.md | 650 | the owner signs each departure |
 
 ## Signed
 
