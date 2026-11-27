@@ -1,7 +1,8 @@
 # Next steps
 
 Written 2026-11-12 during a repository tidy; brought up to date on
-2026-11-26 for Phase 12, the full pm-skills stack (PLAN-12). The
+2026-11-26 for Phase 12, the full pm-skills stack (PLAN-12), and on
+2026-11-27 at VH-249's close. The
 live record is the ledger in [`project/`](project/); this page is a short
 summary of it. The order of work across every tool is in the
 repository's [`NEXT_STEPS.md`](../NEXT_STEPS.md).
@@ -19,8 +20,8 @@ repository's [`NEXT_STEPS.md`](../NEXT_STEPS.md).
   writer per checkout: two chats on two tools at once need a second clone.
 - The owner's sheet is answered (decisions, PLAN-9, 2026-11-25): every
   recommendation accepted, 26 points to build with Codex checking each,
-  seven waiting on a person's check. The 26 wait for Phase 12, whose
-  VH-249 brings the Codex model policy.
+  seven waiting on a person's check. The 26 wait for Phase 12; VH-249
+  brought the Codex model policy (2026-11-27).
 - Release 0.3.1 is cut (VH-245, 2026-11-25): tag `v0.3.1`, its Xerte zip
   in `release/`. Nothing is uploaded: the upload is the owner's (VH-14).
   `main` and the preview are ahead of it: VH-161's offline after first
@@ -47,10 +48,11 @@ repository's [`NEXT_STEPS.md`](../NEXT_STEPS.md).
 1. **Phase 12, the full pm-skills stack** (PLAN-12, the owner's word of
    2026-11-26 in the parent's PLAN-11): the Finisher rebuilt on the app
    opinion's forms kind with React and Carbon React, each step reviewed
-   by Codex. First **VH-249**, after the parent's UVT-7: the packs, the
-   baseline accessibility run and the correction of the specification,
-   which the owner approves before **VH-250** starts; then VH-251 (after
-   Name Graphics' pilot, VNG-15) and VH-252.
+   by Codex. **VH-249** shipped on 2026-11-27: the packs, the baseline
+   accessibility run (start-up blocked in the pack's browser, as ruled)
+   and the specification corrected by the owner. Next **VH-250**; then
+   VH-251 (after Name Graphics' pilot, VNG-15, with a browser that opens
+   the file states, wish VH-249.5) and VH-252.
 2. **VH-129**, the staff and student editions, on the rebuilt Finisher,
    after Phase 12 and the parent's UVT-9; its plan asks the owner what
    each edition keeps and is called.

@@ -11,6 +11,7 @@
 ## Phase 12 — The full pm-skills stack: the Finisher rebuilt on it — the owner's word of 2026-11-26
 
 - VH-248 — the rules' Always, with its Environment, trimmed from 451 words to 399 within its 400 guideline, no obligation weakened, the secrets and harness-memory clauses carried by the profile's Secrets and Harness lines, signed as delegated by VH-249's budgets step (2026-11-27) — see decisions
+- VH-249 — the Finisher's packs and signed lines: the model policy and its hand-kept Codex hooks, the budgets (shipping VH-248), Node and Set 1's record, the owner's corrections of the specification, the four runtime dependencies and the Carbon lines, the engineering document and the architecture record, the app opinion, JSDoc's ratchet at 0, and the accessibility pack at extended depth with today's interface's baseline, its start-up blocked in the pack's browser as ruled (2026-11-27) — see decisions
 
 ## The UoN Video Tools restructure — the owner's word of 2026-11-25
 

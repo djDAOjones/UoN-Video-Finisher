@@ -35,8 +35,7 @@ The public release on Xerte (PLAN-6) is VH-245's cut, 0.3.1.
 
 ### Phase 12 — The full pm-skills stack: the Finisher rebuilt on it — the owner's word of 2026-11-26
 
-- [~] VH-249 — The Finisher's packs and signed lines: the model policy, accessibility testing at extended depth with today's interface declared as the baseline, JSDoc on its scripts, the architecture record, the App opinion line and Set 1 — since 2026-11-26 — (from: PLAN-12, 2026-11-26)
-- [ ] VH-250 — The forms kind's layout: `src/core/` framework-free, `src/adapters/`, `src/ui/`, the boundaries, Knip and the typecheck split, every test moving with its code — since 2026-11-26 — (from: PLAN-12, 2026-11-26) — blocked: VH-249
+- [ ] VH-250 — The forms kind's layout: `src/core/` framework-free, `src/adapters/`, `src/ui/`, the boundaries, Knip and the typecheck split, every test moving with its code — since 2026-11-26 — (from: PLAN-12, 2026-11-26)
 - [ ] VH-251 — The interface rebuilt in React and Carbon React: every step, state, dialog and language, the theme at AAA, behaviour checks as accessibility journeys — since 2026-11-26 — (from: PLAN-12, 2026-11-26) — blocked: VH-250, VNG-15
 - [ ] VH-252 — Accessibility in the gate and the phase close: `npm run a11y` green at AAA or each exception signed, the extended run attended, the Xerte package rebuilt — since 2026-11-26 — (from: PLAN-12, 2026-11-26) — blocked: VH-251
 
