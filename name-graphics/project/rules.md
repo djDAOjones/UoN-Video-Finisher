@@ -40,7 +40,8 @@
 | build, dev server, scripts, deploy, versioning | README.md | 1,200 | |
 | a brand pack | brands/README.md | 500 | the owner approves each UoN asset |
 | briefing a session or second model; any close | project/model-policy.md | 400 | the owner signs the policy |
+| a container, external system, boundary or interface change | project/architecture.md | 400 | none |
 
 ## Signed
 
-- Owner (delegated, not reviewed): Joe, 2026-11-27 — see the parent's PLAN-11 (2026-11-26), "everything approved"; VNG-14 added the model policy's row
+- Owner (delegated, not reviewed): Joe, 2026-11-27 — see the parent's PLAN-11 (2026-11-26), "everything approved"; VNG-14 added By-task rows

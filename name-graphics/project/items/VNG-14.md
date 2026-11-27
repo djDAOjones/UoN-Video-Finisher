@@ -26,7 +26,7 @@ stack on the root's one install before the Finisher's rebuild.
 
 Updated: 2026-11-27
 
-Next step: the architecture record (the early start, 2026-11-27); the rest after UVT-7's close.
+Next step: paused for UVT-7's close (the early start, 2026-11-27): then the packs, the root's compiler checks and lint layers, the JSDoc pack, the typecheck projects, the entry check and the signed lines.
 
 Open question: None.
 
@@ -46,3 +46,4 @@ Open question: None.
 - 2026-11-26 — Codex's fourth review (gpt-6.2-astra): the copied harness's passing policy, and the Design system introduction as well as the token table. Folded in above.
 - 2026-11-27 — The model policy's row leaves the rules file at 583 words of 600: 17 to spare for the four By-task rows to come, so the signed lines are compressed first where needed.
 - 2026-11-27 — The Node line leaves the profile at 399 words of 400: the later steps' signed lines are compressed first.
+- 2026-11-27 — The architecture record's row leaves the rules file at 597 words of 600: the three rows to come need its signed lines compressed first.
