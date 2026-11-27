@@ -23,12 +23,13 @@
 ## Stack and infrastructure
 
 - Runtime: TypeScript (strict), React, Vite, Vitest; Chrome with WebCodecs [guess]; Node ^22.19.0 || ^24.0.0 || >=26.0.0
-- Gate: `npm run check` — non-mutating: the code and docs checks, the neutral-build check, then the checker; CI runs it before every publish
+- Gate: `npm run check` — non-mutating: the code and docs checks, `npm run typecheck` with the JSDoc ratchet, the neutral-build check, then the checker; CI runs it before every publish
 - Hosting and deploy: Xerte, the public home, the owner's flat upload per release; GitHub Pages, the unadvertised preview, from each push to `main`
 - Harness: Claude Code and Codex, hooks kept by hand, never by `tools/harness.mjs`; this ledger outranks a harness's memory
 - Handoff: Claude Code plans and executes; Codex reviews read-only, per the model policy
 - Secrets: none held; never in source, URLs, logs or the bundle; a leak is rotated first, then a `[!]` line and a decision
 - Accessibility testing: extended
+- JSDoc type check: ratchet
 - Dependencies: the root's one install (UVT-7), Set 1 exact; at runtime, the rules' line
 - Structure: `project/structure.md` (generated)
 
@@ -40,6 +41,7 @@
   - 7:1 contrast in every pack, 44 px targets, focus appearance; exceptions recorded
 - Nielsen's ten usability heuristics → digest: nielsen
   - status visible and announced; errors say what next; no power-user controls
+- JSDoc house digest → digest: jsdoc
 - House conventions, carried from the Finisher → digest: house-conventions
 
 ## Conventions
