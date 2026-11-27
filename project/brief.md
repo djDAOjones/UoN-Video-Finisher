@@ -41,10 +41,21 @@ AI sessions, and the colleagues at the campuses who check translations.
 
 - Browser-only, static, no media or typed text leaving the device, as
   each tool's rules say.
-- One repository, one install at the root; one runtime dependency,
-  mediabunny; shared source imported by path, never a package.
-- The checkout is the owner's OneDrive copy, pinned (D2).
-- WCAG 2.2 AAA and Carbon productive design in our own code.
+- One repository, one install at the root; four runtime dependencies,
+  mediabunny, react, react-dom and @carbon/react, a fifth only on
+  asking; shared source imported by path, never a package.
+- The checkout is the owner's OneDrive copy, pinned (D2), with
+  `node_modules` at its root (UVT-7).
+- WCAG 2.2 AAA, and Carbon in its productive style. The Carbon rule,
+  which each tool's `UI-STANDARDS.md` cites rather than restates
+  (UVT-7): a tool's interface uses Carbon React's components
+  (@carbon/react, Set 1) and Carbon's patterns wherever one fits; a
+  control of the tool's own code, built on Carbon's conventions, only
+  where none fits, with a decision in the tool's ledger saying why; two
+  token systems, the brand's for colour and typeface and Carbon's for
+  shape, motion and status colour, never collapsed; where Carbon's
+  defaults meet AA only, the profile's AAA lines (7:1 contrast, 44 px
+  targets, focus appearance) override them.
 - On Pages: one site, the staff lobby at the top, each tool or edition
   a folder beside the others, never inside another's; no service worker
   for the lobby.
@@ -63,4 +74,4 @@ AI sessions, and the colleagues at the campuses who check translations.
 
 ## Signed
 
-- Owner: Joe, 2026-11-26.
+- Owner (delegated, not reviewed): Joe, 2026-11-26 — see PLAN-11 (2026-11-26), "everything approved"; UVT-7 rewrote the Constraints

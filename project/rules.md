@@ -19,7 +19,7 @@
 ### Environment
 
 - The working copy is the owner's pinned OneDrive checkout, `core.fileMode` false; a change no session made is reported, never committed. Recovery: `finisher/DEV-INFRASTRUCTURE.md`, "When the toolchain stalls".
-- A chat on a tool's folder works that tool, one on the root this ledger. One writer per checkout across all three; a second chat needs its own clone or worktree.
+- A chat on a tool's folder works that tool, one on the root this ledger; a second chat needs its own clone or worktree outside OneDrive, with its own install.
 - Never regenerate a tool's hooks with `tools/harness.mjs`: below the root it writes the tool's folder into the hook's path, which suits only a chat on the root. The hand-kept settings stand.
 - The handover is one per checkout: if the start notice names another ledger's item or says it is held, ask the owner.
 - The owner, a vibe coder, owns structure and design: do the work; explain only when asked.
@@ -41,4 +41,4 @@
 
 ## Signed
 
-- Owner (delegated, not reviewed): Joe, 2026-11-26 — see PLAN-11 (2026-11-26), "everything approved"; UVT-7 added the model policy's row
+- Owner (delegated, not reviewed): Joe, 2026-11-26 — see PLAN-11 (2026-11-26), "everything approved"; UVT-7 added the model policy's row and a second clone's place outside OneDrive
