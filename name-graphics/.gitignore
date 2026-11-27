@@ -21,7 +21,9 @@ release/
 
 # Generated harness files with absolute paths; regenerate with tools/harness.mjs
 /harness/
-/.codex/
+# Codex's local layer, but for its hooks file, written by hand (VNG-14)
+/.codex/*
+!/.codex/hooks.json
 
 # Tool-local AI preferences
 /CLAUDE.local.md

@@ -26,7 +26,7 @@ stack on the root's one install before the Finisher's rebuild.
 
 Updated: 2026-11-27
 
-Next step: the Codex hooks; then the Node range with Set 1's signed record, and the architecture record (the early start, 2026-11-27); the rest after UVT-7's close.
+Next step: the Node range with Set 1's signed record, and the architecture record (the early start, 2026-11-27); the rest after UVT-7's close.
 
 Open question: None.
 
