@@ -30,7 +30,10 @@ comes next, ledger by ledger, is [NEXT_STEPS.md](NEXT_STEPS.md).
   says where it may write: `VH-n` only `finisher/`, `VNG-n` only
   `name-graphics/`, `UVT-n` the rest. The root gate checks it.
 - **Install once, at the root:** `npm ci`. Each tool finds the install by
-  walking up; no tool has a lockfile or `node_modules` of its own.
+  walking up; no tool has a lockfile or an install of its own (a tool's
+  `node_modules/`, where present, holds links to the root's copies, made
+  by `scripts/link-root-install.mjs`, and the caches Vite and Vitest
+  write, such as `.vite` and `.vitest-cache`).
 - **The gate:** `npm run check` in a tool's folder runs that tool's gate;
   at the root it runs every tool's in turn, then `shared/`'s lint, types
   and tests, the commit-ID check and the parent's checker.

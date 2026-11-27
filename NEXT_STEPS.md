@@ -14,13 +14,13 @@ and the order of work across them, which is the parent ledger's.
    place"). Run by an orchestrator chat with sub-chats, as
    `verbs/orchestrate.md` says, each step reviewed by Codex on
    gpt-6.2-astra:
-   1. **UVT-7**, the stack's foundation at the root.
+   1. **UVT-7**, the stack's foundation at the root: shipped 2026-11-27.
    2. Then in parallel, their folders apart: **UVT-8** (the root's packs),
       **VNG-14** (Name Graphics' packs), **VH-249** (the Finisher's packs).
    3. **VNG-15**, Name Graphics rebuilt on the stack, the pilot, after
       VNG-14 and UVT-8 (Playwright's browser in CI).
-   4. **VH-250**, once the owner has approved the correction of the
-      Finisher's specification that VH-249 asks; then **VH-251**, after
+   4. **VH-250**, after VH-249 (the Finisher's specification corrected
+      with the owner's approval, `9b2acf81`); then **VH-251**, after
       VNG-15, and **VH-252**: the Finisher's layout, its interface in
       React and Carbon React, accessibility in the gate.
    5. **UVT-9**, after UVT-8, VH-252 and VNG-15: the shared defaults
@@ -42,16 +42,14 @@ and the order of work across them, which is the parent ledger's.
 
 | Ledger | Folder | Next | Then |
 | --- | --- | --- | --- |
-| UoN Video Tools, `UVT-n` | the root | UVT-7, the stack's foundation | UVT-8 |
-| Video Finisher, `VH-n` | `finisher/` | VH-249, after UVT-7 | VH-250 to VH-252, then VH-129 |
-| Video Name Graphics, `VNG-n` | `name-graphics/` | VNG-14, after UVT-7 | VNG-15, then VNG-2 |
+| UoN Video Tools, `UVT-n` | the root | UVT-8, the root's packs | UVT-9 |
+| Video Finisher, `VH-n` | `finisher/` | VH-249 | VH-250 to VH-252, then VH-129 |
+| Video Name Graphics, `VNG-n` | `name-graphics/` | VNG-14 | VNG-15, then VNG-2 |
 
 ## The owner's own
 
 - **VH-14:** the Xerte upload of the Finisher's 0.3.1 zip.
 - **VH-137:** the accessibility statement's review, its date past.
-- **The correction of the Finisher's specification** (VH-249): React
-  enters the Finisher only after the owner approves it.
 - **The extended accessibility runs** at each phase close, with
   VoiceOver, attended.
 - **The Mac Pro**, when it next takes work: a clone or its OneDrive
