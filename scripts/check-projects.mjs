@@ -95,7 +95,7 @@ function inGit(cwd) {
     })
     return out.trim() === 'true'
   } catch (e) {
-    // Only Git's "no repository here or above"; a broken checkout ("not a git repository: <path>") is thrown.
+    // False only when Git's stderr matches its "no repository here or above" message; every other failure is thrown.
     if (
       /not a git repository \(or any (of the parent directories|parent up to mount point)/i.test(
         String(e.stderr),

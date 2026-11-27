@@ -3,7 +3,7 @@
 // tsconfig files extending the root's layers by absolute path; nothing is written in the repository.
 import { test, after } from 'node:test'
 import assert from 'node:assert/strict'
-import { execFileSync } from 'node:child_process'
+import { execFileSync, spawnSync } from 'node:child_process'
 import {
   mkdirSync,
   mkdtempSync,
@@ -501,14 +501,34 @@ test('a broken Git checkout is an error, never a silent walk, and the other find
     '.git': `gitdir: ${join(tmpdir(), 'uvt7-no-such-git')}\n`,
     'tsconfig.json': { layers: ['app'], include: ['src'] },
   })
-  assert.throws(() => folderFiles(dir), /not a git repository/)
+  const here = realpathSync.native(dir)
+  // Git's sentence differs by version ("not a git repository: …" on 2.50, "gitfile does not point to a valid
+  // repository: …" on CI's newer Git), so Git is asked here, apart from the check, in the check's environment,
+  // and the check is held to what Git said: that Git failed, and the check's own framing around its words.
+  const env = { ...process.env, LC_ALL: 'C', LANGUAGE: 'C' }
+  for (const name of gitLocalVariables()) delete env[name]
+  const asked = spawnSync('git', ['rev-parse', '--is-inside-work-tree'], {
+    cwd: here,
+    env,
+    encoding: 'utf8',
+  })
+  assert.ok(
+    Number.isInteger(asked.status) && asked.status > 0 && asked.stderr.trim() !== '',
+    `Git should fail on the broken checkout: ${asked.status} ${asked.stderr}`,
+  )
+  const gitLine = asked.stderr.trim().split('\n')[0]
+  assert.throws(
+    () => folderFiles(here),
+    (e) => e.status === asked.status && e.stderr === asked.stderr && String(e).includes(gitLine),
+  )
   const problems = await checkProjects({ projects: ['tsconfig.json', 'missing.json'], cwd: dir })
   assert.ok(
     problems.some((p) => /^missing\.json: /.test(p)),
     problems.join('\n'),
   )
   assert.ok(
-    problems.some((p) => /Git could not list the folder's files: .*not a git repository/.test(p)),
+    problems.includes(`${here}: Git could not list the folder's files: ${gitLine}`),
+    problems.join('\n'),
   )
 })
 
