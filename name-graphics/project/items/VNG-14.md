@@ -26,7 +26,7 @@ stack on the root's one install before the Finisher's rebuild.
 
 Updated: 2026-11-27
 
-Next step: project/model-policy.md from the root's, with its routed row in the rules file; then the Codex hooks, the Node range with Set 1's signed record, and the architecture record (the early start, 2026-11-27); the rest after UVT-7's close.
+Next step: the Codex hooks; then the Node range with Set 1's signed record, and the architecture record (the early start, 2026-11-27); the rest after UVT-7's close.
 
 Open question: None.
 
@@ -44,3 +44,4 @@ Open question: None.
 - 2026-11-26 — Codex's review of the record (gpt-6.2-astra): the same-basename trap, the five typecheck projects, the JSDoc entries intake asks for, the Codex hooks' fresh-checkout check, `UI-STANDARDS.md` and the brief's Constraints among the signed edits, and the architecture's planned interactions told apart from the seed. Folded in above.
 - 2026-11-26 — Codex's third review (gpt-6.2-astra): naming the `.tsx` in `include` does not save it, so the entry takes its own basename; this item copies the whole starter, so the local-storage sample is kept out here, not first in VNG-15. Folded in above.
 - 2026-11-26 — Codex's fourth review (gpt-6.2-astra): the copied harness's passing policy, and the Design system introduction as well as the token table. Folded in above.
+- 2026-11-27 — The model policy's row leaves the rules file at 583 words of 600: 17 to spare for the four By-task rows to come, so the signed lines are compressed first where needed.

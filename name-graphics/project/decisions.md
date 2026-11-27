@@ -19,6 +19,13 @@
      moves the oldest entries verbatim to project/decisions-{YYYY-MM}.md
      and adds one line to project/archive-index.md. -->
 
+## 2026-11-27 — VNG-14 — Name Graphics keeps the parent's model policy, routed from its rules file, signed as delegated
+
+**Decision:** Name Graphics keeps a model policy, `project/model-policy.md`, the parent's (UVT-7) under this tool's name: every step of an item its own commit, Claude's model and effort in its `Verify:` line, Codex on `gpt-6.2-astra`, read-only, reviewing the candidate diff before it lands and rechecking after fixes, the revision named in the `Checked:` line; routed from the rules file, both signed as delegated — on the owner's word of 2026-11-26, "everything approved" (the parent's PLAN-11).
+**Rationale:** The policy is the parent's text word for word but for its title and Signed line, so one rule governs every ledger's steps: the parent's decision UVT-7 gives why an item's step is its own row and why the routed row's budget is 400, not the template's 300 (the template's instructions kept whole beside the new row); the file is 400 words or fewer by the checker. The rules file gains the template's By-task row at budget 400; its Signed line becomes delegated because VNG-14 added the row, as the parent's did for UVT-7. This completes the model-policy part of wish VNG-11.2, promoted by PLAN-13; its Codex hooks part is VNG-14's next step. The rules file stands at 583 words of its 600 after the row, 17 to spare for the four By-task rows the later steps add (the accessibility pack, the app opinion's digest, the JSDoc digest, the architecture record): as the item says, its signed lines are compressed first where needed (VNG-13's trim).
+**Supersedes:** none
+**Deferred:** none
+
 ## 2026-11-27 — VNG-14 — The early start: VNG-14 begins on the parent's UVT-7 steps 1 and 2; its steps needing UVT-7's open steps wait for its close
 
 **Decision:** VNG-14 starts now on what the parent's UVT-7 has landed (step 1, `d88d7d0c`, the model policy and Codex hooks; step 2, `8fc7cf9f`, Set 1, the Node range and Set 1's signed record): the model policy, this folder's Codex hooks, the Node range, `project/app/set1.json` and the architecture record; the packs' copies, the root's compiler checks and lint layers, the JSDoc ratchet, the five typecheck projects, the entry check and every line citing the root's Carbon rule wait for UVT-7's close — on the owner's word of 2026-11-27, "open additional sub chats when needed, dont pause by asking".
