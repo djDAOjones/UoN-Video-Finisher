@@ -24,9 +24,9 @@ stack on the root's one install before the Finisher's rebuild.
 
 ## Now
 
-Updated: 2026-11-26
+Updated: 2026-11-27
 
-Next step: after UVT-7 lands, the model policy, then the packs.
+Next step: project/model-policy.md from the root's, with its routed row in the rules file; then the Codex hooks, the Node range with Set 1's signed record, and the architecture record (the early start, 2026-11-27); the rest after UVT-7's close.
 
 Open question: None.
 
