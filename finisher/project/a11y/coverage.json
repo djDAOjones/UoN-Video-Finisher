@@ -3,88 +3,88 @@
   "level": "AAA",
   "features": {
     "media": {
-      "state": "unknown",
-      "evidence": ""
+      "state": "present",
+      "evidence": "index.html:203 the trim preview <video controls> plays the chosen video; src/main.ts:3229 the finished video plays in its own player; a result carries the product's own media only as chosen: the closing graphics in public/branding/ (closing-onset-*.webm, closing-tail-*.mp4; video only by ffprobe, 2026-11-27) unless No closing graphics (index.html:480), and the drawn card unless a staff video's card is unticked (index.html:314)"
     },
     "live-media": {
-      "state": "unknown",
-      "evidence": ""
+      "state": "absent",
+      "evidence": "no getUserMedia or live stream in src/ (grep, 2026-11-27); both players play local files (index.html:203, src/main.ts:3229)"
     },
     "autoplay-audio": {
-      "state": "unknown",
-      "evidence": ""
+      "state": "absent",
+      "evidence": "index.html:203 preload=\"metadata\" and no autoplay; src/main.ts:3224 \"nothing autoplays (spec 9.3)\""
     },
     "pdf": {
-      "state": "unknown",
-      "evidence": ""
+      "state": "absent",
+      "evidence": "no PDF offered: the one file the page gives is the MP4 the user makes (index.html:81, src/media/save.ts:45)"
     },
     "native-ios": {
-      "state": "unknown",
-      "evidence": ""
+      "state": "absent",
+      "evidence": "a web page only: one entry, vite.config.ts:211 input { app: index.html }; docs/01-specification.md:783 built for Chrome"
     },
     "native-android": {
-      "state": "unknown",
-      "evidence": ""
+      "state": "absent",
+      "evidence": "a web page only: one entry, vite.config.ts:211 input { app: index.html }; docs/01-specification.md:783 built for Chrome"
     },
     "flashing": {
-      "state": "unknown",
-      "evidence": ""
+      "state": "absent",
+      "evidence": "the product's authored media: the closings a 1 s fade or slide onset and an opaque tail (public/branding/README.md:16-21), the card a still held 5 s (src/config/cards.ts:167); the page's one keyframe animation slides the progress band (src/styles/app.css:798), no blink or flash; the user's own video is theirs (index.html:780)"
     },
     "moving-content": {
-      "state": "unknown",
-      "evidence": ""
+      "state": "present",
+      "evidence": "src/styles/app.css:798 the indeterminate progress band moves while a video is made; src/main.ts:2301 its stage line and time left update on every report"
     },
     "authentication": {
-      "state": "unknown",
-      "evidence": ""
+      "state": "absent",
+      "evidence": "no sign-in, account or server: docs/01-specification.md:79 \"No server\", :818 static files only"
     },
     "multi-step": {
-      "state": "unknown",
-      "evidence": ""
+      "state": "present",
+      "evidence": "six numbered steps on one page, index.html:113 (step 1) to index.html:601 (step 6); docs/01-specification.md:588"
     },
     "timers": {
-      "state": "unknown",
-      "evidence": ""
+      "state": "absent",
+      "evidence": "no time limit or session: the finished video stays until another video or the tab closes (index.html:682)"
     },
     "interruptions": {
-      "state": "unknown",
-      "evidence": ""
+      "state": "present",
+      "evidence": "index.html:617 the status line announces each stage while a video is made; index.html:654 \"Announce progress\" postpones them (2.2.4)"
     },
     "pointer-gestures": {
-      "state": "unknown",
-      "evidence": ""
+      "state": "present",
+      "evidence": "dragging: the drop zone takes a dragged file (index.html:126) and the trim handles drag (index.html:214); alternatives named at index.html:191"
     },
     "device-motion": {
-      "state": "unknown",
-      "evidence": ""
+      "state": "absent",
+      "evidence": "no devicemotion or deviceorientation listener in src/ (grep, 2026-11-27)"
     },
     "hover-focus-content": {
-      "state": "unknown",
-      "evidence": ""
+      "state": "absent",
+      "evidence": "index.html:497 the toggletips open by click, Enter or Space, never hover; no title attribute in index.html or src/ui; the skip link (index.html:18) shows itself on focus, no added content"
     },
     "keyboard-shortcuts": {
-      "state": "unknown",
-      "evidence": ""
+      "state": "absent",
+      "evidence": "no printable-character shortcut: the only key handlers are Escape (src/main.ts:806, :849) and a focused trim handle's own keys (src/main.ts:2197)"
     },
     "user-input": {
-      "state": "unknown",
-      "evidence": ""
+      "state": "present",
+      "evidence": "the file input (index.html:129), the trim times (index.html:225), the title card and submission fields (index.html:331 on), the feedback message (index.html:901)"
     },
     "page-set": {
-      "state": "unknown",
-      "evidence": ""
+      "state": "absent",
+      "evidence": "one page: vite.config.ts:211 input { app: index.html }; the accessibility statement is on it (index.html:744)"
     },
     "languages": {
-      "state": "unknown",
-      "evidence": ""
+      "state": "present",
+      "evidence": "the page in en-GB, zh-Hans and ms-MY (src/config/languages.ts:37), each language name in its own lang (src/ui/language-switcher.ts:71)"
     },
     "canvas": {
-      "state": "unknown",
-      "evidence": ""
+      "state": "absent",
+      "evidence": "no <canvas> on the page; src/main.ts:2882 a canvas context only measures the title card's text"
     },
     "exports": {
-      "state": "unknown",
-      "evidence": ""
+      "state": "present",
+      "evidence": "the finished MP4 is saved for people to use: src/media/save.ts:45 (save picker or download), :132"
     }
   },
   "rows": {
@@ -99,7 +99,7 @@
     "1.2.1": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "applicable"
       },
       "evidence": [],
       "results": []
@@ -107,7 +107,7 @@
     "1.2.2": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "applicable"
       },
       "evidence": [],
       "results": []
@@ -115,7 +115,7 @@
     "1.2.3": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "applicable"
       },
       "evidence": [],
       "results": []
@@ -123,7 +123,10 @@
     "1.2.4": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "not_applicable",
+        "absent": [
+          "live-media"
+        ]
       },
       "evidence": [],
       "results": []
@@ -131,7 +134,7 @@
     "1.2.5": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "applicable"
       },
       "evidence": [],
       "results": []
@@ -139,7 +142,7 @@
     "1.2.6": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "applicable"
       },
       "evidence": [],
       "results": []
@@ -147,7 +150,7 @@
     "1.2.7": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "applicable"
       },
       "evidence": [],
       "results": []
@@ -155,7 +158,7 @@
     "1.2.8": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "applicable"
       },
       "evidence": [],
       "results": []
@@ -163,7 +166,10 @@
     "1.2.9": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "not_applicable",
+        "absent": [
+          "live-media"
+        ]
       },
       "evidence": [],
       "results": []
@@ -203,7 +209,7 @@
     "1.3.5": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "applicable"
       },
       "evidence": [],
       "results": []
@@ -227,7 +233,10 @@
     "1.4.2": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "not_applicable",
+        "absent": [
+          "autoplay-audio"
+        ]
       },
       "evidence": [],
       "results": []
@@ -267,7 +276,7 @@
     "1.4.7": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "applicable"
       },
       "evidence": [],
       "results": []
@@ -315,7 +324,10 @@
     "1.4.13": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "not_applicable",
+        "absent": [
+          "hover-focus-content"
+        ]
       },
       "evidence": [],
       "results": []
@@ -347,7 +359,10 @@
     "2.1.4": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "not_applicable",
+        "absent": [
+          "keyboard-shortcuts"
+        ]
       },
       "evidence": [],
       "results": []
@@ -355,7 +370,10 @@
     "2.2.1": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "not_applicable",
+        "absent": [
+          "timers"
+        ]
       },
       "evidence": [],
       "results": []
@@ -363,7 +381,7 @@
     "2.2.2": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "applicable"
       },
       "evidence": [],
       "results": []
@@ -371,7 +389,10 @@
     "2.2.3": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "not_applicable",
+        "absent": [
+          "timers"
+        ]
       },
       "evidence": [],
       "results": []
@@ -379,7 +400,7 @@
     "2.2.4": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "applicable"
       },
       "evidence": [],
       "results": []
@@ -387,7 +408,11 @@
     "2.2.5": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "not_applicable",
+        "absent": [
+          "authentication",
+          "timers"
+        ]
       },
       "evidence": [],
       "results": []
@@ -395,7 +420,10 @@
     "2.2.6": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "not_applicable",
+        "absent": [
+          "timers"
+        ]
       },
       "evidence": [],
       "results": []
@@ -403,7 +431,10 @@
     "2.3.1": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "not_applicable",
+        "absent": [
+          "flashing"
+        ]
       },
       "evidence": [],
       "results": []
@@ -411,7 +442,10 @@
     "2.3.2": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "not_applicable",
+        "absent": [
+          "flashing"
+        ]
       },
       "evidence": [],
       "results": []
@@ -427,7 +461,10 @@
     "2.4.1": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "not_applicable",
+        "absent": [
+          "page-set"
+        ]
       },
       "evidence": [],
       "results": []
@@ -459,7 +496,10 @@
     "2.4.5": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "not_applicable",
+        "absent": [
+          "page-set"
+        ]
       },
       "evidence": [],
       "results": []
@@ -483,7 +523,10 @@
     "2.4.8": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "not_applicable",
+        "absent": [
+          "page-set"
+        ]
       },
       "evidence": [],
       "results": []
@@ -531,7 +574,7 @@
     "2.5.1": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "applicable"
       },
       "evidence": [],
       "results": []
@@ -555,7 +598,10 @@
     "2.5.4": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "not_applicable",
+        "absent": [
+          "device-motion"
+        ]
       },
       "evidence": [],
       "results": []
@@ -579,7 +625,7 @@
     "2.5.7": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "applicable"
       },
       "evidence": [],
       "results": []
@@ -603,7 +649,7 @@
     "3.1.2": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "applicable"
       },
       "evidence": [],
       "results": []
@@ -659,7 +705,10 @@
     "3.2.3": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "not_applicable",
+        "absent": [
+          "page-set"
+        ]
       },
       "evidence": [],
       "results": []
@@ -667,7 +716,10 @@
     "3.2.4": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "not_applicable",
+        "absent": [
+          "page-set"
+        ]
       },
       "evidence": [],
       "results": []
@@ -683,7 +735,10 @@
     "3.2.6": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "not_applicable",
+        "absent": [
+          "page-set"
+        ]
       },
       "evidence": [],
       "results": []
@@ -691,7 +746,7 @@
     "3.3.1": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "applicable"
       },
       "evidence": [],
       "results": []
@@ -699,7 +754,7 @@
     "3.3.2": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "applicable"
       },
       "evidence": [],
       "results": []
@@ -707,7 +762,7 @@
     "3.3.3": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "applicable"
       },
       "evidence": [],
       "results": []
@@ -715,7 +770,7 @@
     "3.3.4": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "applicable"
       },
       "evidence": [],
       "results": []
@@ -731,7 +786,7 @@
     "3.3.6": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "applicable"
       },
       "evidence": [],
       "results": []
@@ -739,7 +794,7 @@
     "3.3.7": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "applicable"
       },
       "evidence": [],
       "results": []
@@ -747,7 +802,10 @@
     "3.3.8": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "not_applicable",
+        "absent": [
+          "authentication"
+        ]
       },
       "evidence": [],
       "results": []
@@ -755,7 +813,10 @@
     "3.3.9": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "not_applicable",
+        "absent": [
+          "authentication"
+        ]
       },
       "evidence": [],
       "results": []
@@ -891,7 +952,11 @@
     "SUP04": {
       "adoption": "advisory",
       "applicability": {
-        "state": "unresolved"
+        "state": "not_applicable",
+        "absent": [
+          "native-ios",
+          "native-android"
+        ]
       },
       "evidence": [],
       "results": []
@@ -947,7 +1012,11 @@
     "N01": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "not_applicable",
+        "absent": [
+          "native-ios",
+          "native-android"
+        ]
       },
       "evidence": [],
       "results": []
@@ -955,7 +1024,11 @@
     "N02": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "not_applicable",
+        "absent": [
+          "native-ios",
+          "native-android"
+        ]
       },
       "evidence": [],
       "results": []
@@ -963,7 +1036,11 @@
     "N03": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "not_applicable",
+        "absent": [
+          "native-ios",
+          "native-android"
+        ]
       },
       "evidence": [],
       "results": []
@@ -971,7 +1048,11 @@
     "N04": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "not_applicable",
+        "absent": [
+          "native-ios",
+          "native-android"
+        ]
       },
       "evidence": [],
       "results": []
@@ -979,7 +1060,11 @@
     "N05": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "not_applicable",
+        "absent": [
+          "native-ios",
+          "native-android"
+        ]
       },
       "evidence": [],
       "results": []
@@ -987,7 +1072,11 @@
     "N06": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "not_applicable",
+        "absent": [
+          "native-ios",
+          "native-android"
+        ]
       },
       "evidence": [],
       "results": []
@@ -995,7 +1084,11 @@
     "N07": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "not_applicable",
+        "absent": [
+          "native-ios",
+          "native-android"
+        ]
       },
       "evidence": [],
       "results": []
@@ -1003,7 +1096,11 @@
     "N08": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "not_applicable",
+        "absent": [
+          "native-ios",
+          "native-android"
+        ]
       },
       "evidence": [],
       "results": []

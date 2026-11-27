@@ -11,6 +11,8 @@
     // Linting a transcript of other files says nothing about either.
     "field-report-uon-video-helper",
     // The v3 migration census and inventory quote the canon rulebooks row by row.
-    "project/migration"
+    "project/migration",
+    // A dated accessibility baseline: the pack's own report, copied as its renderer wrote it (VH-249).
+    "project/a11y/baseline-*/a11y-report.md"
   ],
 }

@@ -1,0 +1,64 @@
+{
+  "schema": 1,
+  "depth": "standard",
+  "date": "2026-11-27",
+  "tree": "aecee37cd7bbaf1189fed85c0aecfa83f5a4483c",
+  "level": "AAA",
+  "tools": {
+    "node": "24.21.0",
+    "playwright": "1.56.1",
+    "@axe-core/playwright": "4.13.0",
+    "axe-core": "4.13.0",
+    "eslint": "9.39.5",
+    "eslint-plugin-jsx-a11y": "6.10.2",
+    "playwright-core": "1.56.1",
+    "chromium": "141.0.7390.37 (headless shell, revision 1194)"
+  },
+  "baseline": null,
+  "projects": {
+    "chromium": "standard"
+  },
+  "declared": {
+    "states": [
+      "empty",
+      "empty-zh-hans",
+      "empty-ms-my",
+      "about-open",
+      "format-help-open",
+      "statement-open",
+      "system-check-open",
+      "feedback-open",
+      "feedback-error",
+      "feedback-details-open",
+      "unreadable",
+      "read",
+      "title-card",
+      "submission",
+      "trim-error",
+      "card-refused"
+    ],
+    "journeys": [
+      "open-about-by-enter",
+      "close-about-by-escape",
+      "choose-submission-by-arrow",
+      "switch-language-by-arrow",
+      "open-statement-by-enter",
+      "write-feedback",
+      "set-start-by-typing",
+      "move-start-by-arrow",
+      "tick-title-card-by-space",
+      "choose-smaller-by-arrow",
+      "create-by-enter",
+      "reading-and-focus-order",
+      "page-title",
+      "pointer-abandon",
+      "pointer-alternatives",
+      "feedback-form",
+      "submission-card-form",
+      "card-kept-across-sides",
+      "progress-quiet-and-stop",
+      "make-and-keep",
+      "make-by-keyboard"
+    ]
+  }
+}

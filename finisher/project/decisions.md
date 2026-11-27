@@ -24,6 +24,16 @@
      moves the oldest entries verbatim to project/decisions-YYYY-MM.md,
      beside this file, listed in project/archive-index.md. -->
 
+## 2026-11-27 — VH-249 — The accessibility baseline records a blocked start-up: the pack's browser cannot encode H.264
+
+**Decision:** today's interface, declared in `tests/a11y/project.mjs` and `project/a11y/coverage.json`, is measured by the standard command as installed; the pack's Chromium headless shell refuses H.264 encode, so the baseline records the blocked start-up and every file state and journey failing "start-up blocked"; the command enters the gate in VH-251 with its first ported journey and reads the live entry from the switch on — on the orchestrator's ruling of 2026-11-27.
+
+**Rationale:** Probes on a `BASE_PATH`-unset build (lane evidence): Playwright 1.56.1's Chromium 141.0.7390.37 headless shell refuses H.264 encode and decode and AAC decode, so the System check fails "Output video format (H.264)" and the picker stays disabled; its full Chromium encodes H.264, refuses H.264 and AAC decode, opens a VP9/Opus WebM. The pack's runner names the headless shell explicitly (`tools/a11y-run.mjs:122-132`, `chromium-headless-shell` in Playwright's `browsers.json`) and its config selects headless Chromium with no channel (`tests/a11y/playwright.config.ts:23`, `:36`), so the run is as installed. `npm run a11y` on 2026-11-27, tree `aecee37c` (`41e3b062` with the two declarations, as corrected on Codex's review): 2 checked, 54 failed, 30 unverified of 86 applicable, as the first run on tree `96e49c23`; ten states open while blocked, each with a reviewed snapshot and one after each of its interactions, so 4.1.2's snapshot method passes in all ten (the row fails on the file states and axe); six file states, five keyboard functions and six journeys fail "start-up blocked", so the corrected trim, make and progress journeys await VH-251's browser. Other failures, named in the report: contrast and forced colours time out at the pack's state-cue click, 2.1.1's radio count, 2.3.3 on 0.01 ms transitions, hidden radio inputs, the statement's two links named "" in the pack's check while it is closed (named, and passing, once it opens), a 20 px help button. The five lint rows read not run. Coverage calls from the interface: media and interruptions present; flashing, hover-focus-content, page-set absent. The report, `run.json` and `methods/lint.json` are in `project/a11y/baseline-2026-11-27/`, ignored by markdownlint as the renderer wrote it (MD034 on the feedback address); `doctor.json` names a home path and stays in the lane. `npm run a11y:doctor -- --no-canary`: engines, touch, media, flash-capture and ai-review ready; blocked: vo (no canary), pdf (no veraPDF), ios-audit (no Xcode), android-checks (no SDK), native-journey (no device). The checker's extended-run warning is VH-252's attended run. VH-251 puts the command in the gate with its first ported journey, against the new interface (its criterion "from the commit that ports a journey"), and reads the live entry from the switch on; VH-249.5 asks it for a browser that opens file states; VH-249.6 is the pack's finding.
+
+**Supersedes:** none
+
+**Deferred:** VH-251, VH-252
+
 ## 2026-11-27 — VH-249 — The Carbon lines cite the root brief's Carbon rule: Carbon through Carbon React, never "our own code, never the packages"
 
 **Decision:** `UI-STANDARDS.md`, the engineering document's UI row and framework sentence, the brief's Direction and accessibility Constraint, and the profile's Carbon line cite the Carbon rule in the root brief's Constraints (2026-11-26 — UVT-7, `c66ffdd1`) rather than restate it; the Runtime line names React from VH-251; the Harness line is shortened, its obligations kept — on "everything approved" (2026-11-26 — PLAN-11).
@@ -467,15 +477,5 @@
 **Rationale:** Record-only, at VH-195's close, on the model of the 2026-11-04 PLAN-7 entries. The phase-close rule takes the PLAN-8 list no other supersedes and fails different lists left standing; five stand, so this and the next four restate the same 53 items, each in place of one; nothing is re-judged. VH-204 and VH-226 move by VH-195's decision; VH-237 joins here, its decision having no Items line by design.
 
 **Supersedes:** 2026-10-30 — PLAN-8 — VH-225 moved between VH-210 and VH-220, so the checks read the renamed page, on the owner's word
-
-**Items:** VH-182, VH-183, VH-184, VH-185, VH-186, VH-187, VH-188, VH-189, VH-190, VH-191, VH-192, VH-193, VH-194, VH-196, VH-197, VH-198, VH-205, VH-199, VH-200, VH-201, VH-202, VH-211, VH-206, VH-207, VH-208, VH-212, VH-213, VH-214, VH-215, VH-216, VH-227, VH-217, VH-229, VH-209, VH-218, VH-230, VH-219, VH-210, VH-225, VH-220, VH-221, VH-222, VH-223, VH-224, VH-231, VH-232, VH-203, VH-233, VH-234, VH-235, VH-236, VH-237, VH-195
-
-## 2026-11-09 — PLAN-8 — Phase 8's 53 items restated whole, in place of pass 3's fix plan's list
-
-**Decision:** Phase 8's items are the 53 the entry above restates, here in place of pass 3's fix plan's list.
-
-**Rationale:** Record-only, at VH-195's close; the reason is the entry above's.
-
-**Supersedes:** 2026-10-27 — PLAN-8 — Pass 3's fix plan: VH-206 to VH-210 for six findings, built after VH-202 and before VH-203
 
 **Items:** VH-182, VH-183, VH-184, VH-185, VH-186, VH-187, VH-188, VH-189, VH-190, VH-191, VH-192, VH-193, VH-194, VH-196, VH-197, VH-198, VH-205, VH-199, VH-200, VH-201, VH-202, VH-211, VH-206, VH-207, VH-208, VH-212, VH-213, VH-214, VH-215, VH-216, VH-227, VH-217, VH-229, VH-209, VH-218, VH-230, VH-219, VH-210, VH-225, VH-220, VH-221, VH-222, VH-223, VH-224, VH-231, VH-232, VH-203, VH-233, VH-234, VH-235, VH-236, VH-237, VH-195

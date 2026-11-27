@@ -42,6 +42,7 @@
 | build, dev server, scripts, deploy, versioning, diagnostics | DEV-INFRASTRUCTURE.md | 4,700 | |
 | code change | project/engineering.md | 3,100 | |
 | a container, external system, boundary or interface change | project/architecture.md | 400 | none |
+| UI state, component or journey | docs/accessibility.md | 300 | the owner signs each exception |
 | an interface, core, player, export or dependency change | project/digests/app-opinion.md | 650 | the owner signs each departure |
 | code change | project/digests/house-conventions.md | 1,700 | |
 | JavaScript exports, shapes or callers | project/digests/jsdoc.md | 400 | the owner signs each exception |

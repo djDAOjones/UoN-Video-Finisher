@@ -354,3 +354,13 @@ Each walk records its machine. Two questions remain for the owner:
 **Supersedes:** 2026-10-27 — PLAN-8 — The owner's old issues planned: VH-212 to VH-224 for the format "?", A and B, before VH-203; VH-211 closes
 
 **Items:** VH-182, VH-183, VH-184, VH-185, VH-186, VH-187, VH-188, VH-189, VH-190, VH-191, VH-192, VH-193, VH-194, VH-196, VH-197, VH-198, VH-205, VH-199, VH-200, VH-201, VH-202, VH-211, VH-206, VH-207, VH-208, VH-212, VH-213, VH-214, VH-215, VH-216, VH-227, VH-217, VH-229, VH-209, VH-218, VH-230, VH-219, VH-210, VH-225, VH-220, VH-221, VH-222, VH-223, VH-224, VH-231, VH-232, VH-203, VH-233, VH-234, VH-235, VH-236, VH-237, VH-195
+
+## 2026-11-09 — PLAN-8 — Phase 8's 53 items restated whole, in place of pass 3's fix plan's list
+
+**Decision:** Phase 8's items are the 53 the entry above restates, here in place of pass 3's fix plan's list.
+
+**Rationale:** Record-only, at VH-195's close; the reason is the entry above's.
+
+**Supersedes:** 2026-10-27 — PLAN-8 — Pass 3's fix plan: VH-206 to VH-210 for six findings, built after VH-202 and before VH-203
+
+**Items:** VH-182, VH-183, VH-184, VH-185, VH-186, VH-187, VH-188, VH-189, VH-190, VH-191, VH-192, VH-193, VH-194, VH-196, VH-197, VH-198, VH-205, VH-199, VH-200, VH-201, VH-202, VH-211, VH-206, VH-207, VH-208, VH-212, VH-213, VH-214, VH-215, VH-216, VH-227, VH-217, VH-229, VH-209, VH-218, VH-230, VH-219, VH-210, VH-225, VH-220, VH-221, VH-222, VH-223, VH-224, VH-231, VH-232, VH-203, VH-233, VH-234, VH-235, VH-236, VH-237, VH-195

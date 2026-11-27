@@ -28,6 +28,7 @@
 - Handoff: Claude Code plans and executes; Codex reviews read-only; one writer per checkout, a second session in its own clone, handed back by commit
 - Secrets: none held; never in source, URLs or logs; a leak is rotated first, then a `[!]` line and a decision
 - Dependencies: the root's one install; direct runtime mediabunny, react, react-dom, @carbon/react (spec §3.1); any other stops and asks — a decision
+- Accessibility testing: extended
 - App opinion: forms, 2026-11-26
 - JSDoc type check: ratchet
 - Structure: `project/structure.md` (generated)
