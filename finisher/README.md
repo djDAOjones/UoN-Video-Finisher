@@ -108,7 +108,9 @@ runs in one Web Worker; the main thread only renders UI.
    media, filenames, or media characteristics. Verifiable by network
    inspection.
 2. **The source file is never modified.**
-3. **One runtime dependency:** `mediabunny`. Adding another stops and asks.
+3. **Direct runtime dependencies:** `mediabunny` for the media pipeline; `react`,
+   `react-dom` and `@carbon/react` for the interface (spec §3.1; the
+   parent's UVT-7 under PLAN-11). Adding any other stops and asks.
 4. **Nothing buffers the whole file.** Streaming throughout. `fastStart`
    is always set explicitly — unset lets Mediabunny choose `'in-memory'`,
    which buffers everything.

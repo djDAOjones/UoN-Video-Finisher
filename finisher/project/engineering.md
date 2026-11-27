@@ -13,14 +13,15 @@ resolution-preserving compression without new evidence.
 | Build / dev server | **Vite** | First-class Web Worker bundling (`new Worker(new URL(...), { type: 'module' })`), static output, no config for what we need. |
 | Tests | **Vitest** | Same toolchain as Vite. The EBU Tech 3341 harness is pure maths on `Float32Array` and runs in Node with no browser. |
 | Video/audio codec | **WebCodecs** (`VideoDecoder`/`VideoEncoder`/`AudioDecoder`/`AudioEncoder`) | Browser built-in. Streams frame-by-frame, reaches hardware encoders, no GPL/patent exposure, no COOP/COEP headers. |
-| Container demux/mux | **Mediabunny** 1.55.x, MPL-2.0 | The only runtime dependency. WebCodecs handles codecs but not containers. Zero runtime deps of its own (`@types/*` only). |
+| Container demux/mux | **Mediabunny** 1.55.x, MPL-2.0 | The media pipeline's only runtime dependency (Dependency policy). WebCodecs handles codecs but not containers. Zero runtime deps of its own (`@types/*` only). |
 | Loudness DSP | **Bespoke TypeScript** in a Web Worker | No filter graph exists in a WebCodecs architecture, and a wasm audio build would reintroduce the licensing question for no gain. |
 | Working storage | **OPFS**, written through Mediabunny's `StreamTarget` | `StreamTarget` takes a `WritableStream<{type,data,position}>` — positioned, seekable writes with backpressure that propagates back and throttles the encoders. An OPFS file handle's `createWritable()` produces exactly that shape, so no bespoke target is needed. |
 | Save to disk | **File System Access API**, blob download fallback | Lets a multi-GB result stream straight to the user's chosen location. |
 | UI | **Vanilla TS + our own components** | Carbon productive design language implemented in project code — never the Carbon packages. See `UI-STANDARDS.md`. |
 
-No framework, no CSS library, no polyfills. If the browser cannot do it
-natively, the browser is not supported (spec §10) and says so plainly.
+No framework but React, which the rebuild brings in (Dependency policy),
+no CSS library, no polyfills. If the browser cannot do it natively, the
+browser is not supported (spec §10) and says so plainly.
 
 ## The shape of a job
 
@@ -169,9 +170,12 @@ is not, so those are acknowledged.
 
 ## Dependency policy
 
-**One runtime dependency: `mediabunny`.** That is the whole list, and it is
-authorised by appearing here. Adding any other runtime dependency trips the
-stop-and-ask rule in `AGENTS.md` — stop and ask, do not install.
+**Direct runtime dependencies: `mediabunny` for the media pipeline; `react`,
+`react-dom` and `@carbon/react` for the interface** (spec §3.1, rationale
+§7; the parent's UVT-7 under PLAN-11). That is the whole list of direct
+runtime dependencies, authorised by appearing here; the packages they bring
+come with them. Adding any other direct runtime dependency stops and asks —
+do not install.
 
 Dev dependencies (`vite`, `vitest`, `typescript`, lint/format, the
 markdownlint pair) are tooling, ship nothing to the user, and do not count

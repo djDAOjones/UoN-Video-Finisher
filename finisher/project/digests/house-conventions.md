@@ -72,7 +72,9 @@ engineering sections are carried below.
   minutes of speech mis-levels the whole video (spec §4.4).
 - Applying macro-levelling unconditionally. It is gated on LRA > 9 LU
   precisely because processing that is not needed can only do harm.
-- Reaching for a library. One runtime dependency, and it is Mediabunny.
+- Reaching for a library. The direct runtime dependencies are Mediabunny and, for
+  the interface, `react`, `react-dom` and `@carbon/react` (spec §3.1; the
+  parent's UVT-7 under PLAN-11); any other stops and asks.
 - Exposing a technical setting "just in case". Every exposed control is a
   decision a novice is forced to make (spec §9.2).
 

@@ -12,7 +12,7 @@
 - No media egress: no network or analytics call carries media, a filename or media characteristic; branding assets travel inbound only.
 - The source file is never modified; every output is a new file.
 - WebCodecs, not ffmpeg.wasm (rationale §1): no wasm codec, `SharedArrayBuffer` or COOP/COEP headers.
-- One runtime dependency, mediabunny; anything else stops and asks.
+- Direct runtime dependencies: mediabunny, react, react-dom, @carbon/react; others stop and ask.
 - Measure loudness on source content only, never the joined timeline; the meter is proved against EBU Tech 3341 (±0.1 LU) before use.
 - Streaming, not buffering: no step holds the whole file; `fastStart` set explicitly, never `'in-memory'`.
 - Numbers live in `src/config/` or a CSS token; a literal elsewhere is a defect.
@@ -20,7 +20,7 @@
 - All imports at the top; build output is read-only. Search the full source tree before proposing a change, and `src/config/` and existing controls before adding a value or control.
 - One structured logger; the diagnostics bundle is dev-only and redacted: no filename, path or media bytes.
 - A two-part version identity (product version, build id); no secret in the bundle.
-- Protected paths: `docs/*.md` — corrections are wish lines the owner approves; `src/audio/kweighting.ts`, `loudness.ts`, `truepeak.ts` — changes re-run the EBU harness; `test/ebu3341/` — never weakened; `samples/` — never written, moved or deleted; `test/fixtures/`, `dist/`, `node_modules/` — generated; `pm_skills/` — the frozen canon record.
+- Protected paths: `docs/*.md` — corrections are wish lines the owner approves; `src/audio/kweighting.ts`, `loudness.ts`, `truepeak.ts` — changes re-run the EBU harness; `test/ebu3341/` — never weakened; `samples/` — never written, moved or deleted; `test/fixtures/`, `dist/`, `node_modules/` — generated; `pm_skills/` — frozen canon record.
 
 ### Environment
 
@@ -39,7 +39,7 @@
 | UI | project/digests/carbon.md | 460 | |
 | UI | project/digests/nielsen.md | 350 | |
 | UI | project/digests/wcag-2.2-aaa.md | 600 | |
-| build, dev server, scripts, deploy, versioning, diagnostics | DEV-INFRASTRUCTURE.md | 4,600 | |
+| build, dev server, scripts, deploy, versioning, diagnostics | DEV-INFRASTRUCTURE.md | 4,700 | |
 | code change | project/engineering.md | 3,100 | |
 | a container, external system, boundary or interface change | project/architecture.md | 400 | none |
 | code change | project/digests/house-conventions.md | 1,700 | |

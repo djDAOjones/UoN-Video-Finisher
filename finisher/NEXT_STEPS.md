@@ -34,8 +34,9 @@ repository's [`NEXT_STEPS.md`](../NEXT_STEPS.md).
 - Two sample names that identified a person and a health topic were
   replaced by aliases on 2026-11-12 (PRIVACY-NAMES); older commits still
   carry them.
-- `npm audit` reports issues in development tools only; the runtime
-  dependency `mediabunny` is clean. Dependency changes are the parent
+- On 2026-11-26, before Set 1 came in, `npm audit` reported issues in
+  development tools only, and `mediabunny`, then the one runtime
+  dependency, was clean. Dependency changes are the parent
   ledger's decision.
 - There is no `LICENSE` file, although `package.json` says MIT.
 - The repository sits on OneDrive; Files-On-Demand can dehydrate

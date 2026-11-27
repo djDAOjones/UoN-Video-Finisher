@@ -9,7 +9,7 @@
  * The rows come from `src/i18n/sheet.ts`, loaded through Vite's module
  * runner, so the sheet is the table and cannot drift from it. The workbook
  * is written by hand — a zip of a few XML parts, stored uncompressed — so
- * the sheet costs no dependency (the profile's one-dependency rule).
+ * the sheet costs no dependency.
  */
 
 import { Buffer } from 'node:buffer'

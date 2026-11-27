@@ -17,7 +17,7 @@ leaving the device. A conveyor with one cut, not an editor: say whether it is a 
 or a student submission, trim the ends, add a title card or not, choose a closing, choose one of two
 purpose-named outputs, nothing else.
 `docs/01-specification.md` is authoritative; `docs/02-technical-rationale.md`
-settles WebCodecs over ffmpeg.wasm, the one runtime dependency and the
+settles WebCodecs over ffmpeg.wasm, the runtime dependencies and the
 loudness targets, and none re-opens without new evidence. WCAG 2.2 AAA
 and Carbon productive design in our own code; the EBU Tech 3341 meter
 validation is an acceptance criterion. Public on a UoN Xerte upload;
@@ -131,9 +131,10 @@ and every push to `main` updates it.
   wasm memory, GPL/x264 plus AVC patent-pool exposure, the COOP/COEP
   headers a static University host may not allow, and no path to hardware
   encoders. See rationale §1. Do not re-open without new evidence.
-- **One runtime dependency: Mediabunny** (MPL-2.0), for MP4 demux and
-  mux. WebCodecs handles codecs but not containers. Anything beyond this
-  needs explicit approval.
+- **Direct runtime dependencies: Mediabunny** (MPL-2.0), for MP4 demux and
+  mux, WebCodecs handling codecs but not containers; **`react`,
+  `react-dom` and `@carbon/react`** (MIT, Apache-2.0) for the interface
+  (spec §3.1). Anything beyond these needs explicit approval.
 - **Privacy is a hard requirement.** No media egress, verifiable by
   inspecting network activity. No analytics carrying filenames or media
   characteristics.
@@ -183,4 +184,4 @@ browser-ready files (spec §4.2). No approved opening exists.
 
 ## Signed
 
-- Owner: Joe, 2026-10-02.
+- Owner (delegated, not reviewed): Joe, 2026-11-27 — see PLAN-11, VH-249

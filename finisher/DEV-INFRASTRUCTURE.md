@@ -12,14 +12,18 @@ scripts, configuration, or deployment.
 **npm.** No pnpm, no yarn — one lockfile, no corepack setup step, and
 nothing a maintainer on a managed University laptop has to install first.
 
-**Runtime dependencies: exactly one.**
+**Direct runtime dependencies: four**, at the root's one install (spec §3.1; the
+parent's UVT-7 under PLAN-11).
 
 | Package | Version | Licence | Why |
 | --- | --- | --- | --- |
 | `mediabunny` | ^1.55.2 | MPL-2.0 | MP4 demux and mux. WebCodecs handles codecs but not containers. Zero runtime deps of its own. |
+| `react` | 19.1.10 | MIT | The interface: its starter in VH-250, live in VH-251. |
+| `react-dom` | 19.1.10 | MIT | Its renderer. |
+| `@carbon/react` | 1.118.0 | Apache-2.0 | Its components. |
 
-Adding any second runtime dependency **stops and asks** (an `AGENTS.md`
-hard rule). Licence floor is MPL-2.0 or more permissive; no GPL component
+Adding any further direct runtime dependency **stops and asks** (the rules'
+Always). Licence floor is MPL-2.0 or more permissive; no GPL component
 ever ships, because avoiding that exposure is a reason this architecture
 exists.
 
@@ -361,8 +365,9 @@ media.**
   under **Maintainer diagnostics** above — the filename is treated as
   sensitive.
 - **Dependency advisories:** `npm audit` at every dependency change and
-  at each milestone close. With one runtime dependency the surface is
-  small, which is the point.
+  at each milestone close, over the whole production tree: Carbon React
+  brings packages of its own, so four direct dependencies are not the
+  whole surface.
 - **If a credential ever is leaked:** rotate at the provider first,
   then decide on history cleanup. Rotation is the fix. Track it with a
   `[security]` backlog item on creation.
