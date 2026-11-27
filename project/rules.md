@@ -38,6 +38,7 @@
 | UI | project/digests/carbon.md | 460 | |
 | UI | project/digests/nielsen.md | 350 | |
 | briefing a session or second model; any close | project/model-policy.md | 400 | the owner signs the policy |
+| UI state, component or journey | docs/accessibility.md | 300 | the owner signs each exception |
 
 ## Signed
 

@@ -20,9 +20,9 @@ do in their own items (PLAN-11), and makes CI run what the gate runs.
 
 ## Now
 
-Updated: 2026-11-26
+Updated: 2026-11-27
 
-Next step: after UVT-7, the accessibility pack for the lobby.
+Next step: step 2, the lobby's markup as a TSX component rendered to its page at build time.
 
 Open question: None.
 
@@ -36,3 +36,4 @@ Open question: None.
 
 - 2026-11-26 — The trial copied the extended pack's 40 files into the root of a clone with no conflict. Codex's review of the draft plan: the runner's lint step credits a rule applied to no file as not run, and its browser preflight defaults to a macOS cache path.
 - 2026-11-26 — Codex's review of the record: a lobby lint row left not run fails the standard command (the pack's a11y-report.mjs), so the record names the TSX source above.
+- 2026-11-27 — Step 1: the pack copied at extended depth, AAA, by canon v5.0.3's installer (40 files, no conflict), its harness type-checked and linted as UVT-7 proved; `a11y:doctor --no-canary` ready for engines, touch, media, flash capture and ai-review, VoiceOver, veraPDF, the iOS audit, Android and the native journey blocked. The checker's warning that no extended run is recorded is UVT-9's, the lobby's extended run.

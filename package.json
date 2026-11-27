@@ -10,7 +10,11 @@
   },
   "scripts": {
     "check": "npm run check --prefix finisher && npm run check --prefix name-graphics && npm run check:root",
-    "check:root": "node scripts/check-commit-ids.mjs && eslint eslint.config.js eslint.base.js eslint.boundaries.js scripts shared --max-warnings 0 && tsc -p shared && vitest run --config shared/vitest.config.ts && node --test scripts/*.test.mjs && node tools/check.mjs"
+    "check:root": "node scripts/check-commit-ids.mjs && eslint eslint.config.js eslint.base.js eslint.boundaries.js eslint.a11y.mjs scripts shared tests --max-warnings 0 && tsc -p shared && tsc -p tests/a11y && vitest run --config shared/vitest.config.ts && node --test scripts/*.test.mjs && node tools/check.mjs",
+    "a11y": "node tools/a11y-run.mjs",
+    "a11y:sample": "node tools/a11y-sample.mjs",
+    "a11y:doctor": "node tools/a11y-doctor.mjs",
+    "a11y:extended": "node tools/a11y-extended.mjs"
   },
   "dependencies": {
     "@carbon/react": "1.118.0",

@@ -34,6 +34,24 @@
      project/archive-index.md (date range, count, IDs). Archived
      entries are still the record; grep finds them. -->
 
+## 2026-11-27 — UVT-8 — The root's packs
+
+**Decision:** the root takes the accessibility pack at extended depth, AAA, copied by its installer, its harness checked as UVT-7 proved — PLAN-11.
+
+**Items:** UVT-8
+
+**Rationale:** Step 1, the copy: canon v5.0.3's `a11y/install.mjs --depth extended --level AAA` copied its 40 files into the root (the catalogue, the coverage file at AAA with every feature unknown, `eslint.a11y.mjs`, `tests/a11y/`, `docs/accessibility.md`, `docs/extended.md` and twelve tools beside pm-skills' own in `tools/`), with no conflict, as the item's trial found. The harness policy UVT-7 proved, as the Finisher (VH-249, step 9) and Name Graphics (VNG-14, step 8) apply it: `tests/a11y/tsconfig.json` on the root's a11y layer names the eight copied TypeScript files in `files`, 0 diagnostics, and `check:root` type-checks it; the root's ESLint config takes `layers.a11yHarness()` and gives those eight ESLint's project service in that project, and the root's lint names `tests` and `eslint.a11y.mjs`, 0 problems over the twelve files there. The root runs its own install, so its `a11y*` scripts are the pack's, with no link. `npm run a11y:doctor -- --no-canary`: engines (Firefox 142, WebKit 26), touch, media and flash capture ready; VoiceOver blocked because `--no-canary` skipped its spoken check (the attended VoiceOver run, which the extended pack uses on the lobby's headings and landmarks among other rows, is UVT-9's), and veraPDF (no Java), the iOS audit (no Xcode selected), the Android checks and the native journey (no SDK, simulator or device) blocked; ai-review ready. The profile's Accessibility testing line and the rules' By-task row are the installer's; the profile's Handoff line drops "across all three ledgers", which "one writer per checkout" already says, to keep the profile at 400 words. `npm run a11y` joins the gate with the lobby's declarations. Signed lines as delegated on the owner's "everything approved" of 2026-11-26 (PLAN-11).
+
+**Supersedes:** none
+
+## 2026-11-27 — UVT-8 — Phase 11's order as run
+
+**Decision:** VH-249 and VNG-14 began on UVT-7's steps 1–2 and resumed their pack steps on step 5, before UVT-7 closed — the owner's word and the orchestrator's ruling, 2026-11-27.
+
+**Rationale:** PLAN-11's order put UVT-7 first, everything building on it, then UVT-8, VNG-14 and VH-249 in parallel. On the owner's words of 2026-11-27, "open additional sub chats when needed, dont pause by asking", the orchestrator started VH-249 and VNG-14 on UVT-7's landed steps 1 and 2 (`d88d7d0c`, `8fc7cf9f`), their pack steps paused until UVT-7 closed. When UVT-7's close was held on record wording and one CI test, nothing the tools build on, the orchestrator ruled that its step 5 (`c66ffdd1`) stand for the close, and both resumed their pack steps on it before UVT-7 closed at `d655d9ce`. Codex asked for this record on VH-249's review, and only a root commit may write it. Of PLAN-11 it supersedes the timing of the order's first point alone; the rest stands.
+
+**Supersedes:** 2026-11-26 — PLAN-11 — Phase 11, the full pm-skills stack: every pack that fits taken in full, both tools rebuilt on it, each step reviewed by Codex, before all other work
+
 ## 2026-11-26 — UVT-7 — The stack's foundation at the root: the model policy and the root's Codex hooks, Set 1 and Node at the one install, the base configs offered, the pack tools' reach, the signed lines
 
 **Decision:** the root keeps a model policy, `project/model-policy.md` (every step of an item its own commit, reviewed read-only by Codex on `gpt-6.2-astra` before it lands, signed as delegated), and Codex hooks written by hand, `.codex/hooks.json`; Set 1 pinned exactly at the one install with one `playwright-core`, and Node `^22.19.0 || ^24.0.0 || >=26.0.0`; the base configs offered, none switched on: five TypeScript project layers, an opt-in `erasableSyntaxOnly`, named ESLint layers and an entry check; the pack tools' reach: a link script and a JSDoc runner; `node_modules` at the root of the pinned OneDrive checkout, an exception to intake's rule; the signed lines rewritten to the stack, the Carbon rule stated once — on the owner's word of 2026-11-26, "everything approved" (PLAN-11).
