@@ -1,0 +1,9 @@
+// The workers project's layer (UVT-7): the worker scope, no DOM, so a
+// worker reaching for `document` or `window` fails.
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "lib": ["ES2023", "WebWorker"],
+    "types": ["vite/client"]
+  }
+}

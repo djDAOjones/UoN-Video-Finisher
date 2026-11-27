@@ -29,9 +29,9 @@ phase's end (UVT-9).
 
 ## Now
 
-Updated: 2026-11-26
+Updated: 2026-11-27
 
-Next step: the base configs offered: the TypeScript design and the ESLint layers, its own commit with Codex's review; then the pack tools' reach.
+Next step: step 3b, the entry check (a tool's React entry read by the compiler and ESLint's project service, and the five projects in each tool's gate), its own commit with Codex's review; then the pack tools' reach.
 
 Open question: None.
 
@@ -51,3 +51,5 @@ Open question: None.
 - 2026-11-26 — Codex's review of the record (gpt-6.2-astra, rejected with eleven findings, folded in): the trial's `main.tsx` was dropped by TypeScript for the `main.ts` beside it, not by the install; `a11y:extended` and the JSDoc ratchet have their own tool-local lookups; Node 20 cannot hold under vitest 5.1.0 and the existing markdownlint; the Codex hooks need a fresh-checkout check. Set 1's engines read from the trial's lockfile: Node 22.18.0 fails only undici's `>=22.19.0`; 25.0.0 fails vitest, dependency-cruiser and watskeburt; 22.19.0, 24.0.0 and 26.0.0 fail none.
 - 2026-11-26 — Step 1, the model policy and the root's Codex hooks: `project/model-policy.md` and its routed row, both signed lines delegated; `.codex/hooks.json` by hand, the root found by Git, each hook standing aside in a tool's folder; checked in a fresh clone (`/Users/joe/UoN-Video-Tools-spike/uvt7-codex-fresh`), each hook trusted in `/hooks`, then, with no bypass, each of the four fired once and exited 0 on the root, the three start and tool hooks from `lobby/`, no root script invoked from `finisher/` (the decision UVT-7); a live chat's view stays the owner's, a wish line.
 - 2026-11-26 — Step 2, Set 1 and the Node range: the item's list at exact versions, one `playwright-core` 1.56.1; `engines` `^22.19.0 || ^24.0.0 || >=26.0.0` and the profile's Runtime and Dependencies lines; the whole gate green at today's counts on Node 22.19.0 and 24.21.0; Set 1's signed record in the decision.
+- 2026-11-27 — Step 3a, the base configs offered, none switched on: the five TypeScript project layers and `tsconfig.erasable.json` beside the unchanged strict base, and `eslint.base.js`'s six named layers, four of them adding to what `toolConfig()` applies, each proved on fixtures in the root gate; the harness's policy proved on the pack's copy in a throwaway clone (the decision UVT-7). Step 3 lands in two commits on the orchestrator's split: the entry check is step 3b.
+- 2026-11-26 — Correction to the criterion "The ESLint layers": "today two escape rules raise 10 errors in one Finisher file" is wrong; measured with the committed layer they raise 532 errors in the Finisher, 245 in 52 source files and 287 in tests (the decision UVT-7; a wish line carries it to VH-250). The criterion's text stands as written on 2026-11-26.

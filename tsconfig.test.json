@@ -1,0 +1,11 @@
+// The tests project's layer (UVT-7): the folder's own tests, as strict as its
+// code, with the DOM and the worker scope (a test imports both), JSX, Vite's
+// client types and Node's.
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "lib": ["ES2023", "ES2025.Intl", "DOM", "DOM.Iterable", "WebWorker"],
+    "jsx": "react-jsx",
+    "types": ["vite/client", "node"]
+  }
+}

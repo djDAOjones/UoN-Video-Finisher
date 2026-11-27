@@ -1,0 +1,10 @@
+// The app pack's erasableSyntaxOnly (UVT-7), opted into by a folder until
+// UVT-9 switches it on for every folder: listed after a project's layer,
+// "extends": ["../tsconfig.app.json", "../tsconfig.erasable.json"]. It fails
+// enums, namespaces with values, parameter properties and `import =`; on
+// 2026-11-26 it raised 25 errors in the Finisher, none in Name Graphics or shared/.
+{
+  "compilerOptions": {
+    "erasableSyntaxOnly": true
+  }
+}

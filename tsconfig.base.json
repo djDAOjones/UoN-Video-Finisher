@@ -1,5 +1,16 @@
 // The base TypeScript config every folder extends (UVT-3): the root's
-// shared/ and each tool. A folder's own tsconfig.json adds only its include.
+// shared/ and each tool. Strictness is defined here once and nowhere else.
+//
+// The stack's projects (UVT-7): a folder's `npm run typecheck` runs one
+// tsconfig per project, each extending the root's layer of the same name and
+// adding only its include: tsconfig.core.json (ES libraries, no ambient
+// types, so a DOM name in a core fails), tsconfig.app.json (DOM and JSX),
+// tsconfig.worker.json (the worker scope, no DOM), tsconfig.test.json and
+// tsconfig.a11y.json (the accessibility pack's copied harness, never edited).
+// The layers change only libraries, ambient types, JSX and, for the harness
+// alone, five checks its code was not written for; none loosens this file
+// for the folder's own code. tsconfig.erasable.json adds the pack's
+// erasableSyntaxOnly, opted into by a folder (an extends array) until UVT-9.
 {
   "compilerOptions": {
     "target": "ES2022",

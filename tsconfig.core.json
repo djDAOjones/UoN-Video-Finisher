@@ -1,0 +1,11 @@
+// The core project's layer (UVT-7): ES libraries only and no ambient types,
+// so a DOM, worker or Node name in a core fails. A folder's tsconfig.core.json
+// extends it and adds its include, its core's tests excluded (Vitest's types
+// need the DOM; they belong to the tests project).
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "lib": ["ES2023"],
+    "types": []
+  }
+}

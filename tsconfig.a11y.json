@@ -1,0 +1,18 @@
+// The accessibility pack's harness project's layer (UVT-7): its eight copied
+// TypeScript files in tests/a11y/, never edited, raise about 100 diagnostics
+// under the base, so this project alone turns off five checks the pack's code
+// was not written for; the folder's own code and tests keep every check.
+// noImplicitAny goes only with strictNullChecks (alone it types `[]` as
+// never[]); allowJs does not converge. Proved on the pack's v5.0.3 copy.
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "lib": ["ES2023", "DOM", "DOM.Iterable"],
+    "types": ["node"],
+    "noImplicitAny": false,
+    "strictNullChecks": false,
+    "exactOptionalPropertyTypes": false,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false
+  }
+}
