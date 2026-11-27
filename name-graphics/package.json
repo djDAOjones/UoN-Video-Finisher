@@ -14,12 +14,25 @@
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "tsc --noEmit && tsc --noEmit -p tests/a11y",
     "lint": "eslint . --max-warnings 0",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
     "docs:lint": "markdownlint-cli2 \"**/*.md\" \"#node_modules\"",
     "docs:links": "node check-links.mjs",
-    "check": "npm run typecheck && npm run lint && npm run test && npm run docs:lint && npm run docs:links && node tools/check.mjs"
+    "check": "npm run typecheck && npm run lint && npm run test && npm run docs:lint && npm run docs:links && node tools/check.mjs",
+    "a11y": "node ../scripts/link-root-install.mjs . && node tools/a11y-run.mjs",
+    "a11y:sample": "node ../scripts/link-root-install.mjs . && node tools/a11y-sample.mjs",
+    "a11y:doctor": "node ../scripts/link-root-install.mjs . && node tools/a11y-doctor.mjs",
+    "a11y:extended": "node ../scripts/link-root-install.mjs . && node tools/a11y-extended.mjs"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.13.0",
+    "@guidepup/guidepup": "0.36.4",
+    "@guidepup/setup": "0.29.3",
+    "@playwright/test": "1.56.1",
+    "axe-core": "4.13.0",
+    "eslint": "9.39.5",
+    "eslint-plugin-jsx-a11y": "6.10.2"
   }
 }

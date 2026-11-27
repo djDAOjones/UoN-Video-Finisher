@@ -28,6 +28,7 @@
 - Harness: Claude Code and Codex, hooks kept by hand, never by `tools/harness.mjs`; this ledger outranks a harness's memory
 - Handoff: Claude Code plans and executes; Codex reviews read-only, per the model policy
 - Secrets: none held; never in source, URLs, logs or the bundle; a leak is rotated first, then a `[!]` line and a decision
+- Accessibility testing: extended
 - Dependencies: the root's one install (UVT-7), Set 1 exact; at runtime, the rules' line
 - Structure: `project/structure.md` (generated)
 

@@ -1,4 +1,14 @@
 {
   "extends": "../tsconfig.base.json",
-  "include": ["src", "test", "vite.config.ts", "eslint.config.js"]
+  "include": ["src", "test", "tests/a11y", "vite.config.ts", "eslint.config.js"],
+  "exclude": [
+    "tests/a11y/adaptation.spec.ts",
+    "tests/a11y/helpers.ts",
+    "tests/a11y/journeys.spec.ts",
+    "tests/a11y/keyboard.spec.ts",
+    "tests/a11y/known-bad/known-bad.spec.ts",
+    "tests/a11y/playwright.config.ts",
+    "tests/a11y/sample.spec.ts",
+    "tests/a11y/states.spec.ts"
+  ]
 }

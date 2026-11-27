@@ -26,7 +26,7 @@ stack on the root's one install before the Finisher's rebuild.
 
 Updated: 2026-11-27
 
-Next step: the accessibility pack, the forms kind, the root's compiler checks and lint layers with the typecheck projects, the entry check and the Gate line, and the JSDoc pack.
+Next step: the forms kind, the root's compiler checks and lint layers with the typecheck projects, the entry check and the Gate line, and the JSDoc pack.
 
 Open question: None.
 
@@ -49,3 +49,4 @@ Open question: None.
 - 2026-11-27 — The architecture record's row leaves the rules file at 597 words of 600: the three rows to come need its signed lines compressed first.
 - 2026-11-27 — The pause's trigger amended by the orchestrator's ruling of 2026-11-27: UVT-7's step 5, `c66ffdd1`, stands for its close; the pack steps resume (decision of the same date).
 - 2026-11-27 — The budgets step: the profile at 354 words of 400 and the rules at 543 of 600, the Always at 377 of its 400 guideline, shipping VNG-13; the later lines drafted on a copy fit, the profile near 391 and the rules near 588.
+- 2026-11-27 — The accessibility pack's copy: `a11y:doctor` ready for engines, touch, media and flash capture; VoiceOver, PDF, the iOS audit, the native journey and the Android checks blocked, each named in the decision.

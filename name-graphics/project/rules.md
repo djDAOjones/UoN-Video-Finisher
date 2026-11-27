@@ -41,6 +41,7 @@
 | a brand pack | brands/README.md | 500 | the owner approves each UoN asset |
 | briefing a session or second model; any close | project/model-policy.md | 400 | the owner signs the policy |
 | a container, external system, boundary or interface change | project/architecture.md | 400 | none |
+| UI state, component or journey | docs/accessibility.md | 300 | the owner signs each exception |
 
 ## Signed
 
