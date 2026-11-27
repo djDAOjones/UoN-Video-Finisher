@@ -104,6 +104,11 @@ test('the build job itself runs unconditionally and fails on a failed step, ever
   assert.doesNotMatch(WORKFLOW, /^defaults:/m)
 })
 
+test('the build job runs on a pinned Ubuntu release, one the pinned Playwright installs its browser on, never ubuntu-latest', () => {
+  const runsOn = buildJob(WORKFLOW).match(/^ {4}runs-on:\s*(\S+)/m)?.[1]
+  assert.equal(runsOn, 'ubuntu-24.04', `the build job runs on ${runsOn}`)
+})
+
 test("the job's keys are read wherever they sit: after the step list, before a comment and the next job", () => {
   const fixture = ['jobs:', '  build:', '    runs-on: ubuntu-latest', '    steps:', '      - run: npm ci', '    continue-on-error: true', '  # the next job', '  deploy:', '    if: false', ''].join('\n')
   assert.deepEqual(jobKeys(fixture), ['runs-on', 'steps', 'continue-on-error'])
