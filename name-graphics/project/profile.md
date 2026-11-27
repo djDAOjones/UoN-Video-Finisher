@@ -22,19 +22,19 @@
 
 ## Stack and infrastructure
 
-- Runtime: TypeScript (strict), Vite, Vitest; Chrome with WebCodecs [guess]; Node ^22.19.0 || ^24.0.0 || >=26.0.0
+- Runtime: TypeScript (strict), React, Vite, Vitest; Chrome with WebCodecs [guess]; Node ^22.19.0 || ^24.0.0 || >=26.0.0
 - Gate: `npm run check` — non-mutating: the code and docs checks, the neutral-build check, then the checker; CI runs it before every publish
 - Hosting and deploy: Xerte, the public home, the owner's flat upload per release; GitHub Pages, the unadvertised preview, from each push to `main`
 - Harness: Claude Code and Codex, hooks kept by hand, never by `tools/harness.mjs`; this ledger outranks a harness's memory
 - Handoff: Claude Code plans and executes; Codex reviews read-only, per the model policy
 - Secrets: none held; never in source, URLs, logs or the bundle; a leak is rotated first, then a `[!]` line and a decision
-- Dependencies: none at runtime yet; each is a decision
+- Dependencies: the root's one install (UVT-7), Set 1 exact; at runtime, the rules' line
 - Structure: `project/structure.md` (generated)
 
 ## Standards adopted
 
-- IBM Carbon, productive style → digest: carbon
-  - our own code, never the packages; two token systems, never collapsed — the brand pack owns colour and typeface; one primary per state
+- IBM Carbon, productive style, through Carbon React → digest: carbon
+  - the root brief's Carbon rule; the brand pack owns colour and typeface; one primary per state
 - WCAG 2.2, level AAA → digest: wcag-2.2-aaa
   - 7:1 contrast in every pack, 44 px targets, focus appearance; exceptions recorded
 - Nielsen's ten usability heuristics → digest: nielsen

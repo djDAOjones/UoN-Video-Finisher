@@ -26,7 +26,7 @@ stack on the root's one install before the Finisher's rebuild.
 
 Updated: 2026-11-27
 
-Next step: the signed lines rewritten to the stack, then the accessibility pack, the forms kind, the root's compiler checks and lint layers with the typecheck projects and the entry check, and the JSDoc pack.
+Next step: the accessibility pack, the forms kind, the root's compiler checks and lint layers with the typecheck projects, the entry check and the Gate line, and the JSDoc pack.
 
 Open question: None.
 

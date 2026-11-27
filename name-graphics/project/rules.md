@@ -12,7 +12,7 @@
 - Nothing typed leaves the device: no network or analytics call carries a name, a role line or a graphic; brand assets travel inbound only.
 - Brands are packs under `brands/<id>/`, chosen at build time. Nothing outside a pack names a brand. The neutral build carries no University name, logo, typeface or colour, and the gate proves it. Every pack offers the neutral styles beside its own.
 - Output: transparent video native at 3840 × 2160 with a 1920 × 1080 option, or a still PNG; transparency kept in every output; as small and as cheap to make as the format allows.
-- No runtime dependency without a decision; a second stops and asks.
+- Runtime dependencies: react, react-dom and @carbon/react (PLAN-13), mediabunny by VNG-3's decision; any other stops and asks.
 - Numbers live in `src/config/`, a brand pack or a CSS token; a literal elsewhere is a defect.
 - All imports at the top; build output is read-only. Search the whole source, `src/config/` and existing controls included, before proposing a change or adding a value or control.
 - One structured logger; the diagnostics bundle is redacted (never a typed name or role) and dev-only.

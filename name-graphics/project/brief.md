@@ -18,7 +18,7 @@ format allows; nothing typed leaves the device. Brands are packs
 chosen at build time: the neutral build carries no University branding;
 the UoN build adds UoN styles and the UoN look, with the neutral styles
 beside them. It inherits the UoN Video Finisher's simple, accessible
-form and look: WCAG 2.2 AAA, Carbon productive design in our own code,
+form and look: WCAG 2.2 AAA, Carbon productive design through Carbon React,
 en-GB, zh-Hans and ms-MY. Public on a UoN Xerte upload; GitHub Pages is
 the unadvertised preview from `main`.
 
@@ -50,7 +50,7 @@ the University.
 - Browser-only, static hosting, no server and no upload; Chrome with WebCodecs, as the Finisher [guess]
 - Output: transparent video, 3840 × 2160 native, 1920 × 1080 option; still PNG; the video format is the one Clipchamp keeps transparent, settled by VNG-3
 - Small and cheap: short graphics, the smallest file and the least computation the format allows
-- WCAG 2.2 AAA and Carbon productive for the page in every brand pack
+- WCAG 2.2 AAA, and Carbon productive by the Carbon rule in the root brief's Constraints, for the page in every brand pack
 - Three page languages, en-GB, zh-Hans and ms-MY; the graphic's text is whatever the person types, in any script
 - Code copied from the Finisher names its source commit; no shared package until a third app needs one
 
@@ -68,4 +68,4 @@ the University.
 
 ## Signed
 
-- Owner: Joe, 2026-11-26.
+- Owner (delegated, not reviewed): Joe, 2026-11-27 — see the parent's PLAN-11, "everything approved"; VNG-14's Carbon lines
