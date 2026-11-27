@@ -97,10 +97,12 @@ jobs:
         env:
           BASE_PATH: /${{ github.event.repository.name }}/name-graphics/
 
+      # The lobby's page is rendered from lobby/Lobby.tsx here, at build
+      # time, as a static page with no script (UVT-8).
       - name: Gather the site
         run: |
           mkdir _site
-          cp lobby/index.html _site/index.html
+          node scripts/build-lobby.mjs _site
           cp -R finisher/dist _site/finisher
           cp -R name-graphics/dist _site/name-graphics
 

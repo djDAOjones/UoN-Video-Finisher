@@ -10,7 +10,7 @@ in one repository, `djDAOjones/UoN-Video-Tools`.
 | `finisher/` | The UoN Video Finisher: brands, loudness-normalises and encodes one educational video | `finisher/project/`, IDs `VH-n` |
 | `name-graphics/` | Video Name Graphics: a lower-third name graphic as transparent video or a PNG | `name-graphics/project/`, IDs `VNG-n` |
 | `shared/` | Code two tools need, imported by path, one copy (`shared/README.md`) | the parent's |
-| `lobby/` | The placeholder staff lobby at the top of the preview: the tools' names and a link to each | the parent's |
+| `lobby/` | The placeholder staff lobby at the top of the preview: the tools' names and a link to each, a TSX component rendered to a static page at build time (`scripts/build-lobby.mjs`) | the parent's |
 
 The root holds the parent's ledger (`project/`, IDs `UVT-n`), which owns
 every file outside the two tool folders and the order of work across the

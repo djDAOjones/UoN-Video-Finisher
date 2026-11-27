@@ -31,4 +31,4 @@ counted with git ls-files, tracked and untracked, respecting ignores
 
 - `package.json` — the root gate, npm run check
 - `.github/workflows/deploy-pages.yml` — the preview
-- `lobby/index.html` — the top page of the preview
+- `lobby/Lobby.tsx` — the top page of the preview, rendered to static HTML at build time by `scripts/build-lobby.mjs`

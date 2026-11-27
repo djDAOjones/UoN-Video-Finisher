@@ -1,0 +1,18 @@
+// The root's own TypeScript project (UVT-8): the lobby's TSX on the app
+// layer, and any file the root writes in tests/a11y/ beside the pack's copied
+// harness, whose eight TypeScript files are tests/a11y/tsconfig.json's, as each
+// tool's folder project leaves them (VH-249, VNG-14).
+{
+  "extends": "./tsconfig.app.json",
+  "include": ["lobby", "tests/a11y"],
+  "exclude": [
+    "tests/a11y/adaptation.spec.ts",
+    "tests/a11y/helpers.ts",
+    "tests/a11y/journeys.spec.ts",
+    "tests/a11y/keyboard.spec.ts",
+    "tests/a11y/known-bad/known-bad.spec.ts",
+    "tests/a11y/playwright.config.ts",
+    "tests/a11y/sample.spec.ts",
+    "tests/a11y/states.spec.ts"
+  ]
+}

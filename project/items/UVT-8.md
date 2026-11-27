@@ -22,14 +22,14 @@ do in their own items (PLAN-11), and makes CI run what the gate runs.
 
 Updated: 2026-11-27
 
-Next step: step 2, the lobby's markup as a TSX component rendered to its page at build time.
+Next step: step 3, the lobby's declarations, `npm run a11y` in `check:root` and Playwright's Chromium in CI.
 
 Open question: None.
 
 ## Context and sources
 
 - [The plan, PLAN-11](../decisions.md)
-- [The lobby](../../lobby/index.html)
+- [The lobby](../../lobby/Lobby.tsx)
 - [The deploy workflow](../../.github/workflows/deploy-pages.yml)
 
 ## Notes
@@ -37,3 +37,4 @@ Open question: None.
 - 2026-11-26 — The trial copied the extended pack's 40 files into the root of a clone with no conflict. Codex's review of the draft plan: the runner's lint step credits a rule applied to no file as not run, and its browser preflight defaults to a macOS cache path.
 - 2026-11-26 — Codex's review of the record: a lobby lint row left not run fails the standard command (the pack's a11y-report.mjs), so the record names the TSX source above.
 - 2026-11-27 — Step 1: the pack copied at extended depth, AAA, by canon v5.0.3's installer (40 files, no conflict), its harness type-checked and linted as UVT-7 proved; `a11y:doctor --no-canary` ready for engines, touch, media, flash capture and ai-review, VoiceOver, veraPDF, the iOS audit, Android and the native journey blocked. The checker's warning that no extended run is recorded is UVT-9's, the lobby's extended run.
+- 2026-11-27 — Step 2: the lobby's markup is `lobby/Lobby.tsx`, rendered to its static page at build time by `scripts/build-lobby.mjs` (TypeScript's `transpileModule` and react-dom/server, no script shipped); `scripts/serve-lobby.mjs` serves a fresh build at the Pages base path for the gate; the deploy workflow gathers the built page; the hand-written page is gone.

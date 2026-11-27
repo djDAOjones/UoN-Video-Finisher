@@ -5,8 +5,8 @@ import { boundaries } from './eslint.boundaries.js'
 
 /**
  * The root's ESLint config, the parent's (UVT-1, UVT-2, UVT-3): the root's own
- * scripts and configs, `shared/` and the accessibility pack's `tests/a11y/`
- * (UVT-8). Each tool lints its own folder with its own config; the root gate
+ * scripts and configs, `shared/`, the lobby's TSX and the accessibility pack's
+ * `tests/a11y/` (UVT-8). Each tool lints its own folder with its own config; the root gate
  * names its paths, so it never lints a tool's.
  */
 export default tseslint.config(
@@ -20,6 +20,14 @@ export default tseslint.config(
     files: ['shared/**/*.ts'],
     extends: [typeChecked(import.meta.dirname)],
   },
+  {
+    // The lobby's TSX (UVT-8), type-checked against the root's tsconfig.json
+    // like shared/, its markup under jsx-a11y's strict set: the lint method
+    // the accessibility pack credits judges the source the page renders from.
+    files: ['lobby/**/*.tsx'],
+    extends: [typeChecked(import.meta.dirname)],
+  },
+  layers.jsxA11y(),
   {
     files: ['**/*.mjs', '**/*.js'],
     languageOptions: {
