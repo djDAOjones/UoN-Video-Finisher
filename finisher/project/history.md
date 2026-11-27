@@ -8,7 +8,7 @@ framework files beside it (prompts, integrations, templates, scaffold)
 are frozen with it and route nothing.
 
 - [The canon brief](../pm_skills/project/brief.md)
-- [The canon architecture](../pm_skills/project/architecture.md) — carried live as [architecture.md](architecture.md)
+- [The canon architecture](../pm_skills/project/architecture.md) — carried live as [engineering.md](engineering.md), named `architecture.md` until 2026-11-27 (VH-249)
 - [The canon conventions](../pm_skills/project/conventions.md) — carried as the house digest
 - [The canon backlog, bands and flags](../pm_skills/project/backlog.md) — every open line is an item file here
 - [The canon decision log](../pm_skills/project/decision-log.md) and its archive (6 files)

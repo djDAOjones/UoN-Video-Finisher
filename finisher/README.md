@@ -134,7 +134,7 @@ Full rules: [`AGENTS.md`](AGENTS.md), [`UI-STANDARDS.md`](UI-STANDARDS.md),
 - **Mediabunny cannot even see subtitle tracks** — a subtitle-bearing MP4
   reads back as zero tracks. It writes them fine. Detecting one needs our
   own `hdlr` scan. See
-  [`architecture.md`](project/architecture.md) → "Known
+  [`engineering.md`](project/engineering.md) → "Known
   constraints in the dependency".
 - **This repo lives on OneDrive, and that has already bitten.** Files-On-Demand
   dehydrates `node_modules`, after which every read is a network fetch. The

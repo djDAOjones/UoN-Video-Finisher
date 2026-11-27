@@ -3,7 +3,8 @@
  *
  * "Honest" is doing work in that sentence. Mediabunny exposes video and audio
  * tracks only — it cannot see subtitle or chapter tracks at all, verified by
- * round-trip (see `architecture.md` -> "Known constraints in the dependency").
+ * round-trip (see `project/engineering.md` -> "Known constraints in the
+ * dependency").
  * So this module reports what it can see and says nothing about what it
  * cannot; detecting those needs the ISOBMFF handler scan in VH-9. A report
  * that quietly implied "no subtitles" would be worse than one that stays

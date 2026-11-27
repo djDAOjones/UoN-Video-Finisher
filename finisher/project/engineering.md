@@ -1,4 +1,4 @@
-# Architecture — UoN Video Finisher
+# Engineering — UoN Video Finisher
 
 Rationale for the settled choices below lives in
 [`docs/02-technical-rationale.md`](../docs/02-technical-rationale.md).
