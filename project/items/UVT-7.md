@@ -31,7 +31,7 @@ phase's end (UVT-9).
 
 Updated: 2026-11-27
 
-Next step: step 3b, the entry check (a tool's React entry read by the compiler and ESLint's project service, and the five projects in each tool's gate), its own commit with Codex's review; then the pack tools' reach.
+Next step: the pack tools' reach to the root install, proved from both tool folders, its own commit with Codex's review; then the signed lines.
 
 Open question: None.
 
@@ -52,4 +52,5 @@ Open question: None.
 - 2026-11-26 — Step 1, the model policy and the root's Codex hooks: `project/model-policy.md` and its routed row, both signed lines delegated; `.codex/hooks.json` by hand, the root found by Git, each hook standing aside in a tool's folder; checked in a fresh clone (`/Users/joe/UoN-Video-Tools-spike/uvt7-codex-fresh`), each hook trusted in `/hooks`, then, with no bypass, each of the four fired once and exited 0 on the root, the three start and tool hooks from `lobby/`, no root script invoked from `finisher/` (the decision UVT-7); a live chat's view stays the owner's, a wish line.
 - 2026-11-26 — Step 2, Set 1 and the Node range: the item's list at exact versions, one `playwright-core` 1.56.1; `engines` `^22.19.0 || ^24.0.0 || >=26.0.0` and the profile's Runtime and Dependencies lines; the whole gate green at today's counts on Node 22.19.0 and 24.21.0; Set 1's signed record in the decision.
 - 2026-11-27 — Step 3a, the base configs offered, none switched on: the five TypeScript project layers and `tsconfig.erasable.json` beside the unchanged strict base, and `eslint.base.js`'s six named layers, four of them adding to what `toolConfig()` applies, each proved on fixtures in the root gate; the harness's policy proved on the pack's copy in a throwaway clone (the decision UVT-7). Step 3 lands in two commits on the orchestrator's split: the entry check is step 3b.
+- 2026-11-27 — Step 3b, the entry check: `scripts/check-projects.mjs`, every TypeScript file read by one of the folder's projects (a `noCheck` project given no coverage credit), the entry with a basename of its own, read by the compiler and held, its full text, by ESLint's project service; strictness grading left out as beyond the criterion, a wish line; it passes each tool's one project today (the decision UVT-7).
 - 2026-11-26 — Correction to the criterion "The ESLint layers": "today two escape rules raise 10 errors in one Finisher file" is wrong; measured with the committed layer they raise 532 errors in the Finisher, 245 in 52 source files and 287 in tests (the decision UVT-7; a wish line carries it to VH-250). The criterion's text stands as written on 2026-11-26.

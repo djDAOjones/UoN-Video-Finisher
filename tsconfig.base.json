@@ -11,6 +11,11 @@
 // alone, five checks its code was not written for; none loosens this file
 // for the folder's own code. tsconfig.erasable.json adds the pack's
 // erasableSyntaxOnly, opted into by a folder (an extends array) until UVT-9.
+// Run `node ../scripts/check-projects.mjs --project tsconfig.json --entry
+// src/main.ts` from the folder, `--project` repeated for every project its
+// typecheck runs, to prove every TypeScript file is read by one of them and
+// its React entry has a basename of its own: TypeScript keeps main.ts and
+// silently drops a main.tsx beside it.
 {
   "compilerOptions": {
     "target": "ES2022",
