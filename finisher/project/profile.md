@@ -28,6 +28,7 @@
 - Handoff: Claude Code plans and executes; Codex reviews read-only; one writer per checkout, a second session in its own clone, handed back by commit
 - Secrets: none held; never in source, URLs or logs; a leak is rotated first, then a `[!]` line and a decision
 - Dependencies: the root's one install; direct runtime mediabunny, react, react-dom, @carbon/react (spec §3.1); any other stops and asks — a decision
+- App opinion: forms, 2026-11-26
 - Structure: `project/structure.md` (generated)
 
 ## Standards adopted
@@ -40,6 +41,8 @@
   - status visible and announced; errors say what next; no control for power users
 - House conventions → digest: house-conventions
   - the owner's code, naming, documentation and testing rules, carried from canon
+- The owner's app opinion → digest: app-opinion
+  - the forms kind: React and Carbon React render the interface, plain TypeScript the engine; AAA aim, an AA failure blocks
 
 ## Conventions
 

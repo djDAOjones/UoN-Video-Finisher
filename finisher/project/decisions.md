@@ -24,6 +24,16 @@
      moves the oldest entries verbatim to project/decisions-YYYY-MM.md,
      beside this file, listed in project/archive-index.md. -->
 
+## 2026-11-27 — VH-249 — The app opinion's record: the forms kind, its digest and By-task row
+
+**Decision:** the profile's App opinion line reads forms, 2026-11-26, the pack's app-opinion digest adopted in Standards with the kind and level, and the rules' By-task row as the pack gives it; the pack's files wait for VH-250 — on "everything approved" (PLAN-11).
+
+**Rationale:** VH-249's criterion for the app pack's record. `project/digests/app-opinion.md` is canon v5.0.3's (`d599678`) `app/project/digests/app-opinion.md`, byte for byte, 644 words as the checker counts them within the row's 650; ledger.mjs 3.28 fails the line without it. The Standards rule names the forms kind as the digest states it, React and Carbon React rendering the interface and plain TypeScript the engine, and its level, AAA aimed at with an AA failure blocking; the profile's WCAG 2.2 AAA standard still governs. Set 1's record is step 4's `project/app/set1.json` (`817b00fb`); its T3 warning, ESLint 9 past its end of life on 2026-08-06, is the parent's UVT-7.2, the jsx-a11y conflict, re-checked at each re-certification. The pack's Gate line comes in turn: `test` is already in the gate; this item's JSDoc step checks the `.mjs` scripts; VH-250 brings the core and application type checks and `boundaries`; `a11y` enters with VH-251's first ported journey.
+
+**Supersedes:** none
+
+**Deferred:** none
+
 ## 2026-11-27 — VH-249 — The accessibility pack copied at extended depth, AAA, its harness typechecked and linted as UVT-7 proved
 
 **Decision:** canon v5.0.3's `a11y/install.mjs` copies the pack's 40 files at extended depth and writes `project/a11y/coverage.json` at AAA, every feature unknown, its two `docs/` documents as the owner approved (PLAN-12.3 retired); UVT-7's harness recipe: `tests/a11y/tsconfig.json` on the root's a11y layer listing the eight copied files, run by `npm run typecheck`, our own there in the strict project, `layers.a11yHarness()` in the ESLint config with the eight read by its project service, seven packages declared at the root's specifiers, linked by each `a11y*` script, the preview on 127.0.0.1 — on "everything approved" (PLAN-11) and the orchestrator's ruling of 2026-11-27.
@@ -467,15 +477,5 @@
 **Rationale:** Record-only, at VH-195's close; the reason is the first of these entries'.
 
 **Supersedes:** 2026-10-25 — PLAN-8 — Phase 8 ends with a third full design, UX and accessibility pass, VH-197 to VH-203, in Phase 7's stages, before VH-195 closes it
-
-**Items:** VH-182, VH-183, VH-184, VH-185, VH-186, VH-187, VH-188, VH-189, VH-190, VH-191, VH-192, VH-193, VH-194, VH-196, VH-197, VH-198, VH-205, VH-199, VH-200, VH-201, VH-202, VH-211, VH-206, VH-207, VH-208, VH-212, VH-213, VH-214, VH-215, VH-216, VH-227, VH-217, VH-229, VH-209, VH-218, VH-230, VH-219, VH-210, VH-225, VH-220, VH-221, VH-222, VH-223, VH-224, VH-231, VH-232, VH-203, VH-233, VH-234, VH-235, VH-236, VH-237, VH-195
-
-## 2026-11-09 — PLAN-8 — Phase 8's 53 items restated whole, in place of the sheet's list
-
-**Decision:** Phase 8's items are the 53 the entries above restate, here in place of the 24 October sheet's list.
-
-**Rationale:** Record-only, at VH-195's close; the reason is the first of these entries'.
-
-**Supersedes:** 2026-10-24 — PLAN-8 — the sheet approved: round 2's Q5 to Q7 on its recommendations, with four wording changes of the owner's
 
 **Items:** VH-182, VH-183, VH-184, VH-185, VH-186, VH-187, VH-188, VH-189, VH-190, VH-191, VH-192, VH-193, VH-194, VH-196, VH-197, VH-198, VH-205, VH-199, VH-200, VH-201, VH-202, VH-211, VH-206, VH-207, VH-208, VH-212, VH-213, VH-214, VH-215, VH-216, VH-227, VH-217, VH-229, VH-209, VH-218, VH-230, VH-219, VH-210, VH-225, VH-220, VH-221, VH-222, VH-223, VH-224, VH-231, VH-232, VH-203, VH-233, VH-234, VH-235, VH-236, VH-237, VH-195
