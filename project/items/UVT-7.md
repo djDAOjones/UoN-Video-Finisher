@@ -31,7 +31,7 @@ phase's end (UVT-9).
 
 Updated: 2026-11-27
 
-Next step: the pack tools' reach to the root install, proved from both tool folders, its own commit with Codex's review; then the signed lines.
+Next step: the signed lines and the dependency folder's place, their own commit with Codex's review; then the close.
 
 Open question: None.
 
@@ -53,4 +53,5 @@ Open question: None.
 - 2026-11-26 — Step 2, Set 1 and the Node range: the item's list at exact versions, one `playwright-core` 1.56.1; `engines` `^22.19.0 || ^24.0.0 || >=26.0.0` and the profile's Runtime and Dependencies lines; the whole gate green at today's counts on Node 22.19.0 and 24.21.0; Set 1's signed record in the decision.
 - 2026-11-27 — Step 3a, the base configs offered, none switched on: the five TypeScript project layers and `tsconfig.erasable.json` beside the unchanged strict base, and `eslint.base.js`'s six named layers, four of them adding to what `toolConfig()` applies, each proved on fixtures in the root gate; the harness's policy proved on the pack's copy in a throwaway clone (the decision UVT-7). Step 3 lands in two commits on the orchestrator's split: the entry check is step 3b.
 - 2026-11-27 — Step 3b, the entry check: `scripts/check-projects.mjs`, every TypeScript file read by one of the folder's projects (a `noCheck` project given no coverage credit), the entry with a basename of its own, read by the compiler and held, its full text, by ESLint's project service; strictness grading left out as beyond the criterion, a wish line; it passes each tool's one project today (the decision UVT-7).
+- 2026-11-27 — Step 4, the pack tools' reach: `scripts/link-root-install.mjs` links each package a tool declares with the root's own specifier, checked against the root's lockfile, from the tool's `node_modules/` to the root's copy, run first by each tool's `a11y*` scripts (written in VH-249 and VNG-14); `scripts/jsdoc-ratchet.mjs` runs the folder's copied JSDoc ratchet's measurement with the root's TypeScript, since the pack's refuses a compiler outside the folder; all four `a11y*` commands and the runner proved from both tool folders in a throwaway clone, the gate green with the links; the app pack's Knip, dependency-cruiser and Plex alias each given a way round, run in a second clone (the Plex fix in the pack's `vite.config.mjs` copied beside the tool's), the merges into each tool's own configs VH-250's and VNG-14's (the decision UVT-7).
 - 2026-11-26 — Correction to the criterion "The ESLint layers": "today two escape rules raise 10 errors in one Finisher file" is wrong; measured with the committed layer they raise 532 errors in the Finisher, 245 in 52 source files and 287 in tests (the decision UVT-7; a wish line carries it to VH-250). The criterion's text stands as written on 2026-11-26.
