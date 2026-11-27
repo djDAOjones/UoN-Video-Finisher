@@ -44,6 +44,7 @@
 | code change | project/digests/house-conventions.md | 1,700 | |
 | a change the specification governs | docs/01-specification.md | 8,200 | the owner approves every edit to docs/ |
 | re-opening a settled choice | docs/02-technical-rationale.md | 2,600 | the owner |
+| briefing a session or second model; any close | project/model-policy.md | 400 | the owner signs the policy |
 
 ## Signed
 
