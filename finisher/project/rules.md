@@ -41,6 +41,7 @@
 | UI | project/digests/wcag-2.2-aaa.md | 600 | |
 | build, dev server, scripts, deploy, versioning, diagnostics | DEV-INFRASTRUCTURE.md | 4,600 | |
 | code change | project/engineering.md | 3,100 | |
+| a container, external system, boundary or interface change | project/architecture.md | 400 | none |
 | code change | project/digests/house-conventions.md | 1,700 | |
 | a change the specification governs | docs/01-specification.md | 8,200 | the owner approves every edit to docs/ |
 | re-opening a settled choice | docs/02-technical-rationale.md | 2,600 | the owner |
