@@ -44,6 +44,7 @@
 | a container, external system, boundary or interface change | project/architecture.md | 400 | none |
 | an interface, core, player, export or dependency change | project/digests/app-opinion.md | 650 | the owner signs each departure |
 | code change | project/digests/house-conventions.md | 1,700 | |
+| JavaScript exports, shapes or callers | project/digests/jsdoc.md | 400 | the owner signs each exception |
 | a change the specification governs | docs/01-specification.md | 8,200 | the owner approves every edit to docs/ |
 | re-opening a settled choice | docs/02-technical-rationale.md | 2,600 | the owner |
 | briefing a session or second model; any close | project/model-policy.md | 400 | the owner signs the policy |

@@ -24,6 +24,16 @@
      moves the oldest entries verbatim to project/decisions-YYYY-MM.md,
      beside this file, listed in project/archive-index.md. -->
 
+## 2026-11-27 — VH-249 — The JSDoc pack on the Finisher's .mjs scripts and check-links.mjs, by the root's compiler; the ratchet starts at 0
+
+**Decision:** the JSDoc pack's ratchet, digest and configuration, adapted to `scripts/**/*.mjs` and `check-links.mjs` (the stock pack selects `src/**/*.js`), measured by the root's runner, start at 0 errors and run in `npm run typecheck` — on "everything approved" (PLAN-11).
+
+**Rationale:** VH-249's JSDoc criterion. `tools/jsdoc-ratchet.mjs` and `project/digests/jsdoc.md` are canon v5.0.3's (`d599678`) byte for byte, never edited. `tsconfig.jsdoc.json` is the pack's but two fittings: `include` takes the criterion's files, the nine `.mjs` scripts under `scripts/` and `check-links.mjs` (the pack's copied a11y harness, `eslint.a11y.mjs`, `tools/`, `pm_skills/` and `reviews/` are not the Finisher's scripts; `eslint.config.js` is configuration ESLint loads and validates on every gate run), and `types` takes `node`, the root's `@types/node`, since the scripts are Node's; `lib` stays the pack's, DOM included (dropped, Node's `fetch` types give four TS2339 errors in `run-in-engines.mjs`, where parsed JSON becomes `unknown`). `node ../scripts/jsdoc-ratchet.mjs --init` (UVT-7's runner, the root's TypeScript 6.0.3) recorded `project/jsdoc-baseline.json`: 0 errors, `--listFilesOnly` naming the ten inputs and the `verdict.d.mts` they import. `typecheck`, which the gate runs, gains the ratchet after the two compiler checks; the profile's JSDoc line, its Standards entry citing the digest's rules 1, 3 and 4, the Gate line naming `npm run typecheck`, and the rules' By-task row are intake's wording.
+
+**Supersedes:** none
+
+**Deferred:** none
+
 ## 2026-11-27 — VH-249 — The app opinion's record: the forms kind, its digest and By-task row
 
 **Decision:** the profile's App opinion line reads forms, 2026-11-26, the pack's app-opinion digest adopted in Standards with the kind and level, and the rules' By-task row as the pack gives it; the pack's files wait for VH-250 — on "everything approved" (PLAN-11).
@@ -467,15 +477,5 @@
 **Rationale:** Record-only, at VH-195's close; the reason is the first of these entries'.
 
 **Supersedes:** 2026-10-27 — PLAN-8 — The owner's old issues planned: VH-212 to VH-224 for the format "?", A and B, before VH-203; VH-211 closes
-
-**Items:** VH-182, VH-183, VH-184, VH-185, VH-186, VH-187, VH-188, VH-189, VH-190, VH-191, VH-192, VH-193, VH-194, VH-196, VH-197, VH-198, VH-205, VH-199, VH-200, VH-201, VH-202, VH-211, VH-206, VH-207, VH-208, VH-212, VH-213, VH-214, VH-215, VH-216, VH-227, VH-217, VH-229, VH-209, VH-218, VH-230, VH-219, VH-210, VH-225, VH-220, VH-221, VH-222, VH-223, VH-224, VH-231, VH-232, VH-203, VH-233, VH-234, VH-235, VH-236, VH-237, VH-195
-
-## 2026-11-09 — PLAN-8 — Phase 8's 53 items restated whole, in place of the 25 October list
-
-**Decision:** Phase 8's items are the 53 the entries above restate, here in place of the third pass's list.
-
-**Rationale:** Record-only, at VH-195's close; the reason is the first of these entries'.
-
-**Supersedes:** 2026-10-25 — PLAN-8 — Phase 8 ends with a third full design, UX and accessibility pass, VH-197 to VH-203, in Phase 7's stages, before VH-195 closes it
 
 **Items:** VH-182, VH-183, VH-184, VH-185, VH-186, VH-187, VH-188, VH-189, VH-190, VH-191, VH-192, VH-193, VH-194, VH-196, VH-197, VH-198, VH-205, VH-199, VH-200, VH-201, VH-202, VH-211, VH-206, VH-207, VH-208, VH-212, VH-213, VH-214, VH-215, VH-216, VH-227, VH-217, VH-229, VH-209, VH-218, VH-230, VH-219, VH-210, VH-225, VH-220, VH-221, VH-222, VH-223, VH-224, VH-231, VH-232, VH-203, VH-233, VH-234, VH-235, VH-236, VH-237, VH-195

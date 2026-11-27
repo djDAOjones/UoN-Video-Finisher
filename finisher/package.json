@@ -17,7 +17,7 @@
     "preview": "vite preview",
     "test": "node -e \"console.log('test context: an unusually long DSP timeout may be machine contention; rerun on a settled machine before changing the timeout or assertion')\" && vitest run",
     "test:watch": "vitest",
-    "typecheck": "tsc --noEmit && tsc --noEmit -p tests/a11y",
+    "typecheck": "tsc --noEmit && tsc --noEmit -p tests/a11y && node ../scripts/jsdoc-ratchet.mjs",
     "lint": "eslint . --max-warnings 0",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
