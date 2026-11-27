@@ -37,6 +37,11 @@ function buildId(): string {
 // the root's install, none fetched (the app-opinion digest).
 const plex = resolve(import.meta.dirname, '../node_modules/@ibm/plex')
 
+/**
+ * Vite's and Vitest's one configuration for Name Graphics: the seed's build
+ * (base path, port, build identity, sourcemaps, `index.html` the input) with
+ * the forms kind's Plex alias and test-runner settings merged in.
+ */
 export default defineConfig({
   // A GitHub Pages project site serves from `/<repo>/`, not the root. The
   // deploy workflow sets BASE_PATH; local dev leaves it unset and stays at

@@ -1,12 +1,15 @@
-// The project's own declarations for the accessibility gate (V31-A11Y): its UI states, dialogs, keyboard functions
-// and authored journeys, its server and the source the lint step reads. The pack writes this starter once and never
-// overwrites it. Features live in project/a11y/coverage.json, not here. A state with no reviewed ARIA snapshot fails
-// its snapshot test; an applicable row no journey claims fails its "not written" test.
+/**
+ * The project's own declarations for the accessibility gate (V31-A11Y): its UI states, dialogs, keyboard functions
+ * and authored journeys, its server and the source the lint step reads. The pack writes this starter once and never
+ * overwrites it. Features live in project/a11y/coverage.json, not here. A state with no reviewed ARIA snapshot fails
+ * its snapshot test; an applicable row no journey claims fails its "not written" test.
+ */
 export default {
   // How the gate reaches the app: a base URL, and the command that serves it on that URL (or null if already served).
   baseURL: 'http://127.0.0.1:4173',
   server: { command: 'npm run preview -- --port 4173 --strictPort --host 127.0.0.1', url: 'http://127.0.0.1:4173' },
-  // Source the lint step reads with the project's ESLint configuration, which imports eslint.a11y.mjs.
+  // Source the lint step reads with the project's ESLint configuration, whose jsx-a11y strict set the root's jsxA11y()
+  // layer supplies (VNG-14), the set eslint.a11y.mjs names with its credits.
   lint: ['src'],
   // The house target size for SUP03, in CSS px.
   houseTarget: 44,

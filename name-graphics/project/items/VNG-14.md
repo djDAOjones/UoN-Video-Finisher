@@ -26,7 +26,7 @@ stack on the root's one install before the Finisher's rebuild.
 
 Updated: 2026-11-27
 
-Next step: the close.
+Next step: None.
 
 Open question: None.
 
@@ -52,3 +52,4 @@ Open question: None.
 - 2026-11-27 — The accessibility pack's copy: `a11y:doctor` ready for engines, touch, media and flash capture; VoiceOver, PDF, the iOS audit, the native journey and the Android checks blocked, each named in the decision.
 - 2026-11-27 — The JSDoc pack: 0 errors at the start over `check-links.mjs`; the rules at 582 words of 600, so the app-opinion row (about 17 words) leaves almost none.
 - 2026-11-27 — The forms step, by the orchestrator's ruling A of 2026-11-27, which the owner kept ("Keep it"): `npm run typecheck` runs the app, tests and accessibility-harness projects through UVT-7's entry check; the core and workers projects join with their first file, since an empty project fails that check by design and Name Graphics has none yet (decision of the same date). The starter's model, validation and persistence adapter removed before the commit; the entry `src/root.tsx`; profile 398 words of 400, rules 596 of 600.
+- 2026-11-27 — Closed. The owner's instructions for it still in force, verbatim: 2026-11-26 (the parent's PLAN-11), "we need to upgrade the projects to use the full pm-skills framework stack"; "retrofit everything in full, and do this first"; "codex astra review of every step"; "basicly rebuild the app as though it was made with this stack in the first place"; "make an orchestrator chat with sub chats, follow pm-skills conventions for this. everything approved, proceed but project lies in onedrive"; "Full kind, with React"; "JSdoc yes, promptfoo no"; "Extended, tools and lobby"; "everything approved". 2026-11-27: "open additional sub chats when needed, dont pause by asking"; "Keep it", of the orchestrator's ruling A on the five projects.

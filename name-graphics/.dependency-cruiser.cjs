@@ -18,6 +18,10 @@ const literal = (name) => name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 const ok = (...folders) => [`^src/(${folders.join('|')})/`, ...(PACKAGES.length > 0 ? [`(^|/)node_modules/(${PACKAGES.map(literal).join('|')})/`] : [])];
 const TESTS = '\\.test\\.tsx?$';
 
+/**
+ * The boundaries `npm run boundaries` checks over src/: the four areas' allowlists and no unresolvable import, with
+ * the resolver options that reach the root's one install.
+ */
 module.exports = {
   forbidden: [
     { name: 'core-reaches-only-core', severity: 'error', comment: 'src/core reaches only itself and the packages listed above: no adapter, interface, editor, player, exported code, other folder or UI framework', from: { path: '^src/core/', pathNot: TESTS }, to: { pathNot: ok('core'), reachable: true } },

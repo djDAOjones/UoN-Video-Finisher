@@ -22,8 +22,7 @@
 
 ### Phase 13 — The full pm-skills stack: Name Graphics rebuilt on it, the pilot — the owner's word of 2026-11-26
 
-- [~] VNG-14 — Name Graphics' packs and signed lines: the model policy, accessibility testing at extended depth, the app opinion's forms kind, JSDoc on its scripts, the architecture record, Set 1 — since 2026-11-26 — (from: PLAN-13, 2026-11-26)
-- [ ] VNG-15 — The seed rebuilt on the stack: its page in React and Carbon React in the forms kind's layout, the neutral palette at AAA, `npm run a11y` in the gate — since 2026-11-26 — (from: PLAN-13, 2026-11-26) — blocked: VNG-14 and the parent's UVT-8 (Playwright's browser in CI)
+- [ ] VNG-15 — The seed rebuilt on the stack: its page in React and Carbon React in the forms kind's layout, the neutral palette at AAA, `npm run a11y` in the gate — since 2026-11-26 — (from: PLAN-13, 2026-11-26) — blocked: the parent's UVT-8 (Playwright's browser in CI)
 
 ### Phase 1 — the seed, the brand packs and the output format
 

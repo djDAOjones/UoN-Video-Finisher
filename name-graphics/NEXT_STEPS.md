@@ -21,11 +21,11 @@ the repository's [`NEXT_STEPS.md`](../NEXT_STEPS.md).
 ## Next three tasks
 
 1. **Phase 13, the full pm-skills stack** (PLAN-13, the owner's word of
-   2026-11-26 in the parent's PLAN-11), Name Graphics the pilot: first
-   **VNG-14**, after the parent's UVT-7 (the packs, the model policy, the
-   signed lines); then **VNG-15**, after VNG-14 and the parent's UVT-8,
-   the seed rebuilt in React and Carbon React with `npm run a11y` in the
-   gate.
+   2026-11-26 in the parent's PLAN-11), Name Graphics the pilot:
+   **VNG-14** shipped on 2026-11-27 (the packs, the model policy, the
+   signed lines, the forms kind); next **VNG-15**, after the parent's
+   UVT-8, the seed rebuilt in React and Carbon React with `npm run a11y`
+   in the gate.
 2. **VNG-2**, the brand packs and the check that the neutral build
    carries no UoN, on the stack, once the parent's UVT-9 closes the
    retrofit.

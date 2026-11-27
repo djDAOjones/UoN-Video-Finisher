@@ -16,6 +16,7 @@
 ## Phase 13 — The full pm-skills stack: Name Graphics rebuilt on it, the pilot — the owner's word of 2026-11-26
 
 - VNG-13 — the rules' Always, with its Environment, trimmed from 425 words to 377 within its 400 guideline, no obligation weakened, the secrets clause carried by the profile's Secrets line, the person's checks gathered in one line, signed as delegated by VNG-14's budgets step (2026-11-27) — see decisions
+- VNG-14 — Name Graphics on the stack's packs at the root's one install: the model policy and Codex hooks, Node and Set 1's record, the architecture record, accessibility testing at extended depth, AAA, JSDoc on its script from 0, the forms kind merged with its sample data code removed and its React entry `src/root.tsx`, three of five typecheck projects by ruling A, the signed lines on Carbon React (2026-11-27) — see decisions
 
 ## The UoN Video Tools restructure — the owner's word of 2026-11-25
 

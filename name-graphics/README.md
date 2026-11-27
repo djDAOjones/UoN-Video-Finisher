@@ -25,9 +25,12 @@ returns 404.
 ## Build, run and check
 
 - **Install once, at the repository's root:** `npm ci` there (or
-  `npm install`). This folder has no lockfile or `node_modules` of its
-  own; Node and Vite find the root's by walking up, and its dev tools
-  run at the root lockfile's versions.
+  `npm install`). This folder has no lockfile or install of its own;
+  Node and Vite find the root's by walking up, and its dev tools run at
+  the root lockfile's versions. Its `node_modules/`, where present,
+  holds only the links its `a11y*` commands make to the root's copies
+  (`../scripts/link-root-install.mjs`) and the caches Vite and Vitest
+  write.
 - **Dev server:** `npm run dev` here, at <http://localhost:5173> (Vite
   moves to the next free port if that one is taken).
 - **The gate:** `npm run check` here: types (three TypeScript projects

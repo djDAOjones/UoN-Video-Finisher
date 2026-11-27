@@ -7,6 +7,11 @@
 
 import { Heading, Section } from '@carbon/react'
 
+/**
+ * The page's content, mounted by `src/root.tsx`: the title and the seed's
+ * empty-state line, said rather than left blank. Pure: no props, no state,
+ * nothing read or written outside the render.
+ */
 export function App() {
   return (
     <main>

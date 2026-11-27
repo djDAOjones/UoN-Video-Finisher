@@ -23,9 +23,9 @@ items (VNG-2 to VNG-9) then build on the stack.
 
 ## Now
 
-Updated: 2026-11-26
+Updated: 2026-11-27
 
-Next step: after VNG-14 and the parent's UVT-8, the page's first component on the forms starter.
+Next step: after the parent's UVT-8, the page's first component on the forms starter's entry, `src/root.tsx`, which VNG-14 left typechecked, linted and unserved.
 
 Open question: None.
 
