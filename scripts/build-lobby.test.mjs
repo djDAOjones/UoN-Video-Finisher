@@ -56,6 +56,16 @@ test('the build command takes one folder, and refuses no folder or two', () => {
   }
 })
 
+test("the page's targets use the AAA floor as a token, valued as shared/'s --target-min", () => {
+  const token = (css) => css.match(/--target-min:\s*([^;]+);/)?.[1]?.trim()
+  const shared = token(readFileSync(new URL('../shared/styles/tokens.carbon.css', import.meta.url), 'utf8'))
+  const page = renderLobby()
+  assert.ok(shared, 'shared/styles/tokens.carbon.css names --target-min')
+  assert.equal(token(page), shared)
+  assert.match(page, /min-block-size:\s*var\(--target-min\);/)
+  assert.match(page, /min-inline-size:\s*var\(--target-min\);/)
+})
+
 test('the page ships no script and so registers no service worker', () => {
   const page = renderLobby()
   assert.doesNotMatch(page, /<script\b/i)

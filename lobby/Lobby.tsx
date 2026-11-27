@@ -5,8 +5,15 @@
 // address would take over every tool below it. The real staff and student
 // lobbies are a parent item (UVT-6.10).
 
-/** The page's own styles, inline: the lobby is one file. */
+/**
+ * The page's own styles, inline: the lobby is one file. Its one number of
+ * its own, the AAA pointer-target floor, is a CSS token named and valued as
+ * shared/styles/tokens.carbon.css names it (a test holds the two equal).
+ */
 const styles = `
+:root {
+  --target-min: 44px;
+}
 body {
   font-family: system-ui, sans-serif;
   line-height: 1.5;
@@ -18,6 +25,10 @@ body {
 }
 a {
   color: #00e;
+  display: inline-flex;
+  align-items: center;
+  min-block-size: var(--target-min);
+  min-inline-size: var(--target-min);
 }
 li {
   margin-block: 0.75rem;

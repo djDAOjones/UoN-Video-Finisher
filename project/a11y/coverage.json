@@ -3,88 +3,88 @@
   "level": "AAA",
   "features": {
     "media": {
-      "state": "unknown",
-      "evidence": ""
+      "state": "absent",
+      "evidence": "lobby/Lobby.tsx renders no audio, video or other media: a heading, a paragraph and a list of two links"
     },
     "live-media": {
-      "state": "unknown",
-      "evidence": ""
+      "state": "absent",
+      "evidence": "lobby/Lobby.tsx renders no audio or video, live or recorded"
     },
     "autoplay-audio": {
-      "state": "unknown",
-      "evidence": ""
+      "state": "absent",
+      "evidence": "lobby/Lobby.tsx renders no audio, and the page ships no script"
     },
     "pdf": {
-      "state": "unknown",
-      "evidence": ""
+      "state": "absent",
+      "evidence": "lobby/Lobby.tsx offers no document: its two links open the tools' own pages"
     },
     "native-ios": {
-      "state": "unknown",
-      "evidence": ""
+      "state": "absent",
+      "evidence": "the lobby is a web page served by GitHub Pages (project/brief.md); there is no native app"
     },
     "native-android": {
-      "state": "unknown",
-      "evidence": ""
+      "state": "absent",
+      "evidence": "the lobby is a web page served by GitHub Pages (project/brief.md); there is no native app"
     },
     "flashing": {
-      "state": "unknown",
-      "evidence": ""
+      "state": "absent",
+      "evidence": "lobby/Lobby.tsx's styles have no animation or transition, and the page ships no script"
     },
     "moving-content": {
-      "state": "unknown",
-      "evidence": ""
+      "state": "absent",
+      "evidence": "lobby/Lobby.tsx's styles have no animation, transition or marquee, and the page ships no script, so nothing moves or updates"
     },
     "authentication": {
-      "state": "unknown",
-      "evidence": ""
+      "state": "absent",
+      "evidence": "lobby/Lobby.tsx has no sign-in or verification: a public page of two links"
     },
     "multi-step": {
-      "state": "unknown",
-      "evidence": ""
+      "state": "absent",
+      "evidence": "lobby/Lobby.tsx is one page with no process: each link opens a tool, whose own ledger covers it"
     },
     "timers": {
-      "state": "unknown",
-      "evidence": ""
+      "state": "absent",
+      "evidence": "the page ships no script (scripts/build-lobby.mjs renders static HTML), so it has no time limit or session"
     },
     "interruptions": {
-      "state": "unknown",
-      "evidence": ""
+      "state": "absent",
+      "evidence": "the page ships no script, so no alert or update interrupts it"
     },
     "pointer-gestures": {
-      "state": "unknown",
-      "evidence": ""
+      "state": "absent",
+      "evidence": "lobby/Lobby.tsx's only controls are two links, each activated by a single click or tap"
     },
     "device-motion": {
-      "state": "unknown",
-      "evidence": ""
+      "state": "absent",
+      "evidence": "the page ships no script, so nothing reads the device's motion"
     },
     "hover-focus-content": {
-      "state": "unknown",
-      "evidence": ""
+      "state": "absent",
+      "evidence": "lobby/Lobby.tsx shows nothing on hover or focus: no title attribute, tooltip or :hover rule"
     },
     "keyboard-shortcuts": {
-      "state": "unknown",
-      "evidence": ""
+      "state": "absent",
+      "evidence": "the page ships no script, so it has no keyboard shortcut"
     },
     "user-input": {
-      "state": "unknown",
-      "evidence": ""
+      "state": "absent",
+      "evidence": "lobby/Lobby.tsx has no form, input or editable region"
     },
     "page-set": {
-      "state": "unknown",
-      "evidence": ""
+      "state": "absent",
+      "evidence": "lobby/Lobby.tsx is a single page: the tools it links to are separate apps, each with its own ledger and coverage file, sharing no navigation or repeated block with it"
     },
     "languages": {
-      "state": "unknown",
-      "evidence": ""
+      "state": "absent",
+      "evidence": "lobby/Lobby.tsx is in one language, English, declared by lang=\"en-GB\" on its html element"
     },
     "canvas": {
-      "state": "unknown",
-      "evidence": ""
+      "state": "absent",
+      "evidence": "lobby/Lobby.tsx has no canvas, map or editor surface"
     },
     "exports": {
-      "state": "unknown",
-      "evidence": ""
+      "state": "absent",
+      "evidence": "lobby/Lobby.tsx offers no file to download or export"
     }
   },
   "rows": {
@@ -99,7 +99,10 @@
     "1.2.1": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "not_applicable",
+        "absent": [
+          "media"
+        ]
       },
       "evidence": [],
       "results": []
@@ -107,7 +110,10 @@
     "1.2.2": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "not_applicable",
+        "absent": [
+          "media"
+        ]
       },
       "evidence": [],
       "results": []
@@ -115,7 +121,10 @@
     "1.2.3": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "not_applicable",
+        "absent": [
+          "media"
+        ]
       },
       "evidence": [],
       "results": []
@@ -123,7 +132,10 @@
     "1.2.4": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "not_applicable",
+        "absent": [
+          "live-media"
+        ]
       },
       "evidence": [],
       "results": []
@@ -131,7 +143,10 @@
     "1.2.5": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "not_applicable",
+        "absent": [
+          "media"
+        ]
       },
       "evidence": [],
       "results": []
@@ -139,7 +154,10 @@
     "1.2.6": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "not_applicable",
+        "absent": [
+          "media"
+        ]
       },
       "evidence": [],
       "results": []
@@ -147,7 +165,10 @@
     "1.2.7": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "not_applicable",
+        "absent": [
+          "media"
+        ]
       },
       "evidence": [],
       "results": []
@@ -155,7 +176,10 @@
     "1.2.8": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "not_applicable",
+        "absent": [
+          "media"
+        ]
       },
       "evidence": [],
       "results": []
@@ -163,7 +187,10 @@
     "1.2.9": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "not_applicable",
+        "absent": [
+          "live-media"
+        ]
       },
       "evidence": [],
       "results": []
@@ -203,7 +230,10 @@
     "1.3.5": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "not_applicable",
+        "absent": [
+          "user-input"
+        ]
       },
       "evidence": [],
       "results": []
@@ -227,7 +257,10 @@
     "1.4.2": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "not_applicable",
+        "absent": [
+          "autoplay-audio"
+        ]
       },
       "evidence": [],
       "results": []
@@ -267,7 +300,10 @@
     "1.4.7": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "not_applicable",
+        "absent": [
+          "media"
+        ]
       },
       "evidence": [],
       "results": []
@@ -315,7 +351,10 @@
     "1.4.13": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "not_applicable",
+        "absent": [
+          "hover-focus-content"
+        ]
       },
       "evidence": [],
       "results": []
@@ -347,7 +386,10 @@
     "2.1.4": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "not_applicable",
+        "absent": [
+          "keyboard-shortcuts"
+        ]
       },
       "evidence": [],
       "results": []
@@ -355,7 +397,10 @@
     "2.2.1": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "not_applicable",
+        "absent": [
+          "timers"
+        ]
       },
       "evidence": [],
       "results": []
@@ -363,7 +408,10 @@
     "2.2.2": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "not_applicable",
+        "absent": [
+          "moving-content"
+        ]
       },
       "evidence": [],
       "results": []
@@ -371,7 +419,10 @@
     "2.2.3": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "not_applicable",
+        "absent": [
+          "timers"
+        ]
       },
       "evidence": [],
       "results": []
@@ -379,7 +430,10 @@
     "2.2.4": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "not_applicable",
+        "absent": [
+          "interruptions"
+        ]
       },
       "evidence": [],
       "results": []
@@ -387,7 +441,11 @@
     "2.2.5": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "not_applicable",
+        "absent": [
+          "authentication",
+          "timers"
+        ]
       },
       "evidence": [],
       "results": []
@@ -395,7 +453,10 @@
     "2.2.6": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "not_applicable",
+        "absent": [
+          "timers"
+        ]
       },
       "evidence": [],
       "results": []
@@ -403,7 +464,10 @@
     "2.3.1": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "not_applicable",
+        "absent": [
+          "flashing"
+        ]
       },
       "evidence": [],
       "results": []
@@ -411,7 +475,10 @@
     "2.3.2": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "not_applicable",
+        "absent": [
+          "flashing"
+        ]
       },
       "evidence": [],
       "results": []
@@ -427,7 +494,10 @@
     "2.4.1": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "not_applicable",
+        "absent": [
+          "page-set"
+        ]
       },
       "evidence": [],
       "results": []
@@ -459,7 +529,10 @@
     "2.4.5": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "not_applicable",
+        "absent": [
+          "page-set"
+        ]
       },
       "evidence": [],
       "results": []
@@ -483,7 +556,10 @@
     "2.4.8": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "not_applicable",
+        "absent": [
+          "page-set"
+        ]
       },
       "evidence": [],
       "results": []
@@ -531,7 +607,10 @@
     "2.5.1": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "not_applicable",
+        "absent": [
+          "pointer-gestures"
+        ]
       },
       "evidence": [],
       "results": []
@@ -555,7 +634,10 @@
     "2.5.4": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "not_applicable",
+        "absent": [
+          "device-motion"
+        ]
       },
       "evidence": [],
       "results": []
@@ -579,7 +661,10 @@
     "2.5.7": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "not_applicable",
+        "absent": [
+          "pointer-gestures"
+        ]
       },
       "evidence": [],
       "results": []
@@ -603,7 +688,10 @@
     "3.1.2": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "not_applicable",
+        "absent": [
+          "languages"
+        ]
       },
       "evidence": [],
       "results": []
@@ -659,7 +747,10 @@
     "3.2.3": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "not_applicable",
+        "absent": [
+          "page-set"
+        ]
       },
       "evidence": [],
       "results": []
@@ -667,7 +758,10 @@
     "3.2.4": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "not_applicable",
+        "absent": [
+          "page-set"
+        ]
       },
       "evidence": [],
       "results": []
@@ -683,7 +777,10 @@
     "3.2.6": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "not_applicable",
+        "absent": [
+          "page-set"
+        ]
       },
       "evidence": [],
       "results": []
@@ -691,7 +788,10 @@
     "3.3.1": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "not_applicable",
+        "absent": [
+          "user-input"
+        ]
       },
       "evidence": [],
       "results": []
@@ -699,7 +799,10 @@
     "3.3.2": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "not_applicable",
+        "absent": [
+          "user-input"
+        ]
       },
       "evidence": [],
       "results": []
@@ -707,7 +810,10 @@
     "3.3.3": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "not_applicable",
+        "absent": [
+          "user-input"
+        ]
       },
       "evidence": [],
       "results": []
@@ -715,7 +821,10 @@
     "3.3.4": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "not_applicable",
+        "absent": [
+          "user-input"
+        ]
       },
       "evidence": [],
       "results": []
@@ -731,7 +840,10 @@
     "3.3.6": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "not_applicable",
+        "absent": [
+          "user-input"
+        ]
       },
       "evidence": [],
       "results": []
@@ -739,7 +851,10 @@
     "3.3.7": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "not_applicable",
+        "absent": [
+          "multi-step"
+        ]
       },
       "evidence": [],
       "results": []
@@ -747,7 +862,10 @@
     "3.3.8": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "not_applicable",
+        "absent": [
+          "authentication"
+        ]
       },
       "evidence": [],
       "results": []
@@ -755,7 +873,10 @@
     "3.3.9": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "not_applicable",
+        "absent": [
+          "authentication"
+        ]
       },
       "evidence": [],
       "results": []
@@ -891,7 +1012,11 @@
     "SUP04": {
       "adoption": "advisory",
       "applicability": {
-        "state": "unresolved"
+        "state": "not_applicable",
+        "absent": [
+          "native-ios",
+          "native-android"
+        ]
       },
       "evidence": [],
       "results": []
@@ -947,7 +1072,11 @@
     "N01": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "not_applicable",
+        "absent": [
+          "native-ios",
+          "native-android"
+        ]
       },
       "evidence": [],
       "results": []
@@ -955,7 +1084,11 @@
     "N02": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "not_applicable",
+        "absent": [
+          "native-ios",
+          "native-android"
+        ]
       },
       "evidence": [],
       "results": []
@@ -963,7 +1096,11 @@
     "N03": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "not_applicable",
+        "absent": [
+          "native-ios",
+          "native-android"
+        ]
       },
       "evidence": [],
       "results": []
@@ -971,7 +1108,11 @@
     "N04": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "not_applicable",
+        "absent": [
+          "native-ios",
+          "native-android"
+        ]
       },
       "evidence": [],
       "results": []
@@ -979,7 +1120,11 @@
     "N05": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "not_applicable",
+        "absent": [
+          "native-ios",
+          "native-android"
+        ]
       },
       "evidence": [],
       "results": []
@@ -987,7 +1132,11 @@
     "N06": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "not_applicable",
+        "absent": [
+          "native-ios",
+          "native-android"
+        ]
       },
       "evidence": [],
       "results": []
@@ -995,7 +1144,11 @@
     "N07": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "not_applicable",
+        "absent": [
+          "native-ios",
+          "native-android"
+        ]
       },
       "evidence": [],
       "results": []
@@ -1003,7 +1156,11 @@
     "N08": {
       "adoption": "required",
       "applicability": {
-        "state": "unresolved"
+        "state": "not_applicable",
+        "absent": [
+          "native-ios",
+          "native-android"
+        ]
       },
       "evidence": [],
       "results": []

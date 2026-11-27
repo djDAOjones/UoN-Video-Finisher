@@ -35,8 +35,12 @@ comes next, ledger by ledger, is [NEXT_STEPS.md](NEXT_STEPS.md).
   by `scripts/link-root-install.mjs`, and the caches Vite and Vitest
   write, such as `.vite` and `.vitest-cache`).
 - **The gate:** `npm run check` in a tool's folder runs that tool's gate;
-  at the root it runs every tool's in turn, then `shared/`'s lint, types
-  and tests, the commit-ID check and the parent's checker.
+  at the root it runs every tool's in turn, then the commit-ID check, the
+  root's lint (`shared/`, the lobby, the scripts and configs, `tests/`) and
+  types (`shared/`, the lobby, `tests/a11y/`), its tests, the
+  lobby's accessibility gate (`npm run a11y`, which needs Playwright's
+  Chromium headless shell in its cache) and the parent's checker. CI runs
+  each part.
 - **One writer per checkout.** Two chats on two tools at the same time need
   a second clone or worktree.
 - **Chats from before 2026-11-26** were filed under the old folders' paths

@@ -64,6 +64,22 @@ jobs:
       # on CI, never run here.
       - run: npm ci --ignore-scripts
 
+      # Playwright's Chromium headless shell for the root's accessibility gate
+      # (UVT-8), at the revision the one playwright-core names (Set 1, exact),
+      # installed into an explicit browser cache outside the checkout, and that
+      # path set for every later step: the pack's runner reads
+      # PLAYWRIGHT_BROWSERS_PATH, else macOS's cache, and never downloads.
+      - name: Install Playwright's Chromium headless shell
+        run: |
+          echo "PLAYWRIGHT_BROWSERS_PATH=$RUNNER_TEMP/ms-playwright" >> "$GITHUB_ENV"
+          PLAYWRIGHT_BROWSERS_PATH="$RUNNER_TEMP/ms-playwright" npm exec --no -- playwright install --with-deps --only-shell chromium
+
+      # CI runs every command of the root gate (UVT-8), checked first and on
+      # its own, so a gate step below removed, made conditional or allowed to
+      # fail stops the run here, before any gate or build.
+      - name: Check CI runs every command of the gate
+        run: node --test scripts/deploy-workflow.test.mjs
+
       # The full gate, not just a build: every tool's, each from its own
       # folder, which is what `npm run check` at the root runs. A deploy is the
       # one place where shipping a broken bundle is expensive to undo, and one
@@ -78,13 +94,28 @@ jobs:
         env:
           BASE_PATH: /${{ github.event.repository.name }}/name-graphics/
 
+      # The parent's own checks: the commit-ID check (in this shallow
+      # checkout, the newest commit only), the root's lint, types and tests,
+      # the lobby's accessibility gate on a fresh build served at the Pages
+      # base path (UVT-8), and the parent ledger's checker (UVT-1).
+      - run: npm run check:root
+        env:
+          BASE_PATH: /${{ github.event.repository.name }}/
+
+      # The gate writes nothing in the checkout (UVT-8): no dist/, and no
+      # tracked or untracked file changed, before the builds below make theirs.
+      # One test a line: bash -e stops on a failed command, but not on one
+      # before && in a list.
+      - name: Check the gate left the checkout as it found it
+        run: |
+          test ! -e finisher/dist
+          test ! -e name-graphics/dist
+          git status --porcelain --untracked-files=all
+          test -z "$(git status --porcelain --untracked-files=all)"
+
       # Each tool built for its own folder. The base is derived from the
       # repo name so a fork or a rename does not silently produce a site whose
       # asset URLs all 404.
-      # The parent's own checks: the commit-ID check (in this shallow
-      # checkout, the newest commit only), the root's lint and tests, and
-      # the parent ledger's checker (UVT-1).
-      - run: npm run check:root
       - name: Build the Finisher into finisher/
         run: npm run build
         working-directory: finisher
@@ -105,6 +136,9 @@ jobs:
           node scripts/build-lobby.mjs _site
           cp -R finisher/dist _site/finisher
           cp -R name-graphics/dist _site/name-graphics
+          # Each page the lobby links to is there, not a level too deep (UVT-8).
+          test -s _site/finisher/index.html
+          test -s _site/name-graphics/index.html
 
       - uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
       # Composite: runs actions/upload-artifact v7.0.0, pinned by SHA inside it.
