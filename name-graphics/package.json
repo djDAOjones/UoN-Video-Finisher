@@ -6,7 +6,7 @@
   "description": "Make a lower-third name graphic, saved as transparent video for Clipchamp or a still PNG, entirely in the browser.",
   "license": "MIT",
   "engines": {
-    "node": "^20.19.0 || >=22.12.0"
+    "node": "^22.19.0 || ^24.0.0 || >=26.0.0"
   },
   "scripts": {
     "dev": "vite",

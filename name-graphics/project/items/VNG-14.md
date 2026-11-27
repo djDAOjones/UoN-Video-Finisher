@@ -26,7 +26,7 @@ stack on the root's one install before the Finisher's rebuild.
 
 Updated: 2026-11-27
 
-Next step: the Node range with Set 1's signed record, and the architecture record (the early start, 2026-11-27); the rest after UVT-7's close.
+Next step: the architecture record (the early start, 2026-11-27); the rest after UVT-7's close.
 
 Open question: None.
 
@@ -45,3 +45,4 @@ Open question: None.
 - 2026-11-26 — Codex's third review (gpt-6.2-astra): naming the `.tsx` in `include` does not save it, so the entry takes its own basename; this item copies the whole starter, so the local-storage sample is kept out here, not first in VNG-15. Folded in above.
 - 2026-11-26 — Codex's fourth review (gpt-6.2-astra): the copied harness's passing policy, and the Design system introduction as well as the token table. Folded in above.
 - 2026-11-27 — The model policy's row leaves the rules file at 583 words of 600: 17 to spare for the four By-task rows to come, so the signed lines are compressed first where needed.
+- 2026-11-27 — The Node line leaves the profile at 399 words of 400: the later steps' signed lines are compressed first.

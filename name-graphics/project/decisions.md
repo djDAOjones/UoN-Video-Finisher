@@ -19,6 +19,13 @@
      moves the oldest entries verbatim to project/decisions-{YYYY-MM}.md
      and adds one line to project/archive-index.md. -->
 
+## 2026-11-27 — VNG-14 — Node `^22.19.0 || ^24.0.0 || >=26.0.0` here as at the root, and Set 1's signed record carried as `project/app/set1.json`
+
+**Decision:** `package.json`'s `engines` and the profile's Runtime line read Node `^22.19.0 || ^24.0.0 || >=26.0.0`, the root's (UVT-7), and `project/app/set1.json` carries Set 1's signed record as the parent's decision UVT-7 gives it, `{ "signed": "2026-11-26", "keep": null, "endOfLife": { "eslint": "2026-08-06", "node": "2027-04-30" } }`; the profile signed as delegated — on the owner's word of 2026-11-26, "everything approved" (the parent's PLAN-11).
+**Rationale:** This folder runs on the root's one install (VNG-11), so its dev tools are Set 1's since UVT-7's step 2 (`8fc7cf9f`), and Set 1's tree needs Node 22.19 or later on 22, 24, or 26 and later; the parent's UVT-7 ran the whole gate, this folder's included, at today's counts on Node 22.19.0 and 24.21.0, so the old promise of `^20.19.0 || >=22.12.0` no longer held here. The record is the parent's, word for word, so each tool on the install certifies the same set: ESLint's date is ESLint 10's publication plus the six months of maintenance its policy gives the previous major; Node's is the end of 22's support. The checker reads the file only once the profile carries the App opinion line, which the forms kind's copy adds after UVT-7's close; from then it warns (T3) that ESLint 9.39.5 is past its recorded end of life, the pack's recorded conflict, held at the root by the parent's wish UVT-7.2. The profile stands at 399 words of its 400 after this: the later steps' lines (the stack's Runtime, Dependencies, Standards, Gate and Harness, and the Accessibility testing, App opinion and JSDoc lines) are written by compressing first, as the item asks.
+**Supersedes:** none
+**Deferred:** none
+
 ## 2026-11-27 — VNG-14 — Name Graphics' Codex hooks, written by hand in its own `.codex` folder and checked in a fresh checkout
 
 **Decision:** `name-graphics/.codex/hooks.json` carries the pack's four Codex hooks, written by hand, each running this folder's `tools/session.mjs` or `tools/handover.mjs` with `--harness codex` at the path Git names, `$(git rev-parse --show-toplevel)/name-graphics/`; never by `tools/harness.mjs` — on the owner's word of 2026-11-26, "everything approved" (the parent's PLAN-11).
