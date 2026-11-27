@@ -8,6 +8,10 @@
      items the canon record shipped before the migration, in v3's form;
      their why is in the frozen canon decision log (history.md). -->
 
+## Phase 12 — The full pm-skills stack: the Finisher rebuilt on it — the owner's word of 2026-11-26
+
+- VH-248 — the rules' Always, with its Environment, trimmed from 451 words to 399 within its 400 guideline, no obligation weakened, the secrets and harness-memory clauses carried by the profile's Secrets and Harness lines, signed as delegated by VH-249's budgets step (2026-11-27) — see decisions
+
 ## The UoN Video Tools restructure — the owner's word of 2026-11-25
 
 - VH-226 — the Finisher is `finisher/` in djDAOjones/UoN-Video-Tools beside Name Graphics: every commit and tag kept, the tree byte-equal after the lift, `samples/` and the 0.3.1 zip untouched, one install at the root, the core and Carbon tokens from shared/, the preview at /UoN-Video-Tools/finisher/, the docs and signed lines current, every leftover a line (2026-11-26) — see decisions

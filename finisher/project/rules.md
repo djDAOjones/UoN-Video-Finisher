@@ -9,26 +9,26 @@
 
 ## Always
 
-- No media egress, ever: no fetch, upload, beacon or analytics call carries media, a filename or a media characteristic; branding assets travel inbound only.
+- No media egress: no network or analytics call carries media, a filename or media characteristic; branding assets travel inbound only.
 - The source file is never modified; every output is a new file.
 - WebCodecs, not ffmpeg.wasm (rationale §1): no wasm codec, `SharedArrayBuffer` or COOP/COEP headers.
 - One runtime dependency, mediabunny; anything else stops and asks.
-- Loudness is measured on source content only, never the concatenated timeline; the meter is proved against EBU Tech 3341 (±0.1 LU) before anything trusts it.
-- Streaming, not buffering: no step holds the whole file; `fastStart` is always set explicitly, never `'in-memory'`.
+- Measure loudness on source content only, never the joined timeline; the meter is proved against EBU Tech 3341 (±0.1 LU) before use.
+- Streaming, not buffering: no step holds the whole file; `fastStart` set explicitly, never `'in-memory'`.
 - Numbers live in `src/config/` or a CSS token; a literal elsewhere is a defect.
 - Silent data loss is the worst outcome: what cannot be carried through warns before processing starts; cancel leaves no partial file or orphaned OPFS data.
-- All imports at the top; build output is read-only. Search the full source tree before proposing a change; check `src/config/` and existing controls before adding a value or a control.
-- One structured logger; the diagnostics bundle is redacted (never a filename, path or media bytes) and dev-only.
-- A two-part version identity (product version, build id). Secrets never in source, URLs, logs or the bundle; a leak is rotated first, then a `[!]` line.
-- Protected paths: `docs/*.md` — a correction is a wish line the owner approves; `src/audio/kweighting.ts`, `loudness.ts`, `truepeak.ts` — a change re-runs the EBU harness; `test/ebu3341/` — never weakened; `samples/` — never written, moved or deleted; `test/fixtures/`, `dist/`, `node_modules/`, `package-lock.json` — generated; `pm_skills/` — the frozen canon record (`project/history.md`).
+- All imports at the top; build output is read-only. Search the full source tree before proposing a change, and `src/config/` and existing controls before adding a value or control.
+- One structured logger; the diagnostics bundle is dev-only and redacted: no filename, path or media bytes.
+- A two-part version identity (product version, build id); no secret in the bundle.
+- Protected paths: `docs/*.md` — corrections are wish lines the owner approves; `src/audio/kweighting.ts`, `loudness.ts`, `truepeak.ts` — changes re-run the EBU harness; `test/ebu3341/` — never weakened; `samples/` — never written, moved or deleted; `test/fixtures/`, `dist/`, `node_modules/` — generated; `pm_skills/` — the frozen canon record.
 
 ### Environment
 
-- Run the environment preflight at session start (warn-only), blocking before any memory-file surgery. The working copy is the owner's OneDrive checkout, pinned, `core.fileMode` false; a change no session made (a revert, a conflict copy) is reported, never committed. Checks and recovery: DEV-INFRASTRUCTURE.md → "When the toolchain stalls on this filesystem".
+- Run the environment preflight at session start (warn-only; blocking before memory-file surgery). The working copy is the owner's pinned OneDrive checkout, `core.fileMode` false; a change no session made is reported, never committed (checks and recovery: DEV-INFRASTRUCTURE.md).
 - Every file belongs to one ledger, by its folder: `finisher/` to VH, `name-graphics/` to VNG, the rest to UVT. An item changes only what its ledger owns. `shared/` is common to every tool: code moves there when a second tool needs it, a change there is a parent item, and it closes only with every tool's gate green. Shared source is not a dependency.
 - Run `npm run check` on a settled machine, never beside `run-in-engines.mjs`; a slow DSP failure reports the machine.
-- The owner, a vibe coder, owns structure and design: do the work; explain only when asked.
-- `CLAUDE.local.md` holds personal instructions; harness memories are not the record.
+- The owner owns structure and design: do the work; explain only when asked.
+- `CLAUDE.local.md` holds personal instructions.
 - The spike pages and cross-engine runs are the manual gate; name what only a person verified.
 
 ## By task
@@ -47,4 +47,4 @@
 
 ## Signed
 
-- Owner: Joe, 2026-11-26.
+- Owner (delegated, not reviewed): Joe, 2026-11-27 — see PLAN-11, VH-249

@@ -66,7 +66,6 @@ The public release on Xerte (PLAN-6) is VH-245's cut, 0.3.1.
 
 After the release.
 
-- [!] VH-248 — Trim the rules file's Always, with its Environment, from 451 words to its 400-word guideline — since 2026-11-26 — (from: VH-226, 2026-11-26) — blocked: the owner's signature on the trimmed lines
 - [ ] VH-13 — Published limits copy — since 2026-08-24 — blocked: VH-M2 (the measured envelope) and VH-31's estimate
 - [ ] VH-246 — What the third analysis and the second review left of Phase 9, mended in existing words — since 2026-11-25 — blocked: development paused on the owner's word of 2026-11-25; F-04 mended, four points left — (from: PLAN-9, 2026-11-25)
 - [!] VH-161 — Offline after first load: the cache strategy spec §11 asks for, split from VH-14 — since 2026-10-22 — blocked: read true locally and on GitHub Pages; its check on Xerte needs the owner's upload of a release with the service worker, a cut after 0.3.1, which has none — (from: PLAN-6, 2026-10-22)
