@@ -1,62 +1,125 @@
-// V31-APP-PACK starter, React kinds: Carbon's styles compiled by Sass (signed 2026-11-11, P-sass) with the fonts bundled from
-// the local IBM Plex package, none fetched. Carbon's layout tokens are imported: in Route Plotter's preparation a
-// Select measured 19 px high without the layout module and 48 px with it (a consuming project's report, not re-run by
-// the lab). The text, link and primary-button tokens below are strengthened toward 7:1 on the white theme (Carbon's
-// own #0f62fe under white text measured 5:1 in the lab's throwaway app, 2026-11-11); a starting point, measured by
-// the app's own accessibility run, never certified here.
-@use '@carbon/react/scss/config' with ($css--font-face: false);
+// Carbon React's styles on the neutral pack's tokens (VNG-15), from the forms starter's theme (V31-APP-PACK, React
+// kinds; Sass signed 2026-11-11, P-sass). The brand pack owns colour and typeface (the rules' Always, UI-STANDARDS.md
+// -> Token systems), so Carbon takes them from it and never the reverse: each Carbon colour token below names one of
+// the pack's roles, which `brands/neutral/tokens.css` assigns in light, in dark and on the header band; Carbon's type
+// takes the pack's faces, and no IBM Plex is loaded or named (the Carbon digest's recorded exception). The tokens
+// mapped are those the page's components draw with and their siblings; a component that arrives later maps its own
+// here first. `test/carbon-theme.test.ts` holds the mapping to the pack and `test/contrast.test.ts` measures the
+// pack's pairs; VNG-15's accessibility step is to measure the rendered page in light and dark through `npm run a11y`.
+//
+// A custom property's var() is resolved where it is declared, so Carbon's tokens, declared at :root, would keep the
+// page's values inside the header band, which re-assigns the pack's roles: they are declared again on `.on-brand`, so
+// a Carbon component drawn in or over a band takes the band's roles.
+//
+// Only the component styles the page renders are compiled: Carbon's UI shell header (whose module holds the skip
+// link's), and the stack; a later item adds a component's module with the component. Carbon's layout tokens are
+// imported (the app-opinion digest).
 @use 'sass:map';
+@use '@carbon/react/scss/config' with ($css--font-face: false);
+@use '@carbon/react/scss/type' with ($font-families: (
+  'sans': var(--font-body),
+  'serif': var(--font-body),
+  'mono': var(--font-mono),
+));
 @use '@carbon/react/scss/themes';
-@use '@carbon/react/scss/theme' with ($theme: map.merge(themes.$white, (
-  text-secondary: #393939,
-  text-helper: #393939,
-  text-placeholder: #393939,
-  link-primary: #0043ce,
-  link-primary-hover: #002d9c,
-)));
+// Carbon token: the pack's role. Hover and other states the pack does not name keep Carbon's white-theme defaults
+// (opaque greys such as layer-hover-01, translucent overlays such as background-hover), no organisation's colour and
+// drawn by no component on the page yet: a component that draws one maps it here first, in both schemes.
+$pack-roles: (
+  background: var(--layer-00),
+  layer-01: var(--layer-01),
+  layer-02: var(--layer-02),
+  layer-03: var(--layer-01),
+  field-01: var(--layer-01),
+  field-02: var(--layer-02),
+  field-03: var(--layer-01),
+  layer-active-01: var(--layer-active),
+  layer-active-02: var(--layer-active),
+  layer-active-03: var(--layer-active),
+  text-primary: var(--text-primary),
+  text-secondary: var(--text-secondary),
+  text-helper: var(--text-secondary),
+  text-placeholder: var(--text-secondary),
+  text-on-color: var(--text-on-interactive),
+  text-inverse: var(--text-on-interactive),
+  text-error: var(--support-error),
+  icon-primary: var(--text-primary),
+  icon-secondary: var(--text-secondary),
+  icon-on-color: var(--text-on-interactive),
+  icon-inverse: var(--text-on-interactive),
+  link-primary: var(--interactive),
+  link-primary-hover: var(--interactive-hover),
+  link-secondary: var(--interactive),
+  link-visited: var(--interactive),
+  link-inverse: var(--text-on-interactive),
+  interactive: var(--interactive),
+  background-inverse: var(--interactive),
+  background-inverse-hover: var(--interactive-hover),
+  border-interactive: var(--interactive),
+  border-subtle-00: var(--border-subtle),
+  border-subtle-01: var(--border-subtle),
+  border-subtle-02: var(--border-subtle),
+  border-subtle-03: var(--border-subtle),
+  border-strong-01: var(--border-strong),
+  border-strong-02: var(--border-strong),
+  border-strong-03: var(--border-strong),
+  border-tile-01: var(--border-subtle),
+  border-tile-02: var(--border-subtle),
+  border-tile-03: var(--border-subtle),
+  border-inverse: var(--border-strong),
+  border-disabled: var(--border-divider),
+  focus: var(--focus),
+  focus-inset: var(--layer-01),
+  support-error: var(--support-error),
+  support-success: var(--support-success),
+  support-warning: var(--support-warning),
+);
+@use '@carbon/react/scss/theme' with ($theme: map.merge(themes.$white, $pack-roles));
 @use '@carbon/react/scss/reset';
-@use '@carbon/react/scss/fonts/sans' as plex;
 @use '@carbon/react/scss/layout';
-@use '@carbon/react/scss/spacing';
-@use '@carbon/react';
+@use '@carbon/react/scss/components/ui-shell/header';
+@use '@carbon/react/scss/components/stack';
 
-@include plex.regular($styles: (normal));
-@include plex.semibold($styles: (normal));
+:root,
+.on-brand {
+  @include theme.theme();
+}
 
 :root {
-  @include theme.theme();
-
-  // The button's colours are Carbon component tokens, not theme tokens: a theme-map entry does not reach them.
-  --cds-button-primary: #0043ce;
-  --cds-button-primary-hover: #002d9c;
-  --cds-button-primary-active: #001d6c;
+  // The page follows the reader's scheme, as the seed did and the pack's dark roles expect: Carbon's own `:root` rule
+  // sets `color-scheme` from its white theme, light alone, which would keep the browser's scrollbars and controls
+  // light in the dark scheme, and outranks the `html` rule in src/styles/app.css.
+  color-scheme: light dark;
+  // The forms kind's focus outline, 3 px outside the control (WCAG 2.4.12 and 2.4.13): wider than the shared
+  // tokens' 2 px rule for the page's own elements, as the starter set it and VNG-15's criterion names it.
+  --focus-outline-width: 3px;
 }
 
-body {
-  background: theme.$background;
-  color: theme.$text-primary;
+// Focus at 2.4.12 and 2.4.13: the outline outside the control. Carbon's own inset ring changed less than a 2 px
+// perimeter by 3:1 in the pack's lab (2026-11-11); its selectors outrank a plain one, hence !important.
+:is(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: var(--focus-outline-width) solid var(--focus) !important;
+  outline-offset: var(--focus-offset) !important;
 }
 
-main {
-  max-width: 48rem;
-  margin: spacing.$spacing-07 auto;
-  padding: spacing.$spacing-05;
-}
-
-// Focus at 2.4.12 and 2.4.13: a 3 px outline outside the control. Carbon's own inset ring changed less than a 2 px
-// perimeter by 3:1 in the lab's throwaway app (2026-11-11); its selectors outrank a plain one, hence !important.
-:is(a, button, input, select, textarea, [tabindex]):focus-visible {
-  outline: 3px solid theme.$focus !important;
-  outline-offset: 2px !important;
+// Carbon puts the focused skip link in the window's corner, where the outline outside it would fall off the page:
+// inset by the outline's room, so all of it shows (2.4.13), and at least the 44 px target high, which Carbon's 3rem
+// is not at a smaller default text size (2.5.5). It is drawn over the header band, so it takes the band's roles
+// (`on-brand` in src/ui/App.tsx): its outline and border are the band's focus colour against the band.
+.cds--skip-to-content:focus {
+  margin: 0;
+  min-block-size: var(--target-min);
+  inset-block-start: calc(var(--focus-outline-width) + var(--focus-offset));
+  inset-inline-start: calc(var(--focus-outline-width) + var(--focus-offset));
 }
 
 @media (forced-colors: active) {
-  :is(a, button, input, select, textarea, [tabindex]):focus-visible {
+  :is(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
     outline-color: Highlight !important;
   }
 }
 
-// Reduced motion: Carbon's transitions stop when the user asks (the accessibility pack's SUP02).
+// Reduced motion: Carbon's transitions stop when the user asks (the accessibility pack's SUP02, WCAG 2.3.3).
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

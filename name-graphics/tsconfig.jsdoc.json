@@ -16,6 +16,7 @@
     "strict": false
   },
   "include": [
-    "check-links.mjs"
+    "check-links.mjs",
+    "scripts/*.mjs"
   ]
 }

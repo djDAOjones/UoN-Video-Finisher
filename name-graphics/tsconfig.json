@@ -12,7 +12,7 @@
 // file.
 {
   "extends": ["../tsconfig.test.json", "../tsconfig.erasable.json"],
-  "include": ["src", "test", "tests/a11y", "vite.config.ts"],
+  "include": ["src", "test", "tests/a11y", "vite.config.ts", "scripts/*.d.mts"],
   "exclude": [
     "tests/a11y/adaptation.spec.ts",
     "tests/a11y/helpers.ts",

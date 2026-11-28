@@ -1,6 +1,6 @@
 {
   "entry": ["src/root.tsx", "eslint.a11y.mjs", "tests/a11y/**/*.{ts,mjs}", "tools/*.mjs"],
-  "project": ["src/**/*.{ts,tsx,scss}", "test/**/*.ts", "tests/**/*.{ts,mjs}", "tools/*.mjs"],
+  "project": ["src/**/*.{ts,tsx,scss}", "test/**/*.ts", "tests/**/*.{ts,mjs}", "tools/*.mjs", "scripts/*.mjs"],
   "playwright": false,
   "ignoreBinaries": ["ffprobe"],
   "ignoreDependencies": [

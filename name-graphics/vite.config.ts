@@ -2,10 +2,11 @@
 // BASE_PATH, port and sourcemap handling, without its branding-asset plugins,
 // its Xerte mode (VNG-9's) or its audio tests' timeout. The app pack's forms
 // kind merged in (VNG-14), its vite.config.mjs and vitest.config.mjs not kept
-// beside this file, which Vite and Vitest would read first: its IBM Plex alias,
-// pointed at the root's one install (UVT-7), and its test runner's settings.
-// The seed's base path, port and build target stay, so the preview builds as
-// before; no React plugin, as the pack has none: Vite reads the tsconfig's JSX.
+// beside this file, which Vite and Vitest would read first: its test runner's
+// settings; its IBM Plex alias went in VNG-15, as the brand pack owns the
+// typeface and no Plex is loaded. The seed's base path, port and build target
+// stay, so the preview builds as before; no React plugin, as the pack has
+// none: Vite reads the tsconfig's JSX.
 
 import { execSync } from 'node:child_process'
 import { resolve } from 'node:path'
@@ -33,14 +34,10 @@ function buildId(): string {
   return `v${pkg.version}+${stamp}.${sha}`
 }
 
-// IBM Plex's font files for Carbon's Sass (`src/ui/theme.scss`), bundled from
-// the root's install, none fetched (the app-opinion digest).
-const plex = resolve(import.meta.dirname, '../node_modules/@ibm/plex')
-
 /**
  * Vite's and Vitest's one configuration for Name Graphics: the seed's build
  * (base path, port, build identity, sourcemaps, `index.html` the input) with
- * the forms kind's Plex alias and test-runner settings merged in.
+ * the forms kind's test-runner settings merged in.
  */
 export default defineConfig({
   // A GitHub Pages project site serves from `/<repo>/`, not the root. The
@@ -48,7 +45,6 @@ export default defineConfig({
   // `/`. Runtime asset URLs read `import.meta.env.BASE_URL` so they follow
   // this automatically.
   base: process.env['BASE_PATH'] ?? '/',
-  resolve: { alias: { '~@ibm/plex': plex } },
   server: {
     // Honour PORT when something upstream assigns one (preview tooling, a
     // container, a shared machine). Falls back to Vite's default otherwise,
@@ -56,15 +52,10 @@ export default defineConfig({
     // than stopping us.
     port: Number(process.env['PORT']) || 5173,
     // The shared code sits beside this folder, at the repository's root
-    // (`../shared/`, the parent's, UVT-2), and so do Plex's fonts: the dev
-    // server may read both as well as this folder. A build reads them from
-    // disk and needs no leave.
+    // (`../shared/`, the parent's, UVT-2): the dev server may read it as well
+    // as this folder. A build reads it from disk and needs no leave.
     fs: {
-      allow: [
-        searchForWorkspaceRoot(import.meta.dirname),
-        resolve(import.meta.dirname, '../shared'),
-        plex,
-      ],
+      allow: [searchForWorkspaceRoot(import.meta.dirname), resolve(import.meta.dirname, '../shared')],
     },
   },
   define: {

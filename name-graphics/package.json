@@ -11,6 +11,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
+    "check:build": "node scripts/check-build.mjs",
     "preview": "vite preview",
     "test": "vitest run --maxWorkers=3",
     "test:watch": "vitest",
@@ -23,7 +24,7 @@
     "format": "prettier --write .",
     "docs:lint": "markdownlint-cli2 \"**/*.md\" \"#node_modules\"",
     "docs:links": "node check-links.mjs",
-    "check": "npm run typecheck && npm run lint && npm run boundaries && npm run deadcode && npm run test && npm run docs:lint && npm run docs:links && node tools/check.mjs",
+    "check": "npm run typecheck && npm run lint && npm run boundaries && npm run deadcode && npm run test && npm run check:build && npm run docs:lint && npm run docs:links && node tools/check.mjs",
     "a11y": "node ../scripts/link-root-install.mjs . && node tools/a11y-run.mjs",
     "a11y:sample": "node ../scripts/link-root-install.mjs . && node tools/a11y-sample.mjs",
     "a11y:doctor": "node ../scripts/link-root-install.mjs . && node tools/a11y-doctor.mjs",

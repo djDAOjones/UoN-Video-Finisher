@@ -25,7 +25,7 @@ items (VNG-2 to VNG-9) then build on the stack.
 
 Updated: 2026-11-28
 
-Next step: step 2, the seed's page in React and Carbon React served from `src/root.tsx`, the Carbon theme on the neutral pack's tokens and the build checked in a temporary folder; then step 3, `npm run a11y` in the gate at AAA.
+Next step: step 3, `tests/a11y/project.mjs` declared for the page in light and dark and `npm run a11y` in the gate at AAA, served from a temporary build at the Pages base path.
 
 Open question: None.
 
@@ -42,3 +42,4 @@ Open question: None.
 - 2026-11-26 — Codex's review of the record (gpt-6.2-astra): the dependency on UVT-8, the five typecheck projects, and the switcher and step pattern kept with VNG-4 and VNG-5. Folded in above.
 - 2026-11-27 — VNG-14's forms step, by the orchestrator's ruling A, which the owner kept: `npm run typecheck` runs three of the five projects, the app, tests and accessibility harness, since UVT-7's entry check fails an empty project. This item's "all five" is met for the core here, its criterion putting the seed's logic in the core; the workers project joins with Name Graphics' first worker file (a wish-list line). This item's gate runs the projects that hold files, never an empty one.
 - 2026-11-28 — Step 1: the seed's logic, the version line's words, in `src/core/version-line.ts`, tested first; `tsconfig.core.json` in `npm run typecheck` and the entry check, four of five projects, the workers with wish VNG-14.5; the wait on the parent's UVT-8 dropped from the backlog line, UVT-8 closed at `4db7ed43`.
+- 2026-11-28 — Step 2: the seed's page in Carbon React (`SkipToContent`, `Heading`, `Stack`) served from `src/root.tsx`, the seed's entry, main.ts, folded in and removed; 47 Carbon colour tokens on the neutral pack's roles and Carbon's type on its faces, no IBM Plex, held by `test/carbon-theme.test.ts`, the tokens declared again on the header band; `npm run check:build` in the gate, the build in a temporary folder at the Pages base path, its findings tested. Codex's review found the skip link's outline at 1:1 on the band: it takes the band's roles.

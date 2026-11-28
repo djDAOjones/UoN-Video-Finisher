@@ -5,7 +5,7 @@
 // offered erasableSyntaxOnly (UVT-7).
 {
   "extends": ["../tsconfig.test.json", "../tsconfig.erasable.json"],
-  "include": ["test", "src/**/*.test.ts", "src/**/*.test.tsx", "tests/a11y", "vite.config.ts"],
+  "include": ["test", "src/**/*.test.ts", "src/**/*.test.tsx", "tests/a11y", "vite.config.ts", "scripts/*.d.mts"],
   "exclude": [
     "tests/a11y/adaptation.spec.ts",
     "tests/a11y/helpers.ts",

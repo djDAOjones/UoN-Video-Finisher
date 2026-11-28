@@ -8,11 +8,12 @@
 | `brands/` | 2 | the brand packs, one folder each; the build picks one |
 | `brands/neutral/` | 1 | the neutral pack's tokens: Carbon's grey ramp for every colour role |
 | `docs/` | 2 | the accessibility pack's testing guide and its extended pack's setup |
-| `src/` | 8 | the page's entry and its stylesheet, and the React entry (`src/root.tsx`) the page moves to in VNG-15; the shared core and Carbon tokens come from `../shared/` |
+| `scripts/` | 2 | the gate's build check, the page built in a temporary folder at the Pages base path, and its types for the tests |
+| `src/` | 7 | the React entry (`src/root.tsx`), the page's stylesheet, the core and the interface; the shared core and Carbon tokens come from `../shared/` |
 | `src/core/` | 2 | the seed's logic, the version line's words, on the root's core layer, and its test |
 | `src/styles/` | 1 | `src/styles/app.css` |
-| `src/ui/` | 2 | the forms starter's interface: a stateless Carbon React shell and Carbon's theme |
-| `test/` | 1 | the contrast test |
+| `src/ui/` | 2 | the interface: the seed's page in Carbon React, and Carbon's theme on the neutral pack's tokens |
+| `test/` | 3 | the contrast test, the Carbon theme's mapping to the pack, and the build check's findings |
 | `tests/` | 25 | the accessibility tests |
 | `tests/a11y/` | 25 | the accessibility pack's copied harness and known-bad fixture, and this folder's declarations |
 | `tools/` | 28 | pm-skills 5.0.3's tools and the accessibility and JSDoc packs', the release's bytes; never hand-edited |
@@ -21,6 +22,5 @@
 ## Entry points
 
 - `AGENTS.md` — the contract every session obeys
-- `index.html` → `src/main.ts` — the page
-- `src/root.tsx` — the React entry, served from VNG-15
+- `index.html` → `src/root.tsx` → `src/ui/App.tsx` — the page, React and Carbon React since VNG-15
 - `tools/check.mjs` — the ledger's checker
