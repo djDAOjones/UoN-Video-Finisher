@@ -33,8 +33,9 @@ returns 404.
   write.
 - **Dev server:** `npm run dev` here, at <http://localhost:5173> (Vite
   moves to the next free port if that one is taken).
-- **The gate:** `npm run check` here: types (three TypeScript projects
-  and the React entry's check), lint, boundaries, dead code, tests
+- **The gate:** `npm run check` here: types (four TypeScript projects,
+  core, app, tests and the accessibility harness, and the React entry's
+  check), lint, boundaries, dead code, tests
   (including the shared core's tests from `../shared/`), Markdown lint
   and links, then this ledger's checker. At the root, `npm run check` runs every tool's
   gate and the parent's checks.

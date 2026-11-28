@@ -7,7 +7,7 @@
 // test split, signed 2026-11-11). The rules prove imports only: no callback isolation, purity, offline operation, size or rendering
 // parity. A package's own imports are not followed (doNotFollow), so a package in PACKAGES vouches for itself.
 // Name Graphics (VNG-14): `types` among the condition names, so a types-only export such as `vite/client` resolves
-// (the parent's UVT-7); no area holds a file until VNG-15 writes the core.
+// (the parent's UVT-7); src/core/ holds the seed's logic since VNG-15, the other three areas no file yet.
 
 // Signed 2026-11-11 (P-boundaries): the packages the four areas may import, none until a project names one here; a package
 // added is a recorded decision, since a wrapper around a UI framework is invisible past its own front door. Tests

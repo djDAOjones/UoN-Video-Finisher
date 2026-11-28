@@ -23,7 +23,7 @@
 ## Stack and infrastructure
 
 - Runtime: TypeScript (strict), React, Vite, Vitest; Chrome with WebCodecs [guess]; Node ^22.19.0 || ^24.0.0 || >=26.0.0
-- Gate: `npm run check` — non-mutating: `npm run typecheck` (three of five now, core at VNG-15, workers at the first worker file; entry check; JSDoc ratchet), lint, `npm run boundaries`, dead code, `npm test`, docs checks, the checker; CI runs it before every publish
+- Gate: `npm run check` — non-mutating: `npm run typecheck` (four of five, workers with the first worker file; entry check; JSDoc ratchet), lint, `npm run boundaries`, dead code, `npm test`, docs checks, the checker; CI runs it before every publish
 - Hosting and deploy: Xerte (public), the owner's flat upload per release; GitHub Pages (unadvertised preview) from each `main` push
 - Harness: Claude Code and Codex, hooks by hand, never `tools/harness.mjs`; this ledger outranks a harness's memory
 - Handoff: Claude Code plans and executes; Codex reviews read-only, per the model policy
@@ -53,6 +53,6 @@
 
 ## Signed
 
-- Owner (delegated, not reviewed): Joe, 2026-11-27 — see the parent's PLAN-11, VNG-14
+- Owner (delegated, not reviewed): Joe, 2026-11-28 — see the parent's PLAN-11, VNG-15
 
 Changes above this line are decisions.

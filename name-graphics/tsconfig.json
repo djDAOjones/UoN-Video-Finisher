@@ -7,8 +7,9 @@
 // with its offered erasableSyntaxOnly. The app pack's tsconfig.json is
 // merged here, its JSX and libraries in the root's layers (UVT-7). `npm run
 // typecheck` runs the stack's projects, each on its own layer:
-// tsconfig.app.json, tsconfig.test.json and tests/a11y/tsconfig.json; the core
-// project joins at VNG-15, the workers project with the first worker file.
+// tsconfig.core.json (VNG-15), tsconfig.app.json, tsconfig.test.json and
+// tests/a11y/tsconfig.json; the workers project joins with the first worker
+// file.
 {
   "extends": ["../tsconfig.test.json", "../tsconfig.erasable.json"],
   "include": ["src", "test", "tests/a11y", "vite.config.ts"],

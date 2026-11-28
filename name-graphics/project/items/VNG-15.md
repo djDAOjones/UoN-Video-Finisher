@@ -23,9 +23,9 @@ items (VNG-2 to VNG-9) then build on the stack.
 
 ## Now
 
-Updated: 2026-11-27
+Updated: 2026-11-28
 
-Next step: after the parent's UVT-8, the page's first component on the forms starter's entry, `src/root.tsx`, which VNG-14 left typechecked, linted and unserved.
+Next step: step 2, the seed's page in React and Carbon React served from `src/root.tsx`, the Carbon theme on the neutral pack's tokens and the build checked in a temporary folder; then step 3, `npm run a11y` in the gate at AAA.
 
 Open question: None.
 
@@ -41,3 +41,4 @@ Open question: None.
 - 2026-11-26 — Codex's review of the draft plan (gpt-6.2-astra): the pilot's narrower proof, the brand's ownership of colour and type, the starter's local-storage persistence, the rendered controls in both themes, this ledger's own extended run and close. Folded in above.
 - 2026-11-26 — Codex's review of the record (gpt-6.2-astra): the dependency on UVT-8, the five typecheck projects, and the switcher and step pattern kept with VNG-4 and VNG-5. Folded in above.
 - 2026-11-27 — VNG-14's forms step, by the orchestrator's ruling A, which the owner kept: `npm run typecheck` runs three of the five projects, the app, tests and accessibility harness, since UVT-7's entry check fails an empty project. This item's "all five" is met for the core here, its criterion putting the seed's logic in the core; the workers project joins with Name Graphics' first worker file (a wish-list line). This item's gate runs the projects that hold files, never an empty one.
+- 2026-11-28 — Step 1: the seed's logic, the version line's words, in `src/core/version-line.ts`, tested first; `tsconfig.core.json` in `npm run typecheck` and the entry check, four of five projects, the workers with wish VNG-14.5; the wait on the parent's UVT-8 dropped from the backlog line, UVT-8 closed at `4db7ed43`.

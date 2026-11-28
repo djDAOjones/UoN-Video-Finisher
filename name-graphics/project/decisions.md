@@ -19,6 +19,13 @@
      moves the oldest entries verbatim to project/decisions-{YYYY-MM}.md
      and adds one line to project/archive-index.md. -->
 
+## 2026-11-28 — VNG-15 — The seed's logic in the core: `npm run typecheck` runs four of the five projects
+
+**Decision:** the version line's words move from `src/main.ts` to `src/core/version-line.ts`, a pure function tested first in Vitest, and `tsconfig.core.json` joins `npm run typecheck` and the entry check, four projects, since the first core file brings the core project in under ruling A — on "everything approved" (PLAN-11).
+**Rationale:** VNG-15's criterion puts the seed's logic in the core and asks the typecheck over all five projects UVT-7 defines; the three-of-five decision of 2026-11-27 named the core's turn here. The seed has one piece of logic, the version line's words (VNG-1, after the Finisher's VH-66); the entry passes the product version, the build id and the mode in, so the core reads no build value, clock or DOM. `tsconfig.core.json` extends the root's core layer, ES2023 alone and no ambient types, with the offered `erasableSyntaxOnly`; its tests are the tests project's, as the root layer's comment says. The core's own modules still reach only `src/core/` (`npm run boundaries`); the entry imports it. The entry check reports every TypeScript file read by one of four projects. The profile's Gate line reads "four of five, workers with the first worker file", four words fewer, its signed line delegated again. The workers project stays with wish VNG-14.5. The backlog line's wait on the parent's UVT-8 is dropped: UVT-8 closed at `4db7ed43`.
+**Supersedes:** none
+**Deferred:** none
+
 ## 2026-11-27 — VNG-14 — The forms kind copied by canon v5.0.3's installer and merged into Name Graphics' own, its sample data code removed, its React entry `src/root.tsx`
 
 **Decision:** canon v5.0.3's `app/install.mjs` copies the forms kind, merged into our configurations, its tool-local base, sample model, validation and persistence removed; `src/root.tsx` renders a stateless Carbon shell; the root's escape, jsx-a11y and hook layers; boundaries and dead code gated; the app-opinion record — on "everything approved" (PLAN-11).

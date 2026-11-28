@@ -1,0 +1,9 @@
+// The core project (VNG-15): src/core/, its tests aside (they are the tests
+// project's: Vitest's types need the DOM), on the root's core layer — ES
+// libraries only, no ambient types, so a DOM, worker or Node name in the core
+// fails — with the root's offered erasableSyntaxOnly (UVT-7).
+{
+  "extends": ["../tsconfig.core.json", "../tsconfig.erasable.json"],
+  "include": ["src/core"],
+  "exclude": ["src/core/**/*.test.ts", "src/core/**/*.test.tsx"]
+}

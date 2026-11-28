@@ -14,7 +14,7 @@
     "preview": "vite preview",
     "test": "vitest run --maxWorkers=3",
     "test:watch": "vitest",
-    "typecheck": "tsc --noEmit -p tsconfig.app.json && tsc --noEmit -p tsconfig.test.json && tsc --noEmit -p tests/a11y && node ../scripts/check-projects.mjs --project tsconfig.app.json --project tsconfig.test.json --project tests/a11y/tsconfig.json --entry src/root.tsx && npm run jsdoc",
+    "typecheck": "tsc --noEmit -p tsconfig.core.json && tsc --noEmit -p tsconfig.app.json && tsc --noEmit -p tsconfig.test.json && tsc --noEmit -p tests/a11y && node ../scripts/check-projects.mjs --project tsconfig.core.json --project tsconfig.app.json --project tsconfig.test.json --project tests/a11y/tsconfig.json --entry src/root.tsx && npm run jsdoc",
     "jsdoc": "node ../scripts/jsdoc-ratchet.mjs",
     "lint": "eslint . --max-warnings 0",
     "lint:fix": "eslint . --fix",

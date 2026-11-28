@@ -96,6 +96,8 @@ export default defineConfig({
     passWithNoTests: false,
     // The shared core's tests run here too, under this tool's build-time
     // values: Name Graphics depends on them (UVT-2).
-    include: ['test/**/*.test.ts', 'src/**/*.test.ts', '../shared/core/**/*.test.ts'],
+    // A core test may be `.test.tsx` too (tsconfig.core.json leaves both to
+    // the tests project); the interface's own are the browser's, not here.
+    include: ['test/**/*.test.ts', 'src/**/*.test.ts', 'src/core/**/*.test.tsx', '../shared/core/**/*.test.ts'],
   },
 })
