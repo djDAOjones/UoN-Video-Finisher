@@ -162,14 +162,14 @@ export type UnreadableReason = 'not-a-video' | 'sound-only' | 'no-tracks'
 
 /** Raised when a file cannot be read at all, as opposed to being readable but unusable. */
 export class UnreadableFileError extends Error {
+  readonly reason: UnreadableReason
+  override readonly cause?: unknown
   override readonly name = 'UnreadableFileError'
 
-  constructor(
-    readonly reason: UnreadableReason,
-    message: string,
-    override readonly cause?: unknown,
-  ) {
+  constructor(reason: UnreadableReason, message: string, cause?: unknown) {
     super(message)
+    this.reason = reason
+    this.cause = cause
   }
 }
 

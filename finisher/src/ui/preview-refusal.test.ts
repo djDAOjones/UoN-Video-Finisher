@@ -33,11 +33,14 @@ const tables = [
 ] as const
 
 class StandInText implements SaidNode {
-  constructor(
-    public data: string,
-    private readonly log: string[],
-    private readonly region: StandInAnnouncer,
-  ) {}
+  public data: string
+  private readonly log: string[]
+  private readonly region: StandInAnnouncer
+  constructor(data: string, log: string[], region: StandInAnnouncer) {
+    this.data = data
+    this.log = log
+    this.region = region
+  }
   deleteData(offset: number, count: number): void {
     this.data = this.data.slice(0, offset) + this.data.slice(offset + count)
     this.log.push(`delete ${offset}+${count}`)

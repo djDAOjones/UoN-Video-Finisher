@@ -37,6 +37,7 @@ const HISTORY = PHASE_TAPS - 1
  * 240 comparisons each, and this is per channel across a whole recording.
  */
 class SlidingMinimum {
+  private readonly windowSize: number
   private readonly values: Float64Array
   /**
    * Float64, not Int32. `position` counts samples for the length of the file
@@ -51,7 +52,8 @@ class SlidingMinimum {
   private tail = 0
   private position = 0
 
-  constructor(private readonly windowSize: number) {
+  constructor(windowSize: number) {
+    this.windowSize = windowSize
     this.values = new Float64Array(windowSize + 1)
     this.indices = new Float64Array(windowSize + 1)
   }

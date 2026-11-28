@@ -88,11 +88,14 @@ export function planProbeWindows(
  * a frame twice.
  */
 export class WindowRouter {
+  private readonly windows: readonly ProbeWindow[]
   private position = 0
   private next = 0
 
   /** @param windows - From {@link planProbeWindows}: sorted and non-overlapping. */
-  constructor(private readonly windows: readonly ProbeWindow[]) {}
+  constructor(windows: readonly ProbeWindow[]) {
+    this.windows = windows
+  }
 
   /**
    * @param channels - The next block of the stream, planar.
@@ -160,6 +163,9 @@ export interface CodecCost {
  * the end.
  */
 export class CodecProbe {
+  private readonly output: Output<Mp4OutputFormat, BufferTarget>
+  private readonly source: AudioSampleSource
+  private readonly sampleRate: number
   private readonly router: WindowRouter
   private readonly before: AudioAnalyser
   /** Routed audio not yet handed to the encoder; see {@link add}. */
@@ -169,12 +175,15 @@ export class CodecProbe {
   private failed = false
 
   private constructor(
-    private readonly output: Output<Mp4OutputFormat, BufferTarget>,
-    private readonly source: AudioSampleSource,
-    private readonly sampleRate: number,
+    output: Output<Mp4OutputFormat, BufferTarget>,
+    source: AudioSampleSource,
+    sampleRate: number,
     channelCount: number,
     windows: readonly ProbeWindow[],
   ) {
+    this.output = output
+    this.source = source
+    this.sampleRate = sampleRate
     this.router = new WindowRouter(windows)
     this.before = new AudioAnalyser({ sampleRate, channelCount })
   }

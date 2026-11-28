@@ -90,6 +90,9 @@ function clean(value: number | null): number | null {
  * with the number of gaps.
  */
 export class AudioGapFiller {
+  private readonly sampleRate: number
+  private readonly channelCount: number
+  private readonly anchorSeconds: number | null
   private framesConsumed = 0
   private first: number | null = null
   private inserted = 0
@@ -100,11 +103,11 @@ export class AudioGapFiller {
    *   there (`keptAudioAnchorSeconds`). The first sample is then padded like
    *   any other that arrives late. `null` keeps the rule below.
    */
-  constructor(
-    private readonly sampleRate: number,
-    private readonly channelCount: number,
-    private readonly anchorSeconds: number | null = null,
-  ) {}
+  constructor(sampleRate: number, channelCount: number, anchorSeconds: number | null = null) {
+    this.sampleRate = sampleRate
+    this.channelCount = channelCount
+    this.anchorSeconds = anchorSeconds
+  }
 
   /** The track's own first timestamp, or `null` before the first sample. */
   get firstTimestampSeconds(): number | null {

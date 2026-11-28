@@ -213,6 +213,7 @@ export function compositeSampled(
  * segments, where the background is correct.
  */
 export class BrandingCompositor {
+  private readonly shape: { readonly width: number; readonly height: number }
   private readonly base: OffscreenCanvas
   private readonly baseContext: OffscreenCanvasRenderingContext2D
   private readonly overlay: OffscreenCanvas
@@ -222,7 +223,8 @@ export class BrandingCompositor {
   /** Reused across frames; at 4K this is 33 MB. */
   private brandBuffer: Uint8Array | null = null
 
-  constructor(private readonly shape: { readonly width: number; readonly height: number }) {
+  constructor(shape: { readonly width: number; readonly height: number }) {
+    this.shape = shape
     this.base = new OffscreenCanvas(shape.width, shape.height)
     this.overlay = new OffscreenCanvas(shape.width, shape.height)
     const base = this.base.getContext('2d', { willReadFrequently: true })

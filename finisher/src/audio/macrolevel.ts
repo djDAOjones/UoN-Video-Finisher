@@ -151,13 +151,12 @@ export function buildGainEnvelope(input: MacroLevelInput): GainEnvelope {
  * discontinuities at exactly the rate the slew limit exists to prevent.
  */
 export class MacroLeveller {
+  private readonly envelope: GainEnvelope
   private frameIndex = 0
   private readonly framesPerStep: number
 
-  constructor(
-    private readonly envelope: GainEnvelope,
-    sampleRate: number,
-  ) {
+  constructor(envelope: GainEnvelope, sampleRate: number) {
+    this.envelope = envelope
     this.framesPerStep = envelope.stepSeconds * sampleRate
   }
 

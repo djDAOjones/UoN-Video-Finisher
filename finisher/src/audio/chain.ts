@@ -37,6 +37,7 @@ export interface AudioChainOptions {
 }
 
 export class AudioChain {
+  private readonly options: AudioChainOptions
   private readonly highPass: HighPassFilter
   private readonly leveller: MacroLeveller
   private readonly compressor: Compressor
@@ -45,7 +46,8 @@ export class AudioChain {
   /** Samples of limiter look-ahead still to be discarded, to undo its delay. */
   private latencyToDrop: number
 
-  constructor(private readonly options: AudioChainOptions) {
+  constructor(options: AudioChainOptions) {
+    this.options = options
     const { sampleRate, channelCount, envelope, gainDb, limiterCeilingDbtp } = options
     this.highPass = new HighPassFilter(sampleRate, channelCount)
     this.leveller = new MacroLeveller(envelope, sampleRate)

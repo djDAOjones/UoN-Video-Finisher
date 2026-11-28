@@ -10,9 +10,11 @@
 // libraries in the root's layers (UVT-7). `npm run typecheck` runs this
 // project and tests/a11y/tsconfig.json until the stack's five projects arrive:
 // the core in VH-250's step 3, the app and tests in step 9, the workers in
-// step 18, which retires this project's credit for the worker entries.
+// step 18, which retires this project's credit for the worker entries. The
+// root's offered erasableSyntaxOnly is taken (VH-250 step 2;
+// tsconfig.erasable.json).
 {
-  "extends": "../tsconfig.test.json",
+  "extends": ["../tsconfig.test.json", "../tsconfig.erasable.json"],
   "include": ["src", "test", "scripts", "tests/a11y", "vite.config.ts", "eslint.config.js"],
   "exclude": [
     "tests/a11y/adaptation.spec.ts",

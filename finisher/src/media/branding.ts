@@ -65,13 +65,14 @@ import { fitRectangle } from './conform'
  * The canvas is held open across frames rather than allocated per frame.
  */
 export class BrandingRenderer {
+  private readonly shape: OutputShape
+  private readonly backgroundColour: string
   private readonly canvas: OffscreenCanvas
   private readonly context: OffscreenCanvasRenderingContext2D
 
-  constructor(
-    private readonly shape: OutputShape,
-    private readonly backgroundColour: string,
-  ) {
+  constructor(shape: OutputShape, backgroundColour: string) {
+    this.shape = shape
+    this.backgroundColour = backgroundColour
     this.canvas = new OffscreenCanvas(shape.width, shape.height)
     const context = this.canvas.getContext('2d', { alpha: false })
     if (!context) throw new Error('Could not create a 2D context for branding conform')

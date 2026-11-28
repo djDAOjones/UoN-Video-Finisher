@@ -28,13 +28,12 @@ export type KeptRangeReason = 'not-a-time' | 'start-after-end' | 'end-before-sta
 
 /** A range the user cannot have meant, named so the page can say why in words they can act on. */
 export class KeptRangeError extends Error {
+  readonly reason: KeptRangeReason
   override readonly name = 'KeptRangeError'
 
-  constructor(
-    readonly reason: KeptRangeReason,
-    message: string,
-  ) {
+  constructor(reason: KeptRangeReason, message: string) {
     super(message)
+    this.reason = reason
   }
 }
 

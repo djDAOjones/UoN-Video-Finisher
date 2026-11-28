@@ -18,10 +18,13 @@ export interface BiquadCoefficients {
 }
 
 export class Biquad {
+  private readonly c: BiquadCoefficients
   private s1 = 0
   private s2 = 0
 
-  constructor(private readonly c: BiquadCoefficients) {}
+  constructor(c: BiquadCoefficients) {
+    this.c = c
+  }
 
   /**
    * Filters `input` in place into `output` (may be the same array).

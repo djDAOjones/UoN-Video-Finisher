@@ -39,12 +39,12 @@ export interface AudioAnalysis extends LoudnessReport {
 }
 
 export class AudioAnalyser {
+  private readonly options: { readonly sampleRate: number; readonly channelCount: number }
   private readonly loudness: LoudnessAnalyser
   private readonly truePeak: TruePeakDetector
 
-  constructor(
-    private readonly options: { readonly sampleRate: number; readonly channelCount: number },
-  ) {
+  constructor(options: { readonly sampleRate: number; readonly channelCount: number }) {
+    this.options = options
     // The momentary curve is not read anywhere in the pipeline — the envelope
     // and the warnings both work from the short-term one — and keeping it costs
     // roughly 290 kB an hour of source (VH-67). The EBU harness constructs its

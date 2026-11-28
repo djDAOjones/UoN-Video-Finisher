@@ -227,6 +227,9 @@ export interface OpfsOutputFile {
 }
 
 export class OpfsWorkspace {
+  readonly jobId: string
+  private readonly directoryName: string
+  private readonly directory: FileSystemDirectoryHandle
   private readonly openHandles = new Set<FileSystemSyncAccessHandle>()
   /**
    * Anything else holding a file open. An unreleased handle blocks removal,
@@ -239,11 +242,14 @@ export class OpfsWorkspace {
   private releaseClaim: (() => void) | null
 
   private constructor(
-    readonly jobId: string,
-    private readonly directoryName: string,
-    private readonly directory: FileSystemDirectoryHandle,
+    jobId: string,
+    directoryName: string,
+    directory: FileSystemDirectoryHandle,
     releaseClaim: (() => void) | null,
   ) {
+    this.jobId = jobId
+    this.directoryName = directoryName
+    this.directory = directory
     this.releaseClaim = releaseClaim
   }
 

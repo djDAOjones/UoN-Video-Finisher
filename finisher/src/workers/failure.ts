@@ -53,13 +53,11 @@ export function failureReasonFor(cause: unknown): FailureReason | undefined {
 
 /** A failure the worker names at the point it knows the cause. */
 export class JobFailureError extends Error {
+  readonly code: FailureCode
   override readonly name = 'JobFailureError'
-  constructor(
-    readonly code: FailureCode,
-    message: string,
-    options?: { readonly cause?: unknown },
-  ) {
+  constructor(code: FailureCode, message: string, options?: { readonly cause?: unknown }) {
     super(message, options)
+    this.code = code
   }
 }
 
