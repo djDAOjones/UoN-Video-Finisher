@@ -1,0 +1,21 @@
+{
+  "entry": [
+    "src/player/main.ts",
+    "src/exported/*.ts",
+    "eslint.base.mjs",
+    "eslint.a11y.mjs",
+    "tests/a11y/**/*.{ts,mjs}",
+    "tools/*.mjs"
+  ],
+  "project": [
+    "src/**/*.{ts,tsx}",
+    "tests/**/*.{ts,mjs}",
+    "tools/*.mjs"
+  ],
+  "playwright": false,
+  "ignoreDependencies": [
+    "@ibm/plex",
+    "@types/prop-types",
+    "axe-core"
+  ]
+}

@@ -1,14 +1,28 @@
 import { A11Y_HARNESS_FILES, layers, toolConfig } from '../eslint.base.js' // the repository's base config (UVT-3), the import boundaries in it (UVT-1, D9)
+import tseslint from 'typescript-eslint'
 
 /**
  * The Finisher's ESLint config: the base every folder extends, with this
- * tool's own ignores. Strict on correctness, silent on taste — per
- * conventions.md -> Tooling. Formatting is Prettier's job and never fails the gate.
+ * tool's own ignores and the root's layers it takes up. Strict on
+ * correctness, silent on taste — per conventions.md -> Tooling. Formatting is
+ * Prettier's job and never fails the gate.
  */
 export default toolConfig({
   tsconfigRootDir: import.meta.dirname,
   ignores: ['dist/**', 'node_modules/**', 'pm_skills/**', 'coverage/**', 'tools/**'], // tools/ is pm-next v3's and the a11y pack's, linted upstream
   layers: [
+    // the app pack's forms kind folded in here, its eslint.config.mjs and eslint.base.mjs not
+    // kept (VH-250): the type-checked set is on already; the accessibility pack's jsx-a11y
+    // fragment (eslint.a11y.mjs's) and React's hook rules. Its escapes over src/ wait for
+    // VH-250's steps 11 to 17, which mend what they report.
+    layers.jsxA11y(),
+    layers.reactHooks(),
+    {
+      // the app pack's boundaries config, CommonJS, which no TypeScript program reads
+      files: ['.dependency-cruiser.cjs'],
+      extends: [tseslint.configs.disableTypeChecked],
+      languageOptions: { sourceType: 'commonjs' },
+    },
     layers.a11yHarness(), // the a11y pack's copied harness in tests/a11y/, never edited (UVT-7, VH-249)
     {
       // its eight TypeScript files read by ESLint's project service in their own

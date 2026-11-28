@@ -1,5 +1,18 @@
+// The Finisher's folder project (VH-250): the one ESLint's project service,
+// Vite's JSX transform and an editor find for the TypeScript in src/, test/,
+// vite.config.ts and any TypeScript file this folder writes in tests/a11y/
+// beside the accessibility pack's copied harness (whose eight TypeScript files
+// are tests/a11y/tsconfig.json's); the JavaScript files its include names
+// (scripts/, eslint.config.js, tests/a11y/project.mjs) are not read without
+// allowJs, the scripts checked by tsconfig.jsdoc.json instead. On the root's
+// tests layer, the widest of the stack's (the DOM, the worker scope, JSX,
+// Vite's client types and Node's). The app pack's tsconfig.json is merged here, its JSX and
+// libraries in the root's layers (UVT-7). `npm run typecheck` runs this
+// project and tests/a11y/tsconfig.json until the stack's five projects arrive:
+// the core in VH-250's step 3, the app and tests in step 9, the workers in
+// step 18, which retires this project's credit for the worker entries.
 {
-  "extends": "../tsconfig.base.json",
+  "extends": "../tsconfig.test.json",
   "include": ["src", "test", "scripts", "tests/a11y", "vite.config.ts", "eslint.config.js"],
   "exclude": [
     "tests/a11y/adaptation.spec.ts",

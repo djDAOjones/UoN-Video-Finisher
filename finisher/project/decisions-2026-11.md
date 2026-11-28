@@ -364,3 +364,13 @@ Each walk records its machine. Two questions remain for the owner:
 **Supersedes:** 2026-10-27 — PLAN-8 — Pass 3's fix plan: VH-206 to VH-210 for six findings, built after VH-202 and before VH-203
 
 **Items:** VH-182, VH-183, VH-184, VH-185, VH-186, VH-187, VH-188, VH-189, VH-190, VH-191, VH-192, VH-193, VH-194, VH-196, VH-197, VH-198, VH-205, VH-199, VH-200, VH-201, VH-202, VH-211, VH-206, VH-207, VH-208, VH-212, VH-213, VH-214, VH-215, VH-216, VH-227, VH-217, VH-229, VH-209, VH-218, VH-230, VH-219, VH-210, VH-225, VH-220, VH-221, VH-222, VH-223, VH-224, VH-231, VH-232, VH-203, VH-233, VH-234, VH-235, VH-236, VH-237, VH-195
+
+## 2026-11-09 — PLAN-8 — Phase 8's 53 items restated whole, in place of the 30 October list
+
+**Decision:** Phase 8's items are VH-203's list less VH-204 and VH-226, moved to Phase 6, with VH-237: 53, all shipped, VH-195 by its close; restated because a later Items list is read as the whole list.
+
+**Rationale:** Record-only, at VH-195's close, on the model of the 2026-11-04 PLAN-7 entries. The phase-close rule takes the PLAN-8 list no other supersedes and fails different lists left standing; five stand, so this and the next four restate the same 53 items, each in place of one; nothing is re-judged. VH-204 and VH-226 move by VH-195's decision; VH-237 joins here, its decision having no Items line by design.
+
+**Supersedes:** 2026-10-30 — PLAN-8 — VH-225 moved between VH-210 and VH-220, so the checks read the renamed page, on the owner's word
+
+**Items:** VH-182, VH-183, VH-184, VH-185, VH-186, VH-187, VH-188, VH-189, VH-190, VH-191, VH-192, VH-193, VH-194, VH-196, VH-197, VH-198, VH-205, VH-199, VH-200, VH-201, VH-202, VH-211, VH-206, VH-207, VH-208, VH-212, VH-213, VH-214, VH-215, VH-216, VH-227, VH-217, VH-229, VH-209, VH-218, VH-230, VH-219, VH-210, VH-225, VH-220, VH-221, VH-222, VH-223, VH-224, VH-231, VH-232, VH-203, VH-233, VH-234, VH-235, VH-236, VH-237, VH-195

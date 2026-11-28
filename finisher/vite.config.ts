@@ -1,3 +1,12 @@
+// The Finisher's Vite and Vitest config. The app pack's forms kind merged in
+// (VH-250), its vite.config.mjs and vitest.config.mjs not kept beside this
+// file, which Vite and Vitest would read first: its IBM Plex alias, pointed at
+// the root's one install (UVT-7). Its Vitest include is not taken, since the
+// Finisher's gate runs test/, the EBU harness, every source test and the
+// shared tests; the Finisher's base path, port, builds and test settings stay,
+// so the page and the Xerte package build as before. No React plugin, as the
+// pack has none: Vite reads the tsconfig's JSX.
+
 import { execSync } from 'node:child_process'
 import { existsSync, readdirSync, readFileSync, rmSync } from 'node:fs'
 import { extname, resolve } from 'node:path'
@@ -148,6 +157,10 @@ function emitOfflineCache(buildIdentity: string, brandingDirectory: string): Plu
   }
 }
 
+// IBM Plex's font files for Carbon's Sass (`src/ui/theme.scss`), bundled from
+// the root's install, none fetched (the app-opinion digest).
+const plex = resolve(import.meta.dirname, '../node_modules/@ibm/plex')
+
 export default defineConfig(({ mode }) => {
   // The Xerte package, `vite build --mode xerte` (DEV-INFRASTRUCTURE.md ->
   // "Xerte package"). Relocatable, because Xerte serves it from a folder whose
@@ -171,6 +184,7 @@ export default defineConfig(({ mode }) => {
     base: xerte ? './' : (process.env['BASE_PATH'] ?? '/'),
     // Off for Xerte, where `emitBrandingFlat` ships the masters instead.
     publicDir: xerte ? false : 'public',
+    resolve: { alias: { '~@ibm/plex': plex } },
     server: {
       // Honour PORT when something upstream assigns one (preview tooling, a
       // container, a shared machine). Falls back to Vite's default otherwise,
@@ -178,9 +192,16 @@ export default defineConfig(({ mode }) => {
       // than stopping us. See DEV-INFRASTRUCTURE.md -> "Dev server".
       port: Number(process.env['PORT']) || 5173,
       // The shared code sits beside this folder, at the repository's root
-      // (`../shared/`, the parent's, UVT-2): the dev server may read it as
-      // well as this folder. A build reads it from disk and needs no leave.
-      fs: { allow: [searchForWorkspaceRoot(import.meta.dirname), resolve(import.meta.dirname, '../shared')] },
+      // (`../shared/`, the parent's, UVT-2), and so do Plex's fonts: the dev
+      // server may read both as well as this folder. A build reads them from
+      // disk and needs no leave.
+      fs: {
+        allow: [
+          searchForWorkspaceRoot(import.meta.dirname),
+          resolve(import.meta.dirname, '../shared'),
+          plex,
+        ],
+      },
     },
     define: {
       __APP_VERSION__: JSON.stringify(`v${pkg.version}`),
@@ -226,6 +247,9 @@ export default defineConfig(({ mode }) => {
       // the gating and anti-pumping assertions meaningful. This only changes how
       // long a HUNG test takes to fail; it weakens no assertion.
       testTimeout: 30_000,
+      // A focused case (`it.only`) fails the run rather than silently skipping
+      // its siblings: the app pack's guard, taken from its Vitest config (VH-250).
+      allowOnly: false,
     },
   }
 })
